@@ -1,0 +1,101 @@
+{
+    "textureWidth": 16,
+    "textureHeight": 16,
+    "textureSizes": {
+        "stone": [ 16, 16 ],
+        "water": [ 16, 16 ]
+    },
+    "elements": [
+        {
+            "name": "Base",
+            "from": [ 2.0, 0.0, 2.0 ],
+            "to": [ 14.0, 2.0, 14.0 ],
+            "faces": {
+                "north": { "texture": "#stone" },
+                "east": { "texture": "#stone" },
+                "south": { "texture": "#stone" },
+                "west": { "texture": "#stone" },
+                "up": { "texture": "#stone" },
+                "down": { "texture": "#stone" }
+            }
+        },
+        {
+            "name": "Pillar",
+            "from": [ 5.0, 2.0, 5.0 ],
+            "to": [ 11.0, 9.0, 11.0 ],
+            "faces": {
+                "north": { "texture": "#stone" },
+                "east": { "texture": "#stone" },
+                "south": { "texture": "#stone" },
+                "west": { "texture": "#stone" }
+            }
+        },
+        {
+            "name": "BowlBottom",
+            "from": [ 1.0, 9.0, 1.0 ],
+            "to": [ 15.0, 11.0, 15.0 ],
+            "faces": {
+                "north": { "texture": "#stone" },
+                "east": { "texture": "#stone" },
+                "south": { "texture": "#stone" },
+                "west": { "texture": "#stone" },
+                "up": { "texture": "#stone" },
+                "down": { "texture": "#stone" }
+            }
+        },
+        {
+            "name": "BowlWallNorth",
+            "from": [ 0.0, 11.0, 0.0 ],
+            "to": [ 16.0, 16.0, 2.0 ],
+            "faces": {
+                "north": { "texture": "#stone" },
+                "east": { "texture": "#stone" },
+                "south": { "texture": "#stone" },
+                "west": { "texture": "#stone" },
+                "up": { "texture": "#stone" }
+            }
+        },
+        {
+            "name": "BowlWallSouth",
+            "from": [ 0.0, 11.0, 14.0 ],
+            "to": [ 16.0, 16.0, 16.0 ],
+            "faces": {
+                "north": { "texture": "#stone" },
+                "east": { "texture": "#stone" },
+                "south": { "texture": "#stone" },
+                "west": { "texture": "#stone" },
+                "up": { "texture": "#stone" }
+            }
+        },
+        {
+            "name": "BowlWallWest",
+            "from": [ 0.0, 11.0, 2.0 ],
+            "to": [ 2.0, 16.0, 14.0 ],
+            "faces": {
+                "north": { "texture": "#stone" },
+                "east": { "texture": "#stone" },
+                "south": { "texture": "#stone" },
+                "west": { "texture": "#stone" },
+                "up": { "texture": "#stone" }
+            }
+        },
+        {
+            "name": "BowlWallEast",
+            "from": [ 14.0, 11.0, 2.0 ],
+            "to": [ 16.0, 16.0, 14.0 ],
+            "faces": {
+                "north": { "texture": "#stone" },
+                "east": { "texture": "#stone" },
+                "south": { "texture": "#stone" },
+                "west": { "texture": "#stone" },
+                "up": { "texture": "#stone" }
+            }
+        },
+        {
+            "name": "WaterPlane",
+            "from": [ 2.0, 11.0, 2.0 ],
+            "to": [ 14.0, 14.5, 14.0 ],
+            "faces": { "up": { "texture": "#water" } }
+        }
+    ]
+}

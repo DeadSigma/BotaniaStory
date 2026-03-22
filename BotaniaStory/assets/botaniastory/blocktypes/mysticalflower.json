@@ -1,0 +1,91 @@
+{
+    "code": "mysticalflower",
+    "class": "BlockMysticalFlower",
+    "attributes": {
+        "handbook": { "groupBy": [ "mysticalflower-*" ] }
+    },
+    "variantgroups": [
+        {
+            "code": "color",
+            "states": [
+                "white",
+                "orange",
+                "magenta",
+                "lightblue",
+                "yellow",
+                "lime",
+                "pink",
+                "gray",
+                "lightgray",
+                "cyan",
+                "purple",
+                "blue",
+                "brown",
+                "green",
+                "red",
+                "black"
+            ]
+        }
+    ],
+    "creativeinventory": {
+        "general": [ "*" ],
+        "flora": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+
+    "drawtype": "JSON",
+    "shape": { "base": "game:block/plant/flower/1patch-3faces-24x24" },
+
+    "blockmaterial": "Plant",
+    "randomDrawOffset": true,
+    "renderpass": "OpaqueNoCull",
+    "faceCullMode": "NeverCull",
+    "sideopaque": { "all": false },
+    "sidesolid": { "all": false },
+    "lightAbsorption": 0,
+    "replaceable": 3000,
+    "resistance": 0.1,
+
+    "sounds": {
+        "place": "game:block/plant",
+        "break": "game:block/plant",
+        "hit": "game:block/plant"
+    },
+
+    "collisionbox": null,
+    "selectionbox": {
+        "x1": 0.125,
+        "y1": 0,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 0.25,
+        "z2": 0.875
+    },
+
+
+
+    "textures": {
+        "north1": { "base": "botaniastory:block/plant/mysticalflower/petal/{color}" },
+        "south1": { "base": "botaniastory:block/plant/mysticalflower/petal/{color}" },
+        "north2": { "base": "botaniastory:block/plant/mysticalflower/petal/{color}" },
+        "south2": { "base": "botaniastory:block/plant/mysticalflower/petal/{color}" },
+        "north3": { "base": "botaniastory:block/plant/mysticalflower/petal/{color}" },
+        "south3": { "base": "botaniastory:block/plant/mysticalflower/petal/{color}" },
+        "flower2": { "base": "botaniastory:block/plant/mysticalflower/petal/{color}" },
+
+        "northTinted1": { "base": "botaniastory:block/plant/mysticalflower/stem" },
+        "southTinted1": { "base": "botaniastory:block/plant/mysticalflower/stem" },
+        "northTinted2": { "base": "botaniastory:block/plant/mysticalflower/stem" },
+        "southTinted2": { "base": "botaniastory:block/plant/mysticalflower/stem" },
+        "northTinted3": { "base": "botaniastory:block/plant/mysticalflower/stem" },
+        "southTinted3": { "base": "botaniastory:block/plant/mysticalflower/stem" },
+        "flower2Tinted": { "base": "botaniastory:block/plant/mysticalflower/stem" }
+    },
+
+    "drops": [
+        {
+            "type": "block",
+            "code": "botaniastory:mysticalflower-{color}"
+        }
+    ]
+}

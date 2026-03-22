@@ -1,0 +1,62 @@
+[
+    {
+        "ingredientPattern": "RPR,HRC,RRR",
+        "ingredients": {
+            "R": {
+                "type": "block",
+                "code": "game:rock-*",
+                "name": "rock"
+            },
+            "P": {
+                "type": "item",
+                "code": "botaniastory:mysticalpetal-*"
+            },
+            "H": {
+                "type": "item",
+                "code": "game:hammer-*",
+                "isTool": true
+            },
+            "C": {
+                "type": "item",
+                "code": "game:chisel-*",
+                "isTool": true
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:apothecary-{rock}-empty"
+        }
+    },
+    {
+        "ingredientPattern": "RPR,CRH,RRR",
+        "ingredients": {
+            "R": {
+                "type": "block",
+                "code": "game:rock-*",
+                "name": "rock"
+            },
+            "P": {
+                "type": "item",
+                "code": "botaniastory:mysticalpetal-*"
+            },
+            "H": {
+                "type": "item",
+                "code": "game:hammer-*",
+                "isTool": true
+            },
+            "C": {
+                "type": "item",
+                "code": "game:chisel-*",
+                "isTool": true
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:apothecary-{rock}-empty"
+        }
+    }
+]

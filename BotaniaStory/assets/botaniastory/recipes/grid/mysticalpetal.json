@@ -1,0 +1,19 @@
+[
+  {
+    "ingredientPattern": "F",
+    "ingredients": {
+      "F": {
+        "type": "block",
+        "code": "botaniastory:mysticalflower-*",
+        "name": "color"
+      }
+    },
+    "width": 1,
+    "height": 1,
+    "output": {
+      "type": "item",
+      "code": "botaniastory:mysticalpetal-{color}",
+      "quantity": 2
+    }
+  }
+]

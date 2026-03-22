@@ -1,0 +1,32 @@
+[
+    {
+        "comment": "Mystical Flowers Generation",
+        "chance": 0.05,
+        "quantity": {
+            "avg": 3,
+            "var": 1
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [
+            "botaniastory:mysticalflower-white",
+            "botaniastory:mysticalflower-orange",
+            "botaniastory:mysticalflower-magenta",
+            "botaniastory:mysticalflower-lightblue",
+            "botaniastory:mysticalflower-yellow",
+            "botaniastory:mysticalflower-lime",
+            "botaniastory:mysticalflower-pink",
+            "botaniastory:mysticalflower-gray",
+            "botaniastory:mysticalflower-lightgray",
+            "botaniastory:mysticalflower-cyan",
+            "botaniastory:mysticalflower-purple",
+            "botaniastory:mysticalflower-blue",
+            "botaniastory:mysticalflower-brown",
+            "botaniastory:mysticalflower-green",
+            "botaniastory:mysticalflower-red",
+            "botaniastory:mysticalflower-black"
+        ]
+    }
+]

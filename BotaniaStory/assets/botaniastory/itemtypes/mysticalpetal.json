@@ -1,0 +1,39 @@
+{
+    "code": "mysticalpetal",
+    "class": "Item",
+    "attributes": {
+        "handbook": { "groupBy": [ "mysticalpetal-*" ] }
+    },
+    "variantgroups": [
+        {
+            "code": "color",
+            "states": [
+                "white",
+                "orange",
+                "magenta",
+                "lightblue",
+                "yellow",
+                "lime",
+                "pink",
+                "gray",
+                "lightgray",
+                "cyan",
+                "purple",
+                "blue",
+                "brown",
+                "green",
+                "red",
+                "black"
+            ]
+        }
+    ],
+    "maxstacksize": 64,
+    "creativeinventory": {
+        "general": [ "*" ],
+        "items": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "textures": {
+        "all": { "base": "botaniastory:item/mysticalpetal/{color}" }
+    }
+}
