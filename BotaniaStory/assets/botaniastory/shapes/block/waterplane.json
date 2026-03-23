@@ -1,0 +1,22 @@
+{
+    "textureWidth": 16,
+    "textureHeight": 16,
+    "textureSizes": {
+        "water": [ 16, 16 ]
+    },
+    "elements": [
+        {
+            "name": "Water",
+            "from": [ 2.0, 13.5, 2.0 ],
+            "to": [ 14.0, 13.5, 14.0 ],
+            "renderPass": 4,
+            "faces": {
+                "up": {
+                    "texture": "#water",
+                    "climateColorMap": "water",
+                    "seasonColorMap": "water"
+                }
+            }
+        }
+    ]
+}

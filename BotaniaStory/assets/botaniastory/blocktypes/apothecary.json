@@ -1,7 +1,7 @@
 {
     "code": "apothecary",
     "class": "BlockApothecary",
-    "climateColorMap": "water",
+    "entityClass": "ApothecaryEntity",
     "variantgroups": [
         {
             "code": "rock",
@@ -33,15 +33,11 @@
                 "tuff",
                 "whitemarble"
             ]
-        },
-        {
-            "code": "fill",
-            "states": [ "empty", "water" ]
         }
     ],
     "creativeinventory": {
-        "general": [ "*-empty" ],
-        "botaniastory": [ "*-empty" ]
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
     },
     "shape": { "base": "botaniastory:block/apothecary" },
     "drawtype": "JSON",
@@ -51,7 +47,6 @@
     "lightAbsorption": 0,
     "sidesolid": { "all": false },
     "sideopaque": { "all": false },
-    "renderpass": "OpaqueNoCull",
 
     "attributes": { "handbook": { "groupBy": [ "apothecary-*" ] } },
 
@@ -60,14 +55,8 @@
         "break": "game:block/stone",
         "hit": "game:block/stone"
     },
-    "texturesByType": {
-        "*-empty": {
-            "stone": { "base": "game:block/stone/rock/{rock}1" },
-            "water": { "base": "game:block/transparent" }
-        },
-        "*-water": {
-            "stone": { "base": "game:block/stone/rock/{rock}1" },
-            "water": { "base": "game:block/liquid/water" }
-        }
+    "textures": {
+        "stone": { "base": "game:block/stone/rock/{rock}1" },
+        "water": { "base": "game:block/liquid/water" }
     }
 }

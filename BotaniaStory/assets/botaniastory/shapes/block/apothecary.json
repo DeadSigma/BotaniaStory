@@ -90,12 +90,7 @@
                 "west": { "texture": "#stone" },
                 "up": { "texture": "#stone" }
             }
-        },
-        {
-            "name": "WaterPlane",
-            "from": [ 2.0, 11.0, 2.0 ],
-            "to": [ 14.0, 14.5, 14.0 ],
-            "faces": { "up": { "texture": "#water" } }
         }
+        
     ]
 }
