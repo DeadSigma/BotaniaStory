@@ -1,0 +1,104 @@
+{
+    "code": "tigerseye",
+    "class": "BlockPlant",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "flora": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "drawtype": "JSON",
+    "shape": {
+        "base": "game:block/plant/flower/1patch-3faces-24x24",
+        "scale": 0.5
+    },
+    "blockmaterial": "Plant",
+    "randomDrawOffset": true,
+    "renderpass": "OpaqueNoCull",
+    "faceCullMode": "NeverCull",
+    "sideopaque": { "all": false },
+    "sidesolid": { "all": false },
+    "lightAbsorption": 0,
+    "replaceable": 3000,
+    "resistance": 0.1,
+    "sounds": {
+        "place": "game:block/plant",
+        "break": "game:block/plant",
+        "hit": "game:block/plant"
+    },
+    "collisionbox": null,
+    "selectionbox": {
+        "x1": 0.125,
+        "y1": 0,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 0.25,
+        "z2": 0.875
+    },
+    "textures": {
+        "north1": { "base": "botaniastory:block/functional_flora/tigerseye_bud" },
+        "south1": { "base": "botaniastory:block/functional_flora/tigerseye_bud" },
+        "north2": { "base": "botaniastory:block/functional_flora/tigerseye_bud" },
+        "south2": { "base": "botaniastory:block/functional_flora/tigerseye_bud" },
+        "north3": { "base": "botaniastory:block/functional_flora/tigerseye_bud" },
+        "south3": { "base": "botaniastory:block/functional_flora/tigerseye_bud" },
+        "flower2": { "base": "botaniastory:block/functional_flora/tigerseye_bud" },
+
+        "northTinted1": { "base": "botaniastory:block/functional_flora/tigerseye_stem" },
+        "southTinted1": { "base": "botaniastory:block/functional_flora/tigerseye_stem" },
+        "northTinted2": { "base": "botaniastory:block/functional_flora/tigerseye_stem" },
+        "southTinted2": { "base": "botaniastory:block/functional_flora/tigerseye_stem" },
+        "northTinted3": { "base": "botaniastory:block/functional_flora/tigerseye_stem" },
+        "southTinted3": { "base": "botaniastory:block/functional_flora/tigerseye_stem" },
+        "flower2Tinted": { "base": "botaniastory:block/functional_flora/tigerseye_stem" }
+
+
+    },
+    "guiTransform": {
+        "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.6,
+            "z": 0.5
+        },
+        "scale": 1.63
+    },
+    "fpHandTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": 15,
+            "y": 15,
+            "z": -60
+        },
+        "scale": 1.5
+    },
+    "tpHandTransform": {
+        "translation": {
+            "x": -1,
+            "y": -0.1,
+            "z": -1
+        },
+        "rotation": {
+            "x": 71,
+            "y": 0,
+            "z": -84
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.1,
+            "z": 0.5
+        },
+        "scale": 0.48
+    },
+    "groundTransform": {
+        "scale": 2.5
+    }
+}
+

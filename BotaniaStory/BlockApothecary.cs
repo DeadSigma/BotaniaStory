@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Text;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
@@ -7,6 +8,18 @@ namespace BotaniaStory
 {
     public class BlockApothecary : Block
     {
+
+        // ==========================================
+        // БАЗА ДАННЫХ РЕЦЕПТОВ ЦВЕТОВ
+        // Формат: "название_блока_цветка" -> { "лепесток1" : количество, "лепесток2" : количество }
+        // ==========================================
+        private readonly Dictionary<string, Dictionary<string, int>> flowerRecipes = new Dictionary<string, Dictionary<string, int>>
+        {
+            { "puredaisy", new Dictionary<string, int> { { "mysticalpetal-white", 4 } } },
+            { "daybloom", new Dictionary<string, int> { { "mysticalpetal-yellow", 2 }, { "mysticalpetal-orange", 1 }, { "mysticalpetal-lightblue", 1 } } },
+            { "agricarnation", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-yellow", 1 } } }
+            // Добавляй новые цветы сюда по аналогии!
+        };
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
             ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
@@ -14,9 +27,9 @@ namespace BotaniaStory
             if (be == null) return base.OnBlockInteractStart(world, byPlayer, blockSel);
 
             // ==========================================
-            // 1. ЗАБРАТЬ ПРЕДМЕТ (Shift + ПКМ пустой рукой)
+            // 1. ЗАБРАТЬ ПРЕДМЕТ ( ПКМ пустой рукой)
             // ==========================================
-            if (slot.Empty && byPlayer.Entity.Controls.Sneak)
+            if (slot.Empty)
             {
                 for (int i = be.inventory.Count - 1; i >= 0; i--)
                 {
@@ -94,33 +107,67 @@ namespace BotaniaStory
             if (!be.HasWater) return base.OnBlockInteractStart(world, byPlayer, blockSel);
 
             // ==========================================
-            // 3. СНАЧАЛА ПРОВЕРЯЕМ КРАФТ
+            // 3. УМНЫЙ КРАФТ ЦВЕТОВ
             // ==========================================
             if (!slot.Empty && slot.Itemstack.Collectible.Code.Path.StartsWith("treeseed"))
             {
-                int whitePetals = 0;
-                int others = 0;
+                Dictionary<string, int> currentPetals = new Dictionary<string, int>();
+                int nonPetalCount = 0;
 
                 foreach (var invSlot in be.inventory)
                 {
                     if (invSlot.Empty) continue;
-                    if (invSlot.Itemstack.Collectible.Code.Path == "mysticalpetal-white") whitePetals += invSlot.StackSize;
-                    else others++;
+                    string code = invSlot.Itemstack.Collectible.Code.Path;
+
+                    if (code.StartsWith("mysticalpetal-"))
+                    {
+                        if (currentPetals.ContainsKey(code)) currentPetals[code] += invSlot.StackSize;
+                        else currentPetals[code] = invSlot.StackSize;
+                    }
+                    else nonPetalCount++;
                 }
 
-                if (whitePetals == 4 && others == 0) // Строгий рецепт
+                if (nonPetalCount == 0 && currentPetals.Count > 0)
                 {
-                    slot.TakeOut(1);
-                    be.inventory.Clear();
-                    be.HasWater = false;
-                    be.UpdateRenderer();
+                    string craftedFlower = null;
 
-                    Block daisy = world.GetBlock(new AssetLocation("botaniastory:puredaisy"));
-                    if (daisy != null) world.SpawnItemEntity(new ItemStack(daisy), blockSel.Position.ToVec3d().Add(0.5, 1.2, 0.5));
+                    foreach (var recipe in flowerRecipes)
+                    {
+                        bool match = true;
 
-                    // ИГРАЕМ ТВОЙ КАСТОМНЫЙ ЗВУК МАГИИ
-                    world.PlaySoundAt(new AssetLocation("botaniastory:sounds/apothecary_craft"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
-                    return true;
+                        // Быстрая проверка: совпадает ли количество видов?
+                        if (recipe.Value.Count != currentPetals.Count) continue;
+
+                        // Детальная проверка количеств
+                        foreach (var req in recipe.Value)
+                        {
+                            if (!currentPetals.ContainsKey(req.Key) || currentPetals[req.Key] != req.Value)
+                            {
+                                match = false;
+                                break;
+                            }
+                        }
+
+                        if (match)
+                        {
+                            craftedFlower = recipe.Key;
+                            break;
+                        }
+                    }
+
+                    if (craftedFlower != null)
+                    {
+                        slot.TakeOut(1);
+                        be.inventory.Clear();
+                        be.HasWater = false;
+                        be.UpdateRenderer();
+
+                        Block flowerBlock = world.GetBlock(new AssetLocation("botaniastory", craftedFlower));
+                        if (flowerBlock != null) world.SpawnItemEntity(new ItemStack(flowerBlock), blockSel.Position.ToVec3d().Add(0.5, 1.2, 0.5));
+
+                        world.PlaySoundAt(new AssetLocation("botaniastory:sounds/apothecary_craft"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
+                        return true;
+                    }
                 }
             }
 
