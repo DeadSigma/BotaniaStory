@@ -80,6 +80,11 @@
 
     },
     "guiTransform": {
+        "translation": {
+            "x": 0,
+            "y": -10.0,
+            "z": 0
+        },
         "rotation": {
             "x": 0,
             "y": 0,
@@ -90,7 +95,7 @@
             "y": 0.6,
             "z": 0.5
         },
-        "scale": 1.0
+        "scale": 2.0
     },
     "fpHandTransform": {
         "translation": {

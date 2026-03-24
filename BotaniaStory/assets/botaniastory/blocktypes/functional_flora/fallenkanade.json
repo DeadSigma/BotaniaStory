@@ -2,9 +2,15 @@
     "code": "fallenkanade",
     "class": "BlockPlant",
     "creativeinventory": {
-        "general": [ "*" ],
-        "flora": [ "*" ],
-        "botaniastory": [ "*" ]
+        "general": [
+            "*"
+        ],
+        "flora": [
+            "*"
+        ],
+        "botaniastory": [
+            "*"
+        ]
     },
     "drawtype": "JSON",
     "shape": {
@@ -15,8 +21,12 @@
     "randomDrawOffset": true,
     "renderpass": "OpaqueNoCull",
     "faceCullMode": "NeverCull",
-    "sideopaque": { "all": false },
-    "sidesolid": { "all": false },
+    "sideopaque": {
+        "all": false
+    },
+    "sidesolid": {
+        "all": false
+    },
     "lightAbsorption": 0,
     "replaceable": 3000,
     "resistance": 0.1,
@@ -35,25 +45,55 @@
         "z2": 0.875
     },
     "textures": {
-        "north1": { "base": "botaniastory:block/functional_flora/fallenkanade_bud" },
-        "south1": { "base": "botaniastory:block/functional_flora/fallenkanade_bud" },
-        "north2": { "base": "botaniastory:block/functional_flora/fallenkanade_bud" },
-        "south2": { "base": "botaniastory:block/functional_flora/fallenkanade_bud" },
-        "north3": { "base": "botaniastory:block/functional_flora/fallenkanade_bud" },
-        "south3": { "base": "botaniastory:block/functional_flora/fallenkanade_bud" },
-        "flower2": { "base": "botaniastory:block/functional_flora/fallenkanade_bud" },
-
-        "northTinted1": { "base": "botaniastory:block/functional_flora/fallenkanade_stem" },
-        "southTinted1": { "base": "botaniastory:block/functional_flora/fallenkanade_stem" },
-        "northTinted2": { "base": "botaniastory:block/functional_flora/fallenkanade_stem" },
-        "southTinted2": { "base": "botaniastory:block/functional_flora/fallenkanade_stem" },
-        "northTinted3": { "base": "botaniastory:block/functional_flora/fallenkanade_stem" },
-        "southTinted3": { "base": "botaniastory:block/functional_flora/fallenkanade_stem" },
-        "flower2Tinted": { "base": "botaniastory:block/functional_flora/fallenkanade_stem" }
-
-
+        "north1": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_bud"
+        },
+        "south1": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_bud"
+        },
+        "north2": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_bud"
+        },
+        "south2": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_bud"
+        },
+        "north3": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_bud"
+        },
+        "south3": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_bud"
+        },
+        "flower2": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_bud"
+        },
+        "northTinted1": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_stem"
+        },
+        "southTinted1": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_stem"
+        },
+        "northTinted2": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_stem"
+        },
+        "southTinted2": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_stem"
+        },
+        "northTinted3": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_stem"
+        },
+        "southTinted3": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_stem"
+        },
+        "flower2Tinted": {
+            "base": "botaniastory:block/functional_flora/fallenkanade_stem"
+        }
     },
     "guiTransform": {
+        "translation": {
+            "x": 0,
+            "y": -10.0,
+            "z": 0
+        },
         "rotation": {
             "x": 0,
             "y": 0,
@@ -64,7 +104,7 @@
             "y": 0.6,
             "z": 0.5
         },
-        "scale": 1.63
+        "scale": 2.0
     },
     "fpHandTransform": {
         "translation": {
@@ -101,4 +141,3 @@
         "scale": 2.5
     }
 }
-

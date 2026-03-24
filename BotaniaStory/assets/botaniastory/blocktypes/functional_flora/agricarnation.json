@@ -2,21 +2,31 @@
     "code": "agricarnation",
     "class": "BlockPlant",
     "creativeinventory": {
-        "general": [ "*" ],
-        "flora": [ "*" ],
-        "botaniastory": [ "*" ]
+        "general": [
+            "*"
+        ],
+        "flora": [
+            "*"
+        ],
+        "botaniastory": [
+            "*"
+        ]
     },
     "drawtype": "JSON",
     "shape": {
         "base": "game:block/plant/flower/lilyofthevalley",
-        "scale": 1.20
+        "scale": 1.2
     },
     "blockmaterial": "Plant",
     "randomDrawOffset": true,
     "renderpass": "OpaqueNoCull",
     "faceCullMode": "NeverCull",
-    "sideopaque": { "all": false },
-    "sidesolid": { "all": false },
+    "sideopaque": {
+        "all": false
+    },
+    "sidesolid": {
+        "all": false
+    },
     "lightAbsorption": 0,
     "replaceable": 3000,
     "resistance": 0.1,
@@ -35,23 +45,44 @@
         "z2": 0.875
     },
     "textures": {
-        "stem1": { "base": "botaniastory:block/functional_flora/agricarnation_stem" },
-        "stem2": { "base": "botaniastory:block/functional_flora/agricarnation_stem" },
-        "stem3": { "base": "botaniastory:block/functional_flora/agricarnation_stem" },
-        "petal1": { "base": "botaniastory:block/functional_flora/agricarnation_bud" },
-        "petal2": { "base": "botaniastory:block/functional_flora/agricarnation_bud" },
-        "petal3": { "base": "botaniastory:block/functional_flora/agricarnation_bud" },
-        "leaves1": { "base": "botaniastory:block/functional_flora/agricarnation_leaves" },
-
-        "north1": { "base": "game:block/transparent" },
-        "south1": { "base": "game:block/transparent" },
-        "northTinted1": { "base": "game:block/transparent" },
-        "southTinted1": { "base": "game:block/transparent" }
+        "stem1": {
+            "base": "botaniastory:block/functional_flora/agricarnation_stem"
+        },
+        "stem2": {
+            "base": "botaniastory:block/functional_flora/agricarnation_stem"
+        },
+        "stem3": {
+            "base": "botaniastory:block/functional_flora/agricarnation_stem"
+        },
+        "petal1": {
+            "base": "botaniastory:block/functional_flora/agricarnation_bud"
+        },
+        "petal2": {
+            "base": "botaniastory:block/functional_flora/agricarnation_bud"
+        },
+        "petal3": {
+            "base": "botaniastory:block/functional_flora/agricarnation_bud"
+        },
+        "leaves1": {
+            "base": "botaniastory:block/functional_flora/agricarnation_leaves"
+        },
+        "north1": {
+            "base": "game:block/transparent"
+        },
+        "south1": {
+            "base": "game:block/transparent"
+        },
+        "northTinted1": {
+            "base": "game:block/transparent"
+        },
+        "southTinted1": {
+            "base": "game:block/transparent"
+        }
     },
     "guiTransform": {
         "translation": {
             "x": 0,
-            "y": 0.25,
+            "y": 5.0,
             "z": 0
         },
         "rotation": {
@@ -64,8 +95,7 @@
             "y": 0.42,
             "z": 0.5
         },
-        "scale": 1.23
-
+        "scale": 1.0
     },
     "fpHandTransform": {
         "translation": {
@@ -102,4 +132,3 @@
         "scale": 2.5
     }
 }
-
