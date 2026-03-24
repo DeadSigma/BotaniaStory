@@ -1,29 +1,51 @@
 {
     "code": "puredaisy",
-    "class": "BlockPlant",
+    "class": "BlockPureDaisy",
+    "entityClass": "PureDaisyEntity",
     "creativeinventory": {
         "general": [
-            "*"
+            "*-free"
         ],
         "flora": [
-            "*"
+            "*-free"
         ],
         "botaniastory": [
-            "*"
+            "*-free"
         ]
     },
-    "drawtype": "JSON",
+    "drawtypeByType": {
+        "*-snow": "JSONAndSnowLayer",
+        "*": "JSON"
+    },
+    "faceCullModeByType": {
+        "*-free": "NeverCull",
+        "*": "MergeSnowLayer"
+    },
+    "blockmaterialByType": {
+        "*-free": "Plant",
+        "*": "Snow"
+    },
+    "behaviors": [
+        {
+            "name": "DropNotSnowCovered"
+        }
+    ],
+    "variantgroups": [
+        {
+            "code": "cover",
+            "states": [
+                "free",
+                "snow"
+            ]
+        }
+    ],
+    "frostable": true,
     "shape": {
         "base": "game:block/plant/flower/1patch-3faces-24x24",
-        "scale": 0.5
+        "scale": 0.7
     },
-    "blockmaterial": "Plant",
     "randomDrawOffset": true,
     "renderpass": "OpaqueNoCull",
-    "faceCullMode": "NeverCull",
-    "sideopaque": {
-        "all": false
-    },
     "sidesolid": {
         "all": false
     },
@@ -91,7 +113,7 @@
     "guiTransform": {
         "translation": {
             "x": 0,
-            "y": -10.0,
+            "y": -5.0,
             "z": 0
         },
         "rotation": {
@@ -104,7 +126,7 @@
             "y": 0.6,
             "z": 0.5
         },
-        "scale": 2.0
+        "scale": 1.7
     },
     "fpHandTransform": {
         "translation": {
@@ -139,5 +161,14 @@
     },
     "groundTransform": {
         "scale": 2.5
+    },
+    "sideopaqueByType": {
+        "*-snow": {
+            "all": false,
+            "down": true
+        },
+        "*": {
+            "all": false
+        }
     }
 }

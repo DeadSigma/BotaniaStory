@@ -50,11 +50,7 @@
 
     "attributes": { "handbook": { "groupBy": [ "apothecary-*" ] } },
 
-    "sounds": {
-        "place": "game:block/stone",
-        "break": "game:block/stone",
-        "hit": "game:block/stone"
-    },
+    
     "textures": {
         "stone": { "base": "game:block/stone/rock/{rock}1" },
         "water": { "base": "game:block/liquid/water" }

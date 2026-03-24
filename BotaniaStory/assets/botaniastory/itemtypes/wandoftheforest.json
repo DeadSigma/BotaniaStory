@@ -1,0 +1,9 @@
+{
+    "code": "wandoftheforest",
+    "class": "ItemWandOfTheForest",
+    "creativeinventory": { "general": ["*"], "botaniastory": ["*"] },
+    "shape": { "base": "game:item/stick" },
+    "textures": {
+        "wood": { "base": "game:block/wood/debarked/birch" }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "code": "livingrock",
+    "class": "Block",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "shape": { "base": "game:block/basic/cube" },
+    "textures": {
+        "all": { "base": "botaniastory:block/livingrock" }
+    },
+    "blockmaterial": "Stone"
+}

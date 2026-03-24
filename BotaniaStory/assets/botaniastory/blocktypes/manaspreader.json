@@ -1,0 +1,35 @@
+{
+    "code": "manaspreader",
+    "class": "BlockManaSpreader",
+    "entityClass": "ManaSpreaderEntity",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "shape": { "base": "botaniastory:block/manaspreader" },
+    "textures": {
+        "livingwood": { "base": "botaniastory:block/livingwood" },
+        "lens": { "base": "botaniastory:block/spreader_lens" }
+    },
+    "blockmaterial": "Wood",
+    "resistance": 3,
+    "sideopaque": { "all": false },
+    "sidesolid": { "all": false },
+    "lightAbsorption": 0,
+    "collisionbox": {
+        "x1": 0.125,
+        "y1": 0.125,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 0.875,
+        "z2": 0.875
+    },
+    "selectionbox": {
+        "x1": 0.125,
+        "y1": 0.125,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 0.875,
+        "z2": 0.875
+    }
+}

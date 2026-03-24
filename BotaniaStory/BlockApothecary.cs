@@ -15,9 +15,9 @@ namespace BotaniaStory
         // ==========================================
         private readonly Dictionary<string, Dictionary<string, int>> flowerRecipes = new Dictionary<string, Dictionary<string, int>>
         {
-            { "puredaisy", new Dictionary<string, int> { { "mysticalpetal-white", 4 } } },
-            { "daybloom", new Dictionary<string, int> { { "mysticalpetal-yellow", 2 }, { "mysticalpetal-orange", 1 }, { "mysticalpetal-lightblue", 1 } } },
-            { "agricarnation", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-yellow", 1 } } }
+            { "puredaisy-free", new Dictionary<string, int> { { "mysticalpetal-white", 4 } } },
+            { "daybloom-free", new Dictionary<string, int> { { "mysticalpetal-yellow", 2 }, { "mysticalpetal-orange", 1 }, { "mysticalpetal-lightblue", 1 } } },
+            { "agricarnation-free", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-yellow", 1 } } }
             // Добавляй новые цветы сюда по аналогии!
         };
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)

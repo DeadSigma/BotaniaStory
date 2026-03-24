@@ -1,0 +1,21 @@
+{
+    "code": "livingwood",
+    "class": "Block",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "shape": { "base": "game:block/basic/cube" },
+    "textures": {
+        "all": { "base": "botaniastory:block/livingwood" }
+    },
+    "blockmaterial": "Wood",
+    "sounds": {
+        "place": "game:block/planks",
+        "break": "game:block/planks",
+        "hit": "game:block/planks",
+        "walk": "game:walk/wood"
+    },
+    "resistance": 3
+
+}

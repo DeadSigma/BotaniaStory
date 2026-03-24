@@ -3,27 +3,21 @@
     "class": "BlockPlant",
     "creativeinventory": {
         "general": [
-            "*"
+            "*-free"
         ],
         "flora": [
-            "*"
+            "*-free"
         ],
         "botaniastory": [
-            "*"
+            "*-free"
         ]
     },
-    "drawtype": "JSON",
     "shape": {
         "base": "game:block/plant/flower/1patch-3faces-24x24",
         "scale": 0.5
     },
-    "blockmaterial": "Plant",
     "randomDrawOffset": true,
     "renderpass": "OpaqueNoCull",
-    "faceCullMode": "NeverCull",
-    "sideopaque": {
-        "all": false
-    },
     "sidesolid": {
         "all": false
     },
@@ -139,5 +133,41 @@
     },
     "groundTransform": {
         "scale": 2.5
+    },
+    "behaviors": [
+        {
+            "name": "DropNotSnowCovered"
+        }
+    ],
+    "variantgroups": [
+        {
+            "code": "cover",
+            "states": [
+                "free",
+                "snow"
+            ]
+        }
+    ],
+    "frostable": true,
+    "drawtypeByType": {
+        "*-snow": "JSONAndSnowLayer",
+        "*": "JSON"
+    },
+    "faceCullModeByType": {
+        "*-free": "NeverCull",
+        "*": "MergeSnowLayer"
+    },
+    "blockmaterialByType": {
+        "*-free": "Plant",
+        "*": "Snow"
+    },
+    "sideopaqueByType": {
+        "*-snow": {
+            "all": false,
+            "down": true
+        },
+        "*": {
+            "all": false
+        }
     }
 }

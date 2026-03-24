@@ -3,26 +3,56 @@
     "class": "BlockPlant",
     "creativeinventory": {
         "general": [
-            "*"
+            "*-free"
         ],
         "flora": [
-            "*"
+            "*-free"
         ],
         "botaniastory": [
-            "*"
+            "*-free"
         ]
     },
-    "drawtype": "JSON",
+    "drawtypeByType": {
+        "*-snow": "JSONAndSnowLayer",
+        "*": "JSON"
+    },
+    "faceCullModeByType": {
+        "*-free": "NeverCull",
+        "*": "MergeSnowLayer"
+    },
+    "blockmaterialByType": {
+        "*-free": "Plant",
+        "*": "Snow"
+    },
+    "behaviors": [
+        {
+            "name": "DropNotSnowCovered"
+        }
+    ],
+    "variantgroups": [
+        {
+            "code": "cover",
+            "states": [
+                "free",
+                "snow"
+            ]
+        }
+    ],
+    "frostable": true,
     "shape": {
         "base": "game:block/plant/flower/lilyofthevalley",
         "scale": 1.2
     },
-    "blockmaterial": "Plant",
     "randomDrawOffset": true,
     "renderpass": "OpaqueNoCull",
-    "faceCullMode": "NeverCull",
-    "sideopaque": {
-        "all": false
+    "sideopaqueByType": {
+        "*-snow": {
+            "all": false,
+            "down": true
+        },
+        "*": {
+            "all": false
+        }
     },
     "sidesolid": {
         "all": false

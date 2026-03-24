@@ -2,12 +2,22 @@
     "code": "mysticalflower",
     "class": "BlockPlant",
     "attributes": {
-        "handbook": { "groupBy": [ "mysticalflower-*" ] }
+        "handbook": {
+            "groupBy": [
+                "mysticalflower-*"
+            ]
+        }
     },
     "creativeinventory": {
-        "general": [ "*" ],
-        "flora": [ "*" ],
-        "botaniastory": [ "*" ]
+        "general": [
+            "*-free"
+        ],
+        "flora": [
+            "*-free"
+        ],
+        "botaniastory": [
+            "*-free"
+        ]
     },
     "variantgroups": [
         {
@@ -30,19 +40,34 @@
                 "red",
                 "black"
             ]
+        },
+        {
+            "code": "cover",
+            "states": [
+                "free",
+                "snow"
+            ]
         }
     ],
-    "drawtype": "JSON",
     "shape": {
         "base": "game:block/plant/flower/1patch-3faces-24x24",
         "scale": 0.5
     },
-    "blockmaterial": "Plant",
+    "frostable": true,
     "randomDrawOffset": true,
     "renderpass": "OpaqueNoCull",
-    "faceCullMode": "NeverCull",
-    "sideopaque": { "all": false },
-    "sidesolid": { "all": false },
+    "sideopaqueByType": {
+        "*-snow": {
+            "all": false,
+            "down": true
+        },
+        "*": {
+            "all": false
+        }
+    },
+    "sidesolid": {
+        "all": false
+    },
     "lightAbsorption": 0,
     "replaceable": 3000,
     "resistance": 0.1,
@@ -61,23 +86,48 @@
         "z2": 0.875
     },
     "textures": {
-        "north1": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}" },
-        "south1": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}" },
-        "north2": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}" },
-        "south2": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}" },
-        "north3": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}" },
-        "south3": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}" },
-        "flower2": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}" },
-
-        "northTinted1": { "base": "botaniastory:block/mysticalflower/stem" },
-        "southTinted1": { "base": "botaniastory:block/mysticalflower/stem" },
-        "northTinted2": { "base": "botaniastory:block/mysticalflower/stem" },
-        "southTinted2": { "base": "botaniastory:block/mysticalflower/stem" },
-        "northTinted3": { "base": "botaniastory:block/mysticalflower/stem" },
-        "southTinted3": { "base": "botaniastory:block/mysticalflower/stem" },
-        "flower2Tinted": { "base": "botaniastory:block/mysticalflower/stem" }
-
-
+        "north1": {
+            "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}"
+        },
+        "south1": {
+            "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}"
+        },
+        "north2": {
+            "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}"
+        },
+        "south2": {
+            "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}"
+        },
+        "north3": {
+            "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}"
+        },
+        "south3": {
+            "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}"
+        },
+        "flower2": {
+            "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}"
+        },
+        "northTinted1": {
+            "base": "botaniastory:block/mysticalflower/stem"
+        },
+        "southTinted1": {
+            "base": "botaniastory:block/mysticalflower/stem"
+        },
+        "northTinted2": {
+            "base": "botaniastory:block/mysticalflower/stem"
+        },
+        "southTinted2": {
+            "base": "botaniastory:block/mysticalflower/stem"
+        },
+        "northTinted3": {
+            "base": "botaniastory:block/mysticalflower/stem"
+        },
+        "southTinted3": {
+            "base": "botaniastory:block/mysticalflower/stem"
+        },
+        "flower2Tinted": {
+            "base": "botaniastory:block/mysticalflower/stem"
+        }
     },
     "guiTransform": {
         "translation": {
@@ -130,6 +180,22 @@
     },
     "groundTransform": {
         "scale": 2.5
+    },
+    "behaviors": [
+        {
+            "name": "DropNotSnowCovered"
+        }
+    ],
+    "drawtypeByType": {
+        "*-snow": "JSONAndSnowLayer",
+        "*": "JSON"
+    },
+    "faceCullModeByType": {
+        "*-free": "NeverCull",
+        "*": "MergeSnowLayer"
+    },
+    "blockmaterialByType": {
+        "*-free": "Plant",
+        "*": "Snow"
     }
 }
-

@@ -4,7 +4,7 @@
     "ingredients": {
       "F": {
         "type": "block",
-        "code": "botaniastory:mysticalflower-*",
+        "code": "botaniastory:mysticalflower-*-free",
         "name": "color"
       }
     },
