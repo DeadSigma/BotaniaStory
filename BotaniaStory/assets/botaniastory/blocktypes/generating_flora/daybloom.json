@@ -1,6 +1,7 @@
 {
     "code": "daybloom",
-    "class": "BlockPlant",
+    "class": "BlockDaybloom",
+    "entityClass": "DaybloomEntity",
     "creativeinventory": {
         "general": [
             "*-free"

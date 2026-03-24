@@ -14,12 +14,51 @@ namespace BotaniaStory
 
         // Внутренняя батарейка распространителя
         public int CurrentMana = 0;
-        public int MaxMana = 1000; // Вмещает 1000 маны за раз
+        public int MaxMana = 100000; // Вмещает 1000 маны за раз
 
         // Координаты цели (Бассейна), к которому он привязан
         public BlockPos TargetPos = null;
 
         // Сохраняем все данные
+
+        public override void Initialize(ICoreAPI api)
+        {
+            base.Initialize(api);
+            // Запускаем логику передачи ТОЛЬКО на сервере (10 раз в секунду)
+            if (api.Side == EnumAppSide.Server)
+            {
+                RegisterGameTickListener(OnServerTick, 100);
+            }
+        }
+
+        private void OnServerTick(float dt)
+        {
+            // Теперь стреляем, если накопилось хотя бы 100 маны
+            if (TargetPos == null || CurrentMana < 100) return;
+
+            BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(TargetPos);
+            if (be is BlockEntityManaPool pool)
+            {
+                // Формируем огромный сгусток маны (до 2000 за выстрел!)
+                int burst = Math.Min(CurrentMana, 2000);
+
+                // ПЕРЕДАЧА МАНЫ
+                pool.CurrentMana += burst;
+                if (pool.CurrentMana > pool.MaxMana) pool.CurrentMana = pool.MaxMana;
+                pool.MarkDirty(true);
+
+                // Отнимаем ману у себя
+                this.CurrentMana -= burst;
+                this.MarkDirty(true);
+            }
+            else
+            {
+                TargetPos = null;
+                this.MarkDirty(true);
+            }
+        }
+        
+
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);

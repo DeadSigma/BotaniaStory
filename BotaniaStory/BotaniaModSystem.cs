@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.Common;
+﻿using BotaniaStory.Flora.GeneratingFlora;
+using Vintagestory.API.Common;
 using Vintagestory.GameContent; // Добавили доступ к ванильным растениям
 
 namespace BotaniaStory
@@ -19,6 +20,8 @@ namespace BotaniaStory
             api.RegisterBlockClass("BlockManaSpreader", typeof(BlockManaSpreader));
             api.RegisterBlockEntityClass("ManaSpreaderEntity", typeof(BlockEntityManaSpreader));
             api.RegisterItemClass("ItemWandOfTheForest", typeof(ItemWandOfTheForest));
+            api.RegisterBlockClass("BlockDaybloom", typeof(BlockDaybloom));
+            api.RegisterBlockEntityClass("DaybloomEntity", typeof(BlockEntityDaybloom));
         }
     }
 
