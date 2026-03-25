@@ -1,4 +1,5 @@
 ﻿using BotaniaStory.Flora.GeneratingFlora;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.GameContent; // Добавили доступ к ванильным растениям
 
@@ -6,6 +7,15 @@ namespace BotaniaStory
 {
     public class BotaniaStoryModSystem : ModSystem
     {
+
+        private BotaniaWandHud wandHud;
+
+        public override void StartClientSide(ICoreClientAPI api)
+        {
+            base.StartClientSide(api);
+            wandHud = new BotaniaWandHud(api);
+        }
+
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
@@ -22,6 +32,9 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemWandOfTheForest", typeof(ItemWandOfTheForest));
             api.RegisterBlockClass("BlockDaybloom", typeof(BlockDaybloom));
             api.RegisterBlockEntityClass("DaybloomEntity", typeof(BlockEntityDaybloom));
+            api.RegisterEntity("EntityManaBurst", typeof(EntityManaBurst));
+            api.RegisterBlockClass("BlockEndoflame", typeof(BlockEndoflame));
+            api.RegisterBlockEntityClass("EndoflameEntity", typeof(BlockEntityEndoflame));
         }
     }
 

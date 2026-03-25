@@ -1,0 +1,225 @@
+BotaniaStory/
+    ApothecaryRenderer.cs
+    BlockApothecary.cs
+    BlockEntityApothecary.cs
+    BlockEntityManaPool.cs
+    BlockEntityManaSpreader.cs
+    BlockManaPool.cs
+    BlockManaSpreader.cs
+    BotaniaModSystem.cs
+    BotaniaStory.csproj
+    BotaniaWandHud.cs
+    ItemWandOfTheForest.cs
+    modinfo.json
+    создаёт структуру папок.py
+assets/
+botaniastory/
+blocktypes/
+                apothecary.json
+                livingrock.json
+                livingwood.json
+                manapool.json
+                manaspreader.json
+                mysticalflower.json
+functional_flora/
+                    agricarnation.json
+                    bellethorne.json
+                    bubbell.json
+                    clayconia.json
+                    daffomill.json
+                    dreadthorne.json
+                    exoflame.json
+                    fallenkanade.json
+                    heiseidream.json
+                    hopperhock.json
+                    hyacidus.json
+                    jadedamaranthus.json
+                    jiyuulia.json
+                    loonium.json
+                    marimorphosis.json
+                    medumone.json
+                    orechid.json
+                    pollidisiac.json
+                    puredaisy.json
+                    rannuncarpus.json
+                    solegnolia.json
+                    spectranthemum.json
+                    tangleberrie.json
+                    tigerseye.json
+                    vinculotus.json
+generating_flora/
+                    dandelifeon.json
+                    daybloom.json
+                    endoflame.json
+                    entropinnyum.json
+                    gourmaryllis.json
+                    hydroangeas.json
+                    kekimurus.json
+                    munchdew.json
+                    narslimmus.json
+                    nightshade.json
+                    rafflowsia.json
+                    rosaarcana.json
+                    spectrolus.json
+                    thermalily.json
+compatibility/
+config/
+handbook/
+itemtypes/
+                mysticalpetal.json
+                wandoftheforest.json
+lang/
+                ru.json
+patches/
+recipes/
+grid/
+                    apothecary.json
+                    mysticalpetal.json
+knapping/
+shapes/
+block/
+                    apothecary.json
+                    manapool.json
+                    manapool_liquid.json
+                    manaspreader.json
+                    waterplane.json
+item/
+sounds/
+                apothecary_craft.ogg
+                apothecary_splash.ogg
+textures/
+block/
+                    livingrock.png
+                    livingwood.png
+                    mana.png
+                    manaDetector1.png
+                    spreader_lens.png
+functional_flora/
+                        agricarnation_bud.png
+                        agricarnation_leaves.png
+                        agricarnation_stem.png
+                        bellethorne_bud.png
+                        bellethorne_stem.png
+                        bubbell_bud.png
+                        bubbell_stem.png
+                        clayconia_bud.png
+                        clayconia_stem.png
+                        daffomill_bud.png
+                        daffomill_stem.png
+                        dreadthorne_bud.png
+                        dreadthorne_stem.png
+                        exoflame_bud.png
+                        exoflame_stem.png
+                        fallenkanade_bud.png
+                        fallenkanade_stem.png
+                        heiseidream_bud.png
+                        heiseidream_stem.png
+                        hopperhock_bud.png
+                        hopperhock_stem.png
+                        hyacidus_bud.png
+                        hyacidus_stem.png
+                        jadedamaranthus_bud.png
+                        jadedamaranthus_stem.png
+                        jiyuulia_bud.png
+                        jiyuulia_stem.png
+                        loonium_bud.png
+                        loonium_stem.png
+                        marimorphosis_bud.png
+                        marimorphosis_stem.png
+                        medumone_bud.png
+                        medumone_stem.png
+                        orechid_bud.png
+                        orechid_stem.png
+                        pollidisiac_bud.png
+                        pollidisiac_stem.png
+                        puredaisy_bud.png
+                        puredaisy_stem.png
+                        rannuncarpus_bud.png
+                        rannuncarpus_stem.png
+                        solegnolia_bud.png
+                        solegnolia_stem.png
+                        spectranthemum_bud.png
+                        spectranthemum_stem.png
+                        tangleberrie_bud.png
+                        tangleberrie_stem.png
+                        tigerseye_bud.png
+                        tigerseye_stem.png
+                        vinculotus_bud.png
+                        vinculotus_stem.png
+generating_flora/
+                        dandelifeon_bud.png
+                        dandelifeon_stem.png
+                        daybloom_bud.png
+                        daybloom_stem.png
+                        endoflame_bud.png
+                        endoflame_stem.png
+                        entropinnyum_bud.png
+                        entropinnyum_stem.png
+                        gourmaryllis_bud.png
+                        gourmaryllis_stem.png
+                        hydroangeas_bud.png
+                        hydroangeas_stem.png
+                        kekimurus_bud.png
+                        kekimurus_stem.png
+                        munchdew_bud.png
+                        munchdew_stem.png
+                        narslimmus_bud.png
+                        narslimmus_stem.png
+                        nightshade_bud.png
+                        nightshade_stem.png
+                        rafflowsia_bud.png
+                        rafflowsia_stem.png
+                        rosaarcana_bud.png
+                        rosaarcana_stem.png
+                        spectrolus_bud.png
+                        spectrolus_stem.png
+                        thermalily_bud.png
+                        thermalily_stem.png
+mysticalflower/
+                        stem.png
+mystical_flowers/
+                            black.png
+                            blue.png
+                            brown.png
+                            cyan.png
+                            gray.png
+                            green.png
+                            lightblue.png
+                            lightgray.png
+                            lime.png
+                            magenta.png
+                            orange.png
+                            pink.png
+                            purple.png
+                            red.png
+                            white.png
+                            yellow.png
+item/
+mysticalpetal/
+                        base.png
+                        black.png
+                        blue.png
+                        brown.png
+                        cyan.png
+                        gray.png
+                        green.png
+                        lightblue.png
+                        lightgray.png
+                        lime.png
+                        magenta.png
+                        orange.png
+                        pink.png
+                        purple.png
+                        red.png
+                        white.png
+                        yellow.png
+worldgen/
+blockpatches/
+                    worldgen_flowers.json
+Flora/
+FunctionalFlora/
+            BlockEntityPureDaisy.cs
+            BlockPureDaisy.cs
+GeneratingFlora/
+            BlockDaybloom.cs
+            BlockEntityDaybloom.cs

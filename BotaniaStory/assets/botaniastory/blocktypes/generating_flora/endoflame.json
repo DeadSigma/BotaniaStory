@@ -1,6 +1,7 @@
 {
     "code": "endoflame",
-    "class": "BlockPlant",
+    "class": "BlockEndoflame",
+    "entityClass": "EndoflameEntity",
     "creativeinventory": {
         "general": [
             "*-free"

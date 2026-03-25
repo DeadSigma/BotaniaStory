@@ -10,7 +10,8 @@ namespace BotaniaStory
     {
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
-            if (blockSel == null) return;
+            // ЗАЩИТА ОТ УДЕРЖАНИЯ: Реагируем только на самый первый момент клика
+            if (!firstEvent || blockSel == null) return;
 
             IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
             IWorldAccessor world = byEntity.World;
@@ -25,14 +26,18 @@ namespace BotaniaStory
                 slot.Itemstack.Attributes.SetInt("spreaderZ", pos.Z);
                 slot.Itemstack.Attributes.SetBool("hasSpreader", true);
 
-                // Правильный вывод в чат только для клиента
+                // --- ДОБАВИТЬ ЭТУ СТРОКУ ---
+                // Говорим инвентарю, что предмет обновлен и его нужно сохранить!
+                slot.MarkDirty(); 
+                // ---------------------------
+
                 if (world.Side == EnumAppSide.Client)
                 {
                     var clientApi = world.Api as ICoreClientAPI;
                     clientApi?.ShowChatMessage("Распространитель выбран. Теперь кликни ПКМ по Бассейну маны.");
                 }
 
-                handling = EnumHandHandling.PreventDefaultAction;
+                handling = EnumHandHandling.Handled;
                 return;
             }
 
@@ -47,24 +52,17 @@ namespace BotaniaStory
                 BlockEntityManaSpreader be = world.BlockAccessor.GetBlockEntity(spreaderPos) as BlockEntityManaSpreader;
                 if (be != null)
                 {
-                    // Высчитываем разницу координат (от центра до центра)
                     double dx = pos.X - spreaderPos.X;
                     double dy = pos.Y - spreaderPos.Y;
                     double dz = pos.Z - spreaderPos.Z;
 
-                    // МАГИЯ ТРИГОНОМЕТРИИ: Вычисляем углы поворота
                     be.Yaw = (float)Math.Atan2(dx, dz) + (float)Math.PI;
-
                     double distanceXZ = Math.Sqrt(dx * dx + dz * dz);
                     be.Pitch = (float)Math.Atan2(dy, distanceXZ);
 
-                    // СОХРАНЯЕМ КООРДИНАТЫ ЦЕЛИ (Бассейна) В РАСПРОСТРАНИТЕЛЬ
                     be.TargetPos = pos.Copy();
-
-                    // Просим игру перерисовать блок с новыми углами!
                     be.MarkDirty(true);
 
-                    // Правильный вывод в чат
                     if (world.Side == EnumAppSide.Client)
                     {
                         var clientApi = world.Api as ICoreClientAPI;
@@ -72,9 +70,14 @@ namespace BotaniaStory
                     }
                 }
 
-                // Очищаем память посоха, чтобы можно было привязать следующий
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");
-                handling = EnumHandHandling.PreventDefaultAction;
+                
+                // --- ДОБАВИТЬ ЭТУ СТРОКУ ---
+                // Опять же, мы удалили атрибут, значит предмет изменился. Сохраняем!
+                slot.MarkDirty();
+                // ---------------------------
+
+                handling = EnumHandHandling.Handled;
                 return;
             }
 

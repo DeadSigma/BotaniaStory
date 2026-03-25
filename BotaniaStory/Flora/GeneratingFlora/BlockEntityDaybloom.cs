@@ -23,21 +23,41 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
         private void OnServerTick(float dt)
         {
+            bool dirty = false; // Флаг: нужно ли обновить картинку для игрока?
+
             // 1. ВЫРАБОТКА МАНЫ (Только если светит солнце!)
-            // Проверяем уровень именно солнечного света (от 0 до 15) над цветком
             int sunLight = Api.World.BlockAccessor.GetLightLevel(Pos, EnumLightLevelType.OnlySunLight);
-            
-            // Если свет больше 10 (день и нет крыши над головой)
-            if (sunLight > 10) 
+            if (sunLight > 10)
             {
-                CurrentMana += 100000; // ТЕСТ: ОГРОМНОЕ КОЛИЧЕСТВО МАНЫ
-                if (CurrentMana > MaxMana) CurrentMana = MaxMana;
+                if (CurrentMana < MaxMana)
+                {
+                    CurrentMana += 500; // ТЕСТОВОЕ ЗНАЧЕНИЕ
+                    if (CurrentMana > MaxMana) CurrentMana = MaxMana;
+                    dirty = true; // Цифры изменились, нужно обновить HUD
+                }
             }
 
             // 2. АВТО-ПРИВЯЗКА (Ищем Распространитель)
+            // 2. ПРОВЕРКА СВЯЗИ И АВТО-ПРИВЯЗКА
+            if (LinkedSpreader != null)
+            {
+                // Проверяем, стоит ли еще на этом месте распространитель
+                BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
+                if (!(be is BlockEntityManaSpreader))
+                {
+                    LinkedSpreader = null; // Если там пусто или другой блок - забываем!
+                    dirty = true;
+                }
+            }
+
+            // Если связи нет - пытаемся найти новый
             if (LinkedSpreader == null)
             {
                 FindSpreader();
+                if (LinkedSpreader != null)
+                {
+                    dirty = true; // Ура, нашли! Обновляем HUD
+                }
             }
 
             // 3. ПЕРЕДАЧА МАНЫ В РАСПРОСТРАНИТЕЛЬ
@@ -46,31 +66,36 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
                 if (be is BlockEntityManaSpreader spreader)
                 {
-                    // Сколько свободного места в распространителе?
                     int space = spreader.MaxMana - spreader.CurrentMana;
-                    
-                    // Берем либо всю нашу ману, либо сколько влезет
-                    int toMove = Math.Min(CurrentMana, space); 
-                    
+                    int toMove = Math.Min(CurrentMana, space);
+
                     if (toMove > 0)
                     {
                         spreader.CurrentMana += toMove;
                         spreader.MarkDirty(true);
-                        
+
                         this.CurrentMana -= toMove;
+                        dirty = true; // Мана ушла, обновляем HUD
                     }
                 }
                 else
                 {
-                    LinkedSpreader = null; // Если распространитель сломали - отвязываемся
+                    LinkedSpreader = null; // Распространитель сломали
+                    dirty = true; // Обновляем HUD, чтобы убрать галочку
                 }
+            }
+
+            // Если хоть что-то поменялось — пинаем клиент, чтобы HUD перерисовался!
+            if (dirty)
+            {
+                this.MarkDirty(true);
             }
         }
 
         // Функция сканирования территории 13x13x13 блоков вокруг цветка
         private void FindSpreader()
         {
-            int radius = 6;
+            int radius = 3;
             for (int x = -radius; x <= radius; x++)
             {
                 for (int y = -radius; y <= radius; y++)
@@ -88,16 +113,24 @@ namespace BotaniaStory.Flora.GeneratingFlora
             }
         }
 
-        // Сохранение и загрузка
+        // ==========================================
+        // СОХРАНЕНИЕ И ЗАГРУЗКА (Синхронизация)
+        // ==========================================
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
             tree.SetInt("mana", CurrentMana);
+
             if (LinkedSpreader != null)
             {
                 tree.SetInt("lx", LinkedSpreader.X);
                 tree.SetInt("ly", LinkedSpreader.Y);
                 tree.SetInt("lz", LinkedSpreader.Z);
+                tree.SetBool("hasSpreader", true); // Явно говорим: "Цель есть!"
+            }
+            else
+            {
+                tree.SetBool("hasSpreader", false); // Явно говорим: "Цели нет, забудь!"
             }
         }
 
@@ -105,9 +138,15 @@ namespace BotaniaStory.Flora.GeneratingFlora
         {
             base.FromTreeAttributes(tree, worldForResolving);
             CurrentMana = tree.GetInt("mana");
-            if (tree.HasAttribute("lx"))
+
+            // Клиент проверяет рубильник
+            if (tree.GetBool("hasSpreader"))
             {
                 LinkedSpreader = new BlockPos(tree.GetInt("lx"), tree.GetInt("ly"), tree.GetInt("lz"));
+            }
+            else
+            {
+                LinkedSpreader = null; // Стираем старую память принудительно!
             }
         }
     }

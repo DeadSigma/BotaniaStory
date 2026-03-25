@@ -1,0 +1,14 @@
+{
+    "code": "manaburst",
+    "class": "EntityManaBurst",
+    "hitboxSize": {
+        "x": 0.1,
+        "y": 0.1
+    },
+    "client": {
+        "behaviors": []
+    },
+    "server": {
+        "behaviors": []
+    }
+}
