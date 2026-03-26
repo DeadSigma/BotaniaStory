@@ -27,7 +27,7 @@ namespace BotaniaStory
             api.RegisterBlockEntityClass("PureDaisyEntity", typeof(BlockEntityPureDaisy));
             api.RegisterBlockClass("BlockManaPool", typeof(BlockManaPool));
             api.RegisterBlockEntityClass("ManaPoolEntity", typeof(BlockEntityManaPool));
-            api.RegisterBlockClass("BlockManaSpreader", typeof(BlockManaSpreader));
+            api.RegisterBlockClass("ManaSpreader", typeof(ManaSpreader));
             api.RegisterBlockEntityClass("ManaSpreaderEntity", typeof(BlockEntityManaSpreader));
             api.RegisterItemClass("ItemWandOfTheForest", typeof(ItemWandOfTheForest));
             api.RegisterBlockClass("BlockDaybloom", typeof(BlockDaybloom));
@@ -35,6 +35,7 @@ namespace BotaniaStory
             api.RegisterEntity("EntityManaBurst", typeof(EntityManaBurst));
             api.RegisterBlockClass("BlockEndoflame", typeof(BlockEndoflame));
             api.RegisterBlockEntityClass("EndoflameEntity", typeof(BlockEntityEndoflame));
+            api.RegisterItemClass("ItemWandOfBinding", typeof(ItemWandOfBinding));
         }
     }
 

@@ -32,7 +32,7 @@ namespace BotaniaStory
 
         private float spreadLevel = 7f;      // Разброс лепестков по воде
         private float itemScale = 1f;      // Базовый размер айтемов
-        private float heightOffset = 0.36f;  // Точная высота уровня воды!
+        private float heightOffset = 0.70f;  // Точная высота уровня воды!
 
         private ICoreClientAPI capi;
         private BlockPos pos;
@@ -40,8 +40,8 @@ namespace BotaniaStory
         private MultiTextureMeshRef[] meshRefs = new MultiTextureMeshRef[16];
         private bool[] isItem = new bool[16];
 
-        private float[] xOffsets = new float[16];
-        private float[] zOffsets = new float[16];
+        private float[] xDir = new float[16];
+        private float[] zDir = new float[16];
         private float[] yRots = new float[16];
 
         public double RenderOrder => 0.5;
@@ -56,12 +56,12 @@ namespace BotaniaStory
             this.capi = capi;
 
             Random rand = new Random(pos.GetHashCode());
-            float maxOffset = (spreadLevel / 10f) * 0.45f;
 
             for (int i = 0; i < 16; i++)
             {
-                xOffsets[i] = (float)(rand.NextDouble() * 2 - 1) * maxOffset;
-                zOffsets[i] = (float)(rand.NextDouble() * 2 - 1) * maxOffset;
+                // Сохраняем просто случайный вектор от -1 до 1
+                xDir[i] = (float)(rand.NextDouble() * 2 - 1);
+                zDir[i] = (float)(rand.NextDouble() * 2 - 1);
                 yRots[i] = (float)(rand.NextDouble() * GameMath.TWOPI);
             }
 
@@ -76,7 +76,7 @@ namespace BotaniaStory
 
             // 2. Настройка для  mysticalpetal-white
             customTransforms["точное_имя_айтема"] = new ItemRenderTransform(
-                1.15f,            // Масштаб: 
+                2.15f,            // Масштаб: 
                 GameMath.PIHALF,  // Поворот по оси X:
                 0f,               // Поворот по Y: 0
                 0f                // Поворот по Z: 0
@@ -131,19 +131,69 @@ namespace BotaniaStory
                     float finalRotY = 0f;
                     float finalRotZ = 0f;
                     float finalHeight = this.heightOffset;
+                    float finalSpread = this.spreadLevel;
 
                     // БАЗОВЫЙ ЦЕНТР: Ровно посередине блока
                     Vec3f finalCenter = new Vec3f(0.5f, 0.5f, 0.5f);
 
                     // ==========================================
-                    // 2. ФИЛЬТРЫ (Обязательно используем else if)
+                    // 2. ФИЛЬТРЫ 
                     // ==========================================
-                    if (itemCode.Contains("petal"))
+
+                    // СНАЧАЛА проверяем наш словарь кастомных настроек!
+                    if (customTransforms.TryGetValue(itemCode, out ItemRenderTransform transform))
                     {
-                        finalScale = 0.15f;
-                        finalRotX = GameMath.PIHALF;
-                        // Для лепестков центр 0.5, 0.5, 0.5 работает нормально
+                        finalScale = transform.Scale;
+                        finalRotX = transform.RotX;
+                        finalRotY = transform.RotY;
+                        finalRotZ = transform.RotZ;
+
+                        // Если для кастомных предметов тоже нужно смещать центр вниз, раскомментируй строку ниже:
+                        // finalCenter = new Vec3f(0.5f, 0.05f, 0.5f); 
                     }
+
+                    if (itemCode.Contains("mysticalflower"))
+                    {
+                        finalScale = 0.35f;
+                        finalHeight += 0.08f;
+                        finalRotX = GameMath.PIHALF;
+                        finalRotY = GameMath.PI;
+                        finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
+
+                        finalSpread = 7f; // <--- СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
+                    }
+
+                    if (itemCode.Contains("gray-free") || itemCode.Contains("blue-free") || itemCode.Contains("lightgray-free") || itemCode.Contains("red-free"))
+                    {
+                        finalScale = 0.3f;
+                        finalHeight += 0.02f;
+                        finalRotX = GameMath.PIHALF;
+                        finalRotY = GameMath.PI;
+                        finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
+
+                        finalSpread = 3f; // <--- СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
+                    }
+
+                    //слегка смещён вовнутрь
+                    if (itemCode.Contains("magenta-free") || itemCode.Contains("brown-free") || itemCode.Contains("lime-free") || itemCode.Contains("orange-free") || itemCode.Contains("black-free") || itemCode.Contains("green-free") || itemCode.Contains("yellow-free"))
+                    {
+                        finalScale = 0.3f;
+                        finalHeight += 0.02f;
+                        finalRotX = GameMath.PIHALF;
+                        finalRotY = GameMath.PI;
+                        finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
+
+                        finalSpread = 5f; // <--- СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
+                    }
+
+                    // Если в словаре предмета нет, применяем стандартные правила по группам
+                    else if (itemCode.Contains("petal"))
+                    {
+                        finalScale = 0.10f;
+                        finalHeight += -0.35f;
+                        finalRotX = GameMath.PIHALF;
+                    }
+
                     // Обрабатываем семена березы отдельно, так как у тебя для них не было поворота
                     else if (itemCode.Contains("treeseed-birch"))
                     {
@@ -186,6 +236,7 @@ namespace BotaniaStory
                         finalScale = 0.6f;
                         finalHeight += 0.47f;
                         finalRotX = GameMath.PIHALF;
+                        // Лежит на боку, повёрнут на 90 градусов по X
 
                         // ИСПРАВЛЕНИЕ СМЕЩЕНИЯ: Опускаем точку вращения в самый низ модельки!
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
@@ -194,6 +245,7 @@ namespace BotaniaStory
                     {
                         finalScale = 0.6f;
                         finalHeight += 0.47f;
+                        // Лежит на боку, повёрнут на 90 градусов по X
                         finalRotX = GameMath.PIHALF;
 
                         // ИСПРАВЛЕНИЕ СМЕЩЕНИЯ: Опускаем точку вращения в самый низ модельки!
@@ -204,12 +256,12 @@ namespace BotaniaStory
                     {
                         finalScale = 0.6f;
                         finalHeight += 0.43f;
+                        // Лежит на боку, повёрнут на 90 градусов по X
                         finalRotX = GameMath.PIHALF;
 
                         // ИСПРАВЛЕНИЕ СМЕЩЕНИЯ: Опускаем точку вращения в самый низ модельки!
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
                     }
-
                     // ==========================================
                     // 3. ПРИМЕНЯЕМ ВСЕ НАСТРОЙКИ (с использованием finalCenter!)
                     // ==========================================
@@ -217,17 +269,20 @@ namespace BotaniaStory
                     // Масштабируем относительно нашего центра
                     mesh.Scale(finalCenter, finalScale, finalScale, finalScale);
 
-                    // Поворачиваем относительно нашего центра
-                    if (isItem[i])
-                    {
-                        mesh.Rotate(finalCenter, finalRotX, finalRotY, finalRotZ);
-                    }
+                    // Поворачиваем относительно нашего центра ВСЕ объекты (и предметы, и блоки)
+                    mesh.Rotate(finalCenter, finalRotX, finalRotY, finalRotZ);
 
                     // Случайный разброс по оси Y
                     mesh.Rotate(finalCenter, 0, yRots[i], 0);
 
                     // Итоговое смещение (используем finalHeight)
-                    mesh.Translate(xOffsets[i], finalHeight + (i * 0.001f), zOffsets[i]);
+                    // Рассчитываем итоговое смещение с учетом индивидуального spread предмета
+                    float currentMaxOffset = (finalSpread / 10f) * 0.45f;
+                    float finalX = xDir[i] * currentMaxOffset;
+                    float finalZ = zDir[i] * currentMaxOffset;
+
+                    // Сдвигаем модель
+                    mesh.Translate(finalX, finalHeight + (i * 0.001f), finalZ);
 
                     meshRefs[i] = capi.Render.UploadMultiTextureMesh(mesh);
                 }

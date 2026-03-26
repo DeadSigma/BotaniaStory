@@ -4,7 +4,7 @@ using Vintagestory.API.MathTools;
 
 namespace BotaniaStory
 {
-    public class BlockManaSpreader : Block
+    public class ManaSpreader : Block
     {
         public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack)
         {

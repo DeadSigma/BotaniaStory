@@ -9,6 +9,8 @@ BotaniaStory/
     BotaniaModSystem.cs
     BotaniaStory.csproj
     BotaniaWandHud.cs
+    EntityManaBurst.cs
+    ItemWandOfBinding.cs
     ItemWandOfTheForest.cs
     modinfo.json
     создаёт структуру папок.py
@@ -65,8 +67,11 @@ generating_flora/
 compatibility/
 config/
 handbook/
+entities/
+                manaburst.json
 itemtypes/
                 mysticalpetal.json
+                wandofbinding.json
                 wandoftheforest.json
 lang/
                 ru.json
@@ -152,6 +157,7 @@ generating_flora/
                         daybloom_bud.png
                         daybloom_stem.png
                         endoflame_bud.png
+                        endoflame_bud2.png
                         endoflame_stem.png
                         entropinnyum_bud.png
                         entropinnyum_stem.png
@@ -176,8 +182,24 @@ generating_flora/
                         thermalily_bud.png
                         thermalily_stem.png
 mysticalflower/
-                        stem.png
 mystical_flowers/
+                            black.png
+                            blue.png
+                            brown.png
+                            cyan.png
+                            gray.png
+                            green.png
+                            lightblue.png
+                            lightgray.png
+                            lime.png
+                            magenta.png
+                            orange.png
+                            pink.png
+                            purple.png
+                            red.png
+                            white.png
+                            yellow.png
+stem/
                             black.png
                             blue.png
                             brown.png
@@ -216,10 +238,26 @@ mysticalpetal/
 worldgen/
 blockpatches/
                     worldgen_flowers.json
+bin/
+Debug/
+Mods/
+BotaniaStory/
 Flora/
 FunctionalFlora/
             BlockEntityPureDaisy.cs
             BlockPureDaisy.cs
 GeneratingFlora/
             BlockDaybloom.cs
+            BlockEndoflame.cs
             BlockEntityDaybloom.cs
+            BlockEntityEndoflame.cs
+            BlockEntityGeneratingFlower.cs
+obj/
+Debug/
+            .NETCoreApp,Version=v10.0.AssemblyAttributes.cs
+            BotaniaStory.AssemblyInfo.cs
+            BotaniaStory.AssemblyInfoInputs.cache
+            BotaniaStory.csproj.AssemblyReference.cache
+            BotaniaStory.GeneratedMSBuildEditorConfig.editorconfig
+ref/
+refint/

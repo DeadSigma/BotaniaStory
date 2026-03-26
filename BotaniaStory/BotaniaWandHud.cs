@@ -5,31 +5,26 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
-// Если Дневноцвет лежит в другой папке - раскомментируй строку ниже:
-// using BotaniaStory.GeneratingFlora; 
-
 namespace BotaniaStory
 {
     public class BotaniaWandHud : HudElement
     {
-        // 1. Меши для графической отрисовки
         private MeshRef quadMesh;
         private MeshRef borderMesh;
         private Matrixf modelMat = new Matrixf();
 
-        // Универсальные переменные для отрисовки ЛЮБОГО блока
         private int displayMana = 0;
         private int displayMaxMana = 1;
         private BlockPos highlightPos = null;
         private string displayName = "";
         private bool showHud = false;
+        private bool showConnectionStatus = true;
 
         public BotaniaWandHud(ICoreClientAPI capi) : base(capi)
         {
             quadMesh = capi.Render.UploadMesh(QuadMeshUtil.GetQuad());
             borderMesh = capi.Render.UploadMesh(LineMeshUtil.GetRectangle(ColorUtil.WhiteArgb));
 
-            // Сместили Y с 30 на 60, чтобы убрать окно из-под самого прицела
             ElementBounds dialogBounds = ElementBounds.Fixed(EnumDialogArea.CenterMiddle, 0, 60, 300, 80);
             ElementBounds textBounds = ElementBounds.Fill.WithFixedPadding(5);
 
@@ -47,46 +42,50 @@ namespace BotaniaStory
             if (player?.Entity == null) return;
 
             var slot = player.InventoryManager.ActiveHotbarSlot;
-            bool hasWand = !slot.Empty && slot.Itemstack.Item is ItemWandOfTheForest;
+
+            // Проверяем, в руках ли Посох Леса ИЛИ Посох Связывания (оба должны показывать HUD!)
+            bool hasWand = !slot.Empty && (slot.Itemstack.Item is ItemWandOfTheForest );
             var sel = player.CurrentBlockSelection;
 
-            showHud = false; // По умолчанию скрываем интерфейс
+            showHud = false;
 
             if (hasWand && sel != null)
             {
                 BlockEntity be = capi.World.BlockAccessor.GetBlockEntity(sel.Position);
+                showConnectionStatus = true;
 
-                // ПРОВЕРЯЕМ: Это Дневноцвет?
-                if (be is BlockEntityDaybloom flower)
+                // 1. ПРОВЕРКА ВСЕХ ЦВЕТОВ РАЗОМ
+                if (be is BlockEntityGeneratingFlower flower)
                 {
                     displayMana = flower.CurrentMana;
                     displayMaxMana = flower.MaxMana;
                     highlightPos = flower.LinkedSpreader;
-                    displayName = "Дневноцвет";
+
+                    // Универсальное получение локализованного имени прямо из игры!
+                    displayName = flower.Block.GetPlacedBlockName(capi.World, sel.Position);
                     showHud = true;
                 }
-                // ПРОВЕРЯЕМ: Это Эндофлейм?
-                else if (be is BlockEntityEndoflame endoflame)
-                {
-                    displayMana = endoflame.CurrentMana;
-                    displayMaxMana = endoflame.MaxMana;
-                    highlightPos = endoflame.LinkedSpreader;
-                    displayName = "Эндофлейм";
-                    showHud = true;
-                }
-                // ПРОВЕРЯЕМ: А может это Распространитель?
+                // 2. РАСПРОСТРАНИТЕЛЬ
                 else if (be is BlockEntityManaSpreader spreader)
                 {
                     displayMana = spreader.CurrentMana;
                     displayMaxMana = spreader.MaxMana;
                     highlightPos = spreader.TargetPos;
-                    displayName = "Распространитель маны";
+                    displayName = spreader.Block.GetPlacedBlockName(capi.World, sel.Position);
+                    showHud = true;
+                }
+                // 3. БАССЕЙН МАНЫ
+                else if (be is BlockEntityManaPool pool)
+                {
+                    displayMana = pool.CurrentMana;
+                    displayMaxMana = pool.MaxMana;
+                    highlightPos = null;
+                    showConnectionStatus = false; // Бассейн ни к чему не привязан, статус ему не нужен
+                    displayName = pool.Block.GetPlacedBlockName(capi.World, sel.Position);
                     showHud = true;
                 }
             }
 
-            // Если нашли магический блок - показываем HUD
-            // Если нашли магический блок - показываем HUD
             if (showHud)
             {
                 if (highlightPos != null)
@@ -94,10 +93,19 @@ namespace BotaniaStory
                 else
                     capi.World.HighlightBlocks(player, 2, new List<BlockPos>());
 
-                string statusText = highlightPos != null ? "[Привязан]" : "[Нет связи]";
-                Composers["botaniaHud"].GetDynamicText("manaText").SetNewText($"{displayName}\n\n{displayMana} / {displayMaxMana} {statusText}");
+                string statusText = "";
+                if (showConnectionStatus)
+                {
+                    statusText = highlightPos != null ? "[Привязан]" : "[Нет связи]";
+                }
 
-                // ВАЖНО: Открываем HUD только если он сейчас закрыт!
+                // Делим реальную ману на 1000. Буква 'f' нужна, чтобы превратить число в дробное.
+                // Формат "0.##" убирает лишние нули: 1000 станет "1", а 1440 станет "1.44".
+                string visualMana = (displayMana / 1000f).ToString("0.##");
+                string visualMax = (displayMaxMana / 1000f).ToString("0.##");
+
+                Composers["botaniaHud"].GetDynamicText("manaText").SetNewText($"{displayName}\n\n{visualMana} / {visualMax} {statusText}");
+
                 if (!IsOpened())
                 {
                     TryOpen();
@@ -105,10 +113,7 @@ namespace BotaniaStory
             }
             else
             {
-                // Если смотрим на траву или обычный камень
                 capi.World.HighlightBlocks(player, 2, new List<BlockPos>());
-
-                // ВАЖНО: Закрываем HUD только если он открыт!
                 if (IsOpened())
                 {
                     TryClose();
@@ -116,14 +121,11 @@ namespace BotaniaStory
             }
         }
 
-        // ==========================================
-        // ГРАФИЧЕСКАЯ ОТРИСОВКА (Изменено на универсальные переменные)
-        // ==========================================
         public override void OnRenderGUI(float deltaTime)
         {
             base.OnRenderGUI(deltaTime);
 
-            if (!showHud) return; // Рисуем только если нужно!
+            if (!showHud) return;
 
             IShaderProgram sh = capi.Render.CurrentActiveShader;
             if (sh == null) return;
@@ -135,7 +137,6 @@ namespace BotaniaStory
             float x = capi.Render.FrameWidth / 2f - width / 2f;
             float y = capi.Render.FrameHeight / 2f + 55f;
 
-            // Используем УНИВЕРСАЛЬНЫЕ переменные
             float fillRatio = (float)displayMana / displayMaxMana;
             fillRatio = Math.Clamp(fillRatio, 0f, 1f);
 
@@ -151,7 +152,6 @@ namespace BotaniaStory
             sh.Uniform("rgbaIn", new Vec4f(1f, 1f, 1f, 1f));
         }
 
-        // Метод отрисовки графических примитивов (Адаптирован из GuiQuadDrawer.cs)
         private void DrawMesh(IShaderProgram sh, MeshRef mesh, float x, float y, float w, float h, Vec4f color)
         {
             modelMat.Set(capi.Render.CurrentModelviewMatrix)

@@ -178,7 +178,7 @@ namespace BotaniaStory
             {
                 string[] allowedKeywords = new string[]
                 {
-                    "petal", "flower", "mushroom", "berry", "fruit", "vine", "fern", "seed", "root"
+                    "petal", "flower", "шаблон", "berry", "fruit", "vine", "fern", "treeseed", "root"
                 };
 
                 bool isAllowed = false;

@@ -10,26 +10,96 @@ namespace BotaniaStory
     {
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
-            // ЗАЩИТА ОТ УДЕРЖАНИЯ: Реагируем только на самый первый момент клика
+            // 1. ЗАЩИТА ОТ УДЕРЖАНИЯ: Реагируем только на самый первый момент клика
             if (!firstEvent || blockSel == null) return;
 
+            // 2. ОБЪЯВЛЯЕМ ВСЕ ПЕРЕМЕННЫЕ В САМОМ НАЧАЛЕ
             IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
+            if (byPlayer == null) return; // Защита от краша, если кликнул не игрок
+
             IWorldAccessor world = byEntity.World;
             BlockPos pos = blockSel.Position;
             Block block = world.BlockAccessor.GetBlock(pos);
+            bool isSneaking = byPlayer.Entity.Controls.Sneak; // Проверяем зажат ли Shift
 
-            // 1. КЛИК ПО РАСПРОСТРАНИТЕЛЮ (Запоминаем координаты)
-            if (block is BlockManaSpreader)
+
+            // ==========================================
+            // А. КЛИК ПО ЦВЕТКУ (Shift + ПКМ) - Запоминаем цветок
+            // ==========================================
+            if (isSneaking)
+            {
+                BlockEntity be = world.BlockAccessor.GetBlockEntity(pos);
+
+                // Проверяем, генерирующий ли это цветок (Дневноцвет или Эндофлейм)
+                if (be is BotaniaStory.Flora.GeneratingFlora.BlockEntityDaybloom ||
+                    be is BotaniaStory.Flora.GeneratingFlora.BlockEntityEndoflame)
+                {
+                    slot.Itemstack.Attributes.SetInt("flowerX", pos.X);
+                    slot.Itemstack.Attributes.SetInt("flowerY", pos.Y);
+                    slot.Itemstack.Attributes.SetInt("flowerZ", pos.Z);
+                    slot.Itemstack.Attributes.SetBool("hasFlower", true);
+                    slot.MarkDirty(); // Обязательно сохраняем!
+
+                    if (world.Side == EnumAppSide.Client)
+                    {
+                        var clientApi = world.Api as ICoreClientAPI;
+                        clientApi?.ShowChatMessage("Цветок выбран. Теперь нажми Shift+ПКМ по Распространителю маны.");
+                    }
+
+                    handling = EnumHandHandling.Handled;
+                    return;
+                }
+            }
+
+            // ==========================================
+            // Б. КЛИК ПО РАСПРОСТРАНИТЕЛЮ (Shift + ПКМ) - Привязываем цветок!
+            // ==========================================
+            if (isSneaking && block is ManaSpreader && slot.Itemstack.Attributes.GetBool("hasFlower"))
+            {
+                int fx = slot.Itemstack.Attributes.GetInt("flowerX");
+                int fy = slot.Itemstack.Attributes.GetInt("flowerY");
+                int fz = slot.Itemstack.Attributes.GetInt("flowerZ");
+                BlockPos flowerPos = new BlockPos(fx, fy, fz);
+
+                BlockEntity flowerEntity = world.BlockAccessor.GetBlockEntity(flowerPos);
+
+                // Присваиваем координаты распространителя нашему цветку
+                if (flowerEntity is BotaniaStory.Flora.GeneratingFlora.BlockEntityDaybloom daybloom)
+                {
+                    daybloom.LinkedSpreader = pos.Copy();
+                    daybloom.MarkDirty(true);
+                }
+                else if (flowerEntity is BotaniaStory.Flora.GeneratingFlora.BlockEntityEndoflame endoflame)
+                {
+                    endoflame.LinkedSpreader = pos.Copy();
+                    endoflame.MarkDirty(true);
+                }
+
+                // Очищаем память посоха о цветке
+                slot.Itemstack.Attributes.RemoveAttribute("hasFlower");
+                slot.MarkDirty();
+
+                if (world.Side == EnumAppSide.Client)
+                {
+                    var clientApi = world.Api as ICoreClientAPI;
+                    clientApi?.ShowChatMessage("Цветок успешно привязан к Распространителю!");
+                }
+
+                handling = EnumHandHandling.Handled;
+                return;
+            }
+
+            // ==========================================
+            // В. КЛИК ПО РАСПРОСТРАНИТЕЛЮ (Без Shift) - Запоминаем Распространитель
+            // ==========================================
+            if (!isSneaking && block is ManaSpreader)
             {
                 slot.Itemstack.Attributes.SetInt("spreaderX", pos.X);
                 slot.Itemstack.Attributes.SetInt("spreaderY", pos.Y);
                 slot.Itemstack.Attributes.SetInt("spreaderZ", pos.Z);
                 slot.Itemstack.Attributes.SetBool("hasSpreader", true);
 
-                // --- ДОБАВИТЬ ЭТУ СТРОКУ ---
-                // Говорим инвентарю, что предмет обновлен и его нужно сохранить!
-                slot.MarkDirty(); 
-                // ---------------------------
+                slot.MarkDirty();
 
                 if (world.Side == EnumAppSide.Client)
                 {
@@ -41,8 +111,10 @@ namespace BotaniaStory
                 return;
             }
 
-            // 2. КЛИК ПО БАССЕЙНУ (Привязываем и поворачиваем)
-            if (block is BlockManaPool && slot.Itemstack.Attributes.GetBool("hasSpreader"))
+            // ==========================================
+            // Г. КЛИК ПО БАССЕЙНУ (Без Shift) - Привязываем Распространитель к Бассейну
+            // ==========================================
+            if (!isSneaking && block is BlockManaPool && slot.Itemstack.Attributes.GetBool("hasSpreader"))
             {
                 int sx = slot.Itemstack.Attributes.GetInt("spreaderX");
                 int sy = slot.Itemstack.Attributes.GetInt("spreaderY");
@@ -71,11 +143,7 @@ namespace BotaniaStory
                 }
 
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");
-                
-                // --- ДОБАВИТЬ ЭТУ СТРОКУ ---
-                // Опять же, мы удалили атрибут, значит предмет изменился. Сохраняем!
                 slot.MarkDirty();
-                // ---------------------------
 
                 handling = EnumHandHandling.Handled;
                 return;

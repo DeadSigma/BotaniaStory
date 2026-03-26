@@ -4,6 +4,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace BotaniaStory
 {
@@ -20,15 +21,37 @@ namespace BotaniaStory
         // Координаты цели (Бассейна), к которому он привязан
         public BlockPos TargetPos = null;
 
-        // Сохраняем все данные
+        public BlockEntityAnimationUtil animUtil;
+
+        private SpreaderCoreRenderer coreRenderer;
 
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
-            // Запускаем логику передачи ТОЛЬКО на сервере (10 раз в секунду)
+
             if (api.Side == EnumAppSide.Server)
             {
                 RegisterGameTickListener(OnServerTick, 100);
+            }
+
+            // РЕГИСТРИРУЕМ РЕНДЕР ТОЛЬКО НА КЛИЕНТЕ
+            if (api.Side == EnumAppSide.Client)
+            {
+                ICoreClientAPI capi = (ICoreClientAPI)api;
+                coreRenderer = new SpreaderCoreRenderer(capi, Pos, this);
+                capi.Event.RegisterRenderer(coreRenderer, EnumRenderStage.Opaque, "botaniastory");
+            }
+        }
+
+        // ВАЖНО: Не забываем удалять рендер, когда блок ломают!
+        public override void OnBlockRemoved()
+        {
+            base.OnBlockRemoved();
+
+            if (Api is ICoreClientAPI capi && coreRenderer != null)
+            {
+                capi.Event.UnregisterRenderer(coreRenderer, EnumRenderStage.Opaque);
+                coreRenderer.Dispose();
             }
         }
 
@@ -204,5 +227,7 @@ namespace BotaniaStory
             // Возвращаем false! Это скажет игре: "НЕ рисуй стандартный неподвижный блок из JSON, я нарисовал его сам!"
             return true;
         }
+
+
     }
 }

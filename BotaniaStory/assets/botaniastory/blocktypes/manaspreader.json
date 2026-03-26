@@ -1,6 +1,6 @@
 {
-    "code": "BlockManaSpreader",
-    "class": "BlockManaSpreader",
+    "code": "ManaSpreader",
+    "class": "ManaSpreader",
     "entityClass": "ManaSpreaderEntity",
     "creativeinventory": {
         "general": [ "*" ],
@@ -10,6 +10,7 @@
     "textures": {
         "livingwood": { "base": "botaniastory:block/livingwood" },
         "lens": { "base": "botaniastory:block/spreader_lens" }
+
     },
     "blockmaterial": "Wood",
     "resistance": 3,

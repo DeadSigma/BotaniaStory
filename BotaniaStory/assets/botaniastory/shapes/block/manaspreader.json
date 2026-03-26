@@ -8,6 +8,7 @@
     "textures": {
         "livingwood": "botaniastory:block/livingwood",
         "lens": "botaniastory:block/spreader_lens"
+
     },
     "elements": [
         {
@@ -28,13 +29,32 @@
             "from": [ 4.0, 4.0, 0.0 ],
             "to": [ 12.0, 12.0, 2.0 ],
             "faces": {
-                "north": { "texture": "#lens", "uv": [ 4.0, 4.0, 12.0, 12.0 ] },
-                "east": { "texture": "#livingwood", "uv": [ 0.0, 4.0, 2.0, 12.0 ] },
-                "south": { "texture": "#livingwood", "uv": [ 4.0, 4.0, 12.0, 12.0 ] },
-                "west": { "texture": "#livingwood", "uv": [ 14.0, 4.0, 16.0, 12.0 ] },
-                "up": { "texture": "#livingwood", "uv": [ 4.0, 0.0, 12.0, 2.0 ] },
-                "down": { "texture": "#livingwood", "uv": [ 4.0, 14.0, 12.0, 16.0 ] }
+                "north": {
+                    "texture": "#lens",
+                    "uv": [ 4.0, 4.0, 12.0, 12.0 ]
+                },
+                "east": {
+                    "texture": "#livingwood",
+                    "uv": [ 0.0, 4.0, 2.0, 12.0 ]
+                },
+                "south": {
+                    "texture": "#livingwood",
+                    "uv": [ 4.0, 4.0, 12.0, 12.0 ]
+                },
+                "west": {
+                    "texture": "#livingwood",
+                    "uv": [ 14.0, 4.0, 16.0, 12.0 ]
+                },
+                "up": {
+                    "texture": "#livingwood",
+                    "uv": [ 4.0, 0.0, 12.0, 2.0 ]
+                },
+                "down": {
+                    "texture": "#livingwood",
+                    "uv": [ 4.0, 14.0, 12.0, 16.0 ]
+                }
             }
         }
+
     ]
 }

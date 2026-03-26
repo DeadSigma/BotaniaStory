@@ -1,32 +1,274 @@
 [
     {
-        "comment": "Mystical Flowers Generation",
-        "chance": 0.05,
+        "comment": "White Mystical Flower Patch",
+        "chance": 0.003,
         "quantity": {
-            "avg": 3,
-            "var": 1
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
         },
         "minTemp": 0,
         "maxTemp": 35,
         "minRain": 0.3,
         "maxRain": 1.0,
-        "blockCodes": [
-            "botaniastory:mysticalflower-white-free",
-            "botaniastory:mysticalflower-orange-free",
-            "botaniastory:mysticalflower-magenta-free",
-            "botaniastory:mysticalflower-lightblue",
-            "botaniastory:mysticalflower-yellow-free",
-            "botaniastory:mysticalflower-lime-free",
-            "botaniastory:mysticalflower-pink-free",
-            "botaniastory:mysticalflower-gray-free",
-            "botaniastory:mysticalflower-lightgray",
-            "botaniastory:mysticalflower-cyan-free",
-            "botaniastory:mysticalflower-purple-free",
-            "botaniastory:mysticalflower-blue-free",
-            "botaniastory:mysticalflower-brown-free",
-            "botaniastory:mysticalflower-green-free",
-            "botaniastory:mysticalflower-red-free",
-            "botaniastory:mysticalflower-black-free"
-        ]
+        "blockCodes": [ "botaniastory:mysticalflower-white-free" ]
+    },
+    {
+        "comment": "Orange Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-orange-free" ]
+    },
+    {
+        "comment": "Magenta Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-magenta-free" ]
+    },
+    {
+        "comment": "Lightblue Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-lightblue-free" ]
+    },
+    {
+        "comment": "Yellow Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-yellow-free" ]
+    },
+    {
+        "comment": "Lime Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-lime-free" ]
+    },
+    {
+        "comment": "Pink Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-pink-free" ]
+    },
+    {
+        "comment": "Gray Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-gray-free" ]
+    },
+    {
+        "comment": "Lightgray Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-lightgray-free" ]
+    },
+    {
+        "comment": "Cyan Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-cyan-free" ]
+    },
+    {
+        "comment": "Purple Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-purple-free" ]
+    },
+    {
+        "comment": "Blue Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-blue-free" ]
+    },
+    {
+        "comment": "Brown Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-brown-free" ]
+    },
+    {
+        "comment": "Green Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-green-free" ]
+    },
+    {
+        "comment": "Red Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-red-free" ]
+    },
+    {
+        "comment": "Black Mystical Flower Patch",
+        "chance": 0.003,
+        "quantity": {
+            "avg": 6.5,
+            "var": 3.5
+        },
+        "radius": {
+            "avg": 12,
+            "var": 4
+        },
+        "minTemp": 0,
+        "maxTemp": 35,
+        "minRain": 0.3,
+        "maxRain": 1.0,
+        "blockCodes": [ "botaniastory:mysticalflower-black-free" ]
     }
 ]

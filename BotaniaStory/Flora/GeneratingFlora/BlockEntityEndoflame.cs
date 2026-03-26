@@ -7,30 +7,30 @@ using Vintagestory.API.MathTools;
 
 namespace BotaniaStory.Flora.GeneratingFlora
 {
-    public class BlockEntityEndoflame : BlockEntity
+    // НАСЛЕДУЕМСЯ от BlockEntityGeneratingFlower
+    public class BlockEntityEndoflame : BlockEntityGeneratingFlower
     {
-        public int CurrentMana = 0;
-        public int MaxMana = 300; // У Эндофлейма маленький буфер
-        public BlockPos LinkedSpreader = null;
-
-        public int BurnTicksLeft = 0; // Сколько времени еще будет гореть уголь
+        public int BurnTicksLeft = 0; 
 
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
+            MaxMana = 300; // Настраиваем максимум для Эндофлейма
+
             if (api.Side == EnumAppSide.Server)
-                RegisterGameTickListener(OnServerTick, 100); // 10 раз в секунду
+                RegisterGameTickListener(OnServerTick, 100); 
             else
-                RegisterGameTickListener(OnClientTick, 100); // Для частиц огня
+                RegisterGameTickListener(OnClientTick, 100); 
         }
 
         private void OnServerTick(float dt)
         {
             bool dirty = false;
 
-            // ==========================================
+            int manaPerCycle = 1;  // Сколько маны давать за одно срабатывание
+            int ticksPerCycle = 2; // Раз в сколько тиков давать ману
+
             // 1. ГЕНЕРАЦИЯ МАНЫ И ГОРЕНИЕ
-            // ==========================================
             if (BurnTicksLeft > 0)
             {
                 BurnTicksLeft--;
@@ -38,152 +38,88 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
                 if (CurrentMana < MaxMana)
                 {
-                    CurrentMana += 3; // 3 маны за 1 тик (30 маны в секунду)
+                    // Проверяем, наступил ли нужный тик для выдачи маны
+                    // Оператор % (остаток от деления) делает так, что условие срабатывает ровно каждый N-й тик
+                    if (BurnTicksLeft % ticksPerCycle == 0)
+                    {
+                        CurrentMana += manaPerCycle;
+                    }
+
                     if (CurrentMana > MaxMana) CurrentMana = MaxMana;
                 }
             }
-            // ==========================================
             // 2. ПОИСК ТОПЛИВА 
-            // ==========================================
-            // Начинаем искать, только если маны меньше половины (чтобы не жечь уголь впустую)
             else if (CurrentMana <= MaxMana / 2)
             {
-                // Ищем выброшенные предметы в радиусе 3 блоков
                 Entity[] entities = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 0.5, 0.5), 3, 3, (e) => e is EntityItem);
                 foreach (Entity entity in entities)
                 {
                     EntityItem entityItem = (EntityItem)entity;
+
+                    // === НОВАЯ ЗАЩИТА ОТ ДЮПА ===
+                    // Проверяем, не съел ли этот предмет другой цветок долю секунды назад
+                    if (!entityItem.Alive || entityItem.Itemstack == null || entityItem.Itemstack.StackSize <= 0)
+                    {
+                        continue;
+                    }
+
                     ItemStack stack = entityItem.Itemstack;
 
-                    // Проверяем, может ли этот предмет гореть (уголь, палки, доски)
-                    if (stack?.Collectible?.CombustibleProps != null && stack.Collectible.CombustibleProps.BurnDuration > 0)
+                    if (stack.Collectible?.CombustibleProps != null && stack.Collectible.CombustibleProps.BurnDuration > 0)
                     {
-                        // Берем время горения из ванильной игры
                         float durationSec = stack.Collectible.CombustibleProps.BurnDuration;
-                        BurnTicksLeft = (int)(durationSec * 10); // 10 тиков в секунду
+                        BurnTicksLeft = (int)(durationSec * 10);
 
-                        // Съедаем ровно 1 предмет из стака
                         stack.StackSize--;
-                        if (stack.StackSize <= 0) entityItem.Die(); // Если это был последний уголь - удаляем его с земли
-                        else entityItem.WatchedAttributes.MarkAllDirty(); // Иначе обновляем количество на земле
+                        if (stack.StackSize <= 0)
+                        {
+                            entityItem.Die(); // Убиваем сущность, чтобы другие цветы знали: еды нет!
+                        }
+                        else
+                        {
+                            entityItem.WatchedAttributes.MarkAllDirty();
+                        }
 
                         dirty = true;
-                        break; // За один раз едим только 1 предмет!
+                        break; // Съели один предмет - выходим из цикла!
                     }
                 }
             }
 
-            // ==========================================
-            // 3. ПРОВЕРКА СВЯЗИ
-            // ==========================================
-            if (LinkedSpreader != null)
-            {
-                BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
-                if (!(be is BlockEntityManaSpreader))
-                {
-                    LinkedSpreader = null;
-                    dirty = true;
-                }
-            }
-
-            if (LinkedSpreader == null)
-            {
-                FindSpreader();
-                if (LinkedSpreader != null) dirty = true;
-            }
-
-            // ==========================================
-            // 4. ПЕРЕДАЧА МАНЫ
-            // ==========================================
-            if (LinkedSpreader != null && CurrentMana > 0)
-            {
-                BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
-                if (be is BlockEntityManaSpreader spreader)
-                {
-                    int space = spreader.MaxMana - spreader.CurrentMana;
-                    int toMove = Math.Min(CurrentMana, space);
-
-                    if (toMove > 0)
-                    {
-                        spreader.CurrentMana += toMove;
-                        spreader.MarkDirty(true);
-                        this.CurrentMana -= toMove;
-                        dirty = true;
-                    }
-                }
-            }
+            // 3. ПРОВЕРКА И ПЕРЕДАЧА МАНЫ (Магия родительского класса!)
+            ProcessManaTransfer(ref dirty);
 
             if (dirty) MarkDirty(true);
         }
 
-        // ==========================================
-        // КЛИЕНТ: ЧАСТИЦЫ ОГНЯ!
-        // ==========================================
+        // КЛИЕНТ: ЧАСТИЦЫ ОГНЯ
         private void OnClientTick(float dt)
         {
-            if (BurnTicksLeft > 0 && Api.World.Rand.NextDouble() < 0.3) // Если горим - спавним огоньки
+            if (BurnTicksLeft > 0 && Api.World.Rand.NextDouble() < 0.3) 
             {
                 SimpleParticleProperties flame = new SimpleParticleProperties(
-                    1, 2,
-                    ColorUtil.ToRgba(255, 255, 120, 0), // Ярко-оранжевый цвет огня
+                    1, 2, ColorUtil.ToRgba(255, 255, 120, 0), 
                     new Vec3d(Pos.X + 0.3, Pos.Y + 0.1, Pos.Z + 0.3),
                     new Vec3d(Pos.X + 0.7, Pos.Y + 0.4, Pos.Z + 0.7),
-                    new Vec3f(-0.2f, 0.5f, -0.2f),
-                    new Vec3f(0.2f, 1.0f, 0.2f),
+                    new Vec3f(-0.2f, 0.5f, -0.2f), new Vec3f(0.2f, 1.0f, 0.2f),
                     1f, 0f, 0.2f, 0.5f, EnumParticleModel.Quad
                 );
-
                 Api.World.SpawnParticles(flame);
             }
         }
 
-        private void FindSpreader()
-        {
-            int radius = 6;
-            for (int x = -radius; x <= radius; x++)
-            {
-                for (int y = -radius; y <= radius; y++)
-                {
-                    for (int z = -radius; z <= radius; z++)
-                    {
-                        BlockPos checkPos = Pos.AddCopy(x, y, z);
-                        if (Api.World.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaSpreader)
-                        {
-                            LinkedSpreader = checkPos;
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-
+        // Мы ПЕРЕОПРЕДЕЛЯЕМ сохранение, чтобы добавить переменную горения, 
+        // но при этом обязательно вызываем base.ToTreeAttributes(), чтобы родитель сохранил ману.
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
-            tree.SetInt("mana", CurrentMana);
             tree.SetInt("burn", BurnTicksLeft);
-            if (LinkedSpreader != null)
-            {
-                tree.SetInt("lx", LinkedSpreader.X);
-                tree.SetInt("ly", LinkedSpreader.Y);
-                tree.SetInt("lz", LinkedSpreader.Z);
-                tree.SetBool("hasSpreader", true);
-            }
-            else
-            {
-                tree.SetBool("hasSpreader", false);
-            }
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
-            CurrentMana = tree.GetInt("mana");
             BurnTicksLeft = tree.GetInt("burn");
-            if (tree.GetBool("hasSpreader"))
-                LinkedSpreader = new BlockPos(tree.GetInt("lx"), tree.GetInt("ly"), tree.GetInt("lz"));
-            else
-                LinkedSpreader = null;
         }
     }
 }

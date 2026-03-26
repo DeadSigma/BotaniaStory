@@ -49,9 +49,71 @@
             ]
         }
     ],
-    "shape": {
-        "base": "game:block/plant/flower/1patch-3faces-24x24",
-        "scale": 0.5
+    "shapeByType": {
+        "*-white-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.5
+        },
+        "*-orange-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.7
+        },
+        "*-magenta-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.6
+        },
+        "*-lightblue-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.5
+        },
+        "*-yellow-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.7
+        },
+        "*-lime-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.7
+        },
+        "*-pink-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.5
+        },
+        "*-gray-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.9
+        },
+        "*-lightgray-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.9
+        },
+        "*-cyan-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.5
+        },
+        "*-purple-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.5
+        },
+        "*-blue-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.7
+        },
+        "*-brown-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.7
+        },
+        "*-green-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.6
+        },
+        "*-red-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.7
+        },
+        "*-black-*": {
+            "base": "game:block/plant/flower/1patch-3faces-24x24",
+            "scale": 0.7
+        }
     },
     "frostable": true,
     "randomDrawOffset": true,
@@ -108,31 +170,31 @@
             "base": "botaniastory:block/mysticalflower/mystical_flowers/{color}"
         },
         "northTinted1": {
-            "base": "botaniastory:block/mysticalflower/stem"
+            "base": "botaniastory:block/mysticalflower/stem/{color}"
         },
         "southTinted1": {
-            "base": "botaniastory:block/mysticalflower/stem"
+            "base": "botaniastory:block/mysticalflower/stem/{color}"
         },
         "northTinted2": {
-            "base": "botaniastory:block/mysticalflower/stem"
+            "base": "botaniastory:block/mysticalflower/stem/{color}"
         },
         "southTinted2": {
-            "base": "botaniastory:block/mysticalflower/stem"
+            "base": "botaniastory:block/mysticalflower/stem/{color}"
         },
         "northTinted3": {
-            "base": "botaniastory:block/mysticalflower/stem"
+            "base": "botaniastory:block/mysticalflower/stem/{color}"
         },
         "southTinted3": {
-            "base": "botaniastory:block/mysticalflower/stem"
+            "base": "botaniastory:block/mysticalflower/stem/{color}"
         },
         "flower2Tinted": {
-            "base": "botaniastory:block/mysticalflower/stem"
+            "base": "botaniastory:block/mysticalflower/stem/{color}"
         }
     },
     "guiTransform": {
         "translation": {
             "x": 0,
-            "y": -10.0,
+            "y": -2.0,
             "z": 0
         },
         "rotation": {
@@ -145,7 +207,7 @@
             "y": 0.6,
             "z": 0.5
         },
-        "scale": 2.0
+        "scale": 1.5
     },
     "fpHandTransform": {
         "translation": {
