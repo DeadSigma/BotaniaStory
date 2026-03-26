@@ -9,11 +9,13 @@
     "shape": { "base": "botaniastory:block/manaspreader" },
     "textures": {
         "livingwood": { "base": "botaniastory:block/livingwood" },
-        "lens": { "base": "botaniastory:block/spreader_lens" }
-
+        "lens": { "base": "botaniastory:block/spreader_lens" },
+        "manaspreadercore": { "base": "botaniastory:block/manaspreadercore" },
+        "manaspreader": { "base": "botaniastory:block/manaspreader" }
     },
     "blockmaterial": "Wood",
     "resistance": 3,
+    "renderpass": "OpaqueNoCull",
     "sideopaque": { "all": false },
     "sidesolid": { "all": false },
     "lightAbsorption": 0,

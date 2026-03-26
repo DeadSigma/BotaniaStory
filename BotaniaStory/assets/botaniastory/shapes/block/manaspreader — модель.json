@@ -5,13 +5,13 @@
 		"manaspreader": [ 256, 128 ]
 	},
 	"textures": {
-		"manamanaspreader": "botaniastory:block/manamanaspreader"
+		"manaspreader": "botaniastory:block/manaspreader"
 	},
 	"elements": [
 		{
 			"name": "cube0",
-			"from": [ 2, 2, 1.8 ],
-			"to": [ 14, 14, 14.2 ],
+			"from": [ 0, 0, 0 ],
+			"to": [ 16, 16, 16 ],
 			"rotationOrigin": [ 8, 0, 8 ],
 			"faces": {
 				"north": {
