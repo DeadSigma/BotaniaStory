@@ -15,7 +15,6 @@
     },
     "blockmaterial": "Wood",
     "resistance": 3,
-    "renderpass": "OpaqueNoCull",
     "sideopaque": { "all": false },
     "sidesolid": { "all": false },
     "lightAbsorption": 0,

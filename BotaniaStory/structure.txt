@@ -13,6 +13,7 @@ BotaniaStory/
     ItemWandOfBinding.cs
     ItemWandOfTheForest.cs
     modinfo.json
+    SpreaderCoreRenderer.cs
     создаёт структуру папок.py
 assets/
 botaniastory/
@@ -87,18 +88,20 @@ block/
                     manapool.json
                     manapool_liquid.json
                     manaspreader.json
+                    manaspreader_core.json
                     waterplane.json
 item/
 sounds/
                 apothecary_craft.ogg
                 apothecary_splash.ogg
+                manaspreaderfire.ogg
 textures/
 block/
                     livingrock.png
                     livingwood.png
                     mana.png
-                    manaDetector1.png
-                    spreader_lens.png
+                    manaspreader.png
+                    manaspreadercore.png
 functional_flora/
                         agricarnation_bud.png
                         agricarnation_leaves.png
@@ -238,10 +241,6 @@ mysticalpetal/
 worldgen/
 blockpatches/
                     worldgen_flowers.json
-bin/
-Debug/
-Mods/
-BotaniaStory/
 Flora/
 FunctionalFlora/
             BlockEntityPureDaisy.cs
@@ -252,12 +251,3 @@ GeneratingFlora/
             BlockEntityDaybloom.cs
             BlockEntityEndoflame.cs
             BlockEntityGeneratingFlower.cs
-obj/
-Debug/
-            .NETCoreApp,Version=v10.0.AssemblyAttributes.cs
-            BotaniaStory.AssemblyInfo.cs
-            BotaniaStory.AssemblyInfoInputs.cache
-            BotaniaStory.csproj.AssemblyReference.cache
-            BotaniaStory.GeneratedMSBuildEditorConfig.editorconfig
-ref/
-refint/

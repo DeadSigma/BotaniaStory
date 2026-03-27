@@ -160,10 +160,24 @@ namespace BotaniaStory
                         finalRotY = GameMath.PI;
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
 
-                        finalSpread = 7f; // <--- СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
+                        finalSpread = 7f; // <---РАЗБРОС ДЛЯ ЦВЕТК
                     }
 
-                    if (itemCode.Contains("gray-free") || itemCode.Contains("blue-free") || itemCode.Contains("lightgray-free") || itemCode.Contains("red-free"))
+                    if (itemCode.Contains("flower"))
+                    {
+                        finalScale = 0.35f;
+                        finalHeight += 0.08f;
+                        finalRotX = GameMath.PIHALF;
+                        finalRotY = GameMath.PI;
+                        finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
+
+                        finalSpread = 7f; 
+                    }
+
+                    if (itemCode.Contains("gray-free") || itemCode.Contains("blue-free") 
+                        || itemCode.Contains("lightgray") || itemCode.Contains("red-free") 
+                        || itemCode.Contains("wilddaisy") || itemCode.Contains("redtopgrass") || itemCode.Contains("mugwort") 
+                        || itemCode.Contains("cowparsley") || itemCode.Contains("orangemallow") || itemCode.Contains("catmint"))
                     {
                         finalScale = 0.3f;
                         finalHeight += 0.02f;

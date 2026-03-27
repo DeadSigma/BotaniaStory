@@ -21,6 +21,12 @@ namespace BotaniaStory
         // Координаты цели (Бассейна), к которому он привязан
         public BlockPos TargetPos = null;
 
+        private bool isDischarging = false; // Находимся ли мы в процессе отдачи маны
+        private long lastFireMs = 0; // Время последнего выстрела
+        private int fireCooldownMs = 1500; // Пауза между выстрелами в миллисекундах (1.5 секунды)
+        private int burstManaAmount = 150; // Маленькая порция маны для постепенной передачи
+
+
         public BlockEntityAnimationUtil animUtil;
 
         private SpreaderCoreRenderer coreRenderer;
@@ -109,34 +115,132 @@ namespace BotaniaStory
             // ==========================================
             // 2. ПЕРЕДАЧА МАНЫ И ВЫСТРЕЛ
             // ==========================================
-            // Если цели все еще нет или маны мало - отменяем выстрел
-            if (TargetPos == null || CurrentMana < 100) return;
 
-            int burstMana = Math.Min(CurrentMana, 2000);
+            // 1. Проверяем порог в 30% (30 000 из 100 000)
+            int threshold = (int)(MaxMana * 0.30f);
 
+            // Если накопили 30% — начинаем разрядку
+            if (CurrentMana >= threshold)
+            {
+                isDischarging = true;
+            }
+            // Если маны не хватает даже на один маленький сгусток — прекращаем стрелять
+            if (CurrentMana < burstManaAmount)
+            {
+                isDischarging = false;
+            }
+
+            // Если мы не в режиме разрядки или цель потеряна — отменяем выстрел
+            // Если мы не в режиме разрядки или цель потеряна — отменяем выстрел
+            if (!isDischarging || TargetPos == null) return;
+
+            // 2. Проверяем задержку (кулдаун), чтобы стрелял постепенно, а не пулеметом
+            long currentMs = Api.World.ElapsedMilliseconds;
+            if (currentMs - lastFireMs < fireCooldownMs) return;
+
+
+            // ==========================================
+            // 3. ПРОВЕРКА ПРЕПЯТСТВИЙ (Line of Sight)
+            // ==========================================
+            Vec3d startPos = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5);
+            Vec3d targetCenter = new Vec3d(TargetPos.X + 0.5, TargetPos.Y + 0.5, TargetPos.Z + 0.5);
+
+            double distance = startPos.DistanceTo(targetCenter);
+            Vec3d direction = (targetCenter - startPos).Normalize();
+
+            bool isBlocked = false;
+
+            // Шагаем по невидимому лучу от дула к бассейну с шагом 0.5 блока
+            for (float step = 0.5f; step < distance - 0.2f; step += 0.5f)
+            {
+                BlockPos checkPos = new BlockPos(
+                    (int)Math.Floor(startPos.X + direction.X * step),
+                    (int)Math.Floor(startPos.Y + direction.Y * step),
+                    (int)Math.Floor(startPos.Z + direction.Z * step)
+                );
+
+                // Игнорируем сам распространитель, если луч задевает его край
+                if (checkPos.Equals(Pos)) continue;
+
+                Block hitBlock = Api.World.BlockAccessor.GetBlock(checkPos);
+
+                // Если блок не пустой воздух и у него есть хитбоксы (игнорируем высокую траву, воду и т.д.)
+                if (hitBlock.Id != 0 && hitBlock.CollisionBoxes != null && hitBlock.CollisionBoxes.Length > 0)
+                {
+                    // Если мы дошли до бассейна - значит путь чист, прекращаем проверку
+                    if (checkPos.Equals(TargetPos) || hitBlock is BlockManaPool)
+                    {
+                        break;
+                    }
+
+                    // Если это любой другой твердый блок — путь заблокирован!
+                    isBlocked = true;
+                    break;
+                }
+            }
+
+            // Если нашли преграду - откладываем выстрел (таймер не сбрасывается, ждем пока уберут блок)
+            if (isBlocked) return;
+
+
+            // ==========================================
+            // 4. СОЗДАНИЕ И ЗАПУСК СГУСТКА МАНЫ
+            // ==========================================
             // НАХОДИМ ТИП СУЩНОСТИ "manaburst"
             EntityProperties type = Api.World.GetEntityType(new AssetLocation("botaniastory", "manaburst"));
             if (type == null) return;
 
             // СОЗДАЕМ СГУСТОК И ЗАРЯЖАЕМ МАНОЙ
             EntityManaBurst burstEntity = (EntityManaBurst)Api.World.ClassRegistry.CreateEntity(type);
-            burstEntity.ManaPayload = burstMana;
+            burstEntity.ManaPayload = burstManaAmount; // Передаем только 150 маны!
             burstEntity.SourcePos = Pos.Copy();
 
-            // СТАВИМ В ЦЕНТР ДУЛА
-            burstEntity.Pos.SetPos(new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5));
+            // === НАСТРОЙКА ДАЛЬНОСТИ ПОЛЕТА ===
+            burstEntity.WatchedAttributes.SetDouble("maxDist", 8.0);
 
-            // МАТЕМАТИКА ПРИЦЕЛИВАНИЯ И ВЫСТРЕЛ
-            Vec3d targetCenter = new Vec3d(TargetPos.X + 0.5, TargetPos.Y + 0.5, TargetPos.Z + 0.5);
-            Vec3d direction = (targetCenter - burstEntity.Pos.XYZ).Normalize();
+            // 1. СТАВИМ В ЦЕНТР ДУЛА (Обязательно обновляем Pos, иначе движок удалит сущность!)
+            // Переменную startPos мы уже создали выше, используем её
+            burstEntity.Pos.SetPos(startPos);
+            burstEntity.Pos.SetFrom(burstEntity.Pos);
 
-            // Задаем скорость полета
-            burstEntity.Pos.Motion.Set(direction.X * 0.3, direction.Y * 0.3, direction.Z * 0.3);
+            // Передаем клиенту точные стартовые координаты для правильного расчета дистанции
+            burstEntity.WatchedAttributes.SetDouble("startX", startPos.X);
+            burstEntity.WatchedAttributes.SetDouble("startY", startPos.Y);
+            burstEntity.WatchedAttributes.SetDouble("startZ", startPos.Z);
+
+            // 2. ЗАДАЕМ СКОРОСТЬ (direction тоже уже просчитан выше, экономим ресурсы)
+            double motionX = direction.X * 0.15;
+            double motionY = direction.Y * 0.15;
+            double motionZ = direction.Z * 0.15;
+
+            // Обновляем и локальную, и серверную скорость
+            burstEntity.Pos.Motion.Set(motionX, motionY, motionZ);
+            burstEntity.Pos.Motion.Set(motionX, motionY, motionZ);
+
+            // 4. ПЕРЕДАЕМ СКОРОСТЬ КЛИЕНТУ (Чтобы он сам плавно двигал искру между тиками сервера)
+            burstEntity.WatchedAttributes.SetDouble("motionX", motionX);
+            burstEntity.WatchedAttributes.SetDouble("motionY", motionY);
+            burstEntity.WatchedAttributes.SetDouble("motionZ", motionZ);
 
             // ВЫПУСКАЕМ В МИР!
             Api.World.SpawnEntity(burstEntity);
 
-            this.CurrentMana -= burstMana;
+            // ... (звук и списание маны)
+
+            // 3. ВОСПРОИЗВОДИМ ЗВУК
+            // AssetLocation соберет путь: assets/botaniastory/sounds/manaspreaderfire.ogg
+            Api.World.PlaySoundAt(
+                new AssetLocation("botaniastory", "sounds/manaspreaderfire"),
+                Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5,
+                null,
+                randomizePitch: true, // Легкое изменение тональности, чтобы звук не приедался
+                range: 16,            // Дальность звука (в блоках)
+                volume: 0.8f          // Громкость
+            );
+
+            // Обновляем таймер и списываем ману
+            lastFireMs = currentMs;
+            this.CurrentMana -= burstManaAmount;
             this.MarkDirty(true);
         }
 
