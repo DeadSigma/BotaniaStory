@@ -25,9 +25,8 @@ namespace BotaniaStory
             }
         }
 
-        // ==========================================
+
         // ПОЛЯ КЛАССА (Переменные)
-        // ==========================================
         private Dictionary<string, ItemRenderTransform> customTransforms = new Dictionary<string, ItemRenderTransform>();
 
         private float spreadLevel = 7f;      // Разброс лепестков по воде

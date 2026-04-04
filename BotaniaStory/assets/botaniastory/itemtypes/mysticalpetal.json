@@ -37,9 +37,9 @@
         "all": { "base": "botaniastory:item/mysticalpetal/{color}" }
     },
     "guiTransform": {
-        "rotation": {
-            "x": 0,
-            "y": 0,
+        "translation": {
+            "x": -1,
+            "y": 3,
             "z": 0
         },
         "origin": {
@@ -47,7 +47,7 @@
             "y": 0.6,
             "z": 0.5
         },
-        "scale": 0.6
+        "scale": 0.92
     },
     "fpHandTransform": {
         "translation": {
@@ -64,21 +64,21 @@
     },
     "tpHandTransform": {
         "translation": {
-            "x": -1,
-            "y": -0.1,
-            "z": -1
+            "x": -2.9,
+            "y": 0.1,
+            "z": -1.6
         },
         "rotation": {
-            "x": 71,
-            "y": 0,
-            "z": -84
+            "x": -154,
+            "y": -8,
+            "z": 24
         },
         "origin": {
             "x": 0.5,
             "y": 0.1,
             "z": 0.5
         },
-        "scale": 0.48
+        "scale": 0.25
     },
     "groundTransform": {
         "scale": 0.7

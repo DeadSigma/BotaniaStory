@@ -36,7 +36,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
         }
 
         // Общая функция для проверки связи и передачи маны!
-        // Вызывай её в OnServerTick каждого цветка.
+        // Вызов её в OnServerTick каждого цветка.
         protected void ProcessManaTransfer(ref bool dirty)
         {
             // 1. ПРОВЕРКА СВЯЗИ

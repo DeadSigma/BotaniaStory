@@ -1,0 +1,11 @@
+{
+    "ingredientPattern": " PS, SQ,S  ",
+    "ingredients": {
+        "P": { "type": "item", "code": "botaniastory:mysticalpetal-*", "name": "color1" },
+        "Q": { "type": "item", "code": "botaniastory:mysticalpetal-*", "name": "color2" },
+        "S": { "type": "item", "code": "botaniastory:livingwood_stick" }
+    },
+    "width": 3,
+    "height": 3,
+    "output": { "type": "item", "code": "botaniastory:wandoftheforest-{color1}-{color2}" }
+}

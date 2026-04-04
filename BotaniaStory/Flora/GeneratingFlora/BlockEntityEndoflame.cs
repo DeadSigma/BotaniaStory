@@ -39,7 +39,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 if (CurrentMana < MaxMana)
                 {
                     // Проверяем, наступил ли нужный тик для выдачи маны
-                    // Оператор % (остаток от деления) делает так, что условие срабатывает ровно каждый N-й тик
                     if (BurnTicksLeft % ticksPerCycle == 0)
                     {
                         CurrentMana += manaPerCycle;
@@ -56,8 +55,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 {
                     EntityItem entityItem = (EntityItem)entity;
 
-                    // === НОВАЯ ЗАЩИТА ОТ ДЮПА ===
-                    // Проверяем, не съел ли этот предмет другой цветок долю секунды назад
+                    // === ЗАЩИТА ОТ ДЮПА ===
                     if (!entityItem.Alive || entityItem.Itemstack == null || entityItem.Itemstack.StackSize <= 0)
                     {
                         continue;
@@ -73,20 +71,30 @@ namespace BotaniaStory.Flora.GeneratingFlora
                         stack.StackSize--;
                         if (stack.StackSize <= 0)
                         {
-                            entityItem.Die(); // Убиваем сущность, чтобы другие цветы знали: еды нет!
+                            entityItem.Die(); // Убиваем сущность
                         }
                         else
                         {
                             entityItem.WatchedAttributes.MarkAllDirty();
                         }
 
+                       
+                        Api.World.PlaySoundAt(
+                         new AssetLocation("botaniastory", "sounds/ignite"),
+                         Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5,
+                         null,
+                         randomizePitch: true,
+                         range: 16,
+                         volume: 0.8f
+                     );
+
                         dirty = true;
-                        break; // Съели один предмет - выходим из цикла!
+                        break; 
                     }
                 }
             }
 
-            // 3. ПРОВЕРКА И ПЕРЕДАЧА МАНЫ (Магия родительского класса!)
+            // 3. ПРОВЕРКА И ПЕРЕДАЧА МАНЫ 
             ProcessManaTransfer(ref dirty);
 
             if (dirty) MarkDirty(true);
@@ -108,7 +116,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
             }
         }
 
-        // Мы ПЕРЕОПРЕДЕЛЯЕМ сохранение, чтобы добавить переменную горения, 
+        //  ПЕРЕОПРЕДЕЛЯЕМ сохранение, чтобы добавить переменную горения, 
         // но при этом обязательно вызываем base.ToTreeAttributes(), чтобы родитель сохранил ману.
         public override void ToTreeAttributes(ITreeAttribute tree)
         {

@@ -21,33 +21,32 @@ namespace BotaniaStory
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
-            // Запускаем таймер (тик каждую секунду)
+            // Запускаю таймер (тик каждую секунду)
             RegisterGameTickListener(OnTick, 1000);
         }
 
-        // ==========================================
+
         // УМНАЯ ПРОВЕРКА БЛОКОВ "НА ЛЕТУ" (Без парсера)
-        // ==========================================
         private string GetRecipeOutput(Block block)
         {
             if (block == null || block.Code == null) return null;
 
-            // 1. ЗАЩИТА: Игнорируем блоки нашего мода (Жизнекамень, Жизнедерево, сами цветы)
+            // 1. ЗАЩИТА: Игнорирую блоки нашего мода (Жизнекамень, Жизнедерево, сами цветы)
             if (block.Code.Domain == "botaniastory") return null;
 
-            // 2. ДЕРЕВО: Превращаем любые ванильные и модовые брёвна в Жизнедерево
+            // 2. ДЕРЕВО: Превращаю любые ванильные и модовые брёвна в Жизнедерево
             if (block.FirstCodePart() == "log" || block is BlockLog)
             {
                 return "botaniastory:livingwood";
             }
 
-            // 3. КАМЕНЬ: Превращаем любой камень в Жизнекамень
+            // 3. КАМЕНЬ: Превращаю любой камень в Жизнекамень
             if (block.BlockMaterial == EnumBlockMaterial.Stone)
             {
                 return "botaniastory:livingrock";
             }
 
-            return null; // Если это земля, песок, доски и т.д. — ничего не делаем
+            return null; // Если это земля, песок, доски и т.д. — ничего не делает
         }
 
         private void OnTick(float dt)

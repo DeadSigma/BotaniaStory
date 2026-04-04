@@ -14,7 +14,8 @@ namespace BotaniaStory
         public InventoryGeneric inventory;
         
         protected ApothecaryRenderer renderer;
-
+        public string LastCraftedFlower = null;
+        public long LastCraftTime = 0;
         public BlockEntityApothecary()
         {
             inventory = new InventoryGeneric(16, "apothecary-inv", null);

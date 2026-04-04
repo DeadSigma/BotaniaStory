@@ -1,0 +1,545 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 8,
+	"textureHeight": 8,
+	"textureSizes": {
+		"wandoftheforest_wood": [32,32],
+		"bindingwandcore": [8,8],
+		"wandoftheforest_grip": [128,128]
+	},
+	"textures": {
+		"bindingwandcore": "botaniastory:item/bindingwandcore",
+		"wandoftheforest_grip": "botaniastory:item/wandoftheforest_grip",
+		"wandoftheforest_wood": "botaniastory:item/wandoftheforest_wood"
+	},
+	"elements": [
+		{
+			"name": "group",
+			"from": [ 0.0, 0.0, 0.0 ],
+			"to": [ 5.0, 0.0, 0.0 ],
+			"rotationOrigin": [ 9.157, 9.3481, 7.3347 ],
+			"faces": {
+				"north": { "texture": "#", "uv": [ 0.0, 0.0, 5.0, 0.5 ] },
+				"east": { "texture": "#", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+				"south": { "texture": "#", "uv": [ 0.0, 0.0, 5.0, 0.5 ] },
+				"west": { "texture": "#", "uv": [ 0.0, 0.0, 0.5, 0.5 ] },
+				"up": { "texture": "#", "uv": [ 0.0, 0.0, 5.0, 0.5 ] },
+				"down": { "texture": "#", "uv": [ 0.0, 0.0, 5.0, 0.5 ] }
+			},
+			"children": [
+				{
+					"name": "cube0",
+					"from": [ 7.099, 7.2147, 6.9992 ],
+					"to": [ 8.3015, 10.2407, 8.2852 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": -14.5,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube1",
+					"from": [ 10.8891, 7.0564, 6.8497 ],
+					"to": [ 11.6491, 8.0779, 7.4347 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": -4.25,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 0.0, 0.0, 13.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 21.0, 9.0, 32.0, 30.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube2",
+					"from": [ 7.0872, 3.1914, 6.9439 ],
+					"to": [ 8.3732, 7.8174, 8.2299 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationX": 14.9606,
+					"rotationY": -1.099,
+					"rotationZ": 3.3943,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube3",
+					"from": [ 6.8233, -0.7771, 6.5752 ],
+					"to": [ 7.9428, 3.3239, 7.6112 ],
+					"rotationOrigin": [ 8.1331, 1.5234, 7.0932 ],
+					"rotationX": -16.8293,
+					"rotationY": 0.7994,
+					"rotationZ": -15.264,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 0.0, 0.0, 6.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube4",
+					"from": [ 9.9308, 6.7483, 6.7441 ],
+					"to": [ 10.9833, 9.266, 7.4966 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": -75.5,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 18.0, 10.0, 29.0, 31.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 0.0, 0.0, 10.0, 20.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube5",
+					"from": [ 10.602, 6.9501, 6.8073 ],
+					"to": [ 11.5205, 8.7036, 7.4758 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": -31.25,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 0.0, 0.0, 13.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 15.0, 11.0, 26.0, 32.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube6",
+					"from": [ 9.4335, 6.64, 7.0492 ],
+					"to": [ 10.286, 8.966, 7.8852 ],
+					"rotationOrigin": [ 7.9889, 6.0786, 7.1677 ],
+					"rotationZ": 83.0,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube7",
+					"from": [ 10.6741, 7.1262, 7.0742 ],
+					"to": [ 11.5266, 8.1522, 7.8602 ],
+					"rotationOrigin": [ 7.9889, 6.0786, 7.1677 ],
+					"rotationZ": 118.0,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube8",
+					"from": [ 7.1187, 9.9512, 7.2992 ],
+					"to": [ 7.7212, 11.0772, 7.9852 ],
+					"rotationOrigin": [ 7.4199, 10.4392, 7.6422 ],
+					"rotationZ": 58.0,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 22.0, 0.0, 32.0, 28.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube9",
+					"from": [ 5.812, 8.7938, 7.1742 ],
+					"to": [ 6.4145, 10.0698, 8.1602 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": -67.25,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 24.0, 10.0, 32.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 9.0, 20.0, 30.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube10",
+					"from": [ 7.6372, 10.6763, 7.1992 ],
+					"to": [ 8.2397, 11.9523, 8.0852 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": -32.25,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 21.0, 6.0, 29.0, 28.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 20.0, 4.0, 32.0, 25.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube11",
+					"from": [ 10.0486, 11.2781, 7.2242 ],
+					"to": [ 10.6511, 12.5541, 8.0742 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": 0.25,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 20.0, 6.0, 28.0, 28.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 0.0, 10.0, 12.0, 31.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube12",
+					"from": [ 12.7588, 9.9045, 7.2492 ],
+					"to": [ 13.3613, 11.1805, 8.0352 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": 40.25,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 17.0, 4.0, 25.0, 26.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 0.0, 18.0, 10.0, 32.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube13",
+					"from": [ 13.9262, 7.3306, 7.2742 ],
+					"to": [ 14.5287, 8.6066, 8.0102 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": 78.0,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 3.0, 3.0, 13.0, 17.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube14",
+					"from": [ 13.4109, 4.8392, 7.2992 ],
+					"to": [ 14.0134, 6.1152, 7.9852 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": 113.0,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 24.0, 0.0, 32.0, 22.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 0.0, 9.0, 10.0, 32.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 0.0, 32.0, 32.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube15",
+					"from": [ 6.724, 10.9647, 6.9492 ],
+					"to": [ 8.2265, 12.4907, 8.3352 ],
+					"rotationOrigin": [ 8.0639, 7.3536, 7.3677 ],
+					"rotationZ": -14.5,
+					"faces": {
+						"north": { "texture": "#bindingwandcore", "uv": [ 0.0, 0.0, 1.5, 1.5 ], "autoUv": false },
+						"east": { "texture": "#bindingwandcore", "uv": [ 0.0, 4.0, 1.375, 5.5 ], "autoUv": false },
+						"south": { "texture": "#bindingwandcore", "uv": [ 0.0, 2.0, 1.5, 3.5 ], "autoUv": false },
+						"west": { "texture": "#bindingwandcore", "uv": [ 4.0, 0.0, 5.375, 1.5 ], "autoUv": false },
+						"up": { "texture": "#bindingwandcore", "uv": [ 3.5, 5.375, 2.0, 4.0 ], "autoUv": false },
+						"down": { "texture": "#bindingwandcore", "uv": [ 5.5, 2.0, 4.0, 3.375 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube16",
+					"from": [ 4.3509, 9.8125, 7.3087 ],
+					"to": [ 5.8534, 11.3385, 8.6947 ],
+					"rotationOrigin": [ 8.0639, 7.3536, 7.3677 ],
+					"rotationX": -18.0716,
+					"rotationY": -50.1821,
+					"rotationZ": -63.767,
+					"faces": {
+						"north": { "texture": "#bindingwandcore", "uv": [ 2.0, 0.0, 3.5, 1.5 ], "autoUv": false },
+						"east": { "texture": "#bindingwandcore", "uv": [ 4.0, 4.0, 5.375, 5.5 ], "autoUv": false },
+						"south": { "texture": "#bindingwandcore", "uv": [ 2.0, 2.0, 3.5, 3.5 ], "autoUv": false },
+						"west": { "texture": "#bindingwandcore", "uv": [ 0.0, 6.0, 1.375, 7.5 ], "autoUv": false },
+						"up": { "texture": "#bindingwandcore", "uv": [ 7.5, 1.375, 6.0, 0.0 ], "autoUv": false },
+						"down": { "texture": "#bindingwandcore", "uv": [ 3.5, 6.0, 2.0, 7.375 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube17",
+					"from": [ 6.0773, 5.3024, 9.0297 ],
+					"to": [ 6.9298, 6.1784, 9.7657 ],
+					"rotationOrigin": [ 7.9889, 6.0786, 7.1927 ],
+					"rotationX": -18.0716,
+					"rotationY": -50.1821,
+					"rotationZ": -63.767,
+					"faces": {
+						"north": { "texture": "#bindingwandcore", "uv": [ 6.0, 2.0, 6.875, 2.875 ], "autoUv": false },
+						"east": { "texture": "#bindingwandcore", "uv": [ 5.0, 6.0, 5.75, 6.875 ], "autoUv": false },
+						"south": { "texture": "#bindingwandcore", "uv": [ 6.0, 3.0, 6.875, 3.875 ], "autoUv": false },
+						"west": { "texture": "#bindingwandcore", "uv": [ 6.0, 5.0, 6.75, 5.875 ], "autoUv": false },
+						"up": { "texture": "#bindingwandcore", "uv": [ 6.875, 6.75, 6.0, 6.0 ], "autoUv": false },
+						"down": { "texture": "#bindingwandcore", "uv": [ 7.875, 2.0, 7.0, 2.75 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube18",
+					"from": [ 4.9938, 6.3539, 7.0992 ],
+					"to": [ 5.8463, 7.2299, 7.8352 ],
+					"rotationOrigin": [ 7.9889, 6.0786, 7.1927 ],
+					"rotationZ": -14.5,
+					"faces": {
+						"north": { "texture": "#bindingwandcore", "uv": [ 4.0, 6.0, 4.875, 6.875 ], "autoUv": false },
+						"east": { "texture": "#bindingwandcore", "uv": [ 7.0, 3.0, 7.75, 3.875 ], "autoUv": false },
+						"south": { "texture": "#bindingwandcore", "uv": [ 6.0, 4.0, 6.875, 4.875 ], "autoUv": false },
+						"west": { "texture": "#bindingwandcore", "uv": [ 4.0, 7.0, 4.75, 7.875 ], "autoUv": false },
+						"up": { "texture": "#bindingwandcore", "uv": [ 7.875, 4.75, 7.0, 4.0 ], "autoUv": false },
+						"down": { "texture": "#bindingwandcore", "uv": [ 5.875, 7.0, 5.0, 7.75 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube19",
+					"from": [ 10.8641, 7.8421, 6.8247 ],
+					"to": [ 11.6741, 7.9171, 7.4597 ],
+					"rotationOrigin": [ 8.2889, 7.4786, 7.3677 ],
+					"rotationZ": -4.25,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 10.0, 16.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 10.0, 16.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 10.0, 16.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 10.0, 16.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 10.0, 16.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 10.0, 16.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube20",
+					"from": [ 11.6655, 5.667, 6.9497 ],
+					"to": [ 11.7505, 7.692, 7.0347 ],
+					"rotationOrigin": [ 11.7139, 6.4303, 7.0254 ],
+					"rotationX": 10.0,
+					"rotationZ": 1.5,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 9.0, 14.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 9.0, 14.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 9.0, 14.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 9.0, 14.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 9.0, 14.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 8.0, 13.0, 9.0, 14.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube21",
+					"from": [ 11.6349, 5.4971, 6.7168 ],
+					"to": [ 11.8735, 5.7551, 6.9555 ],
+					"rotationOrigin": [ 11.7748, 5.496, 6.8376 ],
+					"rotationX": 10.0,
+					"rotationZ": 1.5,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 18.0, 12.0, 20.0, 15.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 18.0, 12.0, 20.0, 15.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 18.0, 12.0, 20.0, 15.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 18.0, 12.0, 20.0, 15.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 18.0, 12.0, 20.0, 15.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 18.0, 12.0, 20.0, 15.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube22",
+					"from": [ 11.7088, 5.2391, 6.9296 ],
+					"to": [ 11.7862, 5.4971, 6.9618 ],
+					"rotationOrigin": [ 11.7748, 5.496, 6.8376 ],
+					"rotationX": 10.6212,
+					"rotationY": -22.4919,
+					"rotationZ": 1.6235,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 15.0, 16.0, 17.0, 19.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 15.0, 16.0, 17.0, 19.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 15.0, 16.0, 17.0, 19.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 15.0, 16.0, 17.0, 19.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 15.0, 16.0, 17.0, 19.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 15.0, 16.0, 17.0, 19.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube23",
+					"from": [ 11.649, 5.2391, 6.7506 ],
+					"to": [ 11.7909, 5.4971, 6.7828 ],
+					"rotationOrigin": [ 11.7748, 5.496, 6.8376 ],
+					"rotationX": 11.3741,
+					"rotationY": -42.482,
+					"rotationZ": 2.0341,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 17.0, 9.0, 19.0, 12.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 17.0, 9.0, 19.0, 12.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 17.0, 9.0, 19.0, 12.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 17.0, 9.0, 19.0, 12.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 17.0, 9.0, 19.0, 12.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 17.0, 9.0, 19.0, 12.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube24",
+					"from": [ 11.7966, 5.2391, 6.7855 ],
+					"to": [ 11.874, 5.4971, 6.8178 ],
+					"rotationOrigin": [ 11.7748, 5.496, 6.8376 ],
+					"rotationX": 12.8787,
+					"rotationY": -62.4623,
+					"rotationZ": 3.2458,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 8.0, 21.0, 11.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 8.0, 21.0, 11.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 8.0, 21.0, 11.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 8.0, 21.0, 11.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 8.0, 21.0, 11.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_wood", "uv": [ 19.0, 8.0, 21.0, 11.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube25",
+					"from": [ 6.4083, 0.2303, 6.8984 ],
+					"to": [ 7.6278, 0.4563, 8.0344 ],
+					"rotationOrigin": [ 7.018, 0.3433, 7.4664 ],
+					"rotationX": -16.8293,
+					"rotationY": 0.7994,
+					"rotationZ": -1.264,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_grip", "uv": [ 89.05, 9.0, 114.05, 15.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube26",
+					"from": [ 6.7733, 0.3729, 6.5252 ],
+					"to": [ 7.9928, 0.6739, 7.6612 ],
+					"rotationOrigin": [ 8.1331, 1.5234, 7.0932 ],
+					"rotationX": -16.8293,
+					"rotationY": 0.7994,
+					"rotationZ": -15.264,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_grip", "uv": [ 89.05, 9.0, 114.05, 15.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_grip", "uv": [ 89.05, 9.0, 114.05, 15.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube27",
+					"from": [ 6.6649, 1.1296, 6.6227 ],
+					"to": [ 7.8844, 1.3556, 7.7587 ],
+					"rotationOrigin": [ 7.2747, 1.2426, 7.1907 ],
+					"rotationX": -16.8293,
+					"rotationY": 0.7994,
+					"rotationZ": -23.7641,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube28",
+					"from": [ 6.7733, 1.3229, 6.5252 ],
+					"to": [ 7.9928, 1.5989, 7.6612 ],
+					"rotationOrigin": [ 8.1331, 1.5234, 7.0932 ],
+					"rotationX": -16.8293,
+					"rotationY": 0.7994,
+					"rotationZ": -15.264,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_grip", "uv": [ 89.05, 9.0, 114.05, 15.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube29",
+					"from": [ 6.7483, -0.3021, 6.5002 ],
+					"to": [ 8.0178, -0.0511, 7.7112 ],
+					"rotationOrigin": [ 8.1331, 1.5234, 7.0932 ],
+					"rotationX": -16.8293,
+					"rotationY": 0.7994,
+					"rotationZ": -15.264,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube30",
+					"from": [ 6.5399, 1.8796, 6.6227 ],
+					"to": [ 7.7594, 2.1056, 7.7587 ],
+					"rotationOrigin": [ 7.2747, 1.2426, 7.1907 ],
+					"rotationX": -16.8293,
+					"rotationY": 0.7994,
+					"rotationZ": -23.7641,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_grip", "uv": [ 89.05, 9.0, 114.05, 15.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_grip", "uv": [ 89.05, 9.0, 114.05, 15.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false }
+					}
+				},
+				{
+					"name": "cube31",
+					"from": [ 6.7733, 2.0979, 6.5252 ],
+					"to": [ 7.9928, 2.3989, 7.6612 ],
+					"rotationOrigin": [ 8.1331, 1.5234, 7.0932 ],
+					"rotationX": -16.8293,
+					"rotationY": 0.7994,
+					"rotationZ": -15.264,
+					"faces": {
+						"north": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"east": { "texture": "#wandoftheforest_grip", "uv": [ 89.05, 9.0, 114.05, 15.0 ], "autoUv": false },
+						"south": { "texture": "#wandoftheforest_grip", "uv": [ 72.0, 0.0, 97.0, 6.0 ], "autoUv": false },
+						"west": { "texture": "#wandoftheforest_grip", "uv": [ 89.05, 9.0, 114.05, 15.0 ], "autoUv": false },
+						"up": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false },
+						"down": { "texture": "#wandoftheforest_grip", "uv": [ 84.0, 0.0, 106.0, 20.0 ], "autoUv": false }
+					}
+				}
+			]
+		}
+	]}

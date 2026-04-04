@@ -1,0 +1,22 @@
+[
+    {
+        "ingredientPattern": "S,P",
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "code": "game:treeseed-*"
+            },
+            "P": {
+                "type": "item",
+                "code": "game:paper-parchment"
+            }
+        },
+        "width": 1,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:lexicon-closed",
+            "quantity": 1
+        }
+    }
+]

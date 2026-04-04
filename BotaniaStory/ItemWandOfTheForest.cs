@@ -22,6 +22,8 @@ namespace BotaniaStory
             Block block = world.BlockAccessor.GetBlock(pos);
             bool isSneaking = byPlayer.Entity.Controls.Sneak; // Проверяем зажат ли Shift
 
+            // Указываем путь к звуку посоха (нужно положить файл wand_bind.ogg в папку sounds!)
+            AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
 
             // ==========================================
             // А. КЛИК ПО ЦВЕТКУ (Shift + ПКМ) - Запоминаем цветок
@@ -45,6 +47,9 @@ namespace BotaniaStory
                         var clientApi = world.Api as ICoreClientAPI;
                         clientApi?.ShowChatMessage("Цветок выбран. Теперь нажми Shift+ПКМ по Распространителю маны.");
                     }
+
+                    // Воспроизводим звук!
+                    world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
 
                     handling = EnumHandHandling.Handled;
                     return;
@@ -85,6 +90,9 @@ namespace BotaniaStory
                     clientApi?.ShowChatMessage("Цветок успешно привязан к Распространителю!");
                 }
 
+                // Воспроизводим звук!
+                world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
+
                 handling = EnumHandHandling.Handled;
                 return;
             }
@@ -104,17 +112,21 @@ namespace BotaniaStory
                 if (world.Side == EnumAppSide.Client)
                 {
                     var clientApi = world.Api as ICoreClientAPI;
-                    clientApi?.ShowChatMessage("Распространитель выбран. Теперь кликни ПКМ по Бассейну маны.");
+                    clientApi?.ShowChatMessage("Распространитель выбран. Кликните ПКМ по Бассейну или любому блоку для привязки.");
                 }
+
+                // Воспроизводим звук!
+                world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
 
                 handling = EnumHandHandling.Handled;
                 return;
             }
 
             // ==========================================
-            // Г. КЛИК ПО БАССЕЙНУ (Без Shift) - Привязываем Распространитель к Бассейну
+            // Г. КЛИК ПО ЛЮБОМУ БЛОКУ (Без Shift) - Привязываем или поворачиваем Распространитель
             // ==========================================
-            if (!isSneaking && block is BlockManaPool && slot.Itemstack.Attributes.GetBool("hasSpreader"))
+            // МЫ УБРАЛИ ПРОВЕРКУ "block is BlockManaPool". ТЕПЕРЬ СРАБОТАЕТ НА ВСЁ!
+            if (!isSneaking && slot.Itemstack.Attributes.GetBool("hasSpreader"))
             {
                 int sx = slot.Itemstack.Attributes.GetInt("spreaderX");
                 int sy = slot.Itemstack.Attributes.GetInt("spreaderY");
@@ -138,8 +150,20 @@ namespace BotaniaStory
                     if (world.Side == EnumAppSide.Client)
                     {
                         var clientApi = world.Api as ICoreClientAPI;
-                        clientApi?.ShowChatMessage("Связь установлена! Распространитель повернулся к Бассейну.");
+
+                        // Меняем сообщение в зависимости от того, куда кликнули
+                        if (block is BlockManaPool)
+                        {
+                            clientApi?.ShowChatMessage("Связь установлена! Распространитель привязан к Бассейну.");
+                        }
+                        else
+                        {
+                            clientApi?.ShowChatMessage("Распространитель маны повернут к новым координатам!");
+                        }
                     }
+
+                    // Воспроизводим звук успешной привязки/поворота!
+                    world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
                 }
 
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");

@@ -29,8 +29,12 @@ namespace BotaniaStory
             // ==========================================
             // 1. ЗАБРАТЬ ПРЕДМЕТ ( ПКМ пустой рукой)
             // ==========================================
+            // ==========================================
+            // 1. ЗАБРАТЬ ПРЕДМЕТ ИЛИ АВТОКРАФТ (ПКМ пустой рукой)
+            // ==========================================
             if (slot.Empty)
             {
+                // Попытка забрать предметы (если они там есть)
                 for (int i = be.inventory.Count - 1; i >= 0; i--)
                 {
                     if (!be.inventory[i].Empty)
@@ -44,11 +48,49 @@ namespace BotaniaStory
                         be.inventory[i].MarkDirty();
                         be.UpdateRenderer();
 
-                        // ИГРАЕМ ТВОЙ КАСТОМНЫЙ ЗВУК
                         world.PlaySoundAt(new AssetLocation("botaniastory:sounds/apothecary_splash"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
                         return true;
                     }
                 }
+
+                // --- ЛОГИКА АВТОКРАФТА ---
+                // Если мы дошли сюда, значит аптекарь ПУСТ. Если в нём есть вода и мы помним прошлый крафт:
+                if (be.HasWater && be.LastCraftedFlower != null)
+                {
+                    long currentTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+                    // Проверяем, прошло ли меньше 20000 миллисекунд (20 секунд)
+                    if (currentTime - be.LastCraftTime <= 20000)
+                    {
+                        if (flowerRecipes.TryGetValue(be.LastCraftedFlower, out var recipe))
+                        {
+                            // Проверяем, есть ли всё нужное в карманах игрока (simulate: true)
+                            if (CheckAndConsumePlayerItems(byPlayer, recipe, true))
+                            {
+                                // Забираем лепестки и семечко (simulate: false)
+                                CheckAndConsumePlayerItems(byPlayer, recipe, false);
+
+                                // Завершаем крафт
+                                be.HasWater = false;
+                                be.UpdateRenderer();
+
+                                Block flowerBlock = world.GetBlock(new AssetLocation("botaniastory", be.LastCraftedFlower));
+                                if (flowerBlock != null)
+                                {
+                                    world.SpawnItemEntity(new ItemStack(flowerBlock), blockSel.Position.ToVec3d().Add(0.5, 1.2, 0.5));
+                                }
+
+                                world.PlaySoundAt(new AssetLocation("botaniastory:sounds/apothecary_craft"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
+
+                                // Обновляем таймер, чтобы можно было продолжать спамить ПКМ!
+                                be.LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                                return true;
+                            }
+                        }
+                    }
+                }
+                // -------------------------
+
                 return base.OnBlockInteractStart(world, byPlayer, blockSel);
             }
 
@@ -162,6 +204,9 @@ namespace BotaniaStory
                         be.HasWater = false;
                         be.UpdateRenderer();
 
+                        be.LastCraftedFlower = craftedFlower;
+                        be.LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
                         Block flowerBlock = world.GetBlock(new AssetLocation("botaniastory", craftedFlower));
                         if (flowerBlock != null) world.SpawnItemEntity(new ItemStack(flowerBlock), blockSel.Position.ToVec3d().Add(0.5, 1.2, 0.5));
 
@@ -214,7 +259,78 @@ namespace BotaniaStory
 
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }
+        // ==========================================
+        // МЕТОД ДЛЯ АВТОКРАФТА (ПОИСК И ИЗЪЯТИЕ ПРЕДМЕТОВ)
+        // ==========================================
+        private bool CheckAndConsumePlayerItems(IPlayer player, Dictionary<string, int> recipe, bool simulate)
+        {
+            Dictionary<string, int> remainingItems = new Dictionary<string, int>(recipe);
+            int needSeed = 1;
 
-        
+            Dictionary<string, int> foundItems = new Dictionary<string, int>();
+            int foundSeeds = 0;
+
+            // 1. Считаем, есть ли всё необходимое в инвентарях игрока (хотбар + рюкзаки)
+            foreach (var inv in player.InventoryManager.OpenedInventories)
+            {
+                foreach (var slot in inv)
+                {
+                    if (slot.Empty) continue;
+                    string path = slot.Itemstack.Collectible.Code.Path;
+
+                    // Ищем семена
+                    if (needSeed > 0 && path.StartsWith("treeseed")) foundSeeds += slot.StackSize;
+
+                    // Ищем нужные лепестки
+                    if (remainingItems.ContainsKey(path))
+                    {
+                        if (foundItems.ContainsKey(path)) foundItems[path] += slot.StackSize;
+                        else foundItems[path] = slot.StackSize;
+                    }
+                }
+            }
+
+            // Хватает ли семечка?
+            if (foundSeeds < needSeed) return false;
+
+            // Хватает ли всех лепестков?
+            foreach (var req in remainingItems)
+            {
+                if (!foundItems.ContainsKey(req.Key) || foundItems[req.Key] < req.Value) return false;
+            }
+
+            // Если мы просто проверяли (simulate), то возвращаем успех, ничего не трогая
+            if (simulate) return true;
+
+            // 2. Если всё есть, реально забираем предметы
+            int seedsToTake = needSeed;
+            Dictionary<string, int> itemsToTake = new Dictionary<string, int>(recipe);
+
+            foreach (var inv in player.InventoryManager.OpenedInventories)
+            {
+                foreach (var slot in inv)
+                {
+                    if (slot.Empty) continue;
+                    string path = slot.Itemstack.Collectible.Code.Path;
+
+                    if (seedsToTake > 0 && path.StartsWith("treeseed"))
+                    {
+                        int take = System.Math.Min(seedsToTake, slot.StackSize);
+                        slot.TakeOut(take);
+                        seedsToTake -= take;
+                        slot.MarkDirty();
+                    }
+
+                    if (itemsToTake.ContainsKey(path) && itemsToTake[path] > 0)
+                    {
+                        int take = System.Math.Min(itemsToTake[path], slot.StackSize);
+                        slot.TakeOut(take);
+                        itemsToTake[path] -= take;
+                        slot.MarkDirty();
+                    }
+                }
+            }
+            return true;
+        }
     }
 }

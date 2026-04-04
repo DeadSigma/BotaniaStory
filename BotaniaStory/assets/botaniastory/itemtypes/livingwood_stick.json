@@ -1,0 +1,106 @@
+{
+    "code": "livingwood_stick",
+    "class": "Item",
+    "maxstacksize": 64,
+    "behaviors": [
+        {
+            "name": "GroundStorable",
+            "properties": {
+                "layout": "Quadrants",
+                "collisionBox": {
+                    "x1": 0,
+                    "y1": 0,
+                    "z1": 0,
+                    "x2": 1,
+                    "y2": 0.1,
+                    "z2": 1
+                }
+            }
+        }
+    ],
+    "shape": { "base": "botaniastory:item/livingwood_stick" },
+    "textures": {
+        "wood": { "base": "botaniastory:block/livingwood" }
+    },
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "attributes": {
+        "groundStorageTransform": {
+            "translation": {
+                "x": 0,
+                "y": -0.46,
+                "z": 0
+            },
+            "rotation": {
+                "x": -13,
+                "y": 65,
+                "z": -75
+            }
+        }
+    },
+    "guiTransform": {
+        "translation": {
+            "x": 0,
+            "y": 7,
+            "z": 0.98
+        },
+        "rotation": {
+            "x": -13,
+            "y": 43,
+            "z": 46
+        },
+        "scale": 2.5
+    },
+    "fpHandTransform": {
+        "translation": {
+            "x": 0.2,
+            "y": -0.5,
+            "z": 0.1
+        },
+        "rotation": {
+            "x": 15,
+            "y": 15,
+            "z": -60
+        },
+        "scale": 1.5
+    },
+    "tpHandTransform": {
+        "translation": {
+            "x": -0.8,
+            "y": -0.5,
+            "z": -0.5
+        },
+        "rotation": {
+            "x": 75,
+            "y": 0,
+            "z": -70
+        },
+        "scale": 0.9
+    },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0.087,
+            "z": 0
+        },
+        "rotation": {
+            "x": -72,
+            "y": 24,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.5,
+            "z": 0.5299
+        },
+        "scale": 5.58
+    },
+
+    "combustibleProps": {
+        "burnTemperature": 400,
+        "burnDuration": 10,
+        "enabled": true
+    }
+}

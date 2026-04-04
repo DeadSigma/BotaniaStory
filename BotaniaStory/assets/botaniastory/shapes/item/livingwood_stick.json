@@ -1,0 +1,169 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 8,
+	"textureHeight": 8,
+	"textureSizes": {
+		"wandoftheforest_wood": [32, 32]
+	},
+	"textures": {
+		"wandoftheforest_wood": "botaniastory:item/wandoftheforest_wood",
+	},
+	"elements": [
+		{
+			"name": "group",
+			"rotationOrigin": [7.392, 6.8152, 8.4604],
+			"from": [0, 0, 0],
+			"to": [0, 0, 0],
+			"faces": {
+				"north": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"east": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"south": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"west": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"up": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"down": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				}
+			},
+			"rotationX": -10.25,
+			"children": [
+				{
+					"name": "cube0",
+					"from": [7.3962, 8.3678, 6.9189],
+					"to": [8.3987, 12.7938, 8.0049],
+					"rotationOrigin": [7.8974, 10.5808, 7.4619],
+					"faces": {
+						"north": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [19, 0, 25, 32],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [4, 0, 10, 32],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [20, 0, 26, 32],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [21, 0, 27, 32],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [21, 24, 27, 32],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [21, 0, 27, 32],
+							"autoUv": false
+						}
+					},
+					"rotationX": -10.25
+				},
+				{
+					"name": "cube1",
+					"from": [7.3462, 4.3785, 7.31],
+					"to": [8.4822, 8.8545, 8.446],
+					"rotationOrigin": [7.9142, 6.6317, 8.0523],
+					"faces": {
+						"north": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [5, 0, 11, 32],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [22, 0, 28, 32],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [4, 0, 10, 32],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [14, 0, 20, 32],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [21, 0, 27, 32],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [21, 0, 27, 32],
+							"autoUv": false
+						}
+					},
+					"rotationX": -2.5
+				},
+				{
+					"name": "cube2",
+					"from": [7.3127, -0.1465, 7.7068],
+					"to": [8.4822, 4.7545, 8.7928],
+					"rotationOrigin": [7.8974, 2.5415, 7.7498],
+					"faces": {
+						"north": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [21, 0, 27, 32],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [16, 0, 22, 32],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [6, 0, 12, 32],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [21, 0, 28, 32],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [21, 0, 25, 32],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#wandoftheforest_wood",
+							"uv": [21, 23, 25, 32],
+							"autoUv": false
+						}
+					},
+					"rotationX": -8
+				}
+			]
+		}
+	],
+	"animations": []
+}

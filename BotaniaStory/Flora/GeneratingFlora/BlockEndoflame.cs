@@ -11,7 +11,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
             if (placed)
             {
-                // Ошибка с "BlockEntityDaybloom" исправлена!
                 if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityGeneratingFlower flower)
                 {
                     flower.FindSpreader();
