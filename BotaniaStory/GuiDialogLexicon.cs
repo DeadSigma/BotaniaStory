@@ -356,7 +356,6 @@ namespace botaniastory
                                 }
 
                                 // --- 2. АЛЬФХЕЙМ ---
-                                // --- 2. АЛЬФХЕЙМ ---
                                 else if (recipe.RecipeType == "Alfheim" && recipe.AlfheimInputs != null)
                                 {
                                     // Аналогичная логика
@@ -401,7 +400,7 @@ namespace botaniastory
                                 else if (recipe.RecipeType == "Grid" && recipe.Grid != null)
                                 {
                                     // НОВАЯ ЛОГИКА: Берем ключ из рецепта. Если он пустой, берем стандартный.
-                                    string targetUiKey = string.IsNullOrEmpty(recipe.UiKey) ? "Рецепт_Сетка" : recipe.UiKey;
+                                    string targetUiKey = string.IsNullOrEmpty(recipe.UiKey) ? "Рецепт_Сетка_Правая" : recipe.UiKey;
 
                                     // Защита от вылета, если опечатался в ключе
                                     if (!bounds.ContainsKey(targetUiKey)) continue;
@@ -410,7 +409,7 @@ namespace botaniastory
                                     var gridCfg = ui[targetUiKey];
 
                                     double rScale = gridCfg[4] * bookScale;
-                                    // ОШИБКА БЫЛА ЗДЕСЬ: Раньше ты брал gridCfg[0] и gridCfg[1] из ui["Рецепт_Сетка"] жестко. 
+                                    // ОШИБКА БЫЛА ЗДЕСЬ: Раньше ты брал gridCfg[0] и gridCfg[1] из ui["Рецепт_Сетка_Правая"] жестко. 
                                     // Теперь мы берем bounds[targetUiKey].
                                     ElementBounds gridBounds = ElementBounds.Fixed(gridCfg[0] * bookScale, gridCfg[1] * bookScale, 350 * rScale, 200 * rScale);
 
@@ -427,6 +426,57 @@ namespace botaniastory
 
                                     compo.AddInteractiveElement(recipeElement, $"recipeGridDisplay_{i}");
                                 }
+
+                                // --- 4. БАССЕЙН МАНЫ ---
+                                else if (recipe.RecipeType == "ManaPool" && recipe.PoolInput != null)
+                                {
+                                    // Берем ключ области, а ключ фона получаем автозаменой (как в Аптекаре)
+                                    string targetUiKey = string.IsNullOrEmpty(recipe.UiKey) ? "Бассейн_Область" : recipe.UiKey;
+                                    string bgUiKey = targetUiKey.Replace("Область", "Фон");
+
+                                    if (!bounds.ContainsKey(targetUiKey) || !bounds.ContainsKey(bgUiKey)) continue;
+
+                                    // 1. Координаты для предметов
+                                    var poolCfg = ui[targetUiKey];
+                                    double rScale = poolCfg[4] * bookScale;
+                                    ElementBounds poolBounds = ElementBounds.Fixed(poolCfg[0] * bookScale, poolCfg[1] * bookScale, poolCfg[2] * rScale, poolCfg[3] * rScale);
+
+                                    // 2. Координаты для фона (НОВОЕ)
+                                    var bgCfg = ui[bgUiKey];
+                                    double bgScale = bgCfg[4] * bookScale;
+                                    ElementBounds bgBounds = ElementBounds.Fixed(bgCfg[0] * bookScale, bgCfg[1] * bookScale, bgCfg[2] * bgScale, bgCfg[3] * bgScale);
+
+                                    // Подгружаем предметы
+                                    ItemStack[] inputStacks = new ItemStack[recipe.PoolInput.Length];
+                                    for (int j = 0; j < recipe.PoolInput.Length; j++)
+                                    {
+                                        var stacks = GetItemStacks(recipe.PoolInput[j]);
+                                        if (stacks != null && stacks.Length > 0) inputStacks[j] = stacks[0];
+                                    }
+                                    if (recipe.PoolInput.Length == 1 && recipe.PoolInput[0].Contains("*")) inputStacks = GetItemStacks(recipe.PoolInput[0]);
+
+                                    ItemStack[] catalystStacks = null;
+                                    if (recipe.PoolCatalyst != null)
+                                    {
+                                        catalystStacks = new ItemStack[recipe.PoolCatalyst.Length];
+                                        for (int j = 0; j < recipe.PoolCatalyst.Length; j++)
+                                        {
+                                            var cStacks = GetItemStacks(recipe.PoolCatalyst[j]);
+                                            if (cStacks != null && cStacks.Length > 0) catalystStacks[j] = cStacks[0];
+                                        }
+                                        if (recipe.PoolCatalyst.Length == 1 && recipe.PoolCatalyst[0].Contains("*")) catalystStacks = GetItemStacks(recipe.PoolCatalyst[0]);
+                                    }
+
+                                    ItemStack[] poolStacks = GetItemStacks(recipe.PoolBlock);
+                                    ItemStack[] outputs = GetItemStacks(recipe.Output);
+
+                                    // Передаем bgBounds в наш элемент!
+                                    var poolElement = new GuiElementManaPoolRecipe(capi, poolBounds, bgBounds, inputStacks, poolStacks, outputs, catalystStacks, rScale);
+                                    poolElement.OnSlotClick = OnRecipeItemClicked;
+
+                                    compo.AddInteractiveElement(poolElement, $"manaPoolDisplay_{i}");
+                                }
+
                             }
                         }
                     }
@@ -1262,5 +1312,148 @@ namespace botaniastory
             base.Dispose();
         }
     }
+    public class GuiElementManaPoolRecipe : GuiElement
+    {
+        private LoadedTexture bgTex;
+        private AssetLocation bgTextureLoc = new AssetLocation("botaniastory:textures/gui/manapool_arrows.png");
 
+        private ItemStack[] inputStacks;
+        private ItemStack[] poolStacks;
+        private ItemStack[] outputStacks;
+        private ItemStack[] catalystStacks;
+
+        private ElementBounds inputBounds;
+        private ElementBounds poolBounds;
+        private ElementBounds outputBounds;
+        private ElementBounds catalystBounds;
+        private ElementBounds bgBounds;
+
+        // ДОБАВЛЕНО: Слот-пустышка для отображения тултипов (как в сетке крафта)
+        private DummySlot renderSlot;
+
+        public Action<ItemStack> OnSlotClick;
+
+        public GuiElementManaPoolRecipe(ICoreClientAPI capi, ElementBounds bounds, ElementBounds bgBounds, ItemStack[] input, ItemStack[] pool, ItemStack[] output, ItemStack[] catalyst, double scale) : base(capi, bounds)
+        {
+            this.bgBounds = bgBounds;
+            this.inputStacks = input;
+            this.poolStacks = pool;
+            this.outputStacks = output;
+            this.catalystStacks = catalyst;
+            this.bgTex = new LoadedTexture(capi);
+
+            this.renderSlot = new DummySlot(null); // Инициализация
+
+            double slotSize = 48 * scale;
+
+            inputBounds = ElementBounds.Fixed(20 * scale, 30 * scale, slotSize, slotSize).WithParent(bounds);
+            catalystBounds = ElementBounds.Fixed(20 * scale, 120 * scale, slotSize, slotSize).WithParent(bounds);
+            poolBounds = ElementBounds.Fixed(100 * scale, 75 * scale, slotSize, slotSize).WithParent(bounds);
+            outputBounds = ElementBounds.Fixed(180 * scale, 75 * scale, slotSize, slotSize).WithParent(bounds);
+        }
+
+        public override void ComposeElements(Cairo.Context ctx, Cairo.ImageSurface surface)
+        {
+            bgBounds.ParentBounds = Bounds.ParentBounds;
+            Bounds.CalcWorldBounds();
+            bgBounds.CalcWorldBounds();
+
+            inputBounds.CalcWorldBounds();
+            catalystBounds.CalcWorldBounds();
+            poolBounds.CalcWorldBounds();
+            outputBounds.CalcWorldBounds();
+
+            api.Render.GetOrLoadTexture(bgTextureLoc, ref bgTex);
+        }
+
+        public override void RenderInteractiveElements(float deltaTime)
+        {
+            if (bgTex != null && bgTex.TextureId != 0)
+            {
+                api.Render.Render2DTexturePremultipliedAlpha(bgTex.TextureId, bgBounds.renderX, bgBounds.renderY, bgBounds.OuterWidth, bgBounds.OuterHeight, 50f);
+            }
+
+            ItemStack hoveredStack = null;
+            int mouseX = api.Input.MouseX;
+            int mouseY = api.Input.MouseY;
+
+            // Рисуем предметы и сразу проверяем наведение
+            hoveredStack = RenderStack(inputStacks, inputBounds, mouseX, mouseY) ?? hoveredStack;
+            if (catalystStacks != null) hoveredStack = RenderStack(catalystStacks, catalystBounds, mouseX, mouseY) ?? hoveredStack;
+            hoveredStack = RenderStack(poolStacks, poolBounds, mouseX, mouseY) ?? hoveredStack;
+            hoveredStack = RenderStack(outputStacks, outputBounds, mouseX, mouseY) ?? hoveredStack;
+
+            // --- МАГИЯ ТУЛТИПА ---
+            if (hoveredStack != null)
+            {
+                renderSlot.Itemstack = hoveredStack;
+                api.World.Player.InventoryManager.CurrentHoveredSlot = renderSlot;
+            }
+            else if (api.World.Player.InventoryManager.CurrentHoveredSlot == renderSlot)
+            {
+                api.World.Player.InventoryManager.CurrentHoveredSlot = null;
+            }
+        }
+
+        // Обновленный метод отрисовки, который теперь возвращает предмет, если на него навели мышь
+        private ItemStack RenderStack(ItemStack[] stacks, ElementBounds slotBounds, int mouseX, int mouseY)
+        {
+            if (stacks == null || stacks.Length == 0) return null;
+            int index = (int)((api.World.ElapsedMilliseconds / 1000) % stacks.Length);
+            ItemStack stack = stacks[index];
+
+            if (stack == null) return null;
+
+            renderSlot.Itemstack = stack;
+            api.Render.RenderItemstackToGui(
+                renderSlot,
+                slotBounds.renderX + slotBounds.OuterWidth / 2,
+                slotBounds.renderY + slotBounds.OuterHeight / 2,
+                100, (float)(slotBounds.OuterWidth / 2), ColorUtil.WhiteArgb
+            );
+
+            // Ручная проверка абсолютных координат (как в тултипах сетки крафта)
+            if (mouseX >= slotBounds.absX && mouseX <= slotBounds.absX + slotBounds.OuterWidth &&
+                mouseY >= slotBounds.absY && mouseY <= slotBounds.absY + slotBounds.OuterHeight)
+            {
+                return stack;
+            }
+            return null;
+        }
+
+        // ИСПОЛЬЗУЕМ СТАНДАРТНЫЙ OnMouseDown (как в Аптекаре)
+        public override void OnMouseDown(ICoreClientAPI api, MouseEvent args)
+        {
+            if (args.Handled) return;
+
+            if (CheckClick(inputStacks, inputBounds, args)) return;
+            if (catalystStacks != null && CheckClick(catalystStacks, catalystBounds, args)) return;
+            if (CheckClick(poolStacks, poolBounds, args)) return;
+            if (CheckClick(outputStacks, outputBounds, args)) return;
+
+            base.OnMouseDown(api, args);
+        }
+
+        private bool CheckClick(ItemStack[] stacks, ElementBounds slotBounds, MouseEvent args)
+        {
+            if (stacks == null || stacks.Length == 0) return false;
+
+            // Ручная проверка попадания мыши в рамки
+            if (args.X >= slotBounds.absX && args.X <= slotBounds.absX + slotBounds.OuterWidth &&
+                args.Y >= slotBounds.absY && args.Y <= slotBounds.absY + slotBounds.OuterHeight)
+            {
+                int index = (int)((api.World.ElapsedMilliseconds / 1000) % stacks.Length);
+                api.Gui.PlaySound("tick"); // Добавили звук клика!
+                OnSlotClick?.Invoke(stacks[index]);
+                args.Handled = true;
+                return true;
+            }
+            return false;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
+    }
 }
