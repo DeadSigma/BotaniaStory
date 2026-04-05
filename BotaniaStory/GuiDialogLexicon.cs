@@ -317,17 +317,28 @@ namespace botaniastory
                             if (recipe.Spread == currentSpread)
                             {
                                 // --- 1. АПТЕКАРЬ ---
+                                // --- 1. АПТЕКАРЬ ---
                                 if (recipe.RecipeType == "Apothecary" && recipe.ApothecaryIngredients != null)
                                 {
-                                    var apoCfg = ui["Аптекарь_Область"];
+                                    // Определяем ключи. Если UiKey пустой, берем стандартный (правый)
+                                    string targetUiKey = string.IsNullOrEmpty(recipe.UiKey) ? "Аптекарь_Область" : recipe.UiKey;
+
+                                    // ТРЮК: Фон мы получаем, просто заменяя слово "Область" на "Фон" в ключе!
+                                    string bgUiKey = targetUiKey.Replace("Область", "Фон");
+
+                                    // Если ключей нет в словаре - пропускаем, чтобы не было краша
+                                    if (!ui.ContainsKey(targetUiKey) || !ui.ContainsKey(bgUiKey)) continue;
+
+                                    var apoCfg = ui[targetUiKey];
                                     double rScale = apoCfg[4] * bookScale;
                                     ElementBounds apoBounds = ElementBounds.Fixed(apoCfg[0] * bookScale, apoCfg[1] * bookScale, 250 * rScale, 250 * rScale);
 
-                                    var bgCfg = ui["Аптекарь_Фон"];
+                                    var bgCfg = ui[bgUiKey];
                                     double apoBgScale = bgCfg[4] * bookScale;
                                     ElementBounds bgBounds = ElementBounds.Fixed(bgCfg[0] * bookScale, bgCfg[1] * bookScale, bgCfg[2] * apoBgScale, bgCfg[3] * apoBgScale);
 
                                     ItemStack[][] inputs = new ItemStack[recipe.ApothecaryIngredients.Length][];
+                                 
                                     for (int j = 0; j < recipe.ApothecaryIngredients.Length; j++)
                                     {
                                         inputs[j] = GetItemStacks(recipe.ApothecaryIngredients[j]);
@@ -345,17 +356,25 @@ namespace botaniastory
                                 }
 
                                 // --- 2. АЛЬФХЕЙМ ---
+                                // --- 2. АЛЬФХЕЙМ ---
                                 else if (recipe.RecipeType == "Alfheim" && recipe.AlfheimInputs != null)
                                 {
-                                    var alfheimCfg = ui["Альфхейм_Область"];
+                                    // Аналогичная логика
+                                    string targetUiKey = string.IsNullOrEmpty(recipe.UiKey) ? "Альфхейм_Область" : recipe.UiKey;
+                                    string bgUiKey = targetUiKey.Replace("Область", "Фон");
+
+                                    if (!ui.ContainsKey(targetUiKey) || !ui.ContainsKey(bgUiKey)) continue;
+
+                                    var alfheimCfg = ui[targetUiKey];
                                     double rScale = alfheimCfg[4] * bookScale;
                                     ElementBounds alfheimBounds = ElementBounds.Fixed(alfheimCfg[0] * bookScale, alfheimCfg[1] * bookScale, 250 * rScale, 250 * rScale);
 
-                                    var bgCfg = ui["Альфхейм_Фон"];
+                                    var bgCfg = ui[bgUiKey];
                                     double alfheimBgScale = bgCfg[4] * bookScale;
                                     ElementBounds bgBounds = ElementBounds.Fixed(bgCfg[0] * bookScale, bgCfg[1] * bookScale, bgCfg[2] * alfheimBgScale, bgCfg[3] * alfheimBgScale);
 
                                     ItemStack[] inputs = new ItemStack[recipe.AlfheimInputs.Length];
+    
                                     for (int j = 0; j < recipe.AlfheimInputs.Length; j++)
                                     {
                                         var stacks = GetItemStacks(recipe.AlfheimInputs[j]);
@@ -381,8 +400,18 @@ namespace botaniastory
                                 // --- 3. СЕТКА ---
                                 else if (recipe.RecipeType == "Grid" && recipe.Grid != null)
                                 {
-                                    var gridCfg = ui["Рецепт_Сетка"];
+                                    // НОВАЯ ЛОГИКА: Берем ключ из рецепта. Если он пустой, берем стандартный.
+                                    string targetUiKey = string.IsNullOrEmpty(recipe.UiKey) ? "Рецепт_Сетка" : recipe.UiKey;
+
+                                    // Защита от вылета, если опечатался в ключе
+                                    if (!bounds.ContainsKey(targetUiKey)) continue;
+
+                                    // Берем нужные координаты
+                                    var gridCfg = ui[targetUiKey];
+
                                     double rScale = gridCfg[4] * bookScale;
+                                    // ОШИБКА БЫЛА ЗДЕСЬ: Раньше ты брал gridCfg[0] и gridCfg[1] из ui["Рецепт_Сетка"] жестко. 
+                                    // Теперь мы берем bounds[targetUiKey].
                                     ElementBounds gridBounds = ElementBounds.Fixed(gridCfg[0] * bookScale, gridCfg[1] * bookScale, 350 * rScale, 200 * rScale);
 
                                     ItemStack[][] inputs = new ItemStack[9][];

@@ -32,6 +32,7 @@ namespace botaniastory
 
         // Данные для ванильной сетки
         public string[] Grid { get; set; }
+        public string UiKey { get; set; }
 
         // Данные для Аптекаря
         public string[] ApothecaryIngredients { get; set; }
@@ -407,7 +408,7 @@ namespace botaniastory
 
 
                     // Пытаемся загрузить до 5 страниц
-                    for (int p = 1; p <= 5; p++)
+                    for (int p = 1; p <= 30; p++)
                     {
                         // Ищем страницы: lexicon:lexicon_basics_and_mechanics_basicsintroduction_p1
                         string pageKey = $"botaniastory:lexicon_{catId}_{chapId}_p{p}";

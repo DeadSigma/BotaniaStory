@@ -6,15 +6,31 @@ BotaniaStory/
     BlockEntityManaSpreader.cs
     BlockManaPool.cs
     BlockManaSpreader.cs
+    BookData.cs
     BotaniaModSystem.cs
     BotaniaStory.csproj
     BotaniaWandHud.cs
     EntityManaBurst.cs
+    GuiDialogLexicon.cs
+    GuiDialogLexiconkSettings.cs
+    GuiElementAlfheimRecipe.cs
+    GuiElementApothecaryRecipe.cs
+    GuiElementClickableImage.cs
+    GuiElementClickableTab.cs
+    GuiElementHoverRow.cs
+    GuiElementRecipeGrid.cs
+    ItemLexicon.cs
     ItemWandOfBinding.cs
     ItemWandOfTheForest.cs
+    LexiconConfig.cs
+    LexiconHologramSystem.cs
+    LexiconUIData.cs
+    lexicon_ModSystem.cs
     modinfo.json
     SpreaderCoreRenderer.cs
+    UIDebugger.cs
     создаёт структуру папок.py
+    структура botaniastory  на всякий случай.txt
     assets/
         botaniastory/
             blocktypes/
@@ -25,15 +41,19 @@ BotaniaStory/
                 manaspreader.json
                 mysticalflower.json
                 functional_flora/
-                    огромный перечень файлов цветов
+                    
                 generating_flora/
-                    огромный перечень файлов цветов
+                    
             compatibility/
             config/
                 handbook/
+                    botania_intro.json
+                schematics/
+                    terraaltar.json
             entities/
                 manaburst.json
             itemtypes/
+                lexicon.json
                 livingwood_firewood.json
                 livingwood_stick.json
                 mysticalpetal.json
@@ -45,10 +65,10 @@ BotaniaStory/
             recipes/
                 grid/
                     apothecary.json
+                    lexicon.json
                     livingwood_firewood.json
                     livingwood_stick.json
                     mysticalpetal.json
-                    wandoftheforest — крафт.json
                     wandoftheforest.json
                 knapping/
             shapes/
@@ -60,12 +80,18 @@ BotaniaStory/
                     manaspreader_core.json
                     waterplane.json
                 item/
+                    lexicon_model_closed.json
+                    lexicon_model_open.json
                     livingwood_stick.json
+                    wandofbinding.json
                     wandoftheforest.json
             sounds/
                 apothecary_craft.ogg
                 gargamel10-magic-basic-game-sound-effect-380301.ogg
                 ignite.ogg
+                lexiconclose.ogg
+                lexiconopen.ogg
+                lexiconpage.ogg
                 manaspreaderfire.ogg
                 wand_bind.ogg
                 wand_of_binding.ogg
@@ -77,23 +103,58 @@ BotaniaStory/
                     manaspreader.png
                     manaspreadercore.png
                     functional_flora/
-                        огромный перечень цветов
+                        
                     generating_flora/
-                       огромный перечень цветов
+                        
                     mysticalflower/
                         mystical_flowers/
-                            огромный перечень цветов
+                            
                         stem/
-                           огромный перечень стебельков
+                            
+                gui/
+                    alfheim_bg.png
+                    apothecary.png
+                    apothecary_bg.png
+                    book.png
+                    bookmark_off.png
+                    bookmark_on.png
+                    btn_next.png
+                    btn_prev.png
+                    category_icon_0.png
+                    category_icon_1.png
+                    category_icon_10.png
+                    category_icon_11.png
+                    category_icon_2.png
+                    category_icon_3.png
+                    category_icon_4.png
+                    category_icon_5.png
+                    category_icon_6.png
+                    category_icon_7.png
+                    category_icon_8.png
+                    category_icon_9.png
+                    gear.png
+                    magic_intro.png
+                    magic_runes.png
+                    manabar_bg.png
+                    manabar_fill.png
+                    manabar_frame.png
+                    mysticalflowers.png
+                    star.png
+                    tab_empty.png
+                    tab_green.png
+                    tab_purple.png
+                    welcome_art.png
                 item/
+                    bindingwandcore.png
+                    lexicon.png
                     tip1.png
                     tip2.png
                     wandoftheforest_grip.png
                     wandoftheforest_wood.png
                     colors/
-                        огромный перечень лепестков
+                       
                     mysticalpetal/
-                        огромный перечень лепестков
+                        
             worldgen/
                 blockpatches/
                     worldgen_flowers.json

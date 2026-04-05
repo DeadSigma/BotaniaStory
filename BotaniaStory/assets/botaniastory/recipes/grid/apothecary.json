@@ -5,7 +5,8 @@
             "R": {
                 "type": "block",
                 "code": "game:rock-*",
-                "name": "rock"
+                "name": "rock",
+                "allowedVariants": [ "andesite", "basalt", "bauxite", "chalk", "chert", "claystone", "conglomerate", "granite", "greenmarble", "halite", "kimberlite", "limestone", "obsidian", "peridotite", "phyllite", "redmarble", "sandstone", "scoria", "shale", "slate", "suevite", "sulfur", "travertine", "tuff", "whitemarble" ]
             },
             "P": {
                 "type": "item",
@@ -35,7 +36,8 @@
             "R": {
                 "type": "block",
                 "code": "game:rock-*",
-                "name": "rock"
+                "name": "rock",
+                "allowedVariants": [ "andesite", "basalt", "bauxite", "chalk", "chert", "claystone", "conglomerate", "granite", "greenmarble", "halite", "kimberlite", "limestone", "obsidian", "peridotite", "phyllite", "redmarble", "sandstone", "scoria", "shale", "slate", "suevite", "sulfur", "travertine", "tuff", "whitemarble" ]
             },
             "P": {
                 "type": "item",
