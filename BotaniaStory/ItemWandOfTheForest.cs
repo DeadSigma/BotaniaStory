@@ -125,7 +125,6 @@ namespace BotaniaStory
             // ==========================================
             // Г. КЛИК ПО ЛЮБОМУ БЛОКУ (Без Shift) - Привязываем или поворачиваем Распространитель
             // ==========================================
-            // МЫ УБРАЛИ ПРОВЕРКУ "block is BlockManaPool". ТЕПЕРЬ СРАБОТАЕТ НА ВСЁ!
             if (!isSneaking && slot.Itemstack.Attributes.GetBool("hasSpreader"))
             {
                 int sx = slot.Itemstack.Attributes.GetInt("spreaderX");

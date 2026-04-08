@@ -1,0 +1,19 @@
+{
+    "ingredientPattern": "  M, S ,S  ",
+    "ingredients": {
+        "M": {
+            "type": "item",
+            "code": "botaniastory:livingwood_stick"
+        },
+        "S": {
+            "type": "item",
+            "code": "botaniastory:livingwood_stick"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:wandofbinding"
+    }
+}

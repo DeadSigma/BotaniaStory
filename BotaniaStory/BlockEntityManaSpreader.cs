@@ -1,4 +1,5 @@
-﻿using System;
+﻿using botaniastory;
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -129,8 +130,7 @@ namespace BotaniaStory
             {
                 isDischarging = false;
             }
-
-            // Если мы не в режиме разрядки или цель потеряна — отменяем выстрел
+            
             // Если мы не в режиме разрядки или цель потеряна — отменяем выстрел
             if (!isDischarging || TargetPos == null) return;
 
@@ -227,16 +227,22 @@ namespace BotaniaStory
 
             // ... (звук и списание маны)
 
-            // 3. ВОСПРОИЗВОДИМ ЗВУК
-            // AssetLocation соберет путь: assets/botaniastory/sounds/manaspreaderfire.ogg
-            Api.World.PlaySoundAt(
-                new AssetLocation("botaniastory", "sounds/manaspreaderfire"),
-                Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5,
-                null,
-                randomizePitch: true, // Легкое изменение тональности, чтобы звук не приедался
-                range: 16,            // Дальность звука (в блоках)
-                volume: 0.8f          // Громкость
-            );
+            // 3. Читаем конфиг в реальном времени
+            LexiconConfig config = Api.LoadModConfig<LexiconConfig>("lexicon_client.json");
+            float volumeMultiplier = (config != null) ? (config.SpreaderVolume / 100f) : 0.5f;
+
+            // Если громкость больше 0, воспроизводим звук
+            if (volumeMultiplier > 0f)
+            {
+                Api.World.PlaySoundAt(
+                    new AssetLocation("botaniastory", "sounds/manaspreaderfire"),
+                    Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5,
+                    null,
+                    randomizePitch: true, // Легкое изменение тональности
+                    range: 16,            // Дальность звука (в блоках)
+                    volume: 0.8f * volumeMultiplier // <--- ПРИМЕНЯЕМ ПОЛЗУНОК
+                );
+            }
 
             // Обновляем таймер и списываем ману
             lastFireMs = currentMs;

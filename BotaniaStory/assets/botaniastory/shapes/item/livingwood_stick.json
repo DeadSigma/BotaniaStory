@@ -6,10 +6,11 @@
 	"textureWidth": 8,
 	"textureHeight": 8,
 	"textureSizes": {
-		"wandoftheforest_wood": [32, 32]
+		"livingwood_firewood_pile": [32, 32]
 	},
 	"textures": {
-		"wandoftheforest_wood": "botaniastory:item/wandoftheforest_wood",
+		"livingwood_firewood_pile": "botaniastory:item/livingwood_firewood_pile"
+
 	},
 	"elements": [
 		{
@@ -47,38 +48,38 @@
 			"children": [
 				{
 					"name": "cube0",
-					"from": [7.3962, 8.3678, 6.9189],
-					"to": [8.3987, 12.7938, 8.0049],
-					"rotationOrigin": [7.8974, 10.5808, 7.4619],
+					"from": [7.3877, 9.1163, 6.8678],
+					"to": [8.3902, 13.5423, 7.9538],
+					"rotationOrigin": [7.8889, 11.3293, 7.4108],
 					"faces": {
 						"north": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [19, 0, 25, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [0, 6, 6, 15],
 							"autoUv": false
 						},
 						"east": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [4, 0, 10, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [14, 6, 20, 15],
 							"autoUv": false
 						},
 						"south": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [20, 0, 26, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [16, 6, 22, 15],
 							"autoUv": false
 						},
 						"west": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [21, 0, 27, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [27, 6, 31, 15],
 							"autoUv": false
 						},
 						"up": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [21, 24, 27, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [0, 26, 6, 32],
 							"autoUv": false
 						},
 						"down": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [21, 0, 27, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [10, 26, 16, 32],
 							"autoUv": false
 						}
 					},
@@ -86,38 +87,38 @@
 				},
 				{
 					"name": "cube1",
-					"from": [7.3462, 4.3785, 7.31],
-					"to": [8.4822, 8.8545, 8.446],
-					"rotationOrigin": [7.9142, 6.6317, 8.0523],
+					"from": [7.3127, 4.7572, 7.3002],
+					"to": [8.4487, 9.2332, 8.4362],
+					"rotationOrigin": [7.8807, 7.0105, 8.0425],
 					"faces": {
 						"north": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [5, 0, 11, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [0, 15, 6, 24],
 							"autoUv": false
 						},
 						"east": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [22, 0, 28, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [14, 15, 20, 24],
 							"autoUv": false
 						},
 						"south": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [4, 0, 10, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [16, 15, 22, 24],
 							"autoUv": false
 						},
 						"west": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [14, 0, 20, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [27, 15, 31, 24],
 							"autoUv": false
 						},
 						"up": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [21, 0, 27, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [14, 15, 20, 24],
 							"autoUv": false
 						},
 						"down": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [21, 0, 27, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [6, 0, 0, 32],
 							"autoUv": false
 						}
 					},
@@ -125,38 +126,38 @@
 				},
 				{
 					"name": "cube2",
-					"from": [7.3127, -0.1465, 7.7068],
-					"to": [8.4822, 4.7545, 8.7928],
-					"rotationOrigin": [7.8974, 2.5415, 7.7498],
+					"from": [7.3127, -0.1465, 7.7318],
+					"to": [8.4822, 4.7545, 8.8178],
+					"rotationOrigin": [7.8974, 2.5415, 7.7748],
 					"faces": {
 						"north": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [21, 0, 27, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [0, 24, 6, 32],
 							"autoUv": false
 						},
 						"east": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [16, 0, 22, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [14, 24, 20, 32],
 							"autoUv": false
 						},
 						"south": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [6, 0, 12, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [16, 24, 22, 32],
 							"autoUv": false
 						},
 						"west": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [21, 0, 28, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [27, 24, 31, 32],
 							"autoUv": false
 						},
 						"up": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [21, 0, 25, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [15, 0, 0, 32],
 							"autoUv": false
 						},
 						"down": {
-							"texture": "#wandoftheforest_wood",
-							"uv": [21, 23, 25, 32],
+							"texture": "#livingwood_firewood_pile",
+							"uv": [0, 23, 4, 32],
 							"autoUv": false
 						}
 					},

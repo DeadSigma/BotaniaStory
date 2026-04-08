@@ -1,35 +1,66 @@
 {
     "code": "livingwood_firewood",
-    "class": "Item",
+    "class": "ItemFirewood",
     "maxstacksize": 32,
-    "behaviors": [{
-        "name": "GroundStorable",
-        "properties": {
-            "layout": "Stacking",
-            "placeRemoveSound": "game:block/planks",
-            "stackingModel": "game:block/wood/firewoodpile",
-            "upSolid": true,
-            "stackingCapacity": 32,
-            "transferQuantity": 2,
-            "bulkTransferQuantity": 8,
-            "collisionBox": { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 0.25, "z2": 1 },
-            "cbScaleYByLayer": 0.125
+    "behaviors": [
+        {
+            "name": "GroundStorable",
+            "properties": {
+                "layout": "Stacking",
+                "placeRemoveSound": "game:block/planks",
+                "stackingModel": "game:block/wood/firewoodpile",
+                "modelItemsToStackSizeRatio": 0.5,
+                "upSolid": true,
+                "stackingCapacity": 32,
+                "transferQuantity": 2,
+                "bulkTransferQuantity": 8,
+                "collisionBox": {
+                    "x1": 0,
+                    "y1": 0,
+                    "z1": 0,
+                    "x2": 1,
+                    "y2": 0.25,
+                    "z2": 1
+                },
+                "cbScaleYByLayer": 0.125,
+                "burnHoursPerItem": 0.5
+            }
         }
-    }],
+    ],
+    "attributes": {
+        "firepitConstructable": true,
+        "isClayOvenFuel": true,
+        "placeSound": "game:block/planks"
+    },
     "shape": { "base": "game:item/firewood" },
     "textures": {
-        "coal": { "base": "botaniastory:block/livingwood" },
-        "bark": { "base": "botaniastory:block/livingwood" },
-        "side": { "base": "botaniastory:block/livingwood" },
-        "south": { "base": "botaniastory:block/livingwood" },
-        "north": { "base": "botaniastory:block/livingwood" },
+        "coal": { "base": "botaniastory:block/livingwood_firewood_coal_top" },
+        "bark": { "base": "botaniastory:block/livingwood_firewood_bark" },
+        "side": { "base": "botaniastory:block/livingwood_firewood_side" },
+        "south": { "base": "botaniastory:block/livingwood_firewood_south" },
+        "north": { "base": "botaniastory:block/livingwood_firewood_north" },
         "wood": { "base": "botaniastory:block/livingwood" }
     },
-    "creativeinventory": { "general": ["*"], "botaniastory": ["*"] },
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
     "guiTransform": {
-        "translation": { "x": 3, "y": 0, "z": 0 },
-        "rotation": { "x": -22.5, "y": -44.6875, "z": 90 },
-        "origin": { "x": 0.43, "y": 0.43, "z": 0.5 },
+        "translation": {
+            "x": 3,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": -22.5,
+            "y": -44.6875,
+            "z": 90
+        },
+        "origin": {
+            "x": 0.43,
+            "y": 0.43,
+            "z": 0.5
+        },
         "scale": 1.45
     },
     "combustibleProps": {

@@ -174,7 +174,7 @@ namespace BotaniaStory
                     }
 
                     if (itemCode.Contains("gray-free") || itemCode.Contains("blue-free") 
-                        || itemCode.Contains("lightgray") || itemCode.Contains("red-free") 
+                        || itemCode.Contains("lightgray-free") || itemCode.Contains("red-free") 
                         || itemCode.Contains("wilddaisy") || itemCode.Contains("redtopgrass") || itemCode.Contains("mugwort") 
                         || itemCode.Contains("cowparsley") || itemCode.Contains("orangemallow") || itemCode.Contains("catmint"))
                     {
@@ -211,43 +211,43 @@ namespace BotaniaStory
                     else if (itemCode.Contains("treeseed-birch"))
                     {
                         finalScale = 0.6f;
-                        finalHeight += 0.3f;
+                        finalHeight += -0.09f;
                         // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-greenspirecypress"))
                     {
                         finalScale = 0.6f;
-                        finalHeight += 0.1f;
+                        finalHeight += -0.09f;
                         // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-baldcypress"))
                     {
                         finalScale = 0.6f;
-                        finalHeight += 0.1f;
+                        finalHeight += -0.09f;
                         // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-acacia"))
                     {
                         finalScale = 0.6f;
-                        finalHeight += 0.26f;
+                        finalHeight += -0.09f;
                         // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-ebony"))
                     {
                         finalScale = 0.6f;
-                        finalHeight += 0.1f;
+                        finalHeight += -0.09f;
                         // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-purpleheart"))
                     {
                         finalScale = 0.6f;
-                        finalHeight += 0.3f;
+                        finalHeight += -0.09f;
                         // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-maple"))
                     {
                         finalScale = 0.6f;
-                        finalHeight += 0.47f;
+                        finalHeight += 0.02f;
                         finalRotX = GameMath.PIHALF;
                         // Лежит на боку, повёрнут на 90 градусов по X
 
@@ -257,7 +257,7 @@ namespace BotaniaStory
                     else if (itemCode.Contains("treeseed-crimsonkingmaple"))
                     {
                         finalScale = 0.6f;
-                        finalHeight += 0.47f;
+                        finalHeight += 0.02f;
                         // Лежит на боку, повёрнут на 90 градусов по X
                         finalRotX = GameMath.PIHALF;
 
@@ -268,7 +268,7 @@ namespace BotaniaStory
                     else if (itemCode.Contains("treeseed"))
                     {
                         finalScale = 0.6f;
-                        finalHeight += 0.43f;
+                        finalHeight += 0.02f;
                         // Лежит на боку, повёрнут на 90 градусов по X
                         finalRotX = GameMath.PIHALF;
 

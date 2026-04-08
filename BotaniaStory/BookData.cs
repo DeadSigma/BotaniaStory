@@ -75,32 +75,27 @@ namespace botaniastory
         private static readonly Dictionary<string, string[]> BookStructure = new Dictionary<string, string[]>
         {
             { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "wandoftheforest",
-                "puredaisy", "runicaltar", "terrasteel", "flowerpouch", "blacklotus" } },
+                "puredaisy", "runicaltar" } },
 
-            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet","sparks", "sparkupgrades", 
-             "manamirror", "manalenses", "craftmanspark", "manadetector", "manastar", "manaonrails"  
-            , "manavoid", "manamachine", "manaprism", "manadistributor", "sparkaugments", "elvenmanalenses"
-            , "elvenmanaspreaders", "manafluxfield"} },
+            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "sparks", "sparkupgrades"} },
 
-            { "generating_flora", new[] {"generatingfloraintroduction", "hydroangeas", "endoflame", "generatingfloraintroduction", "shulkmenot", "gourmaryllis"
-            , "munchdew", "dandelifeon", "kekimurus", "rafflowsia", "entropinnyum", "spectrolus", "arcanerose"
-            , "thermalily", "entropinnyum"} },
+            { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame" } },
 
-            { "functional_flora", new[] { "ch1", "ch2", "ch3", "ch4", "ch5" } },
+            { "functional_flora", new[] { "puredaisy"} },
 
-            { "natural_apparatus", new[] { "ch1", "ch2", "ch3", "ch4", "ch5" } },
+            { "natural_apparatus", new[] { "ch1" } },
 
-            { "mystical_items", new[] { "ch1", "ch2", "ch3", "ch4", "ch5" } },
+            { "mystical_items", new[] { "wandofbinding" } },
 
-            { "trinkets_and_accessories", new[] { "ch1", "ch2", "ch3", "ch4", "ch5" } },
+            { "trinkets_and_accessories", new[] { "ch1" } },
 
-            { "rusted_world_artifacts", new[] { "ch1", "ch2", "ch3", "ch4", "ch5" } },
+            { "rusted_world_artifacts", new[] { "ch1" } },
 
-            { "elfmania", new[] { "ch1", "ch2", "ch3", "ch4", "ch5" } },
+            { "elfmania", new[] { "ch1" } },
 
-            { "misc", new[] { "ch1", "ch2", "ch3", "ch4", "ch5" } },
+            { "misc", new[] { "livingwood_firewood", "livingwood_stick" } },
 
-            { "trials", new[] { "ch1", "ch2", "ch3", "ch4", "ch5" } }
+            { "trials", new[] { "ch1" } }
         };
 
 
@@ -112,7 +107,8 @@ namespace botaniastory
         { "botaniastory:mysticalpetal-*", "mysticalflower" },
         { "botaniastory:livingwood_stick", "puredaisy" },
         { "botaniastory:livingwood", "puredaisy" },
-        { "botaniastory:livingwood_firewood", "puredaisy" }
+        { "botaniastory:livingwood_firewood", "puredaisy" },
+        { "botaniastory:livingrock", "puredaisy" }
     };
 
         // === НОВЫЙ КОД: Метод для поиска главы по блоку ===
@@ -207,7 +203,7 @@ namespace botaniastory
                     /////////////////////////////////////////////////////
                     if (chapId == "basicsintroduction")
                     {
-                        
+
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ЛЕКСИКОН БОТАНИЯ ===
@@ -220,6 +216,7 @@ namespace botaniastory
                         {
                             RecipeType = "Grid",
                             Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
                                 "game:paper-parchment", null, null,
                                 "game:treeseed-*", null, null,
@@ -243,7 +240,8 @@ namespace botaniastory
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 1, 
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
                              "game:rock-*", "botaniastory:mysticalpetal-*" , "game:rock-*",// Верхний ряд
 
@@ -255,22 +253,23 @@ namespace botaniastory
                         });
 
 
-						//добавить рецепты цветов в аптекаре
-						chapter.Recipes.Add(new BookRecipe()
-                         {
-						RecipeType = "Apothecary",
-						Spread = 2,
-						ApothecaryIngredients = new string[]
-						{
+                        //добавить рецепты цветов в аптекаре
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 2,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                        {
                             "botaniastory:mysticalpetal-*",
                             "botaniastory:mysticalpetal-*",
                             "botaniastory:mysticalpetal-*",
                             "botaniastory:mysticalpetal-*"
                         },
-						ApothecaryCenter = "game:table-normal",
-						Output = "botaniastory:mysticalpetal-*"
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+                            Output = "botaniastory:mysticalpetal-*"
                         });
-						
+
                     }
 
                     // === НАСТРОЙКА МИСТИЧЕСКИЕ ЦВЕТЫ ===
@@ -290,7 +289,8 @@ namespace botaniastory
                         {
                             RecipeType = "Grid",
                             Spread = 0,
-                                               Grid = new string[9] {
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
                              // Уточняем маску для рецепта в сетке
                              "botaniastory:mysticalflower-*-free", null, null, // Верхний ряд
                              null, null, null,                                 // Средний ряд
@@ -308,6 +308,7 @@ namespace botaniastory
                         {
                             RecipeType = "Grid",
                             Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
                              null, "botaniastory:mysticalpetal-*", "botaniastory:livingwood_stick",// Верхний ряд
                              null, "botaniastory:livingwood_stick", "botaniastory:mysticalpetal-*",            // Средний ряд
@@ -324,6 +325,7 @@ namespace botaniastory
                         {
                             RecipeType = "Grid",
                             Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
                              null, "botaniastory:mysticalpetal-*", "botaniastory:livingwood_stick",// Верхний ряд
                              null, "botaniastory:mysticalflower-*", "botaniastory:mysticalpetal-*",            // Средний ряд
@@ -349,6 +351,31 @@ namespace botaniastory
 
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ РАСПРОСТРАНИТЕЛЬ МАНЫ===
+                    else if (chapId == "manaspreader")
+                    {
+                        chapter.TabItemCode = "botaniastory:manaspreader";
+
+                        chapter.Images.Add(new BookPageImage()
+                        {
+                            Path = "botaniastory:textures/gui/manaspreader.png",
+                            Spread = 0,
+                            UiKey = "Картинка_Правая"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                                 "botaniastory:livingwood", "botaniastory:livingwood", "botaniastory:livingwood",
+                                 "game:ingot-copper", "botaniastory:mysticalpetal-*", null,
+                                 "botaniastory:livingwood", "botaniastory:livingwood", "botaniastory:livingwood"},
+                            Output = "botaniastory:manaspreader"
+                        });
+                    }
+
                     // === НАСТРОЙКА PUREDAISY ===
                     else if (chapId == "puredaisy")
                     {
@@ -356,8 +383,8 @@ namespace botaniastory
 
                         chapter.Images.Add(new BookPageImage()
                         {
-                            Path = "botaniastory:textures/gui/puredaisy.png", 
-                            Spread = 0, 
+                            Path = "botaniastory:textures/gui/puredaisy.png",
+                            Spread = 0,
                             UiKey = "Картинка_Правая"
                         });
 
@@ -365,7 +392,7 @@ namespace botaniastory
                         {
                             RecipeType = "Grid",
                             Spread = 1, // Тот же разворот
-                            UiKey = "Рецепт_Сетка_Левая", // <--- СЛЕВА
+                            UiKey = "Сетка_Левая_Верхняя", // <--- СЛЕВА
                             Grid = new string[9] {
                                 "game:axe-*", "botaniastory:livingwood", null,
                                 null, null, null,
@@ -377,8 +404,8 @@ namespace botaniastory
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 1, 
-                            UiKey = "Рецепт_Сетка_Правая", 
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
                                 "game:axe-*", "botaniastory:livingwood_firewood", null,
                                 null, null, null,
@@ -403,19 +430,49 @@ namespace botaniastory
                             Output = "botaniastory:puredaisy-free"
                         });
                     }
-
+                    // === НАСТРОЙКА MANAPOOL ===
                     else if (chapId == "manapool")
                     {
                         chapter.TabItemCode = "botaniastory:manapool";
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                               "game:chisel-*", null,"game:hammer-*",// Верхний ряд
+
+
+                              "botaniastory:livingrock", null, "botaniastory:livingrock",// Средний ряд
+                        
+                              "botaniastory:livingrock*", "botaniastory:livingrock*", "botaniastory:livingrock*" // Нижний ряд
+                          },
+                            Output = "botaniastory:manapool"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                               "game:chisel-*", null,"game:hammer-*",// Верхний ряд
+
+
+                              "botaniastory:livingrock", null, "botaniastory:livingrock",// Средний ряд
+                        
+                              "botaniastory:livingrock*", "botaniastory:livingrock*", "botaniastory:livingrock*" // Нижний ряд
+                          },
+                            Output = "botaniastory:manapool"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
                             RecipeType = "ManaPool",
                             Spread = 1,
 
-                            // ВАЖНО: Добавили слово "Область". 
-                            // Теперь код автоматически найдет настройки для "Рецепт_Бассейн_Фон_Левый"
-                            UiKey = "Рецепт_Бассейн_Область_Левый",
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
 
                             PoolInput = new string[] { "game:ingot-*" },
                             PoolBlock = "botaniastory:manapool",
@@ -423,67 +480,271 @@ namespace botaniastory
 
                             Output = "botaniastory:mysticalflower-*"
                         });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 50000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+
+                            PoolInput = new string[] { "game:ingot-*" },
+                            PoolBlock = "botaniastory:manapool",
+                            PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
+
+                            Output = "botaniastory:mysticalflower-*"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 50000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        ////page 2
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+
+                            PoolInput = new string[] { "game:ingot-*" },
+                            PoolBlock = "botaniastory:manapool",
+                            PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
+
+                            Output = "botaniastory:mysticalflower-*"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 50000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+
+                            PoolInput = new string[] { "game:ingot-*" },
+                            PoolBlock = "botaniastory:manapool",
+                            PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
+
+                            Output = "botaniastory:mysticalflower-*"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 50000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        ////////
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
+
+                            PoolInput = new string[] { "game:ingot-*" },
+                            PoolBlock = "botaniastory:manapool",
+                            PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
+
+                            Output = "botaniastory:mysticalflower-*"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 50000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+
+                            PoolInput = new string[] { "game:ingot-*" },
+                            PoolBlock = "botaniastory:manapool",
+                            PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
+
+                            Output = "botaniastory:mysticalflower-*"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 50000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                        ///page 3
+
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 3,
+
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+
+                            PoolInput = new string[] { "game:ingot-*" },
+                            PoolBlock = "botaniastory:manapool",
+                            PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
+
+                            Output = "botaniastory:mysticalflower-*"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 50000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 3,
+
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
+
+                            PoolInput = new string[] { "game:ingot-*" },
+                            PoolBlock = "botaniastory:manapool",
+                            PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
+
+                            Output = "botaniastory:mysticalflower-*"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 50000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
+
                     }
 
-
-
-
-
-
-
-
-
-
-
-                    // === НАСТРОЙКА ГЛАВЫ С НЕСКОЛЬКИМИ КРАФТАМИ (Пример: Альфхейм) ===
-                    // Проверяем категорию (например, elfmania) и нужную главу (например, ch1)
-                    else if (catId == "elfmania" && chapId == "ch1")
+                    // === НАСТРОЙКА ГЛАВЫ ДНЕВНОЦВЕТ ===
+                    else if (chapId == "daybloom")
                     {
-                        // --- 1. ПЕРВЫЙ РАЗВОРОТ (Spread = 0) ---
-                        // Добавляем рецепт Альфхейма на самые первые страницы главы
-                        chapter.Recipes.Add(new BookRecipe()
-                        {
-                            RecipeType = "Alfheim",
-                            Spread = 0, // 0 = первый разворот
-                            AlfheimInputs = new string[] { "game:rock-granite" }, // Что кидаем
-                            Output = "game:rock-granite"                          // Что получаем
-                        });
-
-                        // --- 2. ВТОРОЙ РАЗВОРОТ (Spread = 1) ---
-                        // Игрок нажимает "Вперед" и видит рецепт обычной сетки
-                        chapter.Recipes.Add(new BookRecipe()
-                        {
-                            RecipeType = "Grid",
-                            Spread = 1, // 1 = второй разворот (после одного перелистывания)
-                            Grid = new string[9] {
-                                "botaniastory:mysticalflower-*", null, "game:plank-*",
-                                null, "game:stick", null,
-                                "game:plank-*", null, "botaniastory:apothecary-*"
-                            },
-                            Output = "game:table-normal"
-                        });
-
-                        // --- 3. ТРЕТИЙ РАЗВОРОТ (Spread = 2) ---
-                        // Игрок еще раз нажимает "Вперед" и видит Аптекарь
+                        chapter.TabItemCode = "botaniastory:daybloom-free";
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Apothecary",
-                            Spread = 2, // 2 = третий разворот
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
                             ApothecaryIngredients = new string[]
                             {
-                                "game:flower-*",
-                                "botaniastory:mysticalflower-*",
-                               "botaniastory:apothecary-*"
+                                 "botaniastory:mysticalpetal-yellow",
+                                 "botaniastory:mysticalpetal-orange",
+                                 "botaniastory:mysticalpetal-lightblue",
+                                 "botaniastory:mysticalpetal-yellow"
                             },
-                            ApothecaryCenter = "game:seed-*",
-                            Output = "botaniastory:mysticalflower-*"
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+                            Output = "botaniastory:daybloom-free"
+                        });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ЭНДОПЛАМЯ ===
+                    else if (chapId == "endoflame")
+                    {
+                        chapter.TabItemCode = "botaniastory:endoflame-free";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                            {
+                                 "botaniastory:mysticalpetal-brown",
+                                 "botaniastory:mysticalpetal-red",
+                                 "botaniastory:mysticalpetal-lightgray",
+                                 "botaniastory:mysticalpetal-brown"
+                            },
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+
+                            Output = "botaniastory:endoflame-free"
+                        });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ЖЕЗЛ СВЯЗЫВАНИЯ ===
+                    else if (chapId == "wandofbinding")
+                    {
+                        chapter.TabItemCode = "botaniastory:wandofbinding";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                              null, null, "botaniastory:livingwood_stick",
+                              null, "botaniastory:livingwood_stick", null,
+                              "botaniastory:livingwood_stick", null, null},
+                            Output = "botaniastory:wandofbinding"
+                        });
+
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ЖИЗНЕДРОВА ===
+                    else if (chapId == "livingwood_firewood")
+                    {
+                        chapter.TabItemCode = "botaniastory:livingwood_firewood";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                              "game:axe-*", "botaniastory:livingwood", null,
+                              null, null, null,
+                              null, null, null},
+                            Output = "botaniastory:livingwood_firewood"
+                        });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ЖИЗНЕПАЛКИ ===
+                    else if (chapId == "livingwood_stick")
+                    {
+                        chapter.TabItemCode = "botaniastory:livingwood_stick";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                              "game:axe-*", "botaniastory:livingwood_firewood", null,
+                              null, null, null,
+                              null, null, null},
+                            Output = "botaniastory:livingwood_stick"
                         });
                     }
 
 
-
-
-                    // Пытаемся загрузить до 5 страниц
+                    // Пытаемся загрузить до 30 страниц
                     for (int p = 1; p <= 30; p++)
                     {
                         // Ищем страницы: botaniastory:lexicon_basics_and_mechanics_basicsintroduction_p1

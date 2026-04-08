@@ -6,15 +6,23 @@
         {
             "name": "GroundStorable",
             "properties": {
-                "layout": "Quadrants",
+                "layout": "Stacking",
+                "placeRemoveSound": "game:sounds/block/loosestick",
+                "stackingModel": "botaniastory:item/livingwood_stick_pile",
+                "upSolid": false,
+                "cuboidsPerModel": 3,
+                "stackingCapacity": 42,
+                "transferQuantity": 2,
+                "bulkTransferQuantity": 14,
                 "collisionBox": {
                     "x1": 0,
                     "y1": 0,
                     "z1": 0,
                     "x2": 1,
-                    "y2": 0.1,
+                    "y2": 0.07,
                     "z2": 1
-                }
+                },
+                "cbScaleYByLayer": 0.14
             }
         }
     ],
@@ -27,16 +35,12 @@
         "botaniastory": [ "*" ]
     },
     "attributes": {
+        "placeSound": "game:sounds/block/loosestick",
         "groundStorageTransform": {
-            "translation": {
-                "x": 0,
-                "y": -0.46,
-                "z": 0
-            },
             "rotation": {
-                "x": -13,
-                "y": 65,
-                "z": -75
+                "x": 0,
+                "y": -13,
+                "z": 0
             }
         }
     },
@@ -97,7 +101,6 @@
         },
         "scale": 5.58
     },
-
     "combustibleProps": {
         "burnTemperature": 400,
         "burnDuration": 10,

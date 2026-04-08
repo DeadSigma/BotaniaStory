@@ -17,7 +17,10 @@ namespace BotaniaStory
         {
             { "puredaisy-free", new Dictionary<string, int> { { "mysticalpetal-white", 4 } } },
             { "daybloom-free", new Dictionary<string, int> { { "mysticalpetal-yellow", 2 }, { "mysticalpetal-orange", 1 }, { "mysticalpetal-lightblue", 1 } } },
-            { "agricarnation-free", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-yellow", 1 } } }
+            { "endoflame-free", new Dictionary<string, int> { { "mysticalpetal-brown", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
+            { "agricarnation-free", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } }
+
+
             // Добавляй новые цветы сюда по аналогии!
         };
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)

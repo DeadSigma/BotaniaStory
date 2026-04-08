@@ -136,6 +136,11 @@ namespace botaniastory
 
         public override void Dispose()
         {
+            if (api?.World?.Player?.InventoryManager?.CurrentHoveredSlot == renderSlot)
+            {
+                api.World.Player.InventoryManager.CurrentHoveredSlot = null;
+            }
+
             base.Dispose();
         }
     }

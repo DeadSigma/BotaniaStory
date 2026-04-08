@@ -225,8 +225,19 @@ namespace botaniastory
             // Если мы кликнули МИМО слотов (например, по фону страницы),
             // отдаём клик обратно игре, чтобы работало перелистывание книги!
             base.OnMouseDown(api, args);
+
+
+
         }
-       
+        public override void Dispose()
+        {
+            // Если при удалении интерфейса наш слот всё ещё висит в игре как "наведенный" — сбрасываем его!
+            if (api?.World?.Player?.InventoryManager?.CurrentHoveredSlot == renderSlot)
+            {
+                api.World.Player.InventoryManager.CurrentHoveredSlot = null;
+            }
+            base.Dispose();
+        }
     }
 
 }
