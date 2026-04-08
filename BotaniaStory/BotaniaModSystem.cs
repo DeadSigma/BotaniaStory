@@ -21,7 +21,7 @@ namespace BotaniaStory
             base.Start(api);
             api.RegisterBlockClass("BlockMysticalFlower", typeof(BlockMysticalFlower));
             api.RegisterBlockClass("BlockApothecary", typeof(BlockApothecary));
-            api.RegisterBlockEntityClass("ApothecaryEntity", typeof(BlockEntityApothecary)); // ДОБАВИТЬ ЭТУ СТРОКУ
+            api.RegisterBlockEntityClass("ApothecaryEntity", typeof(BlockEntityApothecary)); 
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
             api.RegisterBlockClass("BlockPureDaisy", typeof(BlockPureDaisy));
             api.RegisterBlockEntityClass("PureDaisyEntity", typeof(BlockEntityPureDaisy));
@@ -36,6 +36,7 @@ namespace BotaniaStory
             api.RegisterBlockClass("BlockEndoflame", typeof(BlockEndoflame));
             api.RegisterBlockEntityClass("EndoflameEntity", typeof(BlockEntityEndoflame));
             api.RegisterItemClass("ItemWandOfBinding", typeof(ItemWandOfBinding));
+
         }
     }
 

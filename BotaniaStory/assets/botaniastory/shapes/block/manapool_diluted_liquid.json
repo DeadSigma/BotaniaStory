@@ -1,0 +1,14 @@
+{
+    "editor": { "allAngles": false, "entityTextureMode": false },
+    "textureWidth": 16, "textureHeight": 16,
+    "textures": { "mana": "botaniastory:block/mana" },
+    "elements": [
+        {
+            "name": "Liquid",
+            "from": [ 1.0, 0.0, 1.0 ], "to": [ 15.0, 0.0, 15.0 ],
+            "faces": {
+                "up": { "texture": "#mana", "uv": [ 1.0, 1.0, 15.0, 15.0 ] }
+            }
+        }
+    ]
+}

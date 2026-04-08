@@ -444,11 +444,11 @@ namespace botaniastory
                                "game:chisel-*", null,"game:hammer-*",// Верхний ряд
 
 
-                              "botaniastory:livingrock", null, "botaniastory:livingrock",// Средний ряд
+                              "botaniastory:livingrock_slab", null, "botaniastory:livingrock_slab",// Средний ряд
                         
-                              "botaniastory:livingrock*", "botaniastory:livingrock*", "botaniastory:livingrock*" // Нижний ряд
+                              "botaniastory:livingrock_slab", "botaniastory:livingrock_slab", "botaniastory:livingrock_slab" // Нижний ряд
                           },
-                            Output = "botaniastory:manapool"
+                            Output = "botaniastory:manapool_diluted"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -462,7 +462,7 @@ namespace botaniastory
 
                               "botaniastory:livingrock", null, "botaniastory:livingrock",// Средний ряд
                         
-                              "botaniastory:livingrock*", "botaniastory:livingrock*", "botaniastory:livingrock*" // Нижний ряд
+                              "botaniastory:livingrock", "botaniastory:livingrock*", "botaniastory:livingrock" // Нижний ряд
                           },
                             Output = "botaniastory:manapool"
                         });
@@ -651,8 +651,8 @@ namespace botaniastory
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Apothecary",
-                            Spread = 0,
-                            UiKey = "Аптекарь_Область_Правая",
+                            Spread = 1,
+                            UiKey = "Аптекарь_Область_Левая",
                             ApothecaryIngredients = new string[]
                             {
                                  "botaniastory:mysticalpetal-yellow",

@@ -110,15 +110,17 @@ namespace BotaniaStory.Flora.GeneratingFlora
         // КЛИЕНТ: ЧАСТИЦЫ ОГНЯ
         private void OnClientTick(float dt)
         {
-            if (BurnTicksLeft > 0 && Api.World.Rand.NextDouble() < 0.3) 
+            if (BurnTicksLeft > 0 && Api.World.Rand.NextDouble() < 0.05)
             {
                 SimpleParticleProperties flame = new SimpleParticleProperties(
-                    1, 2, ColorUtil.ToRgba(255, 255, 120, 0), 
-                    new Vec3d(Pos.X + 0.3, Pos.Y + 0.1, Pos.Z + 0.3),
-                    new Vec3d(Pos.X + 0.7, Pos.Y + 0.4, Pos.Z + 0.7),
-                    new Vec3f(-0.2f, 0.5f, -0.2f), new Vec3f(0.2f, 1.0f, 0.2f),
-                    1f, 0f, 0.2f, 0.5f, EnumParticleModel.Quad
+                    1, 1, ColorUtil.ToRgba(255, 255, 140, 20),
+                    new Vec3d(Pos.X + 0.35, Pos.Y + 0.1, Pos.Z + 0.35),
+                    new Vec3d(Pos.X + 0.65, Pos.Y + 0.35, Pos.Z + 0.65),
+                    new Vec3f(-0.1f, 0.4f, -0.1f),
+                    new Vec3f(0.1f, 0.7f, 0.1f),
+                    0.6f, 0f, 0.3f, 0.6f, EnumParticleModel.Quad
                 );
+
                 Api.World.SpawnParticles(flame);
             }
         }

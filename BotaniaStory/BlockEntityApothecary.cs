@@ -110,14 +110,25 @@ namespace BotaniaStory
         // ==========================================
         // ВОДА
         // ==========================================
+        // ==========================================
+        // ВОДА
+        // ==========================================
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
+            // 1. СНАЧАЛА рисуем сам каменный блок аптекаря
+            MeshData baseMesh;
+            tesselator.TesselateBlock(Block, out baseMesh);
+            mesher.AddMeshData(baseMesh);
+
+            // 2. ЗАТЕМ рисуем воду поверх него
             if (HasWater)
             {
                 if (waterMesh == null) GenerateWaterMesh(tesselator);
                 if (waterMesh != null) mesher.AddMeshData(waterMesh);
             }
-            return false;
+
+            // 3. Возвращаем TRUE, забирая рендер на себя
+            return true;
         }
 
         private void GenerateWaterMesh(ITesselatorAPI tesselator)
@@ -131,35 +142,23 @@ namespace BotaniaStory
 
             if (waterMesh != null)
             {
-                waterMesh.ClimateColorMapIds = new byte[waterMesh.VerticesCount];
-                waterMesh.SeasonColorMapIds = new byte[waterMesh.VerticesCount];
-                Block waterBlock = Api.World.GetBlock(new AssetLocation("game", "water-still-7"));
-                byte climateId = 0, seasonId = 0;
-
-                if (waterBlock != null)
+                // Убеждаемся, что массив для флагов существует
+                if (waterMesh.CustomInts == null)
                 {
-                    if (waterBlock.ClimateColorMapResolved != null) climateId = (byte)waterBlock.ClimateColorMapResolved.RectIndex;
-                    if (waterBlock.SeasonColorMapResolved != null) seasonId = (byte)waterBlock.SeasonColorMapResolved.RectIndex;
+                    waterMesh.CustomInts = new CustomMeshDataPartInt(waterMesh.VerticesCount);
+                    waterMesh.CustomInts.Count = waterMesh.VerticesCount;
                 }
 
+                // Задаем правильный проход рендера (Liquid)
+                int[] customInts = waterMesh.CustomInts.Values;
                 for (int i = 0; i < waterMesh.VerticesCount; i++)
                 {
-                    waterMesh.ClimateColorMapIds[i] = climateId;
-                    waterMesh.SeasonColorMapIds[i] = seasonId;
-                    int baseIdx = i * 4;
-                    if (baseIdx + 3 < waterMesh.Rgba.Length)
-                    {
-                        waterMesh.Rgba[baseIdx] = 255;
-                        waterMesh.Rgba[baseIdx + 1] = 255;
-                        waterMesh.Rgba[baseIdx + 2] = 255;
-                        waterMesh.Rgba[baseIdx + 3] = 255;
-                    }
+                    customInts[i] |= 805306368;
                 }
-                if (waterMesh.CustomInts != null)
-                {
-                    int[] customInts = waterMesh.CustomInts.Values;
-                    for (int i = 0; i < customInts.Length && i < waterMesh.CustomInts.Count; i++) customInts[i] |= 805306368;
-                }
+
+                // ВАЖНО: Я удалил отсюда весь старый код с ClimateColorMapIds и SeasonColorMapIds.
+                // Теперь твоя текстура не будет менять цвет в зависимости от биома или времени года,
+                // а будет отображаться в своих оригинальных цветах!
             }
         }
     }

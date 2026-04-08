@@ -1,0 +1,59 @@
+{
+    "editor": { "allAngles": false, "entityTextureMode": false },
+    "textureWidth": 16, "textureHeight": 16,
+    "textures": { "livingrock": "botaniastory:block/livingrock" },
+    "elements": [
+        {
+            "name": "Base",
+            "from": [ 0.0, 0.0, 0.0 ], "to": [ 16.0, 1.0, 16.0 ],
+            "faces": {
+                "north": { "texture": "#livingrock", "uv": [ 0.0, 15.0, 16.0, 16.0 ] },
+                "east": { "texture": "#livingrock", "uv": [ 0.0, 15.0, 16.0, 16.0 ] },
+                "south": { "texture": "#livingrock", "uv": [ 0.0, 15.0, 16.0, 16.0 ] },
+                "west": { "texture": "#livingrock", "uv": [ 0.0, 15.0, 16.0, 16.0 ] },
+                "up": { "texture": "#livingrock", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
+                "down": { "texture": "#livingrock", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
+            }
+        },
+        {
+            "name": "WallNorth",
+            "from": [ 0.0, 1.0, 0.0 ], "to": [ 16.0, 6.0, 1.0 ],
+            "faces": {
+                "north": { "texture": "#livingrock", "uv": [ 0.0, 10.0, 16.0, 15.0 ] },
+                "east": { "texture": "#livingrock", "uv": [ 0.0, 10.0, 1.0, 15.0 ] },
+                "south": { "texture": "#livingrock", "uv": [ 0.0, 10.0, 16.0, 15.0 ] },
+                "west": { "texture": "#livingrock", "uv": [ 15.0, 10.0, 16.0, 15.0 ] },
+                "up": { "texture": "#livingrock", "uv": [ 0.0, 0.0, 16.0, 1.0 ] }
+            }
+        },
+        {
+            "name": "WallSouth",
+            "from": [ 0.0, 1.0, 15.0 ], "to": [ 16.0, 6.0, 16.0 ],
+            "faces": {
+                "north": { "texture": "#livingrock", "uv": [ 0.0, 10.0, 16.0, 15.0 ] },
+                "east": { "texture": "#livingrock", "uv": [ 15.0, 10.0, 16.0, 15.0 ] },
+                "south": { "texture": "#livingrock", "uv": [ 0.0, 10.0, 16.0, 15.0 ] },
+                "west": { "texture": "#livingrock", "uv": [ 0.0, 10.0, 1.0, 15.0 ] },
+                "up": { "texture": "#livingrock", "uv": [ 0.0, 15.0, 16.0, 16.0 ] }
+            }
+        },
+        {
+            "name": "WallWest",
+            "from": [ 0.0, 1.0, 1.0 ], "to": [ 1.0, 6.0, 15.0 ],
+            "faces": {
+                "east": { "texture": "#livingrock", "uv": [ 1.0, 10.0, 15.0, 15.0 ] },
+                "west": { "texture": "#livingrock", "uv": [ 1.0, 10.0, 15.0, 15.0 ] },
+                "up": { "texture": "#livingrock", "uv": [ 0.0, 1.0, 1.0, 15.0 ] }
+            }
+        },
+        {
+            "name": "WallEast",
+            "from": [ 15.0, 1.0, 1.0 ], "to": [ 16.0, 6.0, 15.0 ],
+            "faces": {
+                "east": { "texture": "#livingrock", "uv": [ 1.0, 10.0, 15.0, 15.0 ] },
+                "west": { "texture": "#livingrock", "uv": [ 1.0, 10.0, 15.0, 15.0 ] },
+                "up": { "texture": "#livingrock", "uv": [ 15.0, 1.0, 16.0, 15.0 ] }
+            }
+        }
+    ]
+}

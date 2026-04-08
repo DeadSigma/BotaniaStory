@@ -1,12 +1,15 @@
 {
-    "code": "manapool",
+    "code": "manapool_diluted",
     "class": "BlockManaPool",
     "entityClass": "ManaPoolEntity",
+    "attributes": {
+        "isDilutedPool": true
+    },
     "creativeinventory": {
         "general": [ "*" ],
         "botaniastory": [ "*" ]
     },
-    "shape": { "base": "botaniastory:block/manapool" },
+    "shape": { "base": "botaniastory:block/manapool_diluted" },
     "textures": {
         "livingrock": { "base": "botaniastory:block/livingrock" },
         "mana": { "base": "botaniastory:block/mana" }
@@ -24,40 +27,40 @@
             "y1": 0,
             "z1": 0,
             "x2": 1,
-            "y2": 0.125,
+            "y2": 0.0625,
             "z2": 1
         },
         {
             "x1": 0,
-            "y1": 0.125,
+            "y1": 0.0625,
             "z1": 0,
             "x2": 1,
-            "y2": 0.5,
-            "z2": 0.125
+            "y2": 0.375,
+            "z2": 0.0625
         },
         {
             "x1": 0,
-            "y1": 0.125,
-            "z1": 0.875,
+            "y1": 0.0625,
+            "z1": 0.9375,
             "x2": 1,
-            "y2": 0.5,
+            "y2": 0.375,
             "z2": 1
         },
         {
             "x1": 0,
-            "y1": 0.125,
-            "z1": 0.125,
-            "x2": 0.125,
-            "y2": 0.5,
-            "z2": 0.875
+            "y1": 0.0625,
+            "z1": 0.0625,
+            "x2": 0.0625,
+            "y2": 0.375,
+            "z2": 0.9375
         },
         {
-            "x1": 0.875,
-            "y1": 0.125,
-            "z1": 0.125,
+            "x1": 0.9375,
+            "y1": 0.0625,
+            "z1": 0.0625,
             "x2": 1,
-            "y2": 0.5,
-            "z2": 0.875
+            "y2": 0.375,
+            "z2": 0.9375
         }
     ],
     "selectionbox": {
@@ -65,7 +68,7 @@
         "y1": 0,
         "z1": 0,
         "x2": 1,
-        "y2": 0.5,
+        "y2": 0.375,
         "z2": 1
     }
 }

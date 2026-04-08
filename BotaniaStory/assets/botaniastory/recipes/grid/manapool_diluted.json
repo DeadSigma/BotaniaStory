@@ -1,0 +1,28 @@
+[
+    {
+        "ingredientPattern": "C_H,S_S,SSS",
+        "ingredients": {
+            "C": {
+                "type": "item",
+                "code": "game:chisel-*",
+                "isTool": true
+            },
+            "H": {
+                "type": "item",
+                "code": "game:hammer-*",
+                "isTool": true
+            },
+            "S": {
+                "type": "block",
+                "code": "botaniastory:livingrock_slab"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:manapool_diluted",
+            "quantity": 1
+        }
+    }
+]

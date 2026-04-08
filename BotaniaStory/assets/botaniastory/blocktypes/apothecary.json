@@ -168,6 +168,6 @@
 
     "textures": {
         "stone": { "base": "game:block/stone/rock/{rock}1" },
-        "water": { "base": "game:block/liquid/water" }
+        "water": { "base": "botaniastory:block/apothecary_liquid" }
     }
 }
