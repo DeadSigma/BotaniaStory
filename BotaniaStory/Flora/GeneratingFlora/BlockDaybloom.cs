@@ -1,4 +1,5 @@
-﻿using Vintagestory.API.Common;
+﻿using System.Collections.Generic;
+using Vintagestory.API.Common;
 using Vintagestory.GameContent;
 
 namespace BotaniaStory.Flora.GeneratingFlora
@@ -11,9 +12,18 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
             if (placed)
             {
-                // Ищем ЛЮБОЙ генерирующий цветок (работает и для Daybloom, и для Endoflame)
                 if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityGeneratingFlower flower)
                 {
+                    // === НОВОЕ: Записываем Владельца для лимита Дневноцветов ===
+                    if (flower is BlockEntityDaybloom daybloom && byPlayer != null && world.Side == EnumAppSide.Server)
+                    {
+                        daybloom.OwnerUID = byPlayer.PlayerUID;
+                        // Увеличиваем счетчик цветов игрока
+                        BlockEntityDaybloom.PlayerBloomsCount[daybloom.OwnerUID] =
+                            BlockEntityDaybloom.PlayerBloomsCount.GetValueOrDefault(daybloom.OwnerUID, 0) + 1;
+                    }
+
+                    // Твоя логика: цветок сразу ищет распространитель
                     flower.FindSpreader();
                     flower.MarkDirty(true);
                 }
