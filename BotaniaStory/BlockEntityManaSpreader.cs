@@ -6,6 +6,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
+using System.Text;
 
 namespace BotaniaStory
 {
@@ -337,7 +338,29 @@ namespace BotaniaStory
             // Возвращаем false! Это скажет игре: "НЕ рисуй стандартный неподвижный блок из JSON, я нарисовал его сам!"
             return true;
         }
+        // ==========================================
+        // ИНТЕРФЕЙС ПРИ НАВЕДЕНИИ (HUD)
+        // ==========================================
+        public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
+        {
+            base.GetBlockInfo(forPlayer, dsc);
 
+            // Получаем предмет, который игрок держит в руке
+            Item activeItem = forPlayer.InventoryManager.ActiveHotbarSlot?.Itemstack?.Item;
 
+            // Проверяем, является ли предмет Посохом Леса и зажат ли Shift
+            bool holdsWand = activeItem is ItemWandOfTheForest;
+            bool isSneaking = forPlayer.Entity.Controls.Sneak;
+
+            // Показываем ману ТОЛЬКО если условия выполнены
+            if (holdsWand && isSneaking)
+            {
+                // Заодно делаем проверку: привязан ли распространитель к чему-то
+                string linkStatus = TargetPos != null ? "Привязан" : "Не привязан";
+
+                // Добавляем строчку в интерфейс
+                dsc.AppendLine($"{CurrentMana} / {MaxMana} [{linkStatus}]");
+            }
+        }
     }
 }

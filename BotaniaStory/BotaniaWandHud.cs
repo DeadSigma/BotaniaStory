@@ -10,11 +10,20 @@ namespace BotaniaStory
     public class BotaniaWandHud : HudElement
     {
         private MeshRef quadMesh;
-        private MeshRef borderMesh;
+        private MeshRef fillMesh; // НОВОЕ: Отдельная сетка для полоски маны (чтобы её кадрировать)
         private Matrixf modelMat = new Matrixf();
+
+        // Переменные для текстур
+        private LoadedTexture bgTex;
+        private LoadedTexture frameTex;
+        private LoadedTexture fillTex; // НОВОЕ: Текстура заливки
+        private LoadedTexture linkedTex;
+        private LoadedTexture unlinkedTex;
 
         private int displayMana = 0;
         private int displayMaxMana = 1;
+        private float lastFillRatio = -1f; // НОВОЕ: Следим за изменением маны, чтобы не обновлять сетку каждый кадр
+
         private BlockPos highlightPos = null;
         private string displayName = "";
         private bool showHud = false;
@@ -22,8 +31,23 @@ namespace BotaniaStory
 
         public BotaniaWandHud(ICoreClientAPI capi) : base(capi)
         {
+            // Базовый квадрат для статичных элементов
             quadMesh = capi.Render.UploadMesh(QuadMeshUtil.GetQuad());
-            borderMesh = capi.Render.UploadMesh(LineMeshUtil.GetRectangle(ColorUtil.WhiteArgb));
+
+            // Квадрат, который мы будем динамически кадрировать
+            fillMesh = capi.Render.UploadMesh(QuadMeshUtil.GetQuad());
+
+            bgTex = new LoadedTexture(capi);
+            frameTex = new LoadedTexture(capi);
+            fillTex = new LoadedTexture(capi);
+            linkedTex = new LoadedTexture(capi);
+            unlinkedTex = new LoadedTexture(capi);
+
+            capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/manabar_bg.png"), ref bgTex);
+            capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/manabar_frame.png"), ref frameTex);
+            capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/manabar_fill.png"), ref fillTex);
+            capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/status_linked.png"), ref linkedTex);
+            capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/status_unlinked.png"), ref unlinkedTex);
 
             ElementBounds dialogBounds = ElementBounds.Fixed(EnumDialogArea.CenterMiddle, 0, 60, 300, 80);
             ElementBounds textBounds = ElementBounds.Fill.WithFixedPadding(5);
@@ -42,9 +66,8 @@ namespace BotaniaStory
             if (player?.Entity == null) return;
 
             var slot = player.InventoryManager.ActiveHotbarSlot;
-
-            // Проверяем, в руках ли Посох Леса ИЛИ Посох Связывания (оба должны показывать HUD!)
-            bool hasWand = !slot.Empty && (slot.Itemstack.Item is ItemWandOfTheForest );
+            bool hasWand = !slot.Empty && (slot.Itemstack.Item is ItemWandOfTheForest);
+            bool isSneaking = player.Entity.Controls.Sneak;
             var sel = player.CurrentBlockSelection;
 
             showHud = false;
@@ -54,18 +77,14 @@ namespace BotaniaStory
                 BlockEntity be = capi.World.BlockAccessor.GetBlockEntity(sel.Position);
                 showConnectionStatus = true;
 
-                // 1. ПРОВЕРКА ВСЕХ ЦВЕТОВ РАЗОМ
                 if (be is BlockEntityGeneratingFlower flower)
                 {
                     displayMana = flower.CurrentMana;
                     displayMaxMana = flower.MaxMana;
                     highlightPos = flower.LinkedSpreader;
-
-                    // Универсальное получение локализованного имени прямо из игры!
                     displayName = flower.Block.GetPlacedBlockName(capi.World, sel.Position);
                     showHud = true;
                 }
-                // 2. РАСПРОСТРАНИТЕЛЬ
                 else if (be is BlockEntityManaSpreader spreader)
                 {
                     displayMana = spreader.CurrentMana;
@@ -74,13 +93,12 @@ namespace BotaniaStory
                     displayName = spreader.Block.GetPlacedBlockName(capi.World, sel.Position);
                     showHud = true;
                 }
-                // 3. БАССЕЙН МАНЫ
                 else if (be is BlockEntityManaPool pool)
                 {
                     displayMana = pool.CurrentMana;
                     displayMaxMana = pool.MaxMana;
                     highlightPos = null;
-                    showConnectionStatus = false; // Бассейн ни к чему не привязан, статус ему не нужен
+                    showConnectionStatus = false;
                     displayName = pool.Block.GetPlacedBlockName(capi.World, sel.Position);
                     showHud = true;
                 }
@@ -93,18 +111,20 @@ namespace BotaniaStory
                 else
                     capi.World.HighlightBlocks(player, 2, new List<BlockPos>());
 
-                string statusText = "";
-                if (showConnectionStatus)
+                string textToDisplay;
+
+                if (isSneaking)
                 {
-                    statusText = highlightPos != null ? "[Привязан]" : "[Нет связи]";
+                    string visualMana = (displayMana / 1000f).ToString("0.##");
+                    string visualMax = (displayMaxMana / 1000f).ToString("0.##");
+                    textToDisplay = $"{displayName}\n\n{visualMana} / {visualMax}";
+                }
+                else
+                {
+                    textToDisplay = $"{displayName}\n\n ";
                 }
 
-                // Делим реальную ману на 1000. Буква 'f' нужна, чтобы превратить число в дробное.
-                // Формат "0.##" убирает лишние нули: 1000 станет "1", а 1440 станет "1.44".
-                string visualMana = (displayMana / 1000f).ToString("0.##");
-                string visualMax = (displayMaxMana / 1000f).ToString("0.##");
-
-                Composers["botaniaHud"].GetDynamicText("manaText").SetNewText($"{displayName}\n\n{visualMana} / {visualMax} {statusText}");
+                Composers["botaniaHud"].GetDynamicText("manaText").SetNewText(textToDisplay);
 
                 if (!IsOpened())
                 {
@@ -130,29 +150,67 @@ namespace BotaniaStory
             IShaderProgram sh = capi.Render.CurrentActiveShader;
             if (sh == null) return;
 
-            sh.Uniform("noTexture", 1f);
-
-            float width = 140f;
-            float height = 12f;
+            // Настройки размеров основной полоски
+            float width = 290f;
+            float height = 15f;
             float x = capi.Render.FrameWidth / 2f - width / 2f;
             float y = capi.Render.FrameHeight / 2f + 55f;
 
             float fillRatio = (float)displayMana / displayMaxMana;
             fillRatio = Math.Clamp(fillRatio, 0f, 1f);
 
-            DrawMesh(sh, quadMesh, x, y, width, height, new Vec4f(0f, 0f, 0f, 0.6f));
+            // ==========================================
+            // МАГИЯ КАДРИРОВАНИЯ ТЕКСТУРЫ ПОЛОСКИ
+            // ==========================================
+            // Мы обновляем текстурную сетку ТОЛЬКО когда изменилось количество маны (ради оптимизации)
+            if (Math.Abs(lastFillRatio - fillRatio) > 0.001f)
+            {
+                lastFillRatio = fillRatio;
+                MeshData fillData = QuadMeshUtil.GetQuad();
 
+                // Обрезаем координаты наложения текстуры (UV) с правой стороны
+                fillData.Uv[2] = fillRatio; // Низ-право
+                fillData.Uv[4] = fillRatio; // Верх-право
+
+                // Передаем обрезанную сетку в видеокарту
+                capi.Render.UpdateMesh(fillMesh, fillData);
+            }
+
+
+            sh.Uniform("noTexture", 0f);
+
+            // 1. СЛОЙ: ФОНОВАЯ ТЕКСТУРА (bgTex)
+            DrawTexture(sh, quadMesh, bgTex.TextureId, x, y, width, height);
+
+            // 2. СЛОЙ: КАДРИРОВАННАЯ ТЕКСТУРА ЗАЛИВКИ (fillTex)
+            // Важно: ширина фигуры уменьшается (width * fillRatio), а вместе с ней мы используем нашу обрезанную сетку (fillMesh)
             float fillWidth = width * fillRatio;
-            DrawMesh(sh, quadMesh, x, y, fillWidth, height, new Vec4f(0.1f, 0.8f, 1.0f, 0.9f));
+            DrawTexture(sh, fillMesh, fillTex.TextureId, x, y, fillWidth, height);
 
-            float borderPx = 2f;
-            DrawMesh(sh, borderMesh, x - borderPx, y - borderPx, width + borderPx * 2f, height + borderPx * 2f, new Vec4f(1f, 1f, 1f, 0.5f));
+            // 3. СЛОЙ: РАМКА ПОВЕРХ ВСЕГО (frameTex)
+            DrawTexture(sh, quadMesh, frameTex.TextureId, x, y, width, height);
+
+            // 4. СЛОЙ: ИКОНКА СТАТУСА ПРИВЯЗКИ
+            if (showConnectionStatus)
+            {
+                int iconTexId = (highlightPos != null) ? linkedTex.TextureId : unlinkedTex.TextureId;
+
+                float iconSize = 50f;
+                // Сдвигаем вправо: берем начало полоски (x), прибавляем всю её длину (width) и 5 пикселей для зазора
+                float iconX = x + width + 10f;
+                // Центрируем иконку по вертикали ровно напротив полоски маны
+                float iconY = y + (height / 2f) - (iconSize / 2f);
+
+                DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
+
+                DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
+            }
 
             sh.Uniform("noTexture", 0f);
             sh.Uniform("rgbaIn", new Vec4f(1f, 1f, 1f, 1f));
         }
 
-        private void DrawMesh(IShaderProgram sh, MeshRef mesh, float x, float y, float w, float h, Vec4f color)
+        private void DrawTexture(IShaderProgram sh, MeshRef mesh, int textureId, float x, float y, float w, float h)
         {
             modelMat.Set(capi.Render.CurrentModelviewMatrix)
                     .Translate(x, y, 50f)
@@ -161,14 +219,21 @@ namespace BotaniaStory
                     .Scale(0.5f, 0.5f, 0f);
 
             sh.UniformMatrix("modelViewMatrix", modelMat.Values);
-            sh.Uniform("rgbaIn", color);
+            sh.Uniform("rgbaIn", new Vec4f(1f, 1f, 1f, 1f));
+            sh.BindTexture2D("tex2d", textureId, 0);
             capi.Render.RenderMesh(mesh);
         }
 
         public override void Dispose()
         {
-            borderMesh?.Dispose();
+            bgTex?.Dispose();
+            frameTex?.Dispose();
+            fillTex?.Dispose();
+            linkedTex?.Dispose();
+            unlinkedTex?.Dispose();
+
             quadMesh?.Dispose();
+            fillMesh?.Dispose(); // Не забываем выгрузить из памяти нашу вторую сетку
             base.Dispose();
         }
     }
