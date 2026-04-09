@@ -12,6 +12,7 @@ namespace BotaniaStory
 
         private MeshRef quadMeshRef = null;
         private LoadedTexture particleTexture = null;
+        public Matrixf ModelMat = new Matrixf();
 
         public double RenderOrder => 0.5;
         public int RenderRange => 64;
@@ -19,134 +20,126 @@ namespace BotaniaStory
         public ManaStreamRenderer(ICoreClientAPI api)
         {
             this.capi = api;
-
-            // ИСПРАВЛЕНИЕ 1: В актуальных версиях прозрачные кастомные вещи рисуются в слое Opaque, 
+            // Стабильный Opaque слой
             api.Event.RegisterRenderer(this, EnumRenderStage.Opaque, "manastream");
-
-            LoadTextureAndMesh(); // <-- Убедись, что эта строчка есть!
+            LoadTextureAndMesh();
         }
 
         private void LoadTextureAndMesh()
         {
-            AssetLocation texLocation = new AssetLocation("botaniastory", "particle/mana_particle");
+            // 1. СТАНДАРТНАЯ ЗАГРУЗКА
+            // Путь "textures/particle/mana_particle.png" в домене "botaniastory" 
+            // будет искать файл: assets/botaniastory/textures/particle/mana_particle.png
+            AssetLocation texLocation = new AssetLocation("botaniastory", "textures/particle/mana_particle.png");
             particleTexture = new LoadedTexture(capi);
+
+            // Родной метод движка (компилируется без ошибок)
             capi.Render.GetOrLoadTexture(texLocation, ref particleTexture);
 
-            // ИСПРАВЛЕНИЕ: Включаем генерацию цвета (пятый true) и флагов (шестой true)
-            MeshData quad = new MeshData(4, 6, true, false, true, true);
+            if (particleTexture.TextureId == 0)
+            {
+                capi.Logger.Error("[BotaniaStory] ОШИБКА: Текстура маны НЕ ЗАГРУЖЕНА! ID = 0. Проверьте путь: " + texLocation.Path);
+            }
+            else
+            {
+                capi.Logger.Notification("[BotaniaStory] Текстура маны успешно загружена! ID: " + particleTexture.TextureId);
+            }
 
-            quad.xyz = new float[] {
-                -0.5f, -0.5f, 0,
-                 0.5f, -0.5f, 0,
-                 0.5f,  0.5f, 0,
-                -0.5f,  0.5f, 0
-            };
+            // 2. ВОССТАНАВЛИВАЕМ МЕШ И ЦВЕТ
+            MeshData quad = QuadMeshUtil.GetCustomQuadModelData(-0.5f, -0.5f, 0, 1f, 1f);
 
-            quad.Uv = new float[] {
-                0, 0,
-                1, 0,
-                1, 1,
-                0, 1
-            };
-
-            // ЗАПОЛНЯЕМ ЦВЕТА (4 вершины * 4 канала RGBA = 16 байт)
+            // Обязательно заливаем белый цвет и 100% непрозрачность (255), иначе частицы будут невидимыми
             quad.Rgba = new byte[] {
                 255, 255, 255, 255,
                 255, 255, 255, 255,
                 255, 255, 255, 255,
                 255, 255, 255, 255
             };
-
-            // ЗАПОЛНЯЕМ ФЛАГИ (4 вершины = 4 инта)
             quad.Flags = new int[] { 0, 0, 0, 0 };
-
-            quad.Indices = new int[] { 0, 1, 2, 0, 2, 3 };
-            quad.VerticesCount = 4;
-            quad.IndicesCount = 6;
 
             quadMeshRef = capi.Render.UploadMesh(quad);
         }
 
         public void AddParticle(Vec3d start, Vec3d end)
         {
-            activeParticles.Add(new ManaParticle(start, end, 2.0f, 0.2f));
+            int count = capi.World.Rand.Next(2, 5);
+            for (int i = 0; i < count; i++)
+            {
+                float randomSize = (float)(0.05f + capi.World.Rand.NextDouble() * 0.2f);
+                Vec4f particleColor;
+                double rand = capi.World.Rand.NextDouble();
+
+                if (rand < 0.85) particleColor = new Vec4f(1f, 1f, 1f, 1f);
+                else if (rand < 0.90) particleColor = new Vec4f(1f, 0.4f, 0.8f, 1f);
+                else if (rand < 0.95) particleColor = new Vec4f(0.2f, 0.8f, 1f, 1f);
+                else particleColor = new Vec4f(0.4f, 1f, 0.4f, 1f);
+
+                activeParticles.Add(new ManaParticle(start, end, 2.0f, randomSize, particleColor));
+            }
         }
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
-            if (activeParticles.Count == 0) return;
+            if (activeParticles.Count == 0 || quadMeshRef == null || particleTexture == null || particleTexture.TextureId == 0) return;
 
-            // --- ДВИЖЕНИЕ ---
+            // Движение
             for (int i = activeParticles.Count - 1; i >= 0; i--)
             {
                 var p = activeParticles[i];
                 p.Progress += p.Speed * deltaTime;
-
-                if (p.Progress >= 1.0f)
-                {
-                    activeParticles.RemoveAt(i);
-                }
+                if (p.Progress >= 1.0f) activeParticles.RemoveAt(i);
             }
 
             if (activeParticles.Count == 0) return;
 
-            // --- ОТРИСОВКА ---
-            IShaderProgram prog = capi.Render.GetEngineShader(EnumShaderProgram.Standard);
-            prog.Use();
-
-            prog.Uniform("rgbaAmbientIn", new Vec4f(1f, 1f, 1f, 1f));
-            prog.Uniform("rgbaLightIn", new Vec4f(1f, 1f, 1f, 1f));
-            prog.Uniform("rgbaFogIn", new Vec4f(1f, 1f, 1f, 1f));
-            prog.Uniform("fogMinIn", capi.Render.FogMin);
-            prog.Uniform("fogDensityIn", capi.Render.FogDensity);
-            prog.Uniform("alphaTest", 0.05f);
-
-            capi.Render.BindTexture2d(particleTexture.TextureId);
-
+            // Отрисовка
+            IRenderAPI render = capi.Render;
             IClientPlayer player = capi.World.Player;
             Vec3d camPos = player.Entity.CameraPos;
 
-            float[] cameraOriginMat = new float[16];
-            for (int i = 0; i < 16; i++)
-            {
-                cameraOriginMat[i] = (float)capi.Render.CameraMatrixOrigin[i];
-            }
+            // Безопасный шейдер, который не вызывает InvalidOperation
+            IStandardShaderProgram prog = render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
 
-            // МЫ УБРАЛИ GlDisableCullFace() ОТСЮДА!
+            prog.Tex2D = particleTexture.TextureId;
+
+            // Убираем чёрные квадраты: отрезаем пиксели с альфой меньше 10%
+            prog.Uniform("alphaTest", 0.1f);
+
+            // Свечение в темноте
+            prog.Uniform("extraGlow", 255);
 
             foreach (var p in activeParticles)
             {
                 Vec3d pos = p.GetCurrentPosition();
 
-                float[] modelMatrix = Mat4f.Create();
-                Mat4f.Identity(modelMatrix);
+                // Красим белую текстуру в нужный цвет маны
+                prog.Uniform("rgbaAmbientIn", p.Color);
+                prog.Uniform("rgbaLightIn", p.Color);
 
-                Mat4f.Translate(modelMatrix, modelMatrix, (float)(pos.X - camPos.X), (float)(pos.Y - camPos.Y), (float)(pos.Z - camPos.Z));
+                ModelMat.Identity();
+                ModelMat.Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z);
 
-                Mat4f.RotateY(modelMatrix, modelMatrix, player.CameraYaw);
-                Mat4f.RotateX(modelMatrix, modelMatrix, player.CameraPitch);
+                // Поворот лицом к игроку
+                ModelMat.RotateY(player.CameraYaw);
+                ModelMat.RotateX(player.CameraPitch);
 
-                // Делаем частицу покрупнее
-                float testSize = p.Size * 3.0f;
-                Mat4f.Scale(modelMatrix, modelMatrix, testSize, testSize, testSize);
+                ModelMat.Scale(p.Size, p.Size, p.Size);
 
-                prog.UniformMatrix("projectionMatrix", capi.Render.CurrentProjectionMatrix);
-                prog.UniformMatrix("modelMatrix", modelMatrix);
-                prog.UniformMatrix("viewMatrix", cameraOriginMat);
+                prog.ModelMatrix = ModelMat.Values;
+                prog.ViewMatrix = render.CameraMatrixOriginf;
+                prog.ProjectionMatrix = render.CurrentProjectionMatrix;
 
-                capi.Render.RenderMesh(quadMeshRef);
+                render.RenderMesh(quadMeshRef);
             }
-
-            // МЫ УБРАЛИ GlEnableCullFace() ОТСЮДА!
 
             prog.Stop();
         }
 
         public void Dispose()
         {
-            capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque); // Тоже поменяли на Opaque
+            capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
             quadMeshRef?.Dispose();
-            particleTexture?.Dispose();
+
         }
     }
 }
