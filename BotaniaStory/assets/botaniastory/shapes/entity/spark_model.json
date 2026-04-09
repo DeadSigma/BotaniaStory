@@ -3,13 +3,13 @@
 		"allAngles": false,
 		"entityTextureMode": false
 	},
-	"textureWidth": 128,
-	"textureHeight": 128,
+	"textureWidth": 16,
+	"textureHeight": 16,
 	"textureSizes": {
 		"spark_base": [ 128, 128 ]
 	},
 	"textures": {
-		"spark_base": "botaniastory:entity/spark_anim"
+		"spark_base": "botaniastory:entity/spark_base"
 	},
 	"elements": [
 		{
@@ -30,7 +30,7 @@
 				},
 				"south": {
 					"texture": "#spark_base",
-					"uv": [ 0, 0, 128, 128 ],
+					"uv": [ 5, 6, 6, 7 ],
 					"autoUv": false
 				},
 				"west": {
@@ -50,5 +50,6 @@
 				}
 			}
 		}
-	]
+	],
+	"animations": []
 }

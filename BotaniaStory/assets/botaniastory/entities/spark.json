@@ -8,7 +8,7 @@
 	"client": {
 		"renderer": "Shape",
 		"shape": { "base": "botaniastory:entity/spark_model" },
-		"size": 1.0,
+		"size": 3.0,
 		"behaviors": []
 	},
 	"server": {
