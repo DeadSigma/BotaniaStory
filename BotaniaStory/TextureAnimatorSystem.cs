@@ -40,8 +40,8 @@ namespace BotaniaStory
             // ЗДЕСЬ ТЫ МОЖЕШЬ ДОБАВЛЯТЬ ЛЮБЫЕ АНИМИРОВАННЫЕ БЛОКИ
             animations.Add(new AnimationData()
             {
-                AnimLoc = "botaniastory:block/spark_anim", // Лента кадров (128x896)
-                BaseLoc = "botaniastory:block/spark_base", // Базовый кадр в модели (128x128)
+                AnimLoc = "botaniastory:entity/spark_anim", // Лента кадров (128x896)
+                BaseLoc = "botaniastory:entity/spark_base", // Базовый кадр в модели (128x128)
                 NumFrames = 7,                             // Количество кадров
                 TimePerFrame = 0.1f                        // Задержка (100мс)
             });
@@ -57,12 +57,13 @@ namespace BotaniaStory
                 AssetLocation animAsset = new AssetLocation(anim.AnimLoc);
                 AssetLocation baseAsset = new AssetLocation(anim.BaseLoc);
 
-                // Принудительно загружаем обе текстуры в атлас блоков игры
-                capi.BlockTextureAtlas.GetOrInsertTexture(animAsset, out _, out anim.AnimPos);
-                capi.BlockTextureAtlas.GetOrInsertTexture(baseAsset, out _, out anim.BasePos);
 
-                anim.AnimTexture = capi.BlockTextureAtlas.AtlasTextures[anim.AnimPos.atlasNumber];
-                anim.BaseTexture = capi.BlockTextureAtlas.AtlasTextures[anim.BasePos.atlasNumber];
+                // Принудительно загружаем обе текстуры в атлас СУЩНОСТЕЙ игры
+                capi.EntityTextureAtlas.GetOrInsertTexture(animAsset, out _, out anim.AnimPos);
+                capi.EntityTextureAtlas.GetOrInsertTexture(baseAsset, out _, out anim.BasePos);
+
+                anim.AnimTexture = capi.EntityTextureAtlas.AtlasTextures[anim.AnimPos.atlasNumber];
+                anim.BaseTexture = capi.EntityTextureAtlas.AtlasTextures[anim.BasePos.atlasNumber];
             }
 
             // Запускаем таймер (50мс — оптимально для проверки кадров)
@@ -86,10 +87,10 @@ namespace BotaniaStory
                 }
             }
 
-            // Если хоть одна текстура обновилась, заставляем игру перерисовать мипмапы
+            // Если хоть одна текстура обновилась, заставляем игру перерисовать мипмапы атласа сущностей
             if (didRender)
             {
-                capi.BlockTextureAtlas.RegenMipMaps(0);
+                capi.EntityTextureAtlas.RegenMipMaps(0);
             }
         }
 
