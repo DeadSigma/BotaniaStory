@@ -31,6 +31,10 @@ namespace BotaniaStory
                         sparkEntity.Pos.Z = blockSel.Position.Z + 0.5;
                         sparkEntity.Pos.SetFrom(sparkEntity.Pos);
 
+                        sparkEntity.WatchedAttributes.SetDouble("baseX", sparkEntity.Pos.X);
+                        sparkEntity.WatchedAttributes.SetDouble("baseY", blockSel.Position.Y + 1.0); // Высота самого бассейна
+                        sparkEntity.WatchedAttributes.SetDouble("baseZ", sparkEntity.Pos.Z);
+
                         byEntity.World.SpawnEntity(sparkEntity);
 
                         if (byEntity is EntityPlayer player && player.Player.WorldData.CurrentGameMode != EnumGameMode.Creative)

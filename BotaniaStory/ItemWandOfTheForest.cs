@@ -1,6 +1,7 @@
 ﻿using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
@@ -56,11 +57,43 @@ namespace BotaniaStory
             AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
 
             // ==========================================
-            // А. SHIFT + ПКМ (Резервируем комбинацию, убираем спам в чат)
+            // А. SHIFT + ПКМ (Снятие искры)
             // ==========================================
             if (isSneaking)
             {
-                
+                // Получаем точку глаз игрока и вектор направления его взгляда
+                Vec3d eyePos = byEntity.Pos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0);
+                Vec3f viewVec = byEntity.Pos.GetViewVector(); // Используем Pos вместо устаревшего SidedPos
+                Vec3d lookDir = new Vec3d(viewVec.X, viewVec.Y, viewVec.Z); // Явно конвертируем float в double
+
+                // Ищем все искры в радиусе 8 блоков
+                Entity[] nearbySparks = world.GetEntitiesAround(byEntity.Pos.XYZ, 8, 8, e => e is EntitySpark);
+
+                foreach (Entity spark in nearbySparks)
+                {
+                    // Вычисляем вектор от глаз игрока до искры
+                    Vec3d dirToSpark = new Vec3d(spark.Pos.X - eyePos.X, spark.Pos.Y - eyePos.Y, spark.Pos.Z - eyePos.Z).Normalize();
+
+                    // Скалярное произведение (Dot) покажет, смотрим ли мы прямо на искру
+                    // Значение > 0.96 означает, что искра находится почти в центре экрана
+                    if (dirToSpark.Dot(lookDir) > 0.96)
+                    {
+                        if (world.Side == EnumAppSide.Server)
+                        {
+                            // Спавним предмет искры и убиваем сущность
+                            ItemStack sparkStack = new ItemStack(world.GetItem(new AssetLocation("botaniastory", "spark")));
+                            world.SpawnItemEntity(sparkStack, spark.Pos.XYZ);
+                            spark.Die();
+                        }
+
+                        // Проигрываем магический звук посоха для обратной связи
+                        world.PlaySoundAt(wandSound, spark.Pos.X, spark.Pos.Y, spark.Pos.Z, byPlayer, true, 16, 1f);
+
+                        handling = EnumHandHandling.PreventDefaultAction;
+                        return; // Искра поймана, прерываем выполнение!
+                    }
+                }
+
                 handling = EnumHandHandling.Handled;
                 return;
             }

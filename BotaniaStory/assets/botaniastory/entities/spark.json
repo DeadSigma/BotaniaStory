@@ -6,9 +6,12 @@
 		"y": 0.5
 	},
 	"client": {
-		"renderer": "Shape",
-		"shape": { "base": "botaniastory:entity/spark_model" },
-		"size": 3.0,
+		"renderer": "Shape", // <--- ВЕРНУЛИ СТАНДАРТНЫЙ РЕНДЕР!
+		"shape": { "base": "botaniastory:entity/spark_model" }, // <--- ВЕРНУЛИ МОДЕЛЬ!
+		"size": 3.0, // <--- Scale остался
+		"glowLevel": 100, // <--- Убрали "пересвет", но оставили свечение
+		"pitchStep": true, // <--- Разрешает плавный наклон по вертикали
+		"renderFlags": [ "disableShadows" ], // <--- ВОТ ЭТО ИСПРАВИТ "ТЕМНУЮ СТОРОНУ"!
 		"behaviors": []
 	},
 	"server": {
