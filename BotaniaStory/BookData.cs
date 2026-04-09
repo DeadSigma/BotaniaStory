@@ -643,7 +643,23 @@ namespace botaniastory
 
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ИСКРЫ ===
+                    else if (chapId == "spark")
+                    {
+                        chapter.TabItemCode = "botaniastory:spark";
 
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             "botaniastory:spark", "botaniastory:spark", null,
+                             null, null, null,
+                             null, null, null},
+                            Output = "botaniastory:spark"
+                        });
+                    }
 
 
                     // === НАСТРОЙКА ГЛАВЫ ДНЕВНОЦВЕТ ===
