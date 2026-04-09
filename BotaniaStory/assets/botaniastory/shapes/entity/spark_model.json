@@ -25,7 +25,7 @@
 					"glow": 255
 				},
 				"east": {
-					"texture": "#missing",
+					"texture": "#spark_base",
 					"uv": [5, 6, 6, 7],
 					"autoUv": false
 				},
@@ -36,17 +36,17 @@
 					"glow": 255
 				},
 				"west": {
-					"texture": "#missing",
+					"texture": "#spark_base",
 					"uv": [5, 6, 6, 7],
 					"autoUv": false
 				},
 				"up": {
-					"texture": "#missing",
+					"texture": "#spark_base",
 					"uv": [5, 6, 6, 7],
 					"autoUv": false
 				},
 				"down": {
-					"texture": "#missing",
+					"texture": "#spark_base",
 					"uv": [5, 6, 6, 7],
 					"autoUv": false
 				}

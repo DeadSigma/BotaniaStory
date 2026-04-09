@@ -21,7 +21,6 @@
     "shape": { "base": "botaniastory:item/wandoftheforest" },
 
     "textures": {
-        "wood": { "base": "botaniastory:item/wood" },
         "tip1": { "base": "botaniastory:item/colors/{color1}" },
         "tip2": { "base": "botaniastory:item/colors/{color2}" }
     },
