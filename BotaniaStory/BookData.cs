@@ -77,7 +77,7 @@ namespace botaniastory
             { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "wandoftheforest",
                 "puredaisy", "runicaltar" } },
 
-            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "sparks", "sparkupgrades"} },
+            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkupgrades"} },
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame" } },
 
@@ -642,6 +642,9 @@ namespace botaniastory
                         });
 
                     }
+
+
+
 
                     // === НАСТРОЙКА ГЛАВЫ ДНЕВНОЦВЕТ ===
                     else if (chapId == "daybloom")

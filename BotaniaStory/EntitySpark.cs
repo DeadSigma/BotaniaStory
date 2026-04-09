@@ -26,13 +26,30 @@ namespace BotaniaStory
             // ==========================================
             if (Api is ICoreClientAPI capi)
             {
-                float camYaw = capi.World.Player.CameraYaw;
+                var player = capi.World.Player?.Entity;
+                if (player == null) return;
 
-                // Вращаем только влево-вправо
-                Pos.Yaw = camYaw + GameMath.PIHALF;
+                // Получаем точные координаты глаз игрока в мире
+                double headX = player.Pos.X + player.LocalEyePos.X;
+                double headY = player.Pos.Y + player.LocalEyePos.Y;
+                double headZ = player.Pos.Z + player.LocalEyePos.Z;
 
-                // Строго нули, чтобы модель не плющило!
-                Pos.Pitch = 0;
+                // Вычисляем дистанцию от искры до головы по осям
+                double dx = headX - Pos.X;
+                // (Pos.Y + 0.1) центрирует точку взгляда чуть выше низа модели искры
+                double dy = headY - (Pos.Y + 0.1);
+                double dz = headZ - Pos.Z;
+
+                // 1. Поворот влево-вправо (Yaw)
+                // GameMath.PI разворачивает текстуру нужной стороной. 
+                // Если она вдруг окажется задом наперед, удали "+ GameMath.PI"
+                Pos.Yaw = (float)Math.Atan2(dx, dz) + GameMath.PIHALF;
+
+                // 2. Поворот вверх-вниз (Pitch)
+                double horizontalDist = Math.Sqrt(dx * dx + dz * dz);
+                Pos.Pitch = (float)Math.Atan2(dy, horizontalDist);
+
+                // Блокируем заваливание на бок
                 Pos.Roll = 0;
             }
 

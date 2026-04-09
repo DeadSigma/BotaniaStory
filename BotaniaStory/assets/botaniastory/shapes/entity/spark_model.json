@@ -20,8 +20,9 @@
 			"faces": {
 				"north": {
 					"texture": "#spark_base",
-					"uv": [0, 0, 128, 128],
-					"autoUv": false
+					"uv": [ 0, 0, 128, 128 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"east": {
 					"texture": "#missing",
@@ -30,8 +31,9 @@
 				},
 				"south": {
 					"texture": "#spark_base",
-					"uv": [5, 6, 6, 7],
-					"autoUv": false
+					"uv": [ 5, 6, 6, 7 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"west": {
 					"texture": "#missing",
