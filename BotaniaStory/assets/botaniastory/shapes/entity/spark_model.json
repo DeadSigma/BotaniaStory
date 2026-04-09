@@ -1,0 +1,54 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 128,
+	"textureHeight": 128,
+	"textureSizes": {
+		"spark_base": [ 128, 128 ]
+	},
+	"textures": {
+		"spark_base": "botaniastory:entity/spark_anim"
+	},
+	"elements": [
+		{
+			"name": "cube0",
+			"from": [ 6.45, 1.125, 8 ],
+			"to": [ 9.55, 4.225, 8 ],
+			"rotationOrigin": [ 8, 1.675, 8 ],
+			"faces": {
+				"north": {
+					"texture": "#spark_base",
+					"uv": [ 0, 0, 128, 128 ],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#missing",
+					"uv": [ 5, 6, 6, 7 ],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#spark_base",
+					"uv": [ 0, 0, 128, 128 ],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#missing",
+					"uv": [ 5, 6, 6, 7 ],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#missing",
+					"uv": [ 5, 6, 6, 7 ],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#missing",
+					"uv": [ 5, 6, 6, 7 ],
+					"autoUv": false
+				}
+			}
+		}
+	]
+}

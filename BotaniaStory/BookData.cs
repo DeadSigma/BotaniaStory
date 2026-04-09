@@ -93,7 +93,7 @@ namespace botaniastory
 
             { "elfmania", new[] { "ch1" } },
 
-            { "misc", new[] { "livingwood_firewood", "livingwood_stick" } },
+            { "misc", new[] { "livingwood_firewood", "livingwood_stick", "livingrock", "livingrock_slab" } },
 
             { "trials", new[] { "ch1" } }
         };
@@ -443,7 +443,6 @@ namespace botaniastory
                             Grid = new string[9] {
                                "game:chisel-*", null,"game:hammer-*",// Верхний ряд
 
-
                               "botaniastory:livingrock_slab", null, "botaniastory:livingrock_slab",// Средний ряд
                         
                               "botaniastory:livingrock_slab", "botaniastory:livingrock_slab", "botaniastory:livingrock_slab" // Нижний ряд
@@ -743,6 +742,55 @@ namespace botaniastory
                         });
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ЖИЗНЕКАМЕНЬ ===
+                    else if (chapId == "livingrock")
+                    {
+                        chapter.TabItemCode = "botaniastory:livingrock";
+
+                        chapter.Images.Add(new BookPageImage()
+                        {
+                            Path = "botaniastory:textures/gui/puredaisy.png",
+                            Spread = 0,
+                            UiKey = "Картинка_Правая"
+                        });
+
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ПЛИТА ИЗ ЖИЗНЕКАМНЯ ===
+                    else if (chapId == "livingrock_slab")
+                    {
+                        chapter.TabItemCode = "botaniastory:livingrock_slab";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                               "game:chisel-*", "game:hammer-*",null,// Верхний ряд
+
+                              "botaniastory:livingrock", null, null,// Средний ряд
+                        
+                              null, null, null // Нижний ряд
+                          },
+                            Output = "botaniastory:livingrock_slab"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                               "game:chisel-*", null,"game:hammer-*",// Верхний ряд
+
+                              "botaniastory:livingrock_slab", null, "botaniastory:livingrock_slab",// Средний ряд
+                        
+                              "botaniastory:livingrock_slab", "botaniastory:livingrock_slab", "botaniastory:livingrock_slab" // Нижний ряд
+                          },
+                            Output = "botaniastory:manapool_diluted"
+                        });
+                    }
 
                     // Пытаемся загрузить до 30 страниц
                     for (int p = 1; p <= 30; p++)

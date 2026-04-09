@@ -28,7 +28,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
         {
             bool dirty = false;
 
-            int manaPerCycle = 1;  // Сколько маны давать за одно срабатывание
+            int manaPerCycle = 7;  // Сколько маны давать за одно срабатывание
             int ticksPerCycle = 2; // Раз в сколько тиков давать ману
 
             // 1. ГЕНЕРАЦИЯ МАНЫ И ГОРЕНИЕ

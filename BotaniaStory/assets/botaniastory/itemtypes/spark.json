@@ -1,0 +1,13 @@
+{
+	"code": "spark",
+	"class": "ItemSpark",
+	"maxstacksize": 64,
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"shape": { "base": "game:item/empty" },
+	"textures": {
+		"default": { "base": "botaniastory:item/spark" }
+	}
+}

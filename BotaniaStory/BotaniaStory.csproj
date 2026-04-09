@@ -47,6 +47,12 @@
       <HintPath>$(VINTAGE_STORY)/Lib/Microsoft.Data.Sqlite.dll</HintPath>
       <Private>False</Private>
     </Reference>
+	  
+	  
+	  <Reference Include="OpenTK.Graphics">
+		  <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Graphics.dll</HintPath>
+		  <Private>False</Private>
+	  </Reference>
   </ItemGroup>
 
   <ItemGroup>
@@ -56,6 +62,10 @@
     <Content Include="modinfo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="assets\botaniastory\shapes\entity\" />
   </ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
@@ -104,11 +114,7 @@
 		<Copy SourceFiles="@(AssetFiles)" DestinationFolder="$(ZipTempDir)\assets\%(RecursiveDir)" />
 		<Copy SourceFiles="@(AssetFiles)" DestinationFolder="$(DevOutDir)\assets\%(RecursiveDir)" />
 
-		<ZipDirectory
-		  SourceDirectory="$(ZipTempDir)"
-		  DestinationFile="$(ZipOutDir)\$(ModName) v$(ModVersion).zip"
-		  Overwrite="true"
-  />
+		<ZipDirectory SourceDirectory="$(ZipTempDir)" DestinationFile="$(ZipOutDir)\$(ModName) v$(ModVersion).zip" Overwrite="true" />
 
 		<RemoveDir Directories="$(ZipTempDir)" />
 

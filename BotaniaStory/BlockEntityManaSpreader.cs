@@ -18,15 +18,15 @@ namespace BotaniaStory
 
         // Внутренняя батарейка распространителя
         public int CurrentMana = 0;
-        public int MaxMana = 100000; // Вмещает 1000 маны за раз
+        public int MaxMana = 1000; // Вмещает 1000 маны за раз
 
         // Координаты цели (Бассейна), к которому он привязан
         public BlockPos TargetPos = null;
 
         private bool isDischarging = false; // Находимся ли мы в процессе отдачи маны
         private long lastFireMs = 0; // Время последнего выстрела
-        private int fireCooldownMs = 1500; // Пауза между выстрелами в миллисекундах (1.5 секунды)
-        private int burstManaAmount = 150; // Маленькая порция маны для постепенной передачи
+        private int fireCooldownMs = 500; // Пауза между выстрелами в миллисекундах (1.5 секунды)
+        private int burstManaAmount = 120; // Маленькая порция маны для постепенной передачи
 
 
         public BlockEntityAnimationUtil animUtil;

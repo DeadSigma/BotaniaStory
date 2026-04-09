@@ -1,0 +1,13 @@
+{
+    "Animations": [
+        {
+            "AnimationPath": "block/spark_anim",
+            "TargetPath": "block/spark_base",
+            "AnimationModDomain": "botaniastory",
+            "TargetModDomain": "botaniastory",
+            "NumColumns": 1,
+            "NumRows": 7,
+            "SecondsPerFrame": 0.1
+        }
+    ]
+}

@@ -16,6 +16,8 @@
     },
 
     "blockmaterial": "Stone",
+    "renderpass": "BlendNoCull",
+    "faceCullMode": "NeverCull",
     "resistance": 4,
     "lightAbsorption": 0,
     "sidesolid": { "all": false },

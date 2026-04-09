@@ -81,13 +81,12 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 // Проверяем, земля это или грядка
                 if (path.Contains("soil") || path.Contains("farmland"))
                 {
-                    if (path.Contains("medium")) soilMult = 1.04f; // Средняя: +3%
-                    else if (path.Contains("high")) soilMult = 1.10f; // Высокая: +6%
+                    if (path.Contains("medium")) soilMult = 1.04f; 
+                    else if (path.Contains("high")) soilMult = 1.15f; 
                     else if (path.Contains("terrapreta") || path.Contains("compost")) soilMult = 1.07f; 
                 }
                 else
                 {
-                    // Если поставили на камень, доски и т.д. — огромный штраф (работает в 2 раза хуже)
                     soilMult = 0.5f;
                 }
             }
@@ -156,7 +155,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
             // ==========================================
             // ФИНАЛЬНЫЙ РАСЧЕТ И ВЫДАЧА МАНЫ
             // ==========================================
-            float baseManaPerSec = 15f; // Поставил 15 для хорошего баланса, можешь вернуть 0.25f для оригинала!
+            float baseManaPerSec = 4f; 
 
             // НОВОЕ: Умножаем всё на наш soilMult (бонус почвы)
             float generatedThisSec = baseManaPerSec * sunlightMult * efficiency * seasonMult * globalMult * soilMult;
