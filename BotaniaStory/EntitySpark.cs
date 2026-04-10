@@ -13,37 +13,41 @@ namespace BotaniaStory
 
         private const int SPARK_RANGE = 12;
         private const int TRANSFER_RATE = 100000;
-
-        // ДОБАВЛЕНО: Таймер для плавной передачи маны каждый тик (50мс)
         private float transferAccumulator = 0f;
+
+        // 1. ДОБАВЛЯЕМ ПОЛЕ ДЛЯ РЕНДЕРЕРА
+        private SparkRenderer renderer;
 
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
             base.Initialize(properties, api, InChunkIndex3d);
+            if (api is ICoreClientAPI capi)
+            {
+                // 2. СОХРАНЯЕМ ССЫЛКУ ПРИ РЕГИСТРАЦИИ
+                renderer = new SparkRenderer(capi, this);
+                capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "spark");
+            }
         }
+
+        // 3. ДОБАВЛЯЕМ МЕТОД ОЧИСТКИ (Вызывается, когда сервер убивает сущность)
+        public override void OnEntityDespawn(EntityDespawnData despawn)
+        {
+            base.OnEntityDespawn(despawn);
+
+            // Если мы на клиенте — удаляем рендерер из движка игры!
+            if (Api is ICoreClientAPI capi && renderer != null)
+            {
+                capi.Event.UnregisterRenderer(renderer, EnumRenderStage.Opaque);
+                renderer.Dispose();
+                renderer = null;
+            }
+        }
+
+     
 
         public override void OnGameTick(float dt)
         {
-            if (Api is ICoreClientAPI capi)
-            {
-                var player = capi.World.Player?.Entity;
-                if (player != null)
-                {
-                    double headX = player.Pos.X + player.LocalEyePos.X;
-                    double headY = player.Pos.Y + player.LocalEyePos.Y;
-                    double headZ = player.Pos.Z + player.LocalEyePos.Z;
-
-                    double dx = headX - Pos.X;
-                    double dy = headY - (Pos.Y + 0.1);
-                    double dz = headZ - Pos.Z;
-
-                    Pos.Yaw = (float)Math.Atan2(dx, dz) + GameMath.PIHALF;
-                    double horizontalDist = Math.Sqrt(dx * dx + dz * dz);
-                    Pos.Pitch = (float)Math.Atan2(dy, horizontalDist);
-                    Pos.Roll = 0;
-                }
-            }
-
+            // Удалили весь клиентский код расчета поворота, теперь всё чистенько!
             base.OnGameTick(dt);
 
             if (Api.Side == EnumAppSide.Server)

@@ -2,6 +2,7 @@
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using OpenTK.Graphics.OpenGL;
 
 namespace BotaniaStory
 {
@@ -59,11 +60,15 @@ namespace BotaniaStory
                 Vec4f particleColor;
                 double rand = capi.World.Rand.NextDouble();
 
-                // Преобладают цветные частицы (голубой, зеленый, розовый)
-                if (rand < 0.35) particleColor = new Vec4f(0.2f, 0.8f, 1f, 1f);
-                else if (rand < 0.70) particleColor = new Vec4f(0.4f, 1f, 0.4f, 1f);
-                else if (rand < 0.90) particleColor = new Vec4f(1f, 0.4f, 0.8f, 1f);
-                else particleColor = new Vec4f(1f, 1f, 1f, 1f);
+                // ИСПОЛЬЗУЕМ БОЛЕЕ ГЛУБОКИЕ ЦВЕТА И СНИЖАЕМ АЛЬФУ ДО 0.6f
+                if (rand < 0.35)
+                    particleColor = new Vec4f(0.0f, 0.4f, 1.0f, 0.6f); // Насыщенный сине-голубой
+                else if (rand < 0.70)
+                    particleColor = new Vec4f(0.0f, 1.0f, 0.1f, 0.6f); // Чистый зеленый
+                else if (rand < 0.90)
+                    particleColor = new Vec4f(1.0f, 0.0f, 0.8f, 0.6f); // Яркий розовый/магента
+                else
+                    particleColor = new Vec4f(0.8f, 0.8f, 1.0f, 0.4f); // Бело-голубой (сделали еще прозрачнее)
 
                 // Смещение для красивой дуги распыления
                 Vec3d offset = new Vec3d(
@@ -79,15 +84,14 @@ namespace BotaniaStory
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
-            // ДЕБАГГЕР: Логируем состояние раз в 1 секунду
+            if (particleTexture == null || particleTexture.Disposed || particleTexture.TextureId == 0) return;
+            // ДЕБАГГЕР 
             debugTimer += deltaTime;
             if (debugTimer > 1.0f)
             {
                 debugTimer = 0f;
                 if (activeParticles.Count > 0)
-                {
                     capi.Logger.Debug($"[BotaniaStory Debug] Активных частиц: {activeParticles.Count}. ID Текстуры: {particleTexture?.TextureId}");
-                }
             }
 
             if (activeParticles.Count == 0 || quadMeshRef == null || particleTexture == null || particleTexture.TextureId == 0) return;
@@ -108,11 +112,14 @@ namespace BotaniaStory
             IStandardShaderProgram prog = render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
 
             prog.Tex2D = particleTexture.TextureId;
+            prog.Uniform("alphaTest", 0f);
+            prog.Uniform("extraGlow", 0);
 
-            // В слое Opaque нам ОБЯЗАТЕЛЬНО нужен alphaTest, чтобы скрыть черные (прозрачные) края текстуры.
-            // 0.05f отрезает все пиксели, где прозрачность выше 95%.
-            prog.Uniform("alphaTest", 0.05f);
-            prog.Uniform("extraGlow", 255);
+            // 1. Включаем аддитивное смешивание (свечение)
+            render.GlToggleBlend(true, EnumBlendMode.Glow);
+
+            // 2. ИСПРАВЛЕНИЕ: Отключаем запись в буфер глубины напрямую через OpenGL!
+            GL.DepthMask(false);
 
             foreach (var p in activeParticles)
             {
@@ -120,6 +127,7 @@ namespace BotaniaStory
 
                 prog.Uniform("rgbaAmbientIn", p.Color);
                 prog.Uniform("rgbaLightIn", p.Color);
+                prog.Uniform("rgbaGlowIn", p.Color);
 
                 ModelMat.Identity();
                 ModelMat.Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z);
@@ -134,13 +142,30 @@ namespace BotaniaStory
                 render.RenderMesh(quadMeshRef);
             }
 
+            // --- ИСПРАВЛЕНИЕ УТЕЧКИ ЦВЕТА (МОЕМ КИСТОЧКИ) ---
+            // Возвращаем глобальному шейдеру чистый белый свет, 
+            // чтобы он не покрасил искры и другие блоки в мире!
+            prog.Uniform("rgbaAmbientIn", new Vec4f(1f, 1f, 1f, 1f));
+            prog.Uniform("rgbaLightIn", new Vec4f(1f, 1f, 1f, 1f));
+            prog.Uniform("rgbaGlowIn", new Vec4f(0f, 0f, 0f, 0f)); // Glow лучше обнулить
+
             prog.Stop();
+
+            // 3. ОБЯЗАТЕЛЬНО возвращаем всё как было, иначе сломаем рендер всего мира!
+            GL.DepthMask(true); // Включаем буфер глубины обратно
+            render.GlToggleBlend(false, EnumBlendMode.Standard);
         }
 
         public void Dispose()
         {
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
+
+            
             quadMeshRef?.Dispose();
+            quadMeshRef = null;
+
+            particleTexture?.Dispose();
+            particleTexture = null;
         }
     }
 }

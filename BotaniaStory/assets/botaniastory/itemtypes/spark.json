@@ -22,5 +22,41 @@
 			"z": 0.5
 		},
 		"scale": 8
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.03,
+			"z": 0
+		},
+		"rotation": {
+			"x": 90,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 10
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.3,
+			"y": -0.1,
+			"z": -0.28
+		},
+		"rotation": {
+			"x": 180,
+			"y": -62,
+			"z": 180
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.1,
+			"z": 0.5
+		},
+		"scale": 1.75
 	}
 }

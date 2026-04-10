@@ -37,7 +37,57 @@ namespace BotaniaStory
 
             base.OnHeldAttackStart(slot, byEntity, blockSel, entitySel, ref handling);
         }
+        // 1. В OnHeldInteractStart удали весь блок "if (isSneaking) { ... }", 
+        // так как теперь эта логика будет работать более глобально.
 
+        // 2. Добавь этот метод в класс ItemWandOfTheForest:
+        public override void OnHeldIdle(ItemSlot slot, EntityAgent byEntity)
+        {
+            IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
+            if (byPlayer == null || byEntity.World.Side == EnumAppSide.Client) return;
+
+            // Проверяем: зажат SHIFT + зажата ПКМ
+            if (byPlayer.Entity.Controls.Sneak && byPlayer.Entity.Controls.RightMouseDown)
+            {
+                IWorldAccessor world = byEntity.World;
+
+                // Получаем точку глаз игрока и вектор взгляда
+                Vec3d eyePos = byEntity.Pos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0);
+                Vec3f viewVec = byEntity.Pos.GetViewVector();
+                Vec3d lookDir = new Vec3d(viewVec.X, viewVec.Y, viewVec.Z);
+
+                // Ищем искры в радиусе 5 блоков (теперь это сработает в выживании!)
+                Entity[] nearbySparks = world.GetEntitiesAround(byEntity.Pos.XYZ, 5, 5, e => e is EntitySpark);
+
+                foreach (Entity spark in nearbySparks)
+                {
+                    // Вектор от глаз до искры
+                    Vec3d dirToSpark = new Vec3d(spark.Pos.X - eyePos.X, spark.Pos.Y - eyePos.Y, spark.Pos.Z - eyePos.Z);
+                    double distance = dirToSpark.Length();
+
+                    // Если искра в пределах 4.5 блоков и мы смотрим точно на нее
+                    if (distance < 4.5 && dirToSpark.Normalize().Dot(lookDir) > 0.98)
+                    {
+                        // Снимаем искру
+                        Item itemSpark = world.GetItem(new AssetLocation("botaniastory", "spark"));
+                        if (itemSpark != null)
+                        {
+                            world.SpawnItemEntity(new ItemStack(itemSpark), spark.Pos.XYZ);
+                        }
+
+                        // Проигрываем звук и удаляем сущность
+                        AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
+                        world.PlaySoundAt(wandSound, spark.Pos.X, spark.Pos.Y, spark.Pos.Z, null, true, 16, 1f);
+
+                        spark.Die();
+
+                        // Чтобы не снимать 10 искр за один кадр, добавляем небольшую задержку
+                        // (Это предотвратит моментальное исчезновение всех искр в ряду)
+                        break;
+                    }
+                }
+            }
+        }
         // ==========================================
         // ПКМ - ЛОГИКА ПРИВЯЗКИ И ИНФОРМАЦИИ
         // ==========================================
@@ -56,47 +106,7 @@ namespace BotaniaStory
 
             AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
 
-            // ==========================================
-            // А. SHIFT + ПКМ (Снятие искры)
-            // ==========================================
-            if (isSneaking)
-            {
-                // Получаем точку глаз игрока и вектор направления его взгляда
-                Vec3d eyePos = byEntity.Pos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0);
-                Vec3f viewVec = byEntity.Pos.GetViewVector(); // Используем Pos вместо устаревшего SidedPos
-                Vec3d lookDir = new Vec3d(viewVec.X, viewVec.Y, viewVec.Z); // Явно конвертируем float в double
-
-                // Ищем все искры в радиусе 8 блоков
-                Entity[] nearbySparks = world.GetEntitiesAround(byEntity.Pos.XYZ, 8, 8, e => e is EntitySpark);
-
-                foreach (Entity spark in nearbySparks)
-                {
-                    // Вычисляем вектор от глаз игрока до искры
-                    Vec3d dirToSpark = new Vec3d(spark.Pos.X - eyePos.X, spark.Pos.Y - eyePos.Y, spark.Pos.Z - eyePos.Z).Normalize();
-
-                    // Скалярное произведение (Dot) покажет, смотрим ли мы прямо на искру
-                    // Значение > 0.96 означает, что искра находится почти в центре экрана
-                    if (dirToSpark.Dot(lookDir) > 0.96)
-                    {
-                        if (world.Side == EnumAppSide.Server)
-                        {
-                            // Спавним предмет искры и убиваем сущность
-                            ItemStack sparkStack = new ItemStack(world.GetItem(new AssetLocation("botaniastory", "spark")));
-                            world.SpawnItemEntity(sparkStack, spark.Pos.XYZ);
-                            spark.Die();
-                        }
-
-                        // Проигрываем магический звук посоха для обратной связи
-                        world.PlaySoundAt(wandSound, spark.Pos.X, spark.Pos.Y, spark.Pos.Z, byPlayer, true, 16, 1f);
-
-                        handling = EnumHandHandling.PreventDefaultAction;
-                        return; // Искра поймана, прерываем выполнение!
-                    }
-                }
-
-                handling = EnumHandHandling.Handled;
-                return;
-            }
+           
 
             // --- ДАЛЕЕ ИДЕТ ЛОГИКА ДЛЯ ПРОСТОГО ПКМ (БЕЗ SHIFT) ---
 

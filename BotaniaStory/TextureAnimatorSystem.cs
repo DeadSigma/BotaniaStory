@@ -109,8 +109,9 @@ namespace BotaniaStory
         // Вынес логику в универсальный метод, принимающий конкретные текстуры
         private void RenderFrameToAtlas(LoadedTexture srcTex, TextureAtlasPosition srcPos, LoadedTexture dstTex, TextureAtlasPosition dstPos, int numFrames, int currentFrame)
         {
-            if (srcTex == null || dstTex == null) return;
+            if (srcTex == null || dstTex == null || srcTex.TextureId == 0 || dstTex.TextureId == 0) return;
 
+            // Считаем координаты
             float frameHeightUV = (srcPos.y2 - srcPos.y1) / numFrames;
             float frameWidthUV = srcPos.x2 - srcPos.x1;
 
@@ -122,24 +123,36 @@ namespace BotaniaStory
             int dstX = (int)MathF.Round(dstTex.Width * dstPos.x1);
             int dstY = (int)MathF.Round(dstTex.Height * dstPos.y1);
 
-            int originBufferId;
-            GL.GetInteger(GetPName.FramebufferBinding, out originBufferId);
+            // Сохраняем текущий буфер
+            GL.GetInteger(GetPName.FramebufferBinding, out int originBufferId);
 
-            int readBuf, drawBuf;
-            GL.GenFramebuffers(1, out readBuf);
-            GL.GenFramebuffers(1, out drawBuf);
+            // Используем временные буферы
+            int readFbo = GL.GenFramebuffer();
+            int drawFbo = GL.GenFramebuffer();
 
-            GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, readBuf);
+            // Чтение
+            GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, readFbo);
             GL.FramebufferTexture2D(FramebufferTarget.ReadFramebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, srcTex.TextureId, 0);
 
-            GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, drawBuf);
+            // Запись
+            GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, drawFbo);
             GL.FramebufferTexture2D(FramebufferTarget.DrawFramebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, dstTex.TextureId, 0);
 
-            GL.BlitFramebuffer(srcX, srcY, srcX + srcW, srcY + srcH, dstX, dstY, dstX + srcW, dstY + srcH, ClearBufferMask.ColorBufferBit, BlitFramebufferFilter.Nearest);
+            // Проверка готовности (важно для предотвращения InvalidOperation)
+            if (GL.CheckFramebufferStatus(FramebufferTarget.ReadFramebuffer) == FramebufferErrorCode.FramebufferComplete &&
+                GL.CheckFramebufferStatus(FramebufferTarget.DrawFramebuffer) == FramebufferErrorCode.FramebufferComplete)
+            {
+                GL.BlitFramebuffer(srcX, srcY, srcX + srcW, srcY + srcH, dstX, dstY, dstX + srcW, dstY + srcH, ClearBufferMask.ColorBufferBit, BlitFramebufferFilter.Nearest);
+            }
 
-            GL.DeleteFramebuffer(readBuf);
-            GL.DeleteFramebuffer(drawBuf);
+            // ОЧИСТКА ПЕРЕД УДАЛЕНИЕМ
+            GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, 0);
+            GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
 
+            GL.DeleteFramebuffer(readFbo);
+            GL.DeleteFramebuffer(drawFbo);
+
+            // Возвращаем исходный буфер
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, originBufferId);
         }
 
@@ -149,6 +162,7 @@ namespace BotaniaStory
             {
                 capi.Event.UnregisterGameTickListener(tickListenerId);
             }
+            animations.Clear();
             base.Dispose();
         }
     }

@@ -1,6 +1,7 @@
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
@@ -35,6 +36,36 @@ namespace BotaniaStory
             }
         }
 
+        // ==========================================
+        // УДАЛЕНИЕ БАССЕЙНА (ДРОП ИСКРЫ)
+        // ==========================================
+        public override void OnBlockRemoved()
+        {
+            base.OnBlockRemoved();
+
+            if (Api.Side == EnumAppSide.Server)
+            {
+                // Слегка увеличили радиус поиска (с 1.0 до 2.0), чтобы гарантированно зацепить хитбокс
+                Entity[] sparks = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 1.2, 0.5), 0.2f, 0.5f, e => e is EntitySpark);
+
+                foreach (Entity entity in sparks)
+                {
+                    if (entity is EntitySpark spark)
+                    {
+                        Item itemSpark = Api.World.GetItem(new AssetLocation("botaniastory", "spark"));
+                        if (itemSpark != null)
+                        {
+                            ItemStack dropStack = new ItemStack(itemSpark);
+                            Api.World.SpawnItemEntity(dropStack, spark.Pos.XYZ);
+                        }
+
+                        // ИСПРАВЛЕНИЕ: Используем 'PickedUp' вместо обычной смерти. 
+                        // Это заставит сервер удалить искру мгновенно, как будто игрок положил ее в карман.
+                        spark.Die(EnumDespawnReason.PickedUp);
+                    }
+                }
+            }
+        }
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
