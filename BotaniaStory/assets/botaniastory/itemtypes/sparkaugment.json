@@ -4,7 +4,7 @@
 	"variantgroups": [
 		{
 			"code": "type",
-			"states": [ "recessive", "dominant" ]
+			"states": [ "recessive", "dominant", "isolated", "dispersive" ]
 		}
 	],
 	"maxstacksize": 64,

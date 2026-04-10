@@ -72,11 +72,13 @@ namespace BotaniaStory
 
         private void DoManaTransfer(double baseX, double baseY, double baseZ)
         {
-            // Используем Math.Floor для корректного поиска бассейна даже на отрицательных высотах
             BlockPos myPoolPos = new BlockPos((int)Math.Floor(baseX), (int)Math.Floor(baseY) - 1, (int)Math.Floor(baseZ));
             BlockEntityManaPool myPool = Api.World.BlockAccessor.GetBlockEntity(myPoolPos) as BlockEntityManaPool;
 
             if (myPool == null || myPool.CurrentMana <= 0) return;
+
+            // Читаем, какой дополнитель стоит на НАШЕЙ искре
+            string myAugment = WatchedAttributes.GetString("augment", "none");
 
             Entity[] nearbySparks = Api.World.GetEntitiesAround(Pos.XYZ, SPARK_RANGE, SPARK_RANGE, e => e is EntitySpark && e.EntityId != this.EntityId);
             bool myPoolChanged = false;
@@ -86,23 +88,36 @@ namespace BotaniaStory
                 EntitySpark otherSpark = entity as EntitySpark;
                 if (otherSpark == null) continue;
 
+                // Читаем, какой дополнитель стоит на ЧУЖОЙ искре
+                string otherAugment = otherSpark.WatchedAttributes.GetString("augment", "none");
+
+                // 1. Изолированные искры не участвуют в обмене маной между бассейнами
+                if (myAugment == "isolated" || otherAugment == "isolated") continue;
+
+                // 2. Логика передачи: 
+                // Мана течет от нас к ним ТОЛЬКО если у нас Подчиненная руна ИЛИ у них Доминантная руна.
+                bool shouldSendMana = (myAugment == "recessive") || (otherAugment == "dominant");
+
+                if (!shouldSendMana) continue; // Если условий нет - пропускаем (обычные искры ничего не делают)
+
                 double otherX = otherSpark.WatchedAttributes.GetDouble("baseX");
                 double otherY = otherSpark.WatchedAttributes.GetDouble("baseY");
                 double otherZ = otherSpark.WatchedAttributes.GetDouble("baseZ");
 
-                // Здесь тоже добавляем Math.Floor
                 BlockPos otherPoolPos = new BlockPos((int)Math.Floor(otherX), (int)Math.Floor(otherY) - 1, (int)Math.Floor(otherZ));
                 BlockEntityManaPool otherPool = Api.World.BlockAccessor.GetBlockEntity(otherPoolPos) as BlockEntityManaPool;
 
                 if (otherPool != null)
                 {
-                    if (myPool.CurrentMana > otherPool.CurrentMana + 10000)
-                    {
-                        int diff = myPool.CurrentMana - otherPool.CurrentMana;
-                        int spaceInOther = otherPool.MaxMana - otherPool.CurrentMana;
+                    // Нам больше не нужен порог в 10 000 для "выравнивания". 
+                    // Руны качают ману до тех пор, пока есть место.
+                    int spaceInOther = otherPool.MaxMana - otherPool.CurrentMana;
 
-                        int amountToTransfer = Math.Min(TRANSFER_RATE / 10, diff / 2);
-                        amountToTransfer = Math.Min(amountToTransfer, spaceInOther);
+                    if (spaceInOther > 0 && myPool.CurrentMana > 0)
+                    {
+                        // Передаем порциями (скорость TRANSFER_RATE)
+                        int amountToTransfer = Math.Min(TRANSFER_RATE / 10, spaceInOther);
+                        amountToTransfer = Math.Min(amountToTransfer, myPool.CurrentMana);
 
                         if (amountToTransfer > 0)
                         {
