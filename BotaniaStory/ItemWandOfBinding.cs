@@ -20,7 +20,7 @@ namespace BotaniaStory
             Block block = world.BlockAccessor.GetBlock(pos);
             BlockEntity clickedBe = world.BlockAccessor.GetBlockEntity(pos);
 
-            AssetLocation bindSound = new AssetLocation("botaniastory", "sounds/wand_of_binding");
+            AssetLocation bindSound = new AssetLocation("botaniastory", "sounds/effect/translocate");
 
             // ==========================================
             // 1. КЛИК ПО РАСПРОСТРАНИТЕЛЮ (Массовая привязка)

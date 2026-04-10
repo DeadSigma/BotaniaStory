@@ -64,17 +64,23 @@ namespace BotaniaStory
                     targetSpark.WatchedAttributes.SetString("augment", augmentType);
                     targetSpark.WatchedAttributes.MarkAllDirty();
 
-                    world.PlaySoundAt(new AssetLocation("game", "sounds/player/buildhigh"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, null, true, 16, 1f);
+                    // --- ИСПРАВЛЕНИЕ ЗДЕСЬ ---
+                    // Воспроизводим звук и забираем предмет ТОЛЬКО на сервере
+                    if (world.Side == EnumAppSide.Server)
+                    {
+                        world.PlaySoundAt(new AssetLocation("game", "sounds/player/buildhigh"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, null, true, 16, 1f);
 
+                        if ((byEntity as EntityPlayer)?.Player.WorldData.CurrentGameMode != EnumGameMode.Creative)
+                        {
+                            slot.TakeOut(1);
+                            slot.MarkDirty();
+                        }
+                    }
+
+                    // Сообщение оставляем только для клиента
                     if (world.Side == EnumAppSide.Client)
                     {
                         (world.Api as ICoreClientAPI)?.ShowChatMessage($"Дополнитель '{augmentType}' успешно установлен!");
-                    }
-
-                    if ((byEntity as EntityPlayer)?.Player.WorldData.CurrentGameMode != EnumGameMode.Creative)
-                    {
-                        slot.TakeOut(1);
-                        slot.MarkDirty();
                     }
 
                     handling = EnumHandHandling.Handled;

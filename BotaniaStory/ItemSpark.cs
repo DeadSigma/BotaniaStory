@@ -47,6 +47,9 @@ namespace BotaniaStory
 
                         byEntity.World.SpawnEntity(sparkEntity);
 
+                        
+                        byEntity.World.PlaySoundAt(new AssetLocation("game", "sounds/player/buildhigh"), sparkEntity.Pos.X, sparkEntity.Pos.Y, sparkEntity.Pos.Z, null, true, 16, 1f);
+
                         if (byEntity is EntityPlayer player && player.Player.WorldData.CurrentGameMode != EnumGameMode.Creative)
                         {
                             slot.TakeOut(1);
