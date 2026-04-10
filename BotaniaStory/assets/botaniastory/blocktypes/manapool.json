@@ -2,6 +2,12 @@
     "code": "manapool",
     "class": "BlockManaPool",
     "entityClass": "ManaPoolEntity",
+    "variantgroups": [
+        {
+            "code": "type",
+            "states": [ "normal", "diluted", "creative" ]
+        }
+    ],
     "creativeinventory": {
         "general": [ "*" ],
         "botaniastory": [ "*" ]
@@ -10,6 +16,10 @@
     "textures": {
         "livingrock": { "base": "botaniastory:block/livingrock" },
         "mana": { "base": "botaniastory:block/mana" }
+    },
+    "attributesByType": {
+        "*-diluted": { "isDilutedPool": true },
+        "*-creative": { "isCreativePool": true }
     },
 
     "blockmaterial": "Stone",

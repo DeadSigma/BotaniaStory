@@ -9,10 +9,20 @@ namespace BotaniaStory
 {
     public class BlockEntityManaPool : BlockEntity
     {
-        public int CurrentMana = 0;
+        // Приватное хранилище маны
+        private int _currentMana = 0;
+
+        // Свойство: если бассейн творческий, всегда отдаем MaxMana и игнорируем изменения!
+        public int CurrentMana
+        {
+            get { return isCreativePool ? MaxMana : _currentMana; }
+            set { if (!isCreativePool) _currentMana = value; }
+        }
+
         public int MaxMana = 1000000;
 
         private bool isDilutedPool = false;
+        private bool isCreativePool = false; // Флаг для творческого бассейна
 
         // ==========================================
         // ИНИЦИАЛИЗАЦИЯ
@@ -21,10 +31,10 @@ namespace BotaniaStory
         {
             base.Initialize(api);
 
-            // Проверяем, Разбавленный ли это бассейн
             if (Block != null && Block.Attributes != null)
             {
                 isDilutedPool = Block.Attributes["isDilutedPool"].AsBool(false);
+                isCreativePool = Block.Attributes["isCreativePool"].AsBool(false);
             }
 
             // Устанавливаем лимиты
@@ -33,6 +43,24 @@ namespace BotaniaStory
             if (api.Side == EnumAppSide.Client)
             {
                 RegisterGameTickListener(SpawnManaParticles, 100);
+            }
+        }
+
+        public override void ToTreeAttributes(ITreeAttribute tree)
+        {
+            base.ToTreeAttributes(tree);
+            // Сохраняем реальное значение, а не свойство, чтобы не перезаписать ничего лишнего
+            tree.SetInt("mana", _currentMana);
+        }
+
+        public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
+        {
+            base.FromTreeAttributes(tree, worldForResolving);
+            _currentMana = tree.GetInt("mana", 0);
+
+            if (Api?.Side == EnumAppSide.Client)
+            {
+                MarkDirty(true);
             }
         }
 
@@ -64,22 +92,6 @@ namespace BotaniaStory
                         spark.Die(EnumDespawnReason.PickedUp);
                     }
                 }
-            }
-        }
-        public override void ToTreeAttributes(ITreeAttribute tree)
-        {
-            base.ToTreeAttributes(tree);
-            tree.SetInt("mana", CurrentMana);
-        }
-
-        public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
-        {
-            base.FromTreeAttributes(tree, worldForResolving);
-            CurrentMana = tree.GetInt("mana", 0);
-
-            if (Api?.Side == EnumAppSide.Client)
-            {
-                MarkDirty(true);
             }
         }
 
