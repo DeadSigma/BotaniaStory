@@ -43,11 +43,10 @@ namespace BotaniaStory
             }
         }
 
-     
+
 
         public override void OnGameTick(float dt)
         {
-            // Удалили весь клиентский код расчета поворота, теперь всё чистенько!
             base.OnGameTick(dt);
 
             if (Api.Side == EnumAppSide.Server)
@@ -56,32 +55,16 @@ namespace BotaniaStory
                 double baseY = WatchedAttributes.GetDouble("baseY", Pos.Y);
                 double baseZ = WatchedAttributes.GetDouble("baseZ", Pos.Z);
 
-                int currentY = (int)baseY;
-                bool foundTop = false;
-
-                for (int i = 0; i < 10; i++)
+                // Просто удерживаем искру на заданной высоте (1.7), без поиска потолка
+                if (Math.Abs(Pos.Y - baseY) > 0.05)
                 {
-                    Block block = Api.World.BlockAccessor.GetBlock(new BlockPos((int)baseX, currentY, (int)baseZ));
-                    if (block.Id == 0 || block.Replaceable > 5000)
-                    {
-                        foundTop = true;
-                        break;
-                    }
-                    currentY++;
+                    Pos.Y = baseY;
                 }
 
-                double targetY = foundTop ? currentY + 0.2 : baseY;
-
-                if (Math.Abs(Pos.Y - targetY) > 0.05)
-                {
-                    Pos.Y = targetY;
-                }
-
-                // ИСПРАВЛЕНО: Теперь мана течет плавно 20 раз в секунду, а не рывками
                 transferAccumulator += dt;
                 if (transferAccumulator >= 0.05f)
                 {
-                    transferAccumulator = 0f; // Сбрасываем таймер
+                    transferAccumulator = 0f;
                     DoManaTransfer(baseX, baseY, baseZ);
                 }
             }
@@ -89,7 +72,8 @@ namespace BotaniaStory
 
         private void DoManaTransfer(double baseX, double baseY, double baseZ)
         {
-            BlockPos myPoolPos = new BlockPos((int)baseX, (int)baseY - 1, (int)baseZ);
+            // Используем Math.Floor для корректного поиска бассейна даже на отрицательных высотах
+            BlockPos myPoolPos = new BlockPos((int)Math.Floor(baseX), (int)Math.Floor(baseY) - 1, (int)Math.Floor(baseZ));
             BlockEntityManaPool myPool = Api.World.BlockAccessor.GetBlockEntity(myPoolPos) as BlockEntityManaPool;
 
             if (myPool == null || myPool.CurrentMana <= 0) return;
@@ -105,18 +89,18 @@ namespace BotaniaStory
                 double otherX = otherSpark.WatchedAttributes.GetDouble("baseX");
                 double otherY = otherSpark.WatchedAttributes.GetDouble("baseY");
                 double otherZ = otherSpark.WatchedAttributes.GetDouble("baseZ");
-                BlockPos otherPoolPos = new BlockPos((int)otherX, (int)otherY - 1, (int)otherZ);
+
+                // Здесь тоже добавляем Math.Floor
+                BlockPos otherPoolPos = new BlockPos((int)Math.Floor(otherX), (int)Math.Floor(otherY) - 1, (int)Math.Floor(otherZ));
                 BlockEntityManaPool otherPool = Api.World.BlockAccessor.GetBlockEntity(otherPoolPos) as BlockEntityManaPool;
 
                 if (otherPool != null)
                 {
-                    if (myPool.CurrentMana > otherPool.CurrentMana + 10000) // Порог в 10к маны!
+                    if (myPool.CurrentMana > otherPool.CurrentMana + 10000)
                     {
                         int diff = myPool.CurrentMana - otherPool.CurrentMana;
                         int spaceInOther = otherPool.MaxMana - otherPool.CurrentMana;
 
-                        // Передаем порциями поменьше, чтобы бассейны не выравнивались за 1 тик, 
-                        // и игрок успел насладиться красивым переливанием
                         int amountToTransfer = Math.Min(TRANSFER_RATE / 10, diff / 2);
                         amountToTransfer = Math.Min(amountToTransfer, spaceInOther);
 
