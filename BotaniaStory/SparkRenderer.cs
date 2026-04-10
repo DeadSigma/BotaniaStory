@@ -57,11 +57,13 @@ namespace BotaniaStory
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)spark.Pos.X, (int)spark.Pos.Y, (int)spark.Pos.Z);
 
             // 1. Идеальные цвета 1:1 (отключаем влияние солнца и теней)
-            prog.Uniform("rgbaAmbientIn", new Vec4f(1f, 1f, 1f, 1f));
-            prog.Uniform("rgbaLightIn", new Vec4f(0f, 0f, 0f, 0f));
-            prog.Uniform("rgbaGlowIn", new Vec4f(0f, 0f, 0f, 0f));
+            prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f); // Ему нужно 3 числа (RGB)
+            prog.RgbaLightIn = new Vec4f(0f, 0f, 0f, 0f); // Ему нужно 4 числа (RGBA)
+            prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f); // Ему нужно 4 числа (RGBA)
+
             prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
             prog.ExtraGlow = 0;
+
 
             // 2. ВАЖНО: Отключаем Alpha-Test, чтобы игра не обрезала полупрозрачную ауру!
             prog.Uniform("alphaTest", 0f);
@@ -97,8 +99,9 @@ namespace BotaniaStory
 
             capi.Render.RenderMesh(meshRef);
 
+
             // Возвращаем кисточки в белый цвет (защита от багов)
-            prog.Uniform("rgbaAmbientIn", new Vec4f(1f, 1f, 1f, 1f));
+            prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
             prog.Stop();
 
             // --- ВОЗВРАЩАЕМ РЕНДЕР МИРА В НОРМУ ---

@@ -60,15 +60,27 @@ namespace BotaniaStory
                 Vec4f particleColor;
                 double rand = capi.World.Rand.NextDouble();
 
-                // ИСПОЛЬЗУЕМ БОЛЕЕ ГЛУБОКИЕ ЦВЕТА И СНИЖАЕМ АЛЬФУ ДО 0.6f
-                if (rand < 0.35)
-                    particleColor = new Vec4f(0.0f, 0.4f, 1.0f, 0.6f); // Насыщенный сине-голубой
-                else if (rand < 0.70)
-                    particleColor = new Vec4f(0.0f, 1.0f, 0.1f, 0.6f); // Чистый зеленый
-                else if (rand < 0.90)
-                    particleColor = new Vec4f(1.0f, 0.0f, 0.8f, 0.6f); // Яркий розовый/магента
+                // 80% шанс (от 0.0 до 0.80) — Базовая прозрачная частица (без цвета)
+                if (rand < 0.80)
+                {
+                    // 1f, 1f, 1f — белый цвет (не искажает текстуру). 0.5f — полупрозрачность.
+                    particleColor = new Vec4f(1.0f, 1.0f, 1.0f, 0.5f);
+                }
+                // 7% шанс (от 0.80 до 0.87) — Синий
+                else if (rand < 0.87)
+                {
+                    particleColor = new Vec4f(0.0f, 0.4f, 1.0f, 0.6f);
+                }
+                // 7% шанс (от 0.87 до 0.94) — Зеленый
+                else if (rand < 0.94)
+                {
+                    particleColor = new Vec4f(0.0f, 1.0f, 0.1f, 0.6f);
+                }
+                // Оставшиеся 6% (от 0.94 до 1.0) — Розовый
                 else
-                    particleColor = new Vec4f(0.8f, 0.8f, 1.0f, 0.4f); // Бело-голубой (сделали еще прозрачнее)
+                {
+                    particleColor = new Vec4f(1.0f, 0.0f, 0.8f, 0.6f);
+                }
 
                 // Смещение для красивой дуги распыления
                 Vec3d offset = new Vec3d(
@@ -84,6 +96,7 @@ namespace BotaniaStory
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
+
             if (particleTexture == null || particleTexture.Disposed || particleTexture.TextureId == 0) return;
             // ДЕБАГГЕР 
             debugTimer += deltaTime;
@@ -125,9 +138,15 @@ namespace BotaniaStory
             {
                 Vec3d pos = p.GetCurrentPosition();
 
-                prog.Uniform("rgbaAmbientIn", p.Color);
-                prog.Uniform("rgbaLightIn", p.Color);
-                prog.Uniform("rgbaGlowIn", p.Color);
+                // p.Color - это Vec4f (4 числа), берем оттуда только X, Y, Z для Ambient
+                prog.RgbaAmbientIn = new Vec3f(p.Color.X, p.Color.Y, p.Color.Z);
+
+                // Light и Glow отлично съедят полные 4 числа
+                prog.RgbaLightIn = p.Color;
+                prog.RgbaGlowIn = p.Color;
+
+                // Альфа-прозрачность отдаем в Tint
+                prog.RgbaTint = p.Color;
 
                 ModelMat.Identity();
                 ModelMat.Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z);
@@ -145,9 +164,12 @@ namespace BotaniaStory
             // --- ИСПРАВЛЕНИЕ УТЕЧКИ ЦВЕТА (МОЕМ КИСТОЧКИ) ---
             // Возвращаем глобальному шейдеру чистый белый свет, 
             // чтобы он не покрасил искры и другие блоки в мире!
-            prog.Uniform("rgbaAmbientIn", new Vec4f(1f, 1f, 1f, 1f));
-            prog.Uniform("rgbaLightIn", new Vec4f(1f, 1f, 1f, 1f));
-            prog.Uniform("rgbaGlowIn", new Vec4f(0f, 0f, 0f, 0f)); // Glow лучше обнулить
+            prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
+            prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
+            prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
+
+            prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f); // Сбрасываем Tint
+
 
             prog.Stop();
 

@@ -10,19 +10,18 @@ namespace BotaniaStory
     public class ItemWandOfTheForest : Item
     {
         // ==========================================
-        // НОВОЕ: ЛКМ (Левая Кнопка Мыши) - ОТМЕНА ПРИВЯЗКИ
+        // ЛКМ (Левая Кнопка Мыши) - ОТМЕНА ПРИВЯЗКИ
         // ==========================================
         public override void OnHeldAttackStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, ref EnumHandHandling handling)
         {
             bool hadFlower = slot.Itemstack.Attributes.HasAttribute("hasFlower");
             bool hadSpreader = slot.Itemstack.Attributes.HasAttribute("hasSpreader");
 
-            // Если в памяти посоха есть сохраненный цветок или распространитель
             if (hadFlower || hadSpreader)
             {
                 slot.Itemstack.Attributes.RemoveAttribute("hasFlower");
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");
-                slot.MarkDirty(); // Не забываем сохранить очистку
+                slot.MarkDirty();
 
                 if (byEntity.World.Side == EnumAppSide.Client)
                 {
@@ -30,92 +29,148 @@ namespace BotaniaStory
                     clientApi?.ShowChatMessage("Действие отменено. Память посоха очищена.");
                 }
 
-                // Предотвращаем стандартное действие (разрушение блока)
                 handling = EnumHandHandling.PreventDefault;
                 return;
             }
 
             base.OnHeldAttackStart(slot, byEntity, blockSel, entitySel, ref handling);
         }
-        // 1. В OnHeldInteractStart удали весь блок "if (isSneaking) { ... }", 
-        // так как теперь эта логика будет работать более глобально.
 
-        // 2. Добавь этот метод в класс ItemWandOfTheForest:
+        // ==========================================
+        // SHIFT + ПКМ в воздухе - Снятие искры
+        // ==========================================
         public override void OnHeldIdle(ItemSlot slot, EntityAgent byEntity)
         {
             IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
             if (byPlayer == null || byEntity.World.Side == EnumAppSide.Client) return;
 
-            // Проверяем: зажат SHIFT + зажата ПКМ
             if (byPlayer.Entity.Controls.Sneak && byPlayer.Entity.Controls.RightMouseDown)
             {
                 IWorldAccessor world = byEntity.World;
 
-                // Получаем точку глаз игрока и вектор взгляда
                 Vec3d eyePos = byEntity.Pos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0);
                 Vec3f viewVec = byEntity.Pos.GetViewVector();
                 Vec3d lookDir = new Vec3d(viewVec.X, viewVec.Y, viewVec.Z);
 
-                // Ищем искры в радиусе 5 блоков (теперь это сработает в выживании!)
                 Entity[] nearbySparks = world.GetEntitiesAround(byEntity.Pos.XYZ, 5, 5, e => e is EntitySpark);
 
                 foreach (Entity spark in nearbySparks)
                 {
-                    // Вектор от глаз до искры
                     Vec3d dirToSpark = new Vec3d(spark.Pos.X - eyePos.X, spark.Pos.Y - eyePos.Y, spark.Pos.Z - eyePos.Z);
                     double distance = dirToSpark.Length();
 
-                    // Если искра в пределах 4.5 блоков и мы смотрим точно на нее
                     if (distance < 4.5 && dirToSpark.Normalize().Dot(lookDir) > 0.98)
                     {
-                        // Снимаем искру
                         Item itemSpark = world.GetItem(new AssetLocation("botaniastory", "spark"));
                         if (itemSpark != null)
                         {
                             world.SpawnItemEntity(new ItemStack(itemSpark), spark.Pos.XYZ);
                         }
 
-                        // Проигрываем звук и удаляем сущность
                         AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
                         world.PlaySoundAt(wandSound, spark.Pos.X, spark.Pos.Y, spark.Pos.Z, null, true, 16, 1f);
 
                         spark.Die();
-
-                        // Чтобы не снимать 10 искр за один кадр, добавляем небольшую задержку
-                        // (Это предотвратит моментальное исчезновение всех искр в ряду)
                         break;
                     }
                 }
             }
         }
+
         // ==========================================
         // ПКМ - ЛОГИКА ПРИВЯЗКИ И ИНФОРМАЦИИ
         // ==========================================
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
-            if (!firstEvent || blockSel == null) return;
+            if (!firstEvent) return;
 
             IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
             if (byPlayer == null) return;
 
             IWorldAccessor world = byEntity.World;
+
+            // ==========================================
+            // А. КАСТОМНЫЙ ПОИСК ИСКРЫ (Так как у неё нет хитбокса)
+            // ==========================================
+            EntitySpark targetSpark = null;
+
+            // Получаем точку глаз игрока и вектор взгляда
+            Vec3d eyePos = byEntity.Pos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0);
+            Vec3f viewVec = byEntity.Pos.GetViewVector();
+            Vec3d lookDir = new Vec3d(viewVec.X, viewVec.Y, viewVec.Z);
+
+            // Ищем искры в радиусе 5 блоков
+            Entity[] nearbySparks = world.GetEntitiesAround(byEntity.Pos.XYZ, 5, 5, e => e is EntitySpark);
+
+            foreach (Entity entity in nearbySparks)
+            {
+                if (entity is EntitySpark spark)
+                {
+                    // Проверяем, смотрим ли мы прямо на нее
+                    Vec3d dirToSpark = new Vec3d(spark.Pos.X - eyePos.X, spark.Pos.Y - eyePos.Y, spark.Pos.Z - eyePos.Z);
+                    if (dirToSpark.Length() < 4.5 && dirToSpark.Normalize().Dot(lookDir) > 0.98)
+                    {
+                        targetSpark = spark;
+                        break; // Нашли искру, на которую смотрим!
+                    }
+                }
+            }
+
+            // Если мы "попали" взглядом по искре:
+            if (targetSpark != null)
+            {
+                // 1. ИСПРАВЛЕНИЕ ВЫСОТЫ: Убрали 0.5, поставили 0.1, чтобы луч начинался прямо в центре текстуры искры
+                Vec3d sparkPos = targetSpark.Pos.XYZ.AddCopy(0, 0.1, 0);
+
+                int foundSparks = 0;
+
+                // 2. ИСПРАВЛЕНИЕ ЦЕЛИ: Ищем все остальные искры в радиусе 8 блоков
+                // Проверка e.EntityId != targetSpark.EntityId нужна, чтобы искра не пускала луч сама в себя
+                Entity[] linkedSparks = world.GetEntitiesAround(targetSpark.Pos.XYZ, 8, 8, e => e is EntitySpark && e.EntityId != targetSpark.EntityId);
+
+                foreach (Entity entity in linkedSparks)
+                {
+                    if (entity is EntitySpark otherSpark)
+                    {
+                        // Находим центр другой искры
+                        Vec3d otherSparkPos = otherSpark.Pos.XYZ.AddCopy(0, 0.1, 0);
+
+                        // Пускаем луч от нашей искры к другой искре!
+                        SpawnBindingParticles(world, sparkPos, otherSparkPos);
+                        foundSparks++;
+                    }
+                }
+
+                if (world.Side == EnumAppSide.Client)
+                {
+                    var clientApi = world.Api as ICoreClientAPI;
+                    clientApi?.ShowChatMessage($"Эта искра связана с другими искрами: {foundSparks} шт.");
+                }
+
+                AssetLocation sparkBindSound = new AssetLocation("botaniastory", "sounds/wand_bind");
+                world.PlaySoundAt(sparkBindSound, targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, 1f);
+
+                handling = EnumHandHandling.Handled;
+                return;
+            }
+
+            // ==========================================
+            // Б. ЕСЛИ НЕ ПОПАЛИ ПО ИСКРЕ, ПЕРЕХОДИМ К БЛОКАМ
+            // ==========================================
+
+            // Если мы кликнули просто в воздух, ничего не делаем
+            if (blockSel == null) return;
+
             BlockPos pos = blockSel.Position;
             Block block = world.BlockAccessor.GetBlock(pos);
             BlockEntity be = world.BlockAccessor.GetBlockEntity(pos);
-            bool isSneaking = byPlayer.Entity.Controls.Sneak;
 
             AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
-
-           
-
-            // --- ДАЛЕЕ ИДЕТ ЛОГИКА ДЛЯ ПРОСТОГО ПКМ (БЕЗ SHIFT) ---
 
             bool hasFlowerInMemory = slot.Itemstack.Attributes.GetBool("hasFlower");
             bool hasSpreaderInMemory = slot.Itemstack.Attributes.GetBool("hasSpreader");
 
-            // ==========================================
-            // Б. ЗАВЕРШЕНИЕ ПРИВЯЗКИ ЦВЕТКА -> К РАСПРОСТРАНИТЕЛЮ
-            // ==========================================
+            // ЗАВЕРШЕНИЕ ПРИВЯЗКИ ЦВЕТКА -> К РАСПРОСТРАНИТЕЛЮ
             if (hasFlowerInMemory)
             {
                 if (block is ManaSpreader)
@@ -138,7 +193,6 @@ namespace BotaniaStory
                         endoflame.MarkDirty(true);
                     }
 
-                    // Очищаем память посоха
                     slot.Itemstack.Attributes.RemoveAttribute("hasFlower");
                     slot.MarkDirty();
 
@@ -161,9 +215,7 @@ namespace BotaniaStory
                 return;
             }
 
-            // ==========================================
-            // В. ЗАВЕРШЕНИЕ ПРИВЯЗКИ РАСПРОСТРАНИТЕЛЯ -> К ЦЕЛИ
-            // ==========================================
+            // ЗАВЕРШЕНИЕ ПРИВЯЗКИ РАСПРОСТРАНИТЕЛЯ -> К ЦЕЛИ
             if (hasSpreaderInMemory)
             {
                 int sx = slot.Itemstack.Attributes.GetInt("spreaderX");
@@ -201,7 +253,6 @@ namespace BotaniaStory
                     world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
                 }
 
-                // Очищаем память посоха
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");
                 slot.MarkDirty();
 
@@ -209,11 +260,7 @@ namespace BotaniaStory
                 return;
             }
 
-            // ==========================================
-            // Г. НАЧАЛО ПРИВЯЗКИ (Если память посоха пуста)
-            // ==========================================
-
-            // Если кликнули по цветку
+            // НАЧАЛО ПРИВЯЗКИ (Если память посоха пуста)
             if (be is BotaniaStory.Flora.GeneratingFlora.BlockEntityDaybloom ||
                 be is BotaniaStory.Flora.GeneratingFlora.BlockEntityEndoflame)
             {
@@ -233,7 +280,6 @@ namespace BotaniaStory
                 return;
             }
 
-            // Если кликнули по распространителю
             if (block is ManaSpreader)
             {
                 slot.Itemstack.Attributes.SetInt("spreaderX", pos.X);
@@ -253,6 +299,37 @@ namespace BotaniaStory
             }
 
             base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
+        }
+
+        // ==========================================
+        // МЕТОД ДЛЯ РИСОВАНИЯ ЛУЧЕЙ ИЗ ЧАСТИЦ (Универсальный)
+        // ==========================================
+        private void SpawnBindingParticles(IWorldAccessor world, Vec3d start, Vec3d end)
+        {
+            double distance = start.DistanceTo(end);
+            Vec3d direction = (end - start).Normalize();
+
+            SimpleParticleProperties beamParticles = new SimpleParticleProperties(
+                1, 1,
+                ColorUtil.ToRgba(255, 100, 255, 200), // Тот самый красивый бирюзово-зеленый
+                new Vec3d(), new Vec3d(),
+                new Vec3f(-0.05f, -0.05f, -0.05f),
+                new Vec3f(0.05f, 0.05f, 0.05f),
+                1.0f,
+                0f,
+                0.2f,
+                0.4f,
+                EnumParticleModel.Quad
+            );
+
+            beamParticles.VertexFlags = 128; // Заставляем светиться
+            beamParticles.SizeEvolve = EvolvingNatFloat.create(EnumTransformFunction.LINEAR, -0.5f);
+
+            for (float i = 0; i < distance; i += 0.3f)
+            {
+                beamParticles.MinPos.Set(start.X + direction.X * i, start.Y + direction.Y * i, start.Z + direction.Z * i);
+                world.SpawnParticles(beamParticles);
+            }
         }
     }
 }
