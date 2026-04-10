@@ -5,6 +5,10 @@
 	"shape": {
 		"base": "botaniastory:entity/spark_model"
 	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
 	"guiTransform": {
 		"translation": {
 			"x": 1,

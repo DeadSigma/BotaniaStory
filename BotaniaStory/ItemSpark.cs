@@ -14,9 +14,20 @@ namespace BotaniaStory
             BlockEntity be = byEntity.World.BlockAccessor.GetBlockEntity(blockSel.Position);
             if (be is BlockEntityManaPool)
             {
-                // Убеждаемся, что над бассейном ещё нет другой искры
-                var existingSparks = byEntity.World.GetEntitiesAround(blockSel.Position.ToVec3d().Add(0.5, 1.2, 0.5), 0.5f, 0.5f, e => e is EntitySpark);
-                if (existingSparks.Length > 0) return; // Искра уже есть!
+               
+                // Ищем искру строго по координатам спавна с крошечным радиусом в 0.1 блока (10 см)
+                var existingSparks = byEntity.World.GetEntitiesAround(
+                    blockSel.Position.ToVec3d().Add(0.5, 1.5, 0.5), // Обязательно укажи свою высоту (1.5)
+                    0.1f, // Горизонтальный радиус
+                    0.1f, // Вертикальный радиус
+                    e => e is EntitySpark
+                );
+
+                if (existingSparks.Length > 0)
+                {
+                    handling = EnumHandHandling.PreventDefaultAction; // Обязательно отменяем анимацию взмаха рукой
+                    return;
+                }
 
                 if (byEntity.World.Side == EnumAppSide.Server)
                 {
@@ -27,12 +38,12 @@ namespace BotaniaStory
 
                         // Центрируем искру над бассейном
                         sparkEntity.Pos.X = blockSel.Position.X + 0.5;
-                        sparkEntity.Pos.Y = blockSel.Position.Y + 1.2;
+                        sparkEntity.Pos.Y = blockSel.Position.Y + 1.7;
                         sparkEntity.Pos.Z = blockSel.Position.Z + 0.5;
                         sparkEntity.Pos.SetFrom(sparkEntity.Pos);
 
                         sparkEntity.WatchedAttributes.SetDouble("baseX", sparkEntity.Pos.X);
-                        sparkEntity.WatchedAttributes.SetDouble("baseY", blockSel.Position.Y + 1.0); // Высота самого бассейна
+                        sparkEntity.WatchedAttributes.SetDouble("baseY", blockSel.Position.Y + 1.5); // Высота самого бассейна
                         sparkEntity.WatchedAttributes.SetDouble("baseZ", sparkEntity.Pos.Z);
 
                         byEntity.World.SpawnEntity(sparkEntity);

@@ -1,0 +1,44 @@
+{
+	"code": "sparkaugment",
+	"class": "ItemSparkAugment",
+	"variantgroups": [
+		{
+			"code": "type",
+			"states": [ "recessive", "dominant" ]
+		}
+	],
+	"maxstacksize": 64,
+	"textures": {
+		"default": { "base": "botaniastory:item/sparkaugment_{type}" }
+	},
+	"guiTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"scale": 1.5
+	},
+	"fpHandTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 15,
+			"y": -15,
+			"z": 0
+		},
+		"scale": 2.5
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	}
+}

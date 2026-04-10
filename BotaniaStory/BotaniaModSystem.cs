@@ -59,6 +59,7 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemWandOfBinding", typeof(ItemWandOfBinding));
             api.RegisterItemClass("ItemSpark", typeof(ItemSpark));
             api.RegisterEntity("EntitySpark", typeof(EntitySpark));
+            api.RegisterItemClass("ItemSparkAugment", typeof(ItemSparkAugment));
 
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }

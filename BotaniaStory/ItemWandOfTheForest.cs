@@ -61,17 +61,42 @@ namespace BotaniaStory
 
                     if (distance < 4.5 && dirToSpark.Normalize().Dot(lookDir) > 0.98)
                     {
-                        Item itemSpark = world.GetItem(new AssetLocation("botaniastory", "spark"));
-                        if (itemSpark != null)
+                        // Проверяем, есть ли на искре дополнитель
+                        string currentAugment = spark.WatchedAttributes.GetString("augment", "none");
+
+                        if (currentAugment != "none")
                         {
-                            world.SpawnItemEntity(new ItemStack(itemSpark), spark.Pos.XYZ);
+                            // 1. Снимаем дополнитель
+                            spark.WatchedAttributes.SetString("augment", "none");
+                            spark.WatchedAttributes.MarkAllDirty();
+
+                            // Выдаем игроку предмет дополнителя (например, подчиненный)
+                            string itemCode = "sparkaugment-" + currentAugment; // например: sparkaugment-recessive
+                            Item augmentItem = world.GetItem(new AssetLocation("botaniastory", itemCode));
+                            if (augmentItem != null)
+                            {
+                                world.SpawnItemEntity(new ItemStack(augmentItem), spark.Pos.XYZ);
+                            }
+
+                            AssetLocation popSound = new AssetLocation("game", "sounds/player/throw");
+                            world.PlaySoundAt(popSound, spark.Pos.X, spark.Pos.Y, spark.Pos.Z, null, true, 16, 1f);
+                            break;
                         }
+                        else
+                        {
+                            // 2. Если дополнителя нет — снимаем саму искру
+                            Item itemSpark = world.GetItem(new AssetLocation("botaniastory", "spark"));
+                            if (itemSpark != null)
+                            {
+                                world.SpawnItemEntity(new ItemStack(itemSpark), spark.Pos.XYZ);
+                            }
 
-                        AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
-                        world.PlaySoundAt(wandSound, spark.Pos.X, spark.Pos.Y, spark.Pos.Z, null, true, 16, 1f);
+                            AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
+                            world.PlaySoundAt(wandSound, spark.Pos.X, spark.Pos.Y, spark.Pos.Z, null, true, 16, 1f);
 
-                        spark.Die();
-                        break;
+                            spark.Die();
+                            break;
+                        }
                     }
                 }
             }
@@ -119,36 +144,67 @@ namespace BotaniaStory
             // Если мы "попали" взглядом по искре:
             if (targetSpark != null)
             {
-                // 1. ИСПРАВЛЕНИЕ ВЫСОТЫ: Убрали 0.5, поставили 0.1, чтобы луч начинался прямо в центре текстуры искры
-                Vec3d sparkPos = targetSpark.Pos.XYZ.AddCopy(0, 0.1, 0);
-
-                int foundSparks = 0;
-
-                // 2. ИСПРАВЛЕНИЕ ЦЕЛИ: Ищем все остальные искры в радиусе 8 блоков
-                // Проверка e.EntityId != targetSpark.EntityId нужна, чтобы искра не пускала луч сама в себя
-                Entity[] linkedSparks = world.GetEntitiesAround(targetSpark.Pos.XYZ, 8, 8, e => e is EntitySpark && e.EntityId != targetSpark.EntityId);
-
-                foreach (Entity entity in linkedSparks)
+                // ==========================================
+                // 1. ЕСЛИ ЗАЖАТ SHIFT (Снятие руны или искры)
+                // ==========================================
+                if (byPlayer.Entity.Controls.Sneak)
                 {
-                    if (entity is EntitySpark otherSpark)
-                    {
-                        // Находим центр другой искры
-                        Vec3d otherSparkPos = otherSpark.Pos.XYZ.AddCopy(0, 0.1, 0);
+                    string currentAugment = targetSpark.WatchedAttributes.GetString("augment", "none");
 
-                        // Пускаем луч от нашей искры к другой искре!
-                        SpawnBindingParticles(world, sparkPos, otherSparkPos);
-                        foundSparks++;
+                    // Если есть руна - снимаем только руну
+                    if (currentAugment != "none")
+                    {
+                        targetSpark.WatchedAttributes.SetString("augment", "none");
+                        targetSpark.WatchedAttributes.MarkAllDirty();
+
+                        string itemCode = "sparkaugment-" + currentAugment;
+                        Item augmentItem = world.GetItem(new AssetLocation("botaniastory", itemCode));
+                        if (augmentItem != null)
+                        {
+                            world.SpawnItemEntity(new ItemStack(augmentItem), targetSpark.Pos.XYZ);
+                        }
+                        world.PlaySoundAt(new AssetLocation("game", "sounds/player/throw"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, null, true, 16, 1f);
+                    }
+                    // Если руны нет - снимаем саму искру
+                    else
+                    {
+                        Item itemSpark = world.GetItem(new AssetLocation("botaniastory", "spark"));
+                        if (itemSpark != null)
+                        {
+                            world.SpawnItemEntity(new ItemStack(itemSpark), targetSpark.Pos.XYZ);
+                        }
+                        world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, null, true, 16, 1f);
+
+                        targetSpark.Die();
                     }
                 }
-
-                if (world.Side == EnumAppSide.Client)
+                // ==========================================
+                // 2. ЕСЛИ ПРОСТО КЛИК (Показ лучей сети)
+                // ==========================================
+                else
                 {
-                    var clientApi = world.Api as ICoreClientAPI;
-                    clientApi?.ShowChatMessage($"Эта искра связана с другими искрами: {foundSparks} шт.");
-                }
+                    Vec3d sparkPos = targetSpark.Pos.XYZ.AddCopy(0, 0.1, 0);
+                    int foundSparks = 0;
 
-                AssetLocation sparkBindSound = new AssetLocation("botaniastory", "sounds/wand_bind");
-                world.PlaySoundAt(sparkBindSound, targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, 1f);
+                    Entity[] linkedSparks = world.GetEntitiesAround(targetSpark.Pos.XYZ, 8, 8, e => e is EntitySpark && e.EntityId != targetSpark.EntityId);
+
+                    foreach (Entity entity in linkedSparks)
+                    {
+                        if (entity is EntitySpark otherSpark)
+                        {
+                            Vec3d otherSparkPos = otherSpark.Pos.XYZ.AddCopy(0, 0.1, 0);
+                            SpawnBindingParticles(world, sparkPos, otherSparkPos);
+                            foundSparks++;
+                        }
+                    }
+
+                    if (world.Side == EnumAppSide.Client)
+                    {
+                        var clientApi = world.Api as ICoreClientAPI;
+                        clientApi?.ShowChatMessage($"Эта искра связана с другими искрами: {foundSparks} шт.");
+                    }
+                    world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, 1f);
+                }
 
                 handling = EnumHandHandling.Handled;
                 return;
