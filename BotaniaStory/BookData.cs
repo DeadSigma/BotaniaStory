@@ -77,11 +77,11 @@ namespace botaniastory
             { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "wandoftheforest",
                 "puredaisy", "runicaltar" } },
 
-            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkupgrades"} },
+            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment"} },
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame" } },
 
-            { "functional_flora", new[] { "puredaisy"} },
+            { "tt", new[] { "puredaisy"} },
 
             { "natural_apparatus", new[] { "ch1" } },
 
@@ -430,10 +430,10 @@ namespace botaniastory
                             Output = "botaniastory:puredaisy-free"
                         });
                     }
-                    // === НАСТРОЙКА MANAPOOL ===
+                    // === НАСТРОЙКА БАССЕЙН МАНЫ ===
                     else if (chapId == "manapool")
                     {
-                        chapter.TabItemCode = "botaniastory:manapool";
+                        chapter.TabItemCode = "botaniastory:manapool-normal";
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -461,9 +461,9 @@ namespace botaniastory
 
                               "botaniastory:livingrock", null, "botaniastory:livingrock",// Средний ряд
                         
-                              "botaniastory:livingrock", "botaniastory:livingrock*", "botaniastory:livingrock" // Нижний ряд
+                              "botaniastory:livingrock", "botaniastory:livingrock", "botaniastory:livingrock" // Нижний ряд
                           },
-                            Output = "botaniastory:manapool"
+                            Output = "botaniastory:manapool-normal"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -474,7 +474,7 @@ namespace botaniastory
                             UiKey = "Бассейн_Область_Правая_Верхняя",
 
                             PoolInput = new string[] { "game:ingot-*" },
-                            PoolBlock = "botaniastory:manapool",
+                            PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
 
                             Output = "botaniastory:mysticalflower-*"
@@ -495,7 +495,7 @@ namespace botaniastory
                             UiKey = "Бассейн_Область_Правая_Нижняя",
 
                             PoolInput = new string[] { "game:ingot-*" },
-                            PoolBlock = "botaniastory:manapool",
+                            PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
 
                             Output = "botaniastory:mysticalflower-*"
@@ -518,7 +518,7 @@ namespace botaniastory
                             UiKey = "Бассейн_Область_Правая_Верхняя",
 
                             PoolInput = new string[] { "game:ingot-*" },
-                            PoolBlock = "botaniastory:manapool",
+                            PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
 
                             Output = "botaniastory:mysticalflower-*"
@@ -539,7 +539,7 @@ namespace botaniastory
                             UiKey = "Бассейн_Область_Правая_Нижняя",
 
                             PoolInput = new string[] { "game:ingot-*" },
-                            PoolBlock = "botaniastory:manapool",
+                            PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
 
                             Output = "botaniastory:mysticalflower-*"
@@ -562,7 +562,7 @@ namespace botaniastory
                             UiKey = "Бассейн_Область_Левая_Нижняя",
 
                             PoolInput = new string[] { "game:ingot-*" },
-                            PoolBlock = "botaniastory:manapool",
+                            PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
 
                             Output = "botaniastory:mysticalflower-*"
@@ -583,7 +583,7 @@ namespace botaniastory
                             UiKey = "Бассейн_Область_Левая_Верхняя",
 
                             PoolInput = new string[] { "game:ingot-*" },
-                            PoolBlock = "botaniastory:manapool",
+                            PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
 
                             Output = "botaniastory:mysticalflower-*"
@@ -607,7 +607,7 @@ namespace botaniastory
                             UiKey = "Бассейн_Область_Левая_Верхняя",
 
                             PoolInput = new string[] { "game:ingot-*" },
-                            PoolBlock = "botaniastory:manapool",
+                            PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
 
                             Output = "botaniastory:mysticalflower-*"
@@ -628,7 +628,7 @@ namespace botaniastory
                             UiKey = "Бассейн_Область_Левая_Нижняя",
 
                             PoolInput = new string[] { "game:ingot-*" },
-                            PoolBlock = "botaniastory:manapool",
+                            PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:mysticalpetal-white" },
 
                             Output = "botaniastory:mysticalflower-*"
@@ -654,13 +654,66 @@ namespace botaniastory
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                             "botaniastory:spark", "botaniastory:spark", null,
-                             null, null, null,
-                             null, null, null},
+                             null, "botaniastory:mysticalpetal-*", null,
+                             "game:blastingpowder", "game:nugget-nativegold", "game:blastingpowder",
+                             null, "botaniastory:mysticalpetal-*", null},
                             Output = "botaniastory:spark"
                         });
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ДОПОЛНИТЕЛИ ИСКР ===
+                    else if (chapId == "sparkaugment")
+                    {
+                        chapter.TabItemCode = "botaniastory:sparkaugment-*";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                             null, "botaniastory:mysticalpetal-*", null,
+                             "game:blastingpowder", "game:nugget-nativegold", "game:blastingpowder",
+                             null, "botaniastory:mysticalpetal-*", null},
+                            Output = "botaniastory:sparkaugment-isolated"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                             null, "botaniastory:mysticalpetal-*", null,
+                             "game:blastingpowder", "game:nugget-nativegold", "game:blastingpowder",
+                             null, "botaniastory:mysticalpetal-*", null},
+                            Output = "botaniastory:sparkaugment-dominant"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             null, "botaniastory:mysticalpetal-*", null,
+                             "game:blastingpowder", "game:nugget-nativegold", "game:blastingpowder",
+                             null, "botaniastory:mysticalpetal-*", null},
+                            Output = "botaniastory:sparkaugment-dispersive"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                             null, "botaniastory:mysticalpetal-*", null,
+                             "game:blastingpowder", "game:nugget-nativegold", "game:blastingpowder",
+                             null, "botaniastory:mysticalpetal-*", null},
+                            Output = "botaniastory:sparkaugment-recessive"
+                        });
+                    }
 
                     // === НАСТРОЙКА ГЛАВЫ ДНЕВНОЦВЕТ ===
                     else if (chapId == "daybloom")
@@ -810,6 +863,9 @@ namespace botaniastory
                             Output = "botaniastory:manapool_diluted"
                         });
                     }
+
+
+
 
                     // Пытаемся загрузить до 30 страниц
                     for (int p = 1; p <= 30; p++)

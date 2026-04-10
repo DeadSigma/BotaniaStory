@@ -5,7 +5,7 @@
     "variantgroups": [
         {
             "code": "type",
-            "states": [ "normal", "diluted", "creative" ]
+            "states": [ "normal", "creative" ]
         }
     ],
     "creativeinventory": {
