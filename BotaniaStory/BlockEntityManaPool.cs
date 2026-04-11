@@ -44,6 +44,11 @@ namespace BotaniaStory
             {
                 RegisterGameTickListener(SpawnManaParticles, 100);
             }
+            else if (api.Side == EnumAppSide.Server)
+            {
+                // Запускаем проверку брошенных предметов каждые 500 мс (полсекунды)
+                RegisterGameTickListener(CheckForDroppedItems, 500);
+            }
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
@@ -180,6 +185,104 @@ namespace BotaniaStory
                 -0.02f,
                 0.1f, 0.35f,
                 EnumParticleModel.Quad
+            );
+
+            Api.World.SpawnParticles(particles);
+        }
+        private void CheckForDroppedItems(float dt)
+        {
+            // Если маны нет, даже не пытаемся искать
+            if (CurrentMana <= 0) return;
+
+            // Ищем все сущности над бассейном. Радиус 1 блок вверх и в стороны
+            Entity[] entities = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 1.0, 0.5), 1.0f, 1.0f, e => e is EntityItem);
+
+            foreach (Entity entity in entities)
+            {
+                if (entity is EntityItem entityItem && entityItem.Itemstack != null)
+                {
+                    ItemStack stack = entityItem.Itemstack;
+                    string code = stack.Collectible.Code.Path;
+                    string domain = stack.Collectible.Code.Domain;
+
+                    // Игнорируем предметы, которые еще летят по воздуху
+                    if (!entityItem.Collided && !entityItem.Swimming) continue;
+
+                    // --- РЕЦЕПТЫ ---
+
+                    // 1. Любой слиток -> Манасталь (5% = 50 000)
+                    if (domain == "game" && code.StartsWith("ingot-"))
+                    {
+                        if (TryTransmuteItem(entityItem, "botaniastory:ingot-manasteel", 50000)) continue;
+                    }
+
+                    // 2. Ржавая шестеренка -> Манашестерня (10% = 100 000)
+                    if (domain == "game" && code == "gear-rusty")
+                    {
+                        // Было: "botaniastory:manaitem-manadiamond"
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-managear", 100000)) continue;
+                    }
+
+                    // 3. Волокно -> Мана-нить (1% = 10 000)
+                    if (domain == "game" && code == "flaxfibers")
+                    {
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manastring", 10000)) continue;
+                    }
+
+                    // 4. Смола -> Манасмола (7% = 70 000)
+                    if (domain == "game" && code == "resin")
+                    {
+                        // Было: "botaniastory:manaitem-manapearl"
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaresin", 70000)) continue;
+                    }
+                }
+            }
+        }
+        private bool TryTransmuteItem(EntityItem inputEntity, string outputItemCode, int manaCost)
+        {
+            // Проверяем, хватает ли маны
+            if (CurrentMana < manaCost) return false;
+
+            // Ищем предмет в базе игры
+            Item outputItem = Api.World.GetItem(new AssetLocation(outputItemCode));
+            if (outputItem == null) return false;
+
+            // Списываем ману и сохраняем бассейн
+            CurrentMana -= manaCost;
+            MarkDirty(true);
+
+            // Забираем один предмет из стака, который бросил игрок
+            inputEntity.Itemstack.StackSize--;
+
+            // Если в стаке больше ничего не осталось — удаляем брошенный предмет
+            if (inputEntity.Itemstack.StackSize <= 0)
+            {
+                inputEntity.Die(EnumDespawnReason.Death);
+            }
+
+            // Создаем готовый предмет маны и спавним его в тех же координатах
+            ItemStack outputStack = new ItemStack(outputItem, 1);
+            Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
+
+            // Вызываем всплеск частиц
+            SpawnCraftingParticles(inputEntity.Pos.XYZ);
+
+            return true;
+        }
+
+        private void SpawnCraftingParticles(Vec3d pos)
+        {
+            SimpleParticleProperties particles = new SimpleParticleProperties(
+                10, 15,
+                ColorUtil.ToRgba(255, 0, 255, 200),
+                new Vec3d(pos.X - 0.2, pos.Y, pos.Z - 0.2),
+                new Vec3d(pos.X + 0.2, pos.Y + 0.5, pos.Z + 0.2),
+                new Vec3f(-1f, 1f, -1f),
+                new Vec3f(1f, 2f, 1f),
+                1.5f,
+                -0.05f,
+                0.2f, 0.5f,
+                EnumParticleModel.Cube
             );
 
             Api.World.SpawnParticles(particles);

@@ -1,0 +1,49 @@
+{
+	"code": "pickaxehead-manasteel",
+	"class": "Item",
+	"maxstacksize": 8,
+	"shape": { "base": "game:item/tool/pickaxe" },
+	"textures": {
+		"metal": { "base": "botaniastory:block/manasteel" },
+		"string": { "base": "game:block/transparent" },
+		"handle": { "base": "game:block/transparent" }
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"attributes": {
+		"forgable": true,
+		"inForgeTransform": {
+			"translation": {
+				"x": -0.46,
+				"y": 0.03,
+				"z": 0.08
+			},
+			"rotation": {
+				"x": 4,
+				"y": 23,
+				"z": 0
+			},
+			"origin": {
+				"x": 1,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.9
+		},
+		"onTongTransform": {
+			"translation": {
+				"x": -0.5,
+				"y": -0.55,
+				"z": -1
+			},
+			"rotation": {
+				"x": 93,
+				"y": 16,
+				"z": 90
+			}
+		},
+		"tongOpening": "medium"
+	}
+}

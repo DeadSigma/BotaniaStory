@@ -30,10 +30,6 @@
 
     "chapter-title": "Глава {0}: {1}",
     "chapter-page-1": "{0} - ГЛАВА {1}\n\nТекст первой страницы.",
-    "chapter-page-2": "Вторая страница...",
-    "chapter-page-3": "Третья страница...",
-    "btn-prev": "< Назад",
-    "btn-next": "Вперед >",
     "search-results": "РЕЗУЛЬТАТЫ ПОИСКА",
     "categories-title": "КАТЕГОРИИ",
     "search-placeholder": "Поиск главы...",
@@ -49,15 +45,7 @@
     "lexicon_category_misc": "Разное",
     "lexicon_category_trials": "Испытания",
     "botaniastory:mana-cost": "Потребление маны",
-    "botaniastory:item-lexicon-closed": "Лексикон Ботании",
-    "botaniastory:item-lexicon-open": "Лексикон Ботании",
 
-    "lexicon_elfmania_ch1_p1": "test",
-    "lexicon_elfmania_ch1_p2": "test",
-    "lexicon_elfmania_ch1_p3": "test",
-    "lexicon_elfmania_ch1_p4": "test",
-    "lexicon_elfmania_ch1_p5": "test",
-    "lexicon_elfmania_ch1_p6": "test",
     "block-mysticalflower-white-free": "Белый мистический цветок",
     "block-mysticalflower-orange-free": "Оранжевый мистический цветок",
     "block-mysticalflower-magenta-free": "Пурпурный мистический цветок",
@@ -131,8 +119,14 @@
     "block-tangleberrie-free": "Вороток",
     "block-tigerseye-free": "Близнецы орхидеи",
     "block-vinculotus-free": "Манасвязыватель",
-
     "block-puredaisy-free": "Чистая маргаритка",
+
+    "botaniastory:item-lexicon-closed": "Лексикон Ботании",
+    "botaniastory:item-lexicon-open": "Лексикон Ботании",
+    "item-manaitem-manasteel": "Манасталь",
+    "item-manaitem-managear": "Манашестерня",
+    "item-manaitem-manastring": "Мана-нить",
+    "item-manaitem-manaresin": "Манасмола",
     "block-livingwood": "Жизнедерево",
     "block-livingrock": "Жизнекамень",
     "block-livingrock_slab": "Плита из жизнекамня",
@@ -152,6 +146,8 @@
     "item-sparkaugment-recessive": "Дополнитель искр: Подчинённый",
     "item-sparkaugment-dispersive": "Дополнитель искр: Рассеивающий ",
     "item-sparkaugment-isolated": "Дополнитель искр: Изолирующий",
+    "item-pickaxehead-manasteel": "Оголовье кирки из манастали",
+    "item-pickaxe-manasteel": "Манастальная кирка",
 
     "welcome-text": "Магия, Технологии. Естество.\n\nБотания - это технический мод, посвященный природной магии. Основная концепция заключается в создании магических цветов и устройств, использующих силу земли, в виде маны.",
 

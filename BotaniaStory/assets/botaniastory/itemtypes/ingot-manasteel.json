@@ -1,0 +1,142 @@
+{
+	"code": "ingot",
+	"class": "ItemIngot",
+	"maxstacksize": 16,
+	"variantgroups": [
+		{
+			"code": "metal",
+			"states": [ "manasteel" ]
+		}
+	],
+	"shape": { "base": "game:item/ingot" },
+	"textures": {
+		"metal": { "base": "botaniastory:block/manasteel" }
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "Stacking",
+				"placeRemoveSound": "game:sounds/block/ingot",
+				"stackingModel": "game:block/metal/ingotpile",
+				"stackingTextures": {
+					"metal": "botaniastory:block/manasteel"
+				},
+				"modelItemsToStackSizeRatio": 1,
+				"upSolid": true,
+				"stackingCapacity": 64,
+				"transferQuantity": 1,
+				"bulkTransferQuantity": 4,
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.125,
+					"z2": 1
+				},
+				"cbScaleYByLayer": 0.125
+			}
+		}
+	],
+	"attributes": {
+		"workableTemperature": 300,
+		"requiresAnvilTier": 0,
+		"shatteredStack": {
+			"type": "item",
+			"isWorkable": true,
+			"code": "game:metalbit-manasteel"
+		},
+		"displaycaseable": true,
+		"shelvable": true,
+		"onshelfTransform": {
+			"rotation": {
+				"x": 0,
+				"y": 75,
+				"z": 0
+			}
+		},
+
+		"onTongTransform": {
+			"translation": {
+				"x": -0.48,
+				"y": -0.58,
+				"z": -0.45
+			},
+			"rotation": {
+				"x": 0,
+				"y": 0,
+				"z": 76
+			},
+			"scale": 1.02
+		}
+	},
+	"materialDensity": 8960,
+	"combustibleProps": {
+		"meltingPoint": 1084,
+		"meltingDuration": 30,
+		"smeltedRatio": 1,
+		"smeltedStack": {
+			"type": "item",
+			"code": "botaniastory:ingot-manasteel"
+		}
+	},
+	"guiTransform": {
+		"translation": {
+			"x": 2,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 149,
+			"y": -36,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.1,
+			"z": 0.5
+		},
+		"scale": 3.5
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.77,
+			"y": -0.15,
+			"z": -0.64
+		},
+		"rotation": {
+			"x": 0,
+			"y": -71,
+			"z": 18
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.1,
+			"z": 0.5
+		},
+		"scale": 0.75
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 4.8
+	}
+}

@@ -1,0 +1,31 @@
+[
+	{
+		"file": "game:itemtypes/resource/workitem.json",
+		"op": "add",
+		"path": "/variantgroups/0/states/-",
+		"value": "manasteel"
+	},
+	{
+		"file": "game:itemtypes/resource/workitem.json",
+		"op": "add",
+		"path": "/attributesByType/workitem-manasteel",
+		"value": {
+			"workableTemperature": 300,
+			"requiresAnvilTier": 0
+		}
+	},
+	{
+		"file": "game:itemtypes/resource/workitem.json",
+		"op": "add",
+		"path": "/combustiblePropsByType/workitem-manasteel",
+		"value": {
+			"meltingPoint": 1084,
+			"meltingDuration": 30,
+			"smeltedRatio": 1,
+			"smeltedStack": {
+				"type": "item",
+				"code": "botaniastory:ingot-manasteel"
+			}
+		}
+	}
+]

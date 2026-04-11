@@ -5,21 +5,27 @@
     "variantgroups": [
         {
             "code": "type",
-            "states": [ "normal", "creative" ]
+            "states": [ "normal", "creative", "diluted" ]
         }
     ],
     "creativeinventory": {
         "general": [ "*" ],
         "botaniastory": [ "*" ]
     },
-    "shape": { "base": "botaniastory:block/manapool" },
+
+    "shapeByType": {
+        "*-diluted": { "base": "botaniastory:block/manapool_diluted" },
+        "*": { "base": "botaniastory:block/manapool" }
+    },
+
     "textures": {
         "livingrock": { "base": "botaniastory:block/livingrock" },
         "mana": { "base": "botaniastory:block/mana" }
     },
+
     "attributesByType": {
-        "*-diluted": { "isDilutedPool": true },
-        "*-creative": { "isCreativePool": true }
+        "*-creative": { "isCreativePool": true },
+        "*-diluted": { "isDilutedPool": true }
     },
 
     "blockmaterial": "Stone",
@@ -30,54 +36,109 @@
     "sidesolid": { "all": false },
     "sideopaque": { "all": false },
 
-    "collisionboxes": [
-        {
+    "collisionboxesByType": {
+        "*-diluted": [
+            {
+                "x1": 0,
+                "y1": 0,
+                "z1": 0,
+                "x2": 1,
+                "y2": 0.0625,
+                "z2": 1
+            },
+            {
+                "x1": 0,
+                "y1": 0.0625,
+                "z1": 0,
+                "x2": 1,
+                "y2": 0.375,
+                "z2": 0.0625
+            },
+            {
+                "x1": 0,
+                "y1": 0.0625,
+                "z1": 0.9375,
+                "x2": 1,
+                "y2": 0.375,
+                "z2": 1
+            },
+            {
+                "x1": 0,
+                "y1": 0.0625,
+                "z1": 0.0625,
+                "x2": 0.0625,
+                "y2": 0.375,
+                "z2": 0.9375
+            },
+            {
+                "x1": 0.9375,
+                "y1": 0.0625,
+                "z1": 0.0625,
+                "x2": 1,
+                "y2": 0.375,
+                "z2": 0.9375
+            }
+        ],
+        "*": [
+            {
+                "x1": 0,
+                "y1": 0,
+                "z1": 0,
+                "x2": 1,
+                "y2": 0.125,
+                "z2": 1
+            },
+            {
+                "x1": 0,
+                "y1": 0.125,
+                "z1": 0,
+                "x2": 1,
+                "y2": 0.5,
+                "z2": 0.125
+            },
+            {
+                "x1": 0,
+                "y1": 0.125,
+                "z1": 0.875,
+                "x2": 1,
+                "y2": 0.5,
+                "z2": 1
+            },
+            {
+                "x1": 0,
+                "y1": 0.125,
+                "z1": 0.125,
+                "x2": 0.125,
+                "y2": 0.5,
+                "z2": 0.875
+            },
+            {
+                "x1": 0.875,
+                "y1": 0.125,
+                "z1": 0.125,
+                "x2": 1,
+                "y2": 0.5,
+                "z2": 0.875
+            }
+        ]
+    },
+
+    "selectionboxByType": {
+        "*-diluted": {
             "x1": 0,
             "y1": 0,
             "z1": 0,
             "x2": 1,
-            "y2": 0.125,
+            "y2": 0.375,
             "z2": 1
         },
-        {
+        "*": {
             "x1": 0,
-            "y1": 0.125,
+            "y1": 0,
             "z1": 0,
             "x2": 1,
             "y2": 0.5,
-            "z2": 0.125
-        },
-        {
-            "x1": 0,
-            "y1": 0.125,
-            "z1": 0.875,
-            "x2": 1,
-            "y2": 0.5,
             "z2": 1
-        },
-        {
-            "x1": 0,
-            "y1": 0.125,
-            "z1": 0.125,
-            "x2": 0.125,
-            "y2": 0.5,
-            "z2": 0.875
-        },
-        {
-            "x1": 0.875,
-            "y1": 0.125,
-            "z1": 0.125,
-            "x2": 1,
-            "y2": 0.5,
-            "z2": 0.875
         }
-    ],
-    "selectionbox": {
-        "x1": 0,
-        "y1": 0,
-        "z1": 0,
-        "x2": 1,
-        "y2": 0.5,
-        "z2": 1
     }
 }
