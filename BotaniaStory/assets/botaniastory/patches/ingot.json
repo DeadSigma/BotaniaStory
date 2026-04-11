@@ -1,0 +1,28 @@
+[
+	{
+		"file": "game:itemtypes/resource/ingot.json",
+		"op": "add",
+		"path": "/variantgroups/0/states/-",
+		"value": "manasteel"
+	},
+	{
+		"file": "game:itemtypes/resource/ingot.json",
+		"op": "add",
+		"path": "/materialDensityByType/*-manasteel",
+		"value": 8960
+	},
+	{
+		"file": "game:itemtypes/resource/ingot.json",
+		"op": "add",
+		"path": "/combustiblePropsByType/ingot-manasteel",
+		"value": {
+			"meltingPoint": 1084,
+			"meltingDuration": 30,
+			"smeltedRatio": 1,
+			"smeltedStack": {
+				"type": "item",
+				"code": "game:ingot-manasteel"
+			}
+		}
+	}
+]
