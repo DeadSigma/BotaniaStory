@@ -81,7 +81,7 @@ namespace botaniastory
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame" } },
 
-            { "tt", new[] { "puredaisy"} },
+            { "functional_flora", new[] { "puredaisy"} },
 
             { "natural_apparatus", new[] { "ch1" } },
 

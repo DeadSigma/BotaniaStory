@@ -42,7 +42,7 @@ namespace botaniastory
 
         public GuiDialogLexicon(ICoreClientAPI capi) : base(capi)
         {
-            config = capi.LoadModConfig<LexiconConfig>("lexicon_client.json") ?? new LexiconConfig();
+            config = BotaniaStory.BotaniaStoryModSystem.ClientConfig;
             bookScale = config.BookScale;
 
             if (config.CustomUI != null)
@@ -67,7 +67,12 @@ namespace botaniastory
             capi.World.PlaySoundAt(loc, pos.X, pos.Y, pos.Z, null, true, 32, volume);
         }
 
-        public void SaveConfig() { capi.StoreModConfig(config, "lexicon_client.json"); }
+        public void SaveConfig()
+        {
+            capi.StoreModConfig(config, "lexicon_client.json");
+            BotaniaStory.BotaniaStoryModSystem.ClientConfig = config; 
+        }
+
         public void UpdateScale(float newScale) { bookScale = newScale; config.BookScale = newScale; SaveConfig(); RecomposeDialog(); }
         private void RecomposeDialog() { SingleComposer?.Dispose(); SetupDialog(); }
         public void RecomposeFromDebugger() { RecomposeDialog(); }

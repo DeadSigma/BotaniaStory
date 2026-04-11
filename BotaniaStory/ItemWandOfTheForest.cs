@@ -41,13 +41,26 @@ namespace BotaniaStory
         // ==========================================
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
+
+
             if (!firstEvent) return;
 
             IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
             if (byPlayer == null) return;
 
             IWorldAccessor world = byEntity.World;
+            // По умолчанию громкость 1.0 (максимум)
+            float wandVolume = 1f;
 
+            // Если мы на клиенте, берем громкость из нашего общего конфига
+            if (world.Api is ICoreClientAPI)
+            {
+                // Берем WandVolume (которую мы добавили в 1 ответе) и делим на 100
+                wandVolume = (BotaniaStory.BotaniaStoryModSystem.ClientConfig?.WandVolume ?? 50) / 100f;
+            }
+
+
+          
             // ==========================================
             // А. ТОЧНЫЙ ЛАЗЕРНЫЙ ПОИСК ИСКРЫ (Как в дополнителях)
             // ==========================================
@@ -222,7 +235,7 @@ namespace BotaniaStory
                         (world.Api as ICoreClientAPI)?.ShowChatMessage("Цветок успешно привязан к Распространителю!");
                     }
 
-                    world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
+                    world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 }
                 else
                 {
@@ -271,7 +284,7 @@ namespace BotaniaStory
                         }
                     }
 
-                    world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
+                    world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 }
 
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");
@@ -296,7 +309,7 @@ namespace BotaniaStory
                     (world.Api as ICoreClientAPI)?.ShowChatMessage("Цветок выбран. Теперь нажмите ПКМ по Распространителю маны.");
                 }
 
-                world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
+                world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 handling = EnumHandHandling.Handled;
                 return;
             }
@@ -314,7 +327,7 @@ namespace BotaniaStory
                     (world.Api as ICoreClientAPI)?.ShowChatMessage("Распространитель выбран. Кликните ПКМ по Бассейну (или блоку) для привязки.");
                 }
 
-                world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
+                world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 handling = EnumHandHandling.Handled;
                 return;
             }

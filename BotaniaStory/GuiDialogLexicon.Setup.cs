@@ -70,7 +70,7 @@ namespace botaniastory
             var compo = capi.Gui.CreateCompo("lexiconDialog", dialogBounds)
                 .AddInteractiveElement(bookBg, "bookBackground")
                 .AddInteractiveElement(gearImage, "btnSettingsIcon")
-                .AddButton(" [ D ] ", OnToggleDebugger, bounds["Кнопка_Дебаггера"], CairoFont.WhiteSmallText(), EnumButtonStyle.Small)
+                // Кнопка [D] удалена отсюда!
                 .AddInteractiveElement(tabGreen, "tabHome")
                 .AddInteractiveElement(tabPurple, "tabSearch");
 
@@ -389,98 +389,98 @@ namespace botaniastory
                                 }
                             }
                         }
-                    }
 
-                    if (currentChapter.Images != null)
-                    {
-                        for (int i = 0; i < currentChapter.Images.Count; i++)
+                        if (currentChapter.Images != null)
                         {
-                            var imgData = currentChapter.Images[i];
-
-                            if (currentSpread == imgData.Spread && bounds.ContainsKey(imgData.UiKey))
+                            for (int i = 0; i < currentChapter.Images.Count; i++)
                             {
-                                var imgElement = new GuiElementStretchedImage(capi, bounds[imgData.UiKey], new AssetLocation(imgData.Path));
-                                compo.AddInteractiveElement(imgElement, $"chapterImage_{i}");
+                                var imgData = currentChapter.Images[i];
+
+                                if (currentSpread == imgData.Spread && bounds.ContainsKey(imgData.UiKey))
+                                {
+                                    var imgElement = new GuiElementStretchedImage(capi, bounds[imgData.UiKey], new AssetLocation(imgData.Path));
+                                    compo.AddInteractiveElement(imgElement, $"chapterImage_{i}");
+                                }
                             }
                         }
-                    }
 
-                    if (currentChapter.ManaBars != null)
-                    {
-                        for (int i = 0; i < currentChapter.ManaBars.Count; i++)
+                        if (currentChapter.ManaBars != null)
                         {
-                            var manaData = currentChapter.ManaBars[i];
-
-                            if (currentSpread == manaData.Spread && bounds.ContainsKey(manaData.UiKey))
+                            for (int i = 0; i < currentChapter.ManaBars.Count; i++)
                             {
-                                ElementBounds barBounds = bounds[manaData.UiKey];
-                                ElementBounds textBounds = ElementBounds.Fixed(barBounds.fixedX, barBounds.fixedY - (20 * bookScale), barBounds.fixedWidth, 20);
-                                CairoFont textFont = CairoFont.WhiteSmallText().WithColor(new double[] { 0.4, 0.4, 0.4, 1 }).WithOrientation(EnumTextOrientation.Center);
+                                var manaData = currentChapter.ManaBars[i];
 
-                                string localizedManaText = Lang.Get("botaniastory:mana-cost");
-                                compo.AddStaticText(localizedManaText, textFont, textBounds, $"manaText_{i}");
+                                if (currentSpread == manaData.Spread && bounds.ContainsKey(manaData.UiKey))
+                                {
+                                    ElementBounds barBounds = bounds[manaData.UiKey];
+                                    ElementBounds textBounds = ElementBounds.Fixed(barBounds.fixedX, barBounds.fixedY - (20 * bookScale), barBounds.fixedWidth, 20);
+                                    CairoFont textFont = CairoFont.WhiteSmallText().WithColor(new double[] { 0.4, 0.4, 0.4, 1 }).WithOrientation(EnumTextOrientation.Center);
 
-                                var manaElement = new GuiElementManaBar(capi, barBounds, manaData.ManaCost, 100000);
-                                compo.AddInteractiveElement(manaElement, $"manaBar_{i}");
+                                    string localizedManaText = Lang.Get("botaniastory:mana-cost");
+                                    compo.AddStaticText(localizedManaText, textFont, textBounds, $"manaText_{i}");
+
+                                    var manaElement = new GuiElementManaBar(capi, barBounds, manaData.ManaCost, 100000);
+                                    compo.AddInteractiveElement(manaElement, $"manaBar_{i}");
+                                }
                             }
                         }
-                    }
 
-                    int leftIndex = currentSpread * 2;
-                    int rightIndex = leftIndex + 1;
+                        int leftIndex = currentSpread * 2;
+                        int rightIndex = leftIndex + 1;
 
-                    string leftStr = leftIndex < currentChapter.Pages.Count ? currentChapter.Pages[leftIndex] : "";
-                    string rightStr = rightIndex < currentChapter.Pages.Count ? currentChapter.Pages[rightIndex] : "";
+                        string leftStr = leftIndex < currentChapter.Pages.Count ? currentChapter.Pages[leftIndex] : "";
+                        string rightStr = rightIndex < currentChapter.Pages.Count ? currentChapter.Pages[rightIndex] : "";
 
-                    compo.AddRichtext(ParseLexiconText(leftStr, leftFont), bounds["Левая_Страница"], "leftPageText");
-                    compo.AddRichtext(ParseLexiconText(rightStr, rightFont), bounds["Правая_Страница"], "rightPageText");
+                        compo.AddRichtext(ParseLexiconText(leftStr, leftFont), bounds["Левая_Страница"], "leftPageText");
+                        compo.AddRichtext(ParseLexiconText(rightStr, rightFont), bounds["Правая_Страница"], "rightPageText");
 
-                    string bookmarkIcon = currentChapter.IsBookmarked ? "botaniastory:gui/bookmark_on.png" : "botaniastory:gui/bookmark_off.png";
-                    var bookmarkBtn = new GuiElementClickableImage(capi, bounds["Кнопка_Закладки"], new AssetLocation(bookmarkIcon), () => AddBookmark());
-                    compo.AddInteractiveElement(bookmarkBtn, "btnBookmark");
+                        string bookmarkIcon = currentChapter.IsBookmarked ? "botaniastory:gui/bookmark_on.png" : "botaniastory:gui/bookmark_off.png";
+                        var bookmarkBtn = new GuiElementClickableImage(capi, bounds["Кнопка_Закладки"], new AssetLocation(bookmarkIcon), () => AddBookmark());
+                        compo.AddInteractiveElement(bookmarkBtn, "btnBookmark");
 
-                    if (!string.IsNullOrEmpty(currentChapter.VisualizeStructure))
-                    {
-                        var btnCfg = ui["Кнопка_Визуализации"];
-                        double bScale = btnCfg[4] * bookScale;
-
-                        ElementBounds btnBounds = ElementBounds.Fixed(btnCfg[0] * bookScale, btnCfg[1] * bookScale, btnCfg[2] * bScale, btnCfg[3] * bScale);
-
-                        var hologramSystem = capi.ModLoader.GetModSystem<LexiconHologramSystem>();
-                        string buttonText = hologramSystem.isActive ? "Отключить" : "Визуализировать";
-
-                        compo.AddButton(buttonText, () =>
+                        if (!string.IsNullOrEmpty(currentChapter.VisualizeStructure))
                         {
-                            if (hologramSystem.isActive)
-                            {
-                                hologramSystem.StopVisualization();
-                            }
-                            else
-                            {
-                                hologramSystem.StartVisualization(currentChapter.VisualizeStructure);
-                            }
+                            var btnCfg = ui["Кнопка_Визуализации"];
+                            double bScale = btnCfg[4] * bookScale;
 
-                            var btn = SingleComposer.GetButton("btnVisualize");
-                            if (btn != null)
-                            {
-                                btn.Text = hologramSystem.isActive ? "Отключить" : "Визуализировать";
-                            }
+                            ElementBounds btnBounds = ElementBounds.Fixed(btnCfg[0] * bookScale, btnCfg[1] * bookScale, btnCfg[2] * bScale, btnCfg[3] * bScale);
 
-                            return true;
-                        }, btnBounds, CairoFont.WhiteSmallText(), EnumButtonStyle.Normal, "btnVisualize");
+                            var hologramSystem = capi.ModLoader.GetModSystem<LexiconHologramSystem>();
+                            string buttonText = hologramSystem.isActive ? "Отключить" : "Визуализировать";
+
+                            compo.AddButton(buttonText, () =>
+                            {
+                                if (hologramSystem.isActive)
+                                {
+                                    hologramSystem.StopVisualization();
+                                }
+                                else
+                                {
+                                    hologramSystem.StartVisualization(currentChapter.VisualizeStructure);
+                                }
+
+                                var btn = SingleComposer.GetButton("btnVisualize");
+                                if (btn != null)
+                                {
+                                    btn.Text = hologramSystem.isActive ? "Отключить" : "Визуализировать";
+                                }
+
+                                return true;
+                            }, btnBounds, CairoFont.WhiteSmallText(), EnumButtonStyle.Normal, "btnVisualize");
+                        }
                     }
                 }
+
+                SingleComposer = compo.Compose();
+
+                if (isSearchOpen)
+                {
+                    SingleComposer.GetTextInput("searchBar")?.SetPlaceHolderText(Lang.Get("botaniastory:search-placeholder"));
+                    UpdateSearchResults();
+                }
+
+                UpdatePageContent();
             }
-
-            SingleComposer = compo.Compose();
-
-            if (isSearchOpen)
-            {
-                SingleComposer.GetTextInput("searchBar")?.SetPlaceHolderText(Lang.Get("botaniastory:search-placeholder"));
-                UpdateSearchResults();
-            }
-
-            UpdatePageContent();
         }
 
         private void UpdatePageContent()

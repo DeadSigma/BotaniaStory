@@ -15,11 +15,14 @@ namespace BotaniaStory
 
         public IServerNetworkChannel serverChannel;
         public IClientNetworkChannel clientChannel;
-
+        public static botaniastory.LexiconConfig ClientConfig;
         public override void StartClientSide(ICoreClientAPI api)
         {
             base.StartClientSide(api);
 
+            // 2. Загружаем конфиг при старте игры
+            ClientConfig = api.LoadModConfig<botaniastory.LexiconConfig>("lexicon_client.json") ?? new botaniastory.LexiconConfig();
+            
             // 1. РЕГИСТРИРУЕМ СЕТЬ В ПЕРВУЮ ОЧЕРЕДЬ!
             clientChannel = api.Network.RegisterChannel("botanianetwork")
                 .RegisterMessageType(typeof(ManaStreamPacket))

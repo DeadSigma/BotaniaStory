@@ -161,7 +161,8 @@ namespace botaniastory
             return true;
         }
 
-        private bool OnToggleDebugger()
+        // --- ИСПРАВЛЕННЫЙ ПУБЛИЧНЫЙ МЕТОД ДЕБАГГЕРА ---
+        public void ToggleDebugger()
         {
             if (debuggerDialog == null || !debuggerDialog.IsOpened())
             {
@@ -169,11 +170,10 @@ namespace botaniastory
                 debuggerDialog.TryOpen();
             }
             else { debuggerDialog.TryClose(); }
-            return true;
         }
+
         // --- НОВЫЕ МЕТОДЫ УПРАВЛЕНИЯ МЫШЬЮ ---
 
-        // 1. Обработка колёсика мыши
         // 1. Обработка колёсика мыши (Улучшенная и безопасная)
         public override void OnMouseWheel(MouseWheelEventArgs args)
         {
@@ -225,5 +225,4 @@ namespace botaniastory
             base.OnMouseDown(args);
         }
     }
-
 }
