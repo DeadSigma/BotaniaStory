@@ -54,9 +54,9 @@
 		},
 		"protectionModifiersByType": {
 			"armor-chain-manasteel-*": {
-				"relativeProtection": 0.85,
-				"flatDamageReduction": 1.4,
-				"protectionTier": 4
+				"relativeProtection": 1.25,
+				"flatDamageReduction": 1.8,
+				"protectionTier": 1
 			}
 		},
 		"statModifiersByType": {

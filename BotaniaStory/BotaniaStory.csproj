@@ -5,7 +5,6 @@
     <OutputPath>bin\$(Configuration)\Mods\BotaniaStory</OutputPath>
     <VINTAGE_STORY>C:\Users\Mrzub\AppData\Roaming\Vintagestory 1.22.2</VINTAGE_STORY>
   </PropertyGroup>
-
   <ItemGroup>
     <Reference Include="VintagestoryAPI">
       <HintPath>$(VINTAGE_STORY)/VintagestoryAPI.dll</HintPath>
@@ -48,7 +47,6 @@
       <Private>False</Private>
     </Reference>
 	  
-	  
 	  <Reference Include="OpenTK.Graphics">
 		  <HintPath>$(VINTAGE_STORY)/Lib/OpenTK.Graphics.dll</HintPath>
 		  <Private>False</Private>
@@ -65,6 +63,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="assets\botaniastory\patches\recipes\smithing\" />
     <Folder Include="assets\botaniastory\patches\worldproperties\" />
     <Folder Include="assets\botaniastory\shapes\entity\" />
   </ItemGroup>

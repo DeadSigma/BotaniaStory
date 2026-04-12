@@ -12,6 +12,7 @@ namespace BotaniaStory
     {
         // Приватное хранилище маны
         private int _currentMana = 0;
+        public bool IsAcceptingFromItems = false;
 
         // Свойство: если бассейн творческий, всегда отдаем MaxMana и игнорируем изменения!
         public int CurrentMana
@@ -55,14 +56,15 @@ namespace BotaniaStory
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
-            // Сохраняем реальное значение, а не свойство, чтобы не перезаписать ничего лишнего
             tree.SetInt("mana", _currentMana);
+            tree.SetBool("isAcceptingFromItems", IsAcceptingFromItems); // Сохраняем состояние
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
             _currentMana = tree.GetInt("mana", 0);
+            IsAcceptingFromItems = tree.GetBool("isAcceptingFromItems", false); // Загружаем состояние
 
             if (Api?.Side == EnumAppSide.Client)
             {
@@ -208,6 +210,47 @@ namespace BotaniaStory
 
                     // Игнорируем предметы, которые еще летят по воздуху
                     if (!entityItem.Collided && !entityItem.Swimming) continue;
+
+                    // --- ВЗАИМОДЕЙСТВИЕ С ПЛАНШЕТОМ МАНЫ ---
+                    if (domain == "botaniastory" && code == "manatablet")
+                    {
+                        int maxTabletMana = ItemManaTablet.MaxMana;
+                        int currentTabletMana = stack.Attributes.GetInt("mana", 0);
+
+                        if (IsAcceptingFromItems)
+                        {
+                            // РЕЖИМ 1: БАССЕЙН ЗАБИРАЕТ МАНУ У ПЛАНШЕТА
+                            if (currentTabletMana > 0 && CurrentMana < MaxMana)
+                            {
+                                // Считаем, сколько можем передать (максимум 10 000 за тик)
+                                int transferAmount = Math.Min(currentTabletMana, MaxMana - CurrentMana);
+                                transferAmount = Math.Min(transferAmount, 10000);
+
+                                CurrentMana += transferAmount;
+                                stack.Attributes.SetInt("mana", currentTabletMana - transferAmount);
+                                MarkDirty(true);
+                                entityItem.Itemstack = stack;
+                                SpawnCraftingParticles(entityItem.Pos.XYZ);
+                                continue;
+                            }
+                        }
+                        else
+                        {
+                            // РЕЖИМ 2: БАССЕЙН ОТДАЕТ МАНУ ПЛАНШЕТУ (Твоя старая логика)
+                            if (currentTabletMana < maxTabletMana && CurrentMana > 0)
+                            {
+                                int transferAmount = Math.Min(CurrentMana, maxTabletMana - currentTabletMana);
+                                transferAmount = Math.Min(transferAmount, 10000);
+
+                                CurrentMana -= transferAmount;
+                                stack.Attributes.SetInt("mana", currentTabletMana + transferAmount);
+                                MarkDirty(true);
+                                entityItem.Itemstack = stack;
+                                SpawnCraftingParticles(entityItem.Pos.XYZ);
+                                continue;
+                            }
+                        }
+                    }
 
                     // --- РЕЦЕПТЫ ---
 

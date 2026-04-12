@@ -74,6 +74,7 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemSpark", typeof(ItemSpark));
             api.RegisterEntity("EntitySpark", typeof(EntitySpark));
             api.RegisterItemClass("ItemSparkAugment", typeof(ItemSparkAugment));
+            api.RegisterItemClass("ItemManaTablet", typeof(ItemManaTablet));
 
             // УДАЛЕНО: Строка api.Network.RegisterChannel("botanianetwork")... отсюда убрана, 
             // так как мы все зарегистрировали выше, в StartClientSide и StartServerSide.

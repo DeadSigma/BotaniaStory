@@ -9,6 +9,7 @@ namespace BotaniaStory
 {
     public class ItemWandOfTheForest : Item
     {
+
         // ==========================================
         // ЛКМ (Левая Кнопка Мыши) - ОТМЕНА ПРИВЯЗКИ
         // ==========================================
@@ -197,6 +198,31 @@ namespace BotaniaStory
 
             AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
 
+            // ==========================================
+            // СМЕНА РЕЖИМА БАССЕЙНА МАНЫ (SHIFT + ПКМ)
+            // ==========================================
+            if (byPlayer.Entity.Controls.Sneak && block is BlockManaPool)
+            {
+                if (be is BlockEntityManaPool poolBE)
+                {
+                    // Инвертируем состояние
+                    poolBE.IsAcceptingFromItems = !poolBE.IsAcceptingFromItems;
+                    poolBE.MarkDirty(true);
+
+                    if (world.Side == EnumAppSide.Client)
+                    {
+                        string mode = poolBE.IsAcceptingFromItems ? "ПРИНИМАЕТ ману ИЗ предметов" : "ОТДАЕТ ману В предметы";
+                        (world.Api as ICoreClientAPI)?.ShowChatMessage($"Режим бассейна изменен: теперь он {mode}.");
+                    }
+
+                    world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
+                }
+
+                // Прерываем дальнейшее выполнение, чтобы посох не пытался начать привязку
+                handling = EnumHandHandling.Handled;
+                return;
+            }
+
             bool hasFlowerInMemory = slot.Itemstack.Attributes.GetBool("hasFlower");
             bool hasSpreaderInMemory = slot.Itemstack.Attributes.GetBool("hasSpreader");
 
@@ -361,5 +387,6 @@ namespace BotaniaStory
                 world.SpawnParticles(beamParticles);
             }
         }
+
     }
 }

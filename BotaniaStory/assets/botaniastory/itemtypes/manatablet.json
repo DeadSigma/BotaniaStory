@@ -1,62 +1,57 @@
 {
-	"code": "sparkaugment",
-	"class": "ItemSparkAugment",
-	"variantgroups": [
-		{
-			"code": "type",
-			"states": [ "recessive", "dominant", "isolated", "dispersive" ]
-		}
-	],
-	"maxstacksize": 64,
+	"code": "manatablet",
+	"class": "ItemManaTablet",
+	"maxstacksize": 1,
 	"shape": {
-		"base": "botaniastory:item/augment"
+		"base": "botaniastory:item/manatablet"
 	},
 	"textures": {
-		"augment_base": { "base": "botaniastory:item/augment_base" },
-		"label": { "base": "botaniastory:entity/spark_augment_{type}" }
+		"glass": { "base": "botaniastory:item/glass" },
+		"manatablet_body": { "base": "botaniastory:item/manatablet_body" },
+		"manaliquid": { "base": "botaniastory:item/manaliquid" }
 	},
 	"attributes": {
 		"shelvable": true,
 		"displaycaseable": true,
-		"bookshelveable": true,
+		"bookshelveable": false,
 		"onshelfTransform": {
 			"translation": {
-				"x": 0.02,
-				"y": -0.354,
-				"z": 0
-			},
-			"rotation": {
 				"x": 0,
-				"y": -89,
-				"z": 0
-			},
-			"scale": 0.29
-		},
-		"onDisplayTransform": {
-			"translation": {
-				"x": 0,
-				"y": -0.2,
-				"z": 0
-			},
-			"rotation": {
-				"x": 0,
-				"y": -160,
-				"z": 0
-			},
-			"scale": 0.58
-		},
-		"groundStorageTransform": {
-			"translation": {
-				"x": 0,
-				"y": -0.45,
+				"y": 0,
 				"z": 0
 			},
 			"rotation": {
 				"x": 90,
 				"y": 0,
-				"z": -180
+				"z": 0
 			},
-			"scale": 0.36
+			"scale": 0.4
+		},
+		"onDisplayTransform": {
+			"translation": {
+				"x": 0,
+				"y": -0.05,
+				"z": 0
+			},
+			"rotation": {
+				"x": 90,
+				"y": -45,
+				"z": 0
+			},
+			"scale": 0.6
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"rotation": {
+				"x": 90,
+				"y": 0,
+				"z": 0
+			},
+			"scale": 0.5
 		}
 	},
 	"behaviors": [
@@ -77,51 +72,34 @@
 	],
 	"guiTransform": {
 		"translation": {
-			"x": 1.3,
-			"y": 2.3,
+			"x": 0,
+			"y": 3,
 			"z": 0
 		},
 		"rotation": {
-			"x": 16,
-			"y": -152,
-			"z": 180
+			"x": 27,
+			"y": -155,
+			"z": -2
 		},
-		"scale": 1.24
+		"scale": 1.2
 	},
 	"tpHandTransform": {
 		"translation": {
-			"x": -1.67,
-			"y": -1.925,
-			"z": -1.51
-		},
-		"rotation": {
-			"x": 3,
-			"y": -5,
-			"z": -87
-		}
-	},
-	"groundTransform": {
-		"translation": {
-			"x": 0,
-			"y": 0.05,
-			"z": 0
+			"x": -0.9,
+			"y": -0.5,
+			"z": -0.5
 		},
 		"rotation": {
 			"x": 90,
 			"y": 0,
 			"z": 0
 		},
-		"origin": {
-			"x": 0.5,
-			"y": 0.5,
-			"z": 0.5299
-		},
-		"scale": 1.86
+		"scale": 0.75
 	},
 	"fpHandTransform": {
 		"translation": {
-			"x": 0,
-			"y": 0,
+			"x": 0.2,
+			"y": -0.2,
 			"z": 0
 		},
 		"rotation": {
@@ -129,7 +107,20 @@
 			"y": -15,
 			"z": 0
 		},
-		"scale": 2.5
+		"scale": 1.8
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 90,
+			"y": 0,
+			"z": 0
+		},
+		"scale": 1.5
 	},
 	"creativeinventory": {
 		"general": [ "*" ],

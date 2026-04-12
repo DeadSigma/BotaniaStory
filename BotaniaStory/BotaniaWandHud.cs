@@ -10,19 +10,25 @@ namespace BotaniaStory
     public class BotaniaWandHud : HudElement
     {
         private MeshRef quadMesh;
-        private MeshRef fillMesh; // НОВОЕ: Отдельная сетка для полоски маны (чтобы её кадрировать)
+        private MeshRef fillMesh; 
         private Matrixf modelMat = new Matrixf();
 
         // Переменные для текстур
         private LoadedTexture bgTex;
         private LoadedTexture frameTex;
-        private LoadedTexture fillTex; // НОВОЕ: Текстура заливки
+        private LoadedTexture fillTex; 
         private LoadedTexture linkedTex;
         private LoadedTexture unlinkedTex;
 
+        private LoadedTexture poolAcceptingTex; 
+        private LoadedTexture poolGivingTex;    
+
         private int displayMana = 0;
         private int displayMaxMana = 1;
-        private float lastFillRatio = -1f; // НОВОЕ: Следим за изменением маны, чтобы не обновлять сетку каждый кадр
+        private float lastFillRatio = -1f; // Следим за изменением маны, чтобы не обновлять сетку каждый кадр
+
+        private bool isLookingAtPool = false;
+        private bool poolIsAccepting = false;
 
         private BlockPos highlightPos = null;
         private string displayName = "";
@@ -42,7 +48,12 @@ namespace BotaniaStory
             fillTex = new LoadedTexture(capi);
             linkedTex = new LoadedTexture(capi);
             unlinkedTex = new LoadedTexture(capi);
+            poolAcceptingTex = new LoadedTexture(capi);
+            poolGivingTex = new LoadedTexture(capi);
 
+
+            capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/pool_accepting.png"), ref poolAcceptingTex);
+            capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/pool_giving.png"), ref poolGivingTex);
             capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/manabar_bg.png"), ref bgTex);
             capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/manabar_frame.png"), ref frameTex);
             capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/manabar_fill.png"), ref fillTex);
@@ -71,6 +82,7 @@ namespace BotaniaStory
             var sel = player.CurrentBlockSelection;
 
             showHud = false;
+            isLookingAtPool = false;
 
             if (hasWand && sel != null)
             {
@@ -99,6 +111,10 @@ namespace BotaniaStory
                     displayMaxMana = pool.MaxMana;
                     highlightPos = null;
                     showConnectionStatus = false;
+
+                    isLookingAtPool = true;
+                    poolIsAccepting = pool.IsAcceptingFromItems;
+
                     displayName = pool.Block.GetPlacedBlockName(capi.World, sel.Position);
                     showHud = true;
                 }
@@ -206,6 +222,32 @@ namespace BotaniaStory
                 DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
             }
 
+            // 4. СЛОЙ: ИКОНКА СТАТУСА ПРИВЯЗКИ
+            if (showConnectionStatus)
+            {
+                int iconTexId = (highlightPos != null) ? linkedTex.TextureId : unlinkedTex.TextureId;
+
+                float iconSize = 50f;
+                float iconX = x + width + 10f;
+                float iconY = y + (height / 2f) - (iconSize / 2f);
+
+                DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
+            }
+
+            // --- НОВОЕ: 5. СЛОЙ: ИКОНКА СТАТУСА БАССЕЙНА ---
+            if (isLookingAtPool)
+            {
+                // Выбираем текстуру в зависимости от того, принимает бассейн ману или отдает
+                int iconTexId = poolIsAccepting ? poolAcceptingTex.TextureId : poolGivingTex.TextureId;
+
+                float iconSize = 50f;
+                // Размещаем там же, где была бы иконка привязки
+                float iconX = x + width + 10f;
+                float iconY = y + (height / 2f) - (iconSize / 2f);
+
+                DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
+            }
+
             sh.Uniform("noTexture", 0f);
             sh.Uniform("rgbaIn", new Vec4f(1f, 1f, 1f, 1f));
         }
@@ -232,8 +274,11 @@ namespace BotaniaStory
             linkedTex?.Dispose();
             unlinkedTex?.Dispose();
 
+            poolAcceptingTex?.Dispose();
+            poolGivingTex?.Dispose();
+
             quadMesh?.Dispose();
-            fillMesh?.Dispose(); // Не забываем выгрузить из памяти нашу вторую сетку
+            fillMesh?.Dispose(); 
             base.Dispose();
         }
     }
