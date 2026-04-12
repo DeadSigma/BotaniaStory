@@ -42,7 +42,6 @@ BotaniaStory/
     SparkRenderer.cs
     SpreaderCoreRenderer.cs
     TextureAnimatorSystem.cs
-    TextureAtlasFix.cs
     UIDebugger.cs
     создаёт структуру папок.py
     assets/
@@ -56,8 +55,6 @@ BotaniaStory/
                 manaspreader.json
                 mysticalflower.json
                 functional_flora/
-                    
-                generating_flora/
                    
             compatibility/
             config/
@@ -84,14 +81,20 @@ BotaniaStory/
                 ru.json
             patches/
                 ingot.json
+                ingotpile.json
                 metalbit.json
+                platepile.json
                 workitem.json
                 worldproperties/
                     block/
                         metal.json
+                        toolmetal.json
+                    itemtypes/
+                        metalchain.json
             recipes/
                 grid/
                     apothecary.json
+                    chainarmor-manasteel.json
                     lexicon.json
                     livingwood_firewood.json
                     livingwood_stick.json
@@ -102,8 +105,11 @@ BotaniaStory/
                     wandoftheforest.json
                 knapping/
                 smithing/
+                    chain-manasteel.json
                     pickaxehead-manasteel.json
+                    plate-manasteel.json
             shapes/
+                plate.json
                 block/
                     apothecary.json
                     livingrock_slab.json
@@ -131,42 +137,22 @@ BotaniaStory/
                     wandofbinding.json
                     wandoftheforest.json
             sounds/
-                apothecary_craft.ogg
-                ignite.ogg
-                lexiconclose.ogg
-                lexiconopen.ogg
-                lexiconpage.ogg
-                manaspreaderfire.ogg
-                wand_bind.ogg
-                wand_of_binding.ogg
+                
                 effect/
                     translocate.ogg
             textures/
                 block/
-                   
-                    functional_flora/
-                        
+                  
                     metal/
                         ingot/
                             manasteel.png
                     mysticalflower/
-                        mystical_flowers/
-                           
-                        stem/
-                           
+                        
                 entity/
-                    spark_anim.png
-                    spark_augment_dispersive.png
-                    spark_augment_dominant.png
-                    spark_augment_isolated.png
-                    spark_augment_recessive.png
+                  
                     spark_base.png
                 gui/
-                  
-                    colors/
-                       
-                    mysticalpetal/
-                       
+                   
                     resource/
                         plate/
                             manasteel.png
@@ -181,8 +167,30 @@ BotaniaStory/
                     metal/
                         ingot/
                             manasteel.png
+                        sheet/
+                            manasteel1.png
+                            manasteel2.png
+                            manasteel3.png
+                            manasteel4.png
+                            manasteel5.png
+                        sheet-plain/
+                            manasteel1.png
+                            manasteel2.png
+                            manasteel3.png
+                            manasteel4.png
+                        tarnished/
+                            manasteel.png
                 item/
                     resource/
                         plate/
                             manasteel.png
-   
+    Flora/
+        FunctionalFlora/
+            BlockEntityPureDaisy.cs
+            BlockPureDaisy.cs
+        GeneratingFlora/
+            BlockDaybloom.cs
+            BlockEndoflame.cs
+            BlockEntityDaybloom.cs
+            BlockEntityEndoflame.cs
+            BlockEntityGeneratingFlower.cs

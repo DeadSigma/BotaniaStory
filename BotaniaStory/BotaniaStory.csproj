@@ -65,6 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="assets\botaniastory\patches\worldproperties\" />
     <Folder Include="assets\botaniastory\shapes\entity\" />
   </ItemGroup>
 

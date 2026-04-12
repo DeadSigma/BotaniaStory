@@ -1,0 +1,73 @@
+[
+    {
+        "ingredientPattern": "_T_,T_T",
+        "ingredients": {
+            "T": {
+                "type": "item",
+                "code": "game:metalchain-manasteel",
+                "quantity": 1
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "name": "head",
+        "output": {
+            "type": "item",
+            "code": "botaniastory:armor-chain-manasteel-head"
+        }
+    },
+    {
+        "ingredientPattern": "TJT,CCC,TTT",
+        "ingredients": {
+            "J": {
+                "type": "item",
+                "code": "game:armor-body-jerkin-leather",
+                "quantity": 1
+            },
+            "T": {
+                "type": "item",
+                "code": "game:metalchain-manasteel",
+                "quantity": 1
+            },
+            "C": {
+                "type": "item",
+                "code": "game:metalchain-manasteel",
+                "quantity": 2
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "name": "body",
+        "output": {
+            "type": "item",
+            "code": "botaniastory:armor-chain-manasteel-body"
+        }
+    },
+    {
+        "ingredientPattern": "TCT,TJT",
+        "ingredients": {
+            "J": {
+                "type": "item",
+                "code": "game:armor-legs-jerkin-leather",
+                "quantity": 1
+            },
+            "T": {
+                "type": "item",
+                "code": "game:metalchain-manasteel",
+                "quantity": 1
+            },
+            "C": {
+                "type": "item",
+                "code": "game:metalchain-manasteel",
+                "quantity": 2
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "name": "legs",
+        "output": {
+            "type": "item",
+            "code": "botaniastory:armor-chain-manasteel-legs"
+        }
+    }
+]

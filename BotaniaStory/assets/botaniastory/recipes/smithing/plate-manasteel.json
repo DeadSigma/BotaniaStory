@@ -1,0 +1,24 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "name": "plate",
+    "pattern": [
+        [
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########"
+        ]
+    ],
+    "output": {
+        "type": "item",
+        "code": "game:metalplate-manasteel"
+    }
+}
