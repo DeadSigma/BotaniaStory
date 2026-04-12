@@ -137,27 +137,29 @@ BotaniaStory/
                     wandofbinding.json
                     wandoftheforest.json
             sounds/
-                
+                apothecary_craft.ogg
+					ignite.ogg
+					lexiconclose.ogg
+					lexiconopen.ogg
+					lexiconpage.ogg
+					manaspreaderfire.ogg
+					transmute.ogg
+					wand_bind.ogg
                 effect/
                     translocate.ogg
             textures/
                 block/
                   
                     metal/
-                        ingot/
-                            manasteel.png
+
                     mysticalflower/
                         
-                entity/
-                  
-                    spark_base.png
+
                 gui/
                    
                     resource/
-                        plate/
-                            manasteel.png
-                particle/
-                    mana_particle.png
+
+
             worldgen/
                 blockpatches/
                     worldgen_flowers.json
@@ -168,16 +170,9 @@ BotaniaStory/
                         ingot/
                             manasteel.png
                         sheet/
-                            manasteel1.png
-                            manasteel2.png
-                            manasteel3.png
-                            manasteel4.png
-                            manasteel5.png
+
                         sheet-plain/
-                            manasteel1.png
-                            manasteel2.png
-                            manasteel3.png
-                            manasteel4.png
+
                         tarnished/
                             manasteel.png
                 item/

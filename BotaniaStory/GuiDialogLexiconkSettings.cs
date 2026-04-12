@@ -5,6 +5,9 @@ using Vintagestory.API.Config;
 
 namespace botaniastory
 {
+    // ==========================================
+    // ГЛАВНОЕ ОКНО НАСТРОЕК
+    // ==========================================
     public class GuiDialogLexiconSettings : GuiDialog
     {
         public override string ToggleKeyCombinationCode => null;
@@ -27,8 +30,8 @@ namespace botaniastory
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
 
-            // Увеличили высоту списка, чтобы влезли новые переключатели
-            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 680);
+            // Немного уменьшили высоту, так как ползунков здесь больше нет
+            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 350);
             bgBounds.WithChild(listBounds);
 
             CairoFont font = CairoFont.WhiteSmallText();
@@ -47,34 +50,18 @@ namespace botaniastory
             SingleComposer.AddButton("+", OnZoomIn, ElementBounds.Fixed(240, y, 30, 30), font, EnumButtonStyle.Normal);
             y += 50;
 
-            // 2. Громкость книги
-            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-volume"), font, ElementBounds.Fixed(0, y, 140, 30));
-            SingleComposer.AddSlider(OnVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderVolume");
-            y += 40;
-
-            // 3. Громкость цветов
-            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-flowervolume"), font, ElementBounds.Fixed(0, y, 140, 30));
-            SingleComposer.AddSlider(OnFlowerVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderFlowerVolume");
-            y += 40;
-
-            // 4. Громкость распространителей
-            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-spreadervolume"), font, ElementBounds.Fixed(0, y, 140, 30));
-            SingleComposer.AddSlider(OnSpreaderVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderSpreaderVolume");
-            y += 40;
-
-            // 5. Громкость посоха
-            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-wandvolume"), font, ElementBounds.Fixed(0, y, 140, 30));
-            SingleComposer.AddSlider(OnWandVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderWandVolume");
-            y += 40;
-
-            // 8. Колесико мыши
+            // 2. Колесико мыши
             SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-mousewheel"), font, ElementBounds.Fixed(0, y + 5, 200, 30));
             SingleComposer.AddSwitch(OnMouseWheelToggled, ElementBounds.Fixed(280, y, 60, 30), "switchMouseWheel");
             y += 40;
 
-            // 9. Назад на ПКМ
+            // 3. Назад на ПКМ
             SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-rightclickback"), font, ElementBounds.Fixed(0, y + 5, 200, 30));
             SingleComposer.AddSwitch(OnRightClickBackToggled, ElementBounds.Fixed(280, y, 60, 30), "switchRightClickBack");
+            y += 40;
+
+            // --- КНОПКА НАСТРОЕК ЗВУКА ---
+            SingleComposer.AddButton(Lang.Get("botaniastory:dialog-settings-sounds"), OnOpenSoundSettings, ElementBounds.Fixed(0, y, 340, 30), font, EnumButtonStyle.Normal);
             y += 40;
 
             // --- КНОПКА ДЕБАГГЕРА ---
@@ -90,34 +77,29 @@ namespace botaniastory
 
             SingleComposer.EndChildElements().Compose();
 
-           
-
-            SingleComposer.GetSlider("sliderVolume").SetValues(config.Volume, 0, 100, 1);
-            SingleComposer.GetSlider("sliderFlowerVolume")?.SetValues(config.FlowerVolume, 0, 100, 1);
-            SingleComposer.GetSlider("sliderSpreaderVolume")?.SetValues(config.SpreaderVolume, 0, 100, 1);
-            SingleComposer.GetSwitch("switchMouseWheel").On = config.MouseWheelPaging; 
+            SingleComposer.GetSwitch("switchMouseWheel").On = config.MouseWheelPaging;
             SingleComposer.GetSwitch("switchRightClickBack").On = config.RightClickBack;
-            SingleComposer.GetSlider("sliderWandVolume")?.SetValues(config.WandVolume, 0, 100, 1);
-
         }
 
         private bool OnZoomOut() { if (config.BookScale > 0.6f) { mainDialog.UpdateScale(config.BookScale - 0.1f); SingleComposer.GetDynamicText("scaleText").SetNewText($"{Math.Round(config.BookScale, 1)}x"); } return true; }
         private bool OnZoomIn() { if (config.BookScale < 1.6f) { mainDialog.UpdateScale(config.BookScale + 0.1f); SingleComposer.GetDynamicText("scaleText").SetNewText($"{Math.Round(config.BookScale, 1)}x"); } return true; }
 
-        private bool OnVolumeChanged(int value) { config.Volume = value; return true; }
-        private bool OnFlowerVolumeChanged(int value) { config.FlowerVolume = value; return true; }
-        private bool OnSpreaderVolumeChanged(int value) { config.SpreaderVolume = value; return true; }
-
         private void OnMouseWheelToggled(bool on) { config.MouseWheelPaging = on; }
         private void OnRightClickBackToggled(bool on) { config.RightClickBack = on; }
+
         private bool OnToggleDebugger()
         {
             mainDialog.ToggleDebugger();
             return true;
         }
-        private bool OnWandVolumeChanged(int value) { config.WandVolume = value; return true; }
 
-
+        // Открываем новое меню звуков
+        private bool OnOpenSoundSettings()
+        {
+            GuiDialogLexiconSoundSettings soundDialog = new GuiDialogLexiconSoundSettings(capi, config, mainDialog);
+            soundDialog.TryOpen();
+            return true;
+        }
 
         private bool OnResetSettings()
         {
@@ -125,16 +107,105 @@ namespace botaniastory
             config.Volume = 50;
             config.FlowerVolume = 50;
             config.SpreaderVolume = 50;
-            config.MouseWheelPaging = true; 
+            config.MouseWheelPaging = true;
             config.RightClickBack = true;
             config.WandVolume = 50;
-
+            config.PoolVolume = 50;
 
             mainDialog.UpdateScale(1.0f);
             SingleComposer?.Dispose();
             SetupDialog();
             return true;
         }
+
+        private bool OnSaveAndClose()
+        {
+            mainDialog.SaveConfig();
+            TryClose();
+            return true;
+        }
+    }
+
+    // ==========================================
+    // ДОПОЛНИТЕЛЬНОЕ ОКНО "НАСТРОЙКИ ЗВУКА"
+    // ==========================================
+    public class GuiDialogLexiconSoundSettings : GuiDialog
+    {
+        public override string ToggleKeyCombinationCode => null;
+        private LexiconConfig config;
+        private GuiDialogLexicon mainDialog;
+
+        public GuiDialogLexiconSoundSettings(ICoreClientAPI capi, LexiconConfig config, GuiDialogLexicon mainDialog) : base(capi)
+        {
+            this.config = config;
+            this.mainDialog = mainDialog;
+            SetupDialog();
+        }
+
+        private void SetupDialog()
+        {
+            ElementBounds dialogBounds = ElementStdBounds.AutosizedMainDialog
+                .WithAlignment(EnumDialogArea.CenterMiddle);
+
+            ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
+            bgBounds.BothSizing = ElementSizing.FitToChildren;
+
+            // Увеличили высоту окна с 250 до 290, чтобы влез 5-й ползунок
+            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 290);
+            bgBounds.WithChild(listBounds);
+
+            CairoFont font = CairoFont.WhiteSmallText();
+
+            SingleComposer = capi.Gui.CreateCompo("lexiconSoundSettings", dialogBounds)
+                .AddShadedDialogBG(bgBounds)
+                .AddDialogTitleBar(Lang.Get("botaniastory:dialog-settings-sounds"), () => TryClose())
+                .BeginChildElements(bgBounds);
+
+            int y = 30;
+
+            // 1. Громкость книги
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-volume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderVolume");
+            y += 40;
+
+            // 2. Громкость цветов
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-flowervolume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnFlowerVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderFlowerVolume");
+            y += 40;
+
+            // 3. Громкость распространителей
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-spreadervolume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnSpreaderVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderSpreaderVolume");
+            y += 40;
+
+            // 4. Громкость посоха
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-wandvolume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnWandVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderWandVolume");
+            y += 40;
+
+            // 5. Громкость бассейна маны (ТРАНСМУТАЦИЯ)
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-poolvolume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnPoolVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderPoolVolume");
+            y += 40;
+
+            // Кнопка Сохранить и Закрыть
+            SingleComposer.AddButton(Lang.Get("botaniastory:dialog-settings-save"), OnSaveAndClose, ElementBounds.Fixed(0, y, 340, 30), font, EnumButtonStyle.Normal);
+
+            SingleComposer.EndChildElements().Compose();
+
+            // Установка текущих значений на ползунки
+            SingleComposer.GetSlider("sliderVolume").SetValues(config.Volume, 0, 100, 1);
+            SingleComposer.GetSlider("sliderFlowerVolume")?.SetValues(config.FlowerVolume, 0, 100, 1);
+            SingleComposer.GetSlider("sliderSpreaderVolume")?.SetValues(config.SpreaderVolume, 0, 100, 1);
+            SingleComposer.GetSlider("sliderWandVolume")?.SetValues(config.WandVolume, 0, 100, 1);
+            SingleComposer.GetSlider("sliderPoolVolume")?.SetValues(config.PoolVolume, 0, 100, 1); // <--- ДОБАВЛЕНО
+        }
+
+        private bool OnVolumeChanged(int value) { config.Volume = value; return true; }
+        private bool OnFlowerVolumeChanged(int value) { config.FlowerVolume = value; return true; }
+        private bool OnSpreaderVolumeChanged(int value) { config.SpreaderVolume = value; return true; }
+        private bool OnWandVolumeChanged(int value) { config.WandVolume = value; return true; }
+        private bool OnPoolVolumeChanged(int value) { config.PoolVolume = value; return true; } // <--- ДОБАВЛЕНО
 
         private bool OnSaveAndClose()
         {

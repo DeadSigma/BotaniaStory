@@ -10,6 +10,7 @@ namespace botaniastory
         public int SpreaderVolume = 50;
         public bool MouseWheelPaging = false; 
         public bool RightClickBack = false;
+        public int PoolVolume { get; set; } = 50;
         public int WandVolume { get; set; } = 50;
 
 

@@ -267,6 +267,13 @@ namespace BotaniaStory
             // Вызываем всплеск частиц
             SpawnCraftingParticles(inputEntity.Pos.XYZ);
 
+           
+            Api.World.PlaySoundAt(
+                new AssetLocation("botaniastory", "sounds/transmute"),
+                Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5,
+                null, true, 16f, 1f
+            );
+
             return true;
         }
 
