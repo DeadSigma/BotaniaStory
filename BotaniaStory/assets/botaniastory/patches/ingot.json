@@ -2,12 +2,6 @@
 	{
 		"file": "game:itemtypes/resource/ingot.json",
 		"op": "add",
-		"path": "/variantgroups/0/states/-",
-		"value": "manasteel"
-	},
-	{
-		"file": "game:itemtypes/resource/ingot.json",
-		"op": "add",
 		"path": "/materialDensityByType/*-manasteel",
 		"value": 8960
 	},

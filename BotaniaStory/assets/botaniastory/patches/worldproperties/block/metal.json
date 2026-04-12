@@ -1,0 +1,16 @@
+[
+	{
+		"file": "game:worldproperties/block/metal.json",
+		"op": "addmerge",
+		"path": "/variants/-",
+		"value": {
+			"code": "manasteel",
+			"meltPoint": 1084,
+			"boilPoint": 2500,
+			"density": 8960,
+			"specificHeatCapacity": 0.5,
+			"elemental": false,
+			"tier": 1
+		}
+	}
+]

@@ -2,12 +2,6 @@
 	{
 		"file": "game:itemtypes/resource/workitem.json",
 		"op": "add",
-		"path": "/variantgroups/0/states/-",
-		"value": "manasteel"
-	},
-	{
-		"file": "game:itemtypes/resource/workitem.json",
-		"op": "add",
 		"path": "/attributesByType/workitem-manasteel",
 		"value": {
 			"workableTemperature": 300,
@@ -24,17 +18,7 @@
 			"smeltedRatio": 1,
 			"smeltedStack": {
 				"type": "item",
-				"code": "botaniastory:ingot-manasteel"
-			}
-		}
-	},
-	{
-		"file": "game:itemtypes/resource/workitem.json",
-		"op": "add",
-		"path": "/textureByType",
-		"value": {
-			"workitem-manasteel": {
-				"base": "game:block/metal/ingot/manasteel"
+				"code": "game:ingot-manasteel"
 			}
 		}
 	}

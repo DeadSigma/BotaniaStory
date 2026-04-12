@@ -1,0 +1,8 @@
+[
+	{
+		"file": "game:worldproperties/block/toolmetal.json",
+		"op": "add",
+		"path": "/variants/-",
+		"value": { "code": "manasteel" }
+	}
+]

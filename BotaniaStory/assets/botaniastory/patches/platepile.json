@@ -1,0 +1,8 @@
+[
+	{
+		"file": "game:blocktypes/metal/platepile.json",
+		"op": "addmerge",
+		"path": "/textures/manasteel",
+		"value": { "base": "game:block/metal/ingot/manasteel" }
+	}
+]

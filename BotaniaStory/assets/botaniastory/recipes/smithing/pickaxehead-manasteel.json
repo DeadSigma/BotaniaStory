@@ -1,7 +1,7 @@
 {
     "ingredient": {
         "type": "item",
-        "code": "botaniastory:ingot-manasteel"
+        "code": "game:ingot-manasteel"
     },
     "pattern": [
         [

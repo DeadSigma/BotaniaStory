@@ -2,12 +2,6 @@
 	{
 		"file": "game:itemtypes/resource/metalbit.json",
 		"op": "add",
-		"path": "/variantgroups/0/states/-",
-		"value": "manasteel"
-	},
-	{
-		"file": "game:itemtypes/resource/metalbit.json",
-		"op": "add",
 		"path": "/combustiblePropsByType/*-manasteel",
 		"value": {
 			"meltingPoint": 1084,
@@ -15,7 +9,7 @@
 			"smeltedRatio": 20,
 			"smeltedStack": {
 				"type": "item",
-				"code": "botaniastory:ingot-manasteel"
+				"code": "game:ingot-manasteel"
 			}
 		}
 	}
