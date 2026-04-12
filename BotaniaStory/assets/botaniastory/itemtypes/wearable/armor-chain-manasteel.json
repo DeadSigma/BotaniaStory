@@ -1,4 +1,5 @@
 {
+	"class": "ItemManaArmor",
 	"code": "armor-chain-manasteel",
 	"behaviors": [
 		{ "name": "Wearable" }
@@ -54,8 +55,8 @@
 		},
 		"protectionModifiersByType": {
 			"armor-chain-manasteel-*": {
-				"relativeProtection": 1.25,
-				"flatDamageReduction": 1.8,
+				"relativeProtection": 0.75,
+				"flatDamageReduction": 0.5,
 				"protectionTier": 1
 			}
 		},
@@ -63,9 +64,9 @@
 			"armor-chain-manasteel-*": {
 				"rangedWeaponsAcc": -0.03,
 				"rangedWeaponsSpeed": -0.06,
-				"walkSpeed": -0.02,
-				"healingeffectivness": -0.08,
-				"hungerrate": 0.05
+				"walkSpeed": -0.03,
+				"healingeffectivness": -0.1,
+				"hungerrate": 0.075
 			}
 		}
 	},

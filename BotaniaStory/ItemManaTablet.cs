@@ -110,6 +110,22 @@ namespace BotaniaStory
             return mesh.Clone();
         }
 
+        // ==========================================
+        // ПУБЛИЧНЫЕ МЕТОДЫ ДЛЯ РАБОТЫ С МАНОЙ
+        // ==========================================
+        public int GetMana(ItemStack stack)
+        {
+            if (stack == null) return 0;
+            return stack.Attributes.GetInt("mana", 0);
+        }
+
+        public void SetMana(ItemStack stack, int amount)
+        {
+            if (stack == null) return;
+            // GameMath.Clamp не даст мане опуститься ниже 0 или превысить MaxMana
+            stack.Attributes.SetInt("mana", GameMath.Clamp(amount, 0, MaxMana));
+        }
+
         private int GetManaStep(ItemStack stack)
         {
             int currentMana = stack.Attributes.GetInt("mana", 0);
@@ -177,7 +193,7 @@ namespace BotaniaStory
                         texPath = new AssetLocation("unknown");
                     }
 
-                    // МАГИЯ ЗДЕСЬ: Метод GetOrInsertTexture проверяет, есть ли текстура в атласе блоков.
+                    //  Метод GetOrInsertTexture проверяет, есть ли текстура в атласе блоков.
                     // Если её нет (из-за чего был баг X-Ray), он динамически вшивает её туда!
                     targetAtlas.GetOrInsertTexture(texPath, out _, out TextureAtlasPosition pos);
                     return pos;

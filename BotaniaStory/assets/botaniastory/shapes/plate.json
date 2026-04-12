@@ -1,8 +1,0 @@
-[
-    {
-        "file": "game:itemtypes/resource/metalchain.json",
-        "op": "add",
-        "path": "/variantgroups/0/states/-",
-        "value": "manasteel"
-    }
-]

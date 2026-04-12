@@ -222,21 +222,28 @@ namespace BotaniaStory
                             // РЕЖИМ 1: БАССЕЙН ЗАБИРАЕТ МАНУ У ПЛАНШЕТА
                             if (currentTabletMana > 0 && CurrentMana < MaxMana)
                             {
-                                // Считаем, сколько можем передать (максимум 10 000 за тик)
                                 int transferAmount = Math.Min(currentTabletMana, MaxMana - CurrentMana);
                                 transferAmount = Math.Min(transferAmount, 10000);
 
                                 CurrentMana += transferAmount;
                                 stack.Attributes.SetInt("mana", currentTabletMana - transferAmount);
                                 MarkDirty(true);
+
                                 entityItem.Itemstack = stack;
+
+                                // ==========================================
+                                // НОВОЕ: СИНХРОНИЗАЦИЯ ПРЕДМЕТА С КЛИЕНТОМ
+                                // ==========================================
+                                entityItem.WatchedAttributes.SetItemstack("itemstack", stack);
+                                entityItem.WatchedAttributes.MarkAllDirty();
+
                                 SpawnCraftingParticles(entityItem.Pos.XYZ);
                                 continue;
                             }
                         }
                         else
                         {
-                            // РЕЖИМ 2: БАССЕЙН ОТДАЕТ МАНУ ПЛАНШЕТУ (Твоя старая логика)
+                            // РЕЖИМ 2: БАССЕЙН ОТДАЕТ МАНУ ПЛАНШЕТУ
                             if (currentTabletMana < maxTabletMana && CurrentMana > 0)
                             {
                                 int transferAmount = Math.Min(CurrentMana, maxTabletMana - currentTabletMana);
@@ -245,7 +252,15 @@ namespace BotaniaStory
                                 CurrentMana -= transferAmount;
                                 stack.Attributes.SetInt("mana", currentTabletMana + transferAmount);
                                 MarkDirty(true);
+
                                 entityItem.Itemstack = stack;
+
+                                // ==========================================
+                                // НОВОЕ: СИНХРОНИЗАЦИЯ ПРЕДМЕТА С КЛИЕНТОМ
+                                // ==========================================
+                                entityItem.WatchedAttributes.SetItemstack("itemstack", stack);
+                                entityItem.WatchedAttributes.MarkAllDirty();
+
                                 SpawnCraftingParticles(entityItem.Pos.XYZ);
                                 continue;
                             }
