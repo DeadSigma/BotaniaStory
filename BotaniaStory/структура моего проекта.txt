@@ -43,6 +43,7 @@ BotaniaStory/
     SpreaderCoreRenderer.cs
     TextureAnimatorSystem.cs
     UIDebugger.cs
+    создаёт структуру папок.py
     assets/
         botaniastory/
             blocktypes/
@@ -55,7 +56,9 @@ BotaniaStory/
                 metalblock-manasteel.json
                 mysticalflower.json
                 functional_flora/
-
+                    
+                generating_flora/
+                    
             compatibility/
             config/
                 handbook/
@@ -71,7 +74,6 @@ BotaniaStory/
                 livingwood_firewood.json
                 livingwood_stick.json
                 manaitems.json
-                metalbit-manasteel.json
                 mysticalpetal.json
                 pickaxe-manasteel.json
                 pickaxehead-manasteel.json
@@ -83,7 +85,8 @@ BotaniaStory/
             lang/
                 ru.json
             patches/
-                ingotpile-manasteel.json
+                metalbit.json
+                workitem.json
             recipes/
                 grid/
                     apothecary.json
@@ -112,6 +115,7 @@ BotaniaStory/
                 entity/
                     spark_model.json
                 item/
+                    gear.json
                     lexicon_model_closed.json
                     lexicon_model_open.json
                     livingwood_stick.json
@@ -120,36 +124,43 @@ BotaniaStory/
                     manaresin.json
                     manasteel.json
                     manastring.json
+                    metalbit.json
+                    resin.json
                     wandofbinding.json
                     wandoftheforest.json
             sounds/
-                apothecary_craft.ogg
-                ignite.ogg
-                lexiconclose.ogg
-                lexiconopen.ogg
-                lexiconpage.ogg
-                manaspreaderfire.ogg
-                wand_bind.ogg
-                wand_of_binding.ogg
+               
                 effect/
-                    translocate.ogg
+                    
             textures/
                 block/
                     apothecary_liquid.png
-
+                    livingrock.png
+                    livingwood.png
+                    livingwood_firewood.png
+                    livingwood_firewood_bark.png
+                    livingwood_firewood_coal_side.png
+                    livingwood_firewood_coal_top.png
+                    livingwood_firewood_north.png
+                    livingwood_firewood_pile.png
+                    livingwood_firewood_side.png
+                    livingwood_firewood_south.png
                     mana.png
                     manaspreader.png
                     manaspreadercore.png
                     manasteel.png
+                    resin.png
                     spark_anim.png
                     spark_base.png
                     functional_flora/
-
+                       
+                    generating_flora/
+                       
                     mysticalflower/
                         mystical_flowers/
-
+                          
                         stem/
-
+                          
                 entity/
                     spark_anim.png
                     spark_augment_dispersive.png
@@ -158,45 +169,16 @@ BotaniaStory/
                     spark_augment_recessive.png
                     spark_base.png
                 gui/
-                    alfheim_bg.png
-                    apothecary.png
-                    apothecary_bg.png
-                    book.png
-                    bookmark_off.png
-                    bookmark_on.png
-                    btn_next.png
-                    btn_prev.png
-                    category_icon_0.png
-                    category_icon_1.png
-                    category_icon_10.png
-                    category_icon_11.png
-                    category_icon_2.png
-                    category_icon_3.png
-                    category_icon_4.png
-                    category_icon_5.png
-                    category_icon_6.png
-                    category_icon_7.png
-                    category_icon_8.png
-                    category_icon_9.png
-                    gear.png
-                    manabar_bg.png
-                    manabar_fill.png
-                    manabar_frame.png
-                    manapool_arrows.png
-                    manaspreader.png
-                    mysticalflowers.png
-                    puredaisy.png
-                    star.png
-                    status_linked.png
-                    status_unlinked.png
-                    tab_empty.png
-                    tab_green.png
-                    tab_purple.png
-                    welcome_art.png
+
                 item/
                     bindingwandcore.png
                     lexicon.png
                     livingwood_firewood_pile.png
+                    managear.png
+                    manaresin — копия.png
+                    manaresin.png
+                    manasteel.png
+                    manastring.png
                     mana_particle.png
                     sparkaugment_dispersive.png
                     sparkaugment_dominant.png
@@ -207,9 +189,9 @@ BotaniaStory/
                     wandoftheforest_grip.png
                     wandoftheforest_wood.png
                     colors/
-
+                       
                     mysticalpetal/
-
+                       
                 particle/
                     mana_particle.png
             worldgen/

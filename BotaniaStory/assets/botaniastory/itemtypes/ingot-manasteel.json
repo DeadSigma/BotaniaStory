@@ -10,7 +10,7 @@
 	],
 	"shape": { "base": "game:item/ingot" },
 	"textures": {
-		"metal": { "base": "botaniastory:block/manasteel" }
+		"metal": { "base": "game:block/metal/ingot/manasteel" }
 	},
 	"creativeinventory": {
 		"general": [ "*" ],
@@ -24,7 +24,7 @@
 				"placeRemoveSound": "game:sounds/block/ingot",
 				"stackingModel": "game:block/metal/ingotpile",
 				"stackingTextures": {
-					"metal": "botaniastory:block/manasteel"
+					"metal": "game:block/metal/ingot/manasteel"
 				},
 				"modelItemsToStackSizeRatio": 1,
 				"upSolid": true,

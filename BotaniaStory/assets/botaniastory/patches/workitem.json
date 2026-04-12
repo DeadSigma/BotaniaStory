@@ -27,5 +27,15 @@
 				"code": "botaniastory:ingot-manasteel"
 			}
 		}
+	},
+	{
+		"file": "game:itemtypes/resource/workitem.json",
+		"op": "add",
+		"path": "/textureByType",
+		"value": {
+			"workitem-manasteel": {
+				"base": "game:block/metal/ingot/manasteel"
+			}
+		}
 	}
 ]

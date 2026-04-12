@@ -13,7 +13,6 @@
 		"botaniastory": [ "*" ]
 	},
 	"attributes": {
-		"forgable": true,
 		"inForgeTransform": {
 			"translation": {
 				"x": -0.46,
@@ -32,6 +31,7 @@
 			},
 			"scale": 0.9
 		},
+		"forgable": true,
 		"onTongTransform": {
 			"translation": {
 				"x": -0.5,
@@ -44,6 +44,116 @@
 				"z": 90
 			}
 		},
-		"tongOpening": "medium"
+		"tongOpening": "medium",
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -1.55,
+				"y": -0.17,
+				"z": -0.55
+			},
+			"rotation": {
+				"x": -6,
+				"y": 0,
+				"z": -10
+			},
+			"origin": {
+				"x": 1,
+				"y": -0,
+				"z": 0.5
+			}
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.4,
+				"y": 0.02,
+				"z": 0.05
+			},
+			"rotation": {
+				"x": 0,
+				"y": 35,
+				"z": 0
+			},
+			"origin": {
+				"x": 0.8,
+				"y": 0.5,
+				"z": 0.5
+			}
+		},
+		"handbook": {
+			"groupBy": [ "pickaxehead-*" ]
+		},
+		"displayable": {
+			"shelf": {
+				"size": {
+					"width": 2.5,
+					"height": 1.5,
+					"length": 8
+				},
+				"transform": {
+					"translation": {
+						"x": -0.5,
+						"y": -0.087,
+						"z": 0.12
+					},
+					"origin": {
+						"x": 1,
+						"y": 0.5,
+						"z": 0.5
+					},
+					"scale": 0.8
+				}
+			}
+		}
+	},
+
+	"heldTpUseAnimation": "interactstatic",
+	"guiTransform": {
+		"rotation": {
+			"x": -89,
+			"y": 47,
+			"z": 33
+		},
+		"origin": {
+			"x": 1,
+			"y": 0.2,
+			"z": 0.45
+		},
+		"scale": 2.07
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 1,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 4.17
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.47,
+			"y": -0.01,
+			"z": -0.56
+		},
+		"rotation": {
+			"x": -95,
+			"y": 66,
+			"z": 0
+		},
+		"origin": {
+			"x": 1,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 0.8
 	}
 }
