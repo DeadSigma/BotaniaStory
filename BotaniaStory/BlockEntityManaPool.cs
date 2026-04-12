@@ -226,7 +226,7 @@ namespace BotaniaStory
                     // 3. Волокно -> Мана-нить (1% = 10 000)
                     if (domain == "game" && code == "flaxfibers")
                     {
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manastring", 10000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaflax", 10000)) continue;
                     }
 
                     // 4. Смола -> Манасмола (7% = 70 000)

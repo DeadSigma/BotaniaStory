@@ -4,7 +4,7 @@
 	"maxstacksize": 8,
 	"shape": { "base": "game:item/tool/pickaxe" },
 	"textures": {
-		"metal": { "base": "botaniastory:block/manasteel" },
+		"metal": { "base": "game:item/resource/plate/manasteel" },
 		"string": { "base": "game:block/transparent" },
 		"handle": { "base": "game:block/transparent" }
 	},

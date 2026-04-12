@@ -3,7 +3,7 @@
 	"tool": "pickaxe",
 	"shape": { "base": "game:item/tool/pickaxe" },
 	"textures": {
-		"metal": { "base": "botaniastory:item/manasteel" }
+		"metal": { "base": "game:item/resource/plate/manasteel" }
 	},
 	"miningspeed": {
 		"stone": 4.4,

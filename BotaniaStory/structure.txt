@@ -131,7 +131,7 @@ BotaniaStory/
                     managear.json
                     manaresin.json
                     manasteel.json
-                    manastring.json
+                    manaflax.json
                     metalbit.json
                     resin.json
                     wandofbinding.json

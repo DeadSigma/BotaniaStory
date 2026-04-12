@@ -17,7 +17,7 @@
 	"texturesByType": {
 		"*": {
 			"seraph": { "base": "game:block/transparent" },
-			"material": { "base": "botaniastory:entity/humanoid/serapharmor/chain/manasteel_armor_chain" }
+			"material": { "base": "game:entity/humanoid/serapharmor/chain/manasteel_armor_chain" }
 		}
 	},
 	"storageFlags": 128,
@@ -71,8 +71,6 @@
 	},
 	"creativeinventory": {
 		"general": [ "*" ],
-		"items": [ "*" ],
-		"clothing": [ "*" ],
 		"botaniastory": [ "*" ]
 	},
 	"renderAlphaTest": 0.25,
