@@ -137,10 +137,11 @@ namespace BotaniaStory
                             {
                                 world.SpawnItemEntity(new ItemStack(itemSpark), targetSpark.Pos.XYZ);
                             }
-
-                            world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, null, true, 16, 1f);
                             targetSpark.Die(EnumDespawnReason.PickedUp);
                         }
+
+                        // Звук вынесли наружу и применили byPlayer и wandVolume!
+                        world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, wandVolume);
                     }
                 }
                 // ==========================================
@@ -163,19 +164,14 @@ namespace BotaniaStory
                         }
                     }
 
-                    // --- НОВОЕ: Проигрываем звук строго 1 раз на сервере ---
-                    if (world.Side == EnumAppSide.Server)
+                    // Играем звук везде, Клиент использует свой ползунок, Сервер играет для остальных
+                    if (foundSparks > 0)
                     {
-                        if (foundSparks > 0)
-                        {
-                            // Магический переливающийся звук, если появились лучи (translocate)
-                            world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/effect/translocate"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, null, true, 16, 0.5f);
-                        }
-                        else
-                        {
-                            // Обычный звук посоха, если искре не с кем связываться
-                            world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, null, true, 16, 1f);
-                        }
+                        world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/effect/translocate"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, wandVolume);
+                    }
+                    else
+                    {
+                        world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, wandVolume);
                     }
 
                     if (world.Side == EnumAppSide.Client)

@@ -1,12 +1,13 @@
 ﻿using botaniastory;
 using System;
+using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 using Vintagestory.GameContent;
-using System.Text;
 
 namespace BotaniaStory
 {
@@ -228,22 +229,19 @@ namespace BotaniaStory
 
             // ... (звук и списание маны)
 
-            // 3. Читаем конфиг в реальном времени
-            LexiconConfig config = Api.LoadModConfig<LexiconConfig>("lexicon_client.json");
-            float volumeMultiplier = (config != null) ? (config.SpreaderVolume / 100f) : 0.5f;
+            // ==========================================
+            // ОТПРАВКА СЕТЕВОГО ПАКЕТА (ЗВУК ВЫСТРЕЛА)
+            // ==========================================
+            ICoreServerAPI sapi = Api as ICoreServerAPI;
+            IServerNetworkChannel channel = sapi.Network.GetChannel("botanianetwork");
 
-            // Если громкость больше 0, воспроизводим звук
-            if (volumeMultiplier > 0f)
+            PlayManaSoundPacket soundMessage = new PlayManaSoundPacket()
             {
-                Api.World.PlaySoundAt(
-                    new AssetLocation("botaniastory", "sounds/manaspreaderfire"),
-                    Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5,
-                    null,
-                    randomizePitch: true, // Легкое изменение тональности
-                    range: 16,            // Дальность звука (в блоках)
-                    volume: 0.8f * volumeMultiplier // <--- ПРИМЕНЯЕМ ПОЛЗУНОК
-                );
-            }
+                Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
+                SoundName = "manaspreaderfire" // Точное имя аудиофайла выстрела
+            };
+
+            channel.BroadcastPacket(soundMessage);
 
             // Обновляем таймер и списываем ману
             lastFireMs = currentMs;

@@ -42,6 +42,21 @@
 					"z": -11
 				},
 				"scale": 0.33
+			},
+			"groundStorageTransformByType": {
+				"*-closed": {
+					"translation": {
+						"x": -0.02,
+						"y": -0.413,
+						"z": -0.08
+					},
+					"rotation": {
+						"x": 90,
+						"y": 0,
+						"z": -11
+					},
+					"scale": 0.33
+				}
 			}
 		},
 

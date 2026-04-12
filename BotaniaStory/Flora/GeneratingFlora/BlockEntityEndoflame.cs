@@ -5,6 +5,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 
 namespace BotaniaStory.Flora.GeneratingFlora
 {
@@ -80,19 +81,18 @@ namespace BotaniaStory.Flora.GeneratingFlora
                         }
 
 
-                        LexiconConfig config = Api.LoadModConfig<LexiconConfig>("lexicon_client.json");
-                        float volumeMultiplier = (config != null) ? (config.FlowerVolume / 100f) : 0.5f;
-
-                        if (volumeMultiplier > 0f)
+                        // ==========================================
+                        // ОТПРАВКА СЕТЕВОГО ПАКЕТА (ЗВУК СЖИГАНИЯ)
+                        // ==========================================
+                        ICoreServerAPI sapi = Api as ICoreServerAPI;
+                        if (sapi != null)
                         {
-                            Api.World.PlaySoundAt(
-                                new AssetLocation("botaniastory", "sounds/ignite"),
-                                Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5,
-                                null,
-                                randomizePitch: true,
-                                range: 16,
-                                volume: 0.8f * volumeMultiplier // <--- ПРИМЕНЯЕМ ПОЛЗУНОК
-                            );
+                            var channel = sapi.Network.GetChannel("botanianetwork");
+                            channel.BroadcastPacket(new PlayManaSoundPacket()
+                            {
+                                Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
+                                SoundName = "ignite"
+                            });
                         }
 
                         dirty = true;

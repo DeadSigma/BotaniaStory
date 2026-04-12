@@ -10,6 +10,8 @@ namespace BotaniaStory
     {
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
+
+
             if (!firstEvent || blockSel == null) return;
 
             IPlayer byPlayer = (byEntity as EntityPlayer)?.Player;
@@ -20,7 +22,16 @@ namespace BotaniaStory
             Block block = world.BlockAccessor.GetBlock(pos);
             BlockEntity clickedBe = world.BlockAccessor.GetBlockEntity(pos);
 
+
+
             AssetLocation bindSound = new AssetLocation("botaniastory", "sounds/effect/translocate");
+
+            // --- ДОБАВЛЯЕМ ЧТЕНИЕ ГРОМКОСТИ ---
+            float wandVolume = 1f;
+            if (world.Api is ICoreClientAPI)
+            {
+                wandVolume = (BotaniaStory.BotaniaStoryModSystem.ClientConfig?.WandVolume ?? 50) / 100f;
+            }
 
             // ==========================================
             // 1. КЛИК ПО РАСПРОСТРАНИТЕЛЮ (Массовая привязка)
@@ -69,7 +80,7 @@ namespace BotaniaStory
 
                 if (boundCount > 0)
                 {
-                    world.PlaySoundAt(bindSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
+                    world.PlaySoundAt(bindSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 }
 
                 handling = EnumHandHandling.Handled;
@@ -126,7 +137,7 @@ namespace BotaniaStory
 
                     if (boundCount > 0)
                     {
-                        world.PlaySoundAt(bindSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, 1f);
+                        world.PlaySoundAt(bindSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                     }
                 }
                 else

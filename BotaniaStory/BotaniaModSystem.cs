@@ -5,6 +5,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
+using ProtoBuf;
 
 namespace BotaniaStory
 {
@@ -16,17 +17,24 @@ namespace BotaniaStory
         public IServerNetworkChannel serverChannel;
         public IClientNetworkChannel clientChannel;
         public static botaniastory.LexiconConfig ClientConfig;
+
+        // --- ДОБАВЛЕНО: Переменная, чтобы мы могли обращаться к миру для воспроизведения звука
+        private ICoreClientAPI capi;
+
         public override void StartClientSide(ICoreClientAPI api)
         {
             base.StartClientSide(api);
+            this.capi = api; // Сохраняем ссылку на Клиент
 
             // 2. Загружаем конфиг при старте игры
             ClientConfig = api.LoadModConfig<botaniastory.LexiconConfig>("lexicon_client.json") ?? new botaniastory.LexiconConfig();
-            
+
             // 1. РЕГИСТРИРУЕМ СЕТЬ В ПЕРВУЮ ОЧЕРЕДЬ!
             clientChannel = api.Network.RegisterChannel("botanianetwork")
                 .RegisterMessageType(typeof(ManaStreamPacket))
-                .SetMessageHandler<ManaStreamPacket>(OnManaStreamPacketReceived);
+                .RegisterMessageType(typeof(PlayManaSoundPacket)) // <--- Добавили пакет звука сюда
+                .SetMessageHandler<ManaStreamPacket>(OnManaStreamPacketReceived)
+                .SetMessageHandler<PlayManaSoundPacket>(OnSoundPacketReceived); // <--- Добавили чтение звука
 
             // 2. А уже потом загружаем HUD и Рендерер
             wandHud = new BotaniaWandHud(api);
@@ -36,10 +44,13 @@ namespace BotaniaStory
         public override void StartServerSide(ICoreServerAPI api)
         {
             base.StartServerSide(api);
+
             // Регистрируем сеть на стороне сервера
             serverChannel = api.Network.RegisterChannel("botanianetwork")
-                .RegisterMessageType(typeof(ManaStreamPacket));
+                .RegisterMessageType(typeof(ManaStreamPacket))
+                .RegisterMessageType(typeof(PlayManaSoundPacket)); // <--- Добавили пакет звука и сюда
         }
+
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
@@ -64,8 +75,12 @@ namespace BotaniaStory
             api.RegisterEntity("EntitySpark", typeof(EntitySpark));
             api.RegisterItemClass("ItemSparkAugment", typeof(ItemSparkAugment));
 
+            // УДАЛЕНО: Строка api.Network.RegisterChannel("botanianetwork")... отсюда убрана, 
+            // так как мы все зарегистрировали выше, в StartClientSide и StartServerSide.
+
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }
+
         private void OnManaStreamPacketReceived(ManaStreamPacket packet)
         {
             ManaRenderer?.AddParticle(
@@ -74,13 +89,51 @@ namespace BotaniaStory
             );
         }
 
+        // --- ДОБАВЛЕНО: Что делает Клиент, когда получает письмо о звуке
+        private void OnSoundPacketReceived(PlayManaSoundPacket packet)
+        {
+            float volume = 0f;
 
-        // --- ДОБАВЛЕНО: Обязательная очистка памяти при закрытии мира/игры ---
+            if (packet.SoundName == "transmute" || packet.SoundName == "apothecary_splash" || packet.SoundName == "apothecary_craft")
+            {
+                volume = ClientConfig.PoolVolume / 100f;
+            }
+            else if (packet.SoundName == "manaspreaderfire")
+            {
+                volume = ClientConfig.SpreaderVolume / 100f;
+            }
+            else if (packet.SoundName == "ignite")
+            {
+                volume = ClientConfig.FlowerVolume / 100f;
+            }
+            else
+            {
+                volume = 0.5f;
+            }
+
+            if (volume <= 0) return;
+
+            capi.World.PlaySoundAt(
+                new AssetLocation("botaniastory", "sounds/" + packet.SoundName),
+                packet.Position.X, packet.Position.Y, packet.Position.Z,
+                null, true, 16f, volume
+            );
+        }
+
+        // --- Обязательная очистка памяти при закрытии мира/игры ---
         public override void Dispose()
         {
             ManaRenderer?.Dispose();
             base.Dispose();
         }
+    }
+
+    // пакеты звука для мультиплеера
+    [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
+    public class PlayManaSoundPacket
+    {
+        public Vec3d Position;
+        public string SoundName;
     }
 
     // Теперь мы наследуемся от BlockPlant, а не от Block!

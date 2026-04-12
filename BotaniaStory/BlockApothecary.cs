@@ -51,8 +51,7 @@ namespace BotaniaStory
                         be.inventory[i].MarkDirty();
                         be.UpdateRenderer();
 
-                        world.PlaySoundAt(new AssetLocation("botaniastory:sounds/apothecary_splash"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
-                        return true;
+                        PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
                     }
                 }
 
@@ -83,7 +82,7 @@ namespace BotaniaStory
                                     world.SpawnItemEntity(new ItemStack(flowerBlock), blockSel.Position.ToVec3d().Add(0.5, 1.2, 0.5));
                                 }
 
-                                world.PlaySoundAt(new AssetLocation("botaniastory:sounds/apothecary_craft"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
+                                PlayApothecarySound(world, blockSel.Position, "apothecary_craft");
 
                                 // Обновляем таймер, чтобы можно было продолжать спамить ПКМ!
                                 be.LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -213,7 +212,7 @@ namespace BotaniaStory
                         Block flowerBlock = world.GetBlock(new AssetLocation("botaniastory", craftedFlower));
                         if (flowerBlock != null) world.SpawnItemEntity(new ItemStack(flowerBlock), blockSel.Position.ToVec3d().Add(0.5, 1.2, 0.5));
 
-                        world.PlaySoundAt(new AssetLocation("botaniastory:sounds/apothecary_craft"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
+                        PlayApothecarySound(world, blockSel.Position, "apothecary_craft");
                         return true;
                     }
                 }
@@ -253,7 +252,7 @@ namespace BotaniaStory
                             be.UpdateRenderer();
 
                             // ИГРАЕМ ТВОЙ КАСТОМНЫЙ ЗВУК ПЛЮХА
-                            world.PlaySoundAt(new AssetLocation("botaniastory:sounds/apothecary_splash"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
+                            PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
                             return true;
                         }
                     }
@@ -334,6 +333,25 @@ namespace BotaniaStory
                 }
             }
             return true;
+        }
+        // ==========================================
+        // ОТПРАВКА СЕТЕВОГО ПАКЕТА ЗВУКА ИЗ БЛОКА
+        // ==========================================
+        private void PlayApothecarySound(IWorldAccessor world, BlockPos pos, string soundName)
+        {
+            if (world.Side == EnumAppSide.Server)
+            {
+                Vintagestory.API.Server.ICoreServerAPI sapi = world.Api as Vintagestory.API.Server.ICoreServerAPI;
+                if (sapi != null)
+                {
+                    var channel = sapi.Network.GetChannel("botanianetwork");
+                    channel.BroadcastPacket(new PlayManaSoundPacket()
+                    {
+                        Position = new Vec3d(pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5),
+                        SoundName = soundName
+                    });
+                }
+            }
         }
     }
 }

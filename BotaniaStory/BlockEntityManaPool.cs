@@ -4,6 +4,7 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 
 namespace BotaniaStory
 {
@@ -267,12 +268,26 @@ namespace BotaniaStory
             // Вызываем всплеск частиц
             SpawnCraftingParticles(inputEntity.Pos.XYZ);
 
-           
-            Api.World.PlaySoundAt(
-                new AssetLocation("botaniastory", "sounds/transmute"),
-                Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5,
-                null, true, 16f, 1f
-            );
+
+            // ==========================================
+            // ОТПРАВКА СЕТЕВОГО ПАКЕТА (ЗВУК)
+            // ==========================================
+            // Проверяем, что мы точно на сервере
+            if (Api.Side == EnumAppSide.Server)
+            {
+                ICoreServerAPI sapi = Api as ICoreServerAPI;
+                IServerNetworkChannel channel = sapi.Network.GetChannel("botanianetwork");
+
+                // Создаем наше письмо
+                PlayManaSoundPacket soundMessage = new PlayManaSoundPacket()
+                {
+                    Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
+                    SoundName = "transmute" // имя файла без .ogg
+                };
+
+                // Рассылаем письмо всем игрокам (клиенты сами решат громкость по расстоянию и настройкам)
+                channel.BroadcastPacket(soundMessage);
+            }
 
             return true;
         }
