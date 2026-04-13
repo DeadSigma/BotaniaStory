@@ -48,7 +48,7 @@ namespace BotaniaStory
             // Регистрируем сеть на стороне сервера
             serverChannel = api.Network.RegisterChannel("botanianetwork")
                 .RegisterMessageType(typeof(ManaStreamPacket))
-                .RegisterMessageType(typeof(PlayManaSoundPacket)); // <--- Добавили пакет звука и сюда
+                .RegisterMessageType(typeof(PlayManaSoundPacket)); // <--- Добавил пакет звука
         }
 
         public override void Start(ICoreAPI api)
@@ -78,9 +78,19 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemManaArmor", typeof(ItemManaArmor));
             api.RegisterItemClass("ItemManaTool", typeof(ItemManaTool));
             api.RegisterItemClass("ItemManaAxe", typeof(ItemManaAxe));
+            api.RegisterItemClass("ItemManaScythe", typeof(ItemManaScythe));
+            api.RegisterItemClass("ItemManaChisel", typeof(ItemManaChisel));
+            api.RegisterItemClass("ItemManaKnife", typeof(ItemManaKnife));
+            api.RegisterItemClass("ItemManaCleaver", typeof(ItemManaCleaver));
+            api.RegisterItemClass("ItemManaProspectingPick", typeof(ItemManaProspectingPick));
+            api.RegisterItemClass("ItemManaTongs", typeof(ItemManaTongs));
+            api.RegisterItemClass("ItemManaShears", typeof(ItemManaShears));
+            api.RegisterItemClass("ItemManaHammer", typeof(ItemManaHammer));
+            api.RegisterItemClass("ItemManaHoe", typeof(ItemManaHoe));
+            api.RegisterItemClass("ItemManaSpear", typeof(ItemManaSpear));
+            api.RegisterItemClass("ItemManaWrench", typeof(ItemManaWrench));
+            api.RegisterItemClass("ItemManaCrowbar", typeof(ItemManaCrowbar));
 
-            // УДАЛЕНО: Строка api.Network.RegisterChannel("botanianetwork")... отсюда убрана, 
-            // так как мы все зарегистрировали выше, в StartClientSide и StartServerSide.
 
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }

@@ -1,0 +1,151 @@
+{
+	"code": "hoehead-manasteel",
+	"class": "Item",
+	"maxstacksize": 8,
+	"shape": { "base": "game:item/tool/hoe-copper" },
+	"textures": {
+		"material": { "base": "game:item/resource/plate/manasteel" },
+		"string": { "base": "game:block/transparent" },
+		"handle": { "base": "game:block/transparent" }
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"attributes": {
+		"inForgeTransform": {
+			"translation": {
+				"x": -0.36,
+				"y": 0.02,
+				"z": 0
+			},
+			"rotation": {
+				"x": 0,
+				"y": 24,
+				"z": 0
+			},
+			"origin": {
+				"x": 0.9,
+				"y": 0,
+				"z": 0.5
+			}
+		},
+		"forgable": true,
+		"onTongTransform": {
+			"translation": {
+				"x": -0.5,
+				"y": -0.58,
+				"z": -1
+			},
+			"rotation": {
+				"x": 86,
+				"y": 16,
+				"z": 90
+			}
+		},
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -1.45,
+				"y": -0.21,
+				"z": -0.7
+			},
+			"rotation": {
+				"x": -20,
+				"y": -10,
+				"z": 82
+			},
+			"origin": {
+				"x": 0.95,
+				"y": 0.05,
+				"z": 0.5
+			}
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.4,
+				"y": 0,
+				"z": 0.05
+			},
+			"rotation": {
+				"x": 0,
+				"y": 39,
+				"z": 0
+			},
+			"origin": {
+				"x": 0.9,
+				"y": 0,
+				"z": 0.5
+			}
+		},
+		"handbook": {
+			"groupBy": [ "hoehead-*" ]
+		},
+		"displayable": {
+			"shelf": {
+				"size": {
+					"width": 2.5,
+					"height": 2,
+					"length": 8
+				},
+				"transform": {
+					"translation": {
+						"x": -0.4,
+						"y": 0.02,
+						"z": 0.12
+					}
+				}
+			}
+		}
+	},
+	"heldTpUseAnimation": "interactstatic",
+	"guiTransform": {
+		"rotate": false,
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": -52,
+			"y": -131,
+			"z": -180
+		},
+		"origin": {
+			"x": 0.93,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 3.76
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.1,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 180
+		},
+		"origin": {
+			"x": 1,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 4
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.4,
+			"y": -1,
+			"z": -0.02
+		},
+		"rotation": {
+			"x": 96,
+			"y": -85,
+			"z": -8
+		},
+		"scale": 1
+	}
+}

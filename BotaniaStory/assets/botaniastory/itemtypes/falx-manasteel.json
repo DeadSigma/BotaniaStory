@@ -1,0 +1,149 @@
+{
+	"code": "falx-manasteel",
+	"class": "ItemManaTool",
+	"tags": [ "weapon", "weapon-melee", "weapon-sword", "tool-sword" ],
+	"damagedby": [ "blockbreaking", "attacking" ],
+	"tool": "sword",
+	"shape": { "base": "game:item/tool/blade/falx" },
+	"textures": {
+		"falxstring": { "base": "game:block/cloth/burlap/string" },
+		"thongs": { "base": "game:block/cloth/leather/longstiches" },
+		"woodguard": { "base": "game:block/wood/debarked/veryaged" },
+		"handle": { "base": "game:block/wood/debarked/veryaged" },
+		"falxblade": { "base": "game:item/resource/plate/manasteel" },
+		"cloth": { "base": "game:block/transparent" },
+		"handguard": { "base": "game:block/transparent" },
+		"spinerivet": { "base": "game:block/transparent" },
+		"pips": { "base": "game:block/transparent" }
+	},
+	"attributes": {
+		"heldItemPitchFollow": 0.9,
+		"handbook": {
+			"groupBy": [ "falx-*" ]
+		},
+		"ripHarvest": true,
+		"attachableToEntity": {
+			"categoryCode": "weaponfalx",
+			"attachedShapeBySlotCode": {
+				"frontrightside": { "base": "game:item/wearable/hooved/elk/weaponr-falx" },
+				"frontleftside": { "base": "game:item/wearable/hooved/elk/weaponl-falx" }
+			}
+		},
+		"toolrackTransform": {
+			"rotation": {
+				"y": 180,
+				"z": 1
+			},
+			"translation": {
+				"x": -0.1,
+				"y": 0.6
+			},
+			"scale": 1.25
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0.24,
+				"y": 0.195,
+				"z": -0.06
+			},
+			"rotation": {
+				"x": 24,
+				"y": 61,
+				"z": -87
+			},
+			"scale": 0.88
+		}
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "WallHalves",
+				"wallOffY": 1,
+				"ctrlKey": true,
+				"selectionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.1,
+					"z2": 1
+				},
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 0,
+					"y2": 0,
+					"z2": 0
+				}
+			}
+		},
+		{ "name": "AnimationAuthoritative" },
+		{ "name": "Buffable" },
+		{ "name": "Sharpenable" }
+	],
+	"heldTpHitAnimation": "falx",
+	"attackRange": 2.5,
+	"tooltier": 2,
+	"attackpower": 3.75,
+	"durability": 250,
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"guiTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": -53,
+			"y": 118,
+			"z": -5
+		},
+		"origin": {
+			"x": 0.65,
+			"y": 0.1,
+			"z": 0.37
+		},
+		"scale": 1.65
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 3.4
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.03,
+			"y": -0.005,
+			"z": -0.66
+		},
+		"rotation": {
+			"x": 85,
+			"y": 0,
+			"z": 2
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 0.8
+	}
+}

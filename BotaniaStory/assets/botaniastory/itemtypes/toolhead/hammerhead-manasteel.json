@@ -1,0 +1,150 @@
+{
+	"code": "hammerhead-manasteel",
+	"class": "Item",
+	"maxstacksize": 8,
+	"shape": { "base": "game:item/tool/hammer" },
+	"textures": {
+		"metal": { "base": "game:item/resource/plate/manasteel" },
+		"wood": { "base": "game:block/transparent" }
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"attributes": {
+		"inForgeTransform": {
+			"translation": {
+				"x": -0.32,
+				"y": -0.42,
+				"z": 0.02
+			},
+			"rotation": {
+				"x": 0,
+				"y": -54,
+				"z": 0
+			},
+			"origin": {
+				"x": 0.8,
+				"y": 0,
+				"z": 0.5
+			}
+		},
+		"forgable": true,
+		"onTongTransform": {
+			"translation": {
+				"x": -0.99,
+				"y": -1.04,
+				"z": -0.5
+			},
+			"rotation": {
+				"x": 0,
+				"y": 3,
+				"z": 90
+			}
+		},
+		"tongOpening": "medium",
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -1.3,
+				"y": -0.63,
+				"z": -0.54
+			},
+			"rotation": {
+				"x": -5,
+				"y": 0,
+				"z": 83
+			},
+			"origin": {
+				"x": 0.8,
+				"y": 0.5,
+				"z": 0.5
+			}
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.3,
+				"y": -0.44,
+				"z": 0
+			},
+			"rotation": {
+				"x": 0,
+				"y": 35,
+				"z": 0
+			},
+			"origin": {
+				"x": 0.8,
+				"y": 0.5,
+				"z": 0.5
+			}
+		},
+		"handbook": {
+			"groupBy": [ "hammerhead-*" ]
+		},
+		"displayable": {
+			"shelf": {
+				"size": {
+					"width": 2,
+					"height": 2,
+					"length": 4
+				},
+				"transform": {
+					"translation": {
+						"x": -0.3,
+						"y": -0.43,
+						"z": 0.07
+					}
+				}
+			}
+		}
+	},
+	"heldTpUseAnimation": "interactstatic",
+	"guiTransform": {
+		"translation": {
+			"x": 4,
+			"y": 1,
+			"z": 0
+		},
+		"rotation": {
+			"x": -52,
+			"y": -131,
+			"z": -180
+		},
+		"origin": {
+			"x": 0.84,
+			"y": 0.47,
+			"z": 0.5
+		},
+		"scale": 3.5
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.8,
+			"y": 0.44,
+			"z": 0.5
+		},
+		"scale": 4.5
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.3,
+			"y": -0.8,
+			"z": -0.6
+		},
+		"rotation": {
+			"x": 109,
+			"y": -30,
+			"z": 5
+		},
+		"scale": 1
+	}
+}

@@ -1,0 +1,152 @@
+{
+	"code": "spear-manasteel",
+	"class": "ItemManaSpear",
+	"tags": [ "weapon", "weapon-melee", "weapon-spear" ],
+	"damagedby": [ "attacking" ],
+	"tool": "spear",
+	"shape": { "base": "game:item/tool/spear/metal-copper" },
+	"textures": {
+		"ingot": { "base": "game:item/resource/plate/manasteel" }
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "WallHalves",
+				"wallOffY": 3,
+				"ctrlKey": true,
+				"selectionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.1,
+					"z2": 1
+				},
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 0,
+					"y2": 0,
+					"z2": 0
+				}
+			}
+		},
+		{ "name": "Buffable" },
+		{ "name": "AnimationAuthoritative" }
+	],
+	"heldTpIdleAnimation": "spearidle",
+	"heldRightReadyAnimation": "spearidle",
+	"heldTpHitAnimation": "spearhit",
+	"attackRange": 3.5,
+	"attackpower": 2.75,
+	"durability": 140,
+	"attributes": {
+		"heldItemPitchFollow": 1,
+		"damage": 5.0,
+		"spearEntityCode": "botaniastory:spear-manasteel",
+		"handbook": {
+			"groupBy": [ "spear-*" ]
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.39,
+				"y": 0.78,
+				"z": 0.235
+			},
+			"rotation": {
+				"x": 16,
+				"y": 1,
+				"z": 90
+			},
+			"scale": 0.85
+		},
+		"toolrackTransform": {
+			"rotation": {
+				"x": 90,
+				"y": 1,
+				"z": -1
+			},
+			"translation": {
+				"x": 0.31,
+				"y": 0.04,
+				"z": 0.7
+			},
+			"scale": 1.36
+		},
+		"rangedWeaponsSpeedMul": 0.5,
+		"antlerMountable": true,
+		"onAntlerMountTransform": {
+			"translation": {
+				"x": -0.406,
+				"y": 0.5,
+				"z": 0.15
+			},
+			"rotation": {
+				"x": -90,
+				"y": -90,
+				"z": -90
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.8
+		}
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"guiTransform": {
+		"rotation": {
+			"x": 33,
+			"y": 0,
+			"z": -127
+		},
+		"origin": {
+			"x": 1.39,
+			"y": 0.05,
+			"z": 0.52
+		},
+		"scale": 2.26
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.05,
+			"z": 0
+		},
+		"rotation": {
+			"x": 90,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 3.4
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.29,
+			"y": 0.03,
+			"z": -0.57
+		},
+		"rotation": {
+			"x": -90,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.6,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 0.8
+	}
+}

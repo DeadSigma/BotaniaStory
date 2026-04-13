@@ -78,6 +78,26 @@ namespace BotaniaStory
         }
     }
 
+    // Класс для Лома
+    public class ItemManaCrowbar : ItemCrowbar, IManaRepairable
+    {
+        public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
+        {
+            amount = ManaHelper.ProcessDamage(byEntity, amount);
+            if (amount > 0) base.DamageItem(world, byEntity, itemslot, amount, destroyOnZeroDurability);
+        }
+    }
+
+    // Класс для Гаечного ключа
+    public class ItemManaWrench : ItemWrench, IManaRepairable
+    {
+        public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
+        {
+            amount = ManaHelper.ProcessDamage(byEntity, amount);
+            if (amount > 0) base.DamageItem(world, byEntity, itemslot, amount, destroyOnZeroDurability);
+        }
+    }
+
     // Топор (обязательно наследуется от ItemAxe)
     public class ItemManaAxe : ItemAxe, IManaRepairable
     {
@@ -88,11 +108,15 @@ namespace BotaniaStory
         }
     }
 
-    /* =============================================
-    ШАБЛОНЫ ДЛЯ БУДУЩИХ ИНСТРУМЕНТОВ
-    (Раскомментируй, когда появятся JSON файлы)
-    =============================================
-    
+    public class ItemManaScythe : ItemScythe, IManaRepairable
+    {
+        public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
+        {
+            amount = ManaHelper.ProcessDamage(byEntity, amount);
+            if (amount > 0) base.DamageItem(world, byEntity, itemslot, amount, destroyOnZeroDurability);
+        }
+    }
+
     public class ItemManaKnife : ItemKnife, IManaRepairable
     {
         public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
@@ -120,6 +144,24 @@ namespace BotaniaStory
         }
     }
 
+    public class ItemManaCleaver : ItemCleaver, IManaRepairable
+    {
+        public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
+        {
+            amount = ManaHelper.ProcessDamage(byEntity, amount);
+            if (amount > 0) base.DamageItem(world, byEntity, itemslot, amount, destroyOnZeroDurability);
+        }
+    }
+
+    public class ItemManaTongs : ItemTongs, IManaRepairable
+    {
+        public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
+        {
+            amount = ManaHelper.ProcessDamage(byEntity, amount);
+            if (amount > 0) base.DamageItem(world, byEntity, itemslot, amount, destroyOnZeroDurability);
+        }
+    }
+
     public class ItemManaShears : ItemShears, IManaRepairable
     {
         public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
@@ -138,14 +180,7 @@ namespace BotaniaStory
         }
     }
 
-    public class ItemManaScythe : ItemScythe, IManaRepairable
-    {
-        public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
-        {
-            amount = ManaHelper.ProcessDamage(byEntity, amount);
-            if (amount > 0) base.DamageItem(world, byEntity, itemslot, amount, destroyOnZeroDurability);
-        }
-    }
+   
 
     public class ItemManaProspectingPick : ItemProspectingPick, IManaRepairable
     {
@@ -155,7 +190,7 @@ namespace BotaniaStory
             if (amount > 0) base.DamageItem(world, byEntity, itemslot, amount, destroyOnZeroDurability);
         }
     }
-    */
+   
 
     // ==========================================
     // СИСТЕМА АВТОПОЧИНКИ (РАБОТАЕТ ДЛЯ ВСЕХ)
@@ -272,6 +307,15 @@ namespace BotaniaStory
                 }
             }
             return false;
+        }
+    }
+    // Класс для Копья
+    public class ItemManaSpear : ItemSpear, IManaRepairable
+    {
+        public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
+        {
+            amount = ManaHelper.ProcessDamage(byEntity, amount);
+            if (amount > 0) base.DamageItem(world, byEntity, itemslot, amount, destroyOnZeroDurability);
         }
     }
 }

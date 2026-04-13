@@ -1,0 +1,161 @@
+{
+	"code": "spearhead-manasteel",
+	"class": "Item",
+	"maxstacksize": 8,
+	"shape": { "base": "game:item/tool/spear/metal-copper" },
+	"textures": {
+		"ingot": { "base": "game:item/resource/plate/manasteel" },
+		"string": { "base": "game:block/transparent" },
+		"handle": { "base": "game:block/transparent" }
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"attributes": {
+		"inForgeTransform": {
+			"translation": {
+				"x": -0.85,
+				"y": 0.06,
+				"z": 0.23
+			},
+			"rotation": {
+				"x": 87,
+				"y": -1,
+				"z": -93
+			},
+			"origin": {
+				"x": 1.3,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.9
+		},
+		"forgable": true,
+		"onTongTransform": {
+			"translation": {
+				"x": -1.06,
+				"y": -0.26,
+				"z": -1.3
+			},
+			"rotation": {
+				"x": 23,
+				"y": 94,
+				"z": 22
+			}
+		},
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -1.84,
+				"y": -0.12,
+				"z": -0.7
+			},
+			"rotation": {
+				"x": 90,
+				"y": 4,
+				"z": 90
+			},
+			"origin": {
+				"x": 1.3,
+				"y": 0,
+				"z": 0.5
+			}
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.9,
+				"y": 0.01,
+				"z": 0
+			},
+			"rotation": {
+				"x": 90,
+				"y": 0,
+				"z": -34
+			},
+			"origin": {
+				"x": 1.4,
+				"y": 0,
+				"z": 0.5
+			}
+		},
+		"handbook": {
+			"groupBy": [ "spearhead-*" ]
+		},
+		"displayable": {
+			"shelf": {
+				"size": {
+					"width": 3.5,
+					"height": 0.5,
+					"length": 8
+				},
+				"transform": {
+					"translation": {
+						"x": -0.965,
+						"y": 0.0177,
+						"z": 0
+					},
+					"rotation": {
+						"x": -90,
+						"y": 0,
+						"z": 90
+					},
+					"origin": {
+						"x": 1.5,
+						"y": 0,
+						"z": 0.5
+					}
+				}
+			}
+		}
+	},
+	"heldTpUseAnimation": "interactstatic",
+	"guiTransform": {
+		"rotation": {
+			"x": 2,
+			"y": 13,
+			"z": -134
+		},
+		"origin": {
+			"x": 1.38,
+			"y": 0.04,
+			"z": 0.6
+		},
+		"scale": 2.22
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.04,
+			"z": -0.4
+		},
+		"rotation": {
+			"x": -11,
+			"y": -17,
+			"z": -2
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 0.82
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 90,
+			"y": -5,
+			"z": 0
+		},
+		"origin": {
+			"x": 1.3,
+			"y": 0.05,
+			"z": 0.52
+		},
+		"scale": 4.63
+	}
+}

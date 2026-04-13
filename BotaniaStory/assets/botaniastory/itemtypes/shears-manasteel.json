@@ -1,0 +1,123 @@
+{
+	"code": "shears-manasteel",
+	"class": "ItemManaShears",
+	"tags": [ "tool-shears", "tool-trimming", "tool" ],
+	"damagedby": [ "blockbreaking", "attacking" ],
+	"tool": "shears",
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "WallHalves",
+				"wallOffY": 1,
+				"ctrlKey": true,
+				"selectionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.1,
+					"z2": 1
+				},
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 0,
+					"y2": 0,
+					"z2": 0
+				}
+			}
+		},
+		{ "name": "Buffable" }
+	],
+	"shape": { "base": "game:item/tool/shears" },
+	"heldTpHitAnimation": "shears",
+	"textures": {
+		"metal": { "base": "game:item/resource/plate/manasteel" }
+	},
+	"attributes": {
+		"heldItemPitchFollow": 0.9,
+		"handbook": {
+			"groupBy": [ "shears-*" ]
+		},
+		"toolrackTransform": {
+			"translation": { "y": 0.7 },
+			"rotation": { "y": 180 },
+			"scale": 1.5
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0,
+				"y": -0.005,
+				"z": 0.005
+			},
+			"rotation": {
+				"x": 26,
+				"y": 88,
+				"z": -87
+			},
+			"scale": 0.88
+		}
+	},
+	"attackpower": 3.5,
+	"durability": 1500,
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"guiTransform": {
+		"translation": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": -89,
+			"y": 45,
+			"z": 33
+		},
+		"origin": {
+			"x": 0.85,
+			"y": 0.4,
+			"z": 0.48
+		},
+		"scale": 2.5
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 3.6
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.95,
+			"y": -0.07,
+			"z": -0.35
+		},
+		"rotation": {
+			"x": -87,
+			"y": -16,
+			"z": -10
+		},
+		"origin": {
+			"x": 0.68,
+			"y": 0,
+			"z": 0.42
+		},
+		"scale": 1
+	}
+}

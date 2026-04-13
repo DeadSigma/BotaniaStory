@@ -1,0 +1,156 @@
+{
+	"code": "prospectingpickhead-manasteel",
+	"class": "Item",
+	"maxstacksize": 8,
+	"shape": { "base": "game:item/tool/prospectingpick" },
+	"textures": {
+		"metal": { "base": "game:item/resource/plate/manasteel" },
+		"handle": { "base": "game:block/transparent" },
+		"string": { "base": "game:block/transparent" }
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"attributes": {
+		"inForgeTransform": {
+			"translation": {
+				"x": -0.5,
+				"y": 0.04,
+				"z": 0.23
+			},
+			"rotation": {
+				"x": -12,
+				"y": 35,
+				"z": 0
+			},
+			"origin": {
+				"x": 0.9,
+				"y": 0,
+				"z": 0.4
+			}
+		},
+		"forgable": true,
+		"onTongTransform": {
+			"translation": {
+				"x": -0.57,
+				"y": -1.25,
+				"z": -0.54
+			},
+			"rotation": {
+				"x": -10,
+				"y": 6,
+				"z": 90
+			}
+		},
+		"tongOpening": "medium",
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -1.54,
+				"y": -0.085,
+				"z": -0.54
+			},
+			"rotation": {
+				"x": 176,
+				"y": 0,
+				"z": 8
+			},
+			"origin": {
+				"x": 1,
+				"y": 0,
+				"z": 0.5
+			}
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.4,
+				"y": 0.02,
+				"z": 0.1
+			},
+			"rotation": {
+				"x": -7,
+				"y": 37,
+				"z": 0
+			},
+			"origin": {
+				"x": 1,
+				"y": 0.1,
+				"z": 0.5
+			}
+		},
+		"handbook": {
+			"groupBy": [ "prospectingpickhead-*" ]
+		},
+		"displayable": {
+			"shelf": {
+				"size": {
+					"width": 2,
+					"height": 2,
+					"length": 8
+				},
+				"transform": {
+					"translation": {
+						"x": -0.44,
+						"y": 0,
+						"z": 0.1
+					}
+				}
+			}
+		}
+	},
+	"heldTpUseAnimation": "interactstatic",
+	"guiTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 30
+		},
+		"rotation": {
+			"x": -48,
+			"y": -118,
+			"z": -180
+		},
+		"origin": {
+			"x": 0.74,
+			"y": 0.37,
+			"z": 0.27
+		},
+		"scale": 2.95
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 1,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 3.1
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.4,
+			"y": -0.75,
+			"z": -0.23
+		},
+		"rotation": {
+			"x": 1,
+			"y": -80,
+			"z": 81
+		},
+		"origin": {
+			"x": 0.6,
+			"y": 0.4,
+			"z": 0.6
+		},
+		"scale": 1
+	}
+}

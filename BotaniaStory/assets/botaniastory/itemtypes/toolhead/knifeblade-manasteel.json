@@ -1,0 +1,161 @@
+{
+	"code": "knifeblade-manasteel",
+	"class": "Item",
+	"maxstacksize": 8,
+	"shape": { "base": "game:item/tool/knife/copper" },
+	"particlesTextureCode": "material",
+	"textures": {
+		"material": { "base": "game:item/resource/plate/manasteel" },
+		"string": { "base": "game:block/transparent" },
+		"handle": { "base": "game:block/transparent" }
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"attributes": {
+		"forgable": true,
+		"inForgeTransform": {
+			"translation": {
+				"x": -0.1,
+				"y": -0.08,
+				"z": 0.2
+			},
+			"rotation": {
+				"x": -90,
+				"y": 0,
+				"z": 59
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0.1,
+				"z": 0.5
+			}
+		},
+		"onTongTransform": {
+			"translation": {
+				"x": -0.6,
+				"y": -0.75,
+				"z": -0.57
+			},
+			"rotation": {
+				"x": 8,
+				"y": 6,
+				"z": 90
+			}
+		},
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -1.08,
+				"y": -0.24,
+				"z": -0.5
+			},
+			"rotation": {
+				"x": 86,
+				"y": 22,
+				"z": -88
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0.1,
+				"z": 0.5
+			}
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0,
+				"y": 0.005,
+				"z": 0.1
+			},
+			"rotation": {
+				"x": -90,
+				"y": 0,
+				"z": 48
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0,
+				"z": 0.5
+			}
+		},
+		"handbook": {
+			"groupBy": [ "knifeblade-*" ]
+		},
+		"displayable": {
+			"shelf": {
+				"size": {
+					"width": 2,
+					"height": 0.2,
+					"length": 8
+				},
+				"transform": {
+					"translation": {
+						"x": -0.07,
+						"y": -0.09,
+						"z": 0.09
+					},
+					"rotation": {
+						"x": -90,
+						"y": 0,
+						"z": 75
+					},
+					"origin": {
+						"x": 0.5,
+						"y": 0.1,
+						"z": 0.5
+					}
+				}
+			}
+		}
+	},
+	"heldTpUseAnimation": "interactstatic",
+	"guiTransform": {
+		"translation": {
+			"x": 3,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": -8,
+			"y": -152,
+			"z": 142
+		},
+		"origin": {
+			"x": 0.53,
+			"y": 0.05,
+			"z": 0.4
+		},
+		"scale": 3.53
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 90,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.55
+		},
+		"scale": 3.5
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.54,
+			"y": -0.08,
+			"z": -0.48
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": -10
+		},
+		"scale": 1
+	}
+}

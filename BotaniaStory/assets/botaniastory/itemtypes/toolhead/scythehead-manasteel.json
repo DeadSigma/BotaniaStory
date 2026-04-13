@@ -1,0 +1,149 @@
+{
+	"code": "scythehead-manasteel",
+	"class": "Item",
+	"maxstacksize": 8,
+	"shape": { "base": "game:item/tool/scythe" },
+	"textures": {
+		"metal": { "base": "game:item/resource/plate/manasteel" },
+		"string": { "base": "game:block/transparent" },
+		"handle": { "base": "game:block/transparent" }
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"attributes": {
+		"forgable": true,
+		"inForgeTransform": {
+			"translation": {
+				"x": -0.95,
+				"y": -0.06,
+				"z": 0.7
+			},
+			"rotation": {
+				"x": 0,
+				"y": 12,
+				"z": 0
+			},
+			"origin": {
+				"x": 1.5,
+				"y": 0.5,
+				"z": 0.3
+			},
+			"scale": 0.9
+		},
+		"onTongTransform": {
+			"translation": {
+				"x": -0.15,
+				"y": -1.65,
+				"z": -0.8
+			},
+			"rotation": {
+				"x": 1,
+				"y": 0,
+				"z": 73
+			}
+		},
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -1.92,
+				"y": -0.15,
+				"z": 0
+			},
+			"rotation": {
+				"x": 0,
+				"y": 0,
+				"z": -3
+			},
+			"origin": {
+				"x": 1.5,
+				"y": 0,
+				"z": 0
+			}
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.98,
+				"y": 0,
+				"z": 0.4
+			},
+			"rotation": {
+				"x": -2,
+				"y": 35,
+				"z": 0
+			},
+			"origin": {
+				"x": 1.6,
+				"y": 0.5,
+				"z": 0.1
+			}
+		},
+		"handbook": {
+			"groupBy": [ "scythehead-*" ]
+		},
+		"displayable": {
+			"shelf": {
+				"size": {
+					"width": 4,
+					"height": 2,
+					"length": 14
+				}
+			}
+		}
+	},
+	"heldTpUseAnimation": "interactstatic",
+	"guiTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": -74,
+			"y": 35,
+			"z": 12
+		},
+		"origin": {
+			"x": 1.5,
+			"y": 0,
+			"z": -0.02
+		},
+		"scale": 1.6
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 1.6,
+			"y": 0,
+			"z": -0.1
+		},
+		"scale": 3.4
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.67,
+			"y": -0.11,
+			"z": -0.76
+		},
+		"rotation": {
+			"x": 102,
+			"y": -80,
+			"z": 1
+		},
+		"origin": {
+			"x": 1.4,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 0.78
+	}
+}
