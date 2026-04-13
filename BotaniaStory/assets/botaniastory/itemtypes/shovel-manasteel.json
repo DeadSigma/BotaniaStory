@@ -1,5 +1,6 @@
 {
 	"code": "shovel-manasteel",
+	"class": "ItemManaTool",
 	"tool": "shovel",
 	"damagedby": [ "blockbreaking", "attacking" ],
 	"tags": [ "tool", "tool-shovel" ],

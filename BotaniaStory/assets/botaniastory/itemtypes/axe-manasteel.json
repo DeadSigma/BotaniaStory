@@ -1,6 +1,6 @@
 {
 	"code": "axe-manasteel",
-	"class": "ItemAxe",
+	"class": "ItemManaAxe",
 	"tool": "axe",
 	"damagedby": [ "blockbreaking", "attacking" ],
 	"tags": [ "tool", "tool-axe" ],

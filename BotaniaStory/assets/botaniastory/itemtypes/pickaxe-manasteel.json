@@ -1,5 +1,6 @@
 {
 	"code": "pickaxe-manasteel",
+	"class": "ItemManaTool",
 	"tool": "pickaxe",
 	"shape": { "base": "game:item/tool/pickaxe" },
 	"textures": {
