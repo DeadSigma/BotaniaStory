@@ -21,6 +21,18 @@ namespace botaniastory
             SetupDialog();
         }
 
+        public override void OnGuiOpened()
+        {
+            base.OnGuiOpened();
+            // Сбрасываем сломанные координаты, если движок VS сохранил их криво
+            if (SingleComposer != null)
+            {
+                SingleComposer.Bounds.fixedX = 0;
+                SingleComposer.Bounds.fixedY = 0;
+                SingleComposer.Bounds.CalcWorldBounds();
+            }
+        }
+
         private void SetupDialog()
         {
             ElementBounds dialogBounds = ElementStdBounds.AutosizedMainDialog
@@ -134,7 +146,17 @@ namespace botaniastory
         public override string ToggleKeyCombinationCode => null;
         private LexiconConfig config;
         private GuiDialogLexicon mainDialog;
-
+        public override void OnGuiOpened()
+        {
+            base.OnGuiOpened();
+            // Сбрасываем сломанные координаты, если движок VS сохранил их криво
+            if (SingleComposer != null)
+            {
+                SingleComposer.Bounds.fixedX = 0;
+                SingleComposer.Bounds.fixedY = 0;
+                SingleComposer.Bounds.CalcWorldBounds();
+            }
+        }
         public GuiDialogLexiconSoundSettings(ICoreClientAPI capi, LexiconConfig config, GuiDialogLexicon mainDialog) : base(capi)
         {
             this.config = config;

@@ -14,6 +14,17 @@ namespace botaniastory
         private GuiDialogLexicon mainDialog;
         private string selectedKey;
 
+        public override void OnGuiOpened()
+        {
+            base.OnGuiOpened();
+            if (SingleComposer != null)
+            {
+                SingleComposer.Bounds.fixedX = 0;
+                SingleComposer.Bounds.fixedY = 0;
+                SingleComposer.Bounds.CalcWorldBounds();
+            }
+        }
+
         public UIDebugger(ICoreClientAPI capi, GuiDialogLexicon mainDialog) : base(capi)
         {
             this.mainDialog = mainDialog;

@@ -213,15 +213,39 @@ namespace botaniastory
         // 2. Обработка ПКМ (Правая кнопка мыши)
         public override void OnMouseDown(MouseEvent args)
         {
-            // СНАЧАЛА ПЕРЕХВАТЫВАЕМ ПКМ (иначе игра проигнорирует клик или использует предмет в руке)
+            // Перехватываем ПКМ ДО того, как базовый класс его "проглотит"
             if (config.RightClickBack && args.Button == EnumMouseButton.Right && currentView != BookView.Home)
             {
-                OnClickPrev(); // Возвращаемся на шаг назад
-                args.Handled = true; // Забираем клик себе
-                return;
+                bool clickedBookmark = false;
+
+                // В цикле проверяем все закладки (их у нас максимум 6)
+                if (SingleComposer != null)
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        // Получаем элемент по имени, которое мы задали в Setup.cs
+                        var tab = SingleComposer.GetElement($"bookmarkTab_{i}");
+
+                        // Если закладка существует и координаты мыши находятся внутри неё
+                        if (tab != null && tab.Bounds.PointInside(args.X, args.Y))
+                        {
+                            clickedBookmark = true;
+                            break; // Нашли закладку, прерываем цикл
+                        }
+                    }
+                }
+
+                // Если клик пришёлся НЕ по закладке — листаем назад и забираем клик себе
+                if (!clickedBookmark)
+                {
+                    OnClickPrev();
+                    args.Handled = true;
+                    return;
+                }
             }
 
-            // Если опция выключена или нажата другая кнопка — отдаем управление движку
+            // Если это левый клик или правый клик точно по закладке — отдаём обработку интерфейсу.
+            // Тогда сработает код из GuiElementClickableTab.cs, и закладка закроется!
             base.OnMouseDown(args);
         }
     }
