@@ -289,10 +289,10 @@ namespace BotaniaStory
                     }
 
                     // 4. Смола -> Манасмола (7% = 70 000)
-                    if (domain == "game" && code == "resin")
+                    if (domain == "game" && code == "clearquartz")
                     {
                         // Было: "botaniastory:manaitem-manapearl"
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaresin", 70000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaquartz", 70000)) continue;
                     }
                 }
             }

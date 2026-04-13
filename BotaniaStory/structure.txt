@@ -129,7 +129,7 @@ BotaniaStory/
                     livingwood_stick.json
                     livingwood_stick_pile.json
                     managear.json
-                    manaresin.json
+                    manaquartz.json
                     manasteel.json
                     manaflax.json
                     metalbit.json

@@ -271,11 +271,6 @@ namespace BotaniaStory
             bgTex?.Dispose();
             frameTex?.Dispose();
             fillTex?.Dispose();
-            linkedTex?.Dispose();
-            unlinkedTex?.Dispose();
-
-            poolAcceptingTex?.Dispose();
-            poolGivingTex?.Dispose();
 
             quadMesh?.Dispose();
             fillMesh?.Dispose(); 

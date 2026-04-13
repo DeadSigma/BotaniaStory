@@ -13,19 +13,19 @@
 	"attributes": {
 		"shelvable": true,
 		"displaycaseable": true,
-		"bookshelveable": false,
+		"bookshelveable": true,
 		"onshelfTransform": {
 			"translation": {
-				"x": 0,
-				"y": 0,
-				"z": 0
+				"x": 0.03,
+				"y": -0.31,
+				"z": 0.02
 			},
 			"rotation": {
 				"x": 90,
-				"y": 0,
-				"z": 0
+				"y": 90,
+				"z": -90
 			},
-			"scale": 0.4
+			"scale": 0.38
 		},
 		"onDisplayTransform": {
 			"translation": {
@@ -43,7 +43,7 @@
 		"groundStorageTransform": {
 			"translation": {
 				"x": 0,
-				"y": 0,
+				"y": -0.5,
 				"z": 0
 			},
 			"rotation": {
@@ -51,7 +51,7 @@
 				"y": 0,
 				"z": 0
 			},
-			"scale": 0.5
+			"scale": 0.42
 		}
 	},
 	"behaviors": [
@@ -72,29 +72,28 @@
 	],
 	"guiTransform": {
 		"translation": {
-			"x": 0,
-			"y": 3,
+			"x": -1.5,
+			"y": -0.2,
 			"z": 0
 		},
 		"rotation": {
-			"x": 27,
-			"y": -155,
-			"z": -2
+			"x": -5,
+			"y": -140,
+			"z": 180
 		},
-		"scale": 1.2
+		"scale": 1.32
 	},
 	"tpHandTransform": {
 		"translation": {
-			"x": -0.9,
-			"y": -0.5,
-			"z": -0.5
+			"x": -2.12,
+			"y": -1.37,
+			"z": -1.62
 		},
 		"rotation": {
-			"x": 90,
-			"y": 0,
-			"z": 0
-		},
-		"scale": 0.75
+			"x": -180,
+			"y": -180,
+			"z": 103
+		}
 	},
 	"fpHandTransform": {
 		"translation": {
@@ -120,7 +119,12 @@
 			"y": 0,
 			"z": 0
 		},
-		"scale": 1.5
+		"origin": {
+			"x": 0.5,
+			"y": 0.5,
+			"z": 0.5299
+		},
+		"scale": 2.19
 	},
 	"creativeinventory": {
 		"general": [ "*" ],

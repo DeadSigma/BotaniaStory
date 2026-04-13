@@ -130,7 +130,7 @@ namespace botaniastory
                 {
                     ElementBounds rowBounds = ElementBounds.Fixed(-9999, -9999, 300 * bookScale * listScale, 25 * bookScale * listScale);
 
-                    var hoverRow = new GuiElementHoverRow(capi, rowBounds, null, null)
+                    var hoverRow = new GuiElementHoverRow(capi, rowBounds, new ItemStack[0], null)
                     {
                         IconOffsetX = ui["Список_Глав_Иконки"][0] * bookScale,
                         IconOffsetY = ui["Список_Глав_Иконки"][1] * bookScale,
@@ -143,7 +143,7 @@ namespace botaniastory
                     compo.AddInteractiveElement(hoverRow, $"search_row_{i}");
 
                     ElementBounds textBounds = ElementBounds.Fixed(-9999, -9999, 260 * bookScale * listScale, 25 * bookScale * listScale);
-                    compo.AddDynamicText("", listFont, textBounds, $"search_text_{i}");
+                    compo.AddDynamicText(" ", listFont, textBounds, $"search_text_{i}");
                 }
             }
             // --- ОТРИСОВКА СОДЕРЖИМОГО ---
@@ -283,6 +283,54 @@ namespace botaniastory
 
                                     compo.AddInteractiveElement(apothecaryElement, $"apothecaryDisplay_{i}");
                                 }
+
+                                else if (recipe.RecipeType == "Anvil" && recipe.AnvilInput != null)
+                                {
+                                    string targetUiKey = string.IsNullOrEmpty(recipe.UiKey) ? "Кузня_Правая_Верхняя" : recipe.UiKey;
+                                    if (!bounds.ContainsKey(targetUiKey)) continue;
+
+                                    var anvilCfg = ui[targetUiKey];
+                                    double rScale = anvilCfg[4] * bookScale;
+                                    ElementBounds anvilBounds = ElementBounds.Fixed(anvilCfg[0] * bookScale, anvilCfg[1] * bookScale, anvilCfg[2] * rScale, anvilCfg[3] * rScale);
+
+                                    ItemStack[] inputs = GetItemStacks(recipe.AnvilInput);
+                                    ItemStack[] outputs = GetItemStacks(recipe.Output);
+                                    ItemStack[] anvilBlock = GetItemStacks(recipe.AnvilBlock);
+
+                                    var anvilElement = new GuiElementAnvilRecipe(capi, anvilBounds, inputs, outputs, anvilBlock, rScale);
+                                    anvilElement.OnSlotClick = OnRecipeItemClicked;
+                                    compo.AddInteractiveElement(anvilElement, $"anvilDisplay_{i}");
+
+                                    // === ОТРИСОВКА ЗНАКОВ "+" И "=" ===
+
+                                    double[] brownColor = new double[] { 0.45, 0.28, 0.14, 1.0 };
+                                    double fontSize = 28 * rScale; // Вынесли размер шрифта в переменную
+
+                                    CairoFont signFont = CairoFont.WhiteMediumText()
+                                        .WithColor(brownColor)
+                                        .WithFontSize((float)fontSize)
+                                        .WithWeight(Cairo.FontWeight.Bold)
+                                        .WithOrientation(EnumTextOrientation.Center);
+
+                                    // Эти значения должны быть ТОЧНО ТАКИМИ ЖЕ, как в GuiElementAnvilRecipe
+                                    double iconSize = 25 * rScale;
+                                    double padding = 24 * rScale;
+
+                                    double anvilStartX = anvilCfg[0] * bookScale;
+                                    double anvilStartY = anvilCfg[1] * bookScale;
+
+                                    // Идеальное центрирование по вертикали:
+                                    // Мы берем половину высоты иконки и вычитаем половину высоты шрифта
+                                    double yOffset = (iconSize / 2.0) - (fontSize / 2.0);
+
+                                    // Координаты по X тоже строятся автоматически на основе твоих iconSize и padding
+                                    ElementBounds plusBounds = ElementBounds.Fixed(anvilStartX + iconSize, anvilStartY + yOffset, padding, fontSize);
+                                    compo.AddStaticText("+", signFont, plusBounds, $"anvilPlus_{i}");
+
+                                    ElementBounds eqBounds = ElementBounds.Fixed(anvilStartX + (iconSize * 2) + padding, anvilStartY + yOffset, padding, fontSize);
+                                    compo.AddStaticText("=", signFont, eqBounds, $"anvilEq_{i}");
+                                }
+
                                 else if (recipe.RecipeType == "Alfheim" && recipe.AlfheimInputs != null)
                                 {
                                     string targetUiKey = string.IsNullOrEmpty(recipe.UiKey) ? "Альфхейм_Область" : recipe.UiKey;
@@ -386,6 +434,8 @@ namespace botaniastory
                                     poolElement.OnSlotClick = OnRecipeItemClicked;
 
                                     compo.AddInteractiveElement(poolElement, $"manaPoolDisplay_{i}");
+
+
                                 }
                             }
                         }
@@ -470,8 +520,9 @@ namespace botaniastory
                         }
                     }
                 }
+            }
 
-                SingleComposer = compo.Compose();
+            SingleComposer = compo.Compose();
 
                 if (isSearchOpen)
                 {
@@ -480,7 +531,7 @@ namespace botaniastory
                 }
 
                 UpdatePageContent();
-            }
+            
         }
 
         private void UpdatePageContent()

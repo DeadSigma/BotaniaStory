@@ -38,7 +38,9 @@ namespace botaniastory
         public string[] AlfheimInputs { get; set; }
         public string[] PoolInput { get; set; }   
         public string PoolBlock { get; set; }      
-        public string[] PoolCatalyst { get; set; } 
+        public string[] PoolCatalyst { get; set; }
+        public string AnvilInput { get; set; }
+        public string AnvilBlock { get; set; }
     }
     public class BookManaBar
     {
@@ -71,7 +73,7 @@ namespace botaniastory
 
     public static class BookDataManager
     {
-        // Наше "Оглавление". Ключ - ID категории, Значение - массив ID глав
+        // "Оглавление". Ключ - ID категории, Значение - массив ID глав
         private static readonly Dictionary<string, string[]> BookStructure = new Dictionary<string, string[]>
         {
             { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "wandoftheforest",
@@ -85,7 +87,7 @@ namespace botaniastory
 
             { "natural_apparatus", new[] { "ch1" } },
 
-            { "mystical_items", new[] { "wandofbinding" } },
+            { "mystical_items", new[] { "wandofbinding", "manasteelgear" } },
 
             { "trinkets_and_accessories", new[] { "ch1" } },
 
@@ -643,6 +645,24 @@ namespace botaniastory
 
                     }
 
+                    else if (chapId == "manatablet")
+                    {
+                        chapter.TabItemCode = "botaniastory:manatablet";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                                  "botaniastory:livingrock", "botaniastory:livingrock", "botaniastory:livingrock",
+                                  "botaniastory:livingrock", "botaniastory:manaitem-manaquartz", "botaniastory:livingrock",
+                                  "botaniastory:livingrock", "botaniastory:livingrock", "botaniastory:livingrock"},
+                            Output = "botaniastory:manatablet"
+                        });
+
+                    }
+
                     // === НАСТРОЙКА ГЛАВЫ ИСКРЫ ===
                     else if (chapId == "spark")
                     {
@@ -864,6 +884,42 @@ namespace botaniastory
                         });
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ МАНАСТАЛИ ===
+                    else if (chapId == "manasteelgear")
+                    {
+                        chapter.TabItemCode = "botaniastory:pickaxe-manasteel";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil", 
+                            Spread = 0,           
+                            UiKey = "Кузня_Правая_Верхняя_Броня",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:armor-chain-manasteel-head"  
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil", 
+                            Spread = 0,         
+                            UiKey = "Кузня_Правая_Средняя_Броня", 
+                            AnvilInput = "game:ingot-manasteel", 
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:armor-chain-manasteel-body"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 0,
+                            UiKey = "Кузня_Правая_Нижняя_Броня",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:armor-chain-manasteel-legs"
+                        });
+
+                    }
 
 
 

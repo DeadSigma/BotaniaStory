@@ -5,13 +5,13 @@
 	"variantgroups": [
 		{
 			"code": "type",
-			"states": [ "managear", "manaflax", "manaresin" ]
+			"states": [ "managear", "manaflax", "manaquartz" ]
 		}
 	],
 	"shapeByType": {
 		"*-managear": { "base": "botaniastory:item/managear" },
 		"*-manaflax": { "base": "botaniastory:item/manaflax" },
-		"*-manaresin": { "base": "botaniastory:item/manaresin" }
+		"*-manaquartz": { "base": "botaniastory:item/manaquartz" }
 	},
 	"creativeinventory": {
 		"general": [ "*" ],
@@ -70,7 +70,7 @@
 		]
 	},
 	"attributesByType": {
-		"*-manaresin": {
+		"*-manaquartz": {
 			"displaycaseable": true,
 			"shelvable": true,
 			"displayable": {
@@ -172,12 +172,12 @@
 		}
 	},
 	"materialDensityByType": {
-		"*-manaresin": 700,
+		"*-manaquartz": 700,
 		"*-managear": 4000,
 		"*-manaflax": 120
 	},
 	"guiTransformByType": {
-		"*-manaresin": {
+		"*-manaquartz": {
 			"translation": {
 				"x": 1,
 				"y": 0,
@@ -259,7 +259,7 @@
 		"scale": 2.5
 	},
 	"tpHandTransformByType": {
-		"*-manaresin": {
+		"*-manaquartz": {
 			"translation": {
 				"x": -0.73,
 				"y": -0.1,
@@ -328,7 +328,7 @@
 		}
 	},
 	"groundTransformByType": {
-		"*-manaresin": {
+		"*-manaquartz": {
 			"translation": {
 				"x": 0,
 				"y": 0,

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 
 namespace botaniastory
 {
@@ -59,7 +60,8 @@ namespace botaniastory
                     row.StarSize = starCfg[2] * bookScale * starCfg[4];
 
                     BookChapter capturedCh = ch;
-                    row.UpdateData(GetItemStacks(ch.TabItemCode), () => OpenChapter(capturedCh), ch.IsBookmarked);
+
+                    row.UpdateData(GetItemStacks(ch.TabItemCode) ?? new ItemStack[0], () => OpenChapter(capturedCh), ch.IsBookmarked);
 
                     text.Bounds.fixedWidth = 260 * bookScale * listScale;
                     text.Bounds.fixedHeight = 25 * bookScale * listScale;
@@ -71,8 +73,8 @@ namespace botaniastory
                 }
                 else
                 {
-                    text.SetNewText("");
-                    row.UpdateData(null, null, false);
+                    text.SetNewText(" ");
+                    row.UpdateData(new ItemStack[0], null, false);
                     row.Bounds.fixedX = -9999;
                     row.Bounds.fixedY = -9999;
                     row.Bounds.CalcWorldBounds();
