@@ -887,38 +887,346 @@ namespace botaniastory
                     // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ МАНАСТАЛИ ===
                     else if (chapId == "manasteelgear")
                     {
+                        ////////////////////////////////////////////////
                         chapter.TabItemCode = "botaniastory:pickaxe-manasteel";
-
-                        chapter.Recipes.Add(new BookRecipe()
-                        {
-                            RecipeType = "Anvil", 
-                            Spread = 0,           
-                            UiKey = "Кузня_Правая_Верхняя_Броня",
-                            AnvilInput = "game:ingot-manasteel",
-                            AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:armor-chain-manasteel-head"  
-                        });
-
-                        chapter.Recipes.Add(new BookRecipe()
-                        {
-                            RecipeType = "Anvil", 
-                            Spread = 0,         
-                            UiKey = "Кузня_Правая_Средняя_Броня", 
-                            AnvilInput = "game:ingot-manasteel", 
-                            AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:armor-chain-manasteel-body"
-                        });
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
                             Spread = 0,
-                            UiKey = "Кузня_Правая_Нижняя_Броня",
+                            UiKey = "Кузня_Манасталь",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:armor-chain-manasteel-legs"
+                            Output = "game:metalchain-manasteel"
                         });
 
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Манашлем",
+                            Grid = new string[9] {
+                              null, "game:metalchain-manasteel", null,
+                              "game:metalchain-manasteel", null, "game:metalchain-manasteel",
+                              null, null, null},
+                            Output = "botaniastory:armor-chain-manasteel-head"
+                        });
+                        ////////////////////////////////////////////////
+
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                              "game:metalchain-manasteel", "game:armor-body-jerkin-leather", "game:metalchain-manasteel",
+                              "game:metalchain-manasteel@2", "game:metalchain-manasteel@2", "game:metalchain-manasteel@2",
+                              "game:metalchain-manasteel", "game:metalchain-manasteel", "game:metalchain-manasteel"},
+                            Output = "botaniastory:armor-chain-manasteel-body"
+                        });
+                        ////////////////////////////////////////////////
+
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                              "game:metalchain-manasteel", "game:metalchain-manasteel@2", "game:metalchain-manasteel",
+                              "game:metalchain-manasteel", "game:armor-legs-jerkin-leather", "game:metalchain-manasteel",
+                              null, null, null},
+                            Output = "botaniastory:armor-chain-manasteel-legs"
+                        });
+                        ////////////////////////////////////////////////
+                        ///
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 1,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                 "botaniastory:pickaxehead-manasteel", null, null,
+                                 "game:stick", null, null,
+                                 null, null, null},
+                            Output = "botaniastory:pickaxe-manasteel"
+                        });
+                      //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 2,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:axehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                 "botaniastory:axehead-manasteel", null, null,
+                                  "game:stick", null, null,
+                                 null, null, null},
+                            Output = "botaniastory:axe-manasteel"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 2,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:shovelhead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                 "botaniastory:shovelhead-manasteel", null, null,
+                                  "game:stick", null, null,
+                                 null, null, null},
+                            Output = "botaniastory:shovel-manasteel"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 3,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 3,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 4,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 4,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 4,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 4,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 5,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 5,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 5,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 5,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 6,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 6,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 6,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 6,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
+                        //////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 7,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 7,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+                        //////////////////////////////
+                        ///
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 7,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 7,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "game:stone"
+                        });
                     }
 
 

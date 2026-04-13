@@ -11,9 +11,20 @@ namespace botaniastory
 {
     public partial class GuiDialogLexicon
     {
-        private ItemStack[] GetItemStacks(string code)
+        private ItemStack[] GetItemStacks(string rawCode)
         {
-            if (string.IsNullOrEmpty(code)) return null;
+            if (string.IsNullOrEmpty(rawCode)) return null;
+
+            string code = rawCode;
+            int count = 1; // По умолчанию всегда 1 предмет
+
+            // Если в строке есть символ '@', разбиваем её на код и количество
+            if (rawCode.Contains("@"))
+            {
+                var parts = rawCode.Split('@');
+                code = parts[0];
+                int.TryParse(parts[1], out count);
+            }
 
             var stacks = new List<ItemStack>();
             AssetLocation loc = new AssetLocation(code);
@@ -23,20 +34,39 @@ namespace botaniastory
                 foreach (var item in capi.World.Items)
                 {
                     if (item.Code != null && WildcardUtil.Match(loc, item.Code))
-                        stacks.Add(new ItemStack(item));
+                    {
+                        var stack = new ItemStack(item);
+                        stack.StackSize = count; // Применяем наше количество
+                        stacks.Add(stack);
+                    }
                 }
                 foreach (var block in capi.World.Blocks)
                 {
                     if (block.Code != null && WildcardUtil.Match(loc, block.Code))
-                        stacks.Add(new ItemStack(block));
+                    {
+                        var stack = new ItemStack(block);
+                        stack.StackSize = count; // Применяем наше количество
+                        stacks.Add(stack);
+                    }
                 }
             }
             else
             {
                 Item item = capi.World.GetItem(loc);
-                if (item != null) stacks.Add(new ItemStack(item));
+                if (item != null)
+                {
+                    var stack = new ItemStack(item);
+                    stack.StackSize = count; // Применяем наше количество
+                    stacks.Add(stack);
+                }
+
                 Block block = capi.World.GetBlock(loc);
-                if (block != null) stacks.Add(new ItemStack(block));
+                if (block != null)
+                {
+                    var stack = new ItemStack(block);
+                    stack.StackSize = count; // Применяем наше количество
+                    stacks.Add(stack);
+                }
             }
 
             return stacks.Count > 0 ? stacks.ToArray() : null;

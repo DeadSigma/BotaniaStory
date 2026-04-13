@@ -32,13 +32,13 @@ namespace botaniastory
             double iconSize = 25 * s;
             double padding = 24 * s;
 
-            // Новая переменная для сдвига первого предмета влево. 
+            double outputShift = 10 * s;
             double inputShift = 5 * s;
 
             // В WithFixedOffset для inputBounds мы теперь вычитаем сдвиг:
             inputBounds = ElementBounds.FixedSize(iconSize, iconSize).WithFixedOffset(-inputShift, 0).WithParent(bounds);
             anvilBounds = ElementBounds.FixedSize(iconSize, iconSize).WithFixedOffset(iconSize + padding, 0).WithParent(bounds);
-            outputBounds = ElementBounds.FixedSize(iconSize, iconSize).WithFixedOffset((iconSize * 2) + (padding * 2), 0).WithParent(bounds);
+            outputBounds = ElementBounds.FixedSize(iconSize, iconSize).WithFixedOffset((iconSize * 2) + (padding * 2) + outputShift, 0).WithParent(bounds);
 
             inputBounds.CalcWorldBounds();
             anvilBounds.CalcWorldBounds();
