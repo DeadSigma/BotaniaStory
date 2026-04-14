@@ -11,6 +11,7 @@ namespace BotaniaStory
         private ICoreClientAPI capi;
         private EntitySpark spark;
         private MeshRef meshRef;
+        private int sparkAtlasPage = 0;
         private Matrixf modelMat = new Matrixf();
         private Shape shape;
 
@@ -32,10 +33,14 @@ namespace BotaniaStory
         {
             get
             {
-                if (shape != null && shape.Textures.TryGetValue(textureCode, out AssetLocation texPath))
+                if (shape != null && shape.Textures != null && shape.Textures.TryGetValue(textureCode, out AssetLocation texPath))
                 {
                     capi.EntityTextureAtlas.GetOrInsertTexture(texPath, out _, out TextureAtlasPosition pos);
-                    return pos ?? capi.EntityTextureAtlas.UnknownTexturePosition;
+                    if (pos != null)
+                    {
+                        sparkAtlasPage = pos.atlasTextureId; // <--- Запоминаем нужную страницу атласа
+                        return pos;
+                    }
                 }
                 return capi.EntityTextureAtlas.UnknownTexturePosition;
             }
@@ -118,11 +123,12 @@ namespace BotaniaStory
 
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)spark.Pos.X, (int)spark.Pos.Y, (int)spark.Pos.Z);
 
-            prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
-            prog.RgbaLightIn = new Vec4f(0f, 0f, 0f, 0f);
-            prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
-            prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
-            prog.ExtraGlow = 0;
+            // --- ИДЕАЛЬНЫЙ СВЕТ ---
+            prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);    // Базовое освещение (1 = полная яркость)
+            prog.RgbaLightIn = new Vec4f(0f, 0f, 0f, 0f);  // Дополнительный свет от блоков (0 = отключаем)
+            prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);   // АДДИТИВНОЕ СВЕЧЕНИЕ (Обязательно 0, иначе всё побелеет!)
+            prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);     // Оттенок текстуры (1 = оригинальные цвета без искажений)
+            prog.ExtraGlow = 1;                          // Заставляем саму модель игнорировать тень
 
             capi.Render.GlToggleBlend(true, EnumBlendMode.Standard);
             GL.DepthMask(false);
@@ -136,8 +142,21 @@ namespace BotaniaStory
             float horizontalDist = (float)Math.Sqrt(dx * dx + dz * dz);
             float pitch = (float)Math.Atan2(dy, horizontalDist);
 
-            // Рендер самой искры
-            capi.Render.BindTexture2d(capi.EntityTextureAtlas.AtlasTextures[0].TextureId);
+            // --- ЗАЩИТА ОТ КРАША ---
+            // Если атласы еще не загружены, просто пропускаем кадр
+            if (capi.EntityTextureAtlas.AtlasTextures == null || capi.EntityTextureAtlas.AtlasTextures.Count == 0) return;
+
+            int pageToBind = sparkAtlasPage;
+            // Если движок еще не успел создать новую страницу в массиве, временно берем нулевую
+            if (pageToBind < 0 || pageToBind >= capi.EntityTextureAtlas.AtlasTextures.Count)
+            {
+                pageToBind = 0;
+            }
+
+            // Биндим правильную (и существующую!) страницу атласа
+            capi.Render.BindTexture2d(capi.EntityTextureAtlas.AtlasTextures[pageToBind].TextureId);
+
+            
 
             modelMat.Identity()
                     .Translate(dx, dy, dz)
@@ -165,7 +184,7 @@ namespace BotaniaStory
                 if (texToBind != 0)
                 {
                     capi.Render.BindTexture2d(texToBind);
-                    prog.ExtraGlow = 255;
+                    prog.ExtraGlow = 1;
 
                     float orbitRadius = 0.2f;
                     float orbitX = (float)Math.Cos(orbitAngle) * orbitRadius;
@@ -196,6 +215,7 @@ namespace BotaniaStory
             meshRef = null;
             runeMeshRef?.Dispose();
             runeMeshRef = null;
+
         }
     }
 }

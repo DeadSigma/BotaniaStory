@@ -1,6 +1,7 @@
 {
 	"code": "spark",
 	"class": "EntitySpark",
+
 	"hitboxSize": {
 		"x": 0.5,
 		"y": 0.5

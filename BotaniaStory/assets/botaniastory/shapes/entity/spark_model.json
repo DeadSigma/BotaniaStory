@@ -22,7 +22,7 @@
 					"texture": "#spark_base",
 					"uv": [ 0, 0, 128, 128 ],
 					"autoUv": false,
-					"glow": 255,
+					"glow": 200,
 					"disableShading": true
 				},
 				"east": {
@@ -35,7 +35,7 @@
 					"texture": "#spark_base",
 					"uv": [ 5, 6, 6, 7 ],
 					"autoUv": false,
-					"glow": 255,
+					"glow": 200,
 					"disableShading": true
 				},
 				"west": {

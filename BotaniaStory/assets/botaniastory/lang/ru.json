@@ -175,6 +175,10 @@
 	"item-wrench-manasteel": "Ключ из манастали",
 	"item-tongs-manasteel": "Клещи из манастали",
 	"item-shears-manasteel": "Ножницы из манастали",
+	"game:item-metalchain-manasteel": "Кольчуга из манастали",
+	"item-armor-chain-manasteel-head": "Шлем из манастали",
+	"item-armor-chain-manasteel-body": "Нагрудник из манастали",
+	"item-armor-chain-manasteel-legs": "Поножи из манастали",
 
     "welcome-text": "Магия, Технологии. Естество.\n\nБотания - это технический мод, посвященный природной магии. Основная концепция заключается в создании магических цветов и устройств, использующих силу земли, в виде маны.",
 
@@ -320,7 +324,7 @@
 	"lexicon_mystical_items_manasteelgear_p13": "Создание лезвия пилы из манастали:\n\n\n\n\n\n\n\n\n\n\nСоздание пилы из манастали:",
 	"lexicon_mystical_items_manasteelgear_p14": "Создание лезвия косы из манастали:\n\n\n\n\n\n\n\n\n\n\nСоздание косы из манастали:",
 	"lexicon_mystical_items_manasteelgear_p15": "Создание наконечника копья из манастали:\n\n\n\n\n\n\n\n\n\n\nСоздание копья из манастали:",
-	"lexicon_mystical_items_manasteelgear_p16": "Создание зубила из манастали:\n\n\n\n\nСоздание монтировки из манастали:\n\n\n\n\nСоздание монтировки из манастали:\n\n\n\n\nСоздание монтировки из манастали:"
+	"lexicon_mystical_items_manasteelgear_p16": "Создание зубила из манастали:\n\n\n\nСоздание монтировки из манастали:\n\n\n\n\nСоздание ключа из манастали:\n\n\n\n\nСоздание клещей из манастали\n\n\n\n\nСоздание ножниц из манастали:"
 
 
 }
