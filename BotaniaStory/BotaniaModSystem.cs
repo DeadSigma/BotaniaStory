@@ -18,9 +18,9 @@ namespace BotaniaStory
         public IClientNetworkChannel clientChannel;
         public static botaniastory.LexiconConfig ClientConfig;
 
-        // --- ДОБАВЛЕНО: Переменная, чтобы мы могли обращаться к миру для воспроизведения звука
+        // Переменная, чтобы мы могли обращаться к миру для воспроизведения звука
         private ICoreClientAPI capi;
-
+        private ICoreServerAPI sapi;
         public override void StartClientSide(ICoreClientAPI api)
         {
             base.StartClientSide(api);
@@ -32,9 +32,10 @@ namespace BotaniaStory
             // 1. РЕГИСТРИРУЕМ СЕТЬ В ПЕРВУЮ ОЧЕРЕДЬ!
             clientChannel = api.Network.RegisterChannel("botanianetwork")
                 .RegisterMessageType(typeof(ManaStreamPacket))
-                .RegisterMessageType(typeof(PlayManaSoundPacket)) // <--- Добавили пакет звука сюда
+                .RegisterMessageType(typeof(PlayManaSoundPacket)) //  пакет звука
+                .RegisterMessageType(typeof(LexiconStatePacket))
                 .SetMessageHandler<ManaStreamPacket>(OnManaStreamPacketReceived)
-                .SetMessageHandler<PlayManaSoundPacket>(OnSoundPacketReceived); // <--- Добавили чтение звука
+                .SetMessageHandler<PlayManaSoundPacket>(OnSoundPacketReceived); // чтение звука
 
             // 2. А уже потом загружаем HUD и Рендерер
             wandHud = new BotaniaWandHud(api);
@@ -44,11 +45,13 @@ namespace BotaniaStory
         public override void StartServerSide(ICoreServerAPI api)
         {
             base.StartServerSide(api);
+            this.sapi = api; // <--- Сохраняем ссылку на сервер
 
-            // Регистрируем сеть на стороне сервера
             serverChannel = api.Network.RegisterChannel("botanianetwork")
                 .RegisterMessageType(typeof(ManaStreamPacket))
-                .RegisterMessageType(typeof(PlayManaSoundPacket)); // <--- Добавил пакет звука
+                .RegisterMessageType(typeof(PlayManaSoundPacket))
+                .RegisterMessageType(typeof(LexiconStatePacket)) // <--- Добавили пакет книги
+                .SetMessageHandler<LexiconStatePacket>(OnLexiconStateMessage); // <--- Сервер слушает этот пакет
         }
 
         public override void Start(ICoreAPI api)
@@ -106,6 +109,9 @@ namespace BotaniaStory
         // --- ДОБАВЛЕНО: Что делает Клиент, когда получает письмо о звуке
         private void OnSoundPacketReceived(PlayManaSoundPacket packet)
         {
+            // ЗАЩИТА ОТ КРАША: Если пакет или его данные пустые — просто игнорируем
+            if (packet == null || packet.SoundName == null || packet.Position == null) return;
+
             float volume = 0f;
 
             if (packet.SoundName == "transmute" || packet.SoundName == "apothecary_splash" || packet.SoundName == "apothecary_craft")
@@ -134,7 +140,39 @@ namespace BotaniaStory
             );
         }
 
-        // --- Обязательная очистка памяти при закрытии мира/игры ---
+        private void OnLexiconStateMessage(IServerPlayer fromPlayer, LexiconStatePacket packet)
+        {
+            ItemSlot activeSlot = fromPlayer.InventoryManager.ActiveHotbarSlot;
+            if (activeSlot.Itemstack?.Item is ItemLexicon)
+            {
+                // ИСПОЛЬЗУЕМ ту же мета-дату из ItemLexicon!
+                if (packet.IsOpen)
+                {
+                    fromPlayer.Entity.AnimManager.StartAnimation(ItemLexicon.ReadAnimation);
+                }
+                else
+                {
+                    fromPlayer.Entity.AnimManager.StopAnimation("reading_lexicon");
+                }
+
+                string targetState = packet.IsOpen ? "open" : "closed";
+                string currentPath = activeSlot.Itemstack.Item.Code.Path;
+
+                if (!currentPath.EndsWith(targetState))
+                {
+                    string newPath = packet.IsOpen
+                        ? currentPath.Replace("closed", "open")
+                        : currentPath.Replace("open", "closed");
+
+                    Item newBookItem = sapi.World.GetItem(new AssetLocation("botaniastory", newPath));
+                    if (newBookItem != null)
+                    {
+                        activeSlot.Itemstack = new ItemStack(newBookItem);
+                        activeSlot.MarkDirty();
+                    }
+                }
+            }
+        }
         public override void Dispose()
         {
             ManaRenderer?.Dispose();
@@ -143,6 +181,12 @@ namespace BotaniaStory
     }
 
     // пакеты звука для мультиплеера
+    [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
+    public class LexiconStatePacket
+    {
+        public bool IsOpen;
+    }
+
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     public class PlayManaSoundPacket
     {

@@ -12,10 +12,11 @@ namespace BotaniaStory
         public bool HasWater = false;
         private MeshData waterMesh;
         public InventoryGeneric inventory;
-        
+
         protected ApothecaryRenderer renderer;
         public string LastCraftedFlower = null;
         public long LastCraftTime = 0;
+
         public BlockEntityApothecary()
         {
             inventory = new InventoryGeneric(16, "apothecary-inv", null);
@@ -34,7 +35,6 @@ namespace BotaniaStory
             }
         }
 
-        // Вызывается из блока при взаимодействии
         public void UpdateRenderer()
         {
             renderer?.SetContents(inventory);
@@ -54,6 +54,17 @@ namespace BotaniaStory
             base.FromTreeAttributes(tree, worldForResolving);
             HasWater = tree.GetBool("hasWater");
             inventory.FromTreeAttributes(tree);
+
+            // ==========================================
+            // ИСПРАВЛЕНИЕ РАССИНХРОНА В МУЛЬТИПЛЕЕРЕ:
+            // Обязательно "разрешаем" (resolve) предметы после получения их по сети.
+            // Без этого клиент знает только ID предмета, но не загружает его класс/модель/текстуру,
+            // из-за чего рендер крашится и лепестки становятся невидимыми.
+            // ==========================================
+            if (worldForResolving != null)
+            {
+                inventory.AfterBlocksLoaded(worldForResolving);
+            }
 
             if (Api is ICoreClientAPI)
             {
@@ -80,9 +91,6 @@ namespace BotaniaStory
             base.OnBlockBroken(byPlayer);
         }
 
-        // ==========================================
-        // ИНФОРМАЦИЯ ДЛЯ HUD (С ГРУППИРОВКОЙ)
-        // ==========================================
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
         {
             if (inventory == null || inventory.Empty) return;
@@ -92,6 +100,7 @@ namespace BotaniaStory
             foreach (var slot in inventory)
             {
                 if (slot.Empty) continue;
+                // Без AfterBlocksLoaded вызов GetName() здесь тоже мог вызывать скрытую ошибку на клиенте!
                 string name = slot.Itemstack.GetName();
                 if (totals.ContainsKey(name)) totals[name] += slot.StackSize;
                 else totals[name] = slot.StackSize;
@@ -107,27 +116,18 @@ namespace BotaniaStory
             }
         }
 
-        // ==========================================
-        // ВОДА
-        // ==========================================
-        // ==========================================
-        // ВОДА
-        // ==========================================
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            // 1. СНАЧАЛА рисуем сам каменный блок аптекаря
             MeshData baseMesh;
             tesselator.TesselateBlock(Block, out baseMesh);
             mesher.AddMeshData(baseMesh);
 
-            // 2. ЗАТЕМ рисуем воду поверх него
             if (HasWater)
             {
                 if (waterMesh == null) GenerateWaterMesh(tesselator);
                 if (waterMesh != null) mesher.AddMeshData(waterMesh);
             }
 
-            // 3. Возвращаем TRUE, забирая рендер на себя
             return true;
         }
 
@@ -142,23 +142,17 @@ namespace BotaniaStory
 
             if (waterMesh != null)
             {
-                // Убеждаемся, что массив для флагов существует
                 if (waterMesh.CustomInts == null)
                 {
                     waterMesh.CustomInts = new CustomMeshDataPartInt(waterMesh.VerticesCount);
                     waterMesh.CustomInts.Count = waterMesh.VerticesCount;
                 }
 
-                // Задаем правильный проход рендера (Liquid)
                 int[] customInts = waterMesh.CustomInts.Values;
                 for (int i = 0; i < waterMesh.VerticesCount; i++)
                 {
                     customInts[i] |= 805306368;
                 }
-
-                // ВАЖНО: Я удалил отсюда весь старый код с ClimateColorMapIds и SeasonColorMapIds.
-                // Теперь твоя текстура не будет менять цвет в зависимости от биома или времени года,
-                // а будет отображаться в своих оригинальных цветах!
             }
         }
     }

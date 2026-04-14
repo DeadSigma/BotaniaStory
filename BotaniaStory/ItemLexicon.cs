@@ -1,5 +1,6 @@
-using Vintagestory.API.Common;
+using BotaniaStory;
 using Vintagestory.API.Client;
+using Vintagestory.API.Common;
 
 namespace botaniastory
 {
@@ -7,17 +8,23 @@ namespace botaniastory
     {
         GuiDialogLexicon guideDialog;
 
+        // ДОБАВЛЕНО: Создаем "неубиваемую" анимацию с высоким приоритетом
+        public static AnimationMetaData ReadAnimation = new AnimationMetaData()
+        {
+            Animation = "interactstatic",
+            Code = "reading_lexicon",
+            Weight = 10f,
+            BlendMode = EnumAnimationBlendMode.Add, 
+            EaseInSpeed = 2f,
+            EaseOutSpeed = 2f
+        };
+
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
-            // 1. Базовая логика игры
             base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
 
-            if (handling == EnumHandHandling.PreventDefault)
-            {
-                return;
-            }
+            if (handling == EnumHandHandling.PreventDefault) return;
 
-            // 2. Открываем интерфейс и меняем модельку (только на клиенте)
             if (byEntity.World.Side == EnumAppSide.Client)
             {
                 ICoreClientAPI capi = byEntity.Api as ICoreClientAPI;
@@ -26,11 +33,14 @@ namespace botaniastory
                 {
                     guideDialog = new GuiDialogLexicon(capi);
 
+                    // При закрытии книги — ОСТАНАВЛИВАЕМ по нашему уникальному Code
+                    guideDialog.OnClosed += () => {
+                        byEntity.AnimManager.StopAnimation("reading_lexicon");
+                        capi.Network.GetChannel("botanianetwork").SendPacket(new LexiconStatePacket() { IsOpen = false });
+                    };
                 }
 
-
                 guideDialog.ActiveBookSlot = slot;
-
                 string targetChapterId = null;
 
                 if (byEntity.Controls.Sneak && blockSel != null)
@@ -38,19 +48,18 @@ namespace botaniastory
                     Vintagestory.API.Common.Block targetedBlock = capi.World.BlockAccessor.GetBlock(blockSel.Position);
                     if (targetedBlock != null)
                     {
-                        // Берем полный код блока (например: "botaniastory:mysticalflower-orange-free")
-                        string fullBlockCode = targetedBlock.Code.ToString();
-
-                        // Обращаемся к нашему умному методу поиска
-                        targetChapterId = BookDataManager.GetChapterForBlock(fullBlockCode);
+                        targetChapterId = BookDataManager.GetChapterForBlock(targetedBlock.Code.ToString());
                     }
                 }
 
                 if (!guideDialog.IsOpened())
                 {
                     guideDialog.TryOpen();
-                    // ВОЗВРАЩЕНО: Как только GUI открылся, даем в руки открытую книгу
-                    SwapBookModel(capi, slot, "open");
+
+                    // ЗАПУСКАЕМ нашу неубиваемую анимацию
+                    byEntity.AnimManager.StartAnimation(ReadAnimation);
+
+                    capi.Network.GetChannel("botanianetwork").SendPacket(new LexiconStatePacket() { IsOpen = true });
                 }
 
                 if (targetChapterId != null)
@@ -59,32 +68,6 @@ namespace botaniastory
                 }
 
                 handling = EnumHandHandling.PreventDefault;
-            }
-        }
-
-        // ВОЗВРАЩЕНО: Твой вспомогательный метод для быстрой смены предмета
-        private void SwapBookModel(ICoreClientAPI capi, ItemSlot slot, string targetState)
-        {
-            if (slot.Itemstack == null) return;
-
-            string currentPath = slot.Itemstack.Item.Code.Path;
-
-            // Если книга уже в нужном состоянии, ничего не делаем
-            if (currentPath.EndsWith(targetState)) return;
-
-            // Генерируем новый код
-            string newPath = currentPath.EndsWith("closed")
-                ? currentPath.Replace("closed", targetState)
-                : currentPath.Replace("open", targetState);
-
-            // Ищем этот предмет в реестре игры
-            Item newBookItem = capi.World.GetItem(new AssetLocation("botaniastory", newPath));
-
-            if (newBookItem != null)
-            {
-                // Кладем новую книгу в слот и говорим игре обновить визуал
-                slot.Itemstack = new ItemStack(newBookItem);
-                slot.MarkDirty();
             }
         }
     }

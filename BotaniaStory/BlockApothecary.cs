@@ -30,33 +30,51 @@ namespace BotaniaStory
             if (be == null) return base.OnBlockInteractStart(world, byPlayer, blockSel);
 
             // ==========================================
-            // 1. ЗАБРАТЬ ПРЕДМЕТ ( ПКМ пустой рукой)
-            // ==========================================
-            // ==========================================
             // 1. ЗАБРАТЬ ПРЕДМЕТ ИЛИ АВТОКРАФТ (ПКМ пустой рукой)
             // ==========================================
             if (slot.Empty)
             {
-                // Попытка забрать предметы (если они там есть)
+                bool itemTaken = false;
+
+                // Попытка забрать предметы (начиная с последнего добавленного)
                 for (int i = be.inventory.Count - 1; i >= 0; i--)
                 {
                     if (!be.inventory[i].Empty)
                     {
+                        // Забираем ровно 1 штучку из слота
                         ItemStack stackToTake = be.inventory[i].TakeOut(1);
-                        if (!byPlayer.InventoryManager.TryGiveItemstack(stackToTake, true))
+
+                        // ВАЖНО: Выдаем предмет игроку ТОЛЬКО на сервере, чтобы избежать фантомов
+                        if (world.Side == EnumAppSide.Server)
                         {
-                            world.SpawnItemEntity(stackToTake, blockSel.Position.ToVec3d().Add(0.5, 1.0, 0.5));
+                            if (!byPlayer.InventoryManager.TryGiveItemstack(stackToTake, true))
+                            {
+                                world.SpawnItemEntity(stackToTake, blockSel.Position.ToVec3d().Add(0.5, 1.0, 0.5));
+                            }
                         }
 
                         be.inventory[i].MarkDirty();
+                        be.MarkDirty(true); // Сообщаем серверу, что инвентарь блока нужно сохранить
                         be.UpdateRenderer();
 
                         PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
+
+                        itemTaken = true;
+                        break; // <-- ВАЖНО: Выходим из цикла, чтобы за клик взять только 1 предмет!
                     }
                 }
 
+                // Если предмет успешно забран, прерываем выполнение.
+                // Возвращаем true, говоря игре "Мы успешно обработали клик, всё идет по плану!"
+                if (itemTaken)
+                {
+                    return true;
+                }
+
                 // --- ЛОГИКА АВТОКРАФТА ---
-                // Если мы дошли сюда, значит аптекарь ПУСТ. Если в нём есть вода и мы помним прошлый крафт:
+                // (тут остается твой старый код проверки if (be.HasWater && be.LastCraftedFlower != null) ...)
+
+              
                 if (be.HasWater && be.LastCraftedFlower != null)
                 {
                     long currentTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
