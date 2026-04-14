@@ -226,6 +226,8 @@ namespace botaniastory
                             },
                             Output = "botaniastory:lexicon-closed"
                         });
+
+                        chapter.VisualizeStructure = "terraaltar";
                     }
 
                     // === НАСТРОЙКА АПТЕКАРЯ ===

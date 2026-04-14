@@ -1,0 +1,25 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "#####",
+            "#####",
+            "#####",
+            "#####"
+        ],
+        [
+            "#####",
+            "#####",
+            "#####",
+            "#####"
+        ]
+    ],
+    "name": "Mana Hammer",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:hammerhead-manasteel"
+    }
+}

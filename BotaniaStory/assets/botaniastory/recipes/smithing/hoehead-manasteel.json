@@ -1,0 +1,23 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "__#########_____",
+            "____#_#####_____",
+            "__#########_____"
+        ],
+        [
+            "____###____#____",
+            "____#_#____#____",
+            "____###____#____"
+        ]
+    ],
+    "name": "Mana Hoe",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:hoehead-manasteel"
+    }
+}

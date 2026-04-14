@@ -1,0 +1,18 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "###########____",
+            "_______########",
+            "____________###"
+        ]
+    ],
+    "name": "Mana Scythe",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:scythehead-manasteel"
+    }
+}

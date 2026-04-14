@@ -3,22 +3,18 @@
         "type": "item",
         "code": "game:ingot-manasteel"
     },
-    "name": "Mana Plate",
     "pattern": [
         [
+            "#####____",
             "#########",
             "#########",
             "#########",
-            "#########",
-            "#########",
-            "#########",
-            "#########",
-            "#########",
-            "#########"
+            "#####____"
         ]
     ],
+    "name": "Mana Axe",
     "output": {
         "type": "item",
-        "code": "game:metalplate-manasteel"
+        "code": "botaniastory:axehead-manasteel"
     }
 }

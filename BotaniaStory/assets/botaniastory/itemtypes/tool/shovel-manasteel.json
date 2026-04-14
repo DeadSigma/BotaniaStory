@@ -7,7 +7,6 @@
 	"shape": { "base": "game:item/tool/shovel-copper" },
 	"textures": {
 		"material": { "base": "game:item/resource/plate/manasteel" }
-
 	},
 	"attributes": {
 		"heldItemPitchFollow": 0.9,
@@ -28,16 +27,16 @@
 		},
 		"groundStorageTransform": {
 			"translation": {
-				"x": 0.01,
-				"y": 0.464,
-				"z": -0.165
+				"x": 0,
+				"y": 0.59,
+				"z": -0.15
 			},
 			"rotation": {
-				"x": 26,
+				"x": 13,
 				"y": 88,
 				"z": -87
 			},
-			"scale": 0.78
+			"scale": 0.88
 		},
 		"antlerMountable": true,
 		"onAntlerMountTransform": {
@@ -63,7 +62,7 @@
 			"name": "GroundStorable",
 			"properties": {
 				"layout": "WallHalves",
-				"wallOffY": 1,
+				"wallOffY": 2,
 				"ctrlKey": true,
 				"selectionBox": {
 					"x1": 0,
@@ -89,8 +88,10 @@
 		},
 		{ "name": "Buffable" }
 	],
+	"heldTpIdleAnimation": "shovelidle",
 	"heldRightReadyAnimation": "shovelready",
-	"heldTpHitAnimation": "shovelchop",
+	"heldTpHitAnimation": "shoveldig",
+	"heldTpUseAnimation": "interactStaticLong",
 	"attackRange": 2,
 	"tooltier": 2,
 	"miningspeed": {
@@ -107,16 +108,15 @@
 	},
 	"guiTransform": {
 		"rotation": {
-			"x": -63,
-			"y": -123,
-			"z": -180
+			"x": -115,
+			"y": -28,
+			"z": 139
 		},
 		"origin": {
-			"x": 0.61,
+			"x": 0.7,
 			"y": 0,
-			"z": 0.47
-		},
-		"scale": 0.89
+			"z": 0.55
+		}
 	},
 	"groundTransform": {
 		"translation": {

@@ -1,0 +1,18 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "_____####",
+            "__#######",
+            "#####____"
+        ]
+    ],
+    "name": "Mana ProspectingPick",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:prospectingpickhead-manasteel"
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "########____",
+            "############",
+            "########____",
+            "########____"
+        ]
+    ],
+    "name": "Mana Cleaver",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:cleaverhead-manasteel"
+    }
+}

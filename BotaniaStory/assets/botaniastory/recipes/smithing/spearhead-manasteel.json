@@ -1,0 +1,20 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "_____###__",
+            "__########",
+            "##########",
+            "__########",
+            "_____###__"
+        ]
+    ],
+    "name": "Mana Spear",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:spearhead-manasteel"
+    }
+}

@@ -125,10 +125,9 @@
 
     "botaniastory:item-lexicon-closed": "Лексикон Ботании",
     "botaniastory:item-lexicon-open": "Лексикон Ботании",
-    "item-manaitem-manasteel": "Манасталь",
     "item-manaitem-managear": "Манашестерня",
-    "item-manaitem-manaflax": "Мана-нить",
-    "item-manaitem-manaresin": "Манасмола",
+    "item-manaitem-manaflax": "Мананить",
+    "item-manaitem-manaquartz": "Манакварц",
     "block-livingwood": "Жизнедерево",
     "block-livingrock": "Жизнекамень",
     "block-livingrock_slab": "Плита из жизнекамня",
@@ -138,8 +137,9 @@
     "block-manapool": "Бассейн маны",
     "block-manapool-normal": "Бассейн маны",
     "block-manapool-creative": "Бассейн маны",
-    "block-manapool_diluted": "Бассейн разбавленной маны",
+    "block-manapool-diluted": "Бассейн разбавленной маны",
     "item-livingwood_firewood": "Дрова из жизнедерева",
+	"item-manatablet": "Планшет маны",
     "item-livingwood_stick": "Палка из жизнедерева",
     "item-wandoftheforest-*": "Посох леса",
     "item-wandofbinding": "Посох связывания",
@@ -149,7 +149,11 @@
     "item-sparkaugment-dispersive": "Дополнитель искр: Рассеивающий ",
     "item-sparkaugment-isolated": "Дополнитель искр: Изолирующий",
     "item-pickaxehead-manasteel": "Оголовье кирки из манастали",
-    "item-pickaxe-manasteel": "Манастальная кирка",
+    "item-pickaxe-manasteel": "Кирка из манастали",
+    "item-shovel-manasteel": "Лопата из манастали",
+    "item-shovelhead-manasteel": "Оголовье лопаты из манастали",
+	"item-axe-manasteel": "Топор из манастали",
+	"item-axehead-manasteel": "Оголовье топора из манастали",
 	"item-pickaxehead-manasteel": "Оголовье кирки из манастали",
 	"item-falxhead-manasteel": "Лезвие фалькса из манастали",
 	"item-cleaverhead-manasteel": "Оголовье тесака из манастали",
@@ -160,6 +164,7 @@
 	"item-sawblade-manasteel": "Лезвие пилы из манастали",
 	"item-scythehead-manasteel": "Лезвие косы из манастали",
 	"item-spearhead-manasteel": "Наконечник копья из манастали",
+	"item-spear-manasteel": "Копье из манастали",
 	
 	"item-pickaxe-manasteel": "Кирка из манастали",
 	"item-falx-manasteel": "Фалькс из манастали",
@@ -179,6 +184,17 @@
 	"item-armor-chain-manasteel-head": "Шлем из манастали",
 	"item-armor-chain-manasteel-body": "Нагрудник из манастали",
 	"item-armor-chain-manasteel-legs": "Поножи из манастали",
+	"game:block-metalblock-new-plain-manasteel": "Блок манастали",
+	"game:block-metalblock-corroded-plain-manasteel": "Блок манастали с коррозией",
+	"game:block-metalblock-new-riveted-manasteel": "Клёпаный блок манастали",
+	"game:block-metalblock-corroded-riveted-manasteel": "Клёпаный блок манастали с коррозией",
+	"game:block-metalsheet-manasteel-down": "Лист манастали",
+	"game:item-ingot-manasteel": "Слиток манастали",
+	"game:item-metalbit-manasteel": "Кусочек манастали",
+	"game:item-metalplate-manasteel": "Пластина из манастали",
+
+	
+	
 
     "welcome-text": "Магия, Технологии. Естество.\n\nБотания - это технический мод, посвященный природной магии. Основная концепция заключается в создании магических цветов и устройств, использующих силу земли, в виде маны.",
 

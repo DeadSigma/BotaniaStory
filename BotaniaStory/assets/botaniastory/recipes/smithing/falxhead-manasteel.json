@@ -1,0 +1,23 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "name": "Mana Falx",
+    "pattern": [
+        [
+            "_______________",
+            "_______________",
+            "____#######____",
+            "__###########__",
+            "_############__",
+            "####_____#_#___",
+            "###____________",
+            "#______________"
+        ]
+    ],
+    "output": {
+        "type": "item",
+        "code": "botaniastory:falxhead-manasteel"
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "__#####",
+            "_######",
+            "#######",
+            "#######",
+            "_######",
+            "__#####"
+        ]
+    ],
+    "name": "Mana Shovel",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:shovelhead-manasteel"
+    }
+}
