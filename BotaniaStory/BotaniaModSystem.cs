@@ -12,7 +12,7 @@ namespace BotaniaStory
     public class BotaniaStoryModSystem : ModSystem
     {
         private BotaniaWandHud wandHud;
-        public static ManaStreamRenderer ManaRenderer;
+
 
         public IServerNetworkChannel serverChannel;
         public IClientNetworkChannel clientChannel;
@@ -31,15 +31,15 @@ namespace BotaniaStory
 
             // 1. РЕГИСТРИРУЕМ СЕТЬ В ПЕРВУЮ ОЧЕРЕДЬ!
             clientChannel = api.Network.RegisterChannel("botanianetwork")
-                .RegisterMessageType(typeof(ManaStreamPacket))
+
                 .RegisterMessageType(typeof(PlayManaSoundPacket)) //  пакет звука
                 .RegisterMessageType(typeof(LexiconStatePacket))
-                .SetMessageHandler<ManaStreamPacket>(OnManaStreamPacketReceived)
+
                 .SetMessageHandler<PlayManaSoundPacket>(OnSoundPacketReceived); // чтение звука
 
             // 2. А уже потом загружаем HUD и Рендерер
             wandHud = new BotaniaWandHud(api);
-            ManaRenderer = new ManaStreamRenderer(api);
+
         }
 
         public override void StartServerSide(ICoreServerAPI api)
@@ -48,7 +48,7 @@ namespace BotaniaStory
             this.sapi = api; // <--- Сохраняем ссылку на сервер
 
             serverChannel = api.Network.RegisterChannel("botanianetwork")
-                .RegisterMessageType(typeof(ManaStreamPacket))
+
                 .RegisterMessageType(typeof(PlayManaSoundPacket))
                 .RegisterMessageType(typeof(LexiconStatePacket)) // <--- Добавили пакет книги
                 .SetMessageHandler<LexiconStatePacket>(OnLexiconStateMessage); // <--- Сервер слушает этот пакет
@@ -98,13 +98,7 @@ namespace BotaniaStory
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }
 
-        private void OnManaStreamPacketReceived(ManaStreamPacket packet)
-        {
-            ManaRenderer?.AddParticle(
-                new Vintagestory.API.MathTools.Vec3d(packet.StartX, packet.StartY, packet.StartZ),
-                new Vintagestory.API.MathTools.Vec3d(packet.EndX, packet.EndY, packet.EndZ)
-            );
-        }
+      
 
         // --- ДОБАВЛЕНО: Что делает Клиент, когда получает письмо о звуке
         private void OnSoundPacketReceived(PlayManaSoundPacket packet)
@@ -175,7 +169,7 @@ namespace BotaniaStory
         }
         public override void Dispose()
         {
-            ManaRenderer?.Dispose();
+
             base.Dispose();
         }
     }

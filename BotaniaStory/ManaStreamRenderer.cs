@@ -15,9 +15,6 @@ namespace BotaniaStory
         private LoadedTexture particleTexture = null;
         public Matrixf ModelMat = new Matrixf();
 
-        // Переменные для дебага
-        private float debugTimer = 0f;
-
         public double RenderOrder => 0.5;
         public int RenderRange => 64;
 
@@ -98,14 +95,6 @@ namespace BotaniaStory
         {
 
             if (particleTexture == null || particleTexture.Disposed || particleTexture.TextureId == 0) return;
-            // ДЕБАГГЕР 
-            debugTimer += deltaTime;
-            if (debugTimer > 1.0f)
-            {
-                debugTimer = 0f;
-                if (activeParticles.Count > 0)
-                    capi.Logger.Debug($"[BotaniaStory Debug] Активных частиц: {activeParticles.Count}. ID Текстуры: {particleTexture?.TextureId}");
-            }
 
             if (activeParticles.Count == 0 || quadMeshRef == null || particleTexture == null || particleTexture.TextureId == 0) return;
 
@@ -124,7 +113,8 @@ namespace BotaniaStory
 
             IStandardShaderProgram prog = render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
 
-            prog.Tex2D = particleTexture.TextureId;
+            // --- ПРАВИЛЬНЫЙ БИНД ---
+            capi.Render.BindTexture2d(particleTexture.TextureId);
             prog.Uniform("alphaTest", 0f);
             prog.Uniform("extraGlow", 0);
 
