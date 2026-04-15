@@ -93,8 +93,8 @@ namespace BotaniaStory
         public void Render(float dt, IShaderProgram prog)
         {
             // Скорость "роста" молнии снизу вверх
-            this.secondsAlive += dt * 1.5f;
-            if (this.secondsAlive > 0.1f) this.Alive = false;
+            this.secondsAlive += dt * 1.0f;
+            if (this.secondsAlive > 0.7f) this.Alive = false;
 
             prog.Uniform("color", this.color);
             prog.Uniform("lineWidth", this.linewidth);
@@ -104,7 +104,7 @@ namespace BotaniaStory
 
             prog.Uniform("origin", (float)(this.origin.X - camPos.X), (float)(this.origin.Y - camPos.Y), (float)(this.origin.Z - camPos.Z));
 
-            double cntRel = GameMath.Clamp(this.secondsAlive * 1f, 0f, 1f);
+            double cntRel = GameMath.Clamp(this.secondsAlive * 3f, 0f, 1f);
             int instanceCount = (int)(cntRel * this.points.Count) - 1;
 
             if (instanceCount > 0)
