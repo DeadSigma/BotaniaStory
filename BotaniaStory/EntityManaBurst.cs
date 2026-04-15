@@ -115,18 +115,22 @@ namespace BotaniaStory
                 // Если блок не воздух и не жидкость
                 if (block.Id != 0 && block.MatterState != EnumMatterState.Liquid)
                 {
-                    // 1. Сначала проверяем, не бассейн ли это
-                    if (block is BlockManaPool)
+                    // === ВОТ ТУТ МЫ УЧИМ СГУСТОК ВИДЕТЬ АЛТАРЬ ===
+                    if (block is BlockManaPool || block is BlockRunicAltar)
                     {
                         BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(currentPos);
+                        int finalMana = (int)(ManaPayload * lifeRatio);
+                        if (finalMana < 1) finalMana = 1;
+
                         if (be is BlockEntityManaPool pool)
                         {
-                            int finalMana = (int)(ManaPayload * lifeRatio);
-                            if (finalMana < 1) finalMana = 1;
-
                             pool.CurrentMana += finalMana;
                             if (pool.CurrentMana > pool.MaxMana) pool.CurrentMana = pool.MaxMana;
                             pool.MarkDirty(true);
+                        }
+                        else if (be is BlockEntityRunicAltar altar)
+                        {
+                            altar.ReceiveMana(finalMana); // ПЕРЕДАЕМ МАНУ АЛТАРЮ!
                         }
 
                         // Отдали ману — исчезаем
@@ -134,11 +138,9 @@ namespace BotaniaStory
                         return;
                     }
 
-                    // 2. Если это НЕ бассейн, проверяем блок на "твердость" (коллизию)
-                    // У цветов, высокой травы, лиан и факелов нет CollisionBoxes, поэтому искра полетит дальше!
+                    // Если это НЕ бассейн и НЕ алтарь, проверяем блок на коллизию (стена/земля)
                     if (block.CollisionBoxes != null && block.CollisionBoxes.Length > 0)
                     {
-                        // Врезались в твердую стену или землю — исчезаем
                         Die();
                     }
                 }

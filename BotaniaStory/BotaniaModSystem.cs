@@ -93,7 +93,8 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemManaSpear", typeof(ItemManaSpear));
             api.RegisterItemClass("ItemManaWrench", typeof(ItemManaWrench));
             api.RegisterItemClass("ItemManaCrowbar", typeof(ItemManaCrowbar));
-
+            api.RegisterBlockClass("BlockRunicAltar", typeof(BotaniaStory.BlockRunicAltar));
+            api.RegisterBlockEntityClass("RunicAltar", typeof(BotaniaStory.BlockEntityRunicAltar));
 
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }
@@ -103,6 +104,8 @@ namespace BotaniaStory
         // --- ДОБАВЛЕНО: Что делает Клиент, когда получает письмо о звуке
         private void OnSoundPacketReceived(PlayManaSoundPacket packet)
         {
+
+            if (capi.World?.Player?.Entity == null) return;
             // ЗАЩИТА ОТ КРАША: Если пакет или его данные пустые — просто игнорируем
             if (packet == null || packet.SoundName == null || packet.Position == null) return;
 

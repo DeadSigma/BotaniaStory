@@ -84,9 +84,15 @@ namespace BotaniaStory
             showHud = false;
             isLookingAtPool = false;
 
+            BlockEntity be = null;
+            if (sel != null)
+            {
+                be = capi.World.BlockAccessor.GetBlockEntity(sel.Position);
+            }
+
+            // === ТЕПЕРЬ ВСЕ ПРОВЕРКИ ТОЛЬКО ЕСЛИ В РУКЕ ПОСОХ ===
             if (hasWand && sel != null)
             {
-                BlockEntity be = capi.World.BlockAccessor.GetBlockEntity(sel.Position);
                 showConnectionStatus = true;
 
                 if (be is BlockEntityGeneratingFlower flower)
@@ -118,8 +124,41 @@ namespace BotaniaStory
                     displayName = pool.Block.GetPlacedBlockName(capi.World, sel.Position);
                     showHud = true;
                 }
+                // === ПЕРЕНЕСЛИ АЛТАРЬ СЮДА ===
+                else if (be is BlockEntityRunicAltar altar)
+                {
+                    displayMana = altar.CurrentMana;
+
+                    // Если есть рецепт — показываем ману относительно рецепта.
+                    // Если нет — показываем относительно общего буфера алтаря.
+                    displayMaxMana = altar.TargetMana > 0 ? altar.TargetMana : altar.MaxBufferMana;
+
+                    highlightPos = null;
+                    showConnectionStatus = false;
+                    isLookingAtPool = false;
+
+                    if (altar.TargetMana == 0)
+                    {
+                        // Если рецепта нет, просто пишем "Рунический алтарь" и показываем сколько в нем маны
+                        displayName = "Рунический алтарь (Буфер)";
+                    }
+                    else if (altar.HasLivingrock)
+                    {
+                        displayName = "Завершите крафт Посохом Леса!";
+                    }
+                    else if (altar.CurrentMana >= altar.TargetMana)
+                    {
+                        displayName = "Алтарь заряжен! Добавьте Жизнекамень.";
+                    }
+                    else
+                    {
+                        displayName = "Сбор маны для руны...";
+                    }
+                    showHud = true;
+                }
             }
 
+            // ... (дальше код отрисовки HighlightBlocks и Composers остается без изменений) ...
             if (showHud)
             {
                 if (highlightPos != null)
@@ -142,18 +181,12 @@ namespace BotaniaStory
 
                 Composers["botaniaHud"].GetDynamicText("manaText").SetNewText(textToDisplay);
 
-                if (!IsOpened())
-                {
-                    TryOpen();
-                }
+                if (!IsOpened()) TryOpen();
             }
             else
             {
                 capi.World.HighlightBlocks(player, 2, new List<BlockPos>());
-                if (IsOpened())
-                {
-                    TryClose();
-                }
+                if (IsOpened()) TryClose();
             }
         }
 
@@ -191,6 +224,7 @@ namespace BotaniaStory
                 // Передаем обрезанную сетку в видеокарту
                 capi.Render.UpdateMesh(fillMesh, fillData);
             }
+
 
 
             sh.Uniform("noTexture", 0f);
@@ -250,6 +284,33 @@ namespace BotaniaStory
 
             sh.Uniform("noTexture", 0f);
             sh.Uniform("rgbaIn", new Vec4f(1f, 1f, 1f, 1f));
+
+            // === 6. СЛОЙ ДЛЯ РУНИЧЕСКОГО АЛТАРЯ (Галочка/Крестик) ===
+            var selBlock = capi.World.Player.CurrentBlockSelection;
+            if (selBlock != null && showHud)
+            {
+                // Заменили be на targetBe, чтобы точно не было конфликтов имён
+                BlockEntity targetBe = capi.World.BlockAccessor.GetBlockEntity(selBlock.Position);
+
+                if (targetBe is BlockEntityRunicAltar altar && altar.TargetMana > 0)
+                {
+                    float iconSize = 30f;
+                    float iconX = x + width / 2f - iconSize / 2f;
+                    float iconY = y - iconSize - 10f;
+
+                    if (altar.CurrentMana < altar.TargetMana)
+                    {
+                        // Рисуем крестик (убедись, что crossTex загружен в конструкторе!)
+                        // DrawTexture(sh, quadMesh, crossTex.TextureId, iconX, iconY, iconSize, iconSize);
+                    }
+                    else
+                    {
+                        // Рисуем галочку
+                        // DrawTexture(sh, quadMesh, checkmarkTex.TextureId, iconX, iconY, iconSize, iconSize);
+                    }
+                }
+            }
+
         }
 
         private void DrawTexture(IShaderProgram sh, MeshRef mesh, int textureId, float x, float y, float w, float h)

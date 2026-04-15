@@ -354,7 +354,25 @@ namespace BotaniaStory
                 return;
             }
 
+            if (be is BlockEntityRunicAltar altar)
+            {
+                // Заставляем алтарь попробовать завершить крафт
+                if (altar.TryCompleteCrafting(byPlayer))
+                {
+                    // Если крафт удался, говорим игре, что клик обработан
+                    handling = EnumHandHandling.Handled;
+                }
+                else
+                {
+                    // Если крафт не удался (нет маны или рецепта), 
+                    // мы все равно прерываем клик, чтобы не было конфликтов
+                    handling = EnumHandHandling.PreventDefault;
+                }
+                return;
+            }
+
             base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
+
         }
 
         // ==========================================

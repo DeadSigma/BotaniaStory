@@ -73,9 +73,11 @@ namespace BotaniaStory
             {
                 // Проверяем, стоит ли еще на месте цели Бассейн
                 BlockEntity targetBlock = Api.World.BlockAccessor.GetBlockEntity(TargetPos);
-                if (!(targetBlock is BlockEntityManaPool))
+
+                // Теперь мы не сбрасываем цель, если это Бассейн ИЛИ Рунический Алтарь
+                if (!(targetBlock is BlockEntityManaPool) && !(targetBlock is BlockEntityRunicAltar))
                 {
-                    TargetPos = null; // Бассейн сломали - сбрасываем цель!
+                    TargetPos = null; // Блок сломали - сбрасываем цель!
                     MarkDirty(true);
                 }
             }
@@ -101,8 +103,8 @@ namespace BotaniaStory
 
                     Block hitBlock = Api.World.BlockAccessor.GetBlock(checkPos);
 
-                    // Если луч наткнулся на Бассейн - привязываемся!
-                    if (hitBlock is BlockManaPool)
+                    // Привязываемся, если луч наткнулся на Бассейн ИЛИ Алтарь
+                    if (hitBlock is BlockManaPool || hitBlock is BlockRunicAltar)
                     {
                         TargetPos = checkPos.Copy();
                         MarkDirty(true);

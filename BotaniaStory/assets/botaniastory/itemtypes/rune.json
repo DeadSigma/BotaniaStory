@@ -1,0 +1,156 @@
+{
+	"code": "rune",
+	"class": "Item",
+	"maxstacksize": 64,
+	"variantgroups": [
+		{
+			"code": "type",
+			"states": [
+				"water",
+				"fire",
+				"earth",
+				"air",
+				"mana",
+				"spring",
+				"summer",
+				"autumn",
+				"winter",
+				"envy",
+				"gluttony",
+				"greed",
+				"lust",
+				"pride",
+				"sloth",
+				"wrath"
+			]
+		}
+	],
+	"attributes": {
+		"isBotaniaRune": true,
+		"shelvable": true,
+		"displaycaseable": true,
+		"bookshelveable": true,
+		"onshelfTransform": {
+			"translation": {
+				"x": 0.02,
+				"y": -0.354,
+				"z": 0
+			},
+			"rotation": {
+				"x": 0,
+				"y": -89,
+				"z": 0
+			},
+			"scale": 0.29
+		},
+		"onDisplayTransform": {
+			"translation": {
+				"x": 0,
+				"y": -0.2,
+				"z": 0
+			},
+			"rotation": {
+				"x": 0,
+				"y": -160,
+				"z": 0
+			},
+			"scale": 0.58
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0,
+				"y": -0.45,
+				"z": 0
+			},
+			"rotation": {
+				"x": 90,
+				"y": 0,
+				"z": -180
+			},
+			"scale": 0.36
+		}
+	},
+	"shape": {
+		"base": "botaniastory:item/rune"
+	},
+	"textures": {
+		"rune_base": { "base": "botaniastory:item/rune_base" },
+		"label": { "base": "botaniastory:item/rune_{type}" }
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "Quadrants",
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.1,
+					"z2": 1
+				}
+			}
+		}
+	],
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"guiTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 16,
+			"y": -152,
+			"z": 180
+		},
+		"scale": 1.24
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.67,
+			"y": -1.925,
+			"z": -1.51
+		},
+		"rotation": {
+			"x": 3,
+			"y": -5,
+			"z": -87
+		}
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.05,
+			"z": 0
+		},
+		"rotation": {
+			"x": 90,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5,
+			"z": 0.5299
+		},
+		"scale": 1.86
+	},
+	"fpHandTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 15,
+			"y": -15,
+			"z": 0
+		},
+		"scale": 1.5
+	}
+}
