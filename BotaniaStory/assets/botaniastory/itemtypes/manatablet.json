@@ -30,15 +30,15 @@
 		"onDisplayTransform": {
 			"translation": {
 				"x": 0,
-				"y": -0.05,
+				"y": -0.21,
 				"z": 0
 			},
 			"rotation": {
-				"x": 90,
-				"y": -45,
+				"x": 0,
+				"y": 144,
 				"z": 0
 			},
-			"scale": 0.6
+			"scale": 0.56
 		},
 		"groundStorageTransform": {
 			"translation": {

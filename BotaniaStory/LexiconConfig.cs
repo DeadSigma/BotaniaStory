@@ -11,6 +11,7 @@ namespace botaniastory
         public bool MouseWheelPaging = true; 
         public bool RightClickBack = true;
         public int PoolVolume { get; set; } = 50;
+        public int AltarVolume { get; set; } = 50;
         public int WandVolume { get; set; } = 50;
         public Dictionary<string, double[]> CustomUI { get; set; } = null;
     }

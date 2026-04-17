@@ -11,6 +11,11 @@ using Vintagestory.GameContent;
 
 namespace BotaniaStory
 {
+    public interface IManaReceiver
+    {
+        bool IsFull();
+    }
+
     public class BlockEntityManaSpreader : BlockEntity
     {
         // Углы поворота
@@ -66,6 +71,49 @@ namespace BotaniaStory
 
         private void OnServerTick(float dt)
         {
+            // ==========================================
+            // НОВОЕ: ВТЯГИВАНИЕ МАНЫ ИЗ СОСЕДНИХ БАССЕЙНОВ
+            // ==========================================
+            // Проверяем, есть ли в распространителе место
+            if (CurrentMana < MaxMana)
+            {
+                // Проверяем все 6 соседних сторон (Север, Юг, Восток, Запад, Верх, Низ)
+                foreach (BlockFacing facing in BlockFacing.ALLFACES)
+                {
+                    BlockPos adjPos = Pos.AddCopy(facing);
+                    BlockEntity adjBlockEntity = Api.World.BlockAccessor.GetBlockEntity(adjPos);
+
+                    // ИСПРАВЛЕНИЕ ЗДЕСЬ: используем имя adjacentPool вместо pool
+                    if (adjBlockEntity is BlockEntityManaPool adjacentPool)
+                    {
+                        // Если в бассейне есть хоть какая-то мана
+                        if (adjacentPool.CurrentMana > 0)
+                        {
+                            // Считаем, сколько нам не хватает до полного бака
+                            int neededMana = MaxMana - CurrentMana;
+
+                            // Берем либо то, что нам нужно, либо то, что есть в бассейне (что меньше)
+                            int manaToTake = Math.Min(neededMana, adjacentPool.CurrentMana);
+
+                            // Перемещаем ману
+                            this.CurrentMana += manaToTake;
+                            adjacentPool.CurrentMana -= manaToTake;
+
+                            // Сохраняем изменения и обновляем визуализацию
+                            this.MarkDirty(true);
+                            adjacentPool.MarkDirty(true);
+
+                            // Если после этого мы заполнились на 100%, прекращаем проверять другие стороны
+                            if (this.CurrentMana >= MaxMana)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+
+
             // ==========================================
             // 0. ПРОВЕРКА СУЩЕСТВУЮЩЕЙ ЦЕЛИ
             // ==========================================
@@ -141,6 +189,31 @@ namespace BotaniaStory
             // 2. Проверяем задержку (кулдаун), чтобы стрелял постепенно, а не пулеметом
             long currentMs = Api.World.ElapsedMilliseconds;
             if (currentMs - lastFireMs < fireCooldownMs) return;
+
+            // ==========================================
+            // 2.5 ПРОВЕРКА ЗАПОЛНЕННОСТИ ЦЕЛИ (ПРЯМАЯ)
+            // ==========================================
+            BlockEntity receiverBlock = Api.World.BlockAccessor.GetBlockEntity(TargetPos);
+
+            if (receiverBlock is BlockEntityManaPool pool)
+            {
+                // Проверяем Бассейн Маны
+                if (pool.CurrentMana >= pool.MaxMana)
+                {
+                    return; // Бассейн заполнен! Отменяем выстрел, мана остается в распространителе
+                }
+            }
+            else if (receiverBlock is BlockEntityRunicAltar altar)
+            {
+                // Проверяем Рунический Алтарь (берем крутую логику из твоего BotaniaWandHud!)
+                int limit = altar.TargetMana > 0 ? altar.TargetMana : altar.MaxBufferMana;
+
+                if (altar.CurrentMana >= limit)
+                {
+                    return; // Алтарь накопил нужную ману! Отменяем выстрел
+                }
+            }
+
 
 
             // ==========================================

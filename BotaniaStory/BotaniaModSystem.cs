@@ -116,6 +116,11 @@ namespace BotaniaStory
             {
                 volume = ClientConfig.PoolVolume / 100f;
             }
+            if (packet.SoundName == "runic_altar_craft" ||
+                packet.SoundName == "runic_altar_full")
+            {
+                volume = ClientConfig.AltarVolume / 100f;
+            }
             else if (packet.SoundName == "manaspreaderfire")
             {
                 volume = ClientConfig.SpreaderVolume / 100f;

@@ -1,20 +1,176 @@
 {
-    "editor": { "allAngles": false, "entityTextureMode": false },
-    "textureWidth": 16, "textureHeight": 16,
-    "textures": { "livingrock": "botaniastory:block/livingrock" },
-    "elements": [
-        {
-            "name": "Base",
-            "from": [ 0.0, 0.0, 0.0 ],
-            "to": [ 16.0, 8.0, 16.0 ],
-            "faces": {
-                "north": { "texture": "#livingrock", "uv": [ 0.0, 8.0, 16.0, 16.0 ] },
-                "east": { "texture": "#livingrock", "uv": [ 0.0, 8.0, 16.0, 16.0 ] },
-                "south": { "texture": "#livingrock", "uv": [ 0.0, 8.0, 16.0, 16.0 ] },
-                "west": { "texture": "#livingrock", "uv": [ 0.0, 8.0, 16.0, 16.0 ] },
-                "up": { "texture": "#livingrock", "uv": [ 0.0, 0.0, 16.0, 16.0 ] },
-                "down": { "texture": "#livingrock", "uv": [ 0.0, 0.0, 16.0, 16.0 ] }
-            }
-        }
-    ]
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 128,
+	"textureHeight": 128,
+	"textureSizes": {
+		"runicaltar": [148, 146]
+	},
+	"textures": {
+		"runicaltar": "block/runicaltar"
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [0.3392, 0, 0.3392],
+			"to": [15.6608, 5.0673, 15.6608],
+			"rotationOrigin": [8, 0, 8],
+			"faces": {
+				"north": {
+					"texture": "#runicaltar",
+					"uv": [75.275, 122.275, 142, 142],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#runicaltar",
+					"uv": [75.275, 122.275, 142, 142],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#runicaltar",
+					"uv": [75.275, 122.275, 142, 142],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#runicaltar",
+					"uv": [75.275, 122.275, 142, 142],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#runicaltar",
+					"uv": [96, 72, 145, 119.725],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#runicaltar",
+					"uv": [0, 0, 31.725, 31.725],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "light",
+			"from": [3.3716, 3.192, 3.3716],
+			"to": [12.6284, 9.576, 12.6284],
+			"rotationOrigin": [8, 3.192, 8],
+			"faces": {
+				"north": {
+					"texture": "#runicaltar",
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
+				},
+				"east": {
+					"texture": "#runicaltar",
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
+				},
+				"south": {
+					"texture": "#runicaltar",
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
+				},
+				"west": {
+					"texture": "#runicaltar",
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
+				},
+				"up": {
+					"texture": "#runicaltar",
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
+				},
+				"down": {
+					"texture": "#runicaltar",
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
+				}
+			}
+		},
+		{
+			"name": "cube",
+			"from": [-2.0548, 9.576, -2.0548],
+			"to": [18.0548, 15.96, 18.0548],
+			"rotationOrigin": [8, 9.576, 8],
+			"faces": {
+				"north": {
+					"texture": "#runicaltar",
+					"uv": [0, 119.275, 72.725, 146],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#runicaltar",
+					"uv": [0, 119.275, 72.725, 146],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#runicaltar",
+					"uv": [0, 119.275, 72.725, 146],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#runicaltar",
+					"uv": [0, 119.275, 72.725, 146],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#runicaltar",
+					"uv": [32.175, 70.075, 103.9, 0],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#runicaltar",
+					"uv": [96, 72, 145, 119.725],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "light_cntr",
+			"from": [6.0449, 15.9201, 5.9651],
+			"to": [9.9551, 15.968, 10.0349],
+			"rotationOrigin": [8.1197, 9.576, 7.8803],
+			"faces": {
+				"north": {
+					"texture": "#runicaltar",
+					"uv": [45.175, 107.075, 45.9, 107],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#runicaltar",
+					"uv": [45.175, 107.075, 45.9, 107],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#runicaltar",
+					"uv": [45.175, 107.075, 45.9, 107],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#runicaltar",
+					"uv": [45.175, 107.075, 45.9, 107],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#runicaltar",
+					"uv": [ 37.175, 91.075, 50.9, 77 ],
+					"autoUv": false,
+					"glow": 255
+				},
+				"down": {
+					"texture": "#runicaltar",
+					"uv": [45.175, 107.075, 45.9, 107],
+					"autoUv": false
+				}
+			}
+		}
+	],
+	"animations": []
 }

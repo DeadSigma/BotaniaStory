@@ -3,11 +3,11 @@
 		"allAngles": false,
 		"entityTextureMode": false
 	},
-	"textureWidth": 64,
-	"textureHeight": 64,
+	"textureWidth": 32,
+	"textureHeight": 32,
 	"textureSizes": {
-		"rune_base": [64, 64],
-		"label": [64, 64]
+		"rune_base": [32, 32],
+		"label": [32, 32]
 	},
 	"textures": {
 		"rune_base": "rune_base",
@@ -49,75 +49,75 @@
 				{
 					"name": "cube",
 					"from": [3.8693, -0.015, 6.473],
-					"to": [12.1693, 4.985, 9.498],
+					"to": [12.1693, 0.985, 9.498],
 					"rotationOrigin": [8.0193, -0.015, 7.473],
 					"faces": {
 						"north": {
 							"texture": "#rune_base",
-							"uv": [0, 16, 8.5, 21],
+							"uv": [18, 12, 26.5, 13],
 							"autoUv": false
 						},
 						"east": {
 							"texture": "#rune_base",
-							"uv": [18, 31, 21, 36],
+							"uv": [18, 15, 21, 16],
 							"autoUv": false
 						},
 						"south": {
 							"texture": "#rune_base",
-							"uv": [8.5, 16, 0, 21],
+							"uv": [2, 9.5, 10.5, 11],
 							"autoUv": false
 						},
 						"west": {
 							"texture": "#rune_base",
-							"uv": [21, 31, 24, 36],
+							"uv": [18, 16, 21, 17],
 							"autoUv": false
 						},
 						"up": {
 							"texture": "#rune_base",
-							"uv": [29.5, 9, 21, 6],
+							"uv": [23.5, 3, 15, 0],
 							"autoUv": false
 						},
 						"down": {
 							"texture": "#rune_base",
-							"uv": [17.5, 21, 9, 24],
+							"uv": [23.5, 3, 15, 6],
 							"autoUv": false
 						}
 					}
 				},
 				{
 					"name": "cube",
-					"from": [3.85, 12.85, 6.449],
+					"from": [3.85, 15.85, 6.449],
 					"to": [12.15, 16.85, 9.449],
 					"rotationOrigin": [8, 14.85, 7.45],
 					"faces": {
 						"north": {
 							"texture": "#rune_base",
-							"uv": [18, 16, 26.5, 20],
+							"uv": [18, 12, 26.5, 13],
 							"autoUv": false
 						},
 						"east": {
 							"texture": "#rune_base",
-							"uv": [24, 31, 27, 35],
+							"uv": [18, 17, 21, 18],
 							"autoUv": false
 						},
 						"south": {
 							"texture": "#rune_base",
-							"uv": [26.5, 16, 18, 20],
+							"uv": [3.5, 12.5, 12, 13.5],
 							"autoUv": false
 						},
 						"west": {
 							"texture": "#rune_base",
-							"uv": [27, 31, 30, 35],
+							"uv": [18, 18, 21, 19],
 							"autoUv": false
 						},
 						"up": {
 							"texture": "#rune_base",
-							"uv": [29.5, 12, 21, 9],
+							"uv": [23.5, 9, 15, 6],
 							"autoUv": false
 						},
 						"down": {
 							"texture": "#rune_base",
-							"uv": [29.5, 12, 21, 15],
+							"uv": [18, 12, 26.5, 13],
 							"autoUv": false
 						}
 					}
@@ -125,37 +125,37 @@
 				{
 					"name": "cube",
 					"from": [12.1307, -0.015, 6.449],
-					"to": [18.1307, 7.985, 9.499],
+					"to": [18.1307, 0.985, 9.499],
 					"rotationOrigin": [12.1307, -0.015, 7.45],
 					"faces": {
 						"north": {
 							"texture": "#rune_base",
-							"uv": [9, 0, 15, 8],
+							"uv": [18, 12, 26.5, 13],
 							"autoUv": false
 						},
 						"east": {
 							"texture": "#rune_base",
-							"uv": [18, 23, 21, 31],
+							"uv": [6, 19, 9, 20],
 							"autoUv": false
 						},
 						"south": {
 							"texture": "#rune_base",
-							"uv": [15, 0, 9, 8],
+							"uv": [2, 9.5, 10.5, 11],
 							"autoUv": false
 						},
 						"west": {
 							"texture": "#rune_base",
-							"uv": [21, 23, 24, 31],
+							"uv": [9, 19, 12, 20],
 							"autoUv": false
 						},
 						"up": {
 							"texture": "#rune_base",
-							"uv": [36, 11, 30, 8],
+							"uv": [12, 19, 6, 16],
 							"autoUv": false
 						},
 						"down": {
 							"texture": "#rune_base",
-							"uv": [36, 11, 30, 14],
+							"uv": [15, 0, 23.5, 3],
 							"autoUv": false
 						}
 					},
@@ -164,37 +164,37 @@
 				{
 					"name": "cube",
 					"from": [-6.1842, 12.4087, 6.45],
-					"to": [-0.1842, 20.4087, 9.375],
+					"to": [-0.1842, 13.4087, 9.375],
 					"rotationOrigin": [-0.1842, 12.4087, 7.45],
 					"faces": {
 						"north": {
 							"texture": "#rune_base",
-							"uv": [9, 8, 15, 16],
+							"uv": [18, 12, 26.5, 13],
 							"autoUv": false
 						},
 						"east": {
 							"texture": "#rune_base",
-							"uv": [0, 24, 3, 32],
+							"uv": [18, 19, 21, 20],
 							"autoUv": false
 						},
 						"south": {
 							"texture": "#rune_base",
-							"uv": [15, 8, 9, 16],
+							"uv": [3.5, 12.5, 12, 13.5],
 							"autoUv": false
 						},
 						"west": {
 							"texture": "#rune_base",
-							"uv": [3, 24, 6, 32],
+							"uv": [6, 20, 9, 21],
 							"autoUv": false
 						},
 						"up": {
 							"texture": "#rune_base",
-							"uv": [36, 17, 30, 14],
+							"uv": [15, 3, 23.5, 0],
 							"autoUv": false
 						},
 						"down": {
 							"texture": "#rune_base",
-							"uv": [30, 17, 36, 20],
+							"uv": [15, 0, 23.5, 3],
 							"autoUv": false
 						}
 					},
@@ -202,38 +202,38 @@
 				},
 				{
 					"name": "cube",
-					"from": [7.1842, 4.4087, 6.447],
+					"from": [15.1842, 4.4087, 6.447],
 					"to": [16.1842, 12.4087, 9.523],
 					"rotationOrigin": [11.1842, 7.4087, 7.45],
 					"faces": {
 						"north": {
 							"texture": "#rune_base",
-							"uv": [0, 0, 9, 8],
+							"uv": [18, 12, 26.5, 13],
 							"autoUv": false
 						},
 						"east": {
 							"texture": "#rune_base",
-							"uv": [6, 24, 9, 32],
+							"uv": [15, 12, 18, 20],
 							"autoUv": false
 						},
 						"south": {
 							"texture": "#rune_base",
-							"uv": [9, 0, 0, 8],
+							"uv": [5, 11, 6.5, 14],
 							"autoUv": false
 						},
 						"west": {
 							"texture": "#rune_base",
-							"uv": [9, 24, 12, 32],
+							"uv": [6, 16, 12, 19],
 							"autoUv": false
 						},
 						"up": {
 							"texture": "#rune_base",
-							"uv": [27, 23, 18, 20],
+							"uv": [14, 19, 13, 16],
 							"autoUv": false
 						},
 						"down": {
 							"texture": "#rune_base",
-							"uv": [9, 21, 0, 24],
+							"uv": [15, 16, 14, 19],
 							"autoUv": false
 						}
 					}
@@ -241,37 +241,37 @@
 				{
 					"name": "cube",
 					"from": [16.1842, 12.4087, 6.448],
-					"to": [22.1842, 20.4087, 9.473],
+					"to": [22.1842, 13.4087, 9.473],
 					"rotationOrigin": [16.1842, 12.4087, 7.45],
 					"faces": {
 						"north": {
 							"texture": "#rune_base",
-							"uv": [15, 0, 21, 8],
+							"uv": [18, 12, 26.5, 13],
 							"autoUv": false
 						},
 						"east": {
 							"texture": "#rune_base",
-							"uv": [24, 23, 27, 31],
+							"uv": [9, 20, 12, 21],
 							"autoUv": false
 						},
 						"south": {
 							"texture": "#rune_base",
-							"uv": [21, 0, 15, 8],
+							"uv": [2, 9.5, 10.5, 11],
 							"autoUv": false
 						},
 						"west": {
 							"texture": "#rune_base",
-							"uv": [27, 15, 30, 23],
+							"uv": [13, 20, 16, 21],
 							"autoUv": false
 						},
 						"up": {
 							"texture": "#rune_base",
-							"uv": [36, 23, 30, 20],
+							"uv": [15, 3, 23.5, 0],
 							"autoUv": false
 						},
 						"down": {
 							"texture": "#rune_base",
-							"uv": [36, 23, 30, 26],
+							"uv": [15, 0, 23.5, 3],
 							"autoUv": false
 						}
 					},
@@ -280,37 +280,37 @@
 				{
 					"name": "cube",
 					"from": [-2.1307, -0.015, 6.448],
-					"to": [3.8693, 7.985, 9.573],
+					"to": [3.8693, 0.985, 9.523],
 					"rotationOrigin": [3.8693, -0.015, 7.45],
 					"faces": {
 						"north": {
 							"texture": "#rune_base",
-							"uv": [15, 8, 21, 16],
+							"uv": [18, 14, 24, 15],
 							"autoUv": false
 						},
 						"east": {
 							"texture": "#rune_base",
-							"uv": [27, 23, 30, 31],
+							"uv": [16, 20, 19, 21],
 							"autoUv": false
 						},
 						"south": {
 							"texture": "#rune_base",
-							"uv": [21, 8, 15, 16],
+							"uv": [2, 9.5, 10.5, 11],
 							"autoUv": false
 						},
 						"west": {
 							"texture": "#rune_base",
-							"uv": [30, 0, 33, 8],
+							"uv": [19, 20, 22, 21],
 							"autoUv": false
 						},
 						"up": {
 							"texture": "#rune_base",
-							"uv": [36, 29, 30, 26],
+							"uv": [26.5, 13, 18, 12],
 							"autoUv": false
 						},
 						"down": {
 							"texture": "#rune_base",
-							"uv": [36, 29, 30, 32],
+							"uv": [15, 0, 23.5, 3],
 							"autoUv": false
 						}
 					},
@@ -319,37 +319,75 @@
 				{
 					"name": "cube",
 					"from": [-0.1842, 4.4087, 6.449],
-					"to": [8.8158, 12.4087, 9.474],
+					"to": [0.8158, 12.4087, 9.474],
 					"rotationOrigin": [4.8158, 7.4087, 7.45],
 					"faces": {
 						"north": {
 							"texture": "#rune_base",
-							"uv": [0, 8, 9, 16],
+							"uv": [12, 16, 13, 24],
 							"autoUv": false
 						},
 						"east": {
 							"texture": "#rune_base",
-							"uv": [12, 24, 15, 32],
+							"uv": [0, 16, 3, 24],
 							"autoUv": false
 						},
 						"south": {
 							"texture": "#rune_base",
-							"uv": [9, 8, 0, 16],
+							"uv": [5, 11, 6.5, 14],
 							"autoUv": false
 						},
 						"west": {
 							"texture": "#rune_base",
-							"uv": [15, 24, 18, 32],
+							"uv": [3, 16, 6, 24],
 							"autoUv": false
 						},
 						"up": {
 							"texture": "#rune_base",
-							"uv": [30, 3, 21, 0],
+							"uv": [7, 24, 6, 21],
 							"autoUv": false
 						},
 						"down": {
 							"texture": "#rune_base",
-							"uv": [30, 3, 21, 6],
+							"uv": [8, 21, 7, 24],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [0.4693, 0.76, 6.773],
+					"to": [15.5693, 16.185, 9.198],
+					"rotationOrigin": [8.0193, 0.985, 7.473],
+					"faces": {
+						"north": {
+							"texture": "#rune_base",
+							"uv": [0, 0, 15, 15.5],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#rune_base",
+							"uv": [30, 3, 30, 2.5],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#rune_base",
+							"uv": [0, 0, 15, 15.5],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#rune_base",
+							"uv": [30, 3, 30, 2.5],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#rune_base",
+							"uv": [30, 3, 30, 2.5],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#rune_base",
+							"uv": [30, 3, 30, 2.5],
 							"autoUv": false
 						}
 					}
@@ -358,41 +396,81 @@
 		},
 		{
 			"name": "label",
-			"from": [-0.35, -2.4, 6.35],
-			"to": [15.75, 17.3, 6.351],
-			"rotationOrigin": [7.7, 4.95, 7.35],
+			"from": [0.95, 0.6, 6.7],
+			"to": [15.15, 15.925, 6.701],
+			"rotationOrigin": [7.7, 4.95, 7.7],
 			"faces": {
 				"north": {
 					"texture": "#label",
-					"uv": [11, 3, 55.75, 60],
+					"uv": [1, 0, 31, 32],
 					"autoUv": false
 				},
 				"east": {
 					"texture": "#label",
-					"uv": [0, 0, 0, 13],
+					"uv": [8.5, 8.5, 8.5, 24],
 					"autoUv": false
 				},
 				"south": {
 					"texture": "#label",
-					"uv": [9, 0, 17.75, 13],
+					"uv": [9.5, 0, 23.5, 0],
 					"autoUv": false
 				},
 				"west": {
 					"texture": "#label",
-					"uv": [0, 0, 0, 13],
+					"uv": [8.5, 8.5, 8.5, 24],
 					"autoUv": false
 				},
 				"up": {
 					"texture": "#label",
-					"uv": [8.75, 0, 0, 0],
+					"uv": [8.5, 8.5, 22.5, 8.5],
 					"autoUv": false
 				},
 				"down": {
 					"texture": "#label",
-					"uv": [8.75, 0, 0, 0],
+					"uv": [8.5, 8.5, 22.5, 8.5],
 					"autoUv": false
 				}
 			}
+		},
+		{
+			"name": "label",
+			"from": [1.55, 0.6, 7.25],
+			"to": [15.75, 15.925, 7.251],
+			"rotationOrigin": [8.3, 4.95, 8.25],
+			"faces": {
+				"north": {
+					"texture": "#label",
+					"uv": [31, 0, 1, 32],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#label",
+					"uv": [8.5, 8.5, 8.5, 24],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#label",
+					"uv": [18, 0, 32, 1],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#label",
+					"uv": [8.5, 8.5, 8.5, 24],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#label",
+					"uv": [22.5, 8.5, 8.5, 8.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#label",
+					"uv": [8.5, 8.5, 22.5, 8.5],
+					"autoUv": false
+				}
+			},
+			"rotationX": 180,
+			"rotationZ": 180
 		}
 	],
 	"animations": []

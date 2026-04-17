@@ -42,8 +42,8 @@ namespace botaniastory
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
 
-            // Немного уменьшили высоту, так как ползунков здесь больше нет
-            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 350);
+
+            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 330);
             bgBounds.WithChild(listBounds);
 
             CairoFont font = CairoFont.WhiteSmallText();
@@ -123,6 +123,7 @@ namespace botaniastory
             config.RightClickBack = true;
             config.WandVolume = 50;
             config.PoolVolume = 50;
+            config.AltarVolume = 50;
 
             mainDialog.UpdateScale(1.0f);
             SingleComposer?.Dispose();
@@ -210,6 +211,11 @@ namespace botaniastory
             SingleComposer.AddSlider(OnPoolVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderPoolVolume");
             y += 40;
 
+            // 6. Громкость Рунического Алтаря
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-altarvolume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnAltarVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderAltarVolume");
+            y += 40;
+
             // Кнопка Сохранить и Закрыть
             SingleComposer.AddButton(Lang.Get("botaniastory:dialog-settings-save"), OnSaveAndClose, ElementBounds.Fixed(0, y, 340, 30), font, EnumButtonStyle.Normal);
 
@@ -220,14 +226,16 @@ namespace botaniastory
             SingleComposer.GetSlider("sliderFlowerVolume")?.SetValues(config.FlowerVolume, 0, 100, 1);
             SingleComposer.GetSlider("sliderSpreaderVolume")?.SetValues(config.SpreaderVolume, 0, 100, 1);
             SingleComposer.GetSlider("sliderWandVolume")?.SetValues(config.WandVolume, 0, 100, 1);
-            SingleComposer.GetSlider("sliderPoolVolume")?.SetValues(config.PoolVolume, 0, 100, 1); // <--- ДОБАВЛЕНО
+            SingleComposer.GetSlider("sliderPoolVolume")?.SetValues(config.PoolVolume, 0, 100, 1);
+            SingleComposer.GetSlider("sliderAltarVolume")?.SetValues(config.AltarVolume, 0, 100, 1);
         }
 
         private bool OnVolumeChanged(int value) { config.Volume = value; return true; }
         private bool OnFlowerVolumeChanged(int value) { config.FlowerVolume = value; return true; }
         private bool OnSpreaderVolumeChanged(int value) { config.SpreaderVolume = value; return true; }
         private bool OnWandVolumeChanged(int value) { config.WandVolume = value; return true; }
-        private bool OnPoolVolumeChanged(int value) { config.PoolVolume = value; return true; } // <--- ДОБАВЛЕНО
+        private bool OnPoolVolumeChanged(int value) { config.PoolVolume = value; return true; }
+        private bool OnAltarVolumeChanged(int value) { config.AltarVolume = value; return true; }
 
         private bool OnSaveAndClose()
         {

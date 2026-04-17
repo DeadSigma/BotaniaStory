@@ -30,6 +30,12 @@ namespace BotaniaStory
         private bool isLookingAtPool = false;
         private bool poolIsAccepting = false;
 
+        private enum AltarIconState { None, NeedsLivingrock, NeedsWand }
+        private AltarIconState currentAltarIcon = AltarIconState.None;
+
+        private DummySlot livingrockSlot;
+        private DummySlot wandSlot;
+
         private BlockPos highlightPos = null;
         private string displayName = "";
         private bool showHud = false;
@@ -83,6 +89,7 @@ namespace BotaniaStory
 
             showHud = false;
             isLookingAtPool = false;
+            currentAltarIcon = AltarIconState.None;
 
             BlockEntity be = null;
             if (sel != null)
@@ -124,41 +131,38 @@ namespace BotaniaStory
                     displayName = pool.Block.GetPlacedBlockName(capi.World, sel.Position);
                     showHud = true;
                 }
-                // === ПЕРЕНЕСЛИ АЛТАРЬ СЮДА ===
+                
+
                 else if (be is BlockEntityRunicAltar altar)
                 {
                     displayMana = altar.CurrentMana;
-
-                    // Если есть рецепт — показываем ману относительно рецепта.
-                    // Если нет — показываем относительно общего буфера алтаря.
                     displayMaxMana = altar.TargetMana > 0 ? altar.TargetMana : altar.MaxBufferMana;
 
                     highlightPos = null;
                     showConnectionStatus = false;
                     isLookingAtPool = false;
 
-                    if (altar.TargetMana == 0)
+
+                    displayName = altar.Block.GetPlacedBlockName(capi.World, sel.Position);
+                    currentAltarIcon = AltarIconState.None;
+
+                    // Проверяем, нужна ли иконка
+                    if (altar.TargetMana > 0)
                     {
-                        // Если рецепта нет, просто пишем "Рунический алтарь" и показываем сколько в нем маны
-                        displayName = "Рунический алтарь (Буфер)";
-                    }
-                    else if (altar.HasLivingrock)
-                    {
-                        displayName = "Завершите крафт Посохом Леса!";
-                    }
-                    else if (altar.CurrentMana >= altar.TargetMana)
-                    {
-                        displayName = "Алтарь заряжен! Добавьте Жизнекамень.";
-                    }
-                    else
-                    {
-                        displayName = "Сбор маны для руны...";
+                        if (altar.HasLivingrock)
+                        {
+                            currentAltarIcon = AltarIconState.NeedsWand; // Посох Леса
+                        }
+                        else if (altar.CurrentMana >= altar.TargetMana)
+                        {
+                            currentAltarIcon = AltarIconState.NeedsLivingrock; // Жизнекамень
+                        }
                     }
                     showHud = true;
                 }
             }
 
-            // ... (дальше код отрисовки HighlightBlocks и Composers остается без изменений) ...
+           
             if (showHud)
             {
                 if (highlightPos != null)
@@ -166,17 +170,21 @@ namespace BotaniaStory
                 else
                     capi.World.HighlightBlocks(player, 2, new List<BlockPos>());
 
-                string textToDisplay;
+                string textToDisplay = "";
 
-                if (isSneaking)
+                // Текст будет генерироваться, только если displayName не пустой
+                if (!string.IsNullOrEmpty(displayName))
                 {
-                    string visualMana = (displayMana / 1000f).ToString("0.##");
-                    string visualMax = (displayMaxMana / 1000f).ToString("0.##");
-                    textToDisplay = $"{displayName}\n\n{visualMana} / {visualMax}";
-                }
-                else
-                {
-                    textToDisplay = $"{displayName}\n\n ";
+                    if (isSneaking)
+                    {
+                        string visualMana = (displayMana / 1000f).ToString("0.##");
+                        string visualMax = (displayMaxMana / 1000f).ToString("0.##");
+                        textToDisplay = $"{displayName}\n\n{visualMana} / {visualMax}";
+                    }
+                    else
+                    {
+                        textToDisplay = $"{displayName}\n\n ";
+                    }
                 }
 
                 Composers["botaniaHud"].GetDynamicText("manaText").SetNewText(textToDisplay);
@@ -208,10 +216,8 @@ namespace BotaniaStory
             float fillRatio = (float)displayMana / displayMaxMana;
             fillRatio = Math.Clamp(fillRatio, 0f, 1f);
 
-            // ==========================================
-            // МАГИЯ КАДРИРОВАНИЯ ТЕКСТУРЫ ПОЛОСКИ
-            // ==========================================
-            // Мы обновляем текстурную сетку ТОЛЬКО когда изменилось количество маны (ради оптимизации)
+           
+            // обновляем текстурную сетку ТОЛЬКО когда изменилось количество маны (ради оптимизации)
             if (Math.Abs(lastFillRatio - fillRatio) > 0.001f)
             {
                 lastFillRatio = fillRatio;
@@ -240,23 +246,8 @@ namespace BotaniaStory
             // 3. СЛОЙ: РАМКА ПОВЕРХ ВСЕГО (frameTex)
             DrawTexture(sh, quadMesh, frameTex.TextureId, x, y, width, height);
 
-            // 4. СЛОЙ: ИКОНКА СТАТУСА ПРИВЯЗКИ
-            if (showConnectionStatus)
-            {
-                int iconTexId = (highlightPos != null) ? linkedTex.TextureId : unlinkedTex.TextureId;
 
-                float iconSize = 50f;
-                // Сдвигаем вправо: берем начало полоски (x), прибавляем всю её длину (width) и 5 пикселей для зазора
-                float iconX = x + width + 10f;
-                // Центрируем иконку по вертикали ровно напротив полоски маны
-                float iconY = y + (height / 2f) - (iconSize / 2f);
-
-                DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
-
-                DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
-            }
-
-            // 4. СЛОЙ: ИКОНКА СТАТУСА ПРИВЯЗКИ
+            // СЛОЙ: ИКОНКА СТАТУСА ПРИВЯЗКИ
             if (showConnectionStatus)
             {
                 int iconTexId = (highlightPos != null) ? linkedTex.TextureId : unlinkedTex.TextureId;
@@ -268,46 +259,93 @@ namespace BotaniaStory
                 DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
             }
 
-            // --- НОВОЕ: 5. СЛОЙ: ИКОНКА СТАТУСА БАССЕЙНА ---
+            // 5. СЛОЙ: ИКОНКА СТАТУСА БАССЕЙНА ---
             if (isLookingAtPool)
             {
                 // Выбираем текстуру в зависимости от того, принимает бассейн ману или отдает
                 int iconTexId = poolIsAccepting ? poolAcceptingTex.TextureId : poolGivingTex.TextureId;
 
-                float iconSize = 50f;
-                // Размещаем там же, где была бы иконка привязки
-                float iconX = x + width + 10f;
-                float iconY = y + (height / 2f) - (iconSize / 2f);
+                float iconHeight = 50f;
+                
+                // Рассчитываем ширину для нужного соотношения сторон
+                // Для 16:9:
+                float iconWidth = iconHeight * (18f / 9f);
 
-                DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
+                float iconX = x + width + 10f;
+                float iconY = y + (height / 2f) - (iconHeight / 2f);
+
+                DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconWidth, iconHeight);
             }
 
             sh.Uniform("noTexture", 0f);
             sh.Uniform("rgbaIn", new Vec4f(1f, 1f, 1f, 1f));
 
-            // === 6. СЛОЙ ДЛЯ РУНИЧЕСКОГО АЛТАРЯ (Галочка/Крестик) ===
-            var selBlock = capi.World.Player.CurrentBlockSelection;
-            if (selBlock != null && showHud)
+            // 6. СЛОЙ ДЛЯ РУНИЧЕСКОГО АЛТАРЯ 
+            if (currentAltarIcon != AltarIconState.None)
             {
-                // Заменили be на targetBe, чтобы точно не было конфликтов имён
-                BlockEntity targetBe = capi.World.BlockAccessor.GetBlockEntity(selBlock.Position);
-
-                if (targetBe is BlockEntityRunicAltar altar && altar.TargetMana > 0)
+                // Инициализация виртуальных слотов (выполняется один раз при первом показе)
+                if (livingrockSlot == null)
                 {
-                    float iconSize = 30f;
-                    float iconX = x + width / 2f - iconSize / 2f;
-                    float iconY = y - iconSize - 10f;
-
-                    if (altar.CurrentMana < altar.TargetMana)
-                    {
-                        // Рисуем крестик (убедись, что crossTex загружен в конструкторе!)
-                        // DrawTexture(sh, quadMesh, crossTex.TextureId, iconX, iconY, iconSize, iconSize);
-                    }
+                    Block lrBlock = capi.World.GetBlock(new AssetLocation("botaniastory", "livingrock"));
+                    if (lrBlock != null) livingrockSlot = new DummySlot(new ItemStack(lrBlock));
                     else
                     {
-                        // Рисуем галочку
-                        // DrawTexture(sh, quadMesh, checkmarkTex.TextureId, iconX, iconY, iconSize, iconSize);
+                        Item lrItem = capi.World.GetItem(new AssetLocation("botaniastory", "livingrock"));
+                        if (lrItem != null) livingrockSlot = new DummySlot(new ItemStack(lrItem));
                     }
+                }
+
+                if (wandSlot == null)
+                {
+                    Item wandItem = capi.World.GetItem(new AssetLocation("botaniastory", "wandoftheforest-white-white"));
+                    if (wandItem != null) wandSlot = new DummySlot(new ItemStack(wandItem));
+                }
+
+                // Выбираем, какой предмет сейчас нужен
+                ItemSlot slotToRender = null;
+                if (currentAltarIcon == AltarIconState.NeedsLivingrock) slotToRender = livingrockSlot;
+                else if (currentAltarIcon == AltarIconState.NeedsWand) slotToRender = wandSlot;
+
+                // Отрисовка
+                if (slotToRender != null && !slotToRender.Empty)
+                {
+                    float iconSize = 45f;
+
+                    
+                    float iconX = x + width + 55f;
+                    float iconY = y + (height / 2f) - (iconSize / 2f);
+
+                   
+                    sh.Uniform("noTexture", 1f); 
+                    sh.Uniform("rgbaIn", new Vec4f(1f, 1f, 1f, 1f)); 
+
+                    float plusSize = 20f;
+                    float plusThickness = 4f;
+
+                  
+                    float plusX = iconX - plusSize - 15f;
+                    float plusY = iconY + (iconSize / 2f) - (plusSize / 2f);
+
+                   
+                    DrawTexture(sh, quadMesh, bgTex.TextureId, plusX, plusY + (plusSize / 2f) - (plusThickness / 2f), plusSize, plusThickness);
+
+                   
+                    DrawTexture(sh, quadMesh, bgTex.TextureId, plusX + (plusSize / 2f) - (plusThickness / 2f), plusY, plusThickness, plusSize);
+
+                    sh.Uniform("noTexture", 0f);
+
+                    capi.Render.RenderItemstackToGui(
+                    slotToRender,
+                    iconX + 25f,        
+                    iconY + 20f,               
+                    120,                 
+                    40f,                 
+                    ColorUtil.WhiteArgb, 
+                    deltaTime,
+                    true,
+                    false,
+                    false
+                );
                 }
             }
 

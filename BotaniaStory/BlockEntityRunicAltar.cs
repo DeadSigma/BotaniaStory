@@ -15,7 +15,7 @@ namespace BotaniaStory
         public int CurrentMana = 0;
         public int TargetMana = 0;
         public bool HasLivingrock = false;
-
+        private bool soundFullPlayed = false;
         private float lightningTimer = 0;
         private string currentRecipeResult = null;
         private RunicAltarRenderer renderer;
@@ -45,9 +45,26 @@ namespace BotaniaStory
             }
         }
 
-        // ========================================================
-        // БЕЗОПАСНОЕ СОХРАНЕНИЕ И ЗАГРУЗКА (ГЛАВНЫЙ ФИКС ОШИБКИ)
-        // ========================================================
+        private void PlayAltarSound(string soundName)
+        {
+            if (Api.Side == EnumAppSide.Server)
+            {
+                var sapi = Api as Vintagestory.API.Server.ICoreServerAPI;
+                if (sapi != null)
+                {
+                    var channel = sapi.Network.GetChannel("botanianetwork");
+                    channel.BroadcastPacket(new PlayManaSoundPacket()
+                    {
+                        Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
+                        SoundName = soundName
+                    });
+                }
+            }
+        }
+
+       
+        // БЕЗОПАСНОЕ СОХРАНЕНИЕ И ЗАГРУЗКА 
+
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
@@ -167,43 +184,55 @@ namespace BotaniaStory
         // ========================================================
         // ЛОГИКА КРАФТА И МАНЫ
         // ========================================================
-        private void CheckRecipe()
-        {
-            TargetMana = 0;
-            currentRecipeResult = null;
+       private void CheckRecipe()
+{
+    TargetMana = 0;
+    currentRecipeResult = null;
 
-            List<string> currentItems = new List<string>();
-            foreach (var slot in inventory)
+    List<string> currentItems = new List<string>();
+    foreach (var slot in inventory)
+    {
+        if (!slot.Empty && slot.Itemstack != null)
+            currentItems.Add(slot.Itemstack.Collectible.Code.Path);
+    }
+
+    if (currentItems.Count == 0) return;
+
+    foreach (var recipe in runeRecipes)
+    {
+        if (currentItems.Count == recipe.Value.items.Count)
+        {
+            List<string> checklist = new List<string>(recipe.Value.items);
+            bool isMatch = true;
+
+            foreach (string item in currentItems)
             {
-                if (!slot.Empty && slot.Itemstack != null)
-                    currentItems.Add(slot.Itemstack.Collectible.Code.Path);
+                string found = checklist.Find(req => item.Contains(req));
+                if (found != null) checklist.Remove(found);
+                else { isMatch = false; break; }
             }
 
-            if (currentItems.Count == 0) return;
-
-            foreach (var recipe in runeRecipes)
+            if (isMatch && checklist.Count == 0)
             {
-                if (currentItems.Count == recipe.Value.items.Count)
+                TargetMana = recipe.Value.mana;
+                currentRecipeResult = recipe.Key;
+
+                // --- ИСПРАВЛЕННАЯ ЛОГИКА ЗВУКА ЗДЕСЬ ---
+                if (Api.Side == EnumAppSide.Server)
                 {
-                    List<string> checklist = new List<string>(recipe.Value.items);
-                    bool isMatch = true;
-
-                    foreach (string item in currentItems)
+                    soundFullPlayed = false;
+                    // Если мана уже была накоплена ДО того, как положили все предметы:
+                    if (CurrentMana >= TargetMana)
                     {
-                        string found = checklist.Find(req => item.Contains(req));
-                        if (found != null) checklist.Remove(found);
-                        else { isMatch = false; break; }
-                    }
-
-                    if (isMatch && checklist.Count == 0)
-                    {
-                        TargetMana = recipe.Value.mana;
-                        currentRecipeResult = recipe.Key;
-                        break;
+                        PlayAltarSound("runic_altar_full");
+                        soundFullPlayed = true;
                     }
                 }
+                break;
             }
         }
+    }
+}
 
         public bool TryCompleteCrafting(IPlayer player)
         {
@@ -234,8 +263,17 @@ namespace BotaniaStory
             currentRecipeResult = null;
 
             MarkDirty(true);
-            if (Api.Side == EnumAppSide.Client) renderer?.UpdateMeshes();
-            Api.World.PlaySoundAt(new AssetLocation("botaniastory:sounds/runic_altar_craft"), Pos.X, Pos.Y, Pos.Z);
+            if (Api.Side == EnumAppSide.Client)
+            {
+                renderer?.UpdateMeshes();
+               
+            }
+          
+
+            if (Api.Side == EnumAppSide.Server)
+            {
+                PlayAltarSound("runic_altar_craft");
+            }
 
             return true;
         }
@@ -244,6 +282,22 @@ namespace BotaniaStory
         {
             if (CurrentMana < MaxBufferMana)
             {
+                // --- ИСПРАВЛЕННАЯ ЛОГИКА ЗВУКА ЗДЕСЬ ---
+                if (Api.Side == EnumAppSide.Server)
+                {
+                    long currentTime = Api.World.ElapsedMilliseconds;
+
+   
+
+                    // Звук "Готово", если есть активный рецепт и мы только что добили нужное количество маны
+                    if (TargetMana > 0 && CurrentMana + amount >= TargetMana && !soundFullPlayed)
+                    {
+                        PlayAltarSound("runic_altar_full");
+                        soundFullPlayed = true;
+                    }
+                }
+
+                // Физическое начисление маны
                 CurrentMana = Math.Min(MaxBufferMana, CurrentMana + amount);
                 MarkDirty(true);
             }
@@ -258,15 +312,34 @@ namespace BotaniaStory
 
             float progress = Math.Min(1.0f, (float)CurrentMana / TargetMana);
 
-            SimpleParticleProperties glow = new SimpleParticleProperties(
-                1, 1, ColorUtil.ToRgba(200, 64, 255, 200),
-                Pos.ToVec3d().Add(0.5, 1.1, 0.5), Pos.ToVec3d().Add(0.5, 1.1, 0.5),
-                new Vec3f(-0.01f, -0.01f, -0.01f), new Vec3f(0.01f, 0.01f, 0.01f),
-                0.5f, 0, 0.2f + progress * 0.5f, 0.5f, EnumParticleModel.Quad
-            );
-            glow.VertexFlags = 128;
-            Api.World.SpawnParticles(glow);
+            if (Api.World.Rand.NextDouble() > 0.3)
+            {
+                Vec3d offset = new Vec3d(
+                    (Api.World.Rand.NextDouble() - 0.5) * 1.2,
+                    0.1,
+                    (Api.World.Rand.NextDouble() - 0.5) * 1.2
+                );
 
+                // Базовая позиция для частицы
+                Vec3d startPos = Pos.ToVec3d().Add(0.5, 1.0, 0.5).Add(offset);
+
+                SimpleParticleProperties idleSpark = new SimpleParticleProperties(
+                    1, 2, // Количество
+                    ColorUtil.ToRgba(200, 255, 255, 100), // Бирюзово-голубой
+                    startPos, // MinPos (Где спавним)
+                    new Vec3d(0, 0, 0), // AddPos - КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: НУЛЕВОЙ разброс!
+                    new Vec3f(-0.1f, 0.2f, -0.1f), // MinVelocity
+                    new Vec3f(0.2f, 0.3f, 0.2f), // AddVelocity
+                    1.0f + (float)Api.World.Rand.NextDouble(), // Жизнь
+                    -0.02f, // Гравитация (взлетают вверх)
+                    0.05f, 0.1f, // Мелкий размер
+                    EnumParticleModel.Quad
+                );
+                idleSpark.VertexFlags = 128; // Свечение
+                Api.World.SpawnParticles(idleSpark);
+            }
+
+            // Молнии при полной мане
             if (progress >= 1.0f)
             {
                 lightningTimer += dt;
@@ -284,6 +357,8 @@ namespace BotaniaStory
             int count = 2 + Api.World.Rand.Next(3);
             for (int i = 0; i < count; i++) renderer?.AddLightning(startPos);
         }
+
+        
 
         public override void OnBlockRemoved()
         {
@@ -304,5 +379,6 @@ namespace BotaniaStory
             }
             base.OnBlockBroken(byPlayer);
         }
+
     }
 }

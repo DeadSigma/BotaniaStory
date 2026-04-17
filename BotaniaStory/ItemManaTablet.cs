@@ -31,13 +31,14 @@ namespace BotaniaStory
         {
             meshRefs = new MultiTextureMeshRef[11];
             AssetLocation shapeLoc = new AssetLocation("botaniastory", "shapes/item/manatablet.json");
-            Shape shape = capi.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
-            if (shape == null) return;
 
             for (int i = 0; i < 11; i++)
             {
-                // Клонируем, чтобы не испортить оригинал
-                Shape tempShape = shape.Clone();
+                // Читаем чистую модель напрямую из ассетов для каждого шага.
+                // Это навсегда убьет баги с общими ссылками массивов From/To/Uv
+                Shape tempShape = capi.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
+                if (tempShape == null) continue;
+
                 UpdateLiquidLevel(tempShape, i / 10f);
 
                 capi.Tesselator.TesselateShape(this, tempShape, out MeshData mesh);
@@ -54,9 +55,36 @@ namespace BotaniaStory
             double originalMaxY = liquidElem.To[1];
             double maxRise = originalMaxY - baseY;
 
-            // Рассчитываем новую высоту
-            liquidElem.To[1] = baseY + Math.Max(0.01, maxRise * fillRatio);
-            if (fillRatio <= 0) liquidElem.To[1] = baseY;
+            // Защита от нулевой высоты
+            double ratio = Math.Max(0.001, fillRatio);
+
+            // 1. Изменяем высоту геометрии
+            liquidElem.To[1] = baseY + (maxRise * ratio);
+
+            // 2. Обрезаем текстуру через массив FacesResolved
+            // Используем готовые константы сторон света из движка
+            BlockFacing[] sideFaces = { BlockFacing.NORTH, BlockFacing.SOUTH, BlockFacing.EAST, BlockFacing.WEST };
+
+            foreach (BlockFacing facing in sideFaces)
+            {
+                // Берем грань по индексу (0 - North, 1 - East, 2 - South, 3 - West)
+                ShapeElementFace face = liquidElem.FacesResolved[facing.Index];
+
+                // Проверяем, что грань существует и у нее есть UV
+                if (face != null && face.Uv != null)
+                {
+                    float[] newUv = new float[4];
+                    Array.Copy(face.Uv, newUv, 4);
+
+                    float vTopOriginal = face.Uv[1];
+                    float vBottom = face.Uv[3];
+                    float uvHeight = vBottom - vTopOriginal;
+
+                    newUv[1] = vBottom - (uvHeight * (float)ratio);
+
+                    face.Uv = newUv;
+                }
+            }
         }
 
         private ShapeElement FindElement(ShapeElement[] elements, string name)
@@ -92,19 +120,20 @@ namespace BotaniaStory
 
             ICoreClientAPI capi = api as ICoreClientAPI;
             AssetLocation shapeLoc = new AssetLocation("botaniastory", "shapes/item/manatablet.json");
+
+            // Парсим чистую форму из JSON на каждый вызов, поэтому Clone() больше не нужен
             Shape shape = capi.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
             if (shape == null) return null;
 
-            // Создаем чистую копию формы и настраиваем ману
-            Shape groundShape = shape.Clone();
+            // Настраиваем уровень маны напрямую в shape
             int step = GetManaStep(inSlot.Itemstack);
-            UpdateLiquidLevel(groundShape, step / 10f);
+            UpdateLiquidLevel(shape, step / 10f);
 
             // Используем наш умный адаптер текстур
             ITexPositionSource texSource = new ContainedItemTexSource(targetAtlas, this);
 
-            // Генерируем модель, передавая форму и наш адаптер текстур
-            capi.Tesselator.TesselateShape("manatablet-ground", groundShape, out MeshData mesh, texSource);
+            // ВАЖНО: здесь мы передаем shape, а не удаленный groundShape
+            capi.Tesselator.TesselateShape("manatablet-ground", shape, out MeshData mesh, texSource);
 
             blockMeshCache[key] = mesh;
             return mesh.Clone();
