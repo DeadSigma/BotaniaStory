@@ -13,50 +13,28 @@ namespace BotaniaStory
     {
         private BotaniaWandHud wandHud;
 
-
         public IServerNetworkChannel serverChannel;
         public IClientNetworkChannel clientChannel;
         public static botaniastory.LexiconConfig ClientConfig;
 
-        // Переменная, чтобы мы могли обращаться к миру для воспроизведения звука
+        // --- ПЕРЕМЕННАЯ РЕНДЕРЕРА ЧАСТИЦ ---
+        public static ManaStreamRenderer ManaRenderer;
+
         private ICoreClientAPI capi;
         private ICoreServerAPI sapi;
-        public override void StartClientSide(ICoreClientAPI api)
-        {
-            base.StartClientSide(api);
-            this.capi = api; // Сохраняем ссылку на Клиент
 
-            // 2. Загружаем конфиг при старте игры
-            ClientConfig = api.LoadModConfig<botaniastory.LexiconConfig>("lexicon_client.json") ?? new botaniastory.LexiconConfig();
-
-            // 1. РЕГИСТРИРУЕМ СЕТЬ В ПЕРВУЮ ОЧЕРЕДЬ!
-            clientChannel = api.Network.RegisterChannel("botanianetwork")
-
-                .RegisterMessageType(typeof(PlayManaSoundPacket)) //  пакет звука
-                .RegisterMessageType(typeof(LexiconStatePacket))
-
-                .SetMessageHandler<PlayManaSoundPacket>(OnSoundPacketReceived); // чтение звука
-
-            // 2. А уже потом загружаем HUD и Рендерер
-            wandHud = new BotaniaWandHud(api);
-
-        }
-
-        public override void StartServerSide(ICoreServerAPI api)
-        {
-            base.StartServerSide(api);
-            this.sapi = api; // <--- Сохраняем ссылку на сервер
-
-            serverChannel = api.Network.RegisterChannel("botanianetwork")
-
-                .RegisterMessageType(typeof(PlayManaSoundPacket))
-                .RegisterMessageType(typeof(LexiconStatePacket)) // <--- Добавили пакет книги
-                .SetMessageHandler<LexiconStatePacket>(OnLexiconStateMessage); // <--- Сервер слушает этот пакет
-        }
-
+        // --- 1. ОБЩАЯ РЕГИСТРАЦИЯ ДЛЯ КЛИЕНТА И СЕРВЕРА ---
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
+
+            // Регистрируем канал и ВСЕ пакеты один раз здесь
+            api.Network.RegisterChannel("botanianetwork")
+                .RegisterMessageType<PlayManaSoundPacket>()
+                .RegisterMessageType<LexiconStatePacket>()
+                .RegisterMessageType<ManaStreamPacket>();
+
+            // Регистрация контента мода
             api.RegisterItemClass("ItemLexicon", typeof(ItemLexicon));
             api.RegisterItemClass("ItemWandOfTheForest", typeof(ItemWandOfTheForest));
             api.RegisterBlockClass("BlockMysticalFlower", typeof(BlockMysticalFlower));
@@ -96,18 +74,56 @@ namespace BotaniaStory
             api.RegisterBlockClass("BlockRunicAltar", typeof(BlockRunicAltar));
             api.RegisterBlockEntityClass("RunicAltar", typeof(BlockEntityRunicAltar));
 
-
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }
 
-      
+        // --- 2. КЛИЕНТСКАЯ ЧАСТЬ (Звуки и Искры) ---
+        public override void StartClientSide(ICoreClientAPI api)
+        {
+            base.StartClientSide(api);
+            this.capi = api;
 
-        //  Что делает Клиент, когда получает письмо о звуке
+            ClientConfig = api.LoadModConfig<botaniastory.LexiconConfig>("lexicon_client.json") ?? new botaniastory.LexiconConfig();
+
+            // Получаем канал и вешаем слушателей
+            clientChannel = api.Network.GetChannel("botanianetwork") as IClientNetworkChannel;
+            clientChannel
+                .SetMessageHandler<PlayManaSoundPacket>(OnSoundPacketReceived)
+                .SetMessageHandler<ManaStreamPacket>(OnManaStreamPacketReceived); // <-- Ошибка пропадала благодаря этому
+
+            wandHud = new BotaniaWandHud(api);
+
+            // Инициализируем рендерер частиц
+            ManaRenderer = new ManaStreamRenderer(api);
+        }
+
+        // --- 3. СЕРВЕРНАЯ ЧАСТЬ (Лексикон) ---
+        public override void StartServerSide(ICoreServerAPI api)
+        {
+            base.StartServerSide(api);
+            this.sapi = api;
+
+            // Получаем канал и вешаем слушателя пакетов книги
+            serverChannel = api.Network.GetChannel("botanianetwork") as IServerNetworkChannel;
+            serverChannel.SetMessageHandler<LexiconStatePacket>(OnLexiconStateMessage);
+        }
+
+        // --- ОБРАБОТЧИК ДЛЯ ЧАСТИЦ (КЛИЕНТ) ---
+        private void OnManaStreamPacketReceived(ManaStreamPacket packet)
+        {
+            if (ManaRenderer != null)
+            {
+                ManaRenderer.AddParticle(
+                    new Vec3d(packet.StartX, packet.StartY, packet.StartZ),
+                    new Vec3d(packet.EndX, packet.EndY, packet.EndZ)
+                );
+            }
+        }
+
+        // --- ОБРАБОТЧИК ДЛЯ ЗВУКОВ (КЛИЕНТ) ---
         private void OnSoundPacketReceived(PlayManaSoundPacket packet)
         {
-
             if (capi.World?.Player?.Entity == null) return;
-            //  Если пакет или его данные пустые — просто игнорируем
             if (packet == null || packet.SoundName == null || packet.Position == null) return;
 
             float volume = 0f;
@@ -116,8 +132,7 @@ namespace BotaniaStory
             {
                 volume = ClientConfig.PoolVolume / 100f;
             }
-            if (packet.SoundName == "runic_altar_craft" ||
-                packet.SoundName == "runic_altar_full")
+            else if (packet.SoundName == "runic_altar_craft" || packet.SoundName == "runic_altar_full")
             {
                 volume = ClientConfig.AltarVolume / 100f;
             }
@@ -143,12 +158,12 @@ namespace BotaniaStory
             );
         }
 
+        // --- ОБРАБОТЧИК ДЛЯ ЛЕКСИКОНА (СЕРВЕР) ---
         private void OnLexiconStateMessage(IServerPlayer fromPlayer, LexiconStatePacket packet)
         {
             ItemSlot activeSlot = fromPlayer.InventoryManager.ActiveHotbarSlot;
             if (activeSlot.Itemstack?.Item is ItemLexicon)
             {
-                // ИСПОЛЬЗУЕМ ту же мета-дату из ItemLexicon!
                 if (packet.IsOpen)
                 {
                     fromPlayer.Entity.AnimManager.StartAnimation(ItemLexicon.ReadAnimation);
@@ -176,14 +191,15 @@ namespace BotaniaStory
                 }
             }
         }
+
         public override void Dispose()
         {
-
             base.Dispose();
         }
     }
 
-    // пакеты звука для мультиплеера
+    // --- ПАКЕТЫ И КЛАССЫ ---
+
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     public class LexiconStatePacket
     {
@@ -197,7 +213,6 @@ namespace BotaniaStory
         public string SoundName;
     }
 
-    // Теперь мы наследуемся от BlockPlant, а не от Block!
     public class BlockMysticalFlower : BlockPlant
     {
         public override void OnLoaded(ICoreAPI api)
