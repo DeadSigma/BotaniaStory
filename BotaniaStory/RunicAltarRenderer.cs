@@ -45,19 +45,25 @@ namespace BotaniaStory
                 if (slot == null || slot.Empty || slot.Itemstack == null) continue;
 
                 MeshData mesh = null;
-                if (slot.Itemstack.Class == EnumItemClass.Block && slot.Itemstack.Block != null)
+                bool currentIsItem = slot.Itemstack.Class == EnumItemClass.Item;
+
+                if (!currentIsItem && slot.Itemstack.Block != null)
                 {
                     mesh = capi.TesselatorManager.GetDefaultBlockMesh(slot.Itemstack.Block)?.Clone();
                 }
-                else if (slot.Itemstack.Class == EnumItemClass.Item && slot.Itemstack.Item != null)
+                else if (currentIsItem && slot.Itemstack.Item != null)
                 {
                     capi.Tesselator.TesselateItem(slot.Itemstack.Item, out mesh);
                 }
 
                 if (mesh != null)
                 {
-                    isItem[i] = slot.Itemstack.Class == EnumItemClass.Item;
-                    mesh.Scale(new Vec3f(0.5f, 0.5f, 0.5f), 0.3f, 0.3f, 0.3f);
+                    isItem[i] = currentIsItem;
+
+                    // Устанавливаем масштаб: 0.75 для предметов (чтобы они были крупными) и 0.3 для блоков
+                    float scale = currentIsItem ? 0.75f : 0.3f;
+
+                    mesh.Scale(new Vec3f(0.5f, 0.5f, 0.5f), scale, scale, scale);
                     mesh.Translate(-0.5f, -0.5f, -0.5f);
                     meshRefs[i] = capi.Render.UploadMultiTextureMesh(mesh);
                 }
@@ -118,7 +124,13 @@ namespace BotaniaStory
                     float angle = (time * 0.5f) + (i * (GameMath.TWOPI / Math.Max(1, itemCount)));
                     float offsetX = (float)Math.Cos(angle) * 0.8f;
                     float offsetZ = (float)Math.Sin(angle) * 0.8f;
-                    float offsetY = 1.3f + (float)Math.Sin(time * 2f + (i * 1.2f)) * 0.1f;
+
+                    // ДОБАВЛЕНО: Приподнимаем предметы (isItem) чуть выше, чтобы они не застревали в алтаре.
+                    float heightFix = isItem[i] ? 0.2f : 0.0f;
+
+                    // Прибавляем поправку к итоговой высоте
+                    float offsetY = 1.3f + heightFix + (float)Math.Sin(time * 2f + (i * 1.2f)) * 0.1f;
+
                     modelMat.Translate(pos.X - camPos.X + 0.5f + offsetX, pos.Y - camPos.Y + offsetY, pos.Z - camPos.Z + 0.5f + offsetZ).RotateY(-angle);
                 }
                 else

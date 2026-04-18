@@ -18,6 +18,8 @@ namespace BotaniaStory
         private bool soundFullPlayed = false;
         private float lightningTimer = 0;
         private string currentRecipeResult = null;
+        public string LastCraftedRecipe = null;
+        public long LastCraftTime = 0;
         private RunicAltarRenderer renderer;
 
         private Dictionary<string, (int mana, List<string> items)> runeRecipes = new Dictionary<string, (int, List<string>)>
@@ -211,6 +213,104 @@ namespace BotaniaStory
             return false;
         }
 
+        public bool TryAutoCraft(IPlayer player)
+        {
+            // 1. Проверяем базовые условия: был ли рецепт и прошло ли меньше 20 секунд (20000 мс)
+            if (LastCraftedRecipe == null) return false;
+            long currentTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+            if (currentTime - LastCraftTime > 20000) return false;
+
+            // 2. Автокрафт работает ТОЛЬКО если алтарь полностью пуст
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                if (!inventory[i].Empty) return false;
+            }
+
+            // 3. Достаем рецепт и пытаемся выложить предметы
+            if (runeRecipes.TryGetValue(LastCraftedRecipe, out var recipe))
+            {
+                // Сначала симулируем: есть ли у игрока ВСЕ нужные предметы?
+                if (CheckAndConsumePlayerItems(player, recipe.items, true))
+                {
+                    // Если есть — физически забираем предметы в алтарь
+                    CheckAndConsumePlayerItems(player, recipe.items, false);
+
+                    // Заставляем алтарь проверить рецепт и посчитать ману
+                    CheckRecipe();
+                    UpdateState(player);
+
+                    // Обновляем таймер, чтобы игрок мог "спамить" автокрафт несколько раз подряд
+                    LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool CheckAndConsumePlayerItems(IPlayer player, List<string> requirements, bool simulate)
+        {
+            List<string> remainingItems = new List<string>(requirements);
+            Dictionary<ItemSlot, int> itemsToTake = new Dictionary<ItemSlot, int>();
+
+            // Ищем предметы по всем открытым инвентарям игрока (хотбар + рюкзаки)
+            foreach (var inv in player.InventoryManager.OpenedInventories)
+            {
+                foreach (var slot in inv)
+                {
+                    if (slot.Empty) continue;
+                    string path = slot.Itemstack.Collectible.Code.Path;
+                    int available = slot.StackSize;
+
+                    // Пытаемся применить этот стак к оставшимся требованиям рецепта
+                    for (int i = remainingItems.Count - 1; i >= 0; i--)
+                    {
+                        if (available <= 0) break;
+
+                        string req = remainingItems[i];
+
+                        // Умная проверка: если требование заканчивается на "*", проверяем начало строки. Иначе обычный Contains.
+                        bool isMatch = req.EndsWith("*") ? path.StartsWith(req.TrimEnd('*')) : path.Contains(req);
+
+                        if (isMatch)
+                        {
+                            remainingItems.RemoveAt(i);
+                            available--;
+
+                            if (itemsToTake.ContainsKey(slot)) itemsToTake[slot]++;
+                            else itemsToTake[slot] = 1;
+                        }
+                    }
+                }
+            }
+
+            // Если список требований не опустел — предметов не хватает
+            if (remainingItems.Count > 0) return false;
+
+            // Если это была лишь проверка (simulate = true), останавливаемся и рапортуем об успехе
+            if (simulate) return true;
+
+            // --- ФИЗИЧЕСКИЙ ПЕРЕНОС ПРЕДМЕТОВ НА АЛТАРЬ ---
+            int altarSlotIndex = 0;
+            foreach (var kvp in itemsToTake)
+            {
+                ItemSlot playerSlot = kvp.Key;
+                int amountToTake = kvp.Value;
+
+                for (int i = 0; i < amountToTake; i++)
+                {
+                    if (altarSlotIndex < inventory.Count)
+                    {
+                        inventory[altarSlotIndex].Itemstack = playerSlot.TakeOut(1);
+                        inventory[altarSlotIndex].MarkDirty();
+                        altarSlotIndex++;
+                    }
+                }
+                playerSlot.MarkDirty();
+            }
+
+            return true;
+        }
+
         private void GiveOrDropItem(IPlayer player, ItemStack stack)
         {
             if (!player.InventoryManager.TryGiveItemstack(stack, true))
@@ -229,55 +329,55 @@ namespace BotaniaStory
         // ========================================================
         // ЛОГИКА КРАФТА И МАНЫ
         // ========================================================
-       private void CheckRecipe()
-{
-    TargetMana = 0;
-    currentRecipeResult = null;
-
-    List<string> currentItems = new List<string>();
-    foreach (var slot in inventory)
-    {
-        if (!slot.Empty && slot.Itemstack != null)
-            currentItems.Add(slot.Itemstack.Collectible.Code.Path);
-    }
-
-    if (currentItems.Count == 0) return;
-
-    foreach (var recipe in runeRecipes)
-    {
-        if (currentItems.Count == recipe.Value.items.Count)
+        private void CheckRecipe()
         {
-            List<string> checklist = new List<string>(recipe.Value.items);
-            bool isMatch = true;
-
-            foreach (string item in currentItems)
+            TargetMana = 0;
+            currentRecipeResult = null;
+        
+            List<string> currentItems = new List<string>();
+            foreach (var slot in inventory)
             {
-                string found = checklist.Find(req => item.Contains(req));
-                if (found != null) checklist.Remove(found);
-                else { isMatch = false; break; }
+                if (!slot.Empty && slot.Itemstack != null)
+                    currentItems.Add(slot.Itemstack.Collectible.Code.Path);
             }
-
-                    if (isMatch && checklist.Count == 0)
+        
+            if (currentItems.Count == 0) return;
+        
+            foreach (var recipe in runeRecipes)
+            {
+                if (currentItems.Count == recipe.Value.items.Count)
+                {
+                    List<string> checklist = new List<string>(recipe.Value.items);
+                    bool isMatch = true;
+        
+                    foreach (string item in currentItems)
                     {
-                        TargetMana = recipe.Value.mana;
-                        currentRecipeResult = recipe.Key;
-
-                        if (Api.Side == EnumAppSide.Server)
-                        {
-                            soundFullPlayed = false; // Обязательно сбрасываем флаг для нового рецепта
-
-                            // Если маны УЖЕ достаточно для этого рецепта в момент его выкладывания
-                            if (CurrentMana >= TargetMana)
+                        string found = checklist.Find(req => item.Contains(req));
+                        if (found != null) checklist.Remove(found);
+                        else { isMatch = false; break; }
+                    }
+        
+                            if (isMatch && checklist.Count == 0)
                             {
-                                PlayAltarSound("runic_altar_full");
-                                soundFullPlayed = true;
+                                TargetMana = recipe.Value.mana;
+                                currentRecipeResult = recipe.Key;
+        
+                                if (Api.Side == EnumAppSide.Server)
+                                {
+                                    soundFullPlayed = false; // Обязательно сбрасываем флаг для нового рецепта
+        
+                                    // Если маны УЖЕ достаточно для этого рецепта в момент его выкладывания
+                                    if (CurrentMana >= TargetMana)
+                                    {
+                                        PlayAltarSound("runic_altar_full");
+                                        soundFullPlayed = true;
+                                    }
+                                }
+                                break;
                             }
                         }
-                        break;
                     }
                 }
-            }
-        }
 
         public bool TryCompleteCrafting(IPlayer player)
         {
@@ -302,6 +402,11 @@ namespace BotaniaStory
                 }
             }
 
+            // === ВОТ ЗДЕСЬ АЛТАРЬ ЗАПОМИНАЕТ УСПЕШНЫЙ КРАФТ ===
+            LastCraftedRecipe = currentRecipeResult;
+            LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+
+            // А теперь сбрасываем состояние алтаря
             CurrentMana = Math.Max(0, CurrentMana - TargetMana);
             TargetMana = 0;
             HasLivingrock = false;
@@ -311,9 +416,7 @@ namespace BotaniaStory
             if (Api.Side == EnumAppSide.Client)
             {
                 renderer?.UpdateMeshes();
-               
             }
-          
 
             if (Api.Side == EnumAppSide.Server)
             {
@@ -395,7 +498,7 @@ namespace BotaniaStory
 
         private void SpawnCraftingLightning()
         {
-            Vec3d startPos = Pos.ToVec3d().AddCopy(0.5, 1.1, 0.5);
+            Vec3d startPos = Pos.ToVec3d().AddCopy(0.5, 1.0, 0.5);
             int count = 2 + Api.World.Rand.Next(3);
             for (int i = 0; i < count; i++) renderer?.AddLightning(startPos);
         }
