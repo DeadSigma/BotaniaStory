@@ -15,13 +15,14 @@ namespace botaniastory
         private MeshRef hologramMeshRef = null;
         private int structureSizeX, structureSizeY, structureSizeZ;
 
-        private int offsetY = 0; // <-- НОВАЯ ПЕРЕМЕННАЯ СМЕЩЕНИЯ
+        private int offsetY = 0; // ПЕРЕМЕННАЯ СМЕЩЕНИЯ
         private float renderOffsetY = 0f; // Для отрисовки (можно дробные)
 
         private BlockSchematic loadedSchematic = null; // Храним саму схему для проверки блоков
         private BlockPos lockedPos = null;             // Зафиксированная позиция голограммы
         private long tickListenerId;                   // ID таймера проверки
-
+        private GuiDialogStructureTracker trackerHud;
+        private Dictionary<AssetLocation, int> requiredBlocksCount = new Dictionary<AssetLocation, int>();
         public double RenderOrder => 0.5;
         public int RenderRange => 50;
 
@@ -89,7 +90,13 @@ namespace botaniastory
                 return;
             }
 
-            schematic.Init(capi.World.BlockAccessor);
+            // === ИСПРАВЛЕНИЕ КРАША (Версия 3.0) ===
+            if (schematic.BlockCodes == null)
+            {
+                capi.ShowChatMessage($"[Lexicon] Ошибка: В схеме {structureCode} отсутствуют данные о блоках (BlockCodes).");
+                isActive = false;
+                return;
+            }
 
             // Сохраняем схему в память для будущих проверок
             loadedSchematic = schematic;
@@ -99,37 +106,56 @@ namespace botaniastory
             structureSizeZ = schematic.SizeZ;
 
             MeshData combinedMesh = null;
+            requiredBlocksCount.Clear();
 
+            // ЕДИНЫЙ ЦИКЛ: и для подсчета HUD, и для сборки 3D-меша
             for (int i = 0; i < schematic.Indices.Count; i++)
             {
                 int index = (int)schematic.Indices[i];
-                int blockId = schematic.BlockIds[i];
+                int rawBlockId = schematic.BlockIds[i];
 
-                int x = index & 0x3FF;
-                int z = (index >> 10) & 0x3FF;
-                int y = (index >> 20) & 0x3FF;
+                if (rawBlockId == 0) continue; // Воздух не считаем и не рисуем
 
-                Block block = capi.World.GetBlock(blockId);
-                if (block == null || block.BlockId == 0) continue;
-
-                MeshData blockMesh;
-                capi.Tesselator.TesselateBlock(block, out blockMesh);
-
-                if (blockMesh != null)
+                if (schematic.BlockCodes.TryGetValue(rawBlockId, out AssetLocation blockLoc))
                 {
-                    blockMesh.Translate(new Vec3f(x, y, z));
-
-                    if (combinedMesh == null)
+                    // --- 1. ЛОГИКА ДЛЯ HUD (Считаем нужное количество) ---
+                    if (!requiredBlocksCount.ContainsKey(blockLoc))
                     {
-                        combinedMesh = blockMesh.Clone();
+                        requiredBlocksCount[blockLoc] = 0;
                     }
-                    else
+                    requiredBlocksCount[blockLoc]++;
+
+                    // --- 2. ЛОГИКА ДЛЯ ГОЛОГРАММЫ (Строим меш) ---
+                    Block block = capi.World.GetBlock(blockLoc);
+                    if (block == null || block.BlockId == 0) continue;
+
+                    MeshData blockMesh;
+                    capi.Tesselator.TesselateBlock(block, out blockMesh);
+
+                    if (blockMesh != null)
                     {
-                        combinedMesh.AddMeshData(blockMesh);
+                        // Высчитываем координаты блока внутри схемы
+                        int x = index & 0x3FF;
+                        int z = (index >> 10) & 0x3FF;
+                        int y = (index >> 20) & 0x3FF;
+
+                        // Сдвигаем меш отдельного блока на его позицию
+                        blockMesh.Translate(new Vec3f(x, y, z));
+
+                        // Склеиваем с общим мешом структуры
+                        if (combinedMesh == null)
+                        {
+                            combinedMesh = blockMesh.Clone();
+                        }
+                        else
+                        {
+                            combinedMesh.AddMeshData(blockMesh);
+                        }
                     }
                 }
             }
 
+            // Загружаем готовый меш в видеокарту
             if (combinedMesh != null && combinedMesh.VerticesCount > 0)
             {
                 hologramMeshRef = capi.Render.UploadMesh(combinedMesh);
@@ -149,6 +175,12 @@ namespace botaniastory
             lockedPos = null;           // Сбрасываем позицию
             loadedSchematic = null;     // Очищаем схему
 
+            if (trackerHud != null)
+            {
+                trackerHud.TryClose();
+                trackerHud.Dispose();
+                trackerHud = null;
+            }
             // Обязательно очищаем память от 3D-модели!
             hologramMeshRef?.Dispose();
             hologramMeshRef = null;
@@ -218,50 +250,129 @@ namespace botaniastory
         // --- ПРОВЕРКА ПОСТРОЙКИ ---
         private void OnCheckStructureTick(float dt)
         {
-            // Проверяем только если мод активен, схема загружена и позиция ЗАФИКСИРОВАНА
             if (!isActive || loadedSchematic == null || lockedPos == null) return;
+            // Считаем прогресс
+            bool isComplete = CheckAndUpdateProgress(lockedPos);
 
-            if (IsStructureBuilt(lockedPos))
+            if (isComplete)
             {
                 capi.ShowChatMessage($"[Lexicon] Отлично! Структура {currentStructure} успешно построена!");
-
-                // Выключаем всё
-                isActive = false;
-                currentStructure = null;
-                lockedPos = null;
-                loadedSchematic = null;
+                StopVisualization(); // Вызываем твой метод очистки
             }
         }
 
-        private bool IsStructureBuilt(BlockPos basePos)
+        private bool CheckAndUpdateProgress(BlockPos basePos)
         {
-            // Высчитываем стартовые координаты в мире (с учетом сдвига рендера)
             int startX = basePos.X - (structureSizeX / 2);
-            int startY = basePos.Y + offsetY; // <-- ДОБАВИЛИ + offsetY
+            int startY = basePos.Y + offsetY;
             int startZ = basePos.Z - (structureSizeZ / 2);
+
+            // Словарь для подсчета правильно установленных блоков
+            Dictionary<AssetLocation, int> placedBlocksCount = new Dictionary<AssetLocation, int>();
+            foreach (var key in requiredBlocksCount.Keys) placedBlocksCount[key] = 0;
+
+            int totalRequired = 0;
+            int totalPlaced = 0;
 
             for (int i = 0; i < loadedSchematic.Indices.Count; i++)
             {
                 int index = (int)loadedSchematic.Indices[i];
-                int expectedBlockId = loadedSchematic.BlockIds[i];
+                int rawExpectedId = loadedSchematic.BlockIds[i];
 
-                if (expectedBlockId == 0) continue; // Воздух пропускаем
+                if (rawExpectedId == 0) continue; // Воздух
+
+                totalRequired++;
+
+                if (!loadedSchematic.BlockCodes.TryGetValue(rawExpectedId, out AssetLocation blockLoc)) continue;
+                Block expectedBlock = capi.World.GetBlock(blockLoc);
+                if (expectedBlock == null || expectedBlock.BlockId == 0) continue;
 
                 int x = index & 0x3FF;
                 int z = (index >> 10) & 0x3FF;
                 int y = (index >> 20) & 0x3FF;
 
-                // Получаем блок из реального мира в этой точке
                 BlockPos worldPos = new BlockPos(startX + x, startY + y, startZ + z);
                 Block worldBlock = capi.World.BlockAccessor.GetBlock(worldPos);
 
-                // Если хоть один блок не совпадает - структура еще не готова
-                if (worldBlock.BlockId != expectedBlockId)
+                // Если блок в мире совпадает с ожидаемым
+                if (worldBlock.BlockId == expectedBlock.BlockId)
+                {
+                    placedBlocksCount[blockLoc]++;
+                    totalPlaced++;
+                }
+            }
+
+            // --- ОБНОВЛЯЕМ ИНТЕРФЕЙС ---
+            UpdateTrackerHud(placedBlocksCount);
+
+            // Если собраны все блоки, возвращаем true
+            return totalPlaced == totalRequired;
+        }
+        private void UpdateTrackerHud(Dictionary<AssetLocation, int> placed)
+        {
+            if (trackerHud == null)
+            {
+                trackerHud = new GuiDialogStructureTracker(capi);
+                trackerHud.TryOpen();
+            }
+
+            // Создаём список данных для перестроения интерфейса
+            List<StructureTrackerItemData> itemsData = new List<StructureTrackerItemData>();
+
+            foreach (var kvp in requiredBlocksCount)
+            {
+                AssetLocation loc = kvp.Key;
+                int reqCount = kvp.Value;
+                int placedCount = placed[loc];
+
+                // Достаем блок, чтобы получить его иконку и имя
+                Block block = capi.World.GetBlock(loc);
+                if (block == null || block.BlockId == 0) continue; // Пропускаем неизвестные
+
+                itemsData.Add(new StructureTrackerItemData
+                {
+                    Block = block,
+                    RequiredCount = reqCount,
+                    PlacedCount = placedCount
+                });
+            }
+
+            // Вызываем метод полного перестроения ХУДа, передавая список
+            trackerHud.Rebuild(itemsData, currentStructure);
+        }
+        private bool IsStructureBuilt(BlockPos basePos)
+        {
+            int startX = basePos.X - (structureSizeX / 2);
+            int startY = basePos.Y + offsetY;
+            int startZ = basePos.Z - (structureSizeZ / 2);
+
+            for (int i = 0; i < loadedSchematic.Indices.Count; i++)
+            {
+                int index = (int)loadedSchematic.Indices[i];
+                int rawExpectedId = loadedSchematic.BlockIds[i];
+
+                if (rawExpectedId == 0) continue; // Воздух пропускаем
+
+                // Находим ожидаемый блок в реестре клиента по его AssetLocation
+                if (!loadedSchematic.BlockCodes.TryGetValue(rawExpectedId, out AssetLocation blockLoc)) continue;
+                Block expectedBlock = capi.World.GetBlock(blockLoc);
+
+                if (expectedBlock == null || expectedBlock.BlockId == 0) continue;
+
+                int x = index & 0x3FF;
+                int z = (index >> 10) & 0x3FF;
+                int y = (index >> 20) & 0x3FF;
+
+                BlockPos worldPos = new BlockPos(startX + x, startY + y, startZ + z);
+                Block worldBlock = capi.World.BlockAccessor.GetBlock(worldPos);
+
+                // Сравниваем реальные ID блоков в мире клиента
+                if (worldBlock.BlockId != expectedBlock.BlockId)
                 {
                     return false;
                 }
             }
-            return true; // Все блоки совпали!
+            return true;
         }
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
@@ -288,7 +399,7 @@ namespace botaniastory
 
                 Mat4f.Translate(modelMatrix, modelMatrix,
                     (float)(targetPos.X - camPos.X),
-                  (float)(targetPos.Y + renderOffsetY - camPos.Y), // <-- ИСПОЛЬЗУЕМ renderOffsetY
+                  (float)(targetPos.Y + renderOffsetY - camPos.Y), 
                     (float)(targetPos.Z - camPos.Z));
 
                 Mat4f.Translate(modelMatrix, modelMatrix, -structureSizeX / 2f + 0.5f, 0, -structureSizeZ / 2f + 0.5f);

@@ -58,33 +58,39 @@
 			"faces": {
 				"north": {
 					"texture": "#runicaltar",
-					"uv": [1, 40, 31, 61],
-					"autoUv": false
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"east": {
 					"texture": "#runicaltar",
-					"uv": [1, 40, 31, 61],
-					"autoUv": false
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"south": {
 					"texture": "#runicaltar",
-					"uv": [1, 40, 31, 61],
-					"autoUv": false
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"west": {
 					"texture": "#runicaltar",
-					"uv": [1, 40, 31, 61],
-					"autoUv": false
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"up": {
 					"texture": "#runicaltar",
-					"uv": [1, 40, 31, 61],
-					"autoUv": false
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"down": {
 					"texture": "#runicaltar",
-					"uv": [1, 40, 31, 61],
-					"autoUv": false
+					"uv": [ 1, 40, 31, 61 ],
+					"autoUv": false,
+					"glow": 255
 				}
 			}
 		},
@@ -134,33 +140,39 @@
 			"faces": {
 				"north": {
 					"texture": "#runicaltar",
-					"uv": [45.175, 107.075, 45.9, 107],
-					"autoUv": false
+					"uv": [ 45.175, 107.075, 45.9, 107 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"east": {
 					"texture": "#runicaltar",
-					"uv": [45.175, 107.075, 45.9, 107],
-					"autoUv": false
+					"uv": [ 45.175, 107.075, 45.9, 107 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"south": {
 					"texture": "#runicaltar",
-					"uv": [45.175, 107.075, 45.9, 107],
-					"autoUv": false
+					"uv": [ 45.175, 107.075, 45.9, 107 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"west": {
 					"texture": "#runicaltar",
-					"uv": [45.175, 107.075, 45.9, 107],
-					"autoUv": false
+					"uv": [ 45.175, 107.075, 45.9, 107 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"up": {
 					"texture": "#runicaltar",
-					"uv": [37.175, 90.625, 50.9, 77],
-					"autoUv": false
+					"uv": [ 37.175, 90.625, 50.9, 77 ],
+					"autoUv": false,
+					"glow": 255
 				},
 				"down": {
 					"texture": "#runicaltar",
-					"uv": [45.175, 107.075, 45.9, 107],
-					"autoUv": false
+					"uv": [ 45.175, 107.075, 45.9, 107 ],
+					"autoUv": false,
+					"glow": 255
 				}
 			}
 		}

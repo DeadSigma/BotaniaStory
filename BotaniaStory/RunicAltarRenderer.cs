@@ -14,6 +14,8 @@ namespace BotaniaStory
 
         private MultiTextureMeshRef[] meshRefs = new MultiTextureMeshRef[17];
         private bool[] isItem = new bool[17];
+        private float[] itemHeights = new float[17];
+
 
         public List<RunicLightningFlash> Flashes = new List<RunicLightningFlash>();
 
@@ -61,7 +63,25 @@ namespace BotaniaStory
                     isItem[i] = currentIsItem;
 
                     // Устанавливаем масштаб: 0.75 для предметов (чтобы они были крупными) и 0.3 для блоков
-                    float scale = currentIsItem ? 0.75f : 0.3f;
+                    float scale = 0.3f;
+                    float hFix = 0.0f; // Базовая высота (не поднимаем)
+
+                    if (currentIsItem)
+                    {
+                        // Используйте вашу проверку с "botaniastory:rune-"
+                        if (slot.Itemstack.Item.Code.Path.StartsWith("rune-"))
+                        {
+                            scale = 0.3f;
+                            hFix = 0.0f; // Руны не задираем (если нужно чуть-чуть, поставьте 0.05f)
+                        }
+                        else
+                        {
+                            scale = 0.75f;
+                            hFix = 0.2f; // Обычные предметы оставляем крупными и приподнятыми
+                        }
+                    }
+
+                    itemHeights[i] = hFix; // Запоминаем нужную высоту для этого слота
 
                     mesh.Scale(new Vec3f(0.5f, 0.5f, 0.5f), scale, scale, scale);
                     mesh.Translate(-0.5f, -0.5f, -0.5f);
@@ -126,7 +146,7 @@ namespace BotaniaStory
                     float offsetZ = (float)Math.Sin(angle) * 0.8f;
 
                     // ДОБАВЛЕНО: Приподнимаем предметы (isItem) чуть выше, чтобы они не застревали в алтаре.
-                    float heightFix = isItem[i] ? 0.2f : 0.0f;
+                    float heightFix = itemHeights[i];
 
                     // Прибавляем поправку к итоговой высоте
                     float offsetY = 1.3f + heightFix + (float)Math.Sin(time * 2f + (i * 1.2f)) * 0.1f;

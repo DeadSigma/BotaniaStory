@@ -533,7 +533,12 @@ namespace botaniastory
                             ElementBounds btnBounds = ElementBounds.Fixed(btnCfg[0] * bookScale, btnCfg[1] * bookScale, btnCfg[2] * bScale, btnCfg[3] * bScale);
 
                             var hologramSystem = capi.ModLoader.GetModSystem<LexiconHologramSystem>();
-                            string buttonText = hologramSystem.isActive ? "Отключить" : "Визуализировать";
+
+                            // 1. Используем Lang.Get для локализации. 
+                            // Не забудь добавить ключи в en.json и ru.json
+                            string buttonText = hologramSystem.isActive
+                                ? Lang.Get("botaniastory:btn-visualize-stop")
+                                : Lang.Get("botaniastory:btn-visualize");
 
                             compo.AddButton(buttonText, () =>
                             {
@@ -546,11 +551,9 @@ namespace botaniastory
                                     hologramSystem.StartVisualization(currentChapter.VisualizeStructure);
                                 }
 
-                                var btn = SingleComposer.GetButton("btnVisualize");
-                                if (btn != null)
-                                {
-                                    btn.Text = hologramSystem.isActive ? "Отключить" : "Визуализировать";
-                                }
+                                // 2. Вызываем пересборку диалога. Это гарантированно и мгновенно
+                                // обновит текст на кнопке и избавит нас от необходимости искать кнопку по ключу.
+                                RecomposeDialog();
 
                                 return true;
                             }, btnBounds, CairoFont.WhiteSmallText(), EnumButtonStyle.Normal, "btnVisualize");

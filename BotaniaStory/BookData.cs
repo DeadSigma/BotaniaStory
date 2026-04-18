@@ -86,7 +86,7 @@ namespace botaniastory
 
             { "natural_apparatus", new[] { "ch1" } },
 
-            { "mystical_items", new[] { "wandofbinding", "manasteelgear" } },
+            { "mystical_items", new[] { "wandofbinding", "manaitem" } },
 
             { "trinkets_and_accessories", new[] { "ch1" } },
 
@@ -94,7 +94,7 @@ namespace botaniastory
 
             { "elfmania", new[] { "ch1" } },
 
-            { "misc", new[] { "livingwood_firewood", "livingwood_stick", "livingrock", "livingrock_slab" } },
+            { "misc", new[] { "livingwood_firewood", "livingwood_stick", "livingrock", "livingrock_slab", "rune" } },
 
             { "trials", new[] { "ch1" } }
         };
@@ -228,8 +228,7 @@ namespace botaniastory
                             },
                             Output = "botaniastory:lexicon-closed"
                         });
-
-                        chapter.VisualizeStructure = "terraaltar";
+ 
                     }
 
                     // === НАСТРОЙКА АПТЕКАРЯ ===
@@ -480,9 +479,9 @@ namespace botaniastory
                             ApothecaryIngredients = new string[] {
                                 "botaniastory:rune-water",
                                 "botaniastory:rune-fire",
-                                "game:sapling-oak-free",
-                                "game:sapling-oak-free",
-                                "game:sapling-oak-free",
+                                "game:treeseed-oak",
+                                "game:treeseed-oak",
+                                "game:treeseed-oak",
                                 "game:hay-normal-ud"
                             }
                         });
@@ -529,9 +528,9 @@ namespace botaniastory
                             ApothecaryIngredients = new string[] {
                                  "botaniastory:rune-fire",
                                  "botaniastory:rune-air",
-                                 "game:leaves-grown-oak", // Листва
-                                 "game:leaves-grown-oak",
-                                 "game:leaves-grown-oak",
+                                 "game:treeseed-oak", // Листва
+                                 "game:treeseed-oak",
+                                 "game:treeseed-oak",
                                  "game:butterfly-dead-*",    // Паучий глаз -> Мертвая бабочка
                                  "game:pumpkin-fruit-4"     // Тыква
                              }
@@ -1220,8 +1219,419 @@ namespace botaniastory
                         });
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ РУНЫ ===
+                    else if (chapId == "rune")
+                    {
+                        chapter.TabItemCode = "botaniastory:rune-*";
+
+                        // ==========================================
+                        //  ТИР 1: БАЗОВЫЕ РУНЫ (Элементы)
+                        // ==========================================
+
+                        // Руна Воды
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-water",
+                            ApothecaryIngredients = new string[] {
+                                  "botaniastory:manaitem-manapowder",
+                                  "game:ingot-manasteel",
+                                  "game:bone",             // Костная мука -> Кость
+                                  "game:cattailtops",      // Сахарный тростник -> Верхушки рогоза
+                                  "game:cattailroot"       // Удочка -> Корень рогоза (символ воды)
+                              }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 5200,
+                            UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
+                        });
+
+                        // Руна Огня
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 1,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-fire",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-manapowder",
+                                 "game:ingot-manasteel",
+                                 "game:mushroom-flyagaric-normal", // Адский нарост -> Мухомор
+                                 "game:burnedbrick-*",        // Адский кирпич -> Обожженный кирпич
+                                 "game:powder-sulfur"              // Порох -> Сера
+                             }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 5200,
+                            UiKey = "Полоска_Маны_Алтарь_Левая_Нижняя"
+                        });
+
+                        // Руна Земли
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 1,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-earth",
+                            ApothecaryIngredients = new string[] {
+                                  "botaniastory:manaitem-manapowder",
+                                  "game:ingot-manasteel",
+                                  "game:rock-granite",           // Камень -> Гранит
+                                  "game:ore-bituminouscoal",        // Угольный блок -> Уголь
+                                  "game:mushroom-almondmushroom-normal"  // Гриб -> Обычный гриб
+                              }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 5200,
+                            UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
+                        });
+
+                        // Руна Воздуха
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 2,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-air",
+                            ApothecaryIngredients = new string[] {
+                                  "botaniastory:manaitem-manapowder",
+                                  "game:ingot-manasteel",
+                                  "botaniastory:manaitem-manaflax", // Нить -> Мананить
+                                  "game:feather",                   // Перо
+                                  "game:cloth-plain"                // Ковер -> Льняная ткань
+                              }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 5200,
+                            UiKey = "Полоска_Маны_Алтарь_Левая_Нижняя"
+                        });
+
+                        // Руна Маны
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 2,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-mana",
+                            ApothecaryIngredients = new string[] {
+                                 "game:ingot-manasteel",
+                                 "game:ingot-manasteel",
+                                 "game:ingot-manasteel",
+                                 "game:ingot-manasteel",
+                                 "game:ingot-manasteel",
+                                 "botaniastory:manaitem-manaquartz" // Жемчуг маны -> Манакварц
+                             }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 5200,
+                            UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
+                        });
+
+                        // ==========================================
+                        // ТИР 2: РУНЫ СЕЗОНОВ
+                        // ==========================================
+
+                        // Руна Весны
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 3,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-spring",
+                            ApothecaryIngredients = new string[] {
+                                "botaniastory:rune-water",
+                                "botaniastory:rune-fire",
+                                "game:treeseed-oak",
+                                "game:treeseed-oak",
+                                "game:treeseed-oak",
+                                "game:hay-normal-ud"
+                            }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 8000,
+                            UiKey = "Полоска_Маны_Алтарь_Левая_Нижняя"
+                        });
+
+                        // Руна Лета
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 3,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-summer",
+                            ApothecaryIngredients = new string[] {
+                                  "botaniastory:rune-earth",
+                                  "botaniastory:rune-air",
+                                  "game:sand-*",   // Песок
+                                  "game:fat",           // Слизь -> Жир
+                                  "game:fruit-cherry"   // Арбуз -> Вишня (или другая ягода)
+                              }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 8000,
+                            UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
+                        });
+
+                        // Руна Осени
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 4,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-autumn",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:rune-fire",
+                                 "botaniastory:rune-air",
+                                 "game:treeseed-oak", // Листва
+                                 "game:treeseed-oak",
+                                 "game:treeseed-oak",
+                                 "game:butterfly-dead-*",    // Паучий глаз -> Мертвая бабочка
+                                 "game:pumpkin-fruit-4"     // Тыква
+                             }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 4,
+                            ManaCost = 8000,
+                            UiKey = "Полоска_Маны_Алтарь_Левая_Нижняя"
+                        });
+
+                        // Руна Зимы
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 4,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-winter",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:rune-water",
+                                 "botaniastory:rune-earth",
+                                 "game:snowblock",
+                                 "game:cloth-plain", // Шерсть -> Ткань
+                                 "game:dough-*"    // Торт -> Тесто
+                             }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 4,
+                            ManaCost = 8000,
+                            UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
+                        });
+
+                        // ==========================================
+                        // ТИР 3: РУНЫ ГРЕХОВ
+                        // ==========================================
+
+                        // Руна Похоти (Lust)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 5,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-lust",
+                            ApothecaryIngredients = new string[] {
+                                  "botaniastory:manaitem-managear", // Манаалмаз -> Манашестерня
+                                  "botaniastory:rune-summer",
+                                  "botaniastory:rune-spring",
+                                  "game:clearquartz", // Алмаз -> Чистый кварц
+                                  "game:clearquartz"
+                              }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 5,
+                            ManaCost = 12000,
+                            UiKey = "Полоска_Маны_Алтарь_Левая_Нижняя"
+                        });
+
+                        // Руна Обжорства (Gluttony)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 5,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-gluttony",
+                            ApothecaryIngredients = new string[] {
+                                      "botaniastory:manaitem-managear",
+                                      "botaniastory:rune-winter",
+                                      "botaniastory:rune-autumn",
+                                      "game:clearquartz", // Слеза гаста -> Чистый кварц
+                                      "game:clearquartz"
+                                  }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 5,
+                            ManaCost = 12000,
+                            UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
+                        });
+
+                        // Руна Жадности (Greed)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 6,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-greed",
+                            ApothecaryIngredients = new string[] {
+                             "botaniastory:manaitem-managear",
+                             "botaniastory:rune-spring",
+                             "botaniastory:rune-water",
+                             "game:fat", // Слизь -> Жир
+                             "game:fat"
+                         }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 6,
+                            ManaCost = 12000,
+                            UiKey = "Полоска_Маны_Алтарь_Левая_Нижняя"
+                        });
+
+                        // Руна Лени (Sloth)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 6,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-sloth",
+                            ApothecaryIngredients = new string[] {
+                                  "botaniastory:manaitem-managear",
+                                  "botaniastory:rune-autumn",
+                                  "botaniastory:rune-air",
+                                  "game:ore-bituminouscoal", // Уголь
+                                  "game:ore-bituminouscoal"
+                              }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 6,
+                            ManaCost = 12000,
+                            UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
+                        });
+
+                        // Руна Гнева (Wrath)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 7,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-wrath",
+                            ApothecaryIngredients = new string[] {
+                              "botaniastory:manaitem-managear",
+                              "botaniastory:rune-winter",
+                              "botaniastory:rune-earth",
+                              "game:powder-sulfur", // Огненный порошок -> Сера
+                              "game:powder-sulfur"
+                          }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 7,
+                            ManaCost = 12000,
+                            UiKey = "Полоска_Маны_Алтарь_Левая_Нижняя"
+                        });
+
+                        // Руна Зависти (Envy)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 7,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-envy",
+                            ApothecaryIngredients = new string[] {
+                              "botaniastory:manaitem-managear",
+                              "botaniastory:rune-winter",
+                              "botaniastory:rune-water",
+                              "game:butterfly-dead-*", // Паучий глаз -> Мертвая бабочка
+                              "game:butterfly-dead-*"
+                          }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 7,
+                            ManaCost = 12000,
+                            UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
+                        });
+
+                        // Руна Гордыни (Pride)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 8,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-pride",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-managear",
+                                 "botaniastory:rune-summer",
+                                 "botaniastory:rune-fire",
+                                 "game:ingot-gold", // Золотой слиток
+                                 "game:ingot-gold"
+                             }
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 8,
+                            ManaCost = 12000,
+                            UiKey = "Полоска_Маны_Алтарь_Левая_Нижняя"
+                        });
+
+                    }
+
+
+
+
+
                     // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ МАНАСТАЛИ ===
-                    else if (chapId == "manasteelgear")
+                    else if (chapId == "manaitem")
                     {
                         ////////////////////////////////////////////////
                         chapter.TabItemCode = "botaniastory:pickaxe-manasteel";

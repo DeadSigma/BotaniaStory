@@ -32,9 +32,9 @@ namespace BotaniaStory
     { "rune-mana", (5200, new List<string> { "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "manaitem-manaquartz" }) },
 
     // === Руны Сезонов - 8000 маны ===
-    { "rune-spring", (8000, new List<string> { "rune-water", "rune-fire", "sapling-oak-free", "sapling-oak-free", "sapling-oak-free", "hay-normal-ud" }) },
+    { "rune-spring", (8000, new List<string> { "rune-water", "rune-fire", "treeseed-oak", "treeseed-oak", "treeseed-oak", "hay-normal-ud" }) },
     { "rune-summer", (8000, new List<string> { "rune-earth", "rune-air", "sand-*", "fat", "fruit-cherry" }) },
-    { "rune-autumn", (8000, new List<string> { "rune-fire", "rune-air", "leaves-grown-oak", "leaves-grown-oak", "leaves-grown-oak", "butterfly-dead-*", "pumpkin-fruit-4" }) },
+    { "rune-autumn", (8000, new List<string> { "rune-fire", "rune-air", "treeseed-oak", "treeseed-oak", "treeseed-oak", "butterfly-dead-*", "pumpkin-fruit-4" }) },
     { "rune-winter", (8000, new List<string> { "rune-water", "rune-earth", "snowblock", "cloth-plain", "dough-" }) },
 
     // === Руны Смертных Грехов - 12000 маны ===
@@ -162,11 +162,11 @@ namespace BotaniaStory
                 path != "ore-bituminouscoal" &&
                 path != "feather" &&
                 path != "cloth-plain" &&
-                path != "sapling-oak-free" &&
+                path != "treeseed-oak" &&
                 path != "hay-normal-ud" &&
                 path != "fat" &&
                 path != "fruit-cherry" &&
-                path != "leaves-grown-oak" &&
+                path != "treeseed-oak" &&
                 path != "pumpkin-fruit-4" &&
                 path != "snowblock" &&
                 path != "clearquartz")
@@ -333,51 +333,53 @@ namespace BotaniaStory
         {
             TargetMana = 0;
             currentRecipeResult = null;
-        
+
             List<string> currentItems = new List<string>();
             foreach (var slot in inventory)
             {
                 if (!slot.Empty && slot.Itemstack != null)
                     currentItems.Add(slot.Itemstack.Collectible.Code.Path);
             }
-        
+
             if (currentItems.Count == 0) return;
-        
+
             foreach (var recipe in runeRecipes)
             {
                 if (currentItems.Count == recipe.Value.items.Count)
                 {
                     List<string> checklist = new List<string>(recipe.Value.items);
                     bool isMatch = true;
-        
+
                     foreach (string item in currentItems)
                     {
-                        string found = checklist.Find(req => item.Contains(req));
+                        // ИСПРАВЛЕННАЯ СТРОКА: Умная проверка с учетом окончания на "*"
+                        string found = checklist.Find(req => req.EndsWith("*") ? item.StartsWith(req.TrimEnd('*')) : item.Contains(req));
+
                         if (found != null) checklist.Remove(found);
                         else { isMatch = false; break; }
                     }
-        
-                            if (isMatch && checklist.Count == 0)
+
+                    if (isMatch && checklist.Count == 0)
+                    {
+                        TargetMana = recipe.Value.mana;
+                        currentRecipeResult = recipe.Key;
+
+                        if (Api.Side == EnumAppSide.Server)
+                        {
+                            soundFullPlayed = false; // Обязательно сбрасываем флаг для нового рецепта
+
+                            // Если маны УЖЕ достаточно для этого рецепта в момент его выкладывания
+                            if (CurrentMana >= TargetMana)
                             {
-                                TargetMana = recipe.Value.mana;
-                                currentRecipeResult = recipe.Key;
-        
-                                if (Api.Side == EnumAppSide.Server)
-                                {
-                                    soundFullPlayed = false; // Обязательно сбрасываем флаг для нового рецепта
-        
-                                    // Если маны УЖЕ достаточно для этого рецепта в момент его выкладывания
-                                    if (CurrentMana >= TargetMana)
-                                    {
-                                        PlayAltarSound("runic_altar_full");
-                                        soundFullPlayed = true;
-                                    }
-                                }
-                                break;
+                                PlayAltarSound("runic_altar_full");
+                                soundFullPlayed = true;
                             }
                         }
+                        break;
                     }
                 }
+            }
+        }
 
         public bool TryCompleteCrafting(IPlayer player)
         {
