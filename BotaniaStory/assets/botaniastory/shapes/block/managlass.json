@@ -1,0 +1,26 @@
+{
+	"editor": {
+		"allAngles": false,
+		"singleTexture": true
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textures": {
+		"material": "botaniastory:block/managlass"
+	},
+	"elements": [
+		{
+			"name": "Cube",
+			"from": [ 0.0, 0.0, 0.0 ],
+			"to": [ 16.0, 16.0, 16.0 ],
+			"zOffset": 2,
+			"faces": {
+				"north": { "texture": "#material", "uv": [ 16.0, 0.0, 0.0, 16.0 ], "autoUv": false,"glow": 100 },
+				"east": { "texture": "#material", "uv": [ 16.0, 0.0, 0.0, 16.0 ], "autoUv": false,"glow": 100 },
+				"south": { "texture": "#material", "uv": [ 0.0, 0.0, 16.0, 16.0 ],"glow": 100 },
+				"west": { "texture": "#material", "uv": [ 0.0, 0.0, 16.0, 16.0 ],"glow": 100 },
+				"up": { "texture": "#material", "uv": [ 0.0, 0.0, 16.0, 16.0 ],"glow": 100 },
+				"down": { "texture": "#material", "uv": [ 16.0, 0.0, 0.0, 16.0 ], "autoUv": false,"glow": 100 }
+			}
+		}
+	]}

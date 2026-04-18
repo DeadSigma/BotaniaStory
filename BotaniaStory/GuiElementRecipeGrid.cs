@@ -15,6 +15,7 @@ namespace botaniastory
         private double padding;
         private double scale;
         private DummySlot renderSlot;
+        private ElementBounds scissorBounds;
 
         private int maxVariants = 1;
 
@@ -31,6 +32,9 @@ namespace botaniastory
             this.renderSlot = new DummySlot(null);
 
             this.inputStacks = new ItemStack[9][];
+
+            this.scissorBounds = ElementBounds.Fixed(0, 0, 48 * scale, 48 * scale).WithParent(bounds);
+
             for (int i = 0; i < 9; i++)
             {
                 if (inputs[i] != null && inputs[i].Length > 0)
@@ -83,15 +87,14 @@ namespace botaniastory
         public override void RenderInteractiveElements(float deltaTime)
         {
             int timeIndex = (int)(api.World.ElapsedMilliseconds / 1000);
-
-            int masterIndex = timeIndex % maxVariants; // <--- ЕДИНЫЙ ИНДЕКС
+            int masterIndex = timeIndex % maxVariants;
 
             int mouseX = api.Input.MouseX;
             int mouseY = api.Input.MouseY;
 
-            // Сюда будем сохранять предмет, если мышь над ним
             ItemStack hoveredStack = null;
 
+            // --- ОТРИСОВКА СЕТКИ ---
             for (int i = 0; i < 9; i++)
             {
                 if (inputStacks[i] != null && inputStacks[i].Length > 0)
@@ -99,20 +102,26 @@ namespace botaniastory
                     int col = i % 3;
                     int row = i / 3;
 
-                    // Координаты для отрисовки
                     double rX = Bounds.renderX + col * (slotSize + padding);
                     double rY = Bounds.renderY + row * (slotSize + padding);
 
-                    // Абсолютные координаты для проверки мыши (как в твоём OnMouseDown)
                     double aX = Bounds.absX + col * (slotSize + padding);
                     double aY = Bounds.absY + row * (slotSize + padding);
-
-
-
 
                     ItemStack stackToDraw = inputStacks[i][masterIndex % inputStacks[i].Length];
                     renderSlot.Itemstack = stackToDraw;
 
+                    // 1. Задаем базовые координаты (без GuiElement.scaled)
+                    scissorBounds.fixedX = col * (48 * scale + 4 * scale);
+                    scissorBounds.fixedY = row * (48 * scale + 4 * scale);
+
+                    // 2. Просим игру пересчитать renderX, renderY и InnerWidth автоматически!
+                    scissorBounds.CalcWorldBounds();
+
+                    // 3. Включаем обрезку
+                    api.Render.PushScissor(scissorBounds);
+
+                    // 4. Рисуем предмет
                     api.Render.RenderItemstackToGui(
                         renderSlot,
                         rX + slotSize / 2,
@@ -122,7 +131,9 @@ namespace botaniastory
                         ColorUtil.WhiteArgb
                     );
 
-                    // Если мышь над предметом сетки — запоминаем его
+                    // 5. Выключаем обрезку
+                    api.Render.PopScissor();
+
                     if (mouseX >= aX && mouseX <= aX + slotSize && mouseY >= aY && mouseY <= aY + slotSize)
                     {
                         hoveredStack = stackToDraw;
@@ -130,6 +141,7 @@ namespace botaniastory
                 }
             }
 
+            // --- ОТРИСОВКА РЕЗУЛЬТАТА ---
             if (outputStacks != null && outputStacks.Length > 0)
             {
                 double outRX = Bounds.renderX + 3.8 * (slotSize + padding);
@@ -141,6 +153,13 @@ namespace botaniastory
                 ItemStack outStack = outputStacks[timeIndex % outputStacks.Length];
                 renderSlot.Itemstack = outStack;
 
+                // Делаем то же самое для слота результата
+                scissorBounds.fixedX = 3.8 * (48 * scale + 4 * scale);
+                scissorBounds.fixedY = 1 * (48 * scale + 4 * scale);
+                scissorBounds.CalcWorldBounds();
+
+                api.Render.PushScissor(scissorBounds);
+
                 api.Render.RenderItemstackToGui(
                         renderSlot,
                         outRX + slotSize / 2,
@@ -150,7 +169,8 @@ namespace botaniastory
                         ColorUtil.WhiteArgb
                     );
 
-                // Если мышь над результатом — запоминаем его
+                api.Render.PopScissor();
+
                 if (mouseX >= outAX && mouseX <= outAX + slotSize && mouseY >= outAY && mouseY <= outAY + slotSize)
                 {
                     hoveredStack = outStack;
@@ -160,13 +180,11 @@ namespace botaniastory
             // --- МАГИЯ ТУЛТИПА ---
             if (hoveredStack != null)
             {
-                // Подсовываем наш предмет в качестве "текущего активного слота"
                 renderSlot.Itemstack = hoveredStack;
                 api.World.Player.InventoryManager.CurrentHoveredSlot = renderSlot;
             }
             else if (api.World.Player.InventoryManager.CurrentHoveredSlot == renderSlot)
             {
-                // Если мышь ушла, очищаем, чтобы тултип не зависал на экране
                 api.World.Player.InventoryManager.CurrentHoveredSlot = null;
             }
         }

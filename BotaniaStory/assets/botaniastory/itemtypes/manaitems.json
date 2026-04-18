@@ -278,7 +278,8 @@
 				"y": 0.1,
 				"z": 0.5
 			},
-			"scale": 3.8
+			"scale": 3.8,
+			"rotate": true
 		},
 		"*-managear": {
 			"translation": {
@@ -296,7 +297,8 @@
 				"y": 0.0625,
 				"z": 0.5
 			},
-			"scale": 2.5
+			"scale": 2.5,
+			"rotate": true
 		},
 		"*-manaflax": {
 			"rotation": {

@@ -81,7 +81,7 @@ namespace BotaniaStory
                     if (baseMesh != null)
                     {
                         MeshData rockMesh = baseMesh.Clone();
-                        rockMesh.Scale(new Vec3f(0.5f, 0.5f, 0.5f), 0.4f, 0.4f, 0.4f);
+                        rockMesh.Scale(new Vec3f(0.5f, 0.5f, 0.5f), 0.25f, 0.25f, 0.25f);
                         rockMesh.Translate(-0.5f, -0.5f, -0.5f);
                         meshRefs[16] = capi.Render.UploadMultiTextureMesh(rockMesh);
                         isItem[16] = false;
@@ -135,7 +135,7 @@ namespace BotaniaStory
                 }
                 else
                 {
-                    float offsetY = 1.1f + (float)Math.Sin(time * 1.5f) * 0.05f;
+                    float offsetY = 1.35f + (float)Math.Sin(time * 1.5f) * 0.05f;
                     modelMat.Translate(pos.X - camPos.X + 0.5f, pos.Y - camPos.Y + offsetY, pos.Z - camPos.Z + 0.5f).RotateY(time * 0.5f);
                 }
 

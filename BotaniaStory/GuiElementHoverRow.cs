@@ -10,7 +10,7 @@ namespace botaniastory
     {
         private Action onClick;
         private DummySlot slot;
-        private ItemStack[] iconStacks; // Теперь храним целый массив предметов!
+        private ItemStack[] iconStacks; 
         private LoadedTexture starTexture;
 
         public float IconScale = 1.0f;
@@ -23,7 +23,7 @@ namespace botaniastory
         public double StarOffsetY = 8;
         public double StarSize = 12;
 
-        // ИСПРАВЛЕНО: Теперь принимаем ItemStack[]
+        //  Теперь принимаем ItemStack[]
         public GuiElementHoverRow(ICoreClientAPI capi, ElementBounds bounds, ItemStack[] stacks, Action onClick) : base(capi, bounds)
         {
             starTexture = new LoadedTexture(capi);
@@ -58,7 +58,7 @@ namespace botaniastory
                 );
             }
 
-            // === МАГИЯ СЛАЙД-ШОУ ===
+            // === СЛАЙД-ШОУ ===
             if (iconStacks != null && iconStacks.Length > 0)
             {
                 // api.World.ElapsedMilliseconds - время игры в миллисекундах. 
@@ -76,7 +76,6 @@ namespace botaniastory
                     ColorUtil.WhiteArgb
                 );
             }
-            // =========================
 
             // Рисуем кастомную звездочку, если глава в закладках
             if (IsBookmarked && starTexture.TextureId != 0)

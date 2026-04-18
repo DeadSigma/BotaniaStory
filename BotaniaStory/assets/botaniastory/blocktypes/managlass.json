@@ -1,0 +1,91 @@
+{
+    "code": "managlass",
+    "class": "BlockRainAmbient",
+    "attributes": {
+        "canChisel": true,
+        "onTongTransform": {
+            "translation": {
+                "x": -2.4,
+                "y": -1.9,
+                "z": -1.95
+            },
+            "rotation": {
+                "x": -41,
+                "y": -2,
+                "z": -10
+            },
+            "scale": 0.35
+        },
+        "tongOpening": "wide",
+        "onMetalTongTransform": {
+            "translation": {
+                "x": -3,
+                "y": -1.85,
+                "z": -1.93
+            },
+            "rotation": {
+                "x": -42,
+                "y": -8,
+                "z": -10
+            },
+            "scale": 0.35
+        }
+    },
+    "shape": { "base": "block/managlass" },
+    "drawtype": "json",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "construction": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "blockmaterial": "Glass",
+    "faceCullMode": "MergeMaterial",
+    "replaceable": 900,
+    "lightAbsorption": 0,
+    "lightHsv": [ 40, 5, 15 ],
+    "renderPass": "Transparent",
+    "vertexFlags": {
+        "zOffset": 2,
+        "shiny": true
+    },
+    "textures": {
+        "material": { "base": "botaniastory:block/managlass" }
+    },
+    "resistance": 0.25,
+    "sideopaque": {
+        "all": false
+    },
+    "sounds": {
+        "place": "game:player/buildhigh",
+        "break": "game:block/glass",
+        "hit": "game:block/glass",
+        "walk": "game:walk/glass*",
+        "ambient": "game:environment/rainwindow",
+        "ambientBlockCount": 4,
+        "ambientSoundType": "Weather",
+        "ambientMaxDistanceMerge": 1
+    },
+    "groundTransform": {
+        "origin": {
+            "x": 0.5,
+            "y": -0.01,
+            "z": 0.5
+        }
+    },
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldRightReadyAnimation": "heldblockready",
+    "heldTpUseAnimation": "twohandplaceblock",
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.23,
+            "y": -0.91,
+            "z": -0.8
+        },
+        "rotation": {
+            "x": -2,
+            "y": 25,
+            "z": -78
+        },
+        "scale": 0.4
+    }
+}

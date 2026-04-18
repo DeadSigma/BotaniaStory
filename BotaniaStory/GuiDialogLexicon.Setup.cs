@@ -592,18 +592,18 @@ namespace botaniastory
             if (clickedStack == null) return;
 
             string itemCode = clickedStack.Collectible.Code.ToString();
-            string domain = clickedStack.Collectible.Code.Domain;
 
-            if (domain == "botaniastory")
+            // 1. Просто отдаем предмет твоему менеджеру. 
+            // Он сам проверит и ExceptionsMap (ванильные предметы со звездочками), и предметы мода!
+            string chapterId = BookDataManager.GetChapterForBlock(itemCode);
+
+            // 2. Если менеджер нашел главу (хоть по исключению, хоть по моду)
+            if (chapterId != null)
             {
-                string chapterId = BookDataManager.GetChapterForBlock(itemCode);
-
-                if (chapterId != null)
-                {
-                    if (currentChapter != null && currentChapter.Id == chapterId) return;
-                    OpenSpecificChapter(chapterId);
-                }
+                if (currentChapter != null && currentChapter.Id == chapterId) return;
+                OpenSpecificChapter(chapterId);
             }
+            // 3. Если менеджер вернул null (предмета нет в книге) — кидаем в ванильный справочник
             else
             {
                 OpenVanillaHandbook(clickedStack);

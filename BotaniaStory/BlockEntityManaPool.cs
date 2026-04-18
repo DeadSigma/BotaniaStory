@@ -269,30 +269,44 @@ namespace BotaniaStory
 
                     // --- РЕЦЕПТЫ ---
 
-                    // 1. Любой слиток -> Манасталь (5% = 50 000)
+                    // 1. Любой слиток -> Манасталь 
                     if (domain == "game" && code.StartsWith("ingot-"))
                     {
-                        if (TryTransmuteItem(entityItem, "game:ingot-manasteel", 50000)) continue;
+                        if (TryTransmuteItem(entityItem, "game:ingot-manasteel", 25000)) continue;
                     }
 
-                    // 2. Ржавая шестеренка -> Манашестерня (10% = 100 000)
+                    // 2. Ржавая шестеренка -> Манашестерня 
                     if (domain == "game" && code == "gear-rusty")
                     {
-                        // Было: "botaniastory:manaitem-manadiamond"
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-managear", 50000)) continue;
+                        
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-managear", 30000)) continue;
                     }
 
-                    // 3. Волокно -> Мана-нить (1% = 10 000)
+                    // 3. Волокно -> Мана-нить
                     if (domain == "game" && code == "flaxfibers")
                     {
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaflax", 50000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaflax", 10000)) continue;
                     }
 
-                    // 4. Смола -> Манасмола (7% = 70 000)
+                    // 4. Смола -> Манакварц 
                     if (domain == "game" && code == "clearquartz")
                     {
-                        // Было: "botaniastory:manaitem-manapearl"
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaquartz", 70000)) continue;
+                       
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaquartz", 25000)) continue;
+                    }
+
+                    // 5. Стекло -> Манастекло
+                    if (domain == "game" && code.StartsWith("glass-"))
+                    {
+                       
+                        if (TryTransmuteItem(entityItem, "botaniastory:managlass", 5000)) continue;
+                    }
+
+                    // 6. Измельчённое что-то  -> манапорошок
+                    if (domain == "game" && code.StartsWith("powder-"))
+                    {
+                       
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manapowder", 10000)) continue;
                     }
                 }
             }
@@ -302,48 +316,61 @@ namespace BotaniaStory
             // Проверяем, хватает ли маны
             if (CurrentMana < manaCost) return false;
 
-            // Ищем предмет в базе игры
-            Item outputItem = Api.World.GetItem(new AssetLocation(outputItemCode));
-            if (outputItem == null) return false;
+            AssetLocation loc = new AssetLocation(outputItemCode);
+            ItemStack outputStack = null;
+
+            // 1. Сначала пытаемся найти результат как Предмет (Item)
+            Item outputItem = Api.World.GetItem(loc);
+            if (outputItem != null)
+            {
+                outputStack = new ItemStack(outputItem, 1);
+            }
+            else
+            {
+                // 2. Если предмета нет, пытаемся найти как Блок (Block)
+                Block outputBlock = Api.World.GetBlock(loc);
+                if (outputBlock != null)
+                {
+                    outputStack = new ItemStack(outputBlock, 1);
+                }
+            }
+
+            // Если игра не нашла ни предмета, ни блока с таким кодом — отмена
+            if (outputStack == null) return false;
 
             // Списываем ману и сохраняем бассейн
             CurrentMana -= manaCost;
             MarkDirty(true);
 
-            // Забираем один предмет из стака, который бросил игрок
+            // Забираем один элемент из стака, который бросил игрок
             inputEntity.Itemstack.StackSize--;
 
-            // Если в стаке больше ничего не осталось — удаляем брошенный предмет
+            // Если в стаке больше ничего не осталось — удаляем брошенную сущность
             if (inputEntity.Itemstack.StackSize <= 0)
             {
                 inputEntity.Die(EnumDespawnReason.Death);
             }
 
-            // Создаем готовый предмет маны и спавним его в тех же координатах
-            ItemStack outputStack = new ItemStack(outputItem, 1);
+            // Спавним наш созданный ItemStack (неважно, блок это или предмет) в тех же координатах
             Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
 
             // Вызываем всплеск частиц
             SpawnCraftingParticles(inputEntity.Pos.XYZ);
 
-
             // ==========================================
             // ОТПРАВКА СЕТЕВОГО ПАКЕТА (ЗВУК)
             // ==========================================
-            // Проверяем, что мы точно на сервере
             if (Api.Side == EnumAppSide.Server)
             {
                 ICoreServerAPI sapi = Api as ICoreServerAPI;
                 IServerNetworkChannel channel = sapi.Network.GetChannel("botanianetwork");
 
-                // Создаем наше письмо
                 PlayManaSoundPacket soundMessage = new PlayManaSoundPacket()
                 {
                     Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
-                    SoundName = "transmute" // имя файла без .ogg
+                    SoundName = "transmute" 
                 };
 
-                // Рассылаем письмо всем игрокам (клиенты сами решат громкость по расстоянию и настройкам)
                 channel.BroadcastPacket(soundMessage);
             }
 
