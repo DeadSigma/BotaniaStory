@@ -39,46 +39,59 @@
 				"rotation": {
 					"x": 90,
 					"y": 0,
-					"z": -11
+					"z": 148
 				},
-				"scale": 0.33
+				"scale": 0.4
 			},
-			"groundStorageTransformByType": {
-				"*-closed": {
-					"translation": {
-						"x": -0.02,
-						"y": -0.413,
-						"z": -0.08
-					},
-					"rotation": {
-						"x": 90,
-						"y": 0,
-						"z": -11
-					},
-					"scale": 0.33
-				}
+			"*-open": {
+				"translation": {
+					"x": 0.138,
+					"y": -0.29,
+					"z": 0.066
+				},
+				"rotation": {
+					"x": -23,
+					"y": -120,
+					"z": -18
+				},
+				"scale": 0.46
 			}
 		},
 
-		"onDisplayTransform": {
-			"translation": {
-				"x": 0,
-				"y": -0.261,
-				"z": 0
+		"onDisplayTransformByType": {
+			"*-open": {
+				"translation": {
+					"x": 0,
+					"y": -0.261,
+					"z": 0
+				},
+				"rotation": {
+					"x": 0,
+					"y": -180,
+					"z": 0
+				},
+				"scale": 0.43
 			},
-			"rotation": {
-				"x": 0,
-				"y": 137,
-				"z": 0
-			},
-			"scale": 0.46
+			"*-closed": {
+				"translation": {
+					"x": 0,
+					"y": -0.261,
+					"z": 0
+				},
+				"rotation": {
+					"x": 0,
+					"y": 137,
+					"z": 0
+				},
+				"scale": 0.46
+			}
 		}
-	},
+		},
 	"behaviors": [
 		{
 			"name": "GroundStorable",
 			"properties": {
-				"layout": "SingleCenter",
+				"layout": "Quadrants",
 				"collisionBox": {
 					"x1": 0,
 					"y1": 0,
@@ -90,21 +103,6 @@
 			}
 		}
 	],
-	"groundStorageTransformByType": {
-		"*-closed": {
-			"translation": {
-				"x": -0.02,
-				"y": -0.413,
-				"z": -0.08
-			},
-			"rotation": {
-				"x": 90,
-				"y": 0,
-				"z": -11
-			},
-			"scale": 0.45
-		}
-	},
 
 	"creativeinventory": {
 
@@ -255,7 +253,7 @@
 			"rotation": {
 				"x": -91,
 				"y": -180,
-				"z": -180
+				"z": 161
 			},
 			"origin": {
 				"x": 0.41,

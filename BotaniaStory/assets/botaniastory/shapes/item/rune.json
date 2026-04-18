@@ -10,8 +10,8 @@
 		"label": [32, 32]
 	},
 	"textures": {
-		"rune_base": "rune_base",
-		"label": "label"
+		"rune_base": "botaniastory:item/rune_base",
+		"label": "botaniastory:item/label"
 	},
 	"elements": [
 		{

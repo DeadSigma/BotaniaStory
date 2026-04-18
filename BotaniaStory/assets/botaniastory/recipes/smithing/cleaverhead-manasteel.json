@@ -14,6 +14,6 @@
     "name": "Mana Cleaver",
     "output": {
         "type": "item",
-        "code": "botaniastory:cleaverhead-manasteel"
+        "code": "botaniastory:cleaverblade-manasteel"
     }
 }

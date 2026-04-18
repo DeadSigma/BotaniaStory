@@ -1,0 +1,20 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "###########",
+            "#____######",
+            "#__________",
+            "#____######",
+            "###########"
+        ]
+    ],
+    "name": "Mana Shears",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:shears-manasteel"
+    }
+}

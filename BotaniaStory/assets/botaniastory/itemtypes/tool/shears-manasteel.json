@@ -60,8 +60,8 @@
 			"scale": 0.88
 		}
 	},
-	"attackpower": 3.5,
-	"durability": 1500,
+	"attackpower": 1,
+	"durability": 1000,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

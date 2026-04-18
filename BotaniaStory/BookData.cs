@@ -324,33 +324,306 @@ namespace botaniastory
                     // === НАСТРОЙКА РУНИЧЕСКИЙ АЛТАРЬ ===
                     else if (chapId == "runicaltar")
                     {
-                        chapter.TabItemCode = "botaniastory:mysticalflower-pink-free";
+                        chapter.TabItemCode = "botaniastory:runicaltar";
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                             null, "botaniastory:mysticalpetal-*", "botaniastory:livingwood_stick",// Верхний ряд
-                             null, "botaniastory:mysticalflower-*", "botaniastory:mysticalpetal-*",            // Средний ряд
-                             "botaniastory:livingwood_stick", null, null // Нижний ряд
-                         },
-                            Output = "botaniastory:mysticalpetal-*"
+                            "botaniastory:livingrock", "botaniastory:livingrock", "botaniastory:livingrock", // Сверху 3 камня
+                            "botaniastory:livingrock", "botaniastory:manaitem-managear, botaniastory:manaitem-quartz", "botaniastory:livingrock", // Бока + Ядро в центре
+                            null,                      null,                      null                       // Нижний ряд пустой
+                        },
+                            Output = "botaniastory:runicaltar"
                         });
 
+                        // ==========================================
+                        //  ТИР 1: БАЗОВЫЕ РУНЫ (Элементы)
+                        // ==========================================
+
+                        // Руна Воды
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Apothecary",
                             Spread = 1,
-                            ApothecaryIngredients = new string[]
-                              {
-                               "botaniastory:mysticalflower-*",
-                               "botaniastory:mysticalpetal-*",
-                               "botaniastory:mysticalpetal-*",
-                               "botaniastory:mysticalpetal-*"
-                              },
-                            ApothecaryCenter = "botaniastory:mysticalpetal-*",
-                            Output = "botaniastory:mysticalpetal-*"
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-water",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-manapowder",
+                                 "game:ingot-manasteel",
+                                 "game:bone",             // Костная мука -> Кость
+                                 "game:cattailtops",      // Сахарный тростник -> Верхушки рогоза
+                                 "game:cattailroot"       // Удочка -> Корень рогоза (символ воды)
+                             }
+                        });
+
+                        // Руна Огня
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 2,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-fire",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-manapowder",
+                                 "game:ingot-manasteel",
+                                 "game:mushroom-flyagaric-normal", // Адский нарост -> Мухомор
+                                 "game:burnedbrick-*",        // Адский кирпич -> Обожженный кирпич
+                                 "game:powder-sulfur"              // Порох -> Сера
+                             }
+                        });
+
+                        // Руна Земли
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 2,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-earth",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-manapowder",
+                                 "game:ingot-manasteel",
+                                 "game:rock-granite",           // Камень -> Гранит
+                                 "game:ore-bituminouscoal",        // Угольный блок -> Уголь
+                                 "game:mushroom-almondmushroom-normal"  // Гриб -> Обычный гриб
+                             }
+                        });
+
+                        // Руна Воздуха
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 3,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-air",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-manapowder",
+                                 "game:ingot-manasteel",
+                                 "botaniastory:manaitem-manaflax", // Нить -> Мананить
+                                 "game:feather",                   // Перо
+                                 "game:cloth-plain"                // Ковер -> Льняная ткань
+                             }
+                        });
+
+                        // Руна Маны
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 3,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-mana",
+                            ApothecaryIngredients = new string[] {
+                                "game:ingot-manasteel",
+                                "game:ingot-manasteel",
+                                "game:ingot-manasteel",
+                                "game:ingot-manasteel",
+                                "game:ingot-manasteel",
+                                "botaniastory:manaitem-manaquartz" // Жемчуг маны -> Манакварц
+                            }
+                        });
+
+                        // ==========================================
+                        // ТИР 2: РУНЫ СЕЗОНОВ
+                        // ==========================================
+
+                        // Руна Весны
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 4,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-spring",
+                            ApothecaryIngredients = new string[] {
+                                    "botaniastory:rune-water",
+                                    "botaniastory:rune-fire", 
+                                    "game:sapling-oak-free", 
+                                    "game:sapling-oak-free",   
+                                    "game:sapling-oak-free",
+                                    "game:hay-normal-ud"
+                                }
+                        });
+
+                        // Руна Лета
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 4,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-summer",
+                            ApothecaryIngredients = new string[] {
+                                  "botaniastory:rune-earth",
+                                  "botaniastory:rune-air",
+                                  "game:sand-*",   // Песок
+                                  "game:fat",           // Слизь -> Жир
+                                  "game:fruit-cherry"   // Арбуз -> Вишня (или другая ягода)
+                              }
+                        });
+
+                        // Руна Осени
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 5,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-autumn",
+                            ApothecaryIngredients = new string[] {
+                                  "botaniastory:rune-fire",
+                                  "botaniastory:rune-air",
+                                  "game:leaves-grown-oak", // Листва
+                                  "game:leaves-grown-oak",
+                                  "game:leaves-grown-oak",
+                                  "game:butterfly-dead-*",    // Паучий глаз -> Мертвая бабочка
+                                  "game:pumpkin-fruit-4"     // Тыква
+                              }
+                        });
+
+                        // Руна Зимы
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 5,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-winter",
+                                                    ApothecaryIngredients = new string[] {
+                                "botaniastory:rune-water",
+                                "botaniastory:rune-earth",
+                                "game:snowblock", 
+                                "game:cloth-plain", // Шерсть -> Ткань
+                                "game:dough-*"    // Торт -> Тесто
+                            }
+                        });
+
+                        // ==========================================
+                        // ТИР 3: РУНЫ ГРЕХОВ
+                        // ==========================================
+
+                        // Руна Похоти (Lust)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 6,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-lust",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-managear", // Манаалмаз -> Манашестерня
+                                 "botaniastory:rune-summer",
+                                 "botaniastory:rune-spring",
+                                 "game:clearquartz", // Алмаз -> Чистый кварц
+                                 "game:clearquartz"
+                             }
+                        });
+
+                        // Руна Обжорства (Gluttony)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 6,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-gluttony",
+                            ApothecaryIngredients = new string[] {
+                                  "botaniastory:manaitem-managear",
+                                  "botaniastory:rune-winter",
+                                  "botaniastory:rune-autumn",
+                                  "game:clearquartz", // Слеза гаста -> Чистый кварц
+                                  "game:clearquartz"
+                              }
+                        });
+
+                        // Руна Жадности (Greed)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 7,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-greed",
+                            ApothecaryIngredients = new string[] {
+                                "botaniastory:manaitem-managear",
+                                "botaniastory:rune-spring",
+                                "botaniastory:rune-water",
+                                "game:fat", // Слизь -> Жир
+                                "game:fat"
+                            }
+                        });
+
+                        // Руна Лени (Sloth)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 7,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-sloth",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-managear",
+                                 "botaniastory:rune-autumn",
+                                 "botaniastory:rune-air",
+                                 "game:ore-bituminouscoal", // Уголь
+                                 "game:ore-bituminouscoal"
+                             }
+                        });
+
+                        // Руна Гнева (Wrath)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 8,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-wrath",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-managear",
+                                 "botaniastory:rune-winter",
+                                 "botaniastory:rune-earth",
+                                 "game:powder-sulfur", // Огненный порошок -> Сера
+                                 "game:powder-sulfur"
+                             }
+                        });
+
+                        // Руна Зависти (Envy)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 8,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-envy",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-managear",
+                                 "botaniastory:rune-winter",
+                                 "botaniastory:rune-water",
+                                 "game:butterfly-dead-*", // Паучий глаз -> Мертвая бабочка
+                                 "game:butterfly-dead-*"
+                             }
+                        });
+
+                        // Руна Гордыни (Pride)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 9,
+                            UiKey = "Аптекарь_Область_Левая",
+                            ApothecaryCenter = "botaniastory:runicaltar",
+                            Output = "botaniastory:rune-pride",
+                            ApothecaryIngredients = new string[] {
+                                 "botaniastory:manaitem-managear",
+                                 "botaniastory:rune-summer",
+                                 "botaniastory:rune-fire",
+                                 "game:ingot-gold", // Золотой слиток
+                                 "game:ingot-gold"
+                             }
                         });
 
                     }
@@ -380,7 +653,7 @@ namespace botaniastory
                         });
                     }
 
-                    // === НАСТРОЙКА PUREDAISY ===
+                    // === НАСТРОЙКА ЧИСТАЯ МАРГАРИТКА ===
                     else if (chapId == "puredaisy")
                     {
                         chapter.TabItemCode = "botaniastory:puredaisy-free";
@@ -781,7 +1054,7 @@ namespace botaniastory
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ЖЕЗЛ СВЯЗЫВАНИЯ ===
+                    // === НАСТРОЙКА ГЛАВЫ ПОСОХ/ЖЕЗЛ СВЯЗЫВАНИЯ ===
                     else if (chapId == "wandofbinding")
                     {
                         chapter.TabItemCode = "botaniastory:wandofbinding";
@@ -792,7 +1065,7 @@ namespace botaniastory
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                              null, null, "botaniastory:livingwood_stick",
+                              null, null, "game:ingot-manasteel",
                               null, "botaniastory:livingwood_stick", null,
                               "botaniastory:livingwood_stick", null, null},
                             Output = "botaniastory:wandofbinding"
@@ -1016,7 +1289,7 @@ namespace botaniastory
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:cleaverhead-manasteel"
+                            Output = "botaniastory:cleaverblade-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -1025,7 +1298,7 @@ namespace botaniastory
                             Spread = 3,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:cleaverhead-manasteel", null, null,
+                                 "botaniastory:cleaverblade-manasteel", null, null,
                                  "game:stick", null, null,
                                  null, null, null},
                             Output = "botaniastory:cleaver-manasteel"
@@ -1038,7 +1311,7 @@ namespace botaniastory
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:falxhead-manasteel"
+                            Output = "botaniastory:falxblade-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -1047,7 +1320,7 @@ namespace botaniastory
                             Spread = 3,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:falxhead-manasteel", null, null,
+                                 "botaniastory:falxblade-manasteel", null, null,
                                  "game:stick", null, null,
                                  null, null, null},
                             Output = "botaniastory:falx-manasteel"
@@ -1170,7 +1443,7 @@ namespace botaniastory
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:scythehead-manasteel"
+                            Output = "botaniastory:scytheblade-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -1179,7 +1452,7 @@ namespace botaniastory
                             Spread = 6,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:scythehead-manasteel", null, null,
+                                 "botaniastory:scytheblade-manasteel", null, null,
                                  "game:stick", null, null,
                                  null, null, null},
                             Output = "botaniastory:scythe-manasteel"

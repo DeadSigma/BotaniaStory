@@ -91,14 +91,14 @@
 	],
 	"heldRightReadyAnimation": "axeready",
 	"heldTpHitAnimation": "axechop",
-	"attackRange": 2.4,
+	"attackRange": 2,
 	"tooltier": 2,
 	"miningspeed": {
-		"wood": 5.6,
-		"plant": 3.2,
-		"leaves": 2.8
+		"wood": 5.2,
+			"plant": 2.8,
+			"leaves": 2.4
 	},
-	"durability": 295,
+	"durability": 250,
 	"attackpower": 2.4,
 	"creativeinventory": {
 		"general": [ "*" ],

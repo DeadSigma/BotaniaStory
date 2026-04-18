@@ -81,7 +81,8 @@
 			"y": -140,
 			"z": 180
 		},
-		"scale": 1.32
+		"scale": 1.32,
+		"rotate": true
 	},
 	"tpHandTransform": {
 		"translation": {

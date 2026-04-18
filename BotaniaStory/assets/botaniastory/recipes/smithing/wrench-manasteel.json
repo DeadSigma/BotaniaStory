@@ -1,0 +1,17 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [[
+		"______###",
+		"#######__",
+		"______###"
+	]],
+	
+	"name": "Mana Wrench",
+	"output": {
+        "type": "item",
+        "code": "botaniastory:wrench-manasteel"
+    }
+}

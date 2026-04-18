@@ -99,16 +99,17 @@
 	},
 	"guiTransform": {
 		"translation": {
-			"x": 0,
-			"y": 0,
+			"x": 2,
+			"y": 2.92,
 			"z": 0
 		},
 		"rotation": {
-			"x": 16,
-			"y": -152,
-			"z": 180
+			"x": 15,
+			"y": -162,
+			"z": -176
 		},
-		"scale": 1.24
+		"scale": 1.24,
+		"rotate": true
 	},
 	"tpHandTransform": {
 		"translation": {

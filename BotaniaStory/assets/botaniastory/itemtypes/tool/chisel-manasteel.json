@@ -72,7 +72,7 @@
 	"heldRightReadyAnimation": "chiselready",
 	"heldTpHitAnimation": "chiselhit",
 	"heldTpUseAnimation": "chiselhit",
-	"durability": 1500,
+	"durability": 600,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

@@ -1,0 +1,20 @@
+{
+    "ingredientPattern": "SSS,SCS",
+    "ingredients": {
+        "S": {
+            "type": "block",
+            "code": "botaniastory:livingrock"
+        },
+        "C": {
+            "type": "item",
+            "code": "botaniastory:manaitem-*",
+            "allowedVariants": [ "manaquartz", "managear" ]
+        }
+    },
+    "width": 3,
+    "height": 2,
+    "output": {
+        "type": "block",
+        "code": "botaniastory:runicaltar"
+    }
+}

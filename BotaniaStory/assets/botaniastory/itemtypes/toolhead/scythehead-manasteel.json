@@ -1,5 +1,5 @@
 {
-	"code": "scythehead-manasteel",
+	"code": "scytheblade-manasteel",
 	"class": "Item",
 	"maxstacksize": 8,
 	"shape": { "base": "game:item/tool/scythe" },
@@ -79,7 +79,7 @@
 			}
 		},
 		"handbook": {
-			"groupBy": [ "scythehead-*" ]
+			"groupBy": [ "scytheblade-*" ]
 		},
 		"displayable": {
 			"shelf": {

@@ -104,7 +104,7 @@ namespace BotaniaStory
         }
 
         // ==========================================
-        // МАГИЯ ОТРИСОВКИ ЖИДКОСТИ
+        //  ОТРИСОВКА ЖИДКОСТИ
         // ==========================================
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
@@ -272,20 +272,20 @@ namespace BotaniaStory
                     // 1. Любой слиток -> Манасталь (5% = 50 000)
                     if (domain == "game" && code.StartsWith("ingot-"))
                     {
-                        if (TryTransmuteItem(entityItem, "botaniastory:ingot-manasteel", 50000)) continue;
+                        if (TryTransmuteItem(entityItem, "game:ingot-manasteel", 50000)) continue;
                     }
 
                     // 2. Ржавая шестеренка -> Манашестерня (10% = 100 000)
                     if (domain == "game" && code == "gear-rusty")
                     {
                         // Было: "botaniastory:manaitem-manadiamond"
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-managear", 100000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-managear", 50000)) continue;
                     }
 
                     // 3. Волокно -> Мана-нить (1% = 10 000)
                     if (domain == "game" && code == "flaxfibers")
                     {
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaflax", 10000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaflax", 50000)) continue;
                     }
 
                     // 4. Смола -> Манасмола (7% = 70 000)

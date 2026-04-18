@@ -50,7 +50,7 @@ namespace botaniastory
 
         public override void RenderInteractiveElements(float deltaTime)
         {
-            // --- МАГИЯ МАСШТАБИРОВАНИЯ ФОНА ---
+            // --- МАСШТАБИРОВАНИЕ ФОНА ---
             // Рисуем текстуру вручную, заставляя её растягиваться до размеров bgBounds
             if (bgTexture != null && bgTexture.TextureId != 0)
             {
@@ -83,7 +83,7 @@ namespace botaniastory
                     ItemStack stackToDraw = ingredients[i][timeIndex % ingredients[i].Length];
                     renderSlot.Itemstack = stackToDraw;
 
-                    api.Render.RenderItemstackToGui(renderSlot, rX, rY, 100, (float)(slotSize * 0.4f), ColorUtil.WhiteArgb);
+                    api.Render.RenderItemstackToGui(renderSlot, rX, rY, 100, (float)(slotSize * 0.5f), ColorUtil.WhiteArgb);
 
                     double aX = Bounds.absX + (rX - Bounds.renderX);
                     double aY = Bounds.absY + (rY - Bounds.renderY);
@@ -106,7 +106,7 @@ namespace botaniastory
             // 3. Рисуем результат
             if (outputStacks != null && outputStacks.Length > 0)
             {
-                double outX = Bounds.renderX + Bounds.InnerWidth * 0.94;
+                double outX = Bounds.renderX + Bounds.InnerWidth * 0.95;
                 double outY = Bounds.renderY + Bounds.InnerHeight * 0.09;
 
                 ItemStack outStack = outputStacks[timeIndex % outputStacks.Length];
@@ -115,7 +115,7 @@ namespace botaniastory
 
                 double outAbsX = Bounds.absX + Bounds.InnerWidth * 0.95;
                 double outAbsY = Bounds.absY + Bounds.InnerHeight * 0.05;
-                if (CheckMouse(mouseX, mouseY, outAbsX, outAbsY, slotSize * 0.6f)) hoveredStack = outStack;
+                if (CheckMouse(mouseX, mouseY, outAbsX, outAbsY, slotSize * 0.55f)) hoveredStack = outStack;
             }
 
             if (hoveredStack != null)

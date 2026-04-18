@@ -7,15 +7,14 @@
 		"metal": { "base": "game:item/resource/plate/manasteel" }
 	},
 	"miningspeed": {
-		"stone": 4.4,
-		"ore": 4.4,
-		"metal": 4.4,
-		"ceramic": 1.9,
-		"ice": 2.15
+		"ceramic": 1.5,
+			"stone": 4,
+			"ore": 4,
+			"metal": 4,
+			"ice": 1.75
 	},
-	"attackpower": 1.65,
-	"attackRange": 2.5,
-	"durability": 345,
+	"attackpower": 1.25,
+	"durability": 300,
 	"tooltier": 2,
 	"creativeinventory": {
 		"general": [ "*" ],

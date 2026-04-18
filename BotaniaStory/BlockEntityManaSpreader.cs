@@ -205,12 +205,10 @@ namespace BotaniaStory
             }
             else if (receiverBlock is BlockEntityRunicAltar altar)
             {
-                // Проверяем Рунический Алтарь (берем крутую логику из твоего BotaniaWandHud!)
-                int limit = altar.TargetMana > 0 ? altar.TargetMana : altar.MaxBufferMana;
-
-                if (altar.CurrentMana >= limit)
+                
+                if (altar.CurrentMana >= altar.MaxBufferMana)
                 {
-                    return; // Алтарь накопил нужную ману! Отменяем выстрел
+                    return;
                 }
             }
 

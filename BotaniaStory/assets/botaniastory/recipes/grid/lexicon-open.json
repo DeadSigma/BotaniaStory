@@ -1,0 +1,16 @@
+{
+    "ingredientPattern": "A",
+    "ingredients": {
+        "A": {
+            "type": "item",
+            "code": "botaniastory:lexicon-closed"
+        }
+    },
+    "width": 1,
+    "height": 1,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:lexicon-open",
+        "quantity": 1
+    }
+}

@@ -5,13 +5,14 @@
 	"variantgroups": [
 		{
 			"code": "type",
-			"states": [ "managear", "manaflax", "manaquartz" ]
+			"states": [ "managear", "manaflax", "manaquartz", "manapowder" ]
 		}
 	],
 	"shapeByType": {
 		"*-managear": { "base": "botaniastory:item/managear" },
 		"*-manaflax": { "base": "botaniastory:item/manaflax" },
-		"*-manaquartz": { "base": "botaniastory:item/manaquartz" }
+		"*-manaquartz": { "base": "botaniastory:item/manaquartz" },
+		"*-manapowder": { "base": "botaniastory:item/manapowder" }
 	},
 	"creativeinventory": {
 		"general": [ "*" ],
@@ -21,13 +22,46 @@
 		"all": { "base": "item/{type}" }
 	},
 	"behaviorsByType": {
+		"*-manapowder": [
+			{
+				"name": "GroundStorable",
+				"properties": {
+					"layout": "Messy12",
+					"collisionBox": {
+						"x1": 0,
+						"y1": 0,
+						"z1": 0,
+						"x2": 1,
+						"y2": 0.125,
+						"z2": 1
+					}
+				}
+			}
+		],
+		"*-manaquartz": [
+			{
+				"name": "GroundStorable",
+				"properties": {
+					"layout": "Messy12",
+					"placeRemoveSound": "sounds",
+					"collisionBox": {
+						"x1": 0,
+						"y1": 0,
+						"z1": 0,
+						"x2": 1,
+						"y2": 0.125,
+						"z2": 1
+					}
+				}
+			}
+		],
 		"*-managear": [
 			{
 				"name": "GroundStorable",
 				"properties": {
 					"layout": "Stacking",
 					"placeRemoveSound": "sounds/block/plate",
-					"stackingModel": "game:item/gear-rusty-pile",
+					"stackingModel": "item/managear-pile",
 					"upSolid": false,
 					"cuboidsPerModel": 8,
 					"stackingCapacity": 64,
@@ -51,7 +85,7 @@
 				"properties": {
 					"layout": "Stacking",
 					"placeRemoveSound": "sounds/block/plant",
-					"stackingModel": "game:item/resource/flaxfibers-pile",
+					"stackingModel": "item/manaflax-pile",
 					"modelItemsToStackSizeRatio": 14,
 					"stackingCapacity": 30,
 					"transferQuantity": 1,
@@ -70,19 +104,51 @@
 		]
 	},
 	"attributesByType": {
+		"*-manapowder": {
+			"dissolveInWater": true,
+			"displaycaseable": true,
+			"shelvable": true,
+			"onDisplayTransform": {
+				"translation": {
+					"x": 0.05,
+					"y": 0,
+					"z": 0
+				},
+				"origin": {
+					"x": 0.5,
+					"y": 0,
+					"z": 0.5
+				},
+				"scale": 0.65
+			},
+			"groundStorageTransform": {
+				"translation": {
+					"x": 0,
+					"y": -0.055,
+					"z": 0
+				},
+				"rotation": {
+					"x": 0.1,
+					"y": 8,
+					"z": 0.1
+				},
+				"scale": 0.9
+			},
+			"inContainerTexture": { "base": "item/resource/ungraded/quartz" }
+		},
 		"*-manaquartz": {
 			"displaycaseable": true,
 			"shelvable": true,
 			"displayable": {
 				"shelf": {
 					"size": {
-						"width": 3,
+						"width": 4,
 						"height": 3,
-						"length": 3
+						"length": 4
 					}
 				}
 			},
-			"inContainerTexture": { "base": "block/resin" }
+			"inContainerTexture": { "base": "item/resource/ungraded/clearquartz" }
 		},
 		"*-managear": {
 			"displaycaseable": true,
@@ -172,28 +238,47 @@
 		}
 	},
 	"materialDensityByType": {
-		"*-manaquartz": 700,
+		"*-manapowder": 500,
+		"*-manaquartz": 2500,
 		"*-managear": 4000,
 		"*-manaflax": 120
 	},
 	"guiTransformByType": {
-		"*-manaquartz": {
+		"*-manapowder": {
 			"translation": {
-				"x": 1,
+				"x": 0,
 				"y": 0,
 				"z": 0
 			},
 			"rotation": {
-				"x": -31,
-				"y": -39,
-				"z": -180
+				"x": 149,
+				"y": 12,
+				"z": 0
+			},
+			"origin": {
+				"x": 0.41,
+				"y": -0.1,
+				"z": 0.8
+			},
+			"scale": 2.54
+		},
+		"*-manaquartz": {
+			"translation": {
+				"x": 3,
+				"y": 2,
+				"z": 0
+			},
+			"rotation": {
+				"x": 150,
+				"y": -38,
+				"z": 0
 			},
 			"origin": {
 				"x": 0.5,
 				"y": 0.1,
 				"z": 0.5
 			},
-			"scale": 3.6
+			"scale": 3.8
 		},
 		"*-managear": {
 			"translation": {
@@ -259,23 +344,36 @@
 		"scale": 2.5
 	},
 	"tpHandTransformByType": {
-		"*-manaquartz": {
+		"*-manapowder": {
 			"translation": {
-				"x": -0.73,
-				"y": -0.1,
-				"z": -0.67
+				"x": -1.87,
+				"y": -1.25,
+				"z": -0.8
 			},
 			"rotation": {
-				"x": -50,
-				"y": 27,
-				"z": -28
+				"x": 70,
+				"y": 11,
+				"z": -65
+			},
+			"scale": 0.41
+		},
+		"*-manaquartz": {
+			"translation": {
+				"x": -0.93,
+				"y": -0.19,
+				"z": -0.77
+			},
+			"rotation": {
+				"x": -48,
+				"y": -180,
+				"z": 23
 			},
 			"origin": {
 				"x": 0.5,
-				"y": 0.1,
+				"y": 0.12,
 				"z": 0.5
 			},
-			"scale": 0.75
+			"scale": 0.6
 		},
 		"*-managear": {
 			"translation": {
@@ -328,6 +426,19 @@
 		}
 	},
 	"groundTransformByType": {
+		"*-manapowder": {
+			"translation": {
+				"x": 0,
+				"y": 0.45,
+				"z": 0
+			},
+			"rotation": {
+				"x": 0.1,
+				"y": 8,
+				"z": 0.1
+			},
+			"scale": 4.5
+		},
 		"*-manaquartz": {
 			"translation": {
 				"x": 0,
@@ -344,7 +455,7 @@
 				"y": 0,
 				"z": 0.5
 			},
-			"scale": 2.7
+			"scale": 4.5
 		},
 		"*-managear": {
 			"translation": {

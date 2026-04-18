@@ -1,5 +1,5 @@
 {
-	"code": "cleaverhead-manasteel",
+	"code": "cleaverblade-manasteel",
 	"class": "Item",
 	"maxstacksize": 8,
 	"shape": {
@@ -71,7 +71,7 @@
 			}
 		},
 		"handbook": {
-			"groupBy": [ "cleaverhead-*" ]
+			"groupBy": [ "cleaverblade-*" ]
 		},
 		"displayable": {
 			"shelf": {

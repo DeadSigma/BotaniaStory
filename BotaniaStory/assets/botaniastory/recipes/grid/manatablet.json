@@ -1,0 +1,19 @@
+{
+    "ingredientPattern": "SSS,SMS,SSS",
+    "ingredients": {
+        "M": {
+            "type": "item",
+            "code": "botaniastory:manaitem-manaquartz"
+        },
+        "S": {
+            "type": "block",
+            "code": "botaniastory:livingrock"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:manatablet"
+    }
+}

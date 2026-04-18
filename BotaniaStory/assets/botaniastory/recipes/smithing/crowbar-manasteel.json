@@ -1,0 +1,21 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "#__#############",
+            "####____________"
+        ],
+        [
+            "#__#############",
+            "####____________"
+        ]
+    ],
+    "name": "Mana Crowbar",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:crowbar-manasteel"
+    }
+}

@@ -124,6 +124,7 @@ namespace botaniastory
             config.WandVolume = 50;
             config.PoolVolume = 50;
             config.AltarVolume = 50;
+            config.ApothecaryVolume = 50;
 
             mainDialog.UpdateScale(1.0f);
             SingleComposer?.Dispose();
@@ -174,7 +175,7 @@ namespace botaniastory
             bgBounds.BothSizing = ElementSizing.FitToChildren;
 
             // Увеличили высоту окна с 250 до 290, чтобы влез 5-й ползунок
-            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 290);
+            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 230);
             bgBounds.WithChild(listBounds);
 
             CairoFont font = CairoFont.WhiteSmallText();
@@ -216,6 +217,11 @@ namespace botaniastory
             SingleComposer.AddSlider(OnAltarVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderAltarVolume");
             y += 40;
 
+            // 7. Громкость Лепесткового Аптекаря
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-apothecaryvolume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnApothecaryVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderApothecaryVolume");
+            y += 40;
+
             // Кнопка Сохранить и Закрыть
             SingleComposer.AddButton(Lang.Get("botaniastory:dialog-settings-save"), OnSaveAndClose, ElementBounds.Fixed(0, y, 340, 30), font, EnumButtonStyle.Normal);
 
@@ -228,9 +234,11 @@ namespace botaniastory
             SingleComposer.GetSlider("sliderWandVolume")?.SetValues(config.WandVolume, 0, 100, 1);
             SingleComposer.GetSlider("sliderPoolVolume")?.SetValues(config.PoolVolume, 0, 100, 1);
             SingleComposer.GetSlider("sliderAltarVolume")?.SetValues(config.AltarVolume, 0, 100, 1);
+            SingleComposer.GetSlider("sliderApothecaryVolume")?.SetValues(config.ApothecaryVolume, 0, 100, 1);
         }
 
         private bool OnVolumeChanged(int value) { config.Volume = value; return true; }
+        private bool OnApothecaryVolumeChanged(int value) { config.ApothecaryVolume = value; return true; }
         private bool OnFlowerVolumeChanged(int value) { config.FlowerVolume = value; return true; }
         private bool OnSpreaderVolumeChanged(int value) { config.SpreaderVolume = value; return true; }
         private bool OnWandVolumeChanged(int value) { config.WandVolume = value; return true; }

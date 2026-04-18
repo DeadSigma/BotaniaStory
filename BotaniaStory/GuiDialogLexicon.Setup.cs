@@ -15,57 +15,64 @@ namespace botaniastory
         {
             if (string.IsNullOrEmpty(rawCode)) return null;
 
-            string code = rawCode;
+            string codesString = rawCode;
             int count = 1; // По умолчанию всегда 1 предмет
 
             // Если в строке есть символ '@', разбиваем её на код и количество
             if (rawCode.Contains("@"))
             {
                 var parts = rawCode.Split('@');
-                code = parts[0];
+                codesString = parts[0];
                 int.TryParse(parts[1], out count);
             }
 
             var stacks = new List<ItemStack>();
-            AssetLocation loc = new AssetLocation(code);
 
-            if (code.Contains("*"))
+            // Разбиваем строку по запятой, чтобы поддержать перечисление конкретных предметов (аналог allowedVariants)
+            string[] individualCodes = codesString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (string rawSingleCode in individualCodes)
             {
-                foreach (var item in capi.World.Items)
+                string code = rawSingleCode.Trim(); // Убираем лишние пробелы по краям
+                AssetLocation loc = new AssetLocation(code);
+
+                // Если код всё ещё содержит звёздочку (например "botaniastory:mysticalpetal-*"), обрабатываем как маску
+                if (code.Contains("*"))
                 {
-                    if (item.Code != null && WildcardUtil.Match(loc, item.Code))
+                    foreach (var item in capi.World.Items)
                     {
-                        var stack = new ItemStack(item);
-                        stack.StackSize = count; // Применяем наше количество
-                        stacks.Add(stack);
+                        if (item.Code != null && WildcardUtil.Match(loc, item.Code))
+                        {
+                            var stack = new ItemStack(item) { StackSize = count };
+                            stacks.Add(stack);
+                        }
+                    }
+                    foreach (var block in capi.World.Blocks)
+                    {
+                        if (block.Code != null && WildcardUtil.Match(loc, block.Code))
+                        {
+                            var stack = new ItemStack(block) { StackSize = count };
+                            stacks.Add(stack);
+                        }
                     }
                 }
-                foreach (var block in capi.World.Blocks)
+
+                // Иначе ищем конкретный предмет или блок
+                else
                 {
-                    if (block.Code != null && WildcardUtil.Match(loc, block.Code))
+                    Item item = capi.World.GetItem(loc);
+                    if (item != null)
                     {
-                        var stack = new ItemStack(block);
-                        stack.StackSize = count; // Применяем наше количество
+                        var stack = new ItemStack(item) { StackSize = count };
                         stacks.Add(stack);
                     }
-                }
-            }
-            else
-            {
-                Item item = capi.World.GetItem(loc);
-                if (item != null)
-                {
-                    var stack = new ItemStack(item);
-                    stack.StackSize = count; // Применяем наше количество
-                    stacks.Add(stack);
-                }
 
-                Block block = capi.World.GetBlock(loc);
-                if (block != null)
-                {
-                    var stack = new ItemStack(block);
-                    stack.StackSize = count; // Применяем наше количество
-                    stacks.Add(stack);
+                    Block block = capi.World.GetBlock(loc);
+                    if (block != null)
+                    {
+                        var stack = new ItemStack(block) { StackSize = count };
+                        stacks.Add(stack);
+                    }
                 }
             }
 

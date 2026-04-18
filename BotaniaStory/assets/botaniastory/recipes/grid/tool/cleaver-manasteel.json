@@ -1,0 +1,19 @@
+{
+    "ingredientPattern": "H,S",
+    "width": 1,
+    "height": 2,
+    "ingredients": {
+        "H": {
+            "type": "item",
+            "code": "botaniastory:cleaverblade-manasteel"
+        },
+        "S": {
+            "type": "item",
+            "code": "game:stick"
+        }
+    },
+    "output": {
+        "type": "item",
+        "code": "botaniastory:cleaver-manasteel"
+    }
+}

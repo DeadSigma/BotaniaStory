@@ -9,6 +9,7 @@
     "botaniastory:dialog-settings-poolvolume": "Громкость бассейна",
     "dialog-settings-flowervolume": "Громкость цветов",
     "dialog-settings-spreadervolume": "Громкость распрост.",
+    "botaniastory:dialog-settings-apothecaryvolume": "Громкость аптекаря",
     "dialog-settings-mousewheel": "Перелистывание колёсиком",
     "dialog-settings-rightclickback": "Назад на ПКМ",
     "dialog-settings-reset": "Сбросить по умолчанию",
@@ -154,14 +155,14 @@
     "item-shovelhead-manasteel": "Оголовье лопаты из манастали",
     "item-axe-manasteel": "Топор из манастали",
     "item-axehead-manasteel": "Оголовье топора из манастали",
-    "item-falxhead-manasteel": "Лезвие фалькса из манастали",
-    "item-cleaverhead-manasteel": "Оголовье тесака из манастали",
+    "item-falxblade-manasteel": "Лезвие фалькса из манастали",
+    "item-cleaverblade-manasteel": "Оголовье тесака из манастали",
     "item-hammerhead-manasteel": "Оголовье молота из манастали",
     "item-hoehead-manasteel": "Оголовье мотыги из манастали",
     "item-knifeblade-manasteel": "Лезвие ножа из манастали",
     "item-prospectingpickhead-manasteel": "Оголовье геологического молотка из манастали",
     "item-sawblade-manasteel": "Лезвие пилы из манастали",
-    "item-scythehead-manasteel": "Лезвие косы из манастали",
+    "item-scytheblade-manasteel": "Лезвие косы из манастали",
     "item-spearhead-manasteel": "Наконечник копья из манастали",
     "item-spear-manasteel": "Копье из манастали",
 
@@ -197,6 +198,17 @@
     "item-rune-earth": "Руна Земли",
     "item-rune-air": "Руна Воздуха",
     "item-rune-mana": "Руна Маны",
+    "item-rune-spring": "Руна Весны",
+    "item-rune-summer": "Руна Лета",
+    "item-rune-autumn": "Руна Осени",
+    "item-rune-winter": "Руна Зимы",
+    "item-rune-envy": "Руна Зависти",
+    "item-rune-gluttony": "Руна Прожорливости",
+    "item-rune-greed": "Руна Жадности",
+    "item-rune-lust": "Руна Похоти",
+    "item-rune-pride": "Руна Гордыни",
+    "item-rune-sloth": "Руна Лени",
+    "item-rune-wrath": "Руна Гнева",
 
 
 
@@ -221,6 +233,7 @@
     "lexicon_basics_and_mechanics_apothecary_p2": "Нажав по Аптекарю <link=nothing>Shift+ПКМ</link> пустой рукой, Вы вернете себе последний закинутый предмет.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nПростой совет для тех, кто не любит рутинную работу: в течение 20 секунд после создания цветка в Аптекаре), Вы можете нажать по нему <link=nothing>ПКМ</link> пустой рукой, чтобы выложить в аптекарь все",
     "lexicon_basics_and_mechanics_apothecary_p3": "предметы из инвентаря, которые были необходимы для предыдущего рецепта, что полезно для создания большого количества цветов. Работает, только если внутри есть вода.",
     "lexicon_basics_and_mechanics_apothecary_p4": "Создание лепесткового аптекаря:",
+	
 
 
 
@@ -236,6 +249,22 @@
     "lexicon_basics_and_mechanics_runicaltar_p1": "Создание рун - это довольно важный шаг в развитии ботанической магии. И чтобы узнать, как их создавать, Вам, в первую очередь, нужно хорошо понимать, как управлять маной. Поэтому прежде чем продолжить, прочитайте все первые статьи в разделе <link=category:mana_management>Управление маной</link>. Руны - это чрезвычайно важные компоненты, использующиеся в создании сложных магических устройств и продвинутой флоры. Чтобы их сделать, Вам понадобится, как Вы уже могли догадаться, Рунический алтарь. Для начала разложите на нем предметы, необходимые для создания нужной руны, нажимая ими <link=nothing>ПКМ</link> по алтарю или просто бросая их на него. После этого направьте на алтарь <link=manaspreader>Распространитель маны</link>, чтобы передать ему некоторое количество маны. ",
     "lexicon_basics_and_mechanics_runicaltar_p2": "Создание Рунического алтаря.\n\n\n\n\n\n\n\n\n\n\nПроцесс наполнения алтаря маной можно увидеть, просто посмотрев на него. Когда шкала прогресса полностью станет зеленой, положите на алтарь <link=puredaisy>Жизнекамень</link>, а потом нажмите по нему <link=nothing>ПКМ </link> <link=wandoftheforest>Посохом леса</link>, чтобы завершить создание руны.",
     "lexicon_basics_and_mechanics_runicaltar_p3": "Всего существует 16 типов Рун.\n\nСамые основные, элементарные руны названы в честь четырех стихий. Руны среднего уровня названы в честь четырех сезонов, а самые продвинутые руны названы в честь семи смертных грехов. И последняя руна в этом списке - Руна маны.\n\nНажав <link=nothing>Shift+ПКМ</link> пустой рукой по Руническому алтарю, пока он не принимает ману, Вы вернете себе последний положенный в него предмет. Любые руны, которые используются для создания чего-либо на Руническом Алтаре, действуют в качестве катализаторов и не тратятся после завершения создания. Как и с Лепестковым Аптекарем, нажав ПКМ по алтарю пустой рукой, Вы выложите на него те предметы, что использовались в последнем рецепте.",
+	"lexicon_basics_and_mechanics_runicaltar_p4": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p5": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p6": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p7": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p8": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p9": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p10": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p11": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p12": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p13": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p14": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p15": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p16": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p17": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p18": "Создание лепесткового аптекаря:",
+	"lexicon_basics_and_mechanics_runicaltar_p19": "Создание лепесткового аптекаря:",
 
 
     "lexicon_basics_and_mechanics_puredaisy_title": "Чистая маргаритка",

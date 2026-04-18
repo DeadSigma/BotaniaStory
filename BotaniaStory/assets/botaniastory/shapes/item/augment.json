@@ -10,8 +10,8 @@
 		"label": [64, 64]
 	},
 	"textures": {
-		"augment_base": "augment_base",
-		"label": "label"
+		"augment_base": "botaniastory:item/augment_base",
+		"label": "botaniastory:item/label"
 	},
 	"elements": [
 		{

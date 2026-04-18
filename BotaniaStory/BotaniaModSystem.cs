@@ -89,7 +89,7 @@ namespace BotaniaStory
             clientChannel = api.Network.GetChannel("botanianetwork") as IClientNetworkChannel;
             clientChannel
                 .SetMessageHandler<PlayManaSoundPacket>(OnSoundPacketReceived)
-                .SetMessageHandler<ManaStreamPacket>(OnManaStreamPacketReceived); // <-- Ошибка пропадала благодаря этому
+                .SetMessageHandler<ManaStreamPacket>(OnManaStreamPacketReceived); 
 
             wandHud = new BotaniaWandHud(api);
 
@@ -128,13 +128,17 @@ namespace BotaniaStory
 
             float volume = 0f;
 
-            if (packet.SoundName == "transmute" || packet.SoundName == "apothecary_splash" || packet.SoundName == "apothecary_craft")
+            if (packet.SoundName == "transmute")
             {
                 volume = ClientConfig.PoolVolume / 100f;
             }
             else if (packet.SoundName == "runic_altar_craft" || packet.SoundName == "runic_altar_full")
             {
                 volume = ClientConfig.AltarVolume / 100f;
+            }
+            else if (packet.SoundName == "apothecary_splash" || packet.SoundName == "apothecary_craft")
+            {
+                volume = ClientConfig.ApothecaryVolume / 100f;
             }
             else if (packet.SoundName == "manaspreaderfire")
             {

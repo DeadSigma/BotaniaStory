@@ -18,5 +18,11 @@
 				"code": "game:ingot-manasteel"
 			}
 		}
+	},
+	{
+		"file": "game:itemtypes/resource/ingot.json",
+		"op": "add",
+		"path": "/creativeinventory/botaniastory",
+		"value": [ "*-manasteel" ]
 	}
 ]

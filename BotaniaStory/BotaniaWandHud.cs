@@ -87,6 +87,7 @@ namespace BotaniaStory
             bool isSneaking = player.Entity.Controls.Sneak;
             var sel = player.CurrentBlockSelection;
 
+            int displayTargetMana = 0;
             showHud = false;
             isLookingAtPool = false;
             currentAltarIcon = AltarIconState.None;
@@ -136,7 +137,8 @@ namespace BotaniaStory
                 else if (be is BlockEntityRunicAltar altar)
                 {
                     displayMana = altar.CurrentMana;
-                    displayMaxMana = altar.TargetMana > 0 ? altar.TargetMana : altar.MaxBufferMana;
+                    displayMaxMana = altar.MaxBufferMana; 
+                    displayTargetMana = altar.TargetMana; 
 
                     highlightPos = null;
                     showConnectionStatus = false;

@@ -3,7 +3,7 @@
     "ingredients": {
         "M": {
             "type": "item",
-            "code": "botaniastory:livingwood_stick"
+            "code": "game:ingot-manasteel"
         },
         "S": {
             "type": "item",

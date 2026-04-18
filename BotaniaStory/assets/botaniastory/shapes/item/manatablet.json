@@ -11,9 +11,9 @@
 		"manatablet_body": [ 32, 32 ]
 	},
 	"textures": {
-		"glass": "glass",
-		"manaliquid": "manaliquid",
-		"manatablet_body": "manatablet_body"
+		"glass": "botaniastory:item/glass",
+		"manaliquid": "botaniastory:item/manaliquid",
+		"manatablet_body": "botaniastory:item/manatablet_body"
 	},
 	"elements": [
 		{
@@ -104,7 +104,7 @@
 						},
 						"south": {
 							"texture": "#manatablet_body",
-							"uv": [ 16, 0, 28.5, 2 ],
+							"uv": [ 0, 11, 12.5, 9.5 ],
 							"autoUv": false
 						},
 						"west": {

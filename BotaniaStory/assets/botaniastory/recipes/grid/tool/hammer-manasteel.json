@@ -1,0 +1,19 @@
+{
+    "ingredientPattern": "A  ,S  ,   ",
+    "ingredients": {
+        "A": {
+            "type": "item",
+            "code": "botaniastory:hammerhead-manasteel"
+        },
+        "S": {
+            "type": "item",
+            "code": "game:stick"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:hammer-manasteel"
+    }
+}

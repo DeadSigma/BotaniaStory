@@ -69,12 +69,12 @@
 		{ "name": "EntityDeconstructTool" },
 		{ "name": "Buffable" }
 	],
-	"tooltier": 5,
+	"tooltier": 2,
 	"miningspeed": {
-		"wood": 6.0,
-		"leaves": 4.0
+			"wood": 4,
+			"leaves": 2.4
 	},
-	"durability": 1500,
+	"durability": 250,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

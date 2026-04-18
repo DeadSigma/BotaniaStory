@@ -188,7 +188,16 @@ namespace BotaniaStory
         public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool boolVal)
         {
             base.GetHeldItemInfo(inSlot, dsc, world, boolVal);
-            dsc.AppendLine($"\nМана: {inSlot.Itemstack.Attributes.GetInt("mana", 0):N0} / {MaxMana:N0}");
+
+            // Получаем реальное "внутреннее" количество маны
+            int currentMana = inSlot.Itemstack.Attributes.GetInt("mana", 0);
+
+            // Делим значения на 1000 для интерфейса игрока (используем float, чтобы корректно обрабатывать дроби)
+            float displayMana = currentMana / 1000f;
+            float displayMax = MaxMana / 1000f;
+
+           
+            dsc.AppendLine($"\nМана: {displayMana:0.##} / {displayMax:0.##}");
         }
 
         // ==========================================

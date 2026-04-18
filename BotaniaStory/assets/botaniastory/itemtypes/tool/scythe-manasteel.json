@@ -84,7 +84,7 @@
 	"heldTpIdleAnimation": "scytheIdle",
 	"heldRightReadyAnimation": "scytheReady",
 	"heldTpUseAnimation": "interactStaticLong",
-	"durability": 1500,
+	"durability": 450,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

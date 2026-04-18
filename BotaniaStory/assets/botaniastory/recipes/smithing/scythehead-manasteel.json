@@ -13,6 +13,6 @@
     "name": "Mana Scythe",
     "output": {
         "type": "item",
-        "code": "botaniastory:scythehead-manasteel"
+        "code": "botaniastory:scytheblade-manasteel"
     }
 }

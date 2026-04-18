@@ -11,7 +11,7 @@ namespace BotaniaStory
     {
         public InventoryGeneric inventory;
 
-        public int MaxBufferMana = 5000;
+        public int MaxBufferMana = 12000;
         public int CurrentMana = 0;
         public int TargetMana = 0;
         public bool HasLivingrock = false;
@@ -21,9 +21,29 @@ namespace BotaniaStory
         private RunicAltarRenderer renderer;
 
         private Dictionary<string, (int mana, List<string> items)> runeRecipes = new Dictionary<string, (int, List<string>)>
-        {
-            { "rune-water", (5000, new List<string> { "livingwood", "livingwood", "livingwood", "livingwood" }) }
-        };
+{
+    // === Базовые руны (Стихии и Мана) - 5200 маны ===
+    { "rune-water", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "bone", "cattailtops", "cattailroot" }) },
+    { "rune-fire", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "mushroom-flyagaric-normal", "burnedbrick-*", "powder-sulfur" }) },
+    { "rune-earth", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "rock-granite", "ore-bituminouscoal", "mushroom-almondmushroom-normal" }) },
+    { "rune-air", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "manaitem-manaflax", "feather", "cloth-plain" }) },
+    { "rune-mana", (5200, new List<string> { "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "manaitem-manaquartz" }) },
+
+    // === Руны Сезонов - 8000 маны ===
+    { "rune-spring", (8000, new List<string> { "rune-water", "rune-fire", "sapling-oak-free", "sapling-oak-free", "sapling-oak-free", "hay-normal-ud" }) },
+    { "rune-summer", (8000, new List<string> { "rune-earth", "rune-air", "sand-*", "fat", "fruit-cherry" }) },
+    { "rune-autumn", (8000, new List<string> { "rune-fire", "rune-air", "leaves-grown-oak", "leaves-grown-oak", "leaves-grown-oak", "butterfly-dead-*", "pumpkin-fruit-4" }) },
+    { "rune-winter", (8000, new List<string> { "rune-water", "rune-earth", "snowblock", "cloth-plain", "dough-" }) },
+
+    // === Руны Смертных Грехов - 12000 маны ===
+    { "rune-lust", (12000, new List<string> { "manaitem-managear", "rune-summer", "rune-spring", "clearquartz", "clearquartz" }) },
+    { "rune-gluttony", (12000, new List<string> { "manaitem-managear", "rune-winter", "rune-autumn", "clearquartz", "clearquartz" }) },
+    { "rune-greed", (12000, new List<string> { "manaitem-managear", "rune-spring", "rune-water", "fat", "fat" }) },
+    { "rune-sloth", (12000, new List<string> { "manaitem-managear", "rune-autumn", "rune-air", "ore-bituminouscoal", "ore-bituminouscoal" }) },
+    { "rune-wrath", (12000, new List<string> { "manaitem-managear", "rune-winter", "rune-earth", "powder-sulfur", "powder-sulfur" }) },
+    { "rune-envy", (12000, new List<string> { "manaitem-managear", "rune-winter", "rune-water", "butterfly-dead-*", "butterfly-dead-*" }) },
+    { "rune-pride", (12000, new List<string> { "manaitem-managear", "rune-summer", "rune-fire", "ingot-gold", "ingot-gold" }) }
+};
 
         public BlockEntityRunicAltar()
         {
@@ -124,8 +144,33 @@ namespace BotaniaStory
             }
 
             string path = slot.Itemstack.Collectible.Code.Path;
-            if (!path.StartsWith("rune-") && !path.Contains("livingwood") && !path.Contains("botania-manasteel") && !path.Contains("mysticalpetal"))
+
+            if (!path.StartsWith("rune-") &&
+                !path.StartsWith("manaitem-") &&
+                !path.StartsWith("ingot-") &&
+                !path.StartsWith("cattail") &&
+                !path.StartsWith("mushroom-") &&
+                !path.StartsWith("burnedbrick-") &&
+                !path.StartsWith("sand-") &&
+                !path.StartsWith("butterfly-dead-") &&
+                !path.StartsWith("dough-") &&
+                path != "bone" &&
+                path != "powder-sulfur" &&
+                path != "rock-granite" &&
+                path != "ore-bituminouscoal" &&
+                path != "feather" &&
+                path != "cloth-plain" &&
+                path != "sapling-oak-free" &&
+                path != "hay-normal-ud" &&
+                path != "fat" &&
+                path != "fruit-cherry" &&
+                path != "leaves-grown-oak" &&
+                path != "pumpkin-fruit-4" &&
+                path != "snowblock" &&
+                path != "clearquartz")
+            {
                 return false;
+            }
 
             for (int i = 0; i < inventory.Count; i++)
             {
@@ -212,27 +257,27 @@ namespace BotaniaStory
                 else { isMatch = false; break; }
             }
 
-            if (isMatch && checklist.Count == 0)
-            {
-                TargetMana = recipe.Value.mana;
-                currentRecipeResult = recipe.Key;
-
-                // --- ИСПРАВЛЕННАЯ ЛОГИКА ЗВУКА ЗДЕСЬ ---
-                if (Api.Side == EnumAppSide.Server)
-                {
-                    soundFullPlayed = false;
-                    // Если мана уже была накоплена ДО того, как положили все предметы:
-                    if (CurrentMana >= TargetMana)
+                    if (isMatch && checklist.Count == 0)
                     {
-                        PlayAltarSound("runic_altar_full");
-                        soundFullPlayed = true;
+                        TargetMana = recipe.Value.mana;
+                        currentRecipeResult = recipe.Key;
+
+                        if (Api.Side == EnumAppSide.Server)
+                        {
+                            soundFullPlayed = false; // Обязательно сбрасываем флаг для нового рецепта
+
+                            // Если маны УЖЕ достаточно для этого рецепта в момент его выкладывания
+                            if (CurrentMana >= TargetMana)
+                            {
+                                PlayAltarSound("runic_altar_full");
+                                soundFullPlayed = true;
+                            }
+                        }
+                        break;
                     }
                 }
-                break;
             }
         }
-    }
-}
 
         public bool TryCompleteCrafting(IPlayer player)
         {
@@ -280,17 +325,13 @@ namespace BotaniaStory
 
         public void ReceiveMana(int amount)
         {
+            // Алтарь принимает ману всегда, пока не заполнит свой глобальный буфер
             if (CurrentMana < MaxBufferMana)
             {
-                // --- ИСПРАВЛЕННАЯ ЛОГИКА ЗВУКА ЗДЕСЬ ---
                 if (Api.Side == EnumAppSide.Server)
                 {
-                    long currentTime = Api.World.ElapsedMilliseconds;
-
-   
-
-                    // Звук "Готово", если есть активный рецепт и мы только что добили нужное количество маны
-                    if (TargetMana > 0 && CurrentMana + amount >= TargetMana && !soundFullPlayed)
+                    // Проверяем, пересекаем ли мы порог нужной маны ИМЕННО СЕЙЧАС
+                    if (TargetMana > 0 && CurrentMana < TargetMana && (CurrentMana + amount) >= TargetMana && !soundFullPlayed)
                     {
                         PlayAltarSound("runic_altar_full");
                         soundFullPlayed = true;
@@ -310,7 +351,8 @@ namespace BotaniaStory
         {
             if (Api.Side == EnumAppSide.Server || TargetMana <= 0) return;
 
-            float progress = Math.Min(1.0f, (float)CurrentMana / TargetMana);
+            // Считаем прогресс. Если CurrentMana больше TargetMana, он будет > 1.0f
+            float progress = (float)CurrentMana / TargetMana;
 
             if (Api.World.Rand.NextDouble() > 0.3)
             {

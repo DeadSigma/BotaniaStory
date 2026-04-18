@@ -70,14 +70,13 @@
 			}
 		}
 	],
-	"tooltier": 5,
+	"tooltier": 2,
 	"miningspeed": {
-		"stone": 5.5,
-		"ore": 5.5,
-		"metal": 5.5
+		"stone": 2.5,
+		"ore": 2.5
 	},
-	"attackpower": 2.5,
-	"durability": 1500,
+	"attackpower": 1.25,
+	"durability": 150,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

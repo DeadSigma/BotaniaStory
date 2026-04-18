@@ -1,0 +1,20 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+    },
+    "pattern": [
+        [
+            "__________###",
+            "###########__",
+            "_______##____",
+            "###########__",
+            "__________###"
+        ]
+    ],
+    "name": "Mana Tongs",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:tongs-manasteel"
+    }
+}
