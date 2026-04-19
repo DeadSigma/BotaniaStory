@@ -1,4 +1,5 @@
 {
+    "code": "tongs-manasteel",
     "ingredient": {
         "type": "item",
         "code": "game:ingot-manasteel"

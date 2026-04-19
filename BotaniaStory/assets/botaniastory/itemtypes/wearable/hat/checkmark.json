@@ -1,0 +1,92 @@
+{
+	"code": "checkmark",
+	"class": "Item",
+	"storageFlags": 128,
+	"behaviors": [
+		{ "name": "Wearable" }
+	],
+	"shape": {
+		"base": "botaniastory:entity/wearable/hat/checkmark"
+	},
+	"textures": {
+		"checkmark": { "base": "botaniastory:entity/wearable/hat/checkmark" },
+		"seraph": { "base": "game:block/transparent" }
+	},
+	"attributes": {
+		"clothescategory": "head",
+		"wearableAttachment": true,
+		"warmth": 1,
+		"disableElements": [
+			"ponytailhigh",
+			"hair-uncovered",
+			"sidehigh",
+			"sidelow",
+			"bangs",
+			"hoodshoulder",
+			"hoodupperover"
+		],
+		"keepElements": [
+			"hair-covered",
+			"hoodtight"
+		]
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.92,
+			"y": -2.96,
+			"z": -0.58
+		},
+		"rotation": {
+			"x": -16,
+			"y": -83,
+			"z": -67
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 1.5,
+			"z": 0.5
+		},
+		"scale": 0.55
+	},
+	"guiTransform": {
+		"translation": {
+			"x": 3.05,
+			"y": 138.97,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 22,
+			"z": 178
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5,
+			"z": 0.5299
+		},
+		"scale": 3.17
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0.05,
+			"y": -1.1,
+			"z": 0
+		},
+		"rotation": {
+			"x": -2,
+			"y": 0,
+			"z": -4
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5,
+			"z": 0.5299
+		},
+		"scale": 4
+	}
+}

@@ -1,0 +1,24 @@
+{
+    "ingredientPattern": "IRS",
+    "ingredients": {
+        "I": {
+            "type": "item",
+            "code": "game:ingot-manasteel"
+        },
+        "R": {
+            "type": "item",
+            "code": "botaniastory:rune-fire"
+        },
+        "S": {
+            "type": "item",
+            "code": "game:stick"
+        }
+    },
+    "width": 3,
+    "height": 1,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:sparkaugment-dominant",
+        "quantity": 1
+    }
+}

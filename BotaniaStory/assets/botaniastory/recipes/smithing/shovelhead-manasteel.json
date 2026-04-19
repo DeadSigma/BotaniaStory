@@ -1,4 +1,5 @@
 {
+    "code": "shovelhead-manasteel",
     "ingredient": {
         "type": "item",
         "code": "game:ingot-manasteel"

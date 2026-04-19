@@ -315,7 +315,7 @@ namespace BotaniaStory
             prog.FogMinIn = rpi.FogMin;
             prog.FogDensityIn = rpi.FogDensity;
             prog.RgbaTint = ColorUtil.WhiteArgbVec;
-            prog.DontWarpVertices = 0;
+            prog.DontWarpVertices = 1;
             prog.AddRenderFlags = 0;
             prog.NormalShaded = 1;
             prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);

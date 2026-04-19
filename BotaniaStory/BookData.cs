@@ -205,9 +205,12 @@ namespace botaniastory
                     //////////////////////////////////////////////////////
                     //Создание новых глав
                     /////////////////////////////////////////////////////
+
+
+                    // === НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ОСНОВЫ МАНЫ ===
                     if (chapId == "basicsintroduction")
                     {
-
+                        chapter.TabItemCode = "botaniastory:checkmark";
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ЛЕКСИКОН БОТАНИЯ ===
@@ -741,6 +744,12 @@ namespace botaniastory
 
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В УПРАВЛЕНИЕ МАНОЙ ===
+                    else if (chapId == "manaintroduction")
+                    {
+                        chapter.TabItemCode = "botaniastory:checkmark";
+                    }
+
                     // === НАСТРОЙКА ГЛАВЫ РАСПРОСТРАНИТЕЛЬ МАНЫ===
                     else if (chapId == "manaspreader")
                     {
@@ -1027,9 +1036,9 @@ namespace botaniastory
                             Spread = 1,
                             UiKey = "Сетка_Левая_Верхняя",
                             Grid = new string[9] {
-                             null, "botaniastory:mysticalpetal-*", null,
-                             "game:blastingpowder", "game:nugget-nativegold", "game:blastingpowder",
-                             null, "botaniastory:mysticalpetal-*", null},
+                                  null, null, null,
+                                  "game:ingot-manasteel", "botaniastory:rune-air", "game:stick",
+                                  null, null, null},
                             Output = "botaniastory:sparkaugment-isolated"
                         });
 
@@ -1039,9 +1048,9 @@ namespace botaniastory
                             Spread = 1,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                             null, "botaniastory:mysticalpetal-*", null,
-                             "game:blastingpowder", "game:nugget-nativegold", "game:blastingpowder",
-                             null, "botaniastory:mysticalpetal-*", null},
+                              null, null, null,
+                              "game:ingot-manasteel", "botaniastory:rune-fire", "game:stick",
+                              null, null, null},
                             Output = "botaniastory:sparkaugment-dominant"
                         });
 
@@ -1051,9 +1060,9 @@ namespace botaniastory
                             Spread = 1,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                             null, "botaniastory:mysticalpetal-*", null,
-                             "game:blastingpowder", "game:nugget-nativegold", "game:blastingpowder",
-                             null, "botaniastory:mysticalpetal-*", null},
+                              null, null, null,
+                              "game:ingot-manasteel", "botaniastory:rune-water", "game:stick",
+                              null, null, null},
                             Output = "botaniastory:sparkaugment-dispersive"
                         });
 
@@ -1063,11 +1072,17 @@ namespace botaniastory
                             Spread = 1,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                             null, "botaniastory:mysticalpetal-*", null,
-                             "game:blastingpowder", "game:nugget-nativegold", "game:blastingpowder",
-                             null, "botaniastory:mysticalpetal-*", null},
+                              null, null, null,
+                              "game:ingot-manasteel", "botaniastory:rune-earth", "game:stick",
+                              null, null, null},
                             Output = "botaniastory:sparkaugment-recessive"
                         });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ГЕНЕРИРУЮЩУЮ ФЛОРУ ===
+                    else if (chapId == "generatingfloraintroduction")
+                    {
+                        chapter.TabItemCode = "botaniastory:checkmark"; 
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ДНЕВНОЦВЕТ ===

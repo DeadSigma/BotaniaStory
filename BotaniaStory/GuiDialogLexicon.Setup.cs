@@ -230,7 +230,16 @@ namespace botaniastory
                         double textY = y + textOffset[1];
                         ElementBounds textBounds = ElementBounds.Fixed(textX * bookScale, textY * bookScale, textOffset[2] * bookScale * textScale, textOffset[3] * bookScale * textScale);
 
-                        var catImg = new GuiElementClickableImage(capi, iconBounds, new AssetLocation(cat.IconPath), () => OpenCategory(cat));
+                        // Генерируем путь для цветной версии иконки (например: category_icon_0_hover.png)
+                        string hoverIconPath = cat.IconPath.Replace(".png", "_hover.png");
+
+                        var catImg = new GuiElementCategoryIcon(
+                            capi,
+                            iconBounds,
+                            new AssetLocation(cat.IconPath),
+                            new AssetLocation(hoverIconPath),
+                            () => OpenCategory(cat)
+                        );
                         compo.AddInteractiveElement(catImg, $"catIcon_{i}");
                         compo.AddStaticText(cat.Name, centeredFont, textBounds, $"catText_{i}");
                     }

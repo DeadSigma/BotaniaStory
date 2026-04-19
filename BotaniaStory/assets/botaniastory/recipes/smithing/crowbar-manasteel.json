@@ -1,4 +1,5 @@
 {
+    "code": "crowbar-manasteel",
     "ingredient": {
         "type": "item",
         "code": "game:ingot-manasteel"

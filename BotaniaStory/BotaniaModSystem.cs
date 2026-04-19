@@ -73,6 +73,8 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemManaCrowbar", typeof(ItemManaCrowbar));
             api.RegisterBlockClass("BlockRunicAltar", typeof(BlockRunicAltar));
             api.RegisterBlockEntityClass("RunicAltar", typeof(BlockEntityRunicAltar));
+            api.RegisterBlockClass("BlockTerrestrialPlate", typeof(BlockTerrestrialPlate));
+            api.RegisterBlockEntityClass("BlockEntityTerrestrialPlate", typeof(BlockEntityTerrestrialPlate));
 
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }
