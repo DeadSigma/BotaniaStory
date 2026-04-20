@@ -42,6 +42,24 @@
         "y2": 0.09375,
         "z2": 1
     },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": 0,
+            "y": -45,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0,
+            "z": 0.5
+        },
+        "scale": 3.11
+    },
     "guiTransform": {
         "translation": {
             "x": 0,
@@ -58,7 +76,7 @@
             "y": 0.0625,
             "z": 0.5
         },
-        "scale": 1.5
+        "scale": 1.23
     },
     "fpHandTransform": {
         "translation": {
@@ -80,20 +98,20 @@
     },
     "tpHandTransform": {
         "translation": {
-            "x": -0.8,
-            "y": -0.2,
-            "z": -0.4
+            "x": -1.11,
+            "y": -0.42,
+            "z": -1.09
         },
         "rotation": {
-            "x": -60,
+            "x": -90,
             "y": 0,
-            "z": -30
+            "z": 0
         },
         "origin": {
             "x": 0.5,
             "y": 0.0625,
             "z": 0.5
         },
-        "scale": 0.3
+        "scale": 0.46
     }
 }

@@ -1,12 +1,18 @@
 [
 	{
-		"file": "game:itemtypes/resource/metalbit.json",
+		"file": "game:itemtypes/resource/metalplate.json",
+		"op": "add",
+		"path": "/creativeinventory/botaniastory",
+		"value": [ "*-manasteel", "*-terrasteel" ]
+	},
+	{
+		"file": "game:itemtypes/resource/metalplate.json",
 		"op": "add",
 		"path": "/combustiblePropsByType/*-manasteel",
 		"value": {
 			"meltingPoint": 800,
 			"meltingDuration": 30,
-			"smeltedRatio": 20,
+			"smeltedRatio": 1,
 			"smeltedStack": {
 				"type": "item",
 				"code": "game:ingot-manasteel"
@@ -14,23 +20,17 @@
 		}
 	},
 	{
-		"file": "game:itemtypes/resource/metalbit.json",
+		"file": "game:itemtypes/resource/metalplate.json",
 		"op": "add",
 		"path": "/combustiblePropsByType/*-terrasteel",
 		"value": {
 			"meltingPoint": 1100,
 			"meltingDuration": 40,
-			"smeltedRatio": 20,
+			"smeltedRatio": 1,
 			"smeltedStack": {
 				"type": "item",
 				"code": "game:ingot-terrasteel"
 			}
 		}
-	},
-	{
-		"file": "game:itemtypes/resource/metalbit.json",
-		"op": "add",
-		"path": "/creativeinventory/botaniastory",
-		"value": [ "*-manasteel", "*-terrasteel" ]
 	}
 ]

@@ -1,0 +1,26 @@
+[
+    {
+        "ingredientPattern": "F,S,P",
+        "ingredients": {
+            "F": {
+                "type": "item",
+                "code": "game:flaxtwine"
+            },
+            "S": {
+                "type": "item",
+                "code": "game:stick"
+            },
+            "P": {
+                "type": "item",
+                "code": "botaniastory:mysticalpetal-orange"
+            }
+        },
+        "width": 1,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:checkmark",
+            "quantity": 1
+        }
+    }
+]

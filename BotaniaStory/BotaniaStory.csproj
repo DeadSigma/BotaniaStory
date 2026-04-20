@@ -57,6 +57,10 @@
     <Content Include="assets\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Remove="assets\botaniastory\patches\worldproperties\**" />
+    <Content Remove="assets\botaniastory\patches\worldproperties\**" />
+    <EmbeddedResource Remove="assets\botaniastory\patches\worldproperties\**" />
+    <None Remove="assets\botaniastory\patches\worldproperties\**" />
     <Content Include="modinfo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -64,7 +68,6 @@
 
   <ItemGroup>
     <Folder Include="assets\botaniastory\patches\recipes\smithing\" />
-    <Folder Include="assets\botaniastory\patches\worldproperties\" />
     <Folder Include="assets\botaniastory\shapes\entity\" />
   </ItemGroup>
 

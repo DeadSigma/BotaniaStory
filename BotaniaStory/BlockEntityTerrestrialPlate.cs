@@ -77,6 +77,12 @@ namespace BotaniaStory
                         byPlayer.InventoryManager.TryGiveItemstack(inventory[i].TakeOutWhole());
                         inventory[i].MarkDirty();
                         CheckRecipeState();
+
+                        if (byPlayer != null)
+                        {
+                            Api.World.PlaySoundAt(new AssetLocation("game:sounds/player/throw"), Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5, byPlayer);
+                        }
+
                         return true;
                     }
                 }
@@ -99,6 +105,14 @@ namespace BotaniaStory
                         inventory[i].MarkDirty();
                         hotbarSlot.MarkDirty();
                         CheckRecipeState();
+
+                        //  ВОСПРОИЗВЕДЕНИЕ ЗВУКА ЗДЕСЬ
+                        if (byPlayer != null)
+                        {
+                            //  добавил + 0.5 к координатам, чтобы звук исходил ровно из центра блока
+                            Api.World.PlaySoundAt(new AssetLocation("game:sounds/player/throw"), Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5, byPlayer);
+                        }
+
                         return true;
                     }
                 }
@@ -148,7 +162,7 @@ namespace BotaniaStory
                 MarkDirty(true);
 
                 // Спавним Террасталь
-                Item terrasteel = Api.World.GetItem(new AssetLocation("botaniastory", "ingot-terrasteel"));
+                Item terrasteel = Api.World.GetItem(new AssetLocation("game", "ingot-terrasteel"));
                 if (terrasteel != null)
                 {
                     Api.World.SpawnItemEntity(new ItemStack(terrasteel), Pos.ToVec3d().AddCopy(0.5, 1.0, 0.5));

@@ -21,5 +21,28 @@
 				"code": "game:ingot-manasteel"
 			}
 		}
+	},
+	{
+		"file": "game:itemtypes/resource/workitem.json",
+		"op": "add",
+		"path": "/attributesByType/workitem-terrasteel",
+		"value": {
+			"workableTemperature": 800,
+			"requiresAnvilTier": 3
+		}
+	},
+	{
+		"file": "game:itemtypes/resource/workitem.json",
+		"op": "add",
+		"path": "/combustiblePropsByType/workitem-terrasteel",
+		"value": {
+			"meltingPoint": 1500,
+			"meltingDuration": 40,
+			"smeltedRatio": 1,
+			"smeltedStack": {
+				"type": "item",
+				"code": "game:ingot-terrasteel"
+			}
+		}
 	}
 ]

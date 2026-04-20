@@ -10,7 +10,7 @@
 		"op": "add",
 		"path": "/combustiblePropsByType/ingot-manasteel",
 		"value": {
-			"meltingPoint": 1084,
+			"meltingPoint": 800,
 			"meltingDuration": 30,
 			"smeltedRatio": 1,
 			"smeltedStack": {
@@ -22,7 +22,27 @@
 	{
 		"file": "game:itemtypes/resource/ingot.json",
 		"op": "add",
+		"path": "/materialDensityByType/*-terrasteel",
+		"value": 9000
+	},
+	{
+		"file": "game:itemtypes/resource/ingot.json",
+		"op": "add",
+		"path": "/combustiblePropsByType/ingot-terrasteel",
+		"value": {
+			"meltingPoint": 1100,
+			"meltingDuration": 40,
+			"smeltedRatio": 1,
+			"smeltedStack": {
+				"type": "item",
+				"code": "game:ingot-terrasteel"
+			}
+		}
+	},
+	{
+		"file": "game:itemtypes/resource/ingot.json",
+		"op": "add",
 		"path": "/creativeinventory/botaniastory",
-		"value": [ "*-manasteel" ]
+		"value": [ "*-manasteel", "*-terrasteel" ]
 	}
 ]

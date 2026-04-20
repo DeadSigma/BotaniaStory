@@ -12,5 +12,19 @@
 			"elemental": false,
 			"tier": 1
 		}
+	},
+	{
+		"file": "game:worldproperties/block/metal.json",
+		"op": "addmerge",
+		"path": "/variants/-",
+		"value": {
+			"code": "terrasteel",
+			"meltPoint": 1500,
+			"boilPoint": 3000,
+			"density": 9000,
+			"specificHeatCapacity": 0.6,
+			"elemental": false,
+			"tier": 3
+		}
 	}
 ]

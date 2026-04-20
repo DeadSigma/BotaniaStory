@@ -16,15 +16,7 @@
 		"clothescategory": "head",
 		"wearableAttachment": true,
 		"warmth": 1,
-		"disableElements": [
-			"ponytailhigh",
-			"hair-uncovered",
-			"sidehigh",
-			"sidelow",
-			"bangs",
-			"hoodshoulder",
-			"hoodupperover"
-		],
+
 		"keepElements": [
 			"hair-covered",
 			"hoodtight"
@@ -37,40 +29,39 @@
 	},
 	"tpHandTransform": {
 		"translation": {
-			"x": -0.92,
-			"y": -2.96,
-			"z": -0.58
+			"x": -0.63,
+			"y": -2.1,
+			"z": -0.35
 		},
 		"rotation": {
-			"x": -16,
-			"y": -83,
-			"z": -67
+			"x": -13,
+			"y": -80,
+			"z": -73
 		},
 		"origin": {
 			"x": 0.5,
 			"y": 1.5,
 			"z": 0.5
 		},
-		"scale": 0.55
+		"scale": 0.78
 	},
 	"guiTransform": {
 		"translation": {
-			"x": 3.05,
-			"y": 138.97,
-			"z": 0
+			"x": 0,
+			"y": 1.04,
+			"z": 19
 		},
 		"rotation": {
-			"x": 0,
-			"y": 22,
-			"z": 178
+			"x": -180,
+			"y": -28,
+			"z": -3
 		},
 		"origin": {
-			"x": 0.5,
-			"y": 0.5,
-			"z": 0.5299
+			"x": 0.52,
+			"y": 2.28,
+			"z": 0.6
 		},
-		"scale": 3.17,
-		"rotate": false
+		"scale": 3.19
 	},
 	"groundTransform": {
 		"translation": {

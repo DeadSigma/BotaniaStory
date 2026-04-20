@@ -175,8 +175,8 @@ namespace botaniastory
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
 
-            // Увеличили высоту окна с 250 до 290, чтобы влез 5-й ползунок
-            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 270);
+            // Увеличил высоту окна с 250 до 290, чтобы влез 5-й ползунок
+            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 370, 270);
             bgBounds.WithChild(listBounds);
 
             CairoFont font = CairoFont.WhiteSmallText();

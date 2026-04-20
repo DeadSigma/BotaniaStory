@@ -4,5 +4,11 @@
 		"op": "add",
 		"path": "/variants/-",
 		"value": { "code": "manasteel" }
+	},
+	{
+		"file": "game:worldproperties/block/toolmetal.json",
+		"op": "add",
+		"path": "/variants/-",
+		"value": { "code": "terrasteel" }
 	}
 ]
