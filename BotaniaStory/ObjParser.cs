@@ -8,28 +8,29 @@ namespace BotaniaStory
 {
     public static class ObjParser
     {
-        public static MeshData Parse(string objText, ICoreClientAPI capi)
+        // Вспомогательный класс для хранения данных конкретной детали
+        private class PartData
         {
+            public List<float> finalXyz = new List<float>();
+            public List<float> finalUv = new List<float>();
+            public List<int> indices = new List<int>();
+            public Dictionary<string, int> vertexCache = new Dictionary<string, int>();
+            public int currentIndex = 0;
+        }
+
+        public static Dictionary<string, MeshData> Parse(string objText, ICoreClientAPI capi)
+        {
+            Dictionary<string, MeshData> resultMeshes = new Dictionary<string, MeshData>();
+
+            if (string.IsNullOrWhiteSpace(objText)) return resultMeshes;
+
+            // Глобальные списки вершин (они в OBJ общие для всех деталей)
             List<float[]> vertices = new List<float[]>();
             List<float[]> uvs = new List<float[]>();
 
-            List<float> finalXyz = new List<float>();
-            List<float> finalUv = new List<float>();
-            List<int> indices = new List<int>();
-
-            Dictionary<string, int> vertexCache = new Dictionary<string, int>();
-            int currentIndex = 0;
-
-            int vCount = 0;
-            int vtCount = 0;
-            int fCount = 0;
-            int skippedCount = 0;
-            bool firstFaceLogged = false;
-
-            if (string.IsNullOrWhiteSpace(objText))
-            {
-                return new MeshData(1, 1);
-            }
+            Dictionary<string, PartData> parts = new Dictionary<string, PartData>();
+            string currentPartName = "Default"; // Название детали по умолчанию
+            parts[currentPartName] = new PartData();
 
             using (StringReader reader = new StringReader(objText))
             {
@@ -37,127 +38,113 @@ namespace BotaniaStory
                 while ((line = reader.ReadLine()) != null)
                 {
                     line = line.Trim();
-
                     if (string.IsNullOrEmpty(line) || line.StartsWith("#")) continue;
 
-                    string[] parts = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
-                    if (parts.Length == 0) continue;
+                    string[] partsStr = line.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (partsStr.Length == 0) continue;
 
-                    string type = parts[0].ToLowerInvariant();
+                    string type = partsStr[0].ToLowerInvariant();
 
-                    try
+                    // Если встретили 'o' (object) или 'g' (group) - меняем текущую деталь
+                    if (type == "o" || type == "g")
                     {
-                        if (type == "v")
+                        if (partsStr.Length > 1)
                         {
-                            vCount++;
-                            vertices.Add(new float[] {
-                                ParseFloat(parts[1]),
-                                ParseFloat(parts[2]),
-                                ParseFloat(parts[3])
-                            });
-                        }
-                        else if (type == "vt")
-                        {
-                            vtCount++;
-                            uvs.Add(new float[] {
-                                ParseFloat(parts[1]),
-                                1.0f - ParseFloat(parts[2])
-                            });
-                        }
-                        else if (type == "f")
-                        {
-                            fCount++;
-
-                            // Логируем самый первый полигон, чтобы понять его структуру
-                            if (!firstFaceLogged)
+                            currentPartName = partsStr[1];
+                            if (!parts.ContainsKey(currentPartName))
                             {
-                                capi.Logger.Notification($"[BotaniaStory] Первый полигон выглядит так: '{line}'");
-                                firstFaceLogged = true;
-                            }
-
-                            for (int i = 1; i <= 3; i++)
-                            {
-                                if (i >= parts.Length) break;
-
-                                string facePart = parts[i];
-                                if (!vertexCache.TryGetValue(facePart, out int index))
-                                {
-                                    string[] indicesStr = facePart.Split('/');
-
-                                    int vIdx = int.Parse(indicesStr[0]) - 1;
-                                    float[] v = vertices[vIdx];
-                                    finalXyz.Add(v[0]);
-                                    finalXyz.Add(v[1]);
-                                    finalXyz.Add(v[2]);
-
-                                    if (indicesStr.Length > 1 && !string.IsNullOrEmpty(indicesStr[1]))
-                                    {
-                                        int vtIdx = int.Parse(indicesStr[1]) - 1;
-                                        float[] vt = uvs[vtIdx];
-                                        finalUv.Add(vt[0]);
-                                        finalUv.Add(vt[1]);
-                                    }
-                                    else
-                                    {
-                                        finalUv.Add(0f);
-                                        finalUv.Add(0f);
-                                    }
-
-                                    index = currentIndex++;
-                                    vertexCache[facePart] = index;
-                                }
-                                indices.Add(index);
+                                parts[currentPartName] = new PartData();
                             }
                         }
-                        else
-                        {
-                            skippedCount++;
-                        }
+                        continue;
                     }
-                    catch (Exception ex)
+
+                    if (type == "v")
                     {
-                        capi.Logger.Error($"[BotaniaStory] Ошибка на строке '{line}': {ex.Message}");
+                        vertices.Add(new float[] { ParseFloat(partsStr[1]), ParseFloat(partsStr[2]), ParseFloat(partsStr[3]) });
+                    }
+                    else if (type == "vt")
+                    {
+                        uvs.Add(new float[] { ParseFloat(partsStr[1]), 1.0f - ParseFloat(partsStr[2]) });
+                    }
+                    else if (type == "f")
+                    {
+                        PartData currentPart = parts[currentPartName];
+
+                        for (int i = 1; i <= 3; i++)
+                        {
+                            if (i >= partsStr.Length) break;
+
+                            string facePart = partsStr[i];
+                            if (!currentPart.vertexCache.TryGetValue(facePart, out int index))
+                            {
+                                string[] indicesStr = facePart.Split('/');
+
+                                int vIdx = int.Parse(indicesStr[0]) - 1;
+                                float[] v = vertices[vIdx];
+                                currentPart.finalXyz.Add(v[0]);
+                                currentPart.finalXyz.Add(v[1]);
+                                currentPart.finalXyz.Add(v[2]);
+
+                                if (indicesStr.Length > 1 && !string.IsNullOrEmpty(indicesStr[1]))
+                                {
+                                    int vtIdx = int.Parse(indicesStr[1]) - 1;
+                                    float[] vt = uvs[vtIdx];
+                                    currentPart.finalUv.Add(vt[0]);
+                                    currentPart.finalUv.Add(vt[1]);
+                                }
+                                else
+                                {
+                                    currentPart.finalUv.Add(0f);
+                                    currentPart.finalUv.Add(0f);
+                                }
+
+                                index = currentPart.currentIndex++;
+                                currentPart.vertexCache[facePart] = index;
+                            }
+                            currentPart.indices.Add(index);
+                        }
                     }
                 }
             }
 
-            capi.Logger.Notification($"[BotaniaStory] ИТОГИ ПАРСИНГА: Вершин(v)={vCount}, Текстур(vt)={vtCount}, Полигонов(f)={fCount}, Пропущено={skippedCount}");
-            capi.Logger.Notification($"[BotaniaStory] Итоговый размер массивов: Xyz={finalXyz.Count}, Индексы={indices.Count}");
-
-            // 1. Инициализируем MeshData и говорим, что у нас БУДУТ цвета (rgba) и флаги (flags)
-            // Сигнатура: (vertices, indices, normals, rgba, uv, flags)
-            int vertexCount = finalXyz.Count / 3;
-            MeshData mesh = new MeshData(vertexCount, indices.Count, false, true, true, true);
-
-            mesh.SetXyz(finalXyz.ToArray());
-            mesh.SetUv(finalUv.ToArray());
-            mesh.SetIndices(indices.ToArray());
-
-            // 2. Создаем обязательные массивы цвета и флагов для шейдера
-            byte[] rgba = new byte[vertexCount * 4];
-            int[] flags = new int[vertexCount];
-
-            for (int i = 0; i < vertexCount; i++)
+            // Превращаем собранные данные в MeshData для каждой детали
+            foreach (var kvp in parts)
             {
-                // Заполняем цвет белым (чтобы текстура отображалась как есть)
-                rgba[i * 4 + 0] = 255; // R
-                rgba[i * 4 + 1] = 255; // G
-                rgba[i * 4 + 2] = 255; // B
-                rgba[i * 4 + 3] = 255; // A
+                string name = kvp.Key;
+                PartData data = kvp.Value;
 
-                // Флаги (0 = нет анимации ветра, нет свечения)
-                flags[i] = 0;
+                if (data.indices.Count == 0) continue; // Игнорируем пустые группы
+
+                int vertexCount = data.finalXyz.Count / 3;
+                MeshData mesh = new MeshData(vertexCount, data.indices.Count, false, true, true, true);
+
+                mesh.SetXyz(data.finalXyz.ToArray());
+                mesh.SetUv(data.finalUv.ToArray());
+                mesh.SetIndices(data.indices.ToArray());
+
+                byte[] rgba = new byte[vertexCount * 4];
+                int[] flags = new int[vertexCount];
+
+                for (int i = 0; i < vertexCount; i++)
+                {
+                    rgba[i * 4 + 0] = 255;
+                    rgba[i * 4 + 1] = 255;
+                    rgba[i * 4 + 2] = 255;
+                    rgba[i * 4 + 3] = 255;
+                    flags[i] = 0;
+                }
+
+                mesh.Rgba = rgba;
+                mesh.Flags = flags;
+                mesh.VerticesCount = vertexCount;
+                mesh.IndicesCount = data.indices.Count;
+
+                resultMeshes[name] = mesh;
+                capi.Logger.Notification($"[BotaniaStory] Загружена часть модели: '{name}' (Вершин: {vertexCount})");
             }
 
-            // Присваиваем массивы нашему мешу
-            mesh.Rgba = rgba;
-            mesh.Flags = flags;
-
-            // 3. Та самая магия количества
-            mesh.VerticesCount = vertexCount;
-            mesh.IndicesCount = indices.Count;
-
-            return mesh;
+            return resultMeshes;
         }
 
         private static float ParseFloat(string s)
