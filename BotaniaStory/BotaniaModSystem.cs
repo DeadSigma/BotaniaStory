@@ -146,6 +146,10 @@ namespace BotaniaStory
             {
                 volume = ClientConfig.SpreaderVolume / 100f;
             }
+            else if (packet.SoundName == "terrasteel_craft")
+            {
+                volume = ClientConfig.PlateVolume / 100f;
+            }
             else if (packet.SoundName == "ignite")
             {
                 volume = ClientConfig.FlowerVolume / 100f;

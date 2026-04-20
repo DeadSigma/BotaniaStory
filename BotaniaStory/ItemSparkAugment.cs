@@ -45,7 +45,7 @@ namespace BotaniaStory
                         Vec3d perpendicular = new Vec3d(V.X - projection.X, V.Y - projection.Y, V.Z - projection.Z);
                         double distFromCenter = perpendicular.Length();
 
-                        // Если наш луч прошел не дальше, чем в 0.4 блоках от центра искры (создаем виртуальный хитбокс)
+                        // Если луч прошел не дальше, чем в 0.4 блоках от центра искры (создаем виртуальный хитбокс)
                         if (distFromCenter < 0.4)
                         {
                             closestDistance = t; // Обновляем рекорд близости

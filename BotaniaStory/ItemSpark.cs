@@ -11,7 +11,7 @@ namespace BotaniaStory
             if (blockSel == null) return;
 
             BlockEntity be = byEntity.World.BlockAccessor.GetBlockEntity(blockSel.Position);
-            if (be is BlockEntityManaPool)
+            if (be is BlockEntityManaPool || be is BlockEntityTerrestrialPlate)
             {
                 // Ищем искру строго по координатам, где она должна быть (на высоте 1.7)
                 var existingSparks = byEntity.World.GetEntitiesAround(

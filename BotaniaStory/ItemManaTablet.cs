@@ -129,7 +129,7 @@ namespace BotaniaStory
             int step = GetManaStep(inSlot.Itemstack);
             UpdateLiquidLevel(shape, step / 10f);
 
-            // Используем наш умный адаптер текстур
+            // Используем умный адаптер текстур
             ITexPositionSource texSource = new ContainedItemTexSource(targetAtlas, this);
 
             // ВАЖНО: здесь мы передаем shape, а не удаленный groundShape

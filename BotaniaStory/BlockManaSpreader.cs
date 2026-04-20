@@ -37,7 +37,7 @@ namespace BotaniaStory
                     double absY = Math.Abs(dy);
                     double absZ = Math.Abs(dz);
 
-                    // Сюда запишем наши "выровненные" координаты
+                    // Сюда запишем  "выровненные" координаты
                     double snappedDx = 0;
                     double snappedDy = 0;
                     double snappedDz = 0;
@@ -60,7 +60,7 @@ namespace BotaniaStory
                         snappedDz = Math.Sign(dz);
                     }
 
-                    // Передаем в твою рабочую формулу наши чистые, выровненные векторы
+                    // Передаем в твою рабочую формулу  чистые, выровненные векторы
                     be.Yaw = (float)Math.Atan2(snappedDx, snappedDz) + (float)Math.PI;
                     double distanceXZ = Math.Sqrt(snappedDx * snappedDx + snappedDz * snappedDz);
                     be.Pitch = (float)Math.Atan2(snappedDy, distanceXZ);
@@ -79,14 +79,22 @@ namespace BotaniaStory
                         int cz = (int)Math.Floor(blockSel.Position.Z + 0.5f + viewVec.Z * i);
                         BlockPos checkPos = new BlockPos(cx, cy, cz);
 
-                        if (world.BlockAccessor.GetBlock(checkPos) is BlockManaPool)
+                        Block hitBlock = world.BlockAccessor.GetBlock(checkPos);
+
+                        // Ищем Бассейн или другой Распространитель
+                        if (hitBlock is BlockManaPool || hitBlock is ManaSpreader)
                         {
-                            be.TargetPos = checkPos.Copy();
-                            if (world.Side == EnumAppSide.Client)
+                            // Проверяем, что это не тот блок, который мы только что поставили
+                            if (!checkPos.Equals(blockSel.Position))
                             {
-                                (world.Api as Vintagestory.API.Client.ICoreClientAPI)?.ShowChatMessage("Авто-привязка к Бассейну успешна!");
+                                be.TargetPos = checkPos.Copy();
+                                if (world.Side == EnumAppSide.Client)
+                                {
+                                    string targetName = hitBlock is BlockManaPool ? "Бассейну" : "Распространителю";
+                                    (world.Api as Vintagestory.API.Client.ICoreClientAPI)?.ShowChatMessage($"Авто-привязка к {targetName} успешна!");
+                                }
+                                break;
                             }
-                            break;
                         }
                     }
 

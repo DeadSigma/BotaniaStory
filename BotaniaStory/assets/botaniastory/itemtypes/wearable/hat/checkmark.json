@@ -69,7 +69,8 @@
 			"y": 0.5,
 			"z": 0.5299
 		},
-		"scale": 3.17
+		"scale": 3.17,
+		"rotate": false
 	},
 	"groundTransform": {
 		"translation": {

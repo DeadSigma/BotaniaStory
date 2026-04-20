@@ -11,7 +11,6 @@ namespace botaniastory
         private AssetLocation textureLoc;
         private LoadedTexture tex;
 
-        // НОВЫЙ ПЕРЕКЛЮЧАТЕЛЬ: По умолчанию это обычная картинка
         public bool IsBackground = false;
 
         public GuiElementStretchedImage(ICoreClientAPI capi, ElementBounds bounds, AssetLocation textureLoc) : base(capi, bounds)
@@ -28,29 +27,43 @@ namespace botaniastory
 
         public override bool IsPositionInside(int mouseX, int mouseY)
         {
-            return false; // По-прежнему пропускаем клики сквозь картинки
+            return false;
         }
 
-        // 1. СТАНДАРТНЫЙ МЕТОД: Рисует приветствие и картинки в главах поверх книги
         public override void RenderInteractiveElements(float deltaTime)
         {
-            // Рисуем ТОЛЬКО если это НЕ фон
             if (!IsBackground && tex != null && tex.TextureId != 0)
             {
-                api.Render.Render2DTexturePremultipliedAlpha(
-                    tex.TextureId, Bounds.renderX, Bounds.renderY, Bounds.OuterWidth, Bounds.OuterHeight, 50f
+                // Включаем стандартное смешивание
+                api.Render.GlToggleBlend(true, EnumBlendMode.Standard);
+
+                // Добавили (float) перед каждым параметром из Bounds
+                api.Render.Render2DTexture(
+                    tex.TextureId,
+                    (float)Bounds.renderX,
+                    (float)Bounds.renderY,
+                    (float)Bounds.OuterWidth,
+                    (float)Bounds.OuterHeight,
+                    50f
                 );
             }
         }
 
-        // 2. НАШ СПЕЦИАЛЬНЫЙ МЕТОД: Рисует только саму подложку книги
         public void RenderMyBackground(float deltaTime)
         {
-            // Рисуем ТОЛЬКО если мы сказали, что это фон
             if (IsBackground && tex != null && tex.TextureId != 0)
             {
-                api.Render.Render2DTexturePremultipliedAlpha(
-                    tex.TextureId, Bounds.renderX, Bounds.renderY, Bounds.OuterWidth, Bounds.OuterHeight, 10f
+                // Включаем стандартное смешивание
+                api.Render.GlToggleBlend(true, EnumBlendMode.Standard);
+
+                // Добавили (float) перед каждым параметром из Bounds
+                api.Render.Render2DTexture(
+                    tex.TextureId,
+                    (float)Bounds.renderX,
+                    (float)Bounds.renderY,
+                    (float)Bounds.OuterWidth,
+                    (float)Bounds.OuterHeight,
+                    10f
                 );
             }
         }

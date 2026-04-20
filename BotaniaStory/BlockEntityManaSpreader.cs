@@ -14,9 +14,11 @@ namespace BotaniaStory
     public interface IManaReceiver
     {
         bool IsFull();
+        void ReceiveMana(int amount); // Указываем, что приемник обязан иметь этот метод
+        int GetAvailableSpace();      // Указываем, что приемник обязан уметь отвечать на этот запрос
     }
 
-    public class BlockEntityManaSpreader : BlockEntity
+    public class BlockEntityManaSpreader : BlockEntity, IManaReceiver
     {
         // Углы поворота
         public float Yaw = 0f;
@@ -24,7 +26,7 @@ namespace BotaniaStory
 
         // Внутренняя батарейка распространителя
         public int CurrentMana = 0;
-        public int MaxMana = 1000; // Вмещает 1000 маны за раз
+        public int MaxMana = 1000; // Вмещает 1000 маны
 
         // Координаты цели (Бассейна), к которому он привязан
         public BlockPos TargetPos = null;
@@ -32,7 +34,7 @@ namespace BotaniaStory
         private bool isDischarging = false; // Находимся ли мы в процессе отдачи маны
         private long lastFireMs = 0; // Время последнего выстрела
         private int fireCooldownMs = 500; // Пауза между выстрелами в миллисекундах (1.5 секунды)
-        private int burstManaAmount = 120; // Маленькая порция маны для постепенной передачи
+        private int burstManaAmount = 190; // Маленькая порция маны для постепенной передачи
 
 
         public BlockEntityAnimationUtil animUtil;
@@ -40,6 +42,8 @@ namespace BotaniaStory
         private SpreaderCoreRenderer coreRenderer;
 
         public override void Initialize(ICoreAPI api)
+
+
         {
             base.Initialize(api);
 
@@ -56,7 +60,25 @@ namespace BotaniaStory
                 capi.Event.RegisterRenderer(coreRenderer, EnumRenderStage.Opaque, "botaniastory");
             }
         }
+        // ==========================================
+        // ИНТЕРФЕЙС IManaReceiver (Прием маны от других)
+        // ==========================================
+        public bool IsFull()
+        {
+            return CurrentMana >= MaxMana;
+        }
 
+        public void ReceiveMana(int amount)
+        {
+            CurrentMana += amount;
+            if (CurrentMana > MaxMana) CurrentMana = MaxMana; // Защита от переполнения
+            MarkDirty(true);
+        }
+
+        public int GetAvailableSpace()
+        {
+            return MaxMana - CurrentMana;
+        }
         // ВАЖНО: Не забываем удалять рендер, когда блок ломают!
         public override void OnBlockRemoved()
         {
@@ -81,9 +103,12 @@ namespace BotaniaStory
                 foreach (BlockFacing facing in BlockFacing.ALLFACES)
                 {
                     BlockPos adjPos = Pos.AddCopy(facing);
+
+                    if (TargetPos != null && adjPos.Equals(TargetPos)) continue;
+
                     BlockEntity adjBlockEntity = Api.World.BlockAccessor.GetBlockEntity(adjPos);
 
-                    // ИСПРАВЛЕНИЕ ЗДЕСЬ: используем имя adjacentPool вместо pool
+                    // используем имя adjacentPool вместо pool
                     if (adjBlockEntity is BlockEntityManaPool adjacentPool)
                     {
                         // Если в бассейне есть хоть какая-то мана
@@ -122,10 +147,11 @@ namespace BotaniaStory
                 // Проверяем, стоит ли еще на месте цели Бассейн
                 BlockEntity targetBlock = Api.World.BlockAccessor.GetBlockEntity(TargetPos);
 
-                // Теперь мы не сбрасываем цель, если это Бассейн ИЛИ Рунический Алтарь
-                if (!(targetBlock is BlockEntityManaPool) && !(targetBlock is BlockEntityRunicAltar))
+
+                // Если блок по координатам больше не является приемником маны — сбрасываем цель!
+                if (!(targetBlock is IManaReceiver))
                 {
-                    TargetPos = null; // Блок сломали - сбрасываем цель!
+                    TargetPos = null;
                     MarkDirty(true);
                 }
             }
@@ -151,16 +177,26 @@ namespace BotaniaStory
 
                     Block hitBlock = Api.World.BlockAccessor.GetBlock(checkPos);
 
-                    // Привязываемся, если луч наткнулся на Бассейн ИЛИ Алтарь
-                    if (hitBlock is BlockManaPool || hitBlock is BlockRunicAltar)
+
+                    // Привязываемся, если луч наткнулся на Бассейн, Алтарь, Плиту ИЛИ другой Распространитель
+                    if (hitBlock is BlockManaPool || hitBlock is BlockRunicAltar || hitBlock is BlockTerrestrialPlate || hitBlock is ManaSpreader)
                     {
-                        TargetPos = checkPos.Copy();
-                        MarkDirty(true);
-                        break;
+                        // Защита от привязки к самому себе (если луч как-то заденет свой же блок)
+                        if (!checkPos.Equals(Pos))
+                        {
+                            TargetPos = checkPos.Copy();
+                            MarkDirty(true);
+                            break;
+                        }
                     }
                     else if (hitBlock.Id != 0 && hitBlock.CollisionBoxes != null && hitBlock.CollisionBoxes.Length > 0)
                     {
-                        break; // Врезались в стену
+                        // Игнорируем все прозрачные для маны блоки (манастекло, эльфийское стекло и т.д.)
+                        if (EntityManaBurst.IsManaPermeable(hitBlock))
+                        {
+                            continue;
+                        }
+                        break; // Врезались в обычную стену
                     }
                 }
             }
@@ -169,10 +205,10 @@ namespace BotaniaStory
             // 2. ПЕРЕДАЧА МАНЫ И ВЫСТРЕЛ
             // ==========================================
 
-            // 1. Проверяем порог в 30% (30 000 из 100 000)
-            int threshold = (int)(MaxMana * 0.30f);
+            // 1. Проверяем порог в 20% (20 000 из 100 000)
+            int threshold = (int)(MaxMana * 0.20f);
 
-            // Если накопили 30% — начинаем разрядку
+            // Если накопили 20% — начинаем разрядку
             if (CurrentMana >= threshold)
             {
                 isDischarging = true;
@@ -191,28 +227,32 @@ namespace BotaniaStory
             if (currentMs - lastFireMs < fireCooldownMs) return;
 
             // ==========================================
-            // 2.5 ПРОВЕРКА ЗАПОЛНЕННОСТИ ЦЕЛИ (ПРЯМАЯ)
+            // 2.5 ПРОВЕРКА ЗАПОЛНЕННОСТИ ЦЕЛИ (УМНАЯ)
             // ==========================================
             BlockEntity receiverBlock = Api.World.BlockAccessor.GetBlockEntity(TargetPos);
 
-            if (receiverBlock is BlockEntityManaPool pool)
+            // Проверяем, поддерживает ли цель универсальный прием маны
+            if (receiverBlock is IManaReceiver receiver)
             {
-                // Проверяем Бассейн Маны
-                if (pool.CurrentMana >= pool.MaxMana)
+                // Спрашиваем: "Сколько маны в тебя сейчас влезет?"
+                int availableSpace = receiver.GetAvailableSpace();
+
+                // Плита вернет 0, если рецепт не выложен.
+                // Бассейн вернет 0, если он полон до краев (MaxMana).
+                if (availableSpace <= 0)
                 {
-                    return; // Бассейн заполнен! Отменяем выстрел, мана остается в распространителе
+                    return; // Цели мана не нужна! Отменяем выстрел, сохраняем энергию в распространителе.
                 }
+
+                // ВНИМАНИЕ: Если цель - Плита, и она просит меньше маны, чем размер  сгустка (например, осталось долить 50 маны, а сгусток несет 120), 
+                // мы всё равно выстрелим полным сгустком. Излишек просто "сгорит" при попадании (как в оригинальной Botania).
             }
-            else if (receiverBlock is BlockEntityRunicAltar altar)
+            else
             {
-                
-                if (altar.CurrentMana >= altar.MaxBufferMana)
-                {
-                    return;
-                }
+                // Если блок потерял интерфейс (например, блок сломали и поставили обычный камень),
+                // выстрел не делаем.
+                return;
             }
-
-
 
             // ==========================================
             // 3. ПРОВЕРКА ПРЕПЯТСТВИЙ (Line of Sight)
@@ -242,10 +282,16 @@ namespace BotaniaStory
                 // Если блок не пустой воздух и у него есть хитбоксы (игнорируем высокую траву, воду и т.д.)
                 if (hitBlock.Id != 0 && hitBlock.CollisionBoxes != null && hitBlock.CollisionBoxes.Length > 0)
                 {
-                    // Если мы дошли до бассейна - значит путь чист, прекращаем проверку
+                    // Если мы дошли до цели - значит путь чист, прекращаем проверку
                     if (checkPos.Equals(TargetPos) || hitBlock is BlockManaPool)
                     {
                         break;
+                    }
+
+                    // Если на пути прозрачный для маны блок — делаем вид, что его тут нет
+                    if (EntityManaBurst.IsManaPermeable(hitBlock))
+                    {
+                        continue;
                     }
 
                     // Если это любой другой твердый блок — путь заблокирован!
@@ -381,7 +427,7 @@ namespace BotaniaStory
         // ==========================================
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            // Загружаем нашу 3D модель
+            // Загружаем  3D модель
             AssetLocation shapeLoc = new AssetLocation("botaniastory", "shapes/block/manaspreader.json");
             Shape shape = Api.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
 
@@ -402,7 +448,7 @@ namespace BotaniaStory
                 // Применяем вращение к сетке блока (используем внутренний массив .Values)
                 mesh.MatrixTransform(matrix.Values);
 
-                // Добавляем нашу повернутую модель в мир
+                // Добавляем  повернутую модель в мир
                 mesher.AddMeshData(mesh);
             }
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -12,7 +13,7 @@ namespace botaniastory
         private string currentStructure = null;
 
         // --- ПЕРЕМЕННЫЕ ДЛЯ 3D И ЛОГИКИ ---
-        private MeshRef hologramMeshRef = null;
+        private Dictionary<int, MeshRef> hologramMeshRefs = new Dictionary<int, MeshRef>();
         private int structureSizeX, structureSizeY, structureSizeZ;
 
         private int offsetY = 0; // ПЕРЕМЕННАЯ СМЕЩЕНИЯ
@@ -68,8 +69,9 @@ namespace botaniastory
 
         private void BuildHologramMesh(string structureCode)
         {
-            hologramMeshRef?.Dispose();
-            hologramMeshRef = null;
+            // Очищаем старые меши из словаря
+            foreach (var mesh in hologramMeshRefs.Values) mesh.Dispose();
+            hologramMeshRefs.Clear();
 
             AssetLocation loc = new AssetLocation("botaniastory", "config/schematics/" + structureCode + ".json");
             IAsset asset = capi.Assets.TryGet(loc);
@@ -90,7 +92,6 @@ namespace botaniastory
                 return;
             }
 
-            // === ИСПРАВЛЕНИЕ КРАША (Версия 3.0) ===
             if (schematic.BlockCodes == null)
             {
                 capi.ShowChatMessage($"[Lexicon] Ошибка: В схеме {structureCode} отсутствуют данные о блоках (BlockCodes).");
@@ -98,69 +99,73 @@ namespace botaniastory
                 return;
             }
 
-            // Сохраняем схему в память для будущих проверок
             loadedSchematic = schematic;
-
             structureSizeX = schematic.SizeX;
             structureSizeY = schematic.SizeY;
             structureSizeZ = schematic.SizeZ;
 
-            MeshData combinedMesh = null;
+            Dictionary<int, MeshData> meshesByPage = new Dictionary<int, MeshData>();
             requiredBlocksCount.Clear();
 
-            // ЕДИНЫЙ ЦИКЛ: и для подсчета HUD, и для сборки 3D-меша
             for (int i = 0; i < schematic.Indices.Count; i++)
             {
                 int index = (int)schematic.Indices[i];
                 int rawBlockId = schematic.BlockIds[i];
 
-                if (rawBlockId == 0) continue; // Воздух не считаем и не рисуем
+                if (rawBlockId == 0) continue;
 
                 if (schematic.BlockCodes.TryGetValue(rawBlockId, out AssetLocation blockLoc))
                 {
-                    // --- 1. ЛОГИКА ДЛЯ HUD (Считаем нужное количество) ---
-                    if (!requiredBlocksCount.ContainsKey(blockLoc))
-                    {
-                        requiredBlocksCount[blockLoc] = 0;
-                    }
+                    if (!requiredBlocksCount.ContainsKey(blockLoc)) requiredBlocksCount[blockLoc] = 0;
                     requiredBlocksCount[blockLoc]++;
 
-                    // --- 2. ЛОГИКА ДЛЯ ГОЛОГРАММЫ (Строим меш) ---
                     Block block = capi.World.GetBlock(blockLoc);
                     if (block == null || block.BlockId == 0) continue;
 
-                    MeshData blockMesh;
-                    capi.Tesselator.TesselateBlock(block, out blockMesh);
-
-                    if (blockMesh != null)
+                    int atlasPage = 0;
+                    if (block.Textures != null && block.Textures.Count > 0)
                     {
-                        // Высчитываем координаты блока внутри схемы
-                        int x = index & 0x3FF;
-                        int z = (index >> 10) & 0x3FF;
-                        int y = (index >> 20) & 0x3FF;
-
-                        // Сдвигаем меш отдельного блока на его позицию
-                        blockMesh.Translate(new Vec3f(x, y, z));
-
-                        // Склеиваем с общим мешом структуры
-                        if (combinedMesh == null)
+                        var firstTex = block.Textures.Values.FirstOrDefault();
+                        if (firstTex != null && firstTex.Baked != null)
                         {
-                            combinedMesh = blockMesh.Clone();
+                            var pos = capi.BlockTextureAtlas.Positions[firstTex.Baked.TextureSubId];
+                            if (pos != null) atlasPage = pos.atlasNumber;
                         }
-                        else
-                        {
-                            combinedMesh.AddMeshData(blockMesh);
-                        }
+                    }
+
+                    MeshData cachedMesh = capi.TesselatorManager.GetDefaultBlockMesh(block);
+                    if (cachedMesh == null) continue;
+
+                    MeshData blockMesh = cachedMesh.Clone();
+                    blockMesh.CustomInts = null;
+                    blockMesh.CustomFloats = null;
+
+                    int x = index & 0x3FF;
+                    int z = (index >> 10) & 0x3FF;
+                    int y = (index >> 20) & 0x3FF;
+
+                    blockMesh.Translate(new Vec3f(x, y, z));
+
+                    if (!meshesByPage.ContainsKey(atlasPage))
+                    {
+                        meshesByPage[atlasPage] = blockMesh;
+                    }
+                    else
+                    {
+                        meshesByPage[atlasPage].AddMeshData(blockMesh);
                     }
                 }
             }
 
-            // Загружаем готовый меш в видеокарту
-            if (combinedMesh != null && combinedMesh.VerticesCount > 0)
+            foreach (var kvp in meshesByPage)
             {
-                hologramMeshRef = capi.Render.UploadMesh(combinedMesh);
+                if (kvp.Value.VerticesCount > 0)
+                {
+                    hologramMeshRefs[kvp.Key] = capi.Render.UploadMesh(kvp.Value);
+                }
             }
-            else
+
+            if (hologramMeshRefs.Count == 0)
             {
                 capi.ShowChatMessage("[Lexicon] Ошибка: Меш пустой.");
                 isActive = false;
@@ -170,10 +175,10 @@ namespace botaniastory
         // === НОВЫЙ МЕТОД ДЛЯ ОТКЛЮЧЕНИЯ ГОЛОГРАММЫ ===
         public void StopVisualization()
         {
-            isActive = false;           // Выключаем отрисовку
-            currentStructure = null;    // Сбрасываем имя структуры
-            lockedPos = null;           // Сбрасываем позицию
-            loadedSchematic = null;     // Очищаем схему
+            isActive = false;
+            currentStructure = null;
+            lockedPos = null;
+            loadedSchematic = null;
 
             if (trackerHud != null)
             {
@@ -181,9 +186,13 @@ namespace botaniastory
                 trackerHud.Dispose();
                 trackerHud = null;
             }
-            // Обязательно очищаем память от 3D-модели!
-            hologramMeshRef?.Dispose();
-            hologramMeshRef = null;
+
+            // Очищаем словарь мешей
+            foreach (var mesh in hologramMeshRefs.Values)
+            {
+                mesh.Dispose();
+            }
+            hologramMeshRefs.Clear();
         }
 
         // --- НОВАЯ ЛОГИКА ПКМ (ФИКСАЦИЯ) ---
@@ -194,7 +203,7 @@ namespace botaniastory
             ItemSlot activeSlot = capi.World.Player.InventoryManager.ActiveHotbarSlot;
             bool isEmptyHand = activeSlot.Empty;
 
-            // Убедись, что Domain ("botaniastory") совпадает с доменом твоего предмета книги!
+            // Убедись, что Domain ("botaniastory") совпадает с доменом  предмета книги!
             bool isBook = !isEmptyHand && activeSlot.Itemstack.Collectible.Code.Domain == "botaniastory";
 
             bool isSneaking = capi.World.Player.Entity.Controls.Sneak;
@@ -257,7 +266,7 @@ namespace botaniastory
             if (isComplete)
             {
                 capi.ShowChatMessage($"[Lexicon] Отлично! Структура {currentStructure} успешно построена!");
-                StopVisualization(); // Вызываем твой метод очистки
+                StopVisualization(); // Вызываем метод очистки
             }
         }
 
@@ -377,9 +386,8 @@ namespace botaniastory
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
-            if (!isActive || hologramMeshRef == null) return;
+            if (!isActive || hologramMeshRefs.Count == 0) return;
 
-            // Если позиция зафиксирована - рисуем там. Если нет - рисуем по прицелу игрока.
             BlockPos targetPos = lockedPos ?? capi.World.Player.CurrentBlockSelection?.Position.AddCopy(capi.World.Player.CurrentBlockSelection.Face);
 
             if (targetPos != null)
@@ -390,26 +398,31 @@ namespace botaniastory
                 IStandardShaderProgram prog = render.PreparedStandardShader(targetPos.X, targetPos.Y, targetPos.Z);
                 prog.ViewMatrix = render.CameraMatrixOriginf;
                 prog.ProjectionMatrix = render.CurrentProjectionMatrix;
-
-                prog.Tex2D = capi.BlockTextureAtlas.AtlasTextures[0].TextureId;
                 prog.RgbaTint = new Vec4f(1.0f, 1.0f, 1.0f, 0.4f);
 
                 float[] modelMatrix = Mat4f.Create();
                 Mat4f.Identity(modelMatrix);
-
                 Mat4f.Translate(modelMatrix, modelMatrix,
                     (float)(targetPos.X - camPos.X),
-                  (float)(targetPos.Y + renderOffsetY - camPos.Y), 
+                    (float)(targetPos.Y + renderOffsetY - camPos.Y),
                     (float)(targetPos.Z - camPos.Z));
-
                 Mat4f.Translate(modelMatrix, modelMatrix, -structureSizeX / 2f + 0.5f, 0, -structureSizeZ / 2f + 0.5f);
-
                 prog.ModelMatrix = modelMatrix;
 
                 render.GlToggleBlend(true);
-                render.RenderMesh(hologramMeshRef);
-                render.GlToggleBlend(false);
 
+                // --- Цикл рендера по страницам ---
+                foreach (var kvp in hologramMeshRefs)
+                {
+                    int atlasPage = kvp.Key;
+                    MeshRef mesh = kvp.Value;
+
+                    // Биндим текстуру ИМЕННО ТОЙ страницы атласа, на которой лежат блоки этого меша!
+                    prog.Tex2D = capi.BlockTextureAtlas.AtlasTextures[atlasPage].TextureId;
+                    render.RenderMesh(mesh);
+                }
+
+                render.GlToggleBlend(false);
                 prog.Stop();
             }
         }
@@ -419,7 +432,7 @@ namespace botaniastory
             base.Dispose();
             capi?.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
             capi?.Event.UnregisterGameTickListener(tickListenerId); // Обязательно убиваем таймер при выходе
-            hologramMeshRef?.Dispose();
+           
         }
     }
 }

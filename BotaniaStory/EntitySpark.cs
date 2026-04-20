@@ -10,9 +10,9 @@ namespace BotaniaStory
     public class EntitySpark : Entity
     {
         public override bool IsInteractable => false;
-
+        //Дальность искры до искры
         private const int SPARK_RANGE = 12;
-        private const int TRANSFER_RATE = 100000;
+        private const int TRANSFER_RATE = 14000;
         private float transferAccumulator = 0f;
 
         // 1. ДОБАВЛЯЕМ ПОЛЕ ДЛЯ РЕНДЕРЕРА
@@ -100,32 +100,35 @@ namespace BotaniaStory
 
                 if (!shouldSendMana) continue; // Если условий нет - пропускаем (обычные искры ничего не делают)
 
+                // ... внутри цикла перебора соседних искр ...
                 double otherX = otherSpark.WatchedAttributes.GetDouble("baseX");
                 double otherY = otherSpark.WatchedAttributes.GetDouble("baseY");
                 double otherZ = otherSpark.WatchedAttributes.GetDouble("baseZ");
 
-                BlockPos otherPoolPos = new BlockPos((int)Math.Floor(otherX), (int)Math.Floor(otherY) - 1, (int)Math.Floor(otherZ));
-                BlockEntityManaPool otherPool = Api.World.BlockAccessor.GetBlockEntity(otherPoolPos) as BlockEntityManaPool;
+                // Находим координаты блока ПОД соседней искрой
+                BlockPos otherReceiverPos = new BlockPos((int)Math.Floor(otherX), (int)Math.Floor(otherY) - 1, (int)Math.Floor(otherZ));
+                BlockEntity otherBE = Api.World.BlockAccessor.GetBlockEntity(otherReceiverPos);
 
-                if (otherPool != null)
+                // Проверяем: умеет ли блок под той искрой принимать ману?
+                if (otherBE is IManaReceiver receiver)
                 {
-                    // Нам больше не нужен порог в 10 000 для "выравнивания". 
-                    // Руны качают ману до тех пор, пока есть место.
-                    int spaceInOther = otherPool.MaxMana - otherPool.CurrentMana;
+                    int spaceInOther = receiver.GetAvailableSpace();
 
                     if (spaceInOther > 0 && myPool.CurrentMana > 0)
                     {
-                        // Передаем порциями (скорость TRANSFER_RATE)
+                        // Вычисляем порцию (10 000 за раз)
                         int amountToTransfer = Math.Min(TRANSFER_RATE / 10, spaceInOther);
                         amountToTransfer = Math.Min(amountToTransfer, myPool.CurrentMana);
 
                         if (amountToTransfer > 0)
                         {
                             myPool.CurrentMana -= amountToTransfer;
-                            otherPool.CurrentMana += amountToTransfer;
-                            myPoolChanged = true;
-                            otherPool.MarkDirty(true);
+                            receiver.ReceiveMana(amountToTransfer); // Отдаем ману блоку
 
+                            myPoolChanged = true;
+                            otherBE.MarkDirty(true);
+
+                            // Визуальный эффект потока от одной искры к другой
                             SpawnTransferParticles(Pos.XYZ, otherSpark.Pos.XYZ, amountToTransfer);
                         }
                     }

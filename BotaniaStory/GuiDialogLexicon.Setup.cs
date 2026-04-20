@@ -369,7 +369,7 @@ namespace botaniastory
                                     // Мы берем половину высоты иконки и вычитаем половину высоты шрифта
                                     double yOffset = (iconSize / 2.0) - (fontSize / 2.0);
 
-                                    // Координаты по X тоже строятся автоматически на основе твоих iconSize и padding
+                                    // Координаты по X тоже строятся автоматически на основе  iconSize и padding
                                     ElementBounds plusBounds = ElementBounds.Fixed(anvilStartX + iconSize, anvilStartY + yOffset, padding, fontSize);
                                     compo.AddStaticText("+", signFont, plusBounds, $"anvilPlus_{i}");
 
@@ -605,7 +605,7 @@ namespace botaniastory
 
             string itemCode = clickedStack.Collectible.Code.ToString();
 
-            // 1. Просто отдаем предмет твоему менеджеру. 
+            // 1. Просто отдаем предмет  менеджеру. 
             // Он сам проверит и ExceptionsMap (ванильные предметы со звездочками), и предметы мода!
             string chapterId = BookDataManager.GetChapterForBlock(itemCode);
 

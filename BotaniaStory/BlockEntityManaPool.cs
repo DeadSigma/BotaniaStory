@@ -8,7 +8,7 @@ using Vintagestory.API.Server;
 
 namespace BotaniaStory
 {
-    public class BlockEntityManaPool : BlockEntity
+    public class BlockEntityManaPool : BlockEntity, IManaReceiver
     {
         // Приватное хранилище маны
         private int _currentMana = 0;
@@ -25,6 +25,16 @@ namespace BotaniaStory
 
         private bool isDilutedPool = false;
         private bool isCreativePool = false; // Флаг для творческого бассейна
+
+        public bool IsFull() => CurrentMana >= MaxMana;
+
+        public int GetAvailableSpace() => MaxMana - CurrentMana;
+
+        public void ReceiveMana(int amount)
+        {
+            CurrentMana = Math.Clamp(CurrentMana + amount, 0, MaxMana);
+            MarkDirty(true);
+        }
 
         // ==========================================
         // ИНИЦИАЛИЗАЦИЯ
@@ -351,7 +361,7 @@ namespace BotaniaStory
                 inputEntity.Die(EnumDespawnReason.Death);
             }
 
-            // Спавним наш созданный ItemStack (неважно, блок это или предмет) в тех же координатах
+            // Спавним созданный ItemStack (неважно, блок это или предмет) в тех же координатах
             Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
 
             // Вызываем всплеск частиц
@@ -394,5 +404,6 @@ namespace BotaniaStory
 
             Api.World.SpawnParticles(particles);
         }
+
     }
 }

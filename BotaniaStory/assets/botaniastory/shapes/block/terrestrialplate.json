@@ -1,19 +1,37 @@
 {
-    "textures": {
-    },
-    "elements": [
-        {
-            "name": "Cube",
-            "from": [ 0.0, 0.0, 0.0 ], 
-            "to": [ 16.0, 1.0, 16.0 ], 
-            "faces": {
-                "north": { "texture": "#north", "uv": [ 0.0, 15.0, 16.0, 16.0 ] },
-                "east": { "texture": "#east", "uv": [ 0.0, 15.0, 16.0, 16.0 ] },
-                "south": { "texture": "#south", "uv": [ 0.0, 15.0, 16.0, 16.0 ] },
-                "west": { "texture": "#west", "uv": [ 0.0, 15.0, 16.0, 16.0 ] },
-                "up": { "texture": "#up" },
-                "down": { "texture": "#down" }
-            }
-        }
-    ]
+	"editor": {
+		"backDropShape": "",
+		"collapsedPaths": "",
+		"allAngles": false,
+		"entityTextureMode": false,
+		"singleTexture": false,
+		"vsFormatConverted": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+		"terrestrialplate": [16, 16]
+	},
+	"textures": {
+		"terrestrialplate": "botaniastory:block/terrestrialplate"
+	},
+	"elements": [
+		{
+			"name": "Cube",
+			"from": [0, 0, 0],
+			"to": [16, 1.575, 16],
+			"rotationOrigin": [0, 0, 0],
+			"uv": [0, 0],
+			"shade": true,
+			"faces": {
+				"north": {"texture": "#terrestrialplate", "uv": [0.5, 0.5, 15, 3], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#terrestrialplate", "uv": [0, 16, 15, 13.5], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#terrestrialplate", "uv": [0, 16, 15, 13.5], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#terrestrialplate", "uv": [0.5, 0.5, 16, 3], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#terrestrialplate", "uv": [0, 0, 16, 16], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#terrestrialplate", "uv": [1, 9.5, 6.5, 15], "autoUv": false, "snapUv": false}
+			}
+		}
+	],
+	"animations": []
 }

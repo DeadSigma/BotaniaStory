@@ -12,6 +12,15 @@ namespace BotaniaStory
 
         private Vec3d StartPos = null;
 
+        public static bool IsManaPermeable(Block block)
+        {
+            if (block == null || block.Code == null) return false;
+            string path = block.Code.Path;
+
+            // managlass проверяем точным совпадением (если у него нет вариантов)
+            // а elvenglass проверяем по началу названия это охватит elvenglass_1, elvenglass_2 и любые другие
+            return path == "managlass" || path.StartsWith("elvenglass");
+        }
         public override void OnGameTick(float dt)
         {
             base.OnGameTick(dt);
@@ -112,30 +121,43 @@ namespace BotaniaStory
 
                 Block block = Api.World.BlockAccessor.GetBlock(currentPos);
 
-                // Если блок не воздух и не жидкость
                 if (block.Id != 0 && block.MatterState != EnumMatterState.Liquid)
                 {
-                    // === ВОТ ТУТ МЫ УЧИМ СГУСТОК ВИДЕТЬ АЛТАРЬ ===
-                    if (block is BlockManaPool || block is BlockRunicAltar)
+
+                    if (IsManaPermeable(block))
                     {
-                        BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(currentPos);
+                        // Просто выходим из проверки коллизии в этом тике.
+                        // Искра не умрет и продолжит лететь сквозь блок.
+                        return;
+                    }
+
+                    // ===  УНИВЕРСАЛЬНЫЙ ПРИЕМ МАНЫ ===
+                    BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(currentPos);
+
+                    // Проверяем, является ли блок приемником маны (Бассейн, Алтарь, Плита и т.д.)
+                    if (be is IManaReceiver receiver)
+                    {
                         int finalMana = (int)(ManaPayload * lifeRatio);
                         if (finalMana < 1) finalMana = 1;
 
-                        if (be is BlockEntityManaPool pool)
+                        // Отдаем ману через универсальный метод
+                        receiver.ReceiveMana(finalMana);
+
+                        // Сохраняем изменения в целевом блоке
+                        if (be is BlockEntity blockEnt)
                         {
-                            pool.CurrentMana += finalMana;
-                            if (pool.CurrentMana > pool.MaxMana) pool.CurrentMana = pool.MaxMana;
-                            pool.MarkDirty(true);
-                        }
-                        else if (be is BlockEntityRunicAltar altar)
-                        {
-                            altar.ReceiveMana(finalMana); // ПЕРЕДАЕМ МАНУ АЛТАРЮ!
+                            blockEnt.MarkDirty(true);
                         }
 
                         // Отдали ману — исчезаем
                         Die();
                         return;
+                    }
+
+                    // Если это обычный твердый блок без интерфейса (стена, земля) — разбиваемся
+                    if (block.CollisionBoxes != null && block.CollisionBoxes.Length > 0)
+                    {
+                        Die();
                     }
 
                     // Если это НЕ бассейн и НЕ алтарь, проверяем блок на коллизию (стена/земля)

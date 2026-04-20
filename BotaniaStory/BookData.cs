@@ -21,7 +21,7 @@ namespace botaniastory
     {
         public string Path { get; set; }      // Путь к самой картинке (png)
         public int Spread { get; set; }       // На каком развороте страниц она находится
-        public string UiKey { get; set; }     // Ключ рамки из нашего дебаггера (LexiconUIData)
+        public string UiKey { get; set; }     // Ключ рамки дебаггера (LexiconUIData)
     }
 
     public class BookRecipe
@@ -75,7 +75,7 @@ namespace botaniastory
     {
         private static readonly Dictionary<string, string[]> BookStructure = new Dictionary<string, string[]>
         {
-            { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "wandoftheforest",
+            { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "wandoftheforest", "terrasteel",
                 "puredaisy", "runicaltar" } },
 
             { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment"} },
@@ -88,13 +88,13 @@ namespace botaniastory
 
             { "mystical_items", new[] { "wandofbinding", "manaitem" } },
 
-            { "trinkets_and_accessories", new[] { "ch1" } },
+            { "trinkets_and_accessories", new[] { "trinkets" } },
 
             { "rusted_world_artifacts", new[] { "ch1" } },
 
             { "elfmania", new[] { "ch1" } },
 
-            { "misc", new[] { "livingwood_firewood", "livingwood_stick", "livingrock", "livingrock_slab", "rune" } },
+            { "misc", new[] { "livingwood_firewood", "livingwood_stick", "livingrock", "livingrock_slab", "rune", "managlass" } },
 
             { "trials", new[] { "ch1" } }
         };
@@ -121,7 +121,6 @@ namespace botaniastory
             if (string.IsNullOrEmpty(blockCode)) return null;
 
             // Разделяем код на домен (мод) и путь (название)
-            // Например: "botaniastory:mysticalflower-orange" -> Domain: "botaniastory", Path: "mysticalflower-orange"
             AssetLocation loc = new AssetLocation(blockCode);
             string blockDomain = loc.Domain;
             string blockPath = loc.Path;
@@ -135,7 +134,7 @@ namespace botaniastory
                 }
             }
 
-            // 2. Если исключений нет и это блок из твоего мода — ищем автоматически!
+            // 2. Если исключений нет и это блок из  мода — ищем автоматически!
             if (blockDomain == "botaniastory")
             {
                 // Пробегаемся по всем категориям и главам в BookStructure
@@ -166,10 +165,10 @@ namespace botaniastory
             int catIndex = 0;
             foreach (var kvp in BookStructure)
             {
-                string catId = kvp.Key;        // например: "basics_and_mechanics"
-                string[] chapterIds = kvp.Value; // например: ["basicsintroduction", "botanialexicon", ...]
+                string catId = kvp.Key;      
+                string[] chapterIds = kvp.Value;
 
-                // Ищем название категории: botaniastory:lexicon_category_basics_and_mechanics
+                // Ищем название категории
                 string catLangKey = $"botaniastory:lexicon_category_{catId}";
                 string localizedCatName = Lang.Get(catLangKey);
 
@@ -186,9 +185,9 @@ namespace botaniastory
 
                 for (int j = 0; j < chapterIds.Length; j++)
                 {
-                    string chapId = chapterIds[j]; // например: "basicsintroduction"
+                    string chapId = chapterIds[j]; 
 
-                    // Ищем название главы: botaniastory:lexicon_basics_and_mechanics_basicsintroduction_title
+
                     string titleKey = $"botaniastory:lexicon_{catId}_{chapId}_title";
                     string title = Lang.Get(titleKey);
 
@@ -744,6 +743,35 @@ namespace botaniastory
 
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ТЕРРАСТАЛЬ ===
+                    else if (chapId == "terrasteel")
+                    {
+                        chapter.TabItemCode = "botaniastory:ingot-terrasteel";
+
+                        chapter.VisualizeStructure = "terraaltar";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                  "game:rockpolished-andesite", "game:rockpolished-andesite", "game:rockpolished-andesite",
+                                  "botaniastory:rune-water", "game:metalblock-new-riveted-manasteel", "botaniastory:rune-fire",
+                                  "botaniastory:rune-earth", "botaniastory:rune-mana", "botaniastory:rune-air"},
+                            Output = "botaniastory:terrestrialplate"
+                        });
+
+                        chapter.Images.Add(new BookPageImage()
+                        {
+                            Path = "botaniastory:textures/gui/terraplatform.png",
+                            Spread = 0,
+                            UiKey = "Картинка_Правая_Платформа"
+                        });
+                    }
+
+
+
                     // === НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В УПРАВЛЕНИЕ МАНОЙ ===
                     else if (chapId == "manaintroduction")
                     {
@@ -1233,6 +1261,33 @@ namespace botaniastory
                             Output = "botaniastory:manapool_diluted"
                         });
                     }
+
+                    // === НАСТРОЙКА ГЛАВЫ МАНАСТЕКЛО ===
+                    else if (chapId == "managlass")
+                    {
+                        chapter.TabItemCode = "botaniastory:managlass";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 0,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+                            PoolInput = new string[] { "game:glass-*" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[0],
+                            Output = "botaniastory:managlass"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 5000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+
+                    }
+
 
                     // === НАСТРОЙКА ГЛАВЫ РУНЫ ===
                     else if (chapId == "rune")
@@ -2020,12 +2075,28 @@ namespace botaniastory
 
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ АКСЕССУАРЫ ===
+                    else if (chapId == "trinkets")
+                    {
+                        chapter.TabItemCode = "botaniastory:checkmark";
 
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                                 null, null, null,
+                                 null, null, null,
+                                 null, null, null},
+                            Output = "botaniastory:checkmark"
+                        });
+                    }
 
                     // Пытаемся загрузить до 30 страниц
                     for (int p = 1; p <= 30; p++)
                     {
-                        // Ищем страницы: botaniastory:lexicon_basics_and_mechanics_basicsintroduction_p1
+                        // Ищем страницы
                         string pageKey = $"botaniastory:lexicon_{catId}_{chapId}_p{p}";
                         string pageText = Lang.Get(pageKey);
 

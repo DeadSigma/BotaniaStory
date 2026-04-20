@@ -72,7 +72,7 @@ namespace BotaniaStory
                 }
 
                 // --- ЛОГИКА АВТОКРАФТА ---
-                // (тут остается твой старый код проверки if (be.HasWater && be.LastCraftedFlower != null) ...)
+                // (тут остается  старый код проверки if (be.HasWater && be.LastCraftedFlower != null) ...)
 
               
                 if (be.HasWater && be.LastCraftedFlower != null)
@@ -269,7 +269,7 @@ namespace BotaniaStory
                             be.inventory[i].MarkDirty();
                             be.UpdateRenderer();
 
-                            // ИГРАЕМ ТВОЙ КАСТОМНЫЙ ЗВУК ПЛЮХА
+                            // ИГРАЕМ  КАСТОМНЫЙ ЗВУК ПЛЮХА
                             PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
                             return true;
                         }

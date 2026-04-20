@@ -241,7 +241,7 @@ namespace BotaniaStory
             DrawTexture(sh, quadMesh, bgTex.TextureId, x, y, width, height);
 
             // 2. СЛОЙ: КАДРИРОВАННАЯ ТЕКСТУРА ЗАЛИВКИ (fillTex)
-            // Важно: ширина фигуры уменьшается (width * fillRatio), а вместе с ней мы используем нашу обрезанную сетку (fillMesh)
+            // Важно: ширина фигуры уменьшается (width * fillRatio), а вместе с ней мы используем  обрезанную сетку (fillMesh)
             float fillWidth = width * fillRatio;
             DrawTexture(sh, fillMesh, fillTex.TextureId, x, y, fillWidth, height);
 

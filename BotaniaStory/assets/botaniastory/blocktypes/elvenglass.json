@@ -1,0 +1,51 @@
+{
+    "code": "elvenglass",
+    "class": "BlockRainAmbient",
+    "variantgroups": [
+        {
+            "code": "stage",
+            "states": [ "0", "1", "2", "3", "4" ]
+        }
+    ],
+    "attributes": {
+        "canChisel": true
+    },
+    "shape": { "base": "block/managlass" },
+    "drawtype": "json",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "construction": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "blockmaterial": "Glass",
+    "faceCullMode": "MergeMaterial",
+    "replaceable": 900,
+    "lightAbsorption": 0,
+    "lightHsv": [ 40, 5, 25 ],
+    "renderPass": "Transparent",
+    "vertexFlags": {
+        "zOffset": 2,
+        "shiny": true
+    },
+    "texturesByType": {
+        "*-0": { "all": { "base": "botaniastory:block/elvenglass_0" } },
+        "*-1": { "all": { "base": "botaniastory:block/elvenglass_1" } },
+        "*-2": { "all": { "base": "botaniastory:block/elvenglass_2" } },
+        "*-3": { "all": { "base": "botaniastory:block/elvenglass_3" } },
+        "*-4": { "all": { "base": "botaniastory:block/elvenglass_4" } }
+    },
+    "resistance": 0.25,
+    "sideopaque": {
+        "all": false
+    },
+    "sounds": {
+        "place": "game:player/buildhigh",
+        "break": "game:block/glass",
+        "hit": "game:block/glass",
+        "walk": "game:walk/glass*",
+        "ambient": "game:environment/rainwindow",
+        "ambientBlockCount": 4,
+        "ambientSoundType": "Weather",
+        "ambientMaxDistanceMerge": 1
+    }
+}

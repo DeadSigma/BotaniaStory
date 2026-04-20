@@ -125,6 +125,7 @@ namespace botaniastory
             config.PoolVolume = 50;
             config.AltarVolume = 50;
             config.ApothecaryVolume = 50;
+            config.PlateVolume = 50;
 
             mainDialog.UpdateScale(1.0f);
             SingleComposer?.Dispose();
@@ -175,7 +176,7 @@ namespace botaniastory
             bgBounds.BothSizing = ElementSizing.FitToChildren;
 
             // Увеличили высоту окна с 250 до 290, чтобы влез 5-й ползунок
-            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 230);
+            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 340, 270);
             bgBounds.WithChild(listBounds);
 
             CairoFont font = CairoFont.WhiteSmallText();
@@ -222,6 +223,11 @@ namespace botaniastory
             SingleComposer.AddSlider(OnApothecaryVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderApothecaryVolume");
             y += 40;
 
+            //  8. Громкость Земной Плиты
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-platevolume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnPlateVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderPlateVolume");
+            y += 40;
+
             // Кнопка Сохранить и Закрыть
             SingleComposer.AddButton(Lang.Get("botaniastory:dialog-settings-save"), OnSaveAndClose, ElementBounds.Fixed(0, y, 340, 30), font, EnumButtonStyle.Normal);
 
@@ -235,6 +241,7 @@ namespace botaniastory
             SingleComposer.GetSlider("sliderPoolVolume")?.SetValues(config.PoolVolume, 0, 100, 1);
             SingleComposer.GetSlider("sliderAltarVolume")?.SetValues(config.AltarVolume, 0, 100, 1);
             SingleComposer.GetSlider("sliderApothecaryVolume")?.SetValues(config.ApothecaryVolume, 0, 100, 1);
+            SingleComposer.GetSlider("sliderPlateVolume")?.SetValues(config.PlateVolume, 0, 100, 1);
         }
 
         private bool OnVolumeChanged(int value) { config.Volume = value; return true; }
@@ -244,6 +251,7 @@ namespace botaniastory
         private bool OnWandVolumeChanged(int value) { config.WandVolume = value; return true; }
         private bool OnPoolVolumeChanged(int value) { config.PoolVolume = value; return true; }
         private bool OnAltarVolumeChanged(int value) { config.AltarVolume = value; return true; }
+        private bool OnPlateVolumeChanged(int value) { config.PlateVolume = value; return true; }
 
         private bool OnSaveAndClose()
         {

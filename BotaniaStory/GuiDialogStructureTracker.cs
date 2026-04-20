@@ -116,7 +116,7 @@ namespace botaniastory
                 ElementBounds iconBounds = ElementBounds.Fixed(10, yOffset, 30, 30);
                 ElementBounds textBounds = ElementBounds.Fixed(50, yOffset + 5, 250, 30);
 
-                // Используем НАШ НОВЫЙ метод отрисовки иконки
+                // Используем НОВЫЙ метод отрисовки иконки
                 compo.AddItemIcon(new ItemStack(item.Block), iconBounds, "icon_" + i);
 
                 // Имя блока уже локализовано движком через GetPlacedBlockName

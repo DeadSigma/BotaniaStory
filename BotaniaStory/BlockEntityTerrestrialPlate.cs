@@ -12,11 +12,11 @@ namespace BotaniaStory
     {
         public InventoryGeneric inventory;
         public int CurrentMana = 0;
-        public const int MaxManaRequired = 500000; // Половина базового бассейна
+        public const int MaxManaRequired = 250000; // Четверть базового бассейна
 
         public bool IsStructureValid = false;
         public bool IsCrafting = false;
-
+        private int lastClientMana = 0;
         private PlateCraftingRenderer particleRenderer;
 
         public BlockEntityTerrestrialPlate()
@@ -155,8 +155,15 @@ namespace BotaniaStory
                 }
 
                 // Звук
-                Api.World.PlaySoundAt(new AssetLocation("botaniastory", "sounds/terrasteel_craft"), Pos.X, Pos.Y, Pos.Z);
+                var modsys = Api.ModLoader.GetModSystem<BotaniaStoryModSystem>();
+                modsys.serverChannel.BroadcastPacket(new PlayManaSoundPacket()
+                {
+                    Position = Pos.ToVec3d(),
+                    SoundName = "terrasteel_craft"
+                });
+
             }
+
         }
 
         private void CheckStructure()
@@ -199,7 +206,15 @@ namespace BotaniaStory
 
         // --- ИНТЕРФЕЙС ПРИЕМА МАНЫ ---
         public bool IsFull() => CurrentMana >= MaxManaRequired;
-        public int GetAvailableSpace() => MaxManaRequired - CurrentMana;
+
+        public int GetAvailableSpace()
+        {
+            // Если крафт не запущен — плите мана не нужна вообще!
+            if (!IsCrafting) return 0;
+
+            // Если крафт идет, просим ровно столько, сколько не хватает до завершения
+            return MaxManaRequired - CurrentMana;
+        }
 
         public void ReceiveMana(int amount)
         {
@@ -213,15 +228,24 @@ namespace BotaniaStory
         // --- КЛИЕНТ: ЧАСТИЦЫ ---
         private void UpdateClientParticles(float dt)
         {
-            if (IsCrafting && particleRenderer != null)
+            if (particleRenderer == null) return;
+
+            if (IsCrafting)
             {
-                // Передаем в рендерер процент готовности (0.0 до 1.0)
                 float progress = (float)CurrentMana / MaxManaRequired;
                 particleRenderer.UpdateProgress(progress);
+                lastClientMana = CurrentMana; // Сохраняем текущий прогресс
             }
-            else if (particleRenderer != null)
+            else
             {
-                particleRenderer.UpdateProgress(0); // Выключаем частицы
+                // Если крафт прервался, но маны было накоплено больше 95% — значит это успешное завершение!
+                if (lastClientMana >= MaxManaRequired * 0.95f)
+                {
+                    particleRenderer.TriggerExplosion(); // Вызываем кастомный взрыв
+                }
+
+                particleRenderer.UpdateProgress(0);
+                lastClientMana = 0;
             }
         }
 
@@ -242,5 +266,7 @@ namespace BotaniaStory
             IsCrafting = tree.GetBool("isCrafting");
             IsStructureValid = tree.GetBool("isValid");
         }
+      
+
     }
 }

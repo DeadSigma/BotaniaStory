@@ -176,7 +176,6 @@ namespace BotaniaStory
             quadMeshRef?.Dispose();
             quadMeshRef = null;
 
-            particleTexture?.Dispose();
             particleTexture = null;
         }
     }

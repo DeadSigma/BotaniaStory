@@ -59,7 +59,7 @@ namespace BotaniaStory
 
             capi.Event.BlockTexturesLoaded += OnBlockTexturesLoaded;
 
-            // Регистрируем наш рендерер на этапе Before, до того как игра начнет рисовать мир
+            // Регистрируем рендерер на этапе Before, до того как игра начнет рисовать мир
             capi.Event.RegisterRenderer(this, EnumRenderStage.Before, "textureanimator");
         }
 
@@ -162,7 +162,7 @@ namespace BotaniaStory
                 capi.Event.UnregisterRenderer(this, EnumRenderStage.Before);
             }
 
-            // Удаляем наши буферы только при выходе из игры
+            // Удаляем  буферы только при выходе из игры
             if (fbosInitialized)
             {
                 GL.DeleteFramebuffer(readFbo);

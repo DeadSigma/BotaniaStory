@@ -157,7 +157,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
             // ==========================================
             float baseManaPerSec = 4f; 
 
-            // НОВОЕ: Умножаем всё на наш soilMult (бонус почвы)
+            // НОВОЕ: Умножаем всё на soilMult (бонус почвы)
             float generatedThisSec = baseManaPerSec * sunlightMult * efficiency * seasonMult * globalMult * soilMult;
 
             fractionalMana += generatedThisSec;

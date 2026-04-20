@@ -249,7 +249,7 @@ namespace botaniastory
         }
         public override void Dispose()
         {
-            // Если при удалении интерфейса наш слот всё ещё висит в игре как "наведенный" — сбрасываем его!
+            // Если при удалении интерфейса слот всё ещё висит в игре как "наведенный" — сбрасываем его!
             if (api?.World?.Player?.InventoryManager?.CurrentHoveredSlot == renderSlot)
             {
                 api.World.Player.InventoryManager.CurrentHoveredSlot = null;
