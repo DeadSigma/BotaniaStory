@@ -7,6 +7,7 @@ using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 using ProtoBuf;
 
+
 namespace BotaniaStory
 {
     public class BotaniaStoryModSystem : ModSystem
@@ -75,6 +76,10 @@ namespace BotaniaStory
             api.RegisterBlockEntityClass("RunicAltar", typeof(BlockEntityRunicAltar));
             api.RegisterBlockClass("BlockTerrestrialPlate", typeof(BlockTerrestrialPlate));
             api.RegisterBlockEntityClass("BlockEntityTerrestrialPlate", typeof(BlockEntityTerrestrialPlate));
+            api.RegisterBlockClass("BlockPylon", typeof(BlockPylon));
+
+           
+            api.RegisterBlockEntityClass("BEPylon", typeof(BlockEntityPylon));
 
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }

@@ -31,12 +31,7 @@ namespace BotaniaStory
             AssetLocation texLocation = new AssetLocation("botaniastory", "textures/particle/mana_particle.png");
             particleTexture = new LoadedTexture(capi);
             capi.Render.GetOrLoadTexture(texLocation, ref particleTexture);
-
-            if (particleTexture.TextureId == 0)
-                capi.Logger.Error("[BotaniaStory] ОШИБКА: Текстура маны НЕ ЗАГРУЖЕНА!");
-            else
-                capi.Logger.Notification("[BotaniaStory] Текстура маны загружена! ID: " + particleTexture.TextureId);
-
+            
             MeshData quad = QuadMeshUtil.GetCustomQuadModelData(-0.5f, -0.5f, 0, 1f, 1f);
             quad.Rgba = new byte[] {
                 255, 255, 255, 255,

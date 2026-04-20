@@ -15,11 +15,6 @@
     "lightingSideResistances": {
         "all": 0
     },
-    "textures": {
-        "top": { "base": "block/runicaltar_top" },
-        "side": { "base": "block/runicaltar_side" },
-        "bottom": { "base": "block/runicaltar_bottom" }
-    },
     "resistance": 3.5,
     "sounds": {
         "walk": "game:walk/stone",
