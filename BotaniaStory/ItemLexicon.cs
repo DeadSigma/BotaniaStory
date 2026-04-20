@@ -56,7 +56,7 @@ namespace botaniastory
                 {
                     guideDialog.TryOpen();
 
-                    // ЗАПУСКАЕМ  неубиваемую анимацию
+                    // ЗАПУСКАЕМ неубиваемую анимацию
                     byEntity.AnimManager.StartAnimation(ReadAnimation);
 
                     capi.Network.GetChannel("botanianetwork").SendPacket(new LexiconStatePacket() { IsOpen = true });

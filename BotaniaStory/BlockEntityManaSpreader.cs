@@ -427,7 +427,7 @@ namespace BotaniaStory
         // ==========================================
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            // Загружаем  3D модель
+            // Загружаем 3D модель
             AssetLocation shapeLoc = new AssetLocation("botaniastory", "shapes/block/manaspreader.json");
             Shape shape = Api.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
 

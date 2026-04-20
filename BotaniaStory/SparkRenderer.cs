@@ -152,7 +152,7 @@ namespace BotaniaStory
                 0,       0,       0,        1
             };
 
-            // БИНДИМ  НЕЗАВИСИМУЮ ТЕКСТУРУ
+            // БИНДИМ НЕЗАВИСИМУЮ ТЕКСТУРУ
             capi.Render.BindTexture2d(animTex.TextureId);
 
             Matrixf modelMat = new Matrixf();
