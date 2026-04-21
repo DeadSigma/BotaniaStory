@@ -1,0 +1,82 @@
+{
+    "code": "pylon-natura",
+    "class": "BlockPylon",
+    "entityClass": "BEPylon",
+    "blockmaterial": "stone",
+    "sidesolid": { "all": false },
+    "sideopaque": { "all": false },
+    "drawpass": "Opaque",
+    "shape": { "base": "botaniastory:block/low_pylon_natura" },
+    "textures": {
+        "all": { "base": "botaniastory:block/pylon_green" }
+    },
+    "lightAbsorption": 0,
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "collisionbox": {
+        "x1": 0.125,
+        "y1": 0,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 1,
+        "z2": 0.875
+    },
+    "selectionbox": {
+        "x1": 0.125,
+        "y1": 0,
+        "z1": 0.125,
+        "x2": 0.875,
+        "y2": 1,
+        "z2": 0.875
+    },
+    "guiTransform": {
+        "translation": {
+            "x": -1,
+            "y": 1,
+            "z": 0
+        },
+        "rotation": {
+            "x": -17,
+            "y": -128,
+            "z": 1
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 1.19,
+            "z": 0.5
+        },
+        "scale": 1.01
+    },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": 0,
+            "y": -45,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0,
+            "z": 0.5
+        },
+        "scale": 1.89
+    },
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.06,
+            "y": -1.97,
+            "z": -2.18
+        },
+        "rotation": {
+            "x": 65,
+            "y": 21,
+            "z": -77
+        }
+    }
+}

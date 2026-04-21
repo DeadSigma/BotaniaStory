@@ -6,6 +6,14 @@ using Vintagestory.API.MathTools;
 
 namespace BotaniaStory
 {
+    // 1. Добавляем перечисление типов пилонов
+    public enum EnumPylonType
+    {
+        Mana,   // Обычный (Синий)
+        Natura, // Зеленый (Без колец, больше)
+        Gaia    // Розовый
+    }
+
     public class PylonRenderer : IRenderer
     {
         private ICoreClientAPI capi;
@@ -17,19 +25,24 @@ namespace BotaniaStory
         private bool isDisposed = false;
         private float animationOffset;
 
+        // Переменная для хранения типа текущего пилона
+        private EnumPylonType pylonType;
+
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
 
-        public PylonRenderer(ICoreClientAPI capi, BlockPos pos)
+        // В конструктор добавили параметр type (по умолчанию Mana)
+        public PylonRenderer(ICoreClientAPI capi, BlockPos pos, EnumPylonType type = EnumPylonType.Mana)
         {
             this.capi = capi;
             this.pos = pos;
+            this.pylonType = type; // Сохраняем тип
 
             capi.Event.RegisterRenderer(this, EnumRenderStage.Opaque, "botaniapylon");
-
             this.animationOffset = (float)(new Random(pos.X ^ pos.Y ^ pos.Z).NextDouble() * 10000);
 
-            AssetLocation objPath = new AssetLocation("botaniastory", "shapes/pylon.obj");
+            // 2. Загрузка модели
+            AssetLocation objPath = new AssetLocation("botaniastory", "shapes/block/pylon.obj");
             IAsset objAsset = capi.Assets.TryGet(objPath);
 
             if (objAsset != null)
@@ -41,7 +54,12 @@ namespace BotaniaStory
                 }
             }
 
-            AssetLocation texPath = new AssetLocation("botaniastory", "textures/block/pylon.png");
+            // 3. Выбор текстуры в зависимости от типа пилона
+            string texName = "pylon_blue.png";
+            if (pylonType == EnumPylonType.Natura) texName = "pylon_green.png";
+            if (pylonType == EnumPylonType.Gaia) texName = "pylon_pink.png";
+
+            AssetLocation texPath = new AssetLocation("botaniastory", "textures/block/" + texName);
             loadedTexture = new LoadedTexture(capi);
             capi.Render.GetOrLoadTexture(texPath, ref loadedTexture);
         }
@@ -60,17 +78,24 @@ namespace BotaniaStory
             prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
 
             float t = (capi.World.ElapsedMilliseconds + animationOffset) / 50f;
-            float scale = 0.6f;
+
+            // 4. Задаем масштаб в зависимости от типа
+            float scale = (pylonType == EnumPylonType.Natura) ? 0.8f : 0.6f;
 
             foreach (var kvp in pylonParts)
             {
                 string partName = kvp.Key;
                 MeshRef meshRef = kvp.Value;
 
+                // 5. Магия Natura пилона: если это он, рисуем ТОЛЬКО кристалл, остальное пропускаем
+                if (pylonType == EnumPylonType.Natura && partName != "Crystal")
+                {
+                    continue;
+                }
+
                 float bobbing = 0f;
                 float angle = 0f;
 
-                // 1. Считаем анимацию
                 if (partName == "Crystal")
                 {
                     bobbing = (float)(GameMath.Sin(t / 20f) / 17.5f);
@@ -87,31 +112,35 @@ namespace BotaniaStory
                     angle = (t * 1.5f) * GameMath.DEG2RAD;
                 }
 
-                // 2. Рассчитываем матрицу трансформации ПЕРЕД отрисовкой
+                // 6. Смещение: Natura пилон сдвигается из-за своего размера
+                float tx = 0.2f + (pylonType == EnumPylonType.Natura ? -0.1f : 0f);
+                float ty = 0.1f;
+                float tz = 0.8f + (pylonType == EnumPylonType.Natura ? 0.1f : 0f);
+
                 modelMat.Identity();
                 modelMat.Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z);
-                modelMat.Translate(0.2f, 0.1f, 0.8f);
-                modelMat.Scale(scale, scale, scale);
+                modelMat.Translate(tx, ty, tz);
+                modelMat.Scale(scale, 0.6f, scale);
                 modelMat.Translate(0f, bobbing, 0f);
                 modelMat.Translate(0.5f, 0f, -0.5f);
                 modelMat.RotateY(angle);
                 modelMat.Translate(-0.5f, 0f, 0.5f);
 
-                // 3. Отрисовка
                 if (partName == "Crystal")
                 {
-                    // --- Внутренний кристалл (Плотный) ---
+                    // Внутренний кристалл
                     prog.ModelMatrix = modelMat.Values;
                     prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
                     prog.ExtraGlow = 60;
                     render.RenderMesh(meshRef);
 
-                    // ---  СМЕШИВАНИЕ ---
+                    // Смешивание для внешнего кристалла
                     render.GlToggleBlend(true, EnumBlendMode.Standard);
-                    prog.AlphaTest = 0f; // Не даем движку отбрасывать прозрачные пиксели
+                    prog.AlphaTest = 0f;
 
-                    // --- Внешний кристалл (Полупрозрачный) ---
-                    float alpha = (float)((GameMath.Sin(t / 20f) / 2f + 0.5f) / 2f) + 0.183f;
+                    // Пульсация синхронно с вращением
+                    float alpha = 0.6f + (float)Math.Cos(t * GameMath.DEG2RAD) * 0.4f;
+
                     modelMat.Scale(1.1f, 1.1f, 1.1f);
                     modelMat.Translate(-0.05f, -0.1f, 0.05f);
 
@@ -122,14 +151,14 @@ namespace BotaniaStory
                     render.RenderMesh(meshRef);
 
                     render.GlToggleBlend(false);
-                    prog.AlphaTest = 0.5f; // Возвращаем стандартный порог
+                    prog.AlphaTest = 0.5f;
                 }
                 else
                 {
-                    // --- Все остальные элементы (Кольца, Камни) ---
+                    // Все остальные элементы (Кольца, Камни)
                     prog.ModelMatrix = modelMat.Values;
                     prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
-                    prog.ExtraGlow = 60;
+                    prog.ExtraGlow = 40; // Убрали свечение!
                     render.RenderMesh(meshRef);
                 }
             }
@@ -143,7 +172,6 @@ namespace BotaniaStory
             if (isDisposed) return;
             isDisposed = true;
 
-            // Отписываемся тоже только от одной стадии!
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
 
             foreach (var meshRef in pylonParts.Values)
@@ -151,7 +179,6 @@ namespace BotaniaStory
                 meshRef?.Dispose();
             }
             pylonParts.Clear();
-            loadedTexture?.Dispose();
         }
     }
 }

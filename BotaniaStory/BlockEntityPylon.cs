@@ -11,23 +11,41 @@ namespace BotaniaStory
         {
             base.Initialize(api);
 
-            // Рендерер запускаем только на стороне клиента (для отрисовки графики)
             if (api is ICoreClientAPI capi)
             {
-                renderer = new PylonRenderer(capi, Pos);
+                EnumPylonType currentType = EnumPylonType.Mana;
+
+                if (this.Block.Code.Path.Contains("natura"))
+                {
+                    currentType = EnumPylonType.Natura;
+                }
+                else if (this.Block.Code.Path.Contains("gaia"))
+                {
+                    currentType = EnumPylonType.Gaia;
+                }
+
+                renderer = new PylonRenderer(capi, Pos, currentType);
             }
+        }
+
+        // === ТОТ САМЫЙ МЕТОД ===
+        public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tessellator)
+        {
+            // Возвращаем true, чтобы движок НЕ генерировал стандартную JSON-модель в самом мире.
+            // При этом в инвентаре и в руках JSON-модель будет отображаться корректно!
+            return true;
         }
 
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
-            renderer?.Dispose(); // Очищаем память, если блок сломали
+            renderer?.Dispose();
         }
 
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();
-            renderer?.Dispose(); // Очищаем память, если чанк выгрузился
+            renderer?.Dispose();
         }
     }
 }
