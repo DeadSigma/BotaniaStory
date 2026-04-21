@@ -6,20 +6,18 @@ using OpenTK.Graphics.OpenGL;
 
 namespace BotaniaStory
 {
-    // Добавили IRenderer, чтобы система могла легально работать с графикой
     public class TextureAnimatorSystem : ModSystem, IRenderer
     {
         private ICoreClientAPI capi;
 
-        // Кешируем ID буферов, чтобы не пересоздавать их каждый кадр
         private int readFbo;
         private int drawFbo;
         private bool fbosInitialized = false;
 
-        // Настройки рендерера
-        public double RenderOrder => 0.1; // Рендерим в самом начале кадра
+        public double RenderOrder => 0.1;
         public int RenderRange => 999;
 
+        // ПЕРЕМЕСТИЛИ ПЕРЕМЕННЫЕ ВНУТРЬ ANIMATION DATA
         private class AnimationData
         {
             public string AnimLoc;
@@ -39,6 +37,12 @@ namespace BotaniaStory
             public TextureAtlasPosition ItemBasePos;
             public LoadedTexture ItemAnimTexture;
             public LoadedTexture ItemBaseTexture;
+
+            // Вот они, на своем законном месте:
+            public TextureAtlasPosition BlockAnimPos;
+            public TextureAtlasPosition BlockBasePos;
+            public LoadedTexture BlockAnimTexture;
+            public LoadedTexture BlockBaseTexture;
         }
 
         private List<AnimationData> animations = new List<AnimationData>();
@@ -49,6 +53,7 @@ namespace BotaniaStory
         {
             capi = api;
 
+            // Анимация искр
             animations.Add(new AnimationData()
             {
                 AnimLoc = "botaniastory:entity/spark_anim",
@@ -57,12 +62,18 @@ namespace BotaniaStory
                 TimePerFrame = 0.1f
             });
 
-            capi.Event.BlockTexturesLoaded += OnBlockTexturesLoaded;
+            // ДОБАВЛЯЕМ АНИМАЦИЮ НАШЕГО ЯДРА АЛЬФХЕЙМА!
+            animations.Add(new AnimationData()
+            {
+                AnimLoc = "botaniastory:block/alfheim_core_on_anim",   // Спрайт-лист ядра
+                BaseLoc = "botaniastory:block/alfheim_core_on_target", // Пустышка-мишень ядра
+                NumFrames = 6,
+                TimePerFrame = 0.1f // Скорость смены кадров
+            });
 
-            // Регистрируем рендерер на этапе Before, до того как игра начнет рисовать мир
+            capi.Event.BlockTexturesLoaded += OnBlockTexturesLoaded;
             capi.Event.RegisterRenderer(this, EnumRenderStage.Before, "textureanimator");
         }
-
         private void OnBlockTexturesLoaded()
         {
             foreach (var anim in animations)
@@ -81,6 +92,11 @@ namespace BotaniaStory
                 capi.ItemTextureAtlas.GetOrInsertTexture(baseAsset, out _, out anim.ItemBasePos);
                 anim.ItemAnimTexture = capi.ItemTextureAtlas.AtlasTextures[anim.ItemAnimPos.atlasNumber];
                 anim.ItemBaseTexture = capi.ItemTextureAtlas.AtlasTextures[anim.ItemBasePos.atlasNumber];
+
+                capi.BlockTextureAtlas.GetOrInsertTexture(animAsset, out _, out anim.BlockAnimPos);
+        capi.BlockTextureAtlas.GetOrInsertTexture(baseAsset, out _, out anim.BlockBasePos);
+        anim.BlockAnimTexture = capi.BlockTextureAtlas.AtlasTextures[anim.BlockAnimPos.atlasNumber];
+        anim.BlockBaseTexture = capi.BlockTextureAtlas.AtlasTextures[anim.BlockBasePos.atlasNumber];
             }
         }
 
@@ -105,6 +121,7 @@ namespace BotaniaStory
                     anim.FrameTime -= anim.TimePerFrame;
                     anim.CurrentFrame = (anim.CurrentFrame + 1) % anim.NumFrames;
 
+                    RenderFrameToAtlas(anim.BlockAnimTexture, anim.BlockAnimPos, anim.BlockBaseTexture, anim.BlockBasePos, anim.NumFrames, anim.CurrentFrame);
                     RenderFrameToAtlas(anim.EntityAnimTexture, anim.EntityAnimPos, anim.EntityBaseTexture, anim.EntityBasePos, anim.NumFrames, anim.CurrentFrame);
                     RenderFrameToAtlas(anim.ItemAnimTexture, anim.ItemAnimPos, anim.ItemBaseTexture, anim.ItemBasePos, anim.NumFrames, anim.CurrentFrame);
 
@@ -116,6 +133,7 @@ namespace BotaniaStory
             {
                 capi.EntityTextureAtlas.RegenMipMaps(0);
                 capi.ItemTextureAtlas.RegenMipMaps(0);
+                capi.BlockTextureAtlas.RegenMipMaps(0);
             }
         }
 

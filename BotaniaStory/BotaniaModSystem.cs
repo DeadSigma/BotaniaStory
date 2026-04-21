@@ -78,10 +78,12 @@ namespace BotaniaStory
             api.RegisterBlockEntityClass("BlockEntityTerrestrialPlate", typeof(BlockEntityTerrestrialPlate));
             api.RegisterBlockClass("BlockPylon", typeof(BlockPylon));
             api.RegisterBlockEntityClass("BEPylon", typeof(BlockEntityPylon));
+            api.RegisterBlockClass("BlockElvenGatewayCore", typeof(BlockElvenGatewayCore));
+            api.RegisterBlockEntityClass("BEElvenGatewayCore", typeof(BlockEntityElvenGatewayCore));
 
 
 
-            api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
+        api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }
 
         // --- 2. КЛИЕНТСКАЯ ЧАСТЬ (Звуки и Искры) ---

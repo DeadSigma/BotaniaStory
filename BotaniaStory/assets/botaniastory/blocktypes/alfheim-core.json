@@ -1,0 +1,21 @@
+{
+    "code": "alfheimcore",
+    "class": "BlockElvenGatewayCore",
+    "entityClass": "BEElvenGatewayCore",
+    "blockmaterial": "stone",
+    "variantgroups": [
+        {
+            "code": "state",
+            "states": [ "off", "on" ]
+        }
+    ],
+    "texturesByType": {
+        "*-off": { "all": { "base": "botaniastory:block/alfheim_core_off" } },
+        "*-on": { "all": { "base": "botaniastory:block/alfheim_core_on_target" } }
+    },
+    "drawpass": "Opaque",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    }
+}

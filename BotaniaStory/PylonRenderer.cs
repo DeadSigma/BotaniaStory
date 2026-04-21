@@ -39,6 +39,10 @@ namespace BotaniaStory
             this.pylonType = type; // Сохраняем тип
 
             capi.Event.RegisterRenderer(this, EnumRenderStage.Opaque, "botaniapylon");
+
+            capi.Event.RegisterRenderer(this, EnumRenderStage.ShadowFar, "botaniapylon");
+            capi.Event.RegisterRenderer(this, EnumRenderStage.ShadowNear, "botaniapylon");
+
             this.animationOffset = (float)(new Random(pos.X ^ pos.Y ^ pos.Z).NextDouble() * 10000);
 
             // 2. Загрузка модели
@@ -71,15 +75,29 @@ namespace BotaniaStory
             IRenderAPI render = capi.Render;
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
 
-            IStandardShaderProgram prog = render.PreparedStandardShader(pos.X, pos.Y, pos.Z);
+            // Определяем, рисуем ли мы сейчас тень
+            bool isShadowPass = stage == EnumRenderStage.ShadowFar || stage == EnumRenderStage.ShadowNear;
 
-            prog.Tex2D = loadedTexture.TextureId;
-            prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
-            prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
+            IStandardShaderProgram stdProg = null;
+            IShaderProgram shadowProg = null;
+
+            if (isShadowPass)
+            {
+                // Движок сам подготовил шейдер для теней. Берем его.
+                shadowProg = render.CurrentActiveShader;
+                // Передаем текстуру (необходимо, если в текстуре есть альфа-канал, влияющий на форму тени)
+                shadowProg.BindTexture2D("tex2d", loadedTexture.TextureId, 0);
+            }
+            else
+            {
+                // Обычная отрисовка пилона
+                stdProg = render.PreparedStandardShader(pos.X, pos.Y, pos.Z);
+                stdProg.Tex2D = loadedTexture.TextureId;
+                stdProg.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
+                stdProg.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
+            }
 
             float t = (capi.World.ElapsedMilliseconds + animationOffset) / 50f;
-
-            // 4. Задаем масштаб в зависимости от типа
             float scale = (pylonType == EnumPylonType.Natura) ? 0.8f : 0.6f;
 
             foreach (var kvp in pylonParts)
@@ -87,11 +105,7 @@ namespace BotaniaStory
                 string partName = kvp.Key;
                 MeshRef meshRef = kvp.Value;
 
-                // 5. Магия Natura пилона: если это он, рисуем ТОЛЬКО кристалл, остальное пропускаем
-                if (pylonType == EnumPylonType.Natura && partName != "Crystal")
-                {
-                    continue;
-                }
+                if (pylonType == EnumPylonType.Natura && partName != "Crystal") continue;
 
                 float bobbing = 0f;
                 float angle = 0f;
@@ -112,7 +126,6 @@ namespace BotaniaStory
                     angle = (t * 1.5f) * GameMath.DEG2RAD;
                 }
 
-                // 6. Смещение: Natura пилон сдвигается из-за своего размера
                 float tx = 0.2f + (pylonType == EnumPylonType.Natura ? -0.1f : 0f);
                 float ty = 0.1f;
                 float tz = 0.8f + (pylonType == EnumPylonType.Natura ? 0.1f : 0f);
@@ -126,45 +139,67 @@ namespace BotaniaStory
                 modelMat.RotateY(angle);
                 modelMat.Translate(-0.5f, 0f, 0.5f);
 
-                if (partName == "Crystal")
+                if (isShadowPass)
                 {
-                    // Внутренний кристалл
-                    prog.ModelMatrix = modelMat.Values;
-                    prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
-                    prog.ExtraGlow = 60;
-                    render.RenderMesh(meshRef);
+                    // === РЕНДЕР ТЕНИ ===
+                    Matrixf mvpMat = new Matrixf();
 
-                    // Смешивание для внешнего кристалла
-                    render.GlToggleBlend(true, EnumBlendMode.Standard);
-                    prog.AlphaTest = 0f;
+                    // 1. Берем матрицу проекции от движка
+                    mvpMat.Set(capi.Render.CurrentProjectionMatrix);
 
-                    // Пульсация синхронно с вращением
-                    float alpha = 0.6f + (float)Math.Cos(t * GameMath.DEG2RAD) * 0.4f;
+                    // 2. Умножаем на матрицу вида (позиция солнца/камеры теней)
+                    mvpMat.Mul(capi.Render.CurrentModelviewMatrix);
 
-                    modelMat.Scale(1.1f, 1.1f, 1.1f);
-                    modelMat.Translate(-0.05f, -0.1f, 0.05f);
+                    // 3. Умножаем на матрицу нашего пилона (анимация и позиция в мире)
+                    mvpMat.Mul(modelMat.Values);
 
-                    prog.ModelMatrix = modelMat.Values;
-                    prog.RgbaTint = new Vec4f(1f, 1f, 1f, alpha);
-                    prog.ExtraGlow = 100;
+                    // 4. Передаем готовую матрицу в теневой шейдер под правильным ключом
+                    shadowProg.UniformMatrix("mvpMatrix", mvpMat.Values);
 
                     render.RenderMesh(meshRef);
-
-                    render.GlToggleBlend(false);
-                    prog.AlphaTest = 0.5f;
                 }
                 else
                 {
-                    // Все остальные элементы (Кольца, Камни)
-                    prog.ModelMatrix = modelMat.Values;
-                    prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
-                    prog.ExtraGlow = 40; // Убрали свечение!
-                    render.RenderMesh(meshRef);
+                    // === ОБЫЧНЫЙ РЕНДЕР === 
+                    if (partName == "Crystal")
+                    {
+                        stdProg.ModelMatrix = modelMat.Values;
+                        stdProg.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
+                        stdProg.ExtraGlow = 150;
+                        render.RenderMesh(meshRef);
+
+                        render.GlToggleBlend(true, EnumBlendMode.Standard);
+                        stdProg.AlphaTest = 0f;
+
+                        float alpha = 0.6f + (float)Math.Cos(t * GameMath.DEG2RAD) * 0.4f;
+
+                        modelMat.Scale(1.1f, 1.1f, 1.1f);
+                        modelMat.Translate(-0.05f, -0.1f, 0.05f);
+
+                        stdProg.ModelMatrix = modelMat.Values;
+                        stdProg.RgbaTint = new Vec4f(1f, 1f, 1f, alpha);
+                        stdProg.ExtraGlow = 100;
+
+                        render.RenderMesh(meshRef);
+
+                        render.GlToggleBlend(false);
+                        stdProg.AlphaTest = 0.5f;
+                    }
+                    else
+                    {
+                        stdProg.ModelMatrix = modelMat.Values;
+                        stdProg.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
+                        stdProg.ExtraGlow = 60;
+                        render.RenderMesh(meshRef);
+                    }
                 }
             }
 
-            prog.ExtraGlow = 0;
-            prog.Stop();
+            if (!isShadowPass)
+            {
+                stdProg.ExtraGlow = 0;
+                stdProg.Stop();
+            }
         }
 
         public void Dispose()
@@ -173,6 +208,9 @@ namespace BotaniaStory
             isDisposed = true;
 
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
+
+            capi.Event.UnregisterRenderer(this, EnumRenderStage.ShadowFar);
+            capi.Event.UnregisterRenderer(this, EnumRenderStage.ShadowNear);
 
             foreach (var meshRef in pylonParts.Values)
             {

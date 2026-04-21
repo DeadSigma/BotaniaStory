@@ -91,7 +91,7 @@ namespace BotaniaStory
 
             if (Api.Side == EnumAppSide.Server)
             {
-                // Слегка увеличили радиус поиска (с 1.0 до 2.0), чтобы гарантированно зацепить хитбокс
+                // Слегка увеличил радиус поиска (с 1.0 до 2.0), чтобы гарантированно зацепить хитбокс
                 Entity[] sparks = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 1.2, 0.5), 0.2f, 0.5f, e => e is EntitySpark);
 
                 foreach (Entity entity in sparks)
@@ -155,7 +155,7 @@ namespace BotaniaStory
                     int[] customInts = liquidMesh.CustomInts.Values;
                     for (int i = 0; i < liquidMesh.VerticesCount; i++)
                     {
-                        // Используем ТОЛЬКО это число - оно проверено бочкой!
+                        // Используем ТОЛЬКО это число
                         customInts[i] |= 805306368;
                     }
 
@@ -179,26 +179,70 @@ namespace BotaniaStory
             float fillRatio = (float)CurrentMana / MaxMana;
 
             float baseY = isDilutedPool ? 1.01f : 2.01f;
-            float maxRise = isDilutedPool ? 4.89f : 5.89f; // +0.89f чтобы летели с поверхности
+            float maxRise = isDilutedPool ? 4.89f : 5.89f;
             float heightPixels = baseY + (fillRatio * maxRise);
             float height = heightPixels / 16f;
 
-            // Для разбавленного бассейна разброс частиц должен быть шире (от 0.05 до 0.95)
-            float minPos = isDilutedPool ? 0.05f : 0.15f;
-            float maxPos = isDilutedPool ? 0.95f : 0.85f;
+            // Считаем разброс частиц от центра бассейна (0.5)
+            float posVariance = isDilutedPool ? 0.45f : 0.35f;
 
-            SimpleParticleProperties particles = new SimpleParticleProperties(
-                1, 2,
-                ColorUtil.ToRgba(255, 100, 255, 255),
-                new Vec3d(Pos.X + minPos, Pos.Y + height, Pos.Z + minPos),
-                new Vec3d(Pos.X + maxPos, Pos.Y + height + 0.05, Pos.Z + maxPos),
-                new Vec3f(-0.05f, 0.1f, -0.05f),
-                new Vec3f(0.1f, 0.2f, 0.1f),
-                1.5f,
-                -0.02f,
-                0.1f, 0.35f,
-                EnumParticleModel.Quad
-            );
+            // ПРОВЕРЯЕМ БЛОК СВЕРХУ (Код из предыдущего шага)
+            Block blockAbove = Api.World.BlockAccessor.GetBlock(Pos.UpCopy());
+            bool isPylonAbove = blockAbove is BlockPylon || (blockAbove.Code != null && blockAbove.Code.Path.Contains("pylon"));
+            float particleLife = isPylonAbove ? 0.35f : 1.5f;
+
+            // ====================================================
+            // ИСПОЛЬЗУЕМ ADVANCED ПАРТИКЛЫ ДЛЯ ЭФФЕКТОВ ЗАТУХАНИЯ
+            // ====================================================
+            AdvancedParticleProperties particles = new AdvancedParticleProperties()
+            {
+                // Позиция: Центр бассейна
+                basePos = new Vec3d(Pos.X + 0.5, Pos.Y + height, Pos.Z + 0.5),
+
+                // Разброс вокруг центра
+                PosOffset = new NatFloat[] {
+            NatFloat.createUniform(0, posVariance),
+            NatFloat.createUniform(0, 0.05f),
+            NatFloat.createUniform(0, posVariance)
+        },
+
+                // Скорость: среднее значение + разброс (аналог min/max Velocity)
+                Velocity = new NatFloat[] {
+            NatFloat.createUniform(0.025f, 0.075f), // X: слегка в стороны
+            NatFloat.createUniform(0.15f, 0.05f),   // Y: летят вверх
+            NatFloat.createUniform(0.025f, 0.075f)  // Z: слегка в стороны
+        },
+
+                // Цвет в формате HSVA (Шкала 0-255 для всех параметров)
+                HsvaColor = new NatFloat[] {
+                NatFloat.createUniform(128, 10), // Оттенок: 212 (Тот самый розово-пурпурный цвет маны)
+                NatFloat.createUniform(155, 20), // Насыщенность
+                NatFloat.createUniform(255, 0),  // Яркость
+                NatFloat.createUniform(255, 0)   // Прозрачность
+                },
+
+                // ====================================================
+                // 1. ПЛАВНОЕ ЗАТУХАНИЕ ПРОЗРАЧНОСТИ
+                // Линейно отнимаем 255 от Альфа-канала к концу жизни
+                // ====================================================
+                OpacityEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -255f),
+
+                // ====================================================
+                // 2. ПЛАВНОЕ СЖАТИЕ
+                // Частицы будут слегка "сдуваться" перед исчезновением
+                // ====================================================
+                SizeEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -0.15f),
+
+                // Количество, Жизнь и Гравитация
+                Quantity = NatFloat.createUniform(1.5f, 0.5f), // От 1 до 2 штук
+                LifeLength = NatFloat.createUniform(particleLife, 0.1f),
+                GravityEffect = NatFloat.createUniform(-0.02f, 0f),
+
+                // Размер
+                Size = NatFloat.createUniform(0.225f, 0.125f),
+
+                ParticleModel = EnumParticleModel.Quad
+            };
 
             Api.World.SpawnParticles(particles);
         }
@@ -401,6 +445,8 @@ namespace BotaniaStory
                 0.2f, 0.5f,
                 EnumParticleModel.Cube
             );
+
+
 
             Api.World.SpawnParticles(particles);
         }
