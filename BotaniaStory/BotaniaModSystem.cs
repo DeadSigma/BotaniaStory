@@ -77,9 +77,9 @@ namespace BotaniaStory
             api.RegisterBlockClass("BlockTerrestrialPlate", typeof(BlockTerrestrialPlate));
             api.RegisterBlockEntityClass("BlockEntityTerrestrialPlate", typeof(BlockEntityTerrestrialPlate));
             api.RegisterBlockClass("BlockPylon", typeof(BlockPylon));
-
-           
             api.RegisterBlockEntityClass("BEPylon", typeof(BlockEntityPylon));
+
+
 
             api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }

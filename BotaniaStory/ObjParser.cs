@@ -117,7 +117,7 @@ namespace BotaniaStory
                 if (data.indices.Count == 0) continue; // Игнорируем пустые группы
 
                 int vertexCount = data.finalXyz.Count / 3;
-                MeshData mesh = new MeshData(vertexCount, data.indices.Count, false, true, true, true);
+                MeshData mesh = new MeshData(vertexCount, data.indices.Count);
 
                 mesh.SetXyz(data.finalXyz.ToArray());
                 mesh.SetUv(data.finalUv.ToArray());

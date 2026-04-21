@@ -15,7 +15,7 @@ namespace BotaniaStory
         private Dictionary<string, MeshRef> pylonParts = new Dictionary<string, MeshRef>();
 
         private bool isDisposed = false;
-        private float animationOffset; // Рандомное смещение для каждого пилона
+        private float animationOffset;
 
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
@@ -25,7 +25,8 @@ namespace BotaniaStory
             this.capi = capi;
             this.pos = pos;
 
-            // Чтобы пилоны не крутились синхронно, добавим рандомный сдвиг по времени
+            capi.Event.RegisterRenderer(this, EnumRenderStage.Opaque, "botaniapylon");
+
             this.animationOffset = (float)(new Random(pos.X ^ pos.Y ^ pos.Z).NextDouble() * 10000);
 
             AssetLocation objPath = new AssetLocation("botaniastory", "shapes/pylon.obj");
@@ -43,8 +44,6 @@ namespace BotaniaStory
             AssetLocation texPath = new AssetLocation("botaniastory", "textures/block/pylon.png");
             loadedTexture = new LoadedTexture(capi);
             capi.Render.GetOrLoadTexture(texPath, ref loadedTexture);
-
-            capi.Event.RegisterRenderer(this, EnumRenderStage.Opaque, "botaniapylon");
         }
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
@@ -60,14 +59,7 @@ namespace BotaniaStory
             prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
             prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
 
-            // Мягкое магическое свечение (60 из 255). 
-            // Если захочешь ярче - ставь 80-100. Если темнее - 20-40.
-            prog.ExtraGlow = 60;
-
-            // Переводим миллисекунды в "тики" (1 тик = 50мс), чтобы скорости совпали с оригиналом
             float t = (capi.World.ElapsedMilliseconds + animationOffset) / 50f;
-
-            // Тот самый масштаб 0.6 из оригинальной Botania
             float scale = 0.6f;
 
             foreach (var kvp in pylonParts)
@@ -78,51 +70,70 @@ namespace BotaniaStory
                 float bobbing = 0f;
                 float angle = 0f;
 
-                // Точные тайминги и синусоиды прямо из RenderTilePylon.java!
-                if (partName.Contains("Crystal"))
+                // 1. Считаем анимацию
+                if (partName == "Crystal")
                 {
                     bobbing = (float)(GameMath.Sin(t / 20f) / 17.5f);
-                    angle = -t * GameMath.DEG2RAD; // Крутится в обратную сторону
+                    angle = -t * GameMath.DEG2RAD;
                 }
                 else if (partName.Contains("Gem"))
                 {
                     bobbing = (float)(GameMath.Sin(t / 20f) / 20f) - 0.025f;
                     angle = (t * 1.5f) * GameMath.DEG2RAD;
                 }
-                else // Золотое кольцо
+                else
                 {
                     bobbing = 0f;
                     angle = (t * 1.5f) * GameMath.DEG2RAD;
                 }
 
+                // 2. Рассчитываем матрицу трансформации ПЕРЕД отрисовкой
                 modelMat.Identity();
-
-                // 1. Двигаем рендер к нашему блоку в мире
                 modelMat.Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z);
-
-                // 2. ТЕ САМЫЕ ИДЕАЛЬНЫЕ КООРДИНАТЫ ИЗ ОРИГИНАЛА: 0.2, 0.05, 0.8
-                // С ними центр модели (с учетом сдвига и масштаба) окажется ровно на 0.5, 0.5!
-                modelMat.Translate(0.2f, 0.1f, 0.8f); // Слегка приподнял Y до 0.1f, чтобы не торчало в полу
-
-                // 3. Масштабируем
+                modelMat.Translate(0.2f, 0.1f, 0.8f);
                 modelMat.Scale(scale, scale, scale);
-
-                // 4. Применяем эффект парения (вверх-вниз)
                 modelMat.Translate(0f, bobbing, 0f);
-
-                // 5. Ось вращения из Botania
                 modelMat.Translate(0.5f, 0f, -0.5f);
                 modelMat.RotateY(angle);
                 modelMat.Translate(-0.5f, 0f, 0.5f);
 
-                prog.ModelMatrix = modelMat.Values;
-                prog.ViewMatrix = render.CameraMatrixOriginf;
-                prog.ProjectionMatrix = render.CurrentProjectionMatrix;
+                // 3. Отрисовка
+                if (partName == "Crystal")
+                {
+                    // --- Внутренний кристалл (Плотный) ---
+                    prog.ModelMatrix = modelMat.Values;
+                    prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
+                    prog.ExtraGlow = 60;
+                    render.RenderMesh(meshRef);
 
-                render.RenderMesh(meshRef);
+                    // ---  СМЕШИВАНИЕ ---
+                    render.GlToggleBlend(true, EnumBlendMode.Standard);
+                    prog.AlphaTest = 0f; // Не даем движку отбрасывать прозрачные пиксели
+
+                    // --- Внешний кристалл (Полупрозрачный) ---
+                    float alpha = (float)((GameMath.Sin(t / 20f) / 2f + 0.5f) / 2f) + 0.183f;
+                    modelMat.Scale(1.1f, 1.1f, 1.1f);
+                    modelMat.Translate(-0.05f, -0.1f, 0.05f);
+
+                    prog.ModelMatrix = modelMat.Values;
+                    prog.RgbaTint = new Vec4f(1f, 1f, 1f, alpha);
+                    prog.ExtraGlow = 100;
+
+                    render.RenderMesh(meshRef);
+
+                    render.GlToggleBlend(false);
+                    prog.AlphaTest = 0.5f; // Возвращаем стандартный порог
+                }
+                else
+                {
+                    // --- Все остальные элементы (Кольца, Камни) ---
+                    prog.ModelMatrix = modelMat.Values;
+                    prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
+                    prog.ExtraGlow = 60;
+                    render.RenderMesh(meshRef);
+                }
             }
 
-            // Обязательно выключаем свечение для остальных блоков
             prog.ExtraGlow = 0;
             prog.Stop();
         }
@@ -132,16 +143,15 @@ namespace BotaniaStory
             if (isDisposed) return;
             isDisposed = true;
 
-            // Сначала отписываемся от события отрисовки
+            // Отписываемся тоже только от одной стадии!
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
 
-            // Затем удаляем меши
             foreach (var meshRef in pylonParts.Values)
             {
                 meshRef?.Dispose();
             }
             pylonParts.Clear();
-
+            loadedTexture?.Dispose();
         }
     }
 }
