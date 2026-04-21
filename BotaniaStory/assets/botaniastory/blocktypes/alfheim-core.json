@@ -2,11 +2,17 @@
     "code": "alfheimcore",
     "class": "BlockElvenGatewayCore",
     "entityClass": "BEElvenGatewayCore",
-    "blockmaterial": "stone",
     "variantgroups": [
         {
             "code": "state",
             "states": [ "off", "on" ]
+        }
+    ],
+    "drops": [
+        {
+            "type": "block",
+            "code": "botaniastory:alfheimcore-off",
+            "quantity": { "avg": 1 }
         }
     ],
     "texturesByType": {
@@ -17,5 +23,13 @@
     "creativeinventory": {
         "general": [ "*" ],
         "botaniastory": [ "*" ]
-    }
+    },
+    "blockmaterial": "Wood",
+    "sounds": {
+        "place": "game:block/planks",
+        "break": "game:block/planks",
+        "hit": "game:block/planks",
+        "walk": "game:walk/wood"
+    },
+    "resistance": 3
 }

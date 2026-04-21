@@ -1,0 +1,36 @@
+{
+    "code": "alfheim_portal_dummy",
+    "class": "Block",
+    "variantgroups": [
+        {
+            "code": "orientation",
+            "states": [ "ns", "we" ]
+        }
+    ],
+    "renderPass": "Transparent",
+    "lightAbsorption": 0,
+    "tongOpening": "wide",
+    "vertexFlags": {
+        "zOffset": 2,
+        "shiny": true
+    },
+    "resistance": 0.25,
+    "sideopaque": {
+        "all": false
+    },
+    "shapeByType": {
+        "*-we": { "base": "botaniastory:block/alfheim_portal_shape" },
+        "*-ns": {
+            "base": "botaniastory:block/alfheim_portal_shape",
+            "rotateY": 90
+        }
+    },
+    "textures": {
+        "portal": { "base": "botaniastory:block/alfheim_portal_target" }
+    },
+    "lightHsv": [ 8, 7, 15 ],
+    "collisionbox": null,
+    "selectionbox": null,
+    "materialDensity": 0,
+    "drops": []
+}

@@ -1,0 +1,63 @@
+{
+	"editor": {
+		"allAngles": false,
+		"singleTexture": true
+	},
+	"textureWidth": 48,
+	"textureHeight": 48,
+	"textureSizes": {
+		"portal": [ 48, 48 ]
+	},
+	"textures": {
+		"portal": "botaniastory:block/alfheim_portal_target"
+	},
+	"elements": [
+		{
+			"name": "PortalPlane",
+			"from": [ -16, 0, 6.3 ],
+			"to": [ 32, 48, 9.7 ],
+			"rotationOrigin": [ 0, 0, 0 ],
+			"uv": [ 0, 0 ],
+			"shade": true,
+			"faces": {
+				"north": {
+					"texture": "#portal",
+					"uv": [ 0, 0, 48, 48 ],
+					"autoUv": false,
+					"snapUv": false
+				},
+				"east": {
+					"texture": "#portal",
+					"uv": [ 0, 0, 1, 48 ],
+					"autoUv": false,
+					"snapUv": false
+				},
+				"south": {
+					"texture": "#portal",
+					"uv": [ 0, 0, 48, 48 ],
+					"autoUv": false,
+					"snapUv": false
+				},
+				"west": {
+					"texture": "#portal",
+					"uv": [ 0, 0, 1, 48 ],
+					"autoUv": false,
+					"snapUv": false
+				},
+				"up": {
+					"texture": "#portal",
+					"uv": [ 0, 0, 48, 1 ],
+					"autoUv": false,
+					"snapUv": false
+				},
+				"down": {
+					"texture": "#portal",
+					"uv": [ 0, 0, 48, 1 ],
+					"autoUv": false,
+					"snapUv": false
+				}
+			}
+		}
+	],
+	"animations": []
+}

@@ -62,7 +62,7 @@ namespace BotaniaStory
                 TimePerFrame = 0.1f
             });
 
-            // ДОБАВЛЯЕМ АНИМАЦИЮ НАШЕГО ЯДРА АЛЬФХЕЙМА!
+            //  АНИМАЦИЯ ЯДРА АЛЬФХЕЙМА!
             animations.Add(new AnimationData()
             {
                 AnimLoc = "botaniastory:block/alfheim_core_on_anim",   // Спрайт-лист ядра
@@ -70,6 +70,16 @@ namespace BotaniaStory
                 NumFrames = 6,
                 TimePerFrame = 0.1f // Скорость смены кадров
             });
+
+            // Анимация портала
+            animations.Add(new AnimationData()
+            {
+                AnimLoc = "botaniastory:block/alfheim_portal_anim",   // 1x16 спрайт-лист портала
+                BaseLoc = "botaniastory:block/alfheim_portal_target", // Пустышка (её мы будем рендерить)
+                NumFrames = 16,
+                TimePerFrame = 0.05f // В оригинале портал крутится довольно быстро
+            });
+
 
             capi.Event.BlockTexturesLoaded += OnBlockTexturesLoaded;
             capi.Event.RegisterRenderer(this, EnumRenderStage.Before, "textureanimator");

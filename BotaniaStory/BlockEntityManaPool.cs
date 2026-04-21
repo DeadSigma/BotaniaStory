@@ -30,6 +30,20 @@ namespace BotaniaStory
 
         public int GetAvailableSpace() => MaxMana - CurrentMana;
 
+        public bool ConsumeMana(int amount)
+        {
+            // Творческий бассейн всегда отдает ману и никогда не пустеет
+            if (isCreativePool) return true;
+
+            if (CurrentMana >= amount)
+            {
+                CurrentMana -= amount;
+                MarkDirty(true);
+                return true;
+            }
+
+            return false; // Маны не хватило
+        }
         public void ReceiveMana(int amount)
         {
             CurrentMana = Math.Clamp(CurrentMana + amount, 0, MaxMana);

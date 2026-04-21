@@ -141,7 +141,6 @@ namespace BotaniaStory
                 mesh.IndicesCount = data.indices.Count;
 
                 resultMeshes[name] = mesh;
-                capi.Logger.Notification($"[BotaniaStory] Загружена часть модели: '{name}' (Вершин: {vertexCount})");
             }
 
             return resultMeshes;

@@ -3,6 +3,7 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 
 namespace BotaniaStory
 {
@@ -10,7 +11,7 @@ namespace BotaniaStory
     {
         private PylonRenderer modelRenderer;
         private PylonParticleRenderer particleRenderer;
-        private EnumPylonType currentType;
+        public EnumPylonType CurrentType;
 
         // Позиция портала/алтаря, к которому подключен пилон
         public BlockPos LinkedTarget = null;
@@ -19,18 +20,58 @@ namespace BotaniaStory
         {
             base.Initialize(api);
 
+            // Определяем тип пилона для ОБЕИХ сторон (клиента и сервера)
+            CurrentType = EnumPylonType.Mana;
+            if (this.Block.Code.Path.Contains("natura")) CurrentType = EnumPylonType.Natura;
+            else if (this.Block.Code.Path.Contains("gaia")) CurrentType = EnumPylonType.Gaia;
+
             if (api is ICoreClientAPI capi)
             {
-                currentType = EnumPylonType.Mana;
-                if (this.Block.Code.Path.Contains("natura")) currentType = EnumPylonType.Natura;
-                else if (this.Block.Code.Path.Contains("gaia")) currentType = EnumPylonType.Gaia;
-
-                modelRenderer = new PylonRenderer(capi, Pos, currentType);
+                modelRenderer = new PylonRenderer(capi, Pos, CurrentType);
                 particleRenderer = new PylonParticleRenderer(capi);
 
-                // Запускаем игровой тик каждые 110мс
+                // Клиентский тик для частиц
                 RegisterGameTickListener(SpawnParticlesTick, 110);
             }
+            else if (api is ICoreServerAPI sapi)
+            {
+                // Запускаем серверный тик каждые 50мс (1 игровой тик)
+                RegisterGameTickListener(ServerTick, 50);
+            }
+        }
+        private void ServerTick(float dt)
+        {
+            // Тратят ману только природные пилоны, которые подключены к ядру
+            if (CurrentType != EnumPylonType.Natura || LinkedTarget == null) return;
+
+            bool hasMana = false;
+
+            // Проверяем блок ровно под пилоном
+            BlockPos poolPos = Pos.DownCopy();
+            if (Api.World.BlockAccessor.GetBlockEntity(poolPos) is BlockEntityManaPool pool)
+            {
+                // Пытаемся забрать 1 ману за тик (пассивный режим)
+                if (pool.ConsumeMana(1))
+                {
+                    hasMana = true;
+                }
+            }
+
+            // Если бассейна нет или мана закончилась — принудительно гасим портал
+            if (!hasMana)
+            {
+                TurnOffGateway();
+            }
+        }
+        private void TurnOffGateway()
+        {
+            if (LinkedTarget != null && Api.World.BlockAccessor.GetBlockEntity(LinkedTarget) is BlockEntityElvenGatewayCore core)
+            {
+                // Ядро само позаботится об отвязке всех пилонов
+                core.Deactivate();
+            }
+            LinkedTarget = null;
+            MarkDirty(true);
         }
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
@@ -49,8 +90,8 @@ namespace BotaniaStory
 
             // Цвета точно как в TilePylon.java Botania
             Vec4f pylonColor = new Vec4f(0.5f, 0.8f, 1.0f, 1.0f);
-            if (currentType == EnumPylonType.Natura) pylonColor = new Vec4f(0.5f, 1.0f, 0.5f, 1.0f); // Зеленый
-            else if (currentType == EnumPylonType.Gaia) pylonColor = new Vec4f(1.0f, 0.5f, 1.0f, 1.0f); // Розовый
+            if (CurrentType == EnumPylonType.Natura) pylonColor = new Vec4f(0.5f, 1.0f, 0.5f, 1.0f); // Зеленый
+            else if (CurrentType == EnumPylonType.Gaia) pylonColor = new Vec4f(1.0f, 0.5f, 1.0f, 1.0f); // Розовый
 
             // 1. ПАССИВНЫЕ ИСКРЫ (SparkleFX)
             // В оригинале: rand.nextBoolean()
@@ -74,7 +115,7 @@ namespace BotaniaStory
             {
                 Vec3d targetCenter = new Vec3d(LinkedTarget.X + 0.5, LinkedTarget.Y + 0.75, LinkedTarget.Z + 0.5);
 
-                if (currentType == EnumPylonType.Natura)
+                if (CurrentType == EnumPylonType.Natura)
                 {
                     // === 1. ЭФФЕКТ СВЯЗИ С ПОРТАЛОМ (Медленные и виляющие) ===
                     double linkTime = Api.World.ElapsedMilliseconds / 350.0;
@@ -151,7 +192,6 @@ namespace BotaniaStory
             }
         }
 
-        // === ТОТ САМЫЙ МЕТОД ===
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tessellator)
         {
             // Возвращаем true, чтобы движок НЕ генерировал стандартную JSON-модель в самом мире.
@@ -161,6 +201,8 @@ namespace BotaniaStory
 
         public override void OnBlockRemoved()
         {
+            TurnOffGateway();
+
             base.OnBlockRemoved();
             modelRenderer?.Dispose();
         }

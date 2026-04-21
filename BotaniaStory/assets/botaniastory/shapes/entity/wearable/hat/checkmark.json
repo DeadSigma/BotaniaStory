@@ -71,7 +71,7 @@
 									"snapUv": false
 								}
 							},
-							"stepParentName": "",
+							
 							"climateColorMap": "",
 							"gradientShade": false,
 							"renderPass": 0,
@@ -122,7 +122,7 @@
 									"snapUv": false
 								}
 							},
-							"stepParentName": "",
+							
 							"climateColorMap": "",
 							"gradientShade": false,
 							"renderPass": 0,
@@ -174,7 +174,7 @@
 								}
 							},
 							"rotationZ": 1.75,
-							"stepParentName": "",
+							
 							"climateColorMap": "",
 							"gradientShade": false,
 							"renderPass": 0,
@@ -226,14 +226,14 @@
 								}
 							},
 							"rotationZ": -1.25,
-							"stepParentName": "",
+							
 							"climateColorMap": "",
 							"gradientShade": false,
 							"renderPass": 0,
 							"seasonColorMap": ""
 						}
 					],
-					"stepParentName": ""
+
 				}
 			]
 		}
