@@ -108,10 +108,8 @@ namespace BotaniaStory
                 isInitialized = true;
             }
 
-            // Проверяем, что первый кадр и текстура загрузились
             if (frameMeshes[0] == null || animTex == null || animTex.TextureId == 0) return;
 
-            // Таймер анимации (10 кадров в секунду)
             frameTimer += deltaTime;
             if (frameTimer >= 0.1f)
             {
@@ -124,41 +122,40 @@ namespace BotaniaStory
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)spark.Pos.X, (int)spark.Pos.Y, (int)spark.Pos.Z);
 
             prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
-            prog.RgbaLightIn = new Vec4f(0f, 0f, 0f, 0f);
+            prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
             prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
             prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
             prog.ExtraGlow = 255;
 
+            // --- ИСПРАВЛЕНИЕ АЛЬФЫ ---
+            // Сбрасываем обрезку прозрачности до минимума, чтобы искра была мягкой
+            prog.AlphaTest = 0.01f;
+
             capi.Render.GlToggleBlend(true, EnumBlendMode.Standard);
             GL.DepthMask(false);
 
-            // === ИДЕАЛЬНЫЙ БИЛЛБОРДИНГ ===
-            // 1. Оставляем позицию относительно сущности (как и было)
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
             float dx = (float)(spark.Pos.X - camPos.X);
             float dy = (float)(spark.Pos.Y - camPos.Y);
             float dz = (float)(spark.Pos.Z - camPos.Z);
 
-            // 2. Достаем матрицу камеры (View Matrix)
             float[] view = capi.Render.CameraMatrixOriginf;
-
-            // 3. Создаем матрицу биллборда (Транспонируем 3x3 часть матрицы камеры).
-            // Это скопирует поворот камеры 1 в 1, заставляя плоскость всегда смотреть в экран.
             float[] billboardMatrix = new float[]
             {
-                view[0], view[4], view[8],  0,
-                view[1], view[5], view[9],  0,
-                view[2], view[6], view[10], 0,
-                0,       0,       0,        1
+        view[0], view[4], view[8],  0,
+        view[1], view[5], view[9],  0,
+        view[2], view[6], view[10], 0,
+        0,       0,       0,        1
             };
 
-            // БИНДИМ НЕЗАВИСИМУЮ ТЕКСТУРУ
-            capi.Render.BindTexture2d(animTex.TextureId);
+            // --- ИСПРАВЛЕНИЕ ТЕКСТУРЫ ---
+            // Передаем текстуру напрямую в шейдер, а не просто биндим в OpenGL
+            prog.Tex2D = animTex.TextureId;
 
             Matrixf modelMat = new Matrixf();
             modelMat.Identity()
                     .Translate(dx, dy, dz)
-                    .Mul(billboardMatrix) // <-- ПРИМЕНЯЕМ ПОВОРОТ КАМЕРЫ
+                    .Mul(billboardMatrix)
                     .Scale(3f, 3f, 3f)
                     .Translate(-0.5f, -0.09375f, -0.5f);
 
@@ -166,7 +163,6 @@ namespace BotaniaStory
             prog.ViewMatrix = capi.Render.CameraMatrixOriginf;
             prog.ProjectionMatrix = capi.Render.CurrentProjectionMatrix;
 
-            // Рендерим ТОЛЬКО ТЕКУЩИЙ КАДР!
             capi.Render.RenderMesh(frameMeshes[currentFrame]);
 
             string augmentType = spark.WatchedAttributes.GetString("augment", "none");
@@ -181,17 +177,17 @@ namespace BotaniaStory
 
                 if (texToBind != 0)
                 {
-                    capi.Render.BindTexture2d(texToBind);
+                    // --- ИСПРАВЛЕНИЕ ТЕКСТУРЫ РУНЫ ---
+                    prog.Tex2D = texToBind;
 
                     float orbitRadius = 0.2f;
                     float orbitX = (float)Math.Cos(orbitAngle) * orbitRadius;
                     float orbitZ = (float)Math.Sin(orbitAngle) * orbitRadius;
                     float orbitY = (float)Math.Sin(orbitAngle * 2f) * 0.1f;
 
-                    // Применяем ту же матрицу биллборда к Руне (дополнитель)
                     modelMat.Identity()
                             .Translate(dx + orbitX, dy + orbitY, dz + orbitZ)
-                            .Mul(billboardMatrix) // <-- ПРИМЕНЯЕМ ПОВОРОТ КАМЕРЫ ДЛЯ РУНЫ
+                            .Mul(billboardMatrix)
                             .Scale(0.4f, 0.4f, 0.4f);
 
                     prog.ModelMatrix = modelMat.Values;

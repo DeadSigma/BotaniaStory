@@ -13,8 +13,8 @@
                 "isTool": true
             },
             "S": {
-                "type": "block",
-                "code": "botaniastory:livingrock_slab"
+                "type": "Block",
+                "code": "botaniastory:livingrock_slab-*"
             }
         },
         "width": 3,

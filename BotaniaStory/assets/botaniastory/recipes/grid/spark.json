@@ -1,0 +1,23 @@
+{
+    "ingredientPattern": " P ,BGB, P ",
+    "ingredients": {
+        "P": {
+            "type": "item",
+            "code": "botaniastory:mysticalpetal-*"
+        },
+        "B": {
+            "type": "item",
+            "code": "game:blastingpowder"
+        },
+        "G": {
+            "type": "item",
+            "code": "game:nugget-nativegold"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:spark"
+    }
+}

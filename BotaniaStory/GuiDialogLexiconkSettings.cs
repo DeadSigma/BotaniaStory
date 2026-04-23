@@ -11,6 +11,7 @@ namespace botaniastory
     public class GuiDialogLexiconSettings : GuiDialog
     {
         public override string ToggleKeyCombinationCode => null;
+        public override double DrawOrder => 0.2;
         private LexiconConfig config;
         private GuiDialogLexicon mainDialog;
 
@@ -146,6 +147,7 @@ namespace botaniastory
     // ==========================================
     public class GuiDialogLexiconSoundSettings : GuiDialog
     {
+        public override double DrawOrder => 0.21;
         public override string ToggleKeyCombinationCode => null;
         private LexiconConfig config;
         private GuiDialogLexicon mainDialog;

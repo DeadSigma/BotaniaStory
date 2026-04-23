@@ -51,7 +51,8 @@ namespace BotaniaStory
             Vec3d camPos = player.Entity.CameraPos;
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
 
-            prog.Uniform("alphaTest", 0f);
+            prog.Uniform("alphaTest", 0.05f);
+            prog.NormalShaded = 0;
             capi.Render.GlToggleBlend(true, EnumBlendMode.Glow);
             GL.DepthMask(false); // Отключаем глубину для светящегося эффекта
 

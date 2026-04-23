@@ -317,8 +317,15 @@ namespace BotaniaStory
             prog.RgbaTint = ColorUtil.WhiteArgbVec;
             prog.DontWarpVertices = 1;
             prog.AddRenderFlags = 0;
-            prog.NormalShaded = 1;
-            prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
+
+            // 1. ОТКЛЮЧАЕМ ЗАТЕНЕНИЕ ОТ НОРМАЛЕЙ
+            // Теперь повернутые лепестки не будут казаться "теневой стороной"
+            prog.NormalShaded = 0;
+
+            // 2. БЕРЕМ РЕАЛЬНЫЙ СВЕТ ИЗ МИРА
+            // Вместо new Vec4f(1f, 1f, 1f, 1f) получаем освещение самого блока аптекаря
+            Vec4f lightrgbs = capi.World.BlockAccessor.GetLightRGBs(pos.X, pos.Y, pos.Z);
+            prog.RgbaLightIn = lightrgbs;
 
             Matrixf modelMat = new Matrixf().Identity().Translate(pos.X - camPos.X, pos.Y - camPos.Y, pos.Z - camPos.Z);
             prog.ModelMatrix = modelMat.Values;

@@ -1,0 +1,138 @@
+{
+    "code": "livingwood_planks",
+    "class": "Block",
+    "variantgroups": [
+        {
+            "code": "state",
+            "states": [ "normal", "aged" ]
+        },
+        {
+            "code": "orientation",
+            "states": [ "ns", "we", "ud" ]
+        }
+    ],
+    "behaviorsByType": {
+        "*-normal-*": [
+            {
+                "name": "Pillar",
+                "properties": { "rotationVariantCode": "orientation" }
+            },
+            {
+                "name": "WrenchOrientable",
+                "properties": { "baseCode": "livingwood_planks-normal" }
+            }
+        ],
+        "*-aged-*": [
+            {
+                "name": "Pillar",
+                "properties": { "rotationVariantCode": "orientation" }
+            },
+            {
+                "name": "WrenchOrientable",
+                "properties": { "baseCode": "livingwood_planks-aged" }
+            }
+        ]
+    },
+    "creativeinventory": {
+        "general": [ "*-ud" ],
+        "botaniastory": [ "*-ud" ]
+    },
+    "shape": { "base": "game:block/basic/cube" },
+    "blockmaterial": "Wood",
+    "drawtype": "cube",
+    "texturesByType": {
+        "*-normal-ud": {
+            "all": {
+                "base": "botaniastory:block/planks/livingwood*",
+                "rotation": 90
+            }
+        },
+        "*-normal-we": {
+            "all": {
+                "base": "botaniastory:block/planks/livingwood*",
+                "rotation": 0
+            }
+        },
+        "*-normal-ns": {
+            "all": { "base": "botaniastory:block/planks/livingwood*" },
+            "verticals": {
+                "base": "botaniastory:block/planks/livingwood*",
+                "rotation": 90
+            }
+        },
+        "*-aged-ud": {
+            "all": {
+                "base": "botaniastory:block/planks/aged/livingwood*",
+                "rotation": 90
+            }
+        },
+        "*-aged-we": {
+            "all": {
+                "base": "botaniastory:block/planks/aged/livingwood*",
+                "rotation": 0
+            }
+        },
+        "*-aged-ns": {
+            "all": { "base": "botaniastory:block/planks/aged/livingwood*" },
+            "verticals": {
+                "base": "botaniastory:block/planks/aged/livingwood*",
+                "rotation": 90
+            }
+        }
+    },
+    "resistanceByType": {
+        "*-normal-*": 4.0,
+        "*-aged-*": 3.0
+    },
+    "sounds": {
+        "hit": "game:block/planks",
+        "break": "game:block/planks",
+        "place": "game:block/planks",
+        "walk": "game:walk/wood"
+    },
+    "combustiblePropsByType": {
+        "*-normal-*": {
+            "burnTemperature": 700,
+            "burnDuration": 30
+        },
+        "*-aged-*": {
+            "burnTemperature": 600,
+            "burnDuration": 25
+        }
+    },
+    "maxStackSize": 32,
+    "materialDensityByType": {
+        "*-normal-*": 700,
+        "*-aged-*": 600
+    },
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldRightReadyAnimation": "heldblockready",
+    "heldTpUseAnimation": "twohandplaceblock",
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.23,
+            "y": -0.91,
+            "z": -0.8
+        },
+        "rotation": {
+            "x": -2,
+            "y": 25,
+            "z": -78
+        },
+        "scale": 0.4
+    },
+    "dropsByType": {
+        "*-normal-*": [
+            {
+                "type": "block",
+                "code": "livingwood_planks-normal-ud"
+            }
+        ],
+        "*-aged-*": [
+            {
+                "type": "block",
+                "code": "livingwood_planks-aged-ud"
+            }
+        ]
+    }
+}

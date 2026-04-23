@@ -30,7 +30,7 @@ namespace BotaniaStory
                 // Выключаем портал (метод сам уберет анимацию и сменит стейт ядра)
                 Deactivate();
 
-                // Опционально: можно добавить звук "провала" или поломки магии здесь
+                // можно добавить звук "провала" или поломки магии здесь
             }
         }
         private string GetPortalOrientation()
@@ -74,7 +74,7 @@ namespace BotaniaStory
                 Block block = Api.World.BlockAccessor.GetBlock(checkPos);
 
                 // Блок должен быть, и его код должен содержать "livingwood", но НЕ быть светящимся
-                if (block == null || !block.Code.Path.Contains("livingwood") || block.Code.Path.Contains("glimmering"))
+                if (block == null || !block.Code.Path.Contains("livingwood-normal") || block.Code.Path.Contains("glimmering"))
                 {
                     return false; // Не хватает блока, прерываем проверку
                 }
@@ -107,10 +107,27 @@ namespace BotaniaStory
             // Взаимодействие обрабатываем только на сервере
             if (Api.Side == EnumAppSide.Client) return;
 
+            bool wasActive = IsActive;
+
             if (IsActive)
                 Deactivate();
             else
                 Activate();
+
+            // Если состояние успешно изменилось
+            if (IsActive != wasActive)
+            {
+                // Вместо прямого PlaySoundAt отправляем сетевой пакет
+                var sapi = Api as Vintagestory.API.Server.ICoreServerAPI;
+                var channel = sapi.Network.GetChannel("botanianetwork");
+
+                // Создаем и отправляем сообщение всем игрокам рядом
+                channel.BroadcastPacket(new PlayManaSoundPacket()
+                {
+                    Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
+                    SoundName = "wand_bind"
+                });
+            }
         }
 
         public void Activate()
@@ -124,7 +141,7 @@ namespace BotaniaStory
             }
 
             List<BlockEntityPylon> validPylons = new List<BlockEntityPylon>();
-            int radius = 4;
+            int radius = 5;
 
             // ==========================================
             // 1. ИЩЕМ ТОЛЬКО ПОДХОДЯЩИЕ ПИЛОНЫ
@@ -159,8 +176,8 @@ namespace BotaniaStory
             // ==========================================
             // 2. БЛОКИРОВКА ПРИ НЕХВАТКЕ ПИЛОНОВ
             // ==========================================
-            // Если в радиусе не нашлось ни одного пилона с маной — ничего не делаем.
-            if (validPylons.Count == 0) return;
+            // Если в радиусе нашлось меньше двух пилонов с маной — ничего не делаем.
+            if (validPylons.Count < 2) return;
 
             // ==========================================
             // 3. ВКЛЮЧАЕМ ЯДРО

@@ -1,40 +1,170 @@
 {
     "code": "livingrock_slab",
     "class": "Block",
-    "creativeinventory": {
-        "general": [ "*" ],
-        "botaniastory": [ "*" ]
-    },
-    "shape": { "base": "botaniastory:block/livingrock_slab" },
-    "textures": {
-        "livingrock": { "base": "botaniastory:block/livingrock" }
-    },
-    "blockmaterial": "Stone",
-    "resistance": 3,
-    "sidesolid": {
-        "all": false,
-        "down": true
-    },
-    "sideopaque": {
-        "all": false,
-        "down": true
-    },
-    "collisionboxes": [
+    "behaviors": [
         {
-            "x1": 0,
-            "y1": 0,
-            "z1": 0,
-            "x2": 1,
-            "y2": 0.5,
-            "z2": 1
+            "name": "OmniRotatable",
+            "properties": {
+                "rotateSides": true,
+                "facing": "block"
+            }
         }
     ],
+    "variantgroups": [
+        {
+            "code": "rot",
+            "states": [ "north", "east", "south", "west", "up", "down" ]
+        },
+        {
+            "code": "cover",
+            "states": [ "free", "snow" ]
+        }
+    ],
+    "skipVariants": [ "*-up-snow" ],
+    "shapeByType": {
+        "*-snow": { "base": "game:block/basic/slab/snow-slab-{rot}" },
+        "*": { "base": "game:block/basic/slab/slab-{rot}" }
+    },
+    "textures": {
+        "all": { "base": "botaniastory:block/livingrock" }
+    },
+    "attributes": {
+        "canChisel": true,
+        "chiselShapeFromCollisionBox": true,
+        "partialAttachableByType": {
+            "*-down": true,
+            "*-up": true
+        },
+        "liquidBarrierOnSidesByType": {
+            "*-down-*": [ 0.5, 0.5, 0.5, 0.5 ]
+        }
+    },
+
+    "blockmaterial": "Stone",
+    "creativeinventory": {
+        "general": [ "*-down-free" ],
+        "botaniastory": [ "*-down-free" ]
+    },
+    "drops": [ { "code": "botaniastory:livingrock_slab-down-free" } ],
+    "sideSolidOpaqueAoByType": {
+        "*-north-*": {
+            "all": false,
+            "north": true
+        },
+        "*-east-*": {
+            "all": false,
+            "east": true
+        },
+        "*-south-*": {
+            "all": false,
+            "south": true
+        },
+        "*-west-*": {
+            "all": false,
+            "west": true
+        },
+        "*-up-*": {
+            "all": false,
+            "up": true
+        },
+        "*-down-*": {
+            "all": false,
+            "down": true
+        }
+    },
+    "sideAo": { "all": true },
+    "emitSideAoByType": {
+        "*-up-*": {
+            "all": false,
+            "up": true
+        },
+        "*-down-*": {
+            "all": false,
+            "down": true
+        },
+        "*": { "all": false }
+    },
+    "collisionbox": {
+        "x1": 0,
+        "y1": 0,
+        "z1": 0,
+        "x2": 1,
+        "y2": 0.5,
+        "z2": 1,
+        "rotateXByType": {
+            "*-north-*": 90,
+            "*-south-*": 270,
+            "*-up-*": 180,
+            "*-down-*": 0
+        },
+        "rotateZByType": {
+            "*-east-*": 90,
+            "*-west-*": 270
+        }
+    },
     "selectionbox": {
         "x1": 0,
         "y1": 0,
         "z1": 0,
         "x2": 1,
         "y2": 0.5,
-        "z2": 1
+        "z2": 1,
+        "rotateXByType": {
+            "*-north-*": 90,
+            "*-south-*": 270,
+            "*-up-*": 180,
+            "*-down-*": 0
+        },
+        "rotateZByType": {
+            "*-east-*": 90,
+            "*-west-*": 270
+        }
+    },
+    "sounds": {
+        "walk": "game:walk/stone",
+        "byTool": {
+            "Pickaxe": {
+                "hit": "game:block/rock-hit-pickaxe",
+                "break": "game:block/rock-break-pickaxe"
+            }
+        }
+    },
+    "combustibleProps": {
+        "burnTemperature": 700,
+        "burnDuration": 15
+    },
+    "materialDensity": 700,
+    "guiTransform": {
+        "translation": {
+            "x": 0,
+            "y": 2,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.25,
+            "z": 0.5
+        }
+    },
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldRightReadyAnimation": "heldblockready",
+    "heldTpUseAnimation": "twohandplaceblock",
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.49,
+            "y": -0.22,
+            "z": -0.7
+        },
+        "rotation": {
+            "x": 6,
+            "y": 16,
+            "z": 98
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.25,
+            "z": 0.5
+        },
+        "scale": 0.4
     }
 }

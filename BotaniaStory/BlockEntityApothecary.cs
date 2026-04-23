@@ -4,10 +4,13 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
+using Vintagestory.GameContent;
+using static OpenTK.Graphics.OpenGL.GL;
 
 namespace BotaniaStory
 {
-    public class BlockEntityApothecary : BlockEntity
+    // 1. НАСЛЕДУЕМСЯ ОТ BlockEntityContainer
+    public class BlockEntityApothecary : BlockEntityContainer
     {
         public bool HasWater = false;
         private MeshData waterMesh;
@@ -17,6 +20,10 @@ namespace BotaniaStory
         public string LastCraftedFlower = null;
         public long LastCraftTime = 0;
 
+        // 2. ОБЯЗАТЕЛЬНЫЕ СВОЙСТВА ДЛЯ КОНТЕЙНЕРА
+        public override InventoryBase Inventory => inventory;
+        public override string InventoryClassName => "apothecary-inv";
+
         public BlockEntityApothecary()
         {
             inventory = new InventoryGeneric(16, "apothecary-inv", null);
@@ -25,7 +32,7 @@ namespace BotaniaStory
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
-            inventory.LateInitialize("apothecary-inv-" + Pos.ToString(), api);
+            // base.Initialize автоматически вызывает inventory.LateInitialize!
 
             if (api is ICoreClientAPI capi)
             {
@@ -43,28 +50,15 @@ namespace BotaniaStory
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
-            base.ToTreeAttributes(tree);
+            base.ToTreeAttributes(tree); // Автоматически безопасно сохраняет инвентарь и маппинг
             tree.SetBool("hasWater", HasWater);
-            inventory.ToTreeAttributes(tree);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             bool prevWater = HasWater;
-            base.FromTreeAttributes(tree, worldForResolving);
+            base.FromTreeAttributes(tree, worldForResolving); // Автоматически загружает инвентарь с нужными проверками
             HasWater = tree.GetBool("hasWater");
-            inventory.FromTreeAttributes(tree);
-
-            // ==========================================
-            // ИСПРАВЛЕНИЕ РАССИНХРОНА В МУЛЬТИПЛЕЕРЕ:
-            // Обязательно "разрешаем" (resolve) предметы после получения их по сети.
-            // Без этого клиент знает только ID предмета, но не загружает его класс/модель/текстуру,
-            // из-за чего рендер крашится и лепестки становятся невидимыми.
-            // ==========================================
-            if (worldForResolving != null)
-            {
-                inventory.AfterBlocksLoaded(worldForResolving);
-            }
 
             if (Api is ICoreClientAPI)
             {
@@ -81,11 +75,14 @@ namespace BotaniaStory
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
         {
-            for (int i = 0; i < inventory.Count; i++)
+            if (Api?.World != null)
             {
-                if (!inventory[i].Empty)
+                for (int i = 0; i < inventory.Count; i++)
                 {
-                    Api.World.SpawnItemEntity(inventory[i].Itemstack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                    if (!inventory[i].Empty)
+                    {
+                        Api.World.SpawnItemEntity(inventory[i].Itemstack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                    }
                 }
             }
             base.OnBlockBroken(byPlayer);
@@ -100,7 +97,6 @@ namespace BotaniaStory
             foreach (var slot in inventory)
             {
                 if (slot.Empty) continue;
-                // Без AfterBlocksLoaded вызов GetName() здесь тоже мог вызывать скрытую ошибку на клиенте!
                 string name = slot.Itemstack.GetName();
                 if (totals.ContainsKey(name)) totals[name] += slot.StackSize;
                 else totals[name] = slot.StackSize;

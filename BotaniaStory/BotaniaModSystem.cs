@@ -161,6 +161,10 @@ namespace BotaniaStory
             {
                 volume = ClientConfig.FlowerVolume / 100f;
             }
+            else if (packet.SoundName == "wand_bind")
+            {
+                volume = ClientConfig.WandVolume / 100f;
+            }
             else
             {
                 volume = 0.5f;

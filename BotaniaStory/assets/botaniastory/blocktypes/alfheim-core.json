@@ -21,8 +21,8 @@
     },
     "drawpass": "Opaque",
     "creativeinventory": {
-        "general": [ "*" ],
-        "botaniastory": [ "*" ]
+        "general": [ "*-off" ],
+        "botaniastory": [ "*-off" ]
     },
     "blockmaterial": "Wood",
     "sounds": {

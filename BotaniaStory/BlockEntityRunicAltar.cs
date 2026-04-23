@@ -7,7 +7,7 @@ using Vintagestory.API.MathTools;
 
 namespace BotaniaStory
 {
-    public class BlockEntityRunicAltar : BlockEntity
+    public class BlockEntityRunicAltar : BlockEntity, IManaReceiver
     {
         public InventoryGeneric inventory;
 
@@ -51,8 +51,18 @@ namespace BotaniaStory
         {
             // Стандартная инициализация
             inventory = new InventoryGeneric(16, "runicaltar-inv", null);
+
+
+        }
+        public bool IsFull()
+        {
+            return CurrentMana >= MaxBufferMana;
         }
 
+        public int GetAvailableSpace()
+        {
+            return MaxBufferMana - CurrentMana;
+        }
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);

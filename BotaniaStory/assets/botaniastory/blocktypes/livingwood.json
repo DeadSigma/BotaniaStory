@@ -1,21 +1,31 @@
 {
     "code": "livingwood",
     "class": "Block",
+    "variantgroups": [
+        {
+            "code": "state",
+            "states": [ "normal", "aged" ]
+        }
+    ],
     "creativeinventory": {
         "general": [ "*" ],
         "botaniastory": [ "*" ]
     },
     "shape": { "base": "game:block/basic/cube" },
-    "textures": {
-        "all": { "base": "botaniastory:block/livingwood" }
+    "texturesByType": {
+        "*-normal": {
+            "all": { "base": "botaniastory:block/livingwood" }
+        },
+        "*-aged": {
+            "all": { "base": "botaniastory:block/livingwood_aged" }
+        }
     },
     "blockmaterial": "Wood",
     "sounds": {
-        "place": "game:block/planks",
-        "break": "game:block/planks",
         "hit": "game:block/planks",
+        "break": "game:block/planks",
+        "place": "game:block/planks",
         "walk": "game:walk/wood"
     },
     "resistance": 3
-
 }

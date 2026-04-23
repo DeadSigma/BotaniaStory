@@ -1,0 +1,74 @@
+[
+    {
+        "ingredientPattern": "H,C,S",
+        "ingredients": {
+            "H": {
+                "type": "item",
+                "tags": [ "tool-hammer" ],
+                "isTool": true
+            },
+            "C": {
+                "type": "item",
+                "tags": [ "tool-chisel" ],
+                "isTool": true
+            },
+            "S": {
+                "type": "block",
+                "code": "botaniastory:livingrock"
+            }
+        },
+        "width": 1,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:livingrock_brick",
+            "quantity": 4
+        }
+    },
+    {
+        "ingredientPattern": "LLL,LCL,LLL",
+        "ingredients": {
+            "C": {
+                "type": "item",
+                "code": "game:mortar"
+            },
+            "L": {
+                "type": "item",
+                "code": "botaniastory:livingrock_brick"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:livingrock_bricks",
+            "quantity": 2
+        }
+    },
+    {
+        "ingredientPattern": "H,C,B",
+        "ingredients": {
+            "H": {
+                "type": "item",
+                "tags": [ "tool-hammer" ],
+                "isTool": true
+            },
+            "C": {
+                "type": "item",
+                "tags": [ "tool-chisel" ],
+                "isTool": true
+            },
+            "B": {
+                "type": "block",
+                "code": "botaniastory:livingrock_bricks"
+            }
+        },
+        "width": 1,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:livingrock_crackedbricks",
+            "quantity": 1
+        }
+    }
+]

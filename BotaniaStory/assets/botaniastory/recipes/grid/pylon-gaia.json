@@ -1,0 +1,27 @@
+{
+    "ingredientPattern": " I ,BPB, G ",
+    "ingredients": {
+        "I": {
+            "type": "item",
+            "code": "game:ingot-terrasteel"
+        },
+        "B": {
+            "type": "item",
+            "code": "game:metalbit-terrasteel"
+        },
+        "P": {
+            "type": "block",
+            "code": "botaniastory:pylon-mana"
+        },
+        "G": {
+            "type": "item",
+            "code": "game:gear-temporal"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "block",
+        "code": "botaniastory:pylon-gaia"
+    }
+}

@@ -108,15 +108,18 @@ namespace BotaniaStory
 
             IStandardShaderProgram prog = render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
 
-            // --- ПРАВИЛЬНЫЙ БИНД ---
+            // ПРАВИЛЬНЫЙ БИНД
             capi.Render.BindTexture2d(particleTexture.TextureId);
-            prog.Uniform("alphaTest", 0f);
+
+            prog.Uniform("alphaTest", 0.05f);
             prog.Uniform("extraGlow", 0);
 
+            // 2. ОТКЛЮЧАЕМ ЗАТЕНЕНИЕ:
+            prog.NormalShaded = 0;
             // 1. Включаем аддитивное смешивание (свечение)
             render.GlToggleBlend(true, EnumBlendMode.Glow);
 
-            // 2. ИСПРАВЛЕНИЕ: Отключаем запись в буфер глубины напрямую через OpenGL!
+            // Отключаем запись в буфер глубины напрямую через OpenGL!
             GL.DepthMask(false);
 
             foreach (var p in activeParticles)

@@ -60,11 +60,6 @@ namespace botaniastory
 
             BuildHologramMesh(structureCode);
 
-            if (isActive)
-            {
-                capi.ShowChatMessage($"[Lexicon] Режим голограммы активирован для: {structureCode}.");
-                capi.ShowChatMessage($"[Lexicon] Кликните ПКМ, чтобы закрепить голограмму на месте и начать стройку.");
-            }
         }
 
         private void BuildHologramMesh(string structureCode)
@@ -137,8 +132,8 @@ namespace botaniastory
                     if (cachedMesh == null) continue;
 
                     MeshData blockMesh = cachedMesh.Clone();
-                    blockMesh.CustomInts = null;
-                    blockMesh.CustomFloats = null;
+                   // blockMesh.CustomInts = null;
+                    // blockMesh.CustomFloats = null;
 
                     int x = index & 0x3FF;
                     int z = (index >> 10) & 0x3FF;
@@ -214,7 +209,6 @@ namespace botaniastory
                 if ((isEmptyHand || isBook) && capi.World.Player.CurrentBlockSelection != null)
                 {
                     lockedPos = capi.World.Player.CurrentBlockSelection.Position.AddCopy(capi.World.Player.CurrentBlockSelection.Face);
-                    capi.ShowChatMessage("[Lexicon] Голограмма закреплена! Разместите блоки согласно проекции.");
 
                     // Блокируем клик ТОЛЬКО в момент установки. 
                     // Это нужно, чтобы книга не открылась на весь экран прямо во время прицеливания.
@@ -239,13 +233,11 @@ namespace botaniastory
                         currentStructure = null;
                         lockedPos = null;
                         loadedSchematic = null;
-                        capi.ShowChatMessage("[Lexicon] Визуализация полностью отменена.");
                     }
                     else
                     {
                         // ПРОСТО ПЕРЕНОС (Обычный ПКМ пустой рукой)
                         lockedPos = null;
-                        capi.ShowChatMessage("[Lexicon] Голограмма откреплена. Выберите новое место.");
                     }
 
                     if (capi.World.Player.CurrentBlockSelection != null)
@@ -400,6 +392,12 @@ namespace botaniastory
                 prog.ProjectionMatrix = render.CurrentProjectionMatrix;
                 prog.RgbaTint = new Vec4f(1.0f, 1.0f, 1.0f, 0.4f);
 
+                // --- ИСПРАВЛЕНИЕ НЕВИДИМОСТИ ---
+                // Сбрасываем порог альфа-теста, чтобы предыдущие блоки (например, листва)
+                // не заставляли видеокарту отбрасывать наши полупрозрачные пиксели.
+                prog.AlphaTest = 0.05f;
+                prog.ExtraGlow = 1; // Делает голограмму чуть ярче, чтобы она выделялась
+
                 float[] modelMatrix = Mat4f.Create();
                 Mat4f.Identity(modelMatrix);
                 Mat4f.Translate(modelMatrix, modelMatrix,
@@ -417,7 +415,6 @@ namespace botaniastory
                     int atlasPage = kvp.Key;
                     MeshRef mesh = kvp.Value;
 
-                    // Биндим текстуру ИМЕННО ТОЙ страницы атласа, на которой лежат блоки этого меша!
                     prog.Tex2D = capi.BlockTextureAtlas.AtlasTextures[atlasPage].TextureId;
                     render.RenderMesh(mesh);
                 }

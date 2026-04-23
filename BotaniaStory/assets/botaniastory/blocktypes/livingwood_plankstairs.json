@@ -1,0 +1,218 @@
+{
+    "code": "livingwood_plankstairs",
+    "class": "BlockStairs",
+    "variantgroups": [
+        {
+            "code": "state",
+            "states": [ "normal", "aged" ]
+        },
+        { "loadFromProperties": "game:abstract/verticalorientation" },
+        { "loadFromProperties": "game:abstract/horizontalorientation" },
+        {
+            "code": "cover",
+            "states": [ "free", "snow" ]
+        }
+    ],
+    "skipVariants": [ "*-down-north-snow", "*-down-east-snow", "*-down-south-snow", "*-down-west-snow" ],
+    "behaviorsByType": {
+        "*-normal-*": [
+            {
+                "name": "WrenchOrientable",
+                "properties": { "baseCode": "livingwood_plankstairs-normal-*-{cover}" }
+            }
+        ],
+        "*-aged-*": [
+            {
+                "name": "WrenchOrientable",
+                "properties": { "baseCode": "livingwood_plankstairs-aged-*-{cover}" }
+            }
+        ]
+    },
+    "shapeByType": {
+        "*-north-*": {
+            "base": "game:block/basic/stairs/planks-{cover}-{verticalorientation}",
+            "rotateY": 0
+        },
+        "*-west-*": {
+            "base": "game:block/basic/stairs/planks-{cover}-{verticalorientation}",
+            "rotateY": 90
+        },
+        "*-south-*": {
+            "base": "game:block/basic/stairs/planks-{cover}-{verticalorientation}",
+            "rotateY": 180
+        },
+        "*-east-*": {
+            "base": "game:block/basic/stairs/planks-{cover}-{verticalorientation}",
+            "rotateY": 270
+        }
+    },
+    "texturesByType": {
+        "*-normal-*": {
+            "all": { "base": "botaniastory:block/planks/livingwood*" }
+        },
+        "*-aged-*": {
+            "all": { "base": "botaniastory:block/planks/aged/livingwood*" }
+        }
+    },
+    "attributes": {
+        "canChisel": true,
+        "chiselShapeFromCollisionBox": true,
+        "handbookByType": {
+            "*-normal-*": {
+                "groupBy": [ "livingwood_plankstairs-normal-*" ]
+            },
+            "*-aged-*": {
+                "groupBy": [ "livingwood_plankstairs-aged-*" ]
+            }
+        },
+        "partialAttachable": true,
+        "liquidBarrierOnSidesByType": {
+            "*-up-north-*": [ 1.0, 0.5, 0.5, 0.5 ],
+            "*-up-south-*": [ 0.5, 0.5, 1.0, 0.5 ],
+            "*-up-west-*": [ 0.5, 0.5, 0.5, 1.0 ],
+            "*-up-east-*": [ 0.5, 1.0, 0.5, 0.5 ]
+        }
+    },
+    "creativeinventory": {
+        "general": [ "*-up-north-free" ],
+        "botaniastory": [ "*-up-north-free" ]
+    },
+    "sideSolidOpaqueAoByType": {
+        "*-up-north-*": {
+            "all": false,
+            "down": true,
+            "north": true
+        },
+        "*-up-west-*": {
+            "all": false,
+            "down": true,
+            "west": true
+        },
+        "*-up-south-*": {
+            "all": false,
+            "down": true,
+            "south": true
+        },
+        "*-up-east-*": {
+            "all": false,
+            "down": true,
+            "east": true
+        },
+        "*-down-north-*": {
+            "all": false,
+            "up": true,
+            "north": true
+        },
+        "*-down-south-*": {
+            "all": false,
+            "up": true,
+            "south": true
+        },
+        "*-down-west-*": {
+            "all": false,
+            "up": true,
+            "west": true
+        },
+        "*-down-east-*": {
+            "all": false,
+            "up": true,
+            "east": true
+        }
+    },
+    "faceCullModeByType": {
+        "*-snow": "NeverCull",
+        "*-free": "Stairs"
+    },
+    "blockmaterial": "Wood",
+    "lightAbsorption": 99,
+    "resistanceByType": {
+        "*-normal-*": 4.0,
+        "*-aged-*": 3.0
+    },
+    "sounds": {
+        "hit": "game:block/planks",
+        "break": "game:block/planks",
+        "place": "game:block/planks",
+        "walk": "game:walk/wood"
+    },
+    "combustiblePropsByType": {
+        "*-normal-*": {
+            "burnTemperature": 700,
+            "burnDuration": 15
+        },
+        "*-aged-*": {
+            "burnTemperature": 600,
+            "burnDuration": 10
+        }
+    },
+    "materialDensityByType": {
+        "*-normal-*": 700,
+        "*-aged-*": 600
+    },
+    "collisionSelectionBoxesByType": {
+        "*-down-*": [
+            {
+                "x1": 0,
+                "y1": 0.5,
+                "z1": 0,
+                "x2": 1,
+                "y2": 1,
+                "z2": 1
+            },
+            {
+                "x1": 0,
+                "y1": 0,
+                "z1": 0.5,
+                "x2": 1,
+                "y2": 0.5,
+                "z2": 1,
+                "rotateYByType": {
+                    "*-north-*": 180,
+                    "*-east-*": 90,
+                    "*-south-*": 0,
+                    "*-west-*": 270
+                }
+            }
+        ],
+        "*-up-*": [
+            {
+                "x1": 0,
+                "y1": 0,
+                "z1": 0,
+                "x2": 1,
+                "y2": 0.5,
+                "z2": 1
+            },
+            {
+                "x1": 0,
+                "y1": 0.5,
+                "z1": 0.5,
+                "x2": 1,
+                "y2": 1,
+                "z2": 1,
+                "rotateYByType": {
+                    "*-north-*": 180,
+                    "*-east-*": 90,
+                    "*-south-*": 0,
+                    "*-west-*": 270
+                }
+            }
+        ]
+    },
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldRightReadyAnimation": "heldblockready",
+    "heldTpUseAnimation": "twohandplaceblock",
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.23,
+            "y": -0.91,
+            "z": -0.8
+        },
+        "rotation": {
+            "x": -2,
+            "y": 25,
+            "z": -78
+        },
+        "scale": 0.4
+    }
+}

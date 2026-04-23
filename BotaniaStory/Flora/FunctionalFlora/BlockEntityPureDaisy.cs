@@ -37,7 +37,7 @@ namespace BotaniaStory
             // 2. ДЕРЕВО: Превращаю любые ванильные и модовые брёвна в Жизнедерево
             if (block.FirstCodePart() == "log" || block is BlockLog)
             {
-                return "botaniastory:livingwood";
+                return "botaniastory:livingwood-normal";
             }
 
             // 3. КАМЕНЬ: Превращаю любой камень в Жизнекамень
@@ -78,9 +78,9 @@ namespace BotaniaStory
                             Api.World.BlockAccessor.SetBlock(resultBlock.Id, targetPos);
 
                             // ЗВУКИ
-                            if (outputCode == "botaniastory:livingwood")
+                            if (outputCode == "botaniastory:livingwood-normal")
                             {
-                                Api.World.PlaySoundAt(new AssetLocation("game:sounds/walk/wood1"), targetPos.X, targetPos.Y, targetPos.Z);
+                                Api.World.PlaySoundAt(new AssetLocation("game:sounds/block/planks"), targetPos.X, targetPos.Y, targetPos.Z);
                             }
                             else if (outputCode == "botaniastory:livingrock")
                             {

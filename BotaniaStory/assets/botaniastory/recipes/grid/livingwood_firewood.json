@@ -2,7 +2,7 @@
     "ingredientPattern": "AL",
     "ingredients": {
         "A": { "type": "item", "code": "game:axe-*", "isTool": true },
-        "L": { "type": "block", "code": "botaniastory:livingwood" }
+        "L": { "type": "block", "code": "botaniastory:livingwood-*" }
     },
     "width": 2,
     "height": 1,

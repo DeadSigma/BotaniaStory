@@ -11,9 +11,9 @@
     },
     "blockmaterial": "Wood",
     "sounds": {
-        "place": "game:block/planks",
-        "break": "game:block/planks",
         "hit": "game:block/planks",
+        "break": "game:block/planks",
+        "place": "game:block/planks",
         "walk": "game:walk/wood"
     },
     "resistance": 3

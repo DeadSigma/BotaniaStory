@@ -1,0 +1,23 @@
+{
+    "ingredientPattern": " I ,MGM, I ",
+    "ingredients": {
+        "I": {
+            "type": "item",
+            "code": "game:ingot-gold"
+        },
+        "M": {
+            "type": "item",
+            "code": "game:ingot-manasteel"
+        },
+        "G": {
+            "type": "item",
+            "code": "botaniastory:manaitem-managear"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "block",
+        "code": "botaniastory:pylon-mana"
+    }
+}

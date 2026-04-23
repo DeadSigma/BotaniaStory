@@ -14,6 +14,7 @@ namespace BotaniaStory
         private const int SPARK_RANGE = 12;
         private const int TRANSFER_RATE = 14000;
         private float transferAccumulator = 0f;
+        private bool isDespawning = false;
 
         // 1. ДОБАВЛЯЕМ ПОЛЕ ДЛЯ РЕНДЕРЕРА
         private SparkRenderer renderer;
@@ -65,6 +66,36 @@ namespace BotaniaStory
                 if (transferAccumulator >= 0.05f)
                 {
                     transferAccumulator = 0f;
+
+                    // ==========================================
+                    // ДОБАВЛЯЕМ ВАЛИДАЦИЮ ОПОРНОГО БЛОКА
+                    //
+                    // 
+                    BlockPos anchorPos = new BlockPos((int)Math.Floor(baseX), (int)Math.Floor(baseY) - 1, (int)Math.Floor(baseZ));
+                    BlockEntity anchorBE = Api.World.BlockAccessor.GetBlockEntity(anchorPos);
+
+                    // Если под искрой больше нет ни бассейна, ни плиты
+                    if (!(anchorBE is BlockEntityManaPool) && !(anchorBE is BlockEntityTerrestrialPlate))
+                    {
+                        // Проверяем, что искра жива и еще не начала процесс удаления
+                        if (this.Alive && !isDespawning)
+                        {
+                            isDespawning = true; // Блокируем повторный вызов
+
+                            // Спавним предмет искры
+                            Item itemSpark = Api.World.GetItem(new AssetLocation("botaniastory", "spark"));
+                            if (itemSpark != null)
+                            {
+                                Api.World.SpawnItemEntity(new ItemStack(itemSpark), Pos.XYZ);
+                            }
+
+                            // Удаляем сущность искры из мира
+                            this.Die();
+                        }
+
+                        return; // Прерываем тик в любом случае
+                    }
+
                     DoManaTransfer(baseX, baseY, baseZ);
                 }
             }
