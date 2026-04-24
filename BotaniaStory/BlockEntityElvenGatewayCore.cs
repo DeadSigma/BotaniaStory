@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -141,10 +142,11 @@ namespace BotaniaStory
             }
 
             List<BlockEntityPylon> validPylons = new List<BlockEntityPylon>();
+            List<BlockEntityManaPool> validPools = new List<BlockEntityManaPool>();
             int radius = 5;
 
             // ==========================================
-            // 1. ИЩЕМ ТОЛЬКО ПОДХОДЯЩИЕ ПИЛОНЫ
+            // 1. ИЩЕМ ТОЛЬКО ПОДХОДЯЩИЕ ПИЛОНЫ И БАССЕЙНЫ
             // ==========================================
             for (int x = -radius; x <= radius; x++)
             {
@@ -155,17 +157,13 @@ namespace BotaniaStory
                         BlockPos pylonPos = Pos.AddCopy(x, y, z);
                         if (Api.World.BlockAccessor.GetBlockEntity(pylonPos) is BlockEntityPylon pylon)
                         {
-                            // Нас интересуют только природные пилоны
                             if (pylon.CurrentType == EnumPylonType.Natura)
                             {
                                 BlockPos poolPos = pylonPos.DownCopy();
                                 if (Api.World.BlockAccessor.GetBlockEntity(poolPos) is BlockEntityManaPool pool)
                                 {
-                                    // Если под пилоном есть бассейн и в нем есть мана — берем его!
-                                    if (pool.CurrentMana >= 1)
-                                    {
-                                        validPylons.Add(pylon);
-                                    }
+                                    validPylons.Add(pylon);
+                                    validPools.Add(pool);
                                 }
                             }
                         }
@@ -174,20 +172,40 @@ namespace BotaniaStory
             }
 
             // ==========================================
-            // 2. БЛОКИРОВКА ПРИ НЕХВАТКЕ ПИЛОНОВ
+            // 2. БЛОКИРОВКА ПРИ НЕХВАТКЕ ПИЛОНОВ ИЛИ МАНЫ
             // ==========================================
-            // Если в радиусе нашлось меньше двух пилонов с маной — ничего не делаем.
             if (validPylons.Count < 2) return;
 
-            // ==========================================
-            // 3. ВКЛЮЧАЕМ ЯДРО
-            // ==========================================
-            IsActive = true;
-            UpdateBlockState("on"); // Меняем текстуру/модель самого ядра
+            // Общая стоимость активации
+            int activationCost = 500000;
+
+            // Считаем, сколько должен отдать каждый бассейн (500 000 / количество бассейнов)
+            // Если пилона 2, то это 250 000 с каждого.
+            int costPerPool = activationCost / validPools.Count;
+
+            // Проверяем, хватает ли маны в КАЖДОМ бассейне для его доли списания
+            foreach (var pool in validPools)
+            {
+                if (pool.CurrentMana < costPerPool)
+                {
+                    return; // Если хотя бы одному бассейну не хватает маны — отмена активации
+                }
+            }
 
             // ==========================================
-            // 4. ПРИВЯЗЫВАЕМ ТОЛЬКО ВАЛИДНЫЕ ПИЛОНЫ
+            // 3. РАВНОМЕРНОЕ СПИСАНИЕ МАНЫ
             // ==========================================
+            foreach (var pool in validPools)
+            {
+                pool.ConsumeMana(costPerPool);
+            }
+
+            // ==========================================
+            // 4. ВКЛЮЧАЕМ ЯДРО И ПРИВЯЗЫВАЕМ ПИЛОНЫ
+            // ==========================================
+            IsActive = true;
+            UpdateBlockState("on");
+
             foreach (var pylon in validPylons)
             {
                 pylon.LinkedTarget = this.Pos;
@@ -200,7 +218,6 @@ namespace BotaniaStory
             if (Api.Side == EnumAppSide.Server)
             {
                 BlockPos portalPos = Pos.UpCopy();
-                // Подставляем ориентацию (ns или we) в код блока
                 Block portalBlock = Api.World.GetBlock(new AssetLocation("botaniastory", "alfheim_portal_dummy-" + orientation));
 
                 if (portalBlock != null)

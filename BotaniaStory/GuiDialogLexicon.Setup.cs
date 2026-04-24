@@ -534,9 +534,17 @@ namespace botaniastory
                         var bookmarkBtn = new GuiElementClickableImage(capi, bounds["Кнопка_Закладки"], new AssetLocation(bookmarkIcon), () => AddBookmark());
                         compo.AddInteractiveElement(bookmarkBtn, "btnBookmark");
 
-                        if (!string.IsNullOrEmpty(currentChapter.VisualizeStructure))
+                        if (!string.IsNullOrEmpty(currentChapter.VisualizeStructure) && currentSpread == currentChapter.VisualizeSpread)
                         {
-                            var btnCfg = ui["Кнопка_Визуализации"];
+                            // Если ключ для конкретной главы не указан, используем стандартный
+                            string targetUiKey = string.IsNullOrEmpty(currentChapter.VisualizeUiKey)
+                                ? "Кнопка_Визуализации"
+                                : currentChapter.VisualizeUiKey;
+
+                            // Защита от краша
+                            if (!ui.ContainsKey(targetUiKey)) targetUiKey = "Кнопка_Визуализации";
+
+                            var btnCfg = ui[targetUiKey];
                             double bScale = btnCfg[4] * bookScale;
 
                             ElementBounds btnBounds = ElementBounds.Fixed(btnCfg[0] * bookScale, btnCfg[1] * bookScale, btnCfg[2] * bScale, btnCfg[3] * bScale);

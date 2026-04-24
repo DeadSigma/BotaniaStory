@@ -57,6 +57,8 @@ namespace botaniastory
         public bool IsBookmarked { get; set; } = false;
         public string TabItemCode { get; set; }
         public string VisualizeStructure { get; set; }
+        public int VisualizeSpread { get; set; }
+        public string VisualizeUiKey { get; set; }
         public string Id { get; set; }
         public List<BookPageImage> Images { get; set; } = new List<BookPageImage>();
         public List<BookRecipe> Recipes { get; set; } = new List<BookRecipe>();
@@ -92,7 +94,7 @@ namespace botaniastory
 
             { "rusted_world_artifacts", new[] { "ch1" } },
 
-            { "elfmania", new[] { "alfheimgates" } },
+            { "elfmania", new[] { "alfheimgates", "elfresources" } },
 
             { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass" } },
 
@@ -351,6 +353,7 @@ namespace botaniastory
                         chapter.TabItemCode = "game:ingot-terrasteel";
 
                         chapter.VisualizeStructure = "terraaltar";
+                        chapter.VisualizeSpread = 0;
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -823,7 +826,7 @@ namespace botaniastory
                                   "botaniastory:livingwood-normal", "game:candle", null,
                                   null, null, null,
                                   null, null, null},
-                            Output = "botaniastory:glimmering_livingwood"
+                            Output = "botaniastory:glimmering-livingwood"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -1885,10 +1888,14 @@ namespace botaniastory
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ АЛЬФХЕЙМ ===
+                    // === НАСТРОЙКА ГЛАВЫ ВРАТА АЛЬФХЕЙМ ===
                     else if (chapId == "alfheimgates")
                     {
                         chapter.TabItemCode = "botaniastory:pylon-natura";
+
+                        chapter.VisualizeStructure = "alfheimgates";
+                        chapter.VisualizeSpread = 1;
+                        chapter.VisualizeUiKey = "Кнопка_Визуализации_Альфхейм";
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -1920,8 +1927,24 @@ namespace botaniastory
                             Spread = 1,
                             UiKey = "Картинка_Левая_Альфхейм"
                         });
+                    }
 
+                    // === НАСТРОЙКА ГЛАВЫ РЕСУРСЫ АЛЬФХЕЙМА ===
+                    else if (chapId == "elfresources")
+                    {
+                        chapter.TabItemCode = "botaniastory:elvenglass-1";
 
+                        chapter.Recipes = new List<BookRecipe> 
+                    {
+                        new BookRecipe
+                        {
+                            RecipeType = "Alfheim", 
+                            Spread = 0,
+                            UiKey = "Альфхейм_Область_Правая",
+                            AlfheimInputs = new string[] { "botaniastory:managlass" }, 
+                            Output = "botaniastory:elvenglass-0"                     
+                        }
+                    };
                     }
 
 

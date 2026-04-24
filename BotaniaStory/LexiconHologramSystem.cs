@@ -18,7 +18,8 @@ namespace botaniastory
 
         private int offsetY = 0; // ПЕРЕМЕННАЯ СМЕЩЕНИЯ
         private float renderOffsetY = 0f; // Для отрисовки (можно дробные)
-
+        private int currentFacing = 0; // 0, 1, 2, 3 (направления)
+        private float renderRotationY = 0f; // Угол в радианах для отрисовки
         private BlockSchematic loadedSchematic = null; // Храним саму схему для проверки блоков
         private BlockPos lockedPos = null;             // Зафиксированная позиция голограммы
         private long tickListenerId;                   // ID таймера проверки
@@ -51,6 +52,13 @@ namespace botaniastory
             {
                 offsetY = -1; // Опускаем алтарь на 1 блок в землю
                 renderOffsetY = -0.9f;
+            }
+            else if (structureCode == "alfheimgates")
+            {
+                
+                // Настройка высоты установки врат
+                offsetY = 0;
+                renderOffsetY = 0f;
             }
             else
             {
@@ -205,16 +213,15 @@ namespace botaniastory
 
             if (lockedPos == null)
             {
-                // 1. УСТАНОВКА (Книгой или пустой рукой)
-                if ((isEmptyHand || isBook) && capi.World.Player.CurrentBlockSelection != null)
+                if ((activeSlot.Empty || isBook) && capi.World.Player.CurrentBlockSelection != null)
                 {
+                    // Просто фиксируем позицию. Угол поворота УЖЕ вычислен в OnRenderFrame
                     lockedPos = capi.World.Player.CurrentBlockSelection.Position.AddCopy(capi.World.Player.CurrentBlockSelection.Face);
-
-                    // Блокируем клик ТОЛЬКО в момент установки. 
-                    // Это нужно, чтобы книга не открылась на весь экран прямо во время прицеливания.
                     args.Handled = true;
                 }
             }
+
+
             else
             {
                 // 2. ВЗАИМОДЕЙСТВИЕ (Голограмма УЖЕ стоит)
@@ -257,7 +264,6 @@ namespace botaniastory
 
             if (isComplete)
             {
-                capi.ShowChatMessage($"[Lexicon] Отлично! Структура {currentStructure} успешно построена!");
                 StopVisualization(); // Вызываем метод очистки
             }
         }
@@ -292,7 +298,36 @@ namespace botaniastory
                 int z = (index >> 10) & 0x3FF;
                 int y = (index >> 20) & 0x3FF;
 
-                BlockPos worldPos = new BlockPos(startX + x, startY + y, startZ + z);
+                // Находим смещение блока относительно центра схемы
+                int offsetX = x - (structureSizeX / 2);
+                int offsetZ = z - (structureSizeZ / 2);
+
+                int finalOffsetX = offsetX;
+                int finalOffsetZ = offsetZ;
+
+                // Крутим смещения в зависимости от того, куда смотрел игрок
+                switch (currentFacing)
+                {
+                    case 0: // Исходное положение (Север)
+                        finalOffsetX = offsetX;
+                        finalOffsetZ = offsetZ;
+                        break;
+                    case 1: // Поворот на 90 (Восток)
+                        finalOffsetX = -offsetZ;
+                        finalOffsetZ = offsetX;
+                        break;
+                    case 2: // Поворот на 180 (Юг)
+                        finalOffsetX = -offsetX;
+                        finalOffsetZ = -offsetZ;
+                        break;
+                    case 3: // Поворот на 270 (Запад)
+                        finalOffsetX = offsetZ;
+                        finalOffsetZ = -offsetX;
+                        break;
+                }
+
+                // Применяем новые смещения к зафиксированной позиции
+                BlockPos worldPos = new BlockPos(basePos.X + finalOffsetX, startY + y, basePos.Z + finalOffsetZ);
                 Block worldBlock = capi.World.BlockAccessor.GetBlock(worldPos);
 
                 // Если блок в мире совпадает с ожидаемым
@@ -380,10 +415,24 @@ namespace botaniastory
         {
             if (!isActive || hologramMeshRefs.Count == 0) return;
 
-            BlockPos targetPos = lockedPos ?? capi.World.Player.CurrentBlockSelection?.Position.AddCopy(capi.World.Player.CurrentBlockSelection.Face);
+            BlockSelection selection = capi.World.Player.CurrentBlockSelection;
+            BlockPos targetPos = lockedPos ?? selection?.Position.AddCopy(selection.Face);
 
             if (targetPos != null)
             {
+                if (lockedPos == null)
+                {
+                    // Получаем Yaw игрока (куда он смотрит)
+                    float yaw = capi.World.Player.Entity.Pos.Yaw;
+
+                    // Вычисляем направление (0, 1, 2, 3)
+                    // Добавляем +2, если врата при установке смотрят "боком" — это поправит смещение на 90 градусов
+                    currentFacing = ((int)System.Math.Round(yaw / GameMath.PIHALF) + 1) % 4;
+                    if (currentFacing < 0) currentFacing += 4;
+
+                    renderRotationY = currentFacing * GameMath.PIHALF;
+                }
+
                 IRenderAPI render = capi.Render;
                 Vec3d camPos = capi.World.Player.Entity.CameraPos;
 
@@ -400,11 +449,20 @@ namespace botaniastory
 
                 float[] modelMatrix = Mat4f.Create();
                 Mat4f.Identity(modelMatrix);
+
+                // 1. Переносим матрицу в ЦЕНТР блока, на который ставим голограмму (+0.5f)
                 Mat4f.Translate(modelMatrix, modelMatrix,
-                    (float)(targetPos.X - camPos.X),
+                    (float)(targetPos.X - camPos.X) + 0.5f,
                     (float)(targetPos.Y + renderOffsetY - camPos.Y),
-                    (float)(targetPos.Z - camPos.Z));
-                Mat4f.Translate(modelMatrix, modelMatrix, -structureSizeX / 2f + 0.5f, 0, -structureSizeZ / 2f + 0.5f);
+                    (float)(targetPos.Z - camPos.Z) + 0.5f);
+
+                // 2. ВРАЩАЕМ вокруг оси Y (вертикальной)
+                Mat4f.RotateY(modelMatrix, modelMatrix, renderRotationY);
+
+                // 3. Смещаем сетку на половину размера постройки, чтобы она строилась от центра.
+                // Важно: мы не используем +0.5f здесь, так как уже сдвинули центр выше!
+                Mat4f.Translate(modelMatrix, modelMatrix, -structureSizeX / 2f, 0, -structureSizeZ / 2f);
+
                 prog.ModelMatrix = modelMatrix;
 
                 render.GlToggleBlend(true);

@@ -29,7 +29,7 @@ namespace botaniastory
             this.slotSize = GuiElement.scaled(48) * scale;
             this.renderSlot = new DummySlot(null);
 
-            // Текстура фона с порталом и стрелочками (путь поменяешь на свой!)
+            // Текстура фона с порталом и стрелочками
             this.bgTexture = new LoadedTexture(capi);
             capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory:textures/gui/alfheim_bg.png"), ref bgTexture);
         }
@@ -54,7 +54,6 @@ namespace botaniastory
             ItemStack hoveredStack = null;
 
             // === 1. Рисуем ВХОДНОЙ предмет (сверху по центру левой части) ===
-            // Координаты (0.35 и 0.15) можно будет подкрутить, чтобы предмет ровно встал над порталом
             double inX = Bounds.renderX + Bounds.InnerWidth * 0.35;
             double inY = Bounds.renderY + Bounds.InnerHeight * 0.15;
 
@@ -70,9 +69,8 @@ namespace botaniastory
             }
 
             // === 2. Рисуем ВЫХОДНОЙ предмет (справа по центру) ===
-            // Координаты (0.85 и 0.5) можно будет подкрутить
-            double outX = Bounds.renderX + Bounds.InnerWidth * 0.85;
-            double outY = Bounds.renderY + Bounds.InnerHeight * 0.50;
+            double outX = Bounds.renderX + Bounds.InnerWidth * 0.93;
+            double outY = Bounds.renderY + Bounds.InnerHeight * 0.69;
 
             if (outputStacks != null && outputStacks.Length > 0)
             {
@@ -80,8 +78,8 @@ namespace botaniastory
                 renderSlot.Itemstack = outStack;
                 api.Render.RenderItemstackToGui(renderSlot, outX, outY, 100, (float)(slotSize * 0.6f), ColorUtil.WhiteArgb);
 
-                double outAbsX = Bounds.absX + Bounds.InnerWidth * 0.85;
-                double outAbsY = Bounds.absY + Bounds.InnerHeight * 0.50;
+                double outAbsX = Bounds.absX + Bounds.InnerWidth * 0.93;
+                double outAbsY = Bounds.absY + Bounds.InnerHeight * 0.69;
                 if (CheckMouse(mouseX, mouseY, outAbsX, outAbsY, slotSize * 0.6f)) hoveredStack = outStack;
             }
 
