@@ -1,4 +1,4 @@
-﻿{
+{
     "game:tabname-botaniastory": "Histoire de Botanie",
     "botaniastory:handbook-intro-title": "Introduction à l'histoire de Botania",
     "botaniastory:handbook-intro-text": "Bienvenue dans le monde de la magie florale !\n\nBotania Story est un mod qui ajoute de nombreuses nouvelles mécaniques liées à la flore mystique et à la gestion du mana.\n\nPour commencer votre voyage, vous aurez besoin de l’outil principal de tout botaniste : le livre de la connaissance. Vous pouvez consulter sa recette de fabrication en cliquant sur ce lien : <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nFabriquez-le, tenez-le dans vos mains et faites un clic droit pour vous immerger dans la magie !",
@@ -142,11 +142,11 @@
     "block-livingrock_slab-*": "Dalle Livingrock",
     "block-alfheimcore-*": "Noyau du portail d'Alfheim",
     "block-managlass": "Verre à mana",
-    "block-elevenglass_0": "Verre elfique clair",
-    "block-elevenglass_1": "Verre elfique à motif circulaire",
-    "block-elevenglass_2": "Verre elfique à motif floral",
-    "block-elevenglass_3": "Verre elfique à motif carré",
-    "block-elevenglass_4": "Verre elfique avec motif en croix",
+    "block-elvenglass-0": "Verre elfique clair",
+    "block-elvenglass-1": "Verre elfique à motif circulaire",
+    "block-elvenglass-2": "Verre elfique à motif floral",
+    "block-elvenglass-3": "Verre elfique à motif carré",
+    "block-elvenglass-4": "Verre elfique avec motif en croix",
     "block-manastar": "Étoile de mana",
     "block-manaspreader": "Épandeur de mana",
     "block-apothecary-*": "Apothicaire Pétale",
@@ -361,5 +361,10 @@
     "lexicon_mystical_items_manaitem_p13": "Fabrication d'une lame de scie en manasteel :\n\n\n\n\n\n\n\n\n\n\nFabrication d'une scie en manasteel :",
     "lexicon_mystical_items_manaitem_p14": "Fabrication d'une lame de faux en manasteel :\n\n\n\n\n\n\n\n\n\n\nFabriquer une faux en manacier :",
     "lexicon_mystical_items_manaitem_p15": "Fabrication d'une tête de lance en manacier :\n\n\n\n\n\n\n\n\n\n\nFabrication d'une lance en manacier :",
-    "lexicon_mystical_items_manaitem_p16": "Fabrication d'un ciseau en manacier :\n\n\n\nFabrication d'un pied-de-biche en manasteel :\n\n\n\n\nFabrication d'une clé en manacier :\n\n\n\n\nFabriquer des pinces en manacier\n\n\n\n\nFabriquer des cisailles en manacier :"
+    "lexicon_mystical_items_manaitem_p16": "Fabrication d'un ciseau en manacier :\n\n\n\nFabrication d'un pied-de-biche en manasteel :\n\n\n\n\nFabrication d'une clé en manacier :\n\n\n\n\nFabriquer des pinces en manacier\n\n\n\n\nFabriquer des cisailles en manacier :",
+    "item-livingwood_plank-normal": "Planches de bois vivant",
+    "item-livingwood_plank-aged": "Planches de bois vivant ancien",
+    "item-livingrock_brick": "Brique de pierre vivante",
+    "block-livingrock_bricks": "Blocs ciselés de pierre vivante",
+    "block-livingrock_crackedbricks": "Blocs ciselés fissurés de pierre vivante"
 }

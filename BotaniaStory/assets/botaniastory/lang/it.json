@@ -1,4 +1,4 @@
-﻿{
+{
     "game:tabname-botaniastory": "Storia di Botanica",
     "botaniastory:handbook-intro-title": "Introduzione a Botania Story",
     "botaniastory:handbook-intro-text": "Benvenuti nel mondo della magia floreale!\n\nBotania Story è una mod che aggiunge molte nuove meccaniche legate alla flora mistica e alla gestione del mana.\n\nPer iniziare il tuo viaggio avrai bisogno dello strumento principale di ogni botanico: il libro della conoscenza. Puoi visualizzare la ricetta di creazione facendo clic su questo collegamento: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nCrealo, tienilo tra le mani e fai clic con il pulsante destro del mouse per immergerti nella magia!",
@@ -142,11 +142,11 @@
     "block-livingrock_slab-*": "Lastra di roccia viva",
     "block-alfheimcore-*": "Nucleo del portale Alfheim",
     "block-managlass": "Vetro di mana",
-    "block-elevenglass_0": "Vetro elfico trasparente",
-    "block-elevenglass_1": "Vetro elfico con motivo circolare",
-    "block-elevenglass_2": "Bicchiere elfico con motivo floreale",
-    "block-elevenglass_3": "Vetro elfico con motivo quadrato",
-    "block-elevenglass_4": "Vetro elfico con motivo a croce",
+    "block-elvenglass-0": "Vetro elfico trasparente",
+    "block-elvenglass-1": "Vetro elfico con motivo circolare",
+    "block-elvenglass-2": "Bicchiere elfico con motivo floreale",
+    "block-elvenglass-3": "Vetro elfico con motivo quadrato",
+    "block-elvenglass-4": "Vetro elfico con motivo a croce",
     "block-manastar": "Stella di Mana",
     "block-manaspreader": "Spargimana",
     "block-apothecary-*": "Farmacista dei petali",
@@ -361,5 +361,10 @@
     "lexicon_mystical_items_manaitem_p13": "Lama per sega di acciaio di manasteel:\n\n\n\n\n\n\n\n\n\n\nSega per fabbricazione di acciaio di mana:",
     "lexicon_mystical_items_manaitem_p14": "Creazione della lama della falce di acciaio di mana:\n\n\n\n\n\n\n\n\n\n\nCreazione della Falce di Manasteel:",
     "lexicon_mystical_items_manaitem_p15": "Creazione di punte di lancia in acciaio di mana:\n\n\n\n\n\n\n\n\n\n\nCreazione della lancia di acciaio di mana:",
-    "lexicon_mystical_items_manaitem_p16": "Scalpello di manaacciaio:\n\n\n\nCreazione del piede di porco di acciaio di mana:\n\n\n\n\nCreazione della chiave di manaacciaio:\n\n\n\n\nCreare pinze di acciaio di mana\n\n\n\n\nForgiatura di cesoie di manaacciaio:"
+    "lexicon_mystical_items_manaitem_p16": "Scalpello di manaacciaio:\n\n\n\nCreazione del piede di porco di acciaio di mana:\n\n\n\n\nCreazione della chiave di manaacciaio:\n\n\n\n\nCreare pinze di acciaio di mana\n\n\n\n\nForgiatura di cesoie di manaacciaio:",
+    "item-livingwood_plank-normal": "Assi di legnovivo",
+    "item-livingwood_plank-aged": "Assi di legnovivo antico",
+    "item-livingrock_brick": "Mattone di pietraviva",
+    "block-livingrock_bricks": "Blocchi scolpiti di pietraviva",
+    "block-livingrock_crackedbricks": "Blocchi scolpiti incrinati di pietraviva"
 }

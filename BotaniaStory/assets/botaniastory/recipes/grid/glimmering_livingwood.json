@@ -1,0 +1,19 @@
+{
+    "ingredientPattern": "LC",
+    "ingredients": {
+        "L": {
+            "type": "block",
+            "code": "botaniastory:livingwood-normal"
+        },
+        "C": {
+            "type": "item",
+            "code": "game:candle"
+        }
+    },
+    "width": 2,
+    "height": 1,
+    "output": {
+        "type": "block",
+        "code": "botaniastory:glimmering-livingwood"
+    }
+}

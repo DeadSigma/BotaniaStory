@@ -1,4 +1,4 @@
-﻿{
+{
     "game:tabname-botaniastory": "Historia Botanii",
     "botaniastory:handbook-intro-title": "Wprowadzenie do historii Botanii",
     "botaniastory:handbook-intro-text": "Witamy w świecie kwiatowej magii!\n\nBotania Story to mod, który dodaje wiele nowych mechanik związanych z mistyczną florą i zarządzaniem maną.\n\nAby rozpocząć swoją podróż, będziesz potrzebować głównego narzędzia każdego botanika – księgi wiedzy. Możesz zobaczyć przepis na jego wykonanie, klikając ten link: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Leksykon</a>.\n\nStwórz go, trzymaj w dłoniach i kliknij prawym przyciskiem myszy, aby zanurzyć się w magii!",
@@ -142,11 +142,11 @@
     "block-livingrock_slab-*": "Płyta Livingrock",
     "block-alfheimcore-*": "Rdzeń Portalu Alfheim",
     "block-managlass": "Managlass",
-    "block-elevenglass_0": "Przezroczyste elfie szkło",
-    "block-elevenglass_1": "Elfie szkło z okrągłym wzorem",
-    "block-elevenglass_2": "Elfie szkło z motywem kwiatowym",
-    "block-elevenglass_3": "Elfie szkło z kwadratowym wzorem",
-    "block-elevenglass_4": "Elfie szkło z wzorem krzyża",
+    "block-elvenglass-0": "Przezroczyste elfie szkło",
+    "block-elvenglass-1": "Elfie szkło z okrągłym wzorem",
+    "block-elvenglass-2": "Elfie szkło z motywem kwiatowym",
+    "block-elvenglass-3": "Elfie szkło z kwadratowym wzorem",
+    "block-elvenglass-4": "Elfie szkło z wzorem krzyża",
     "block-manastar": "Gwiazda Mana",
     "block-manaspreader": "Rozrzutnik Many",
     "block-apothecary-*": "Płatkowy Aptekarz",
@@ -361,5 +361,10 @@
     "lexicon_mystical_items_manaitem_p13": "Tworzenie brzeszczotu ze stali Manasteel:\n\n\n\n\n\n\n\n\n\n\nTworzenie piły Manasteel:",
     "lexicon_mystical_items_manaitem_p14": "Tworzenie ostrza kosy ze stali Manasteel:\n\n\n\n\n\n\n\n\n\n\nTworzenie Kosy Manasteel:",
     "lexicon_mystical_items_manaitem_p15": "Tworzenie grotu włóczni ze stali Manasteel:\n\n\n\n\n\n\n\n\n\n\nTworzenie włóczni ze stali Manasteel:",
-    "lexicon_mystical_items_manaitem_p16": "Tworzenie dłuta Manasteel:\n\n\n\nTworzenie łomu ze stali Manasteel:\n\n\n\n\nTworzenie klucza Manasteel:\n\n\n\n\nTworzenie szczypiec Manasteel\n\n\n\n\nTworzenie nożyc Manasteel:"
+    "lexicon_mystical_items_manaitem_p16": "Tworzenie dłuta Manasteel:\n\n\n\nTworzenie łomu ze stali Manasteel:\n\n\n\n\nTworzenie klucza Manasteel:\n\n\n\n\nTworzenie szczypiec Manasteel\n\n\n\n\nTworzenie nożyc Manasteel:",
+    "item-livingwood_plank-normal": "Deski z żywego drewna",
+    "item-livingwood_plank-aged": "Deski ze starego żywego drewna",
+    "item-livingrock_brick": "Cegła z żywego kamienia",
+    "block-livingrock_bricks": "Ciosane bloki z żywego kamienia",
+    "block-livingrock_crackedbricks": "Popękane ciosane bloki z żywego kamienia"
 }

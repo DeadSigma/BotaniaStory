@@ -76,7 +76,7 @@ namespace botaniastory
         private static readonly Dictionary<string, string[]> BookStructure = new Dictionary<string, string[]>
         {
             { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "wandoftheforest", "terrasteel",
-                "puredaisy", "runicaltar", "rune" } },
+                "puredaisy", "runicaltar", "rune", "pylon" } },
 
             { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment" } },
 
@@ -92,9 +92,9 @@ namespace botaniastory
 
             { "rusted_world_artifacts", new[] { "ch1" } },
 
-            { "elfmania", new[] { "ch1" } },
+            { "elfmania", new[] { "alfheimgates" } },
 
-            { "misc", new[] { "livingwood_firewood", "livingwood_stick", "livingrock", "livingrock_slab", "managlass" } },
+            { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass" } },
 
             { "trials", new[] { "ch1" } }
         };
@@ -230,7 +230,7 @@ namespace botaniastory
                             },
                             Output = "botaniastory:lexicon-closed"
                         });
- 
+
                     }
 
                     // === НАСТРОЙКА АПТЕКАРЯ ===
@@ -341,7 +341,7 @@ namespace botaniastory
                             Output = "botaniastory:runicaltar"
                         });
 
-                        
+
 
                     }
 
@@ -472,9 +472,9 @@ namespace botaniastory
                             Grid = new string[9] {
                                "game:chisel-*", null,"game:hammer-*",// Верхний ряд
 
-                              "botaniastory:livingrock_slab-*", null, "botaniastory:livingrock_slab-*",// Средний ряд
+                              "botaniastory:livingrock_slab-down-free", null, "botaniastory:livingrock_slab-down-free",// Средний ряд
                         
-                              "botaniastory:livingrock_slab-*", "botaniastory:livingrock_slab-*", "botaniastory:livingrock_slab-*" // Нижний ряд
+                              "botaniastory:livingrock_slab-down-free", "botaniastory:livingrock_slab-down-free", "botaniastory:livingrock_slab-down-free" // Нижний ряд
                           },
                             Output = "botaniastory:manapool-diluted"
                         });
@@ -712,7 +712,7 @@ namespace botaniastory
                     // === НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ГЕНЕРИРУЮЩУЮ ФЛОРУ ===
                     else if (chapId == "generatingfloraintroduction")
                     {
-                        chapter.TabItemCode = "botaniastory:checkmark"; 
+                        chapter.TabItemCode = "botaniastory:checkmark";
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ДНЕВНОЦВЕТ ===
@@ -778,10 +778,17 @@ namespace botaniastory
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ЖИЗНЕДРОВА ===
-                    else if (chapId == "livingwood_firewood")
+                    // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ЖИЗНЕДЕРЕВА ===
+                    else if (chapId == "livingwood_stuff")
                     {
-                        chapter.TabItemCode = "botaniastory:livingwood_firewood";
+                        chapter.TabItemCode = "botaniastory:livingwood-normal";
+
+                        chapter.Images.Add(new BookPageImage()
+                        {
+                            Path = "botaniastory:textures/gui/puredaisy.png",
+                            Spread = 0,
+                            UiKey = "Картинка_Левая"
+                        });
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -789,33 +796,160 @@ namespace botaniastory
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                              "game:axe-*", "botaniastory:livingwood-*", null,
+                              "game:axe-*", "botaniastory:livingwood-normal", null,
                               null, null, null,
                               null, null, null},
                             Output = "botaniastory:livingwood_firewood"
                         });
-                    }
-
-                    // === НАСТРОЙКА ГЛАВЫ ЖИЗНЕПАЛКИ ===
-                    else if (chapId == "livingwood_stick")
-                    {
-                        chapter.TabItemCode = "botaniastory:livingwood_stick";
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
                             Spread = 0,
-                            UiKey = "Сетка_Правая_Верхняя",
+                            UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
                               "game:axe-*", "botaniastory:livingwood_firewood", null,
                               null, null, null,
                               null, null, null},
                             Output = "botaniastory:livingwood_stick"
                         });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                                  "botaniastory:livingwood-normal", "game:candle", null,
+                                  null, null, null,
+                                  null, null, null},
+                            Output = "botaniastory:glimmering_livingwood"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                            "game:saw-*", "botaniastory:livingwood-normal", null,
+                            null, null, null,
+                            null, null, null
+                        },
+                            Output = "botaniastory:livingwood_plank-normal"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                            "botaniastory:livingwood_plank-normal", "botaniastory:livingwood_plank-normal", null,
+                            "botaniastory:livingwood_plank-normal", "botaniastory:livingwood_plank-normal", null,
+                            null, null, null
+                        },
+                            Output = "botaniastory:livingwood_planks-normal-ud"
+                        });
+
+                        ////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                            "botaniastory:livingwood_plank-normal", "botaniastory:livingwood_plank-normal", null,
+                            null, null, null,
+                            null, null, null
+                        },
+                            Output = "botaniastory:livingwood_plankslab-normal-down-free"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                            "botaniastory:livingwood_plank-normal", null, null,
+                            "botaniastory:livingwood_plank-normal", "botaniastory:livingwood_plank-normal", null,
+                            null, null, null
+                        },
+                            Output = "botaniastory:livingwood_plankstairs-normal-up-north-free"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                            "botaniastory:livingwood-normal", null, null,
+                            null, null, null,
+                            null, null, null
+                        },
+                            Output = "botaniastory:livingwood-aged"
+                        });
+
+                        ///////////////////////////////////////////////////////////////////////////////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                            "game:saw-*", "botaniastory:livingwood-aged", null,
+                            null, null, null,
+                            null, null, null
+                            },
+                            Output = "botaniastory:livingwood_plank-aged"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                            "botaniastory:livingwood_plank-aged", "botaniastory:livingwood_plank-aged", null,
+                            "botaniastory:livingwood_plank-aged", "botaniastory:livingwood_plank-aged", null,
+                            null, null, null
+                        },
+                            Output = "botaniastory:livingwood_planks-aged-ud"
+                        });
+
+                        /////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                            "botaniastory:livingwood_plank-aged", "botaniastory:livingwood_plank-aged", null,
+                            null, null, null,
+                            null, null, null
+                        },
+                            Output = "botaniastory:livingwood_plankslab-aged-down-free"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                            "botaniastory:livingwood_plank-aged", null, null,
+                            "botaniastory:livingwood_plank-aged", "botaniastory:livingwood_plank-aged", null,
+                            null, null, null
+                        },
+                            Output = "botaniastory:livingwood_plankstairs-aged-up-north-free"
+                        });
+
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ЖИЗНЕКАМЕНЬ ===
-                    else if (chapId == "livingrock")
+                    // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ЖИЗНЕКАМНЯ ===
+                    else if (chapId == "livingrock_stuff")
                     {
                         chapter.TabItemCode = "botaniastory:livingrock";
 
@@ -823,16 +957,10 @@ namespace botaniastory
                         {
                             Path = "botaniastory:textures/gui/puredaisy.png",
                             Spread = 0,
-                            UiKey = "Картинка_Правая"
+                            UiKey = "Картинка_Левая"
                         });
 
-                    }
-
-                    // === НАСТРОЙКА ГЛАВЫ ПЛИТА ИЗ ЖИЗНЕКАМНЯ ===
-                    else if (chapId == "livingrock_slab")
-                    {
-                        chapter.TabItemCode = "botaniastory:livingrock_slab-*";
-
+                        /////////////Полублоки из жизнекамня 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
@@ -845,25 +973,48 @@ namespace botaniastory
                         
                               null, null, null // Нижний ряд
                           },
-                            Output = "botaniastory:livingrock_slab-*"
+                            Output = "botaniastory:livingrock_slab-down-free"
                         });
-
+                        /////////////Полублоки из жизнекамня 
+                        /////////////Кирпичи
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
                             Spread = 0,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                               "game:chisel-*", null,"game:hammer-*",// Верхний ряд
-
-                              "botaniastory:livingrock_slab-*", null, "botaniastory:livingrock_slab-*",// Средний ряд
-                        
-                              "botaniastory:livingrock_slab-*", "botaniastory:livingrock_slab-*", "botaniastory:livingrock_slab-*" // Нижний ряд
-                          },
-                            Output = "botaniastory:manapool_diluted"
+                             "game:chisel-*", null, null,
+                             "game:hammer-*", null, null,
+                             "botaniastory:livingrock", null, null},
+                            Output = "botaniastory:livingrock_brick"
                         });
-                    }
 
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                             "botaniastory:livingrock_brick", "botaniastory:livingrock_brick", "botaniastory:livingrock_brick",
+                             "botaniastory:livingrock_brick", "game:mortar", "botaniastory:livingrock_brick",
+                             "botaniastory:livingrock_brick", "botaniastory:livingrock_brick", "botaniastory:livingrock_brick" },
+                            Output = "botaniastory:livingrock_bricks"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                             "game:chisel-*", null, null,
+                             "game:hammer-*", null, null,
+                             "botaniastory:livingrock_bricks", null, null},
+                            Output = "botaniastory:livingrock_crackedbricks"
+                        });
+                        /////////////Кирпичи
+                    }
+                   
                     // === НАСТРОЙКА ГЛАВЫ МАНАСТЕКЛО ===
                     else if (chapId == "managlass")
                     {
@@ -884,7 +1035,7 @@ namespace botaniastory
                         {
                             Spread = 0,
                             ManaCost = 5000,
-                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
 
@@ -1298,10 +1449,6 @@ namespace botaniastory
 
                     }
 
-
-
-
-
                     // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ МАНАСТАЛИ ===
                     else if (chapId == "manaitem")
                     {
@@ -1694,6 +1841,90 @@ namespace botaniastory
                             Output = "botaniastory:checkmark"
                         });
                     }
+
+                    // === НАСТРОЙКА ГЛАВЫ ПИЛОНЫ ===
+                    else if (chapId == "pylon")
+                    {
+                        chapter.TabItemCode = "botaniastory:pylon-mana";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                 null, "game:ingot-terrasteel", null,
+                                 "game:metalbit-terrasteel", "botaniastory:pylon-mana", "game:metalbit-terrasteel",
+                                 null, "game:gear-temporal", null },
+                            Output = "botaniastory:pylon-gaia"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                 null, "game:ingot-gold", null,
+                                 "game:ingot-manasteel", "botaniastory:manaitem-managear", "game:ingot-manasteel",
+                                 null, "game:ingot-gold", null},
+                            Output = "botaniastory:pylon-natura"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                null, "game:metalbit-terrasteel", null,
+                                "game:metalbit-terrasteel", "botaniastory:pylon-mana", "game:metalbit-terrasteel",
+                                null, "game:gear-temporal", null },
+                            Output = "botaniastory:pylon-mana"
+                        });
+
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ АЛЬФХЕЙМ ===
+                    else if (chapId == "alfheimgates")
+                    {
+                        chapter.TabItemCode = "botaniastory:pylon-natura";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                             "botaniastory:livingwood-normal", "game:metalbit-terrasteel",  "botaniastory:livingwood-normal",
+                             "botaniastory:livingwood-normal", "game:metalbit-terrasteel",  "botaniastory:livingwood-normal",
+                             "botaniastory:livingwood-normal", "game:metalbit-terrasteel",  "botaniastory:livingwood-normal"},
+                            Output = "botaniastory:alfheimcore-off"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                                 null, "game:ingot-gold", null,
+                                 "game:ingot-manasteel", "botaniastory:manaitem-managear", "game:ingot-manasteel",
+                                 null, "game:ingot-gold", null},
+                            Output = "botaniastory:pylon-natura"
+                        });
+
+                        chapter.Images.Add(new BookPageImage()
+                        {
+                            Path = "botaniastory:textures/gui/alfheimgates.png",
+                            Spread = 1,
+                            UiKey = "Картинка_Левая_Альфхейм"
+                        });
+
+
+                    }
+
+
 
                     // Пытаемся загрузить до 30 страниц
                     for (int p = 1; p <= 30; p++)

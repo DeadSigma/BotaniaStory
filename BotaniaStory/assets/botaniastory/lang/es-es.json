@@ -1,4 +1,4 @@
-﻿{
+{
     "game:tabname-botaniastory": "Historia de Botania",
     "botaniastory:handbook-intro-title": "Introducción a la historia de Botania",
     "botaniastory:handbook-intro-text": "¡Bienvenidos al mundo de la magia floral!\n\nBotania Story es un mod que añade muchas mecánicas nuevas relacionadas con la flora mística y la gestión de maná.\n\nPara comenzar tu viaje, necesitarás la principal herramienta de todo botánico: el libro del conocimiento. Puede ver su receta de elaboración haciendo clic en este enlace: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\n¡Créalo, sostenlo en tus manos y haz clic derecho para sumergirte en la magia!",
@@ -142,11 +142,11 @@
     "block-livingrock_slab-*": "Losa de Livingrock",
     "block-alfheimcore-*": "Núcleo del portal de Alfheim",
     "block-managlass": "Manáglass",
-    "block-elevenglass_0": "Vidrio élfico transparente",
-    "block-elevenglass_1": "Vidrio élfico con patrón circular",
-    "block-elevenglass_2": "Vidrio élfico con estampado de flores",
-    "block-elevenglass_3": "Vidrio élfico con patrón cuadrado",
-    "block-elevenglass_4": "Vidrio élfico con patrón de cruz",
+    "block-elvenglass-0": "Vidrio élfico transparente",
+    "block-elvenglass-1": "Vidrio élfico con patrón circular",
+    "block-elvenglass-2": "Vidrio élfico con estampado de flores",
+    "block-elvenglass-3": "Vidrio élfico con patrón cuadrado",
+    "block-elvenglass-4": "Vidrio élfico con patrón de cruz",
     "block-manastar": "Estrella de maná",
     "block-manaspreader": "Esparcidor de maná",
     "block-apothecary-*": "Boticario de pétalos",
@@ -361,5 +361,10 @@
     "lexicon_mystical_items_manaitem_p13": "Elaboración de hoja de sierra Manasteel:\n\n\n\n\n\n\n\n\n\n\nElaboración de sierra de manacero:",
     "lexicon_mystical_items_manaitem_p14": "Elaboración de la hoja de guadaña de Manasteel:\n\n\n\n\n\n\n\n\n\n\nElaboración de guadaña de acero de manzanilla:",
     "lexicon_mystical_items_manaitem_p15": "Elaboración de cabeza de lanza de manacero:\n\n\n\n\n\n\n\n\n\n\nElaboración de lanza de acero de maná:",
-    "lexicon_mystical_items_manaitem_p16": "Elaboración de cincel de acero de manzanilla:\n\n\n\nElaboración de palanca de manacero:\n\n\n\n\nFabricación de llave de acero de maná:\n\n\n\n\nFabricación de pinzas de acero de maná\n\n\n\n\nElaboración de tijeras de manacero:"
+    "lexicon_mystical_items_manaitem_p16": "Elaboración de cincel de acero de manzanilla:\n\n\n\nElaboración de palanca de manacero:\n\n\n\n\nFabricación de llave de acero de maná:\n\n\n\n\nFabricación de pinzas de acero de maná\n\n\n\n\nElaboración de tijeras de manacero:",
+    "item-livingwood_plank-normal": "Tablones de madera viviente",
+    "item-livingwood_plank-aged": "Tablones de madera viviente antigua",
+    "item-livingrock_brick": "Ladrillo de piedra viviente",
+    "block-livingrock_bricks": "Bloques cincelados de piedra viviente",
+    "block-livingrock_crackedbricks": "Bloques cincelados agrietados de piedra viviente"
 }

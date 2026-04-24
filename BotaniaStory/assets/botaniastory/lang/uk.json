@@ -1,4 +1,4 @@
-﻿{
+{
     "game:tabname-botaniastory": "Ботанічна історія",
     "botaniastory:handbook-intro-title": "Вступ до розповіді про ботаніку",
     "botaniastory:handbook-intro-text": "Ласкаво просимо у світ квіткової магії!\n\nBotania Story — це мод, який додає багато нових механік, пов’язаних із містичною флорою та керуванням маною.\n\nЩоб почати свою подорож, вам знадобиться головний інструмент кожного ботаніка — книга знань. Ви можете переглянути рецепт його виготовлення, натиснувши це посилання: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nЗробіть його, тримайте в руках і клацніть правою кнопкою миші, щоб поринути в магію!",
@@ -142,11 +142,11 @@
     "block-livingrock_slab-*": "Плита Livingrock",
     "block-alfheimcore-*": "Ядро порталу Alfheim",
     "block-managlass": "Managlass",
-    "block-elevenglass_0": "Прозоре ельфійське скло",
-    "block-elevenglass_1": "Ельфійське скло з круговим малюнком",
-    "block-elevenglass_2": "Ельфійське скло з квітковим візерунком",
-    "block-elevenglass_3": "Ельфійське скло з квадратним малюнком",
-    "block-elevenglass_4": "Ельфійське скло з хрестовим візерунком",
+    "block-elvenglass-0": "Прозоре ельфійське скло",
+    "block-elvenglass-1": "Ельфійське скло з круговим малюнком",
+    "block-elvenglass-2": "Ельфійське скло з квітковим візерунком",
+    "block-elvenglass-3": "Ельфійське скло з квадратним малюнком",
+    "block-elvenglass-4": "Ельфійське скло з хрестовим візерунком",
     "block-manastar": "Зірка Мани",
     "block-manaspreader": "Розсіювач мани",
     "block-apothecary-*": "Пелюстковий аптекар",
@@ -361,5 +361,10 @@
     "lexicon_mystical_items_manaitem_p13": "Виготовлення пильного полотна Manasteel:\n\n\n\n\n\n\n\n\n\n\nВиготовлення пили Manasteel:",
     "lexicon_mystical_items_manaitem_p14": "Виготовлення леза коси зі сталі Manasteel:\n\n\n\n\n\n\n\n\n\n\nКрафт Manasteel Scythe:",
     "lexicon_mystical_items_manaitem_p15": "Виготовлення наконечника списа з маністелі:\n\n\n\n\n\n\n\n\n\n\nВиготовлення списа з маністелі:",
-    "lexicon_mystical_items_manaitem_p16": "Виготовлення зубила Manasteel:\n\n\n\nКрафт Manasteel Crowbar:\n\n\n\n\nВиготовлення гайкового ключа Manasteel:\n\n\n\n\nВиготовлення щипців зі сталі Manasteel\n\n\n\n\nВиготовлення ножиць зі сталі Manasteel:"
+    "lexicon_mystical_items_manaitem_p16": "Виготовлення зубила Manasteel:\n\n\n\nКрафт Manasteel Crowbar:\n\n\n\n\nВиготовлення гайкового ключа Manasteel:\n\n\n\n\nВиготовлення щипців зі сталі Manasteel\n\n\n\n\nВиготовлення ножиць зі сталі Manasteel:",
+    "item-livingwood_plank-normal": "Дошки з життєдерева",
+    "item-livingwood_plank-aged": "Дошки з прадавнього життєдерева",
+    "item-livingrock_brick": "Цеглина з життєкаменю",
+    "block-livingrock_bricks": "Тесані блоки з життєкаменю",
+    "block-livingrock_crackedbricks": "Тріснуті тесані блоки з життєкаменю"
 }

@@ -1,4 +1,4 @@
-﻿{
+{
     "game:tabname-botaniastory": "Příběh o botanii",
     "botaniastory:handbook-intro-title": "Úvod do příběhu Botania",
     "botaniastory:handbook-intro-text": "Vítejte ve světě květinové magie!\n\nBotania Story je mod, který přidává mnoho nových mechanik souvisejících s mystickou flórou a správou many.\n\nK zahájení své cesty budete potřebovat hlavní nástroj každého botanika — knihu znalostí. Recept na jeho výrobu si můžete prohlédnout kliknutím na tento odkaz: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nVytvořte jej, držte jej v rukou a kliknutím pravým tlačítkem se ponořte do magie!",
@@ -142,11 +142,11 @@
     "block-livingrock_slab-*": "Livingrock deska",
     "block-alfheimcore-*": "Jádro portálu Alfheim",
     "block-managlass": "Managlass",
-    "block-elevenglass_0": "Čiré elfské sklo",
-    "block-elevenglass_1": "Elfské sklo s kruhovým vzorem",
-    "block-elevenglass_2": "Elfské sklo s květinovým vzorem",
-    "block-elevenglass_3": "Elfské sklo se čtvercovým vzorem",
-    "block-elevenglass_4": "Elfské sklo s křížovým vzorem",
+    "block-elvenglass-0": "Čiré elfské sklo",
+    "block-elvenglass-1": "Elfské sklo s kruhovým vzorem",
+    "block-elvenglass-2": "Elfské sklo s květinovým vzorem",
+    "block-elvenglass-3": "Elfské sklo se čtvercovým vzorem",
+    "block-elvenglass-4": "Elfské sklo s křížovým vzorem",
     "block-manastar": "Mana Star",
     "block-manaspreader": "Mana Spreader",
     "block-apothecary-*": "Lékárna Petal",
@@ -361,5 +361,10 @@
     "lexicon_mystical_items_manaitem_p13": "Výroba pilového kotouče Manasteel:\n\n\n\n\n\n\n\n\n\n\nVýroba pily Manasteel:",
     "lexicon_mystical_items_manaitem_p14": "Výroba čepele Manasteel Scythe:\n\n\n\n\n\n\n\n\n\n\nVýroba Manasteel Scythe:",
     "lexicon_mystical_items_manaitem_p15": "Výroba Manasteel Spear Head:\n\n\n\n\n\n\n\n\n\n\nVýroba Manasteel Spear:",
-    "lexicon_mystical_items_manaitem_p16": "Crafting Manasteel Chisel:\n\n\n\nVýroba Manasteel Crowbar:\n\n\n\n\nManasteel klíč na výrobu:\n\n\n\n\nVýroba Manasteel Tongs\n\n\n\n\nVýroba nůžek Manasteel:"
+    "lexicon_mystical_items_manaitem_p16": "Crafting Manasteel Chisel:\n\n\n\nVýroba Manasteel Crowbar:\n\n\n\n\nManasteel klíč na výrobu:\n\n\n\n\nVýroba Manasteel Tongs\n\n\n\n\nVýroba nůžek Manasteel:",
+    "item-livingwood_plank-normal": "Prkna ze živého dřeva",
+    "item-livingwood_plank-aged": "Prkna ze starobylého živého dřeva",
+    "item-livingrock_brick": "Cihla ze živého kamene",
+    "block-livingrock_bricks": "Tesané bloky ze živého kamene",
+    "block-livingrock_crackedbricks": "Popraskané tesané bloky ze živého kamene"
 }

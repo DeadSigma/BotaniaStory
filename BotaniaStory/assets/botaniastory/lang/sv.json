@@ -1,4 +1,4 @@
-﻿{
+{
     "game:tabname-botaniastory": "Botania berättelse",
     "botaniastory:handbook-intro-title": "Introduktion till Botania Story",
     "botaniastory:handbook-intro-text": "Välkommen till en värld av blommig magi!\n\nBotania Story är en mod som lägger till många nya mekaniker relaterade till mystisk flora och manahantering.\n\nFör att börja din resa behöver du det viktigaste verktyget för varje botanist - kunskapens bok. Du kan se dess hantverksrecept genom att klicka på denna länk: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nSkapa den, håll den i dina händer och högerklicka för att fördjupa dig i magi!",
@@ -142,11 +142,11 @@
     "block-livingrock_slab-*": "Livingrock Slab",
     "block-alfheimcore-*": "Alfheim Portal Core",
     "block-managlass": "Managlass",
-    "block-elevenglass_0": "Klart alvglas",
-    "block-elevenglass_1": "Alvglas med cirkulärt mönster",
-    "block-elevenglass_2": "Elven glas med blommönster",
-    "block-elevenglass_3": "Alvglas med fyrkantigt mönster",
-    "block-elevenglass_4": "Alvglas med korsmönster",
+    "block-elvenglass-0": "Klart alvglas",
+    "block-elvenglass-1": "Alvglas med cirkulärt mönster",
+    "block-elvenglass-2": "Elven glas med blommönster",
+    "block-elvenglass-3": "Alvglas med fyrkantigt mönster",
+    "block-elvenglass-4": "Alvglas med korsmönster",
     "block-manastar": "Mana Star",
     "block-manaspreader": "Mana Spridare",
     "block-apothecary-*": "Kronbladsapoteker",
@@ -361,5 +361,10 @@
     "lexicon_mystical_items_manaitem_p13": "Att skapa Manasteel sågblad:\n\n\n\n\n\n\n\n\n\n\nAtt skapa manastelsåg:",
     "lexicon_mystical_items_manaitem_p14": "Att skapa Manasteel Scythe Blade:\n\n\n\n\n\n\n\n\n\n\nAtt skapa Manasteel Scythe:",
     "lexicon_mystical_items_manaitem_p15": "Att skapa Manasteel spjuthuvud:\n\n\n\n\n\n\n\n\n\n\nAtt skapa Manasteel Spear:",
-    "lexicon_mystical_items_manaitem_p16": "Att skapa Manasteel Mejsel:\n\n\n\nAtt skapa Manasteel kofot:\n\n\n\n\nAtt skapa manasteel skiftnyckel:\n\n\n\n\nHantverkar manasteltång\n\n\n\n\nHantverksmanastelsaxar:"
+    "lexicon_mystical_items_manaitem_p16": "Att skapa Manasteel Mejsel:\n\n\n\nAtt skapa Manasteel kofot:\n\n\n\n\nAtt skapa manasteel skiftnyckel:\n\n\n\n\nHantverkar manasteltång\n\n\n\n\nHantverksmanastelsaxar:",
+    "item-livingwood_plank-normal": "Plankor av livsträ",
+    "item-livingwood_plank-aged": "Plankor av urgammalt livsträ",
+    "item-livingrock_brick": "Tegel av livssten",
+    "block-livingrock_bricks": "Huggna livsstensblock",
+    "block-livingrock_crackedbricks": "Spruckna huggna livsstensblock"
 }

@@ -1,4 +1,4 @@
-﻿{
+{
     "game:tabname-botaniastory": "ボタニア物語",
     "botaniastory:handbook-intro-title": "ボタニア物語の紹介",
     "botaniastory:handbook-intro-text": "フラワーマジックの世界へようこそ！\n\nBotania Story は、神秘的な植物相とマナ管理に関連する多くの新しいメカニズムを追加する MOD です。\n\n旅を始めるには、すべての植物学者の主要なツールである知識の本が必要です。このリンクをクリックすると、その作成レシピを表示できます: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>。\n\n作成し、手に持って、右クリックして魔法の世界に浸ってください。",
@@ -142,11 +142,11 @@
     "block-livingrock_slab-*": "リヴィングロックスラブ",
     "block-alfheimcore-*": "アルフヘイムポータルコア",
     "block-managlass": "マナグラス",
-    "block-elevenglass_0": "クリアエルフグラス",
-    "block-elevenglass_1": "円形模様のエルフのガラス",
-    "block-elevenglass_2": "花模様のエルフのガラス",
-    "block-elevenglass_3": "正方形模様のエルフのガラス",
-    "block-elevenglass_4": "十字模様のエルフのガラス",
+    "block-elvenglass-0": "クリアエルフグラス",
+    "block-elvenglass-1": "円形模様のエルフのガラス",
+    "block-elvenglass-2": "花模様のエルフのガラス",
+    "block-elvenglass-3": "正方形模様のエルフのガラス",
+    "block-elvenglass-4": "十字模様のエルフのガラス",
     "block-manastar": "マナスター",
     "block-manaspreader": "マナスプレッダー",
     "block-apothecary-*": "ペタルアポセカリー",
@@ -361,5 +361,10 @@
     "lexicon_mystical_items_manaitem_p13": "マナスチール鋸刃の作成:\n\n\n\n\n\n\n\n\n\n\nマナスチールソーの作成:",
     "lexicon_mystical_items_manaitem_p14": "マナスチールの鎌刃の作成:\n\n\n\n\n\n\n\n\n\n\nマナスティールの鎌の作成:",
     "lexicon_mystical_items_manaitem_p15": "マナスチールの槍頭を作成する:\n\n\n\n\n\n\n\n\n\n\nマナスチールの槍の作成:",
-    "lexicon_mystical_items_manaitem_p16": "マナスチールノミの作成:\n\n\n\nマナスチールバールの作成:\n\n\n\n\nマナスチールレンチの作成:\n\n\n\n\nマナスチール製トングの作成\n\n\n\n\nマナスチール鋏の作成:"
+    "lexicon_mystical_items_manaitem_p16": "マナスチールノミの作成:\n\n\n\nマナスチールバールの作成:\n\n\n\n\nマナスチールレンチの作成:\n\n\n\n\nマナスチール製トングの作成\n\n\n\n\nマナスチール鋏の作成:",
+    "item-livingwood_plank-normal": "生木の板材",
+    "item-livingwood_plank-aged": "古代生木の板材",
+    "item-livingrock_brick": "生石レンガ",
+    "block-livingrock_bricks": "彫刻された生石ブロック",
+    "block-livingrock_crackedbricks": "ひび割れた彫刻生石ブロック"
 }
