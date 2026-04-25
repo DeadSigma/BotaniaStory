@@ -14,7 +14,13 @@
 	{
 		"file": "game:itemtypes/resource/metalchain.json",
 		"op": "add",
+		"path": "/variantgroups/0/states/-",
+		"value": "elementium"
+	},
+	{
+		"file": "game:itemtypes/resource/metalchain.json",
+		"op": "add",
 		"path": "/creativeinventory/botaniastory",
-		"value": [ "*-manasteel", "*-terrasteel" ]
+		"value": [ "*-manasteel", "*-terrasteel", "*-elementium" ]
 	}
 ]

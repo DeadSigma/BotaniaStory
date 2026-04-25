@@ -1,0 +1,121 @@
+{
+	"code": "fairydust",
+	"class": "Item",
+	"maxstacksize": 64,
+	"shape": {
+		"base": "botaniastory:item/manapowder"
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"textures": {
+		"all": { "base": "botaniastory:item/fairydust" }
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "Messy12",
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.125,
+					"z2": 1
+				}
+			}
+		}
+	],
+	"attributes": {
+		"dissolveInWater": true,
+		"displaycaseable": true,
+		"shelvable": true,
+		"onDisplayTransform": {
+			"translation": {
+				"x": 0.05,
+				"y": 0,
+				"z": 0
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.65
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0,
+				"y": -0.055,
+				"z": 0
+			},
+			"rotation": {
+				"x": 0.1,
+				"y": 8,
+				"z": 0.1
+			},
+			"scale": 0.9
+		}
+		
+	},
+	"materialDensity": 500,
+	"guiTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 149,
+			"y": 12,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.41,
+			"y": -0.1,
+			"z": 0.8
+		},
+		"scale": 2.54
+	},
+	"fpHandTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 15,
+			"y": -15,
+			"z": -40
+		},
+		"scale": 2.5
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.87,
+			"y": -1.25,
+			"z": -0.8
+		},
+		"rotation": {
+			"x": 70,
+			"y": 11,
+			"z": -65
+		},
+		"scale": 0.41
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.45,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0.1,
+			"y": 8,
+			"z": 0.1
+		},
+		"scale": 4.5
+	}
+}

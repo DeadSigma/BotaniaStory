@@ -43,39 +43,39 @@
     "texturesByType": {
         "*-normal-ud": {
             "all": {
-                "base": "botaniastory:block/planks/livingwood*",
+                "base": "botaniastory:block/planks/livingwood_planks_*",
                 "rotation": 90
             }
         },
         "*-normal-we": {
             "all": {
-                "base": "botaniastory:block/planks/livingwood*",
+                "base": "botaniastory:block/planks/livingwood_planks_*",
                 "rotation": 0
             }
         },
         "*-normal-ns": {
-            "all": { "base": "botaniastory:block/planks/livingwood*" },
+            "all": { "base": "botaniastory:block/planks/livingwood_planks_*" },
             "verticals": {
-                "base": "botaniastory:block/planks/livingwood*",
+                "base": "botaniastory:block/planks/livingwood_planks_*",
                 "rotation": 90
             }
         },
         "*-aged-ud": {
             "all": {
-                "base": "botaniastory:block/planks/aged/livingwood*",
+                "base": "botaniastory:block/planks/aged/livingwood_planks_aged_*",
                 "rotation": 90
             }
         },
         "*-aged-we": {
             "all": {
-                "base": "botaniastory:block/planks/aged/livingwood*",
+                "base": "botaniastory:block/planks/aged/livingwood_planks_aged_*",
                 "rotation": 0
             }
         },
         "*-aged-ns": {
-            "all": { "base": "botaniastory:block/planks/aged/livingwood*" },
+            "all": { "base": "botaniastory:block/planks/aged/livingwood_planks_aged_*" },
             "verticals": {
-                "base": "botaniastory:block/planks/aged/livingwood*",
+                "base": "botaniastory:block/planks/aged/livingwood_planks_aged_*",
                 "rotation": 90
             }
         }

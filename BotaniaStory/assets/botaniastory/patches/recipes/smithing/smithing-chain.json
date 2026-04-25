@@ -10,5 +10,11 @@
         "op": "add",
         "path": "/ingredient/allowedVariants/-",
         "value": "terrasteel"
+    },
+    {
+        "file": "game:recipes/smithing/chain.json",
+        "op": "add",
+        "path": "/ingredient/allowedVariants/-",
+        "value": "elementium"
     }
 ]

@@ -10,5 +10,11 @@
 		"op": "add",
 		"path": "/variants/-",
 		"value": { "code": "terrasteel" }
+	},
+	{
+		"file": "game:worldproperties/block/toolmetal.json",
+		"op": "add",
+		"path": "/variants/-",
+		"value": { "code": "elementium" }
 	}
 ]

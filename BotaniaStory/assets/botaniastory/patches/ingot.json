@@ -42,7 +42,27 @@
 	{
 		"file": "game:itemtypes/resource/ingot.json",
 		"op": "add",
+		"path": "/materialDensityByType/*-elementium",
+		"value": 8980
+	},
+	{
+		"file": "game:itemtypes/resource/ingot.json",
+		"op": "add",
+		"path": "/combustiblePropsByType/ingot-elementium",
+		"value": {
+			"meltingPoint": 950,
+			"meltingDuration": 35,
+			"smeltedRatio": 1,
+			"smeltedStack": {
+				"type": "item",
+				"code": "game:ingot-elementium"
+			}
+		}
+	},
+	{
+		"file": "game:itemtypes/resource/ingot.json",
+		"op": "add",
 		"path": "/creativeinventory/botaniastory",
-		"value": [ "*-manasteel", "*-terrasteel" ]
+		"value": [ "*-manasteel", "*-terrasteel", "*-elementium" ]
 	}
 ]

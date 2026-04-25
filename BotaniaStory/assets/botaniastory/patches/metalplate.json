@@ -3,7 +3,7 @@
 		"file": "game:itemtypes/resource/metalplate.json",
 		"op": "add",
 		"path": "/creativeinventory/botaniastory",
-		"value": [ "*-manasteel", "*-terrasteel" ]
+		"value": [ "*-manasteel", "*-terrasteel", "*-elementium" ]
 	},
 	{
 		"file": "game:itemtypes/resource/metalplate.json",
@@ -30,6 +30,20 @@
 			"smeltedStack": {
 				"type": "item",
 				"code": "game:ingot-terrasteel"
+			}
+		}
+	},
+	{
+		"file": "game:itemtypes/resource/metalplate.json",
+		"op": "add",
+		"path": "/combustiblePropsByType/*-elementium",
+		"value": {
+			"meltingPoint": 950,
+			"meltingDuration": 35,
+			"smeltedRatio": 1,
+			"smeltedStack": {
+				"type": "item",
+				"code": "game:ingot-elementium"
 			}
 		}
 	}

@@ -35,7 +35,6 @@
     "drawtype": "json",
     "creativeinventory": {
         "general": [ "*" ],
-        "construction": [ "*" ],
         "botaniastory": [ "*" ]
     },
     "blockmaterial": "Glass",

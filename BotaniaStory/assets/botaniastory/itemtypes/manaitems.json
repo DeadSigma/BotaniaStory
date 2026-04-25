@@ -19,7 +19,7 @@
 		"botaniastory": [ "*" ]
 	},
 	"textures": {
-		"all": { "base": "item/{type}" }
+		"all": { "base": "botaniastory:item/{type}" }
 	},
 	"behaviorsByType": {
 		"*-manapowder": [

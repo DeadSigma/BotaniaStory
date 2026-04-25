@@ -50,10 +50,10 @@
     },
     "texturesByType": {
         "*-normal-*": {
-            "all": { "base": "botaniastory:block/planks/livingwood*" }
+            "all": { "base": "botaniastory:block/planks/livingwood_planks_*" }
         },
         "*-aged-*": {
-            "all": { "base": "botaniastory:block/planks/aged/livingwood*" }
+            "all": { "base": "botaniastory:block/planks/aged/livingwood_planks_aged_*" }
         }
     },
     "attributes": {

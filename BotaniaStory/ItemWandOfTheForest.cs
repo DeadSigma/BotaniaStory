@@ -24,11 +24,12 @@ namespace BotaniaStory
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");
                 slot.MarkDirty();
 
-                if (byEntity.World.Side == EnumAppSide.Client)
-                {
-                    var clientApi = byEntity.World.Api as ICoreClientAPI;
-                    clientApi?.ShowChatMessage("Действие отменено. Память посоха очищена.");
-                }
+                /* if (byEntity.World.Side == EnumAppSide.Client)
+                 {
+                     var clientApi = byEntity.World.Api as ICoreClientAPI;
+                     clientApi?.ShowChatMessage("Действие отменено. Память посоха очищена.");
+                 } 
+                 */
 
                 handling = EnumHandHandling.PreventDefault;
                 return;
@@ -175,11 +176,13 @@ namespace BotaniaStory
                         world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, wandVolume);
                     }
 
-                    if (world.Side == EnumAppSide.Client)
-                    {
-                        var clientApi = world.Api as ICoreClientAPI;
-                        clientApi?.ShowChatMessage($"Эта искра связана с другими искрами: {foundSparks} шт.");
-                    }
+                    /*
+                      if (world.Side == EnumAppSide.Client)
+                      {
+                          var clientApi = world.Api as ICoreClientAPI;
+                          clientApi?.ShowChatMessage($"Эта искра связана с другими искрами: {foundSparks} шт.");
+                      }
+                      */
                 }
 
                 handling = EnumHandHandling.Handled;
@@ -209,11 +212,13 @@ namespace BotaniaStory
                     poolBE.IsAcceptingFromItems = !poolBE.IsAcceptingFromItems;
                     poolBE.MarkDirty(true);
 
+                    /*
                     if (world.Side == EnumAppSide.Client)
                     {
                         string mode = poolBE.IsAcceptingFromItems ? "ПРИНИМАЕТ ману ИЗ предметов" : "ОТДАЕТ ману В предметы";
                         (world.Api as ICoreClientAPI)?.ShowChatMessage($"Режим бассейна изменен: теперь он {mode}.");
                     }
+                    */
 
                     world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 }
@@ -252,19 +257,23 @@ namespace BotaniaStory
                     slot.Itemstack.Attributes.RemoveAttribute("hasFlower");
                     slot.MarkDirty();
 
-                    if (world.Side == EnumAppSide.Client)
-                    {
-                        (world.Api as ICoreClientAPI)?.ShowChatMessage("Цветок успешно привязан к Распространителю!");
-                    }
+                    /*
+                     if (world.Side == EnumAppSide.Client)
+                     {
+                         (world.Api as ICoreClientAPI)?.ShowChatMessage("Цветок успешно привязан к Распространителю!");
+                     }
+                     */
 
                     world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 }
                 else
                 {
+                    /*
                     if (world.Side == EnumAppSide.Client)
                     {
                         (world.Api as ICoreClientAPI)?.ShowChatMessage("Вы выбрали цветок. Кликните ПКМ по Распространителю маны или нажмите ЛКМ для отмены.");
                     }
+                    */
                 }
 
                 handling = EnumHandHandling.Handled;
@@ -293,18 +302,20 @@ namespace BotaniaStory
                     spreaderBE.TargetPos = pos.Copy();
                     spreaderBE.MarkDirty(true);
 
-                    if (world.Side == EnumAppSide.Client)
-                    {
-                        var clientApi = world.Api as ICoreClientAPI;
-                        if (block is BlockManaPool)
-                        {
-                            clientApi?.ShowChatMessage("Связь установлена! Распространитель привязан к Бассейну.");
-                        }
-                        else
-                        {
-                            clientApi?.ShowChatMessage("Распространитель маны повернут к новым координатам!");
-                        }
-                    }
+                    /*
+                     if (world.Side == EnumAppSide.Client)
+                     {
+                         var clientApi = world.Api as ICoreClientAPI;
+                         if (block is BlockManaPool)
+                         {
+                             clientApi?.ShowChatMessage("Связь установлена! Распространитель привязан к Бассейну.");
+                         }
+                         else
+                         {
+                             clientApi?.ShowChatMessage("Распространитель маны повернут к новым координатам!");
+                         }
+                     }
+                     */
 
                     world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 }
@@ -326,10 +337,12 @@ namespace BotaniaStory
                 slot.Itemstack.Attributes.SetBool("hasFlower", true);
                 slot.MarkDirty();
 
+                /*
                 if (world.Side == EnumAppSide.Client)
                 {
                     (world.Api as ICoreClientAPI)?.ShowChatMessage("Цветок выбран. Теперь нажмите ПКМ по Распространителю маны.");
                 }
+                */
 
                 world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 handling = EnumHandHandling.Handled;
@@ -344,10 +357,12 @@ namespace BotaniaStory
                 slot.Itemstack.Attributes.SetBool("hasSpreader", true);
                 slot.MarkDirty();
 
-                if (world.Side == EnumAppSide.Client)
-                {
-                    (world.Api as ICoreClientAPI)?.ShowChatMessage("Распространитель выбран. Кликните ПКМ по Бассейну (или блоку) для привязки.");
-                }
+                /*
+                  if (world.Side == EnumAppSide.Client)
+                  {
+                      (world.Api as ICoreClientAPI)?.ShowChatMessage("Распространитель выбран. Кликните ПКМ по Бассейну (или блоку) для привязки.");
+                  }
+                  */
 
                 world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 handling = EnumHandHandling.Handled;

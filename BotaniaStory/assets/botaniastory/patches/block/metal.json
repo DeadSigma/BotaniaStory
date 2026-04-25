@@ -5,7 +5,7 @@
 		"path": "/variants/-",
 		"value": {
 			"code": "manasteel",
-			"meltPoint": 1084,
+			"meltPoint": 800,
 			"boilPoint": 2500,
 			"density": 8960,
 			"specificHeatCapacity": 0.5,
@@ -19,12 +19,26 @@
 		"path": "/variants/-",
 		"value": {
 			"code": "terrasteel",
-			"meltPoint": 1500,
-			"boilPoint": 3000,
+			"meltPoint": 950,
+			"boilPoint": 2900,
 			"density": 9000,
 			"specificHeatCapacity": 0.6,
 			"elemental": false,
 			"tier": 3
+		}
+	},
+	{
+		"file": "game:worldproperties/block/metal.json",
+		"op": "addmerge",
+		"path": "/variants/-",
+		"value": {
+			"code": "elementium",
+			"meltPoint": 1250,
+			"boilPoint": 2750,
+			"density": 8980,
+			"specificHeatCapacity": 0.55,
+			"elemental": false,
+			"tier": 2
 		}
 	}
 ]

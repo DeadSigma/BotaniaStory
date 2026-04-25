@@ -3,6 +3,6 @@
 		"file": "game:blocktypes/metal/sheet.json",
 		"op": "add",
 		"path": "/creativeinventory/botaniastory",
-		"value": [ "*-manasteel-down", "*-terrasteel-down" ]
+		"value": [ "*-manasteel-down", "*-terrasteel-down", "*-elementium-down" ]
 	}
 ]

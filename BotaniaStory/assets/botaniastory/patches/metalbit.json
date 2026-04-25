@@ -30,7 +30,21 @@
 	{
 		"file": "game:itemtypes/resource/metalbit.json",
 		"op": "add",
+		"path": "/combustiblePropsByType/*-elementium",
+		"value": {
+			"meltingPoint": 950,
+			"meltingDuration": 35,
+			"smeltedRatio": 20,
+			"smeltedStack": {
+				"type": "item",
+				"code": "game:ingot-elementium"
+			}
+		}
+	},
+	{
+		"file": "game:itemtypes/resource/metalbit.json",
+		"op": "add",
 		"path": "/creativeinventory/botaniastory",
-		"value": [ "*-manasteel", "*-terrasteel" ]
+		"value": [ "*-manasteel", "*-terrasteel", "*-elementium" ]
 	}
 ]

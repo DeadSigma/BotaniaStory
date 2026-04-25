@@ -21,8 +21,8 @@
     "lightAbsorption": 0,
     "maxStackSize": 8,
     "textures": {
-        "livingwood_normal": { "base": "botaniastory:block/planks/livingwood" },
-        "livingwood_aged": { "base": "botaniastory:block/planks/aged/livingwood" }
+        "livingwood_normal": { "base": "botaniastory:block/planks/livingwood_planks_1" },
+        "livingwood_aged": { "base": "botaniastory:block/planks/aged/livingwood_planks_aged_1" }
     },
     "selectionbox": {
         "x1": 0,

@@ -44,5 +44,28 @@
 				"code": "game:ingot-terrasteel"
 			}
 		}
+	},
+	{
+		"file": "game:itemtypes/resource/workitem.json",
+		"op": "add",
+		"path": "/attributesByType/workitem-elementium",
+		"value": {
+			"workableTemperature": 550,
+			"requiresAnvilTier": 2
+		}
+	},
+	{
+		"file": "game:itemtypes/resource/workitem.json",
+		"op": "add",
+		"path": "/combustiblePropsByType/workitem-elementium",
+		"value": {
+			"meltingPoint": 1250,
+			"meltingDuration": 35,
+			"smeltedRatio": 1,
+			"smeltedStack": {
+				"type": "item",
+				"code": "game:ingot-elementium"
+			}
+		}
 	}
 ]
