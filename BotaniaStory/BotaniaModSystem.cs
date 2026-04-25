@@ -157,6 +157,10 @@ namespace BotaniaStory
             {
                 volume = ClientConfig.PlateVolume / 100f;
             }
+            else if (packet.SoundName == "alfheim_exchange")
+            {
+                volume = ClientConfig.PortalVolume / 100f;
+            }
             else if (packet.SoundName == "ignite")
             {
                 volume = ClientConfig.FlowerVolume / 100f;

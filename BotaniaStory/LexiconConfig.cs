@@ -15,6 +15,7 @@ namespace botaniastory
         public int WandVolume { get; set; } = 50;
         public int ApothecaryVolume { get; set; } = 50;
         public int PlateVolume { get; set; } = 50;
+        public int PortalVolume { get; set; } = 50;
         public Dictionary<string, double[]> CustomUI { get; set; } = null;
     }
 }

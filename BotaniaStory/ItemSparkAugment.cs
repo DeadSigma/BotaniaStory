@@ -77,11 +77,6 @@ namespace BotaniaStory
                         }
                     }
 
-                    // Сообщение оставляем только для клиента
-                    if (world.Side == EnumAppSide.Client)
-                    {
-                        (world.Api as ICoreClientAPI)?.ShowChatMessage($"Дополнитель '{augmentType}' успешно установлен!");
-                    }
 
                     handling = EnumHandHandling.Handled;
                     return;
