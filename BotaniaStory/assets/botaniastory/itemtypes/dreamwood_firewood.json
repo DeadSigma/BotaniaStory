@@ -1,5 +1,5 @@
 {
-    "code": "livingwood_firewood",
+    "code": "dreamwood_firewood",
     "class": "ItemFirewood",
     "maxstacksize": 32,
     "behaviors": [
@@ -34,12 +34,12 @@
     },
     "shape": { "base": "game:item/firewood" },
     "textures": {
-        "coal": { "base": "botaniastory:block/livingwood_firewood_coal_top" },
-        "bark": { "base": "botaniastory:block/livingwood_firewood_bark" },
-        "side": { "base": "botaniastory:block/livingwood_firewood_side" },
-        "south": { "base": "botaniastory:block/livingwood_firewood_south" },
-        "north": { "base": "botaniastory:block/livingwood_firewood_north" },
-        "wood": { "base": "botaniastory:block/livingwood" }
+        "coal": { "base": "botaniastory:block/dreamwood_firewood_coal_top" },
+        "bark": { "base": "botaniastory:block/dreamwood_firewood_bark" },
+        "side": { "base": "botaniastory:block/dreamwood_firewood_side" },
+        "south": { "base": "botaniastory:block/dreamwood_firewood_south" },
+        "north": { "base": "botaniastory:block/dreamwood_firewood_north" },
+        "wood": { "base": "botaniastory:block/dreamwood" }
     },
     "creativeinventory": {
         "general": [ "*" ],
@@ -64,7 +64,7 @@
         "scale": 1.45
     },
     "combustibleProps": {
-        "burnTemperature": 950,
+        "burnTemperature": 1100,
         "burnDuration": 40,
         "enabled": true
     }

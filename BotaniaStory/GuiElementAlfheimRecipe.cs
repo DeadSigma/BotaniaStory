@@ -53,7 +53,7 @@ namespace botaniastory
             int mouseY = api.Input.MouseY;
             ItemStack hoveredStack = null;
 
-            // === 1. Рисуем ВХОДНОЙ предмет (сверху по центру левой части) ===
+            // === 1. ВХОДНОЙ предмет (сверху по центру левой части) ===
             double inX = Bounds.renderX + Bounds.InnerWidth * 0.35;
             double inY = Bounds.renderY + Bounds.InnerHeight * 0.15;
 
@@ -68,9 +68,9 @@ namespace botaniastory
                 if (CheckMouse(mouseX, mouseY, inAbsX, inAbsY, slotSize * 0.6f)) hoveredStack = inStack;
             }
 
-            // === 2. Рисуем ВЫХОДНОЙ предмет (справа по центру) ===
-            double outX = Bounds.renderX + Bounds.InnerWidth * 0.93;
-            double outY = Bounds.renderY + Bounds.InnerHeight * 0.69;
+            // === 2.  ВЫХОДНОЙ предмет (справа по центру) ===
+            double outX = Bounds.renderX + Bounds.InnerWidth * 1.0;
+            double outY = Bounds.renderY + Bounds.InnerHeight * 0.74;
 
             if (outputStacks != null && outputStacks.Length > 0)
             {
@@ -78,8 +78,8 @@ namespace botaniastory
                 renderSlot.Itemstack = outStack;
                 api.Render.RenderItemstackToGui(renderSlot, outX, outY, 100, (float)(slotSize * 0.6f), ColorUtil.WhiteArgb);
 
-                double outAbsX = Bounds.absX + Bounds.InnerWidth * 0.93;
-                double outAbsY = Bounds.absY + Bounds.InnerHeight * 0.69;
+                double outAbsX = Bounds.absX + Bounds.InnerWidth * 1.0;
+                double outAbsY = Bounds.absY + Bounds.InnerHeight * 0.74;
                 if (CheckMouse(mouseX, mouseY, outAbsX, outAbsY, slotSize * 0.6f)) hoveredStack = outStack;
             }
 

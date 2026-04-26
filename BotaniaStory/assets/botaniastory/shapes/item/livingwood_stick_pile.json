@@ -9,7 +9,7 @@
 		"livingwood_firewood_pile": [32, 32]
 	},
 	"textures": {
-		"livingwood_firewood_pile": "botaniastory:item/livingwood_firewood_pile"
+		"livingwood_firewood_pile": "botaniastory:block/livingwood_firewood_pile"
 	},
 	"elements": [
 		{
@@ -17,37 +17,15 @@
 			"from": [2.0313, 0.2096, 0.2964],
 			"to": [3.5561, 1.8081, 5.6237],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18, 19.8, 24, 26],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [12.45, 6, 16.45, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [18, 19.8, 24, 26], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [12.45, 6, 16.45, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -2.5
 		},
@@ -56,37 +34,15 @@
 			"from": [2.2616, 0.2096, 5.1284],
 			"to": [3.7864, 1.8081, 10.4558],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [12.45, 14, 16.45, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [12.45, 14, 16.45, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": 2.5
 		},
@@ -95,37 +51,15 @@
 			"from": [2.4065, 0.2096, 10.6804],
 			"to": [3.9313, 1.8081, 16.0077],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [7.15, 21.8, 12.475, 28],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [12.45, 18, 16.45, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [9.15, 21.8, 14.475, 28], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [12.45, 18, 16.45, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -0.75
 		},
@@ -134,37 +68,15 @@
 			"from": [4.5126, 0.2096, 0.2876],
 			"to": [6.0374, 1.8081, 5.615],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [7, 25.8, 13, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21.65, 6, 25.65, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [7, 25.8, 13, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [21.65, 6, 25.65, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -5
 		},
@@ -173,37 +85,15 @@
 			"from": [4.7343, 0.2096, 5.336],
 			"to": [6.2591, 1.8081, 10.6633],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21.65, 14, 25.65, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [21.65, 14, 25.65, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			}
 		},
 		{
@@ -211,37 +101,15 @@
 			"from": [4.887, 0.2096, 10.7475],
 			"to": [6.4118, 1.8081, 16.0748],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [11.15, 13.8, 16.475, 20],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21.65, 18, 25.65, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [10.15, 13.8, 15.475, 20], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [21.65, 18, 25.65, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -3.25
 		},
@@ -250,37 +118,15 @@
 			"from": [6.9804, 0.2096, 0.0717],
 			"to": [8.5052, 1.8081, 5.3991],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18, 19.8, 24, 26],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [18, 19.8, 24, 26], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -5
 		},
@@ -289,37 +135,15 @@
 			"from": [7.2115, 0.2096, 5.336],
 			"to": [8.7363, 1.8081, 10.6633],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			}
 		},
 		{
@@ -327,37 +151,15 @@
 			"from": [7.3602, 0.2096, 10.607],
 			"to": [8.885, 1.8081, 15.9344],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 16.8, 5.325, 23],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [0, 16.8, 5.325, 23], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -3.25
 		},
@@ -366,37 +168,15 @@
 			"from": [9.3183, 0.2096, -0.1328],
 			"to": [10.8431, 1.8081, 5.1945],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [7, 25.8, 13, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [17, 6, 21, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [7, 25.8, 13, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [17, 6, 21, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -5
 		},
@@ -405,37 +185,15 @@
 			"from": [9.5584, 0.2096, 5.336],
 			"to": [11.0832, 1.8081, 10.6633],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [17, 14, 21, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [17, 14, 21, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			}
 		},
 		{
@@ -443,37 +201,15 @@
 			"from": [9.7033, 0.2096, 10.474],
 			"to": [11.2281, 1.8081, 15.8013],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [19.15, 25.8, 24.475, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [17, 18, 21, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [19.15, 25.8, 24.475, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [17, 18, 21, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -3.25
 		},
@@ -482,37 +218,15 @@
 			"from": [11.5399, 0.2096, -0.1188],
 			"to": [13.0647, 1.8081, 5.2085],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [15, 18.8, 21, 25],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 6, 32, 0],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18.625, 6, 22.625, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [15, 18.8, 21, 25], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 6, 32, 0], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18.625, 6, 22.625, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -2.5
 		},
@@ -521,37 +235,15 @@
 			"from": [11.7703, 0.2096, 5.5436],
 			"to": [13.2951, 1.8081, 10.8709],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 6, 32, 0],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18.625, 14, 22.625, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 6, 32, 0], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18.625, 14, 22.625, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": 2.5
 		},
@@ -560,37 +252,15 @@
 			"from": [11.9235, 0.2096, 10.5558],
 			"to": [13.4483, 1.8081, 15.8831],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 6, 32, 0],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [25.15, 7.8, 30.475, 14],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18.625, 18, 22.625, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 6, 32, 0], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [25.15, 7.8, 30.475, 14], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18.625, 18, 22.625, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -0.75
 		},
@@ -599,37 +269,15 @@
 			"from": [8.155, 6.9714, 0.029],
 			"to": [9.6798, 8.5698, 5.3563],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [14, 15.8, 20, 22],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [22.525, 6, 26.525, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [14, 15.8, 20.2, 21.8], "rotation": 90, "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [22.525, 6, 26.525, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": -2.4953,
 			"rotationY": 0.1526,
@@ -640,37 +288,15 @@
 			"from": [8.3854, 6.9714, 5.3958],
 			"to": [9.9102, 8.5698, 10.7231],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [22.525, 14, 26.525, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [22.525, 14, 26.525, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": 2.4953,
 			"rotationY": -0.1526,
@@ -681,37 +307,15 @@
 			"from": [8.5356, 6.9714, 10.6002],
 			"to": [10.0604, 8.5698, 15.9275],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [19.15, 25.8, 24.475, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [22.525, 18, 26.525, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [15.15, 25.8, 21.35, 31.125], "rotation": 90, "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [22.525, 18, 26.525, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": -0.7486,
 			"rotationY": 0.0458,
@@ -722,37 +326,15 @@
 			"from": [7.9221, 1.8068, -0.0106],
 			"to": [9.4469, 3.4052, 5.3167],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [26, 10.8, 32, 17],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18, 6, 22, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [26, 10.8, 32, 17], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18, 6, 22, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -5
 		},
@@ -761,37 +343,15 @@
 			"from": [8.1568, 1.8068, 5.336],
 			"to": [9.6816, 3.4052, 10.6633],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18, 14, 22, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18, 14, 22, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			}
 		},
 		{
@@ -799,37 +359,15 @@
 			"from": [8.304, 1.8068, 10.5534],
 			"to": [9.8288, 3.4052, 15.8808],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 10.8, 5.325, 17],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18, 18, 22, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [0, 10.8, 5.325, 17], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18, 18, 22, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -3.25
 		},
@@ -838,37 +376,15 @@
 			"from": [5.6816, 1.8068, 0.1854],
 			"to": [7.2064, 3.4052, 5.5127],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [29, 22.8, 24, 29],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [12, 6, 16, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [29, 22.8, 24, 29], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [12, 6, 16, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -5
 		},
@@ -877,37 +393,15 @@
 			"from": [5.9077, 1.8068, 5.336],
 			"to": [7.4325, 3.4052, 10.6633],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [12, 14, 16, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [12, 14, 16, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			}
 		},
 		{
@@ -915,37 +409,15 @@
 			"from": [6.0585, 1.8068, 10.6809],
 			"to": [7.5833, 3.4052, 16.0083],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [14.15, 9.8, 19.475, 16],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [12, 18, 16, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [15.15, 9.8, 20.475, 16], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [12, 18, 16, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -3.25
 		},
@@ -954,37 +426,15 @@
 			"from": [3.3345, 1.8068, 0.2546],
 			"to": [4.8593, 3.4052, 5.5819],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [11, 17.8, 17, 24],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 0, 0, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18.625, 6, 22.625, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [11, 17.8, 17, 24], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [32, 0, 0, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18.625, 6, 22.625, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -2.75
 		},
@@ -993,37 +443,15 @@
 			"from": [3.5636, 1.8068, 5.2004],
 			"to": [5.0884, 3.4052, 10.5277],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 0, 0, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18.625, 14, 22.625, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [32, 0, 0, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18.625, 14, 22.625, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": 2.25
 		},
@@ -1032,37 +460,15 @@
 			"from": [3.7105, 1.8068, 10.6784],
 			"to": [5.2352, 3.4052, 16.0057],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [11.15, 24.8, 16.475, 31],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 0, 0, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18.625, 18, 22.625, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [17.15, 24.8, 22.475, 31], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [32, 0, 0, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18.625, 18, 22.625, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -1
 		},
@@ -1071,37 +477,15 @@
 			"from": [9.0839, 3.2113, -0.1123],
 			"to": [10.6087, 4.8098, 5.215],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 11.8, 6, 18],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 6, 0, 0],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20.675, 6, 24.675, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [0, 11.8, 6, 18], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [32, 6, 0, 0], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [20.675, 6, 24.675, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": -0.3715,
 			"rotationY": 4.9862,
@@ -1112,37 +496,15 @@
 			"from": [9.3231, 3.2113, 5.336],
 			"to": [10.8479, 4.8098, 10.6633],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 6, 0, 0],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20.675, 14, 24.675, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [32, 6, 0, 0], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [20.675, 14, 24.675, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			},
 			"rotationZ": -175.75
 		},
@@ -1151,37 +513,15 @@
 			"from": [9.4684, 3.2113, 10.4873],
 			"to": [10.9932, 4.8098, 15.8146],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [9.15, 17.8, 14.475, 24],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 6, 0, 0],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20.675, 18, 24.675, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [9.15, 17.8, 14.475, 24], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [32, 6, 0, 0], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [20.675, 18, 24.675, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": -0.2411,
 			"rotationY": 3.2411,
@@ -1192,37 +532,15 @@
 			"from": [6.8744, 3.4896, 0.0837],
 			"to": [8.3992, 5.0881, 5.4111],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [15, 13.8, 21, 20],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [15, 13.8, 21, 20], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": -3.2495,
 			"rotationY": -0.0567,
@@ -1233,37 +551,15 @@
 			"from": [7.1049, 3.4896, 5.3387],
 			"to": [8.6296, 5.0881, 10.6661],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": 1.7497,
 			"rotationY": 0.0305,
@@ -1274,37 +570,15 @@
 			"from": [7.2539, 3.4896, 10.6158],
 			"to": [8.7787, 5.0881, 15.9431],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [19.15, 25.8, 24.475, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [16.15, 25.8, 22.35, 31.125], "rotation": 90, "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": -1.4998,
 			"rotationY": -0.0262,
@@ -1315,37 +589,15 @@
 			"from": [9.1885, 3.4039, -0.1214],
 			"to": [10.7132, 5.0024, 5.2059],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [24, 18.8, 30, 25],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 6, 0, 0],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [15.475, 6, 19.475, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [24, 18.8, 30, 25], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [32, 6, 0, 0], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [15.475, 6, 19.475, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -5
 		},
@@ -1354,37 +606,15 @@
 			"from": [9.428, 3.4039, 5.336],
 			"to": [10.9528, 5.0024, 10.6633],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 6, 0, 0],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [15.475, 14, 19.475, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [32, 6, 0, 0], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [15.475, 14, 19.475, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			}
 		},
 		{
@@ -1392,37 +622,15 @@
 			"from": [9.5731, 3.4039, 10.4814],
 			"to": [11.0979, 5.0024, 15.8087],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 6, 0, 0],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [10.15, 8.8, 15.475, 15],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [15.475, 18, 19.475, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [32, 6, 0, 0], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [10.15, 8.8, 15.475, 15], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [15.475, 18, 19.475, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -3.25
 		},
@@ -1431,37 +639,15 @@
 			"from": [7.8896, 5.0011, -0.0078],
 			"to": [9.4144, 6.5995, 5.3195],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 22.8, 6, 29],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [17.475, 6, 21.475, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [0, 22.8, 6, 29], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [17.475, 6, 21.475, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -5
 		},
@@ -1470,37 +656,15 @@
 			"from": [8.1242, 5.0011, 5.336],
 			"to": [9.649, 6.5995, 10.6633],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [17.475, 14, 21.475, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [17.475, 14, 21.475, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			}
 		},
 		{
@@ -1508,37 +672,15 @@
 			"from": [8.2714, 5.0011, 10.5553],
 			"to": [9.7962, 6.5995, 15.8826],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [11.15, 25.8, 16.475, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [17.475, 18, 21.475, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [0.15, 17.8, 5.475, 24], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [17.475, 18, 21.475, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -3.25
 		},
@@ -1547,37 +689,15 @@
 			"from": [5.7429, 5.0011, 0.1161],
 			"to": [7.2677, 6.5995, 5.4434],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 4.8, 6, 11],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18.625, 6, 22.625, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [0, 4.8, 6.2, 10.8], "rotation": 90, "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18.625, 6, 22.625, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": -1.5
 		},
@@ -1586,37 +706,15 @@
 			"from": [5.9749, 5.0011, 5.2723],
 			"to": [7.4997, 6.5995, 10.5997],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18.625, 14, 22.625, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18.625, 14, 22.625, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": 3.5
 		},
@@ -1625,37 +723,15 @@
 			"from": [6.122, 5.0011, 10.6136],
 			"to": [7.6468, 6.5995, 15.9409],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [26.675, 20.8, 32, 27],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 0, 32, 6],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [18.625, 18, 22.625, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [26.675, 20.8, 32, 27], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 0, 32, 6], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [18.625, 18, 22.625, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationY": 0.25
 		},
@@ -1664,37 +740,15 @@
 			"from": [9.9896, 3.3841, -0.0091],
 			"to": [11.5144, 4.9826, 5.3182],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [26, 13.8, 32, 20],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 0, 0, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 6, 32, 0],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [14.65, 6, 19.85, 15],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 6, 24, 15],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [25.8, 13.8, 32, 19.8], "rotation": 90, "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [32, 0, 0, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 6, 32, 0], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [14.65, 6, 19.85, 15], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 6, 24, 15], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": 1.7497,
 			"rotationY": -0.0305,
@@ -1705,37 +759,15 @@
 			"from": [10.0862, 3.3818, 5.5104],
 			"to": [11.611, 4.9803, 10.8377],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 0, 0, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [6, 0, 12, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 6, 32, 0],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [14.725, 14, 19.925, 23],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 14, 24, 23],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [32, 0, 0, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [6, 0, 12, 32], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 6, 32, 0], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [14.725, 14, 19.925, 23], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 14, 24, 23], "autoUv": false, "snapUv": false}
 			},
 			"rotationX": -3.2495,
 			"rotationY": 0.0567,
@@ -1746,37 +778,15 @@
 			"from": [10.2401, 3.3818, 10.6181],
 			"to": [11.7649, 4.9803, 15.9454],
 			"rotationOrigin": [7.8181, 4.1926, 8.0142],
+			"uv": [0, 0],
+			"shade": true,
 			"faces": {
-				"north": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [21, 0, 27, 32],
-					"autoUv": false
-				},
-				"east": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [32, 0, 0, 6],
-					"autoUv": false
-				},
-				"south": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [17.15, 25.8, 22.475, 32],
-					"autoUv": false
-				},
-				"west": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [0, 6, 32, 0],
-					"autoUv": false
-				},
-				"up": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [14.725, 18, 19.925, 32],
-					"autoUv": false
-				},
-				"down": {
-					"texture": "#livingwood_firewood_pile",
-					"uv": [20, 18, 24, 32],
-					"autoUv": false
-				}
+				"north": {"texture": "#livingwood_firewood_pile", "uv": [21, 0, 27, 32], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#livingwood_firewood_pile", "uv": [32, 0, 0, 6], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#livingwood_firewood_pile", "uv": [17.15, 31.125, 23.35, 25.8], "rotation": 270, "autoUv": false, "snapUv": false},
+				"west": {"texture": "#livingwood_firewood_pile", "uv": [0, 6, 32, 0], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#livingwood_firewood_pile", "uv": [14.725, 18, 19.925, 32], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#livingwood_firewood_pile", "uv": [20, 18, 24, 32], "autoUv": false, "snapUv": false}
 			},
 			"rotationZ": 89
 		}

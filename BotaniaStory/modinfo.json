@@ -4,7 +4,7 @@
     "name": "BotaniaStory",
     "authors": [ "El_Neuman" ],
     "description": "BotaniaStory — nature magic, mana, and automation in Vintage Story!",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "dependencies": {
         "game": ""
     }

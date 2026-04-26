@@ -1,0 +1,31 @@
+{
+    "code": "dreamwood",
+    "class": "Block",
+    "variantgroups": [
+        {
+            "code": "state",
+            "states": [ "normal", "aged" ]
+        }
+    ],
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "shape": { "base": "game:block/basic/cube" },
+    "texturesByType": {
+        "*-normal": {
+            "all": { "base": "botaniastory:block/dreamwood" }
+        },
+        "*-aged": {
+            "all": { "base": "botaniastory:block/dreamwood_aged" }
+        }
+    },
+    "blockmaterial": "Wood",
+    "sounds": {
+        "hit": "game:block/planks",
+        "break": "game:block/planks",
+        "place": "game:block/planks",
+        "walk": "game:walk/wood"
+    },
+    "resistance": 3
+}

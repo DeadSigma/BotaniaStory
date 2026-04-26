@@ -1,0 +1,22 @@
+{
+    "ingredientPattern": "AF",
+    "ingredients": {
+        "A": {
+            "type": "item",
+            "code": "game:axe-*",
+            "isTool": true
+        },
+        "F": {
+            "type": "item",
+            "code": "botaniastory:dreamwood_firewood"
+        }
+    },
+    "width": 2,
+    "height": 1,
+    "shapeless": true,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:dreamwood_stick",
+        "quantity": 2
+    }
+}

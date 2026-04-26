@@ -6,10 +6,10 @@
 	"textureWidth": 8,
 	"textureHeight": 8,
 	"textureSizes": {
-		"livingwood_firewood_pile": [32, 32]
+		"dreamwood_firewood_pile": [32, 32]
 	},
 	"textures": {
-		"livingwood_firewood_pile": "botaniastory:block/livingwood_firewood_pile"
+		"dreamwood_firewood_pile": "botaniastory:block/dreamwood_firewood_pile"
 
 	},
 	"elements": [
@@ -53,32 +53,32 @@
 					"rotationOrigin": [7.8889, 11.3293, 7.4108],
 					"faces": {
 						"north": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [0, 6, 6, 15],
 							"autoUv": false
 						},
 						"east": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [14, 6, 20, 15],
 							"autoUv": false
 						},
 						"south": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [16, 6, 22, 15],
 							"autoUv": false
 						},
 						"west": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [27, 6, 31, 15],
 							"autoUv": false
 						},
 						"up": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [0, 26, 6, 32],
 							"autoUv": false
 						},
 						"down": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [10, 26, 16, 32],
 							"autoUv": false
 						}
@@ -92,32 +92,32 @@
 					"rotationOrigin": [7.8807, 7.0105, 8.0425],
 					"faces": {
 						"north": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [0, 15, 6, 24],
 							"autoUv": false
 						},
 						"east": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [14, 15, 20, 24],
 							"autoUv": false
 						},
 						"south": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [16, 15, 22, 24],
 							"autoUv": false
 						},
 						"west": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [27, 15, 31, 24],
 							"autoUv": false
 						},
 						"up": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [14, 15, 20, 24],
 							"autoUv": false
 						},
 						"down": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [6, 0, 0, 32],
 							"autoUv": false
 						}
@@ -131,32 +131,32 @@
 					"rotationOrigin": [7.8974, 2.5415, 7.7748],
 					"faces": {
 						"north": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [0, 24, 6, 32],
 							"autoUv": false
 						},
 						"east": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [14, 24, 20, 32],
 							"autoUv": false
 						},
 						"south": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [16, 24, 22, 32],
 							"autoUv": false
 						},
 						"west": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [27, 24, 31, 32],
 							"autoUv": false
 						},
 						"up": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [15, 0, 0, 32],
 							"autoUv": false
 						},
 						"down": {
-							"texture": "#livingwood_firewood_pile",
+							"texture": "#dreamwood_firewood_pile",
 							"uv": [0, 23, 4, 32],
 							"autoUv": false
 						}

@@ -1,0 +1,23 @@
+{
+    "code": "glimmering-dreamwood",
+    "class": "Block",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "shape": { "base": "game:block/basic/cube" },
+    "textures": {
+        "all": { "base": "botaniastory:block/glimmering_dreamwood" }
+    },
+    "blockmaterial": "Wood",
+    "lightAbsorption": 0,
+    "lightHsv": [ 11, 6, 10 ],
+    "sounds": {
+        "hit": "game:block/planks",
+        "break": "game:block/planks",
+        "place": "game:block/planks",
+        "walk": "game:walk/wood"
+    },
+    "resistance": 3
+
+}

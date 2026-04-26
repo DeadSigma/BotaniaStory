@@ -1,0 +1,15 @@
+{
+    "ingredientPattern": "L",
+    "ingredients": {
+        "L": {
+            "type": "block",
+            "code": "botaniastory:dreamwood-normal"
+        }
+    },
+    "width": 1,
+    "height": 1,
+    "output": {
+        "type": "block",
+        "code": "botaniastory:dreamwood-aged"
+    }
+}

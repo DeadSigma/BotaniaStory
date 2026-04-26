@@ -282,6 +282,7 @@ namespace BotaniaStory
                     else if (fullCode == "game:ingot-manasteel") TryAbsorbItem(entityItem, fullCode, "game:ingot-elementium", 2, 1, manaCost);
                     else if (fullCode == "botaniastory:livingwood-normal") TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood-normal", 1, 1, manaCost);
                     else if (fullCode == "botaniastory:manaitem-manaquartz") TryAbsorbItem(entityItem, fullCode, "botaniastory:fairydust", 1, 1, manaCost);
+                    else if (fullCode == "botaniastory:livingwood") TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood", 1, 1, manaCost);
                 }
             }
         }

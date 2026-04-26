@@ -1934,17 +1934,73 @@ namespace botaniastory
                     {
                         chapter.TabItemCode = "botaniastory:elvenglass-1";
 
-                        chapter.Recipes = new List<BookRecipe> 
-                    {
-                        new BookRecipe
+                      
+                      
+                        //////////////////////////////////////////////
+                        //0
+                        chapter.Recipes.Add(new BookRecipe()
                         {
-                            RecipeType = "Alfheim", 
+                            RecipeType = "Alfheim",
                             Spread = 0,
                             UiKey = "Альфхейм_Область_Правая",
-                            AlfheimInputs = new string[] { "botaniastory:managlass" }, 
-                            Output = "botaniastory:elvenglass-0"                     
-                        }
-                    };
+                            AlfheimInputs = new string[] { "game:ingot-manasteel" },
+                            Output = "game:ingot-elementium"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,               
+                            ManaCost = 1000,
+                            UiKey = "Полоска_Маны_Правая_Альфхейм"
+                        });
+                            /////////////////////////1
+                            chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Alfheim",
+                            Spread = 1,
+                            UiKey = "Альфхейм_Область_Левая",
+                            AlfheimInputs = new string[] { "botaniastory:manaitem-managear" },
+                            Output = "botaniastory:dragonstone"
+                        });
+
+                    chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 1000,
+                            UiKey = "Полоска_Маны_Левая_Альфхейм"
+                        });
+                            //////////
+                            chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Alfheim",
+                            Spread = 1,
+                            UiKey = "Альфхейм_Область_Правая",
+                            AlfheimInputs = new string[] { "botaniastory:managlass" },
+                            Output = "botaniastory:elvenglass-0"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 1000,
+                            UiKey = "Полоска_Маны_Правая_Альфхейм"
+                        });
+                        /////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Alfheim",
+                            Spread = 2,
+                            UiKey = "Альфхейм_Область_Левая",
+                            AlfheimInputs = new string[] { "botaniastory:manaitem-manaquartz" },
+                            Output = "botaniastory:fairydust"
+                        });
+                             /////
+                             chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 1000,
+                            UiKey = "Полоска_Маны_Левая_Альфхейм"
+                        });
                     }
 
 

@@ -1,0 +1,145 @@
+[
+    {
+        "ingredientPattern": "SL",
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "tags": [ "tool-saw" ],
+                "isTool": true
+            },
+            "L": {
+                "type": "block",
+                "code": "botaniastory:dreamwood-*",
+                "name": "woodstate"
+            }
+        },
+        "width": 2,
+        "height": 1,
+        "shapeless": true,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:dreamwood_plank-{woodstate}",
+            "quantity": 2
+        }
+    },
+    {
+        "ingredientPattern": "PP,PP",
+        "ingredients": {
+            "P": {
+                "type": "item",
+                "code": "botaniastory:dreamwood_plank-*",
+                "name": "woodstate"
+            }
+        },
+        "width": 2,
+        "height": 2,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:dreamwood_planks-{woodstate}-ud",
+            "quantity": 1
+        }
+    },
+    {
+        "ingredientPattern": "P_,PP",
+        "ingredients": {
+            "P": {
+                "type": "item",
+                "code": "botaniastory:dreamwood_plank-*",
+                "name": "woodstate"
+            }
+        },
+        "width": 2,
+        "height": 2,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:dreamwood_plankstairs-{woodstate}-up-north-free",
+            "quantity": 1
+        }
+    },
+    {
+        "ingredientPattern": "PP",
+        "ingredients": {
+            "P": {
+                "type": "item",
+                "code": "botaniastory:dreamwood_plank-*",
+                "name": "woodstate"
+            }
+        },
+        "width": 2,
+        "height": 1,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:dreamwood_plankslab-{woodstate}-down-free",
+            "quantity": 1
+        }
+    },
+    {
+        "ingredientPattern": "SB",
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "tags": [ "tool-saw" ],
+                "isTool": true
+            },
+            "B": {
+                "type": "block",
+                "code": "botaniastory:dreamwood_planks-*-ud",
+                "name": "woodstate"
+            }
+        },
+        "width": 2,
+        "height": 1,
+        "shapeless": true,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:dreamwood_plank-{woodstate}",
+            "quantity": 4
+        }
+    },
+    {
+        "ingredientPattern": "SB",
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "tags": [ "tool-saw" ],
+                "isTool": true
+            },
+            "B": {
+                "type": "block",
+                "code": "botaniastory:dreamwood_plankslab-*-down-free",
+                "name": "woodstate"
+            }
+        },
+        "width": 2,
+        "height": 1,
+        "shapeless": true,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:dreamwood_plank-{woodstate}",
+            "quantity": 2
+        }
+    },
+    {
+        "ingredientPattern": "SB",
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "tags": [ "tool-saw" ],
+                "isTool": true
+            },
+            "B": {
+                "type": "block",
+                "code": "botaniastory:dreamwood_plankstairs-*-up-north-free",
+                "name": "woodstate"
+            }
+        },
+        "width": 2,
+        "height": 1,
+        "shapeless": true,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:dreamwood_plank-{woodstate}",
+            "quantity": 3
+        }
+    }
+]

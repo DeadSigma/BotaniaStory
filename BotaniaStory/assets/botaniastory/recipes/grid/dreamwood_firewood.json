@@ -1,0 +1,11 @@
+{
+    "ingredientPattern": "AL",
+    "ingredients": {
+        "A": { "type": "item", "code": "game:axe-*", "isTool": true },
+        "L": { "type": "block", "code": "botaniastory:dreamwood-*" }
+    },
+    "width": 2,
+    "height": 1,
+    "shapeless": true,
+    "output": { "type": "item", "code": "botaniastory:dreamwood_firewood", "quantity": 4 }
+}
