@@ -61,6 +61,7 @@
     <Content Remove="assets\botaniastory\patches\worldproperties\**" />
     <EmbeddedResource Remove="assets\botaniastory\patches\worldproperties\**" />
     <None Remove="assets\botaniastory\patches\worldproperties\**" />
+    <Compile Remove="assets\botaniastory\itemtypes\TiaraHud.cs" />
     <Content Include="modinfo.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

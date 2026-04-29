@@ -80,7 +80,7 @@ namespace BotaniaStory
             api.RegisterBlockEntityClass("BEPylon", typeof(BlockEntityPylon));
             api.RegisterBlockClass("BlockElvenGatewayCore", typeof(BlockElvenGatewayCore));
             api.RegisterBlockEntityClass("BEElvenGatewayCore", typeof(BlockEntityElvenGatewayCore));
-
+            api.RegisterItemClass("ItemFlightTiara", typeof(ItemFlightTiara));
 
 
         api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
@@ -152,6 +152,10 @@ namespace BotaniaStory
             else if (packet.SoundName == "manaspreaderfire")
             {
                 volume = ClientConfig.SpreaderVolume / 100f;
+            }
+            else if (packet.SoundName == "whish")
+            {
+                volume = ClientConfig.TiaraVolume / 100f;
             }
             else if (packet.SoundName == "terrasteel_craft")
             {

@@ -1992,7 +1992,7 @@ namespace botaniastory
                             Spread = 2,
                             UiKey = "Альфхейм_Область_Левая",
                             AlfheimInputs = new string[] { "botaniastory:manaitem-manaquartz" },
-                            Output = "botaniastory:fairydust"
+                            Output = "botaniastory:pixiedust"
                         });
                              /////
                              chapter.ManaBars.Add(new BookManaBar()

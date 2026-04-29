@@ -1,5 +1,5 @@
 {
-	"code": "fairydust",
+	"code": "pixie-dust",
 	"class": "Item",
 	"maxstacksize": 64,
 	"shape": {
@@ -10,7 +10,7 @@
 		"botaniastory": [ "*" ]
 	},
 	"textures": {
-		"all": { "base": "botaniastory:item/fairydust" }
+		"all": { "base": "botaniastory:item/pixiedust" }
 	},
 	"behaviors": [
 		{

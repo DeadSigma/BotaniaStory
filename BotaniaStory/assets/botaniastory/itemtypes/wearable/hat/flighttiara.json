@@ -1,0 +1,92 @@
+{
+	"code": "flight-tiara",
+	"class": "ItemFlightTiara",
+	"shape": {
+		"base": "botaniastory:entity/wearable/hat/flighttiara"
+	},
+	"textures": {
+		"*": { "base": "botaniastory:entity/wearable/hat/flighttiara" },
+		"seraph": { "base": "game:block/transparent" }
+	},
+	"behaviors": [
+		{ "name": "Wearable" }
+	],
+	"storageFlags": 128,
+	"attributes": {
+		"wearableAttachment": true,
+		"clothesCategory": "head",
+		"clothingType": "head",
+		"warmth": 0
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"guiTransform": {
+		"translation": {
+			"x": -2,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 174,
+			"y": -112,
+			"z": 19
+		},
+		"origin": {
+			"x": 1.55,
+			"y": 1.3,
+			"z": 0.03
+		},
+		"scale": 3.62
+	},
+	"fpHandTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": 15,
+			"y": 15,
+			"z": -15
+		},
+		"scale": 2.5
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.87,
+			"y": -2.8,
+			"z": -0.57
+		},
+		"rotation": {
+			"x": -88,
+			"y": 180,
+			"z": 7
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 1.5,
+			"z": 0.5
+		},
+		"scale": 0.57
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0.15,
+			"y": -1.38,
+			"z": 0.1
+		},
+		"rotation": {
+			"x": 0,
+			"y": -1,
+			"z": -11
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5,
+			"z": 0.5299
+		},
+		"scale": 5.41
+	}
+}

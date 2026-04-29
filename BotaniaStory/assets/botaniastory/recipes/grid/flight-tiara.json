@@ -1,0 +1,40 @@
+{
+    "ingredientPattern": "FSFADGEPE",
+    "ingredients": {
+        "F": {
+            "type": "item",
+            "code": "game:feather"
+        },
+        "E": {
+            "type": "item",
+            "code": "game:ingot-elementium"
+        },
+        "S": {
+            "type": "item",
+            "code": "botaniastory:dragonstone"
+        },
+        "A": {
+            "type": "item",
+            "code": "botaniastory:rune-air"
+        },
+        "D": {
+            "type": "item",
+            "code": "botaniastory:manaitem-managear"
+        },
+        "G": {
+            "type": "item",
+            "code": "botaniastory:rune-earth"
+        },
+        "P": {
+            "type": "item",
+            "code": "botaniastory:pixie-dust"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:flight-tiara",
+        "quantity": 1
+    }
+}
