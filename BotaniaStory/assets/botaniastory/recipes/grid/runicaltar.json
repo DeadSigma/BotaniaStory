@@ -1,20 +1,30 @@
 {
-    "ingredientPattern": "SSS,SCS",
+    "ingredientPattern": "LGL,HLC,LLL",
     "ingredients": {
-        "S": {
+        "L": {
             "type": "block",
             "code": "botaniastory:livingrock"
         },
+        "G": {
+            "type": "item",
+            "code": "botaniastory:manaitem-managear"
+        },
+        "H": {
+            "type": "item",
+            "code": "game:hammer-*",
+            "isTool": true
+        },
         "C": {
             "type": "item",
-            "code": "botaniastory:manaitem-*",
-            "allowedVariants": [ "manaquartz", "managear" ]
+            "code": "game:chisel-*",
+            "isTool": true
         }
     },
     "width": 3,
-    "height": 2,
+    "height": 3,
     "output": {
         "type": "block",
-        "code": "botaniastory:runicaltar"
+        "code": "botaniastory:runicaltar",
+        "quantity": 1
     }
 }

@@ -1,0 +1,36 @@
+{
+    "ingredientPattern": "REM,PDP,TTT",
+    "ingredients": {
+        "R": {
+            "type": "item",
+            "code": "botaniastory:rune-earth"
+        },
+        "E": {
+            "type": "item",
+            "code": "game:ingot-elementium"
+        },
+        "M": {
+            "type": "item",
+            "code": "botaniastory:rune-mana"
+        },
+        "P": {
+            "type": "item",
+            "code": "botaniastory:mysticalpetal-black"
+        },
+        "D": {
+            "type": "item",
+            "code": "botaniastory:dragonstone"
+        },
+        "T": {
+            "type": "item",
+            "code": "game:ingot-terrasteel"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:blackholetalisman",
+        "quantity": 1
+    }
+}

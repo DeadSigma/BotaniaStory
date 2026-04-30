@@ -1,11 +1,19 @@
-﻿using botaniastory;
-using BotaniaStory.Flora.GeneratingFlora;
+﻿using BotaniaStory.Flora.GeneratingFlora;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 using ProtoBuf;
+using BotaniaStory.lexicon;
+using BotaniaStory.blocks;
+using BotaniaStory.blockentity;
+using BotaniaStory.items;
+using BotaniaStory.entities;
+using BotaniaStory.client.renderers;
+using BotaniaStory.client.ui;
+using BotaniaStory.util;
+using BotaniaStory.network;
 
 
 namespace BotaniaStory
@@ -16,7 +24,7 @@ namespace BotaniaStory
 
         public IServerNetworkChannel serverChannel;
         public IClientNetworkChannel clientChannel;
-        public static botaniastory.LexiconConfig ClientConfig;
+        public static LexiconConfig ClientConfig;
 
         // --- ПЕРЕМЕННАЯ РЕНДЕРЕРА ЧАСТИЦ ---
         public static ManaStreamRenderer ManaRenderer;
@@ -81,9 +89,10 @@ namespace BotaniaStory
             api.RegisterBlockClass("BlockElvenGatewayCore", typeof(BlockElvenGatewayCore));
             api.RegisterBlockEntityClass("BEElvenGatewayCore", typeof(BlockEntityElvenGatewayCore));
             api.RegisterItemClass("ItemFlightTiara", typeof(ItemFlightTiara));
+            api.RegisterItemClass("ItemBlackHoleTalisman", typeof(ItemBlackHoleTalisman));
 
 
-        api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
+            api.Logger.Notification("Мод Botania Story успешно загружен! Магия начинается...");
         }
 
         // --- 2. КЛИЕНТСКАЯ ЧАСТЬ (Звуки и Искры) ---
@@ -92,7 +101,7 @@ namespace BotaniaStory
             base.StartClientSide(api);
             this.capi = api;
 
-            ClientConfig = api.LoadModConfig<botaniastory.LexiconConfig>("lexicon_client.json") ?? new botaniastory.LexiconConfig();
+            ClientConfig = api.LoadModConfig<LexiconConfig>("lexicon_client.json") ?? new LexiconConfig();
 
             // Получаем канал и вешаем слушателей
             clientChannel = api.Network.GetChannel("botanianetwork") as IClientNetworkChannel;
@@ -106,7 +115,7 @@ namespace BotaniaStory
             ManaRenderer = new ManaStreamRenderer(api);
         }
 
-        // --- 3. СЕРВЕРНАЯ ЧАСТЬ (Лексикон) ---
+        // --- 3. СЕРВЕРНАЯ ЧАСТЬ (Лексикон и Талисман) ---
         public override void StartServerSide(ICoreServerAPI api)
         {
             base.StartServerSide(api);
@@ -115,6 +124,18 @@ namespace BotaniaStory
             // Получаем канал и вешаем слушателя пакетов книги
             serverChannel = api.Network.GetChannel("botanianetwork") as IServerNetworkChannel;
             serverChannel.SetMessageHandler<LexiconStatePacket>(OnLexiconStateMessage);
+
+            api.Event.RegisterGameTickListener(OnTalismanTick, 500);
+        }
+
+        private void OnTalismanTick(float dt)
+        {
+            foreach (IServerPlayer player in sapi.World.AllOnlinePlayers)
+            {
+                if (player.ConnectionState != EnumClientState.Playing) continue;
+
+                ItemBlackHoleTalisman.AbsorbBlocksFromPlayer(player, sapi);
+            }
         }
 
         // --- ОБРАБОТЧИК ДЛЯ ЧАСТИЦ (КЛИЕНТ) ---

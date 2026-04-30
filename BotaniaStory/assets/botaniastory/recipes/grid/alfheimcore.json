@@ -1,0 +1,22 @@
+[
+    {
+        "ingredientPattern": "WTW,WTW,WTW",
+        "ingredients": {
+            "W": {
+                "type": "block",
+                "code": "botaniastory:livingwood-normal"
+            },
+            "T": {
+                "type": "item",
+                "code": "game:metalbit-terrasteel"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:alfheimcore-off",
+            "quantity": 1
+        }
+    }
+]

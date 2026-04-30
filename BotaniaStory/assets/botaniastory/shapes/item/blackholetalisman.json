@@ -1,0 +1,213 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 32,
+	"textureHeight": 32,
+	"textureSizes": {
+		"blackholetalisman_base.png": [32, 32],
+		"blackholetalisman.png": [32, 32],
+		"transparent.png": [32, 32]
+	},
+	"textures": {
+		"blackholetalisman_base.png": "botaniastory:item/blackholetalisman_base",
+		"blackholetalisman.png": "botaniastory:item/blackholetalisman",
+		"transparent.png": "item/transparent"
+	},
+	"elements": [
+		{
+			"name": "blackholetalisman",
+			"from": [8.5, 0.525, 1.5],
+			"to": [8.5, 0.525, 1.5],
+			"rotationOrigin": [8.5, 0.525, 1.5],
+			"children": [
+				{
+					"name": "animatedpart",
+					"from": [0, 0.15, 0],
+					"to": [0, 0.15, 0],
+					"rotationOrigin": [0, 0.15, 0],
+					"children": [
+						{
+							"name": "animatedpart",
+							"from": [-7.7, -0.025, -0.7],
+							"to": [6.7, 0.4, 13.7],
+							"rotationOrigin": [0, -12.95, 0],
+							"uv": [0, 0],
+							"shade": true,
+							"faces": {
+								"north": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false},
+								"east": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false},
+								"south": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false},
+								"west": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false},
+								"up": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false},
+								"down": {"texture": "#blackholetalisman_base.png", "uv": [0, 0, 32, 32], "autoUv": false, "snapUv": false}
+							}
+						},
+						{
+							"name": "animatedpart",
+							"from": [-7.775, 12.4, -0.7],
+							"to": [6.775, 12.825, 13.7],
+							"rotationOrigin": [0, -0.1, 0],
+							"uv": [0, 0],
+							"shade": true,
+							"faces": {
+								"north": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false},
+								"east": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false},
+								"south": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false},
+								"west": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false},
+								"up": {"texture": "#blackholetalisman_base.png", "uv": [0, 32, 32, 0], "autoUv": false, "snapUv": false},
+								"down": {"texture": "#transparent.png", "uv": [0, 0, 1, 1], "autoUv": false, "snapUv": false}
+							}
+						}
+					]
+				},
+				{
+					"name": "cube",
+					"from": [-7.8, 0.2, -0.8],
+					"to": [6.8, 12.925, 13.8],
+					"rotationOrigin": [0, 0, 0],
+					"uv": [0, 0],
+					"shade": true,
+					"faces": {
+						"north": {"texture": "#blackholetalisman.png", "uv": [0, 15, 14.5, 27.75], "autoUv": false, "snapUv": false},
+						"east": {"texture": "#blackholetalisman.png", "uv": [0, 15, 14.5, 27.75], "autoUv": false, "snapUv": false},
+						"south": {"texture": "#blackholetalisman.png", "uv": [0, 15, 14.5, 27.75], "autoUv": false, "snapUv": false},
+						"west": {"texture": "#blackholetalisman.png", "uv": [0, 15, 14.5, 27.75], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#blackholetalisman.png", "uv": [14.5, 14.5, 0, 0], "autoUv": false, "snapUv": false},
+						"down": {"texture": "#blackholetalisman.png", "uv": [0, 14.5, 14.5, 0], "autoUv": false, "snapUv": false}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [4.325, -0.5, 11],
+					"to": [8.275, 3.45, 14.95],
+					"rotationOrigin": [6.8, -0.025, 12.475],
+					"uv": [0, 0],
+					"shade": true,
+					"faces": {
+						"north": {"texture": "#blackholetalisman.png", "uv": [15, 0, 19, 4], "autoUv": false, "snapUv": false},
+						"east": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"south": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"west": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#blackholetalisman.png", "uv": [19, 8, 15, 4], "autoUv": false, "snapUv": false},
+						"down": {"texture": "#blackholetalisman.png", "uv": [19, 4, 15, 0], "autoUv": false, "snapUv": false}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [-8.6, -0.5, 11],
+					"to": [-4.65, 3.45, 14.95],
+					"rotationOrigin": [-7.125, -0.025, 12.475],
+					"uv": [0, 0],
+					"shade": true,
+					"faces": {
+						"north": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"east": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"south": {"texture": "#blackholetalisman.png", "uv": [15, 8, 19, 12], "autoUv": false, "snapUv": false},
+						"west": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 8], "autoUv": false, "snapUv": false},
+						"down": {"texture": "#blackholetalisman.png", "uv": [19, 4, 15, 0], "autoUv": false, "snapUv": false}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [-8.6, -0.5, -1.725],
+					"to": [-4.65, 3.45, 2.225],
+					"rotationOrigin": [-7.125, -0.025, -0.25],
+					"uv": [0, 0],
+					"shade": true,
+					"faces": {
+						"north": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"east": {"texture": "#blackholetalisman.png", "uv": [15, 12, 19, 16], "autoUv": false, "snapUv": false},
+						"south": {"texture": "#blackholetalisman.png", "uv": [19, 12, 15, 16], "autoUv": false, "snapUv": false},
+						"west": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#blackholetalisman.png", "uv": [19, 4, 15, 8], "autoUv": false, "snapUv": false},
+						"down": {"texture": "#blackholetalisman.png", "uv": [19, 4, 15, 0], "autoUv": false, "snapUv": false}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [4.325, -0.5, -1.725],
+					"to": [8.275, 3.45, 2.225],
+					"rotationOrigin": [6.8, -0.025, -0.25],
+					"uv": [0, 0],
+					"shade": true,
+					"faces": {
+						"north": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"east": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"south": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"west": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 8], "autoUv": false, "snapUv": false},
+						"down": {"texture": "#blackholetalisman.png", "uv": [19, 4, 15, 0], "autoUv": false, "snapUv": false}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [-8.6, 9.7, 11],
+					"to": [-4.65, 13.65, 14.95],
+					"rotationOrigin": [-7.125, 10.175, 12.475],
+					"uv": [0, 0],
+					"shade": true,
+					"faces": {
+						"north": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"east": {"texture": "#blackholetalisman.png", "uv": [19, 12, 15, 16], "autoUv": false, "snapUv": false},
+						"south": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"west": {"texture": "#blackholetalisman.png", "uv": [15, 16, 19, 20], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#blackholetalisman.png", "uv": [19, 4, 15, 8], "autoUv": false, "snapUv": false},
+						"down": {"texture": "#blackholetalisman.png", "uv": [23, 0, 19, 4], "autoUv": false, "snapUv": false}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [4.325, 9.7, 11],
+					"to": [8.275, 13.65, 14.95],
+					"rotationOrigin": [6.8, 10.175, 12.475],
+					"uv": [0, 0],
+					"shade": true,
+					"faces": {
+						"north": {"texture": "#blackholetalisman.png", "uv": [19, 0, 15, 4], "autoUv": false, "snapUv": false},
+						"east": {"texture": "#blackholetalisman.png", "uv": [19, 4, 15, 0], "autoUv": false, "snapUv": false},
+						"south": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"west": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#blackholetalisman.png", "uv": [23, 8, 19, 4], "autoUv": false, "snapUv": false},
+						"down": {"texture": "#blackholetalisman.png", "uv": [19, 0, 15, 4], "autoUv": false, "snapUv": false}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [4.325, 9.7, -1.725],
+					"to": [8.275, 13.65, 2.225],
+					"rotationOrigin": [6.8, 10.175, -0.25],
+					"uv": [0, 0],
+					"shade": true,
+					"faces": {
+						"north": {"texture": "#blackholetalisman.png", "uv": [19, 8, 23, 12], "autoUv": false, "snapUv": false},
+						"east": {"texture": "#blackholetalisman.png", "uv": [19, 4, 15, 0], "autoUv": false, "snapUv": false},
+						"south": {"texture": "#blackholetalisman.png", "uv": [15, 12, 19, 16], "autoUv": false, "snapUv": false},
+						"west": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 0], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#blackholetalisman.png", "uv": [15, 4, 19, 8], "autoUv": false, "snapUv": false},
+						"down": {"texture": "#blackholetalisman.png", "uv": [19, 0, 23, 4], "autoUv": false, "snapUv": false}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [-8.6, 9.7, -1.725],
+					"to": [-4.65, 13.65, 2.225],
+					"rotationOrigin": [-7.125, 10.175, -0.25],
+					"uv": [0, 0],
+					"shade": true,
+					"faces": {
+						"north": {"texture": "#blackholetalisman.png", "uv": [19, 12, 23, 16], "autoUv": false, "snapUv": false},
+						"east": {"texture": "#blackholetalisman.png", "uv": [19, 12, 15, 16], "autoUv": false, "snapUv": false},
+						"south": {"texture": "#blackholetalisman.png", "uv": [19, 12, 15, 16], "autoUv": false, "snapUv": false},
+						"west": {"texture": "#blackholetalisman.png", "uv": [15, 16, 19, 20], "autoUv": false, "snapUv": false},
+						"up": {"texture": "#blackholetalisman.png", "uv": [19, 4, 15, 8], "autoUv": false, "snapUv": false},
+						"down": {"texture": "#blackholetalisman.png", "uv": [23, 0, 19, 4], "autoUv": false, "snapUv": false}
+					}
+				}
+			]
+		}
+	],
+	"animations": []
+}

@@ -1,0 +1,50 @@
+[
+    {
+        "ingredientPattern": "WWW,CP_,WWW",
+        "ingredients": {
+            "W": {
+                "type": "block",
+                "code": "botaniastory:livingwood-normal"
+            },
+            "C": {
+                "type": "item",
+                "code": "game:ingot-copper"
+            },
+            "P": {
+                "type": "item",
+                "code": "botaniastory:mysticalpetal-*"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:manaspreader",
+            "quantity": 1
+        }
+    },
+    {
+        "ingredientPattern": "WWW,CP_,WWW",
+        "ingredients": {
+            "W": {
+                "type": "block",
+                "code": "botaniastory:livingwood-aged"
+            },
+            "C": {
+                "type": "item",
+                "code": "game:ingot-copper"
+            },
+            "P": {
+                "type": "item",
+                "code": "botaniastory:mysticalpetal-*"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:manaspreader",
+            "quantity": 1
+        }
+    }
+]

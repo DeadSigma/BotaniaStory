@@ -1,0 +1,133 @@
+{
+	"code": "blackholetalisman",
+	"class": "ItemBlackHoleTalisman",
+	"maxstacksize": 1,
+	"shape": {
+		"base": "botaniastory:item/blackholetalisman"
+	},
+	"textures": {
+		"blackholetalisman": { "base": "botaniastory:item/blackholetalisman" }
+
+	},
+	"attributes": {
+		"shelvable": true,
+		"displaycaseable": true,
+		"bookshelveable": true,
+		"onshelfTransform": {
+			"translation": {
+				"x": 0.03,
+				"y": -0.36,
+				"z": 0.02
+			},
+			"rotation": {
+				"x": 0,
+				"y": -90,
+				"z": 0
+			},
+			"scale": 0.29
+		},
+		"onDisplayTransform": {
+			"translation": {
+				"x": 0,
+				"y": -0.25,
+				"z": 0
+			},
+			"rotation": {
+				"x": 0,
+				"y": 144,
+				"z": 0
+			},
+			"scale": 0.47
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.04,
+				"y": -0.32,
+				"z": 0.03
+			},
+			"scale": 0.37
+		}
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "Quadrants",
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.1,
+					"z2": 1
+				}
+			}
+		}
+	],
+	"guiTransform": {
+		"translation": {
+			"x": 1.49,
+			"y": 2.8,
+			"z": 0
+		},
+		"rotation": {
+			"x": -21,
+			"y": -153,
+			"z": 180
+		},
+		"origin": {
+			"x": 0.51,
+			"y": 0.43,
+			"z": 0.51
+		},
+		"scale": 1.16,
+		"rotate": true
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.8799,
+			"y": -1.57,
+			"z": -1.57
+		},
+		"rotation": {
+			"x": -180,
+			"y": -180,
+			"z": 91
+		}
+	},
+	"fpHandTransform": {
+		"translation": {
+			"x": 0.2,
+			"y": -0.2,
+			"z": 0
+		},
+		"rotation": {
+			"x": 15,
+			"y": -15,
+			"z": 0
+		},
+		"scale": 1.8
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.1,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.3,
+			"z": 0.5399
+		},
+		"scale": 1.74
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	}
+}
