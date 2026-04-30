@@ -1,29 +1,34 @@
 {
-    "ingredientPattern": "REM,PDP,TTT",
+    "ingredientPattern": "RGB,EAE, H ",
     "ingredients": {
         "R": {
             "type": "item",
             "code": "botaniastory:rune-earth"
         },
-        "E": {
+        "G": {
             "type": "item",
-            "code": "game:ingot-elementium"
+            "code": "botaniastory:gaiaspirit"
         },
-        "M": {
+        "B": {
             "type": "item",
             "code": "botaniastory:rune-mana"
         },
-        "P": {
+        "H": {
             "type": "item",
-            "code": "botaniastory:mysticalpetal-black"
+            "code": "botaniastory:blackholetalisman_frame"
         },
-        "D": {
+        "E": {
             "type": "item",
-            "code": "botaniastory:dragonstone"
+            "code": "game:gear-rusty"
         },
-        "T": {
+        "A": {
             "type": "item",
-            "code": "game:ingot-terrasteel"
+            "code": "botaniastory:rustworld-air-full",
+            "returnedStack": {
+                "type": "item",
+                "code": "botaniastory:rustworld-air-empty",
+                "quantity": 1
+            }
         }
     },
     "width": 3,

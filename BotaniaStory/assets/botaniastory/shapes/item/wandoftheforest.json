@@ -12,8 +12,6 @@
 		"wandoftheforest_grip": [8, 8]
 	},
 	"textures": {
-		"tip2": "botaniastory:item/tip2",
-		"tip1": "botaniastory:item/tip1",
 		"wandoftheforest_wood": "botaniastory:item/wandoftheforest_wood",
 		"wandoftheforest_grip": "botaniastory:item/wandoftheforest_grip"
 	},

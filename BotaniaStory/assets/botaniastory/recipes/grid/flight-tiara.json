@@ -1,35 +1,32 @@
 {
-    "ingredientPattern": "FSFADGEPE",
+    "ingredientPattern": "GGG,EGH,FDF",
     "ingredients": {
+        "G": {
+            "type": "item",
+            "code": "botaniastory:gaiaspirit"
+        },
+        "E": {
+            "type": "item",
+            "code": "botaniastory:flight-tiara_frame"
+        },
+        "H": {
+            "type": "item",
+            "code": "botaniastory:dragonstone"
+        },
         "F": {
             "type": "item",
             "code": "game:feather"
         },
-        "E": {
-            "type": "item",
-            "code": "game:ingot-elementium"
-        },
-        "S": {
-            "type": "item",
-            "code": "botaniastory:dragonstone"
-        },
-        "A": {
-            "type": "item",
-            "code": "botaniastory:rune-air"
-        },
         "D": {
             "type": "item",
-            "code": "botaniastory:manaitem-managear"
+            "code": "botaniastory:rustworld-air-full",
+            "returnedStack": {
+                "type": "item",
+                "code": "botaniastory:rustworld-air-empty",
+                "quantity": 1
+            }
+            }
         },
-        "G": {
-            "type": "item",
-            "code": "botaniastory:rune-earth"
-        },
-        "P": {
-            "type": "item",
-            "code": "botaniastory:pixie-dust"
-        }
-    },
     "width": 3,
     "height": 3,
     "output": {

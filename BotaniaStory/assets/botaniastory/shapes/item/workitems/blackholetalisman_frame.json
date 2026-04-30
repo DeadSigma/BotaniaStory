@@ -1,0 +1,425 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 32,
+	"textureHeight": 32,
+	"textureSizes": {
+		"blackholetalisman_frame": [32, 32]
+	},
+	"textures": {
+		"blackholetalisman_frame": "botaniastory:item/blackholetalisman_frame"
+	},
+	"elements": [
+		{
+			"name": "blackholetalisman",
+			"rotationOrigin": [8.5, 0.525, 1.5],
+			"from": [0, 0, 0],
+			"to": [0, 0, 0],
+			"faces": {
+				"north": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"east": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"south": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"west": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"up": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"down": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				}
+			},
+			"children": [
+				{
+					"name": "animatedpart",
+					"rotationOrigin": [8.5, 0.675, 1.5],
+					"from": [0, 0, 0],
+					"to": [0, 0, 0],
+					"faces": {
+						"north": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"east": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"south": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"west": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"up": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"down": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [0.7, 0.725, 0.7],
+					"to": [15.3, 13.45, 15.3],
+					"rotationOrigin": [8.5, 0.525, 1.5],
+					"faces": {
+						"north": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [0, 15, 15, 28],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [0, 15, 15, 28],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [0, 15, 15, 28],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [0, 15, 15, 28],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 15, 0, 0],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [0, 15, 15, 0],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [12.825, 0.025, 12.5],
+					"to": [16.775, 3.975, 16.45],
+					"rotationOrigin": [15.3, 0.5, 13.975],
+					"faces": {
+						"north": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 0, 19, 4],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 8, 15, 4],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 4, 15, 0],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [-0.1, 0.025, 12.5],
+					"to": [3.85, 3.975, 16.45],
+					"rotationOrigin": [1.375, 0.5, 13.975],
+					"faces": {
+						"north": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 8, 19, 12],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 8],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 4, 15, 0],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [-0.1, 0.025, -0.225],
+					"to": [3.85, 3.975, 3.725],
+					"rotationOrigin": [1.375, 0.5, 1.25],
+					"faces": {
+						"north": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 12, 19, 16],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 12, 15, 16],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 4, 15, 8],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 4, 15, 0],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [12.825, 0.025, -0.225],
+					"to": [16.775, 3.975, 3.725],
+					"rotationOrigin": [15.3, 0.5, 1.25],
+					"faces": {
+						"north": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 8],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 4, 15, 0],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [-0.1, 10.225, 12.5],
+					"to": [3.85, 14.175, 16.45],
+					"rotationOrigin": [1.375, 10.7, 13.975],
+					"faces": {
+						"north": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 12, 15, 16],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 16, 19, 20],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 4, 15, 8],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [23, 0, 19, 4],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [12.825, 10.225, 12.5],
+					"to": [16.775, 14.175, 16.45],
+					"rotationOrigin": [15.3, 10.7, 13.975],
+					"faces": {
+						"north": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 0, 15, 4],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 4, 15, 0],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [23, 8, 19, 4],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 0, 15, 4],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [12.825, 10.225, -0.225],
+					"to": [16.775, 14.175, 3.725],
+					"rotationOrigin": [15.3, 10.7, 1.25],
+					"faces": {
+						"north": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 8, 23, 12],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 4, 15, 0],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 12, 19, 16],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 0],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 4, 19, 8],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 0, 23, 4],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "cube",
+					"from": [-0.1, 10.225, -0.225],
+					"to": [3.85, 14.175, 3.725],
+					"rotationOrigin": [1.375, 10.7, 1.25],
+					"faces": {
+						"north": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 12, 23, 16],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 12, 15, 16],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 12, 15, 16],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [15, 16, 19, 20],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [19, 4, 15, 8],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#blackholetalisman_frame",
+							"uv": [23, 0, 19, 4],
+							"autoUv": false
+						}
+					}
+				}
+			]
+		}
+	],
+	"animations": []
+}

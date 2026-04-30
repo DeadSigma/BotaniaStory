@@ -92,7 +92,7 @@ namespace BotaniaStory.lexicon
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
-            { "rusted_world_artifacts", new[] { "blackholetalisman", "flighttiara" } },
+            { "rusted_world_artifacts", new[] { "rustworld-air", "blackholetalisman", "flight-tiara" } },
 
             { "elfmania", new[] { "alfheimgates", "elfresources" } },
 
@@ -1992,7 +1992,7 @@ namespace BotaniaStory.lexicon
                             Spread = 2,
                             UiKey = "Альфхейм_Область_Левая",
                             AlfheimInputs = new string[] { "botaniastory:manaitem-manaquartz" },
-                            Output = "botaniastory:pixiedust"
+                            Output = "botaniastory:pixie-dust"
                         });
                              /////
                              chapter.ManaBars.Add(new BookManaBar()
@@ -2003,7 +2003,78 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ВОЗДУХ РЖАВОГО МИРА ===
+                    else if (chapId == "rustworld-air")
+                    {
+                        chapter.TabItemCode = "botaniastory:rustworld-air-full";
 
+                        chapter.Images.Add(new BookPageImage()
+                        {
+                            Path = "botaniastory:textures/gui/rift.png",
+                            Spread = 0,
+                            UiKey = "Картинка_Правая"
+                        });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ КРЫЛАТАЯ ТИАРА ===
+                    else if (chapId == "flight-tiara")
+                    {
+                        chapter.TabItemCode = "botaniastory:flight-tiara";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 0,
+                            UiKey = "Кузня_Правая_Тиара",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-iron",
+                            Output = "botaniastory:flight-tiara_frame"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                            "botaniastory:gaiaspirit", "botaniastory:gaiaspirit", "botaniastory:gaiaspirit",
+                            "botaniastory:flight-tiara_frame", "botaniastory:gaiaspirit", "botaniastory:dragonstone",
+                            "game:feather", "botaniastory:rustworld-air-full", "game:feather"
+                        },
+                            Output = "botaniastory:flight-tiara"
+                        });
+
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ТАЛИСМАН ЧЁРНОЙ ДЫРЫ ===
+                    else if (chapId == "blackholetalisman")
+                    {
+                        chapter.TabItemCode = "botaniastory:blackholetalisman";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil", 
+                            Spread = 0,          
+                            UiKey = "Кузня_Правая_Талисман", 
+                            AnvilInput = "game:ingot-elementium", 
+                            AnvilBlock = "game:anvil-iron", 
+                            Output = "botaniastory:blackholetalisman_frame"      
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                            "botaniastory:rune-earth", "botaniastory:gaiaspirit", "botaniastory:rune-mana",
+                            "game:gear-rusty", "botaniastory:rustworld-air-full", "game:gear-rusty",
+                            null, "botaniastory:blackholetalisman_frame", null
+                        },
+                            Output = "botaniastory:blackholetalisman"
+                        });
+
+                    }
 
                     // Пытаемся загрузить до 30 страниц
                     for (int p = 1; p <= 30; p++)

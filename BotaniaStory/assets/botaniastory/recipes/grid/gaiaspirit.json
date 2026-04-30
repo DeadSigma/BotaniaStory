@@ -1,0 +1,16 @@
+{
+    "ingredientPattern": "AAA,AAA,AAA",
+    "ingredients": {
+        "A": {
+            "type": "item",
+            "code": "game:gem-diamond-rough"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:gaiaspirit",
+        "quantity": 1
+    }
+}

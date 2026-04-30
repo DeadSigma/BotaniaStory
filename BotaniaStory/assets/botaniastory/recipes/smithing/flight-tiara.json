@@ -1,0 +1,35 @@
+{
+    "code": "flight-tiara_frame",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-elementium"
+    },
+    "pattern": [
+        [
+            "_________",
+            "_________",
+            "_________",
+            "__#___#__",
+            "_________"
+        ],
+        [
+            "#_______#",
+            "#_______#",
+            "##_____##",
+            "_##___##_",
+            "__#####__"
+        ],
+        [
+            "_________",
+            "_________",
+            "_________",
+            "_________",
+            "__#####__"
+        ]
+    ],
+    "name": "Flight Tiara Frame",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:flight-tiara_frame"
+    }
+}

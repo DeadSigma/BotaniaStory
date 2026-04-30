@@ -1,0 +1,138 @@
+{
+	"code": "gaiaspirit",
+	"class": "Item",
+	"maxstacksize": 64,
+	"shape": {
+		"base": "botaniastory:item/gaiaspirit"
+	},
+	"textures": {
+		"gaiaspirit": { "base": "botaniastory:item/gaiaspirit" }
+
+	},
+	"attributes": {
+		"shelvable": true,
+		"displaycaseable": true,
+		"bookshelveable": true,
+		"onshelfTransform": {
+			"translation": {
+				"x": -0.01,
+				"y": -0.5,
+				"z": 0.17
+			},
+			"rotation": {
+				"x": -74,
+				"y": -2,
+				"z": -5
+			},
+			"scale": 0.71
+		},
+		"onDisplayTransform": {
+			"translation": {
+				"x": 0.04,
+				"y": -0.43,
+				"z": 0.32
+			},
+			"rotation": {
+				"x": -86,
+				"y": 178,
+				"z": 0
+			},
+			"scale": 1.15
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": -0.057,
+				"y": -0.47,
+				"z": 0.19
+			},
+			"rotation": {
+				"x": -91,
+				"y": -8,
+				"z": -10
+			},
+			"scale": 0.79
+		}
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "Quadrants",
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.1,
+					"z2": 1
+				}
+			}
+		}
+	],
+	"guiTransform": {
+		"translation": {
+			"x": 1.49,
+			"y": -3.2,
+			"z": 0
+		},
+		"rotation": {
+			"x": -22,
+			"y": -135,
+			"z": 180
+		},
+		"origin": {
+			"x": 0.51,
+			"y": 0.77,
+			"z": 0.51
+		},
+		"scale": 3.1,
+		"rotate": true
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.8799,
+			"y": -1.57,
+			"z": -1.57
+		},
+		"rotation": {
+			"x": -180,
+			"y": -180,
+			"z": 91
+		}
+	},
+	"fpHandTransform": {
+		"translation": {
+			"x": 0.2,
+			"y": -0.2,
+			"z": 0
+		},
+		"rotation": {
+			"x": 15,
+			"y": -15,
+			"z": 0
+		},
+		"scale": 1.8
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.06,
+			"z": 0
+		},
+		"rotation": {
+			"x": -88,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.48,
+			"z": 0.5399
+		},
+		"scale": 3.76
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	}
+}

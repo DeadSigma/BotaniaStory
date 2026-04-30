@@ -67,7 +67,7 @@ namespace BotaniaStory.systems
                 AnimLoc = "botaniastory:block/alfheim_core_on_anim",  
                 BaseLoc = "botaniastory:block/alfheim_core_on_target",
                 NumFrames = 6,
-                TimePerFrame = 0.1f // Скорость смены кадров
+                TimePerFrame = 0.1f 
             });
 
             // Анимация Black Hole Talisman
@@ -76,7 +76,7 @@ namespace BotaniaStory.systems
                 AnimLoc = "botaniastory:item/blackholetalisman_anim", 
                 BaseLoc = "botaniastory:item/blackholetalisman_base",
                 NumFrames = 5,
-                TimePerFrame = 0.1f // Скорость анимации 
+                TimePerFrame = 0.1f // Скорость смены кадров
             });
 
             // Анимация портала
