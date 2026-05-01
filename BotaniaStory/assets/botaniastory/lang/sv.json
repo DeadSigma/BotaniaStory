@@ -148,8 +148,8 @@
   "item-rune-water": "Runa av vatten",
   "item-rune-winter": "Runa av vintern",
   "item-rune-wrath": "Rune of Wrath",
-  "item-rustworld-air-empty": "Tom flaska",
-  "item-rustworld-air-full": "Luft från den rostiga världen",
+  "item-flask-empty": "Tom flaska",
+  "item-flask-rustworldair": "Luft från den rostiga världen",
   "item-saw-manasteel": "Manasteel såg",
   "item-sawblade-manasteel": "Manasteel sågblad",
   "item-scythe-manasteel": "Manasteel Scythe",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "Att skapa Manasteel Scythe Blade:\n\n\n\n\n\n\n\n\n\n\nAtt skapa Manasteel Scythe:",
   "lexicon_mystical_items_manaitem_p15": "Att skapa Manasteel spjuthuvud:\n\n\n\n\n\n\n\n\n\n\nAtt skapa Manasteel Spear:",
   "lexicon_mystical_items_manaitem_p16": "Att skapa Manasteel Mejsel:\n\n\n\nAtt skapa Manasteel kofot:\n\n\n\n\nAtt skapa manasteel skiftnyckel:\n\n\n\n\nHantverkar manasteltång\n\n\n\n\nHantverksmanastelsaxar:",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Havets stav</link>, likt sin jordiska motsvarighet, förbrukar <link=mana>mana</link> för att skapa <link=game:water-still-7>vatten</link>. När den används placerar den ett vattenblock på den valda platsen.\nDessutom kan staven användas för att fylla en <link=apothecary>blomapotekare</link>, <link=game:barrel>tunnor</link>, <link=game:woodbucket>hinkar</link> och till och med en <link=game:claypot-black-fired>gryta över eld</link>. Håll jorden ren — det här är inte Uranus.",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "Tillverkning av Havets stav:\n\n\n\n\n\n\n\n\n\n\nHåll jorden ren — det här är inte Uranus.",
 
   "lexicon_mystical_items_wandofbinding_title": "Trollstav av massbindning",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Wand of Mass Binding</link> är tillverkad av <link=manapool>Manasteel</link> och en <link=livingwood_stick>Livingwood Twig</link>. Det låter dig binda flera närliggande blommor samtidigt till en <link=manaspreader>Mana-spridare</link> eller <link=manapool>Mana-pool</link>.\n\nTryck på <link=nothing>RMB</link> på önskat block för att automatiskt binda närliggande blommor till det.",

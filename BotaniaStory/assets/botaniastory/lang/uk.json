@@ -148,8 +148,8 @@
   "item-rune-water": "Руна Води",
   "item-rune-winter": "Руна Зими",
   "item-rune-wrath": "Руна Гніву",
-  "item-rustworld-air-empty": "Порожній флакон",
-  "item-rustworld-air-full": "Повітря іржавого світу",
+  "item-flask-empty": "Порожній флакон",
+  "item-flask-rustworldair": "Повітря іржавого світу",
   "item-saw-manasteel": "Пила Manasteel",
   "item-sawblade-manasteel": "Пильне полотно Manasteel",
   "item-scythe-manasteel": "Коса Manasteel",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "Виготовлення леза коси зі сталі Manasteel:\n\n\n\n\n\n\n\n\n\n\nКрафт Manasteel Scythe:",
   "lexicon_mystical_items_manaitem_p15": "Виготовлення наконечника списа з маністелі:\n\n\n\n\n\n\n\n\n\n\nВиготовлення списа з маністелі:",
   "lexicon_mystical_items_manaitem_p16": "Виготовлення зубила Manasteel:\n\n\n\nКрафт Manasteel Crowbar:\n\n\n\n\nВиготовлення гайкового ключа Manasteel:\n\n\n\n\nВиготовлення щипців зі сталі Manasteel\n\n\n\n\nВиготовлення ножиць зі сталі Manasteel:",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Жезл морів</link>, подібно до свого земного аналога, витрачає <link=mana>ману</link> для створення <link=game:water-still-7>води</link>. При використанні він розміщує блок води у вибраній точці.\nКрім того, жезл можна використовувати для наповнення <link=apothecary>пелюсткового аптекаря</link>, <link=game:barrel>бочок</link>, <link=game:woodbucket>відер</link> і навіть <link=game:claypot-black-fired>казанка на вогні</link>. Тримайте Землю чистою — це не Уран.",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "Створення жезла морів:\n\n\n\n\n\n\n\n\n\n\nТримайте Землю чистою — це не Уран.",
 
   "lexicon_mystical_items_wandofbinding_title": "Wand of Mass Binding",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Wand of Mass Binding</link> виготовляється з <link=manapool>Манасталі</link> та <link=livingwood_stick>гілочки живого дерева</link>. Це дозволяє прив’язати кілька сусідніх квітів одночасно до <link=manaspreader>розсіювача мани</link> або <link=manapool>базу мани</link>.\n\nНатисніть <link=nothing>ПКМ</link> на потрібному блоці, щоб автоматично прив’язати до нього сусідні квіти.",

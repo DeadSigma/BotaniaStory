@@ -88,7 +88,7 @@ namespace BotaniaStory.lexicon
 
             { "natural_apparatus", new[] { "ch1" } },
 
-            { "mystical_items", new[] { "wandofbinding", "manaitem" } },
+            { "mystical_items", new[] { "wandofbinding", "manaitem", "rod_of_the_seas" } },
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
@@ -1840,9 +1840,26 @@ namespace BotaniaStory.lexicon
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:shears-manasteel"
                         });
+                    }
 
+                    // === НАСТРОЙКА ГЛАВЫ ЖЕЗЛ МОРЕЙ ===
+                    else if (chapId == "rod_of_the_seas")
+                    {
+                        chapter.TabItemCode = "botaniastory:rod_of_the_seas";
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                           null, null, null,
+                           null, "botaniastory:livingwood_stick", null,
+                           "botaniastory:rune-water", null, null},
+                            Output = "botaniastory:rod_of_the_seas"
+                        });
 
                     }
+
 
                     // === НАСТРОЙКА ГЛАВЫ АКСЕССУАРЫ ===
                     else if (chapId == "trinkets")

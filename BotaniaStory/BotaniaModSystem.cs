@@ -90,7 +90,7 @@ namespace BotaniaStory
             api.RegisterBlockEntityClass("BEElvenGatewayCore", typeof(BlockEntityElvenGatewayCore));
             api.RegisterItemClass("ItemFlightTiara", typeof(ItemFlightTiara));
             api.RegisterItemClass("ItemBlackHoleTalisman", typeof(ItemBlackHoleTalisman));
-            api.RegisterItemClass("ItemRiftBottle", typeof(ItemRiftBottle));
+            api.RegisterItemClass("ItemFlask", typeof(ItemFlask));
             api.RegisterItemClass("ItemRodOfTheSeas", typeof(ItemRodOfTheSeas));
             api.RegisterCollectibleBehaviorClass("AnimatedItem", typeof(BotaniaStory.systems.BehaviorAnimatedItem));
 

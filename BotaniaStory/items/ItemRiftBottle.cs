@@ -7,14 +7,14 @@ using Vintagestory.GameContent;
 
 namespace BotaniaStory.items
 {
-    public class ItemRiftBottle : Item
+    public class ItemFlask : Item
     {
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
-            // Обрабатываем только первый тик нажатия
             if (!firstEvent) return;
 
-            if (Variant["state"] != "empty")
+            // Обновляем название варианта: теперь проверяем "content", а не "state"
+            if (Variant["content"] != "empty")
             {
                 base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
                 return;
@@ -27,7 +27,6 @@ namespace BotaniaStory.items
 
             if (riftSystem != null)
             {
-                // На сервере проверяем список ServerRifts
                 if (api.Side == EnumAppSide.Server)
                 {
                     if (riftSystem.ServerRifts != null)
@@ -38,7 +37,6 @@ namespace BotaniaStory.items
                         }
                     }
                 }
-                // На клиенте проверяем словарь riftsById
                 else
                 {
                     if (riftSystem.riftsById != null)
@@ -53,12 +51,12 @@ namespace BotaniaStory.items
 
             if (riftFound)
             {
-                // Сразу перехватываем клик для обеих сторон
                 handling = EnumHandHandling.PreventDefaultAction;
 
                 if (api.Side == EnumAppSide.Server)
                 {
-                    AssetLocation fullBottleCode = new AssetLocation("botaniastory", "rustworld-air-full");
+                    // Обновляем код выдаваемого предмета на новый универсальный формат "flask-rustworldair"
+                    AssetLocation fullBottleCode = new AssetLocation("botaniastory", "flask-rustworldair");
                     Item fullBottleItem = api.World.GetItem(fullBottleCode);
 
                     if (fullBottleItem != null)
@@ -79,11 +77,9 @@ namespace BotaniaStory.items
                         }
 
                         slot.MarkDirty();
-
-                         api.World.PlaySoundAt(new AssetLocation("botaniastory", "sounds/transmute"), byEntity, null, true, 16f, 1f);
+                        api.World.PlaySoundAt(new AssetLocation("botaniastory", "sounds/transmute"), byEntity, null, true, 16f, 1f);
                     }
                 }
-
                 return;
             }
 

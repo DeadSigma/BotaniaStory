@@ -148,8 +148,8 @@
   "item-rune-water": "Rune des Wassers",
   "item-rune-winter": "Rune des Winters",
   "item-rune-wrath": "Rune des Zorns",
-  "item-rustworld-air-empty": "Leeres Fläschchen",
-  "item-rustworld-air-full": "Luft der Rostwelt",
+  "item-flask-empty": "Leeres Fläschchen",
+  "item-flask-rustworldair": "Luft der Rostwelt",
   "item-saw-manasteel": "Säge aus Manastahl",
   "item-sawblade-manasteel": "Sägeblatt aus Manastahl",
   "item-scythe-manasteel": "Sense aus Manastahl",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "Herstellung der Sensenklinge aus Manastahl:\n\n\n\n\n\n\n\n\n\n\nHerstellung der Sense aus Manastahl:",
   "lexicon_mystical_items_manaitem_p15": "Herstellung der Speerspitze aus Manastahl:\n\n\n\n\n\n\n\n\n\n\nHerstellung des Speers aus Manastahl:",
   "lexicon_mystical_items_manaitem_p16": "Herstellung des Meißels aus Manastahl:\n\n\n\nHerstellung des Brecheisens aus Manastahl:\n\n\n\n\nHerstellung des Schraubenschlüssels aus Manastahl:\n\n\n\n\nHerstellung der Zange aus Manastahl\n\n\n\n\nHerstellung der Schere aus Manastahl:",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Stab der Meere</link> verbraucht, ähnlich wie sein irdisches Gegenstück, <link=mana>Mana</link>, um <link=game:water-still-7>Wasser</link> zu erzeugen. Bei Verwendung platziert er einen Wasserblock an der gewählten Stelle.\nAußerdem kann der Stab verwendet werden, um den <link=apothecary>Blütenapotheker</link>, <link=game:barrel>Fässer</link>, <link=game:woodbucket>Eimer</link> und sogar den <link=game:claypot-black-fired>Kochtopf im Feuer</link> zu füllen. Halte die Erde sauber — sie ist nicht Uran.",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "Herstellung des Stabs der Meere:\n\n\n\n\n\n\n\n\n\n\nHalte die Erde sauber — sie ist nicht Uran.",
 
   "lexicon_mystical_items_wandofbinding_title": "Stab der Massenbindung",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Stab der Massenbindung</link> wird aus <link=manapool>Manastahl</link> und einem <link=livingwood_stick>Zweig aus Lebendholz</link> hergestellt. Er erlaubt es, mehrere nahe Blumen gleichzeitig an einen <link=manaspreader>Manaverteiler</link> oder <link=manapool>Manabecken</link> zu binden.\n\nDrücke <link=nothing>RMT</link> auf den gewünschten Block, um nahe Blumen automatisch daran zu binden.",

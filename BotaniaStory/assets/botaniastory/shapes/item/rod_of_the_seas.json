@@ -9,7 +9,7 @@
 		"rod_of_the_seas": [128, 128]
 	},
 	"textures": {
-		"rod_of_the_seas": "rod_of_the_seas"
+		"rod_of_the_seas": "botaniastory:item/rod_of_the_seas"
 	},
 	"elements": [
 		{
@@ -118,38 +118,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [17, 93, 43, 117],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 94, 37, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 93.5, 31, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									}
 								},
@@ -162,38 +156,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [21.25, 93, 37, 107],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									}
 								},
@@ -206,38 +194,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									}
 								},
@@ -250,38 +232,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [23, 93, 46.25, 119.75],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [14.25, 101, 31, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									}
 								},
@@ -294,38 +270,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [27, 85, 50.25, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 94, 37, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [17, 98, 31, 114],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									}
 								},
@@ -338,38 +308,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [23, 82, 49.5, 105],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [27, 88, 50.25, 111],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 93.5, 31, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									}
 								},
@@ -383,42 +347,36 @@
 											"texture": "#rod_of_the_seas",
 											"uv": [107.125, 108.175, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -22.5
@@ -467,42 +425,36 @@
 											"texture": "#rod_of_the_seas",
 											"uv": [107.125, 108.175, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationX": -14.3588,
@@ -518,38 +470,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [23, 82, 49.5, 105],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [27, 88, 50.25, 111],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 93.5, 31, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -7.5
@@ -563,38 +509,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [27, 85, 50.25, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 94, 37, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [17, 98, 31, 114],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -7.5
@@ -608,38 +548,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [23, 93, 46.25, 119.75],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [14.25, 101, 31, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -7.5
@@ -653,38 +587,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -7.5
@@ -698,38 +626,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [21.25, 93, 37, 107],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -25
@@ -743,38 +665,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [17, 93, 43, 117],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 94, 37, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 93.5, 31, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": 17.5
@@ -822,38 +738,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [17, 93, 43, 117],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 94, 37, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 93.5, 31, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -15
@@ -867,38 +777,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [21.25, 93, 37, 107],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -40,
@@ -913,38 +817,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -40,
@@ -959,38 +857,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [23, 93, 46.25, 119.75],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [14.25, 101, 31, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -40
@@ -1004,38 +896,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [27, 85, 50.25, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 94, 37, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [17, 98, 31, 114],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -40
@@ -1049,38 +935,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [23, 82, 49.5, 105],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [27, 88, 50.25, 111],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 93.5, 31, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -40
@@ -1095,42 +975,36 @@
 											"texture": "#rod_of_the_seas",
 											"uv": [107.125, 108.175, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationY": -40
@@ -1178,38 +1052,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [23, 82, 49.5, 105],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [27, 88, 50.25, 111],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 93.5, 31, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationX": -17.5,
@@ -1224,38 +1092,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [27, 85, 50.25, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 94, 37, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [17, 98, 31, 114],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationX": -17.5,
@@ -1270,38 +1132,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [23, 93, 46.25, 119.75],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [14.25, 101, 31, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationX": -17.5,
@@ -1317,38 +1173,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [22, 87, 46.25, 113],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationX": 20.5724,
@@ -1364,38 +1214,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 88, 36.25, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [21.25, 93, 37, 107],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationX": -17.5,
@@ -1411,38 +1255,32 @@
 										"north": {
 											"texture": "#rod_of_the_seas",
 											"uv": [17, 93, 43, 117],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [11, 94, 37, 118],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [90, 111, 107.25, 128],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 93.5, 31, 108],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationX": -17.5,
@@ -1458,42 +1296,36 @@
 											"texture": "#rod_of_the_seas",
 											"uv": [107.125, 108.175, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"east": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"south": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"west": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"up": {
 											"texture": "#rod_of_the_seas",
 											"uv": [107.15, 108.225, 127.75, 128],
 											"autoUv": false,
-											"rotation": 270,
-											"glow": 255
+											"rotation": 270
 										},
 										"down": {
 											"texture": "#rod_of_the_seas",
 											"uv": [16.25, 88, 31, 113.5],
-											"autoUv": false,
-											"glow": 255
+											"autoUv": false
 										}
 									},
 									"rotationX": -17.5,

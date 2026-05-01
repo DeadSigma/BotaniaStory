@@ -148,8 +148,8 @@
   "item-rune-water": "Rune vody",
   "item-rune-winter": "Runa zimy",
   "item-rune-wrath": "Runa hněvu",
-  "item-rustworld-air-empty": "Prázdná lahvička",
-  "item-rustworld-air-full": "Vzduch rezavého světa",
+  "item-flask-empty": "Prázdná lahvička",
+  "item-flask-rustworldair": "Vzduch rezavého světa",
   "item-saw-manasteel": "Manasteel Saw",
   "item-sawblade-manasteel": "Pilový kotouč Manasteel",
   "item-scythe-manasteel": "Manasteel Scythe",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "Výroba čepele Manasteel Scythe:\n\n\n\n\n\n\n\n\n\n\nVýroba Manasteel Scythe:",
   "lexicon_mystical_items_manaitem_p15": "Výroba Manasteel Spear Head:\n\n\n\n\n\n\n\n\n\n\nVýroba Manasteel Spear:",
   "lexicon_mystical_items_manaitem_p16": "Crafting Manasteel Chisel:\n\n\n\nVýroba Manasteel Crowbar:\n\n\n\n\nManasteel klíč na výrobu:\n\n\n\n\nVýroba Manasteel Tongs\n\n\n\n\nVýroba nůžek Manasteel:",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Hůl moří</link>, podobně jako její pozemní protějšek, spotřebovává <link=mana>manu</link> k vytvoření <link=game:water-still-7>vody</link>. Při použití umístí blok vody na zvolené místo.\nNavíc lze hůl použít k naplnění <link=apothecary>květinového apotékáře</link>, <link=game:barrel>sudů</link>, <link=game:woodbucket>věder</link> a dokonce i <link=game:claypot-black-fired>kotlíku na ohni</link>. Udržujte Zemi čistou — není to Uran.",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "Vytvoření hole moří:\n\n\n\n\n\n\n\n\n\n\nUdržujte Zemi čistou — není to Uran.",
 
   "lexicon_mystical_items_wandofbinding_title": "Hůlka hromadné vazby",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Wand of Mass Binding</link> je vyrobeno z <link=manapool>Manasteel</link> a <link=livingwood_stick>Livingwood Twig</link>. Umožňuje vám svázat několik blízkých květin najednou do <link=manaspreader>Mana Spreader</link> nebo <link=manapool>Mana Pool</link>.\n\nStisknutím <link=nothing>RMB</link> na požadovaný blok automaticky přivážete blízké květiny.",

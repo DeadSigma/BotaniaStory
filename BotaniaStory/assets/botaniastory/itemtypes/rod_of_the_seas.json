@@ -2,7 +2,31 @@
 	"code": "rod_of_the_seas",
 	"class": "ItemRodOfTheSeas",
 	"maxstacksize": 1,
-	"shape": { "base": "botaniastory:item/rod_of_the_seas" },
+
+	"shape": {
+		"base": "botaniastory:item/rod_of_the_seas",
+		"ignoreElements": [
+			"2",
+			"3",
+			"4",
+			"water_1",
+			"water_2",
+			"water_3",
+			"water_4",
+			"water_5",
+			"water_6",
+			"water2_8",
+			"water2_7",
+			"water2_6",
+			"water2_5",
+			"water2_4",
+			"water_third_3",
+			"water_third_4",
+			"water_third_5",
+			"water_third_6",
+			"water_third_7"
+		]
+	},
 	"textures": {
 		"rod_of_the_seas": { "base": "botaniastory:item/rod_of_the_seas" }
 	},
@@ -10,16 +34,64 @@
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]
 	},
+
 	"behaviors": [
 		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "WallHalves",
+				"wallOffY": 1,
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.1,
+					"z2": 1
+				}
+			}
+		},
+		{
 			"name": "AnimatedItem",
-			"properties": { "speed": 150 }
+			"properties": {
+				"speed": 150
+			}
 		}
 	],
+
+	"attributes": {
+	
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0,
+				"y": -0,
+				"z": 0.33
+			},
+			"rotation": {
+				"x": 22,
+				"y": -10,
+				"z": 0
+			}
+		},
+		"rackable": true,
+		"toolrackTransform": {
+			"translation": {
+				"x": 0.161,
+				"y": 0.63,
+				"z": 0.24
+			},
+			"rotation": {
+				"x": 85,
+				"y": -15,
+				"z": -70
+			},
+			"scale": 0.99
+		}
+	},
 	"guiTransform": {
 		"translation": {
-			"x": -23,
-			"y": 13,
+			"x": -4,
+			"y": 7,
 			"z": 0
 		},
 		"rotation": {
@@ -27,25 +99,30 @@
 			"y": 0,
 			"z": -5
 		},
+		"origin": {
+			"x": 0.96,
+			"y": 0.71,
+			"z": 0.5
+		},
 		"scale": 1.52
 	},
 	"groundTransform": {
 		"translation": {
 			"x": 0,
-			"y": 1,
+			"y": 0.21,
 			"z": 0
 		},
 		"rotation": {
 			"x": 0,
 			"y": 22,
-			"z": 0
+			"z": -50
 		},
 		"origin": {
 			"x": 0.5,
 			"y": 0.5,
 			"z": 0.5299
 		},
-		"scale": 6
+		"scale": 2.77
 	},
 	"tpHandTransform": {
 		"translation": {

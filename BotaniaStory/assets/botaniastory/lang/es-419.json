@@ -148,8 +148,8 @@
   "item-rune-water": "Runa de agua",
   "item-rune-winter": "Runa de invierno",
   "item-rune-wrath": "Runa de ira",
-  "item-rustworld-air-empty": "Vial vacío",
-  "item-rustworld-air-full": "Aire del Mundo Oxidado",
+  "item-flask-empty": "Vial vacío",
+  "item-flask-rustworldair": "Aire del Mundo Oxidado",
   "item-saw-manasteel": "Sierra de manacero",
   "item-sawblade-manasteel": "Hoja de sierra de acero manacero",
   "item-scythe-manasteel": "Guadaña de acero de manzanilla",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "Elaboración de la hoja de guadaña de Manasteel:\n\n\n\n\n\n\n\n\n\n\nElaboración de guadaña de acero de manzanilla:",
   "lexicon_mystical_items_manaitem_p15": "Elaboración de cabeza de lanza de manacero:\n\n\n\n\n\n\n\n\n\n\nElaboración de lanza de acero de maná:",
   "lexicon_mystical_items_manaitem_p16": "Elaboración de cincel de acero de manzanilla:\n\n\n\nElaboración de palanca de manacero:\n\n\n\n\nFabricación de llave de acero de maná:\n\n\n\n\nFabricación de pinzas de acero de maná\n\n\n\n\nElaboración de tijeras de manacero:",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Vara de los Mares</link>, al igual que su contraparte terrestre, consume <link=mana>maná</link> para crear <link=game:water-still-7>agua</link>. Al usarla, coloca un bloque de agua en el punto seleccionado.\nAdemás, la vara puede utilizarse para llenar el <link=apothecary>apotecario de pétalos</link>, <link=game:barrel>barriles</link>, <link=game:woodbucket>cubos</link> e incluso un <link=game:claypot-black-fired>caldero en la hoguera</link>. Mantén la Tierra limpia — no es Urano.",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "Creación de la Vara de los Mares:\n\n\n\n\n\n\n\n\n\n\nMantén la Tierra limpia — no es Urano.",
 
   "lexicon_mystical_items_wandofbinding_title": "Varita de unión masiva",
   "lexicon_mystical_items_wandofbinding_p1": "La <link=wandofbindings>Varita de unión masiva</link> está elaborada a partir de <link=manapool>Manasteel</link> y una <link=livingwood_stick>Livingwood Twig</link>. Te permite vincular varias flores cercanas a la vez a un <link=manaspreader>Mana Spreader</link> o <link=manapool>Mana Pool</link>.\n\nPresione <link=nothing>RMB</link> en el bloque deseado para vincularle automáticamente las flores cercanas.",

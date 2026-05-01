@@ -148,8 +148,8 @@
   "item-rune-water": "Runa dell'Acqua",
   "item-rune-winter": "Runa dell'inverno",
   "item-rune-wrath": "Runa dell'Ira",
-  "item-rustworld-air-empty": "Fiala vuota",
-  "item-rustworld-air-full": "Aria del Mondo Arrugginito",
+  "item-flask-empty": "Fiala vuota",
+  "item-flask-rustworldair": "Aria del Mondo Arrugginito",
   "item-saw-manasteel": "Sega di manasteel",
   "item-sawblade-manasteel": "Lama per sega in acciaio di mana",
   "item-scythe-manasteel": "Falce di Manasteel",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "Creazione della lama della falce di acciaio di mana:\n\n\n\n\n\n\n\n\n\n\nCreazione della Falce di Manasteel:",
   "lexicon_mystical_items_manaitem_p15": "Creazione di punte di lancia in acciaio di mana:\n\n\n\n\n\n\n\n\n\n\nCreazione della lancia di acciaio di mana:",
   "lexicon_mystical_items_manaitem_p16": "Scalpello di manaacciaio:\n\n\n\nCreazione del piede di porco di acciaio di mana:\n\n\n\n\nCreazione della chiave di manaacciaio:\n\n\n\n\nCreare pinze di acciaio di mana\n\n\n\n\nForgiatura di cesoie di manaacciaio:",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Bastone dei Mari</link>, come la sua controparte terrestre, consuma <link=mana>mana</link> per creare <link=game:water-still-7>acqua</link>. Quando utilizzato, piazza un blocco d’acqua nel punto selezionato.\nInoltre, il bastone può essere usato per riempire un <link=apothecary>apotecario di petali</link>, <link=game:barrel>barili</link>, <link=game:woodbucket>secchi</link> e persino una <link=game:claypot-black-fired>pentola sul fuoco</link>. Mantieni la Terra pulita — non è Urano.",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "Creazione del Bastone dei Mari:\n\n\n\n\n\n\n\n\n\n\nMantieni la Terra pulita — non è Urano.",
 
   "lexicon_mystical_items_wandofbinding_title": "Bacchetta del Vincolo di Massa",
   "lexicon_mystical_items_wandofbinding_p1": "La <link=wandofbindings>Bacchetta del Vincolo di Massa</link> è realizzata con <link=manapool>Manasteel</link> e un <link=livingwood_stick>Ramoscello di Legno Vivente</link>. Ti consente di legare diversi fiori vicini contemporaneamente a un <link=manasreader>diffusore di mana</link> o a una <link=manapool>riserva di mana</link>.\n\nPremi <link=nothing>RMB</link> sul blocco desiderato per legarvi automaticamente i fiori vicini.",

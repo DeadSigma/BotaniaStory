@@ -45,9 +45,6 @@
     ],
 
     "attributes": {
-        "handbook": {
-            "groupBy": [ "wandoftheforest-*" ]
-        },
         "groundStorageTransform": {
             "translation": {
                 "x": 0,

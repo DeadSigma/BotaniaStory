@@ -148,8 +148,8 @@
   "item-rune-water": "Runa Wody",
   "item-rune-winter": "Runa zimy",
   "item-rune-wrath": "Runa Gniewu",
-  "item-rustworld-air-empty": "Pusta fiolka",
-  "item-rustworld-air-full": "Powietrze zardzewiałego świata",
+  "item-flask-empty": "Pusta fiolka",
+  "item-flask-rustworldair": "Powietrze zardzewiałego świata",
   "item-saw-manasteel": "Piła Manasteela",
   "item-sawblade-manasteel": "Brzeszczot Manasteela",
   "item-scythe-manasteel": "Kosa Manasteela",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "Tworzenie ostrza kosy ze stali Manasteel:\n\n\n\n\n\n\n\n\n\n\nTworzenie Kosy Manasteel:",
   "lexicon_mystical_items_manaitem_p15": "Tworzenie grotu włóczni ze stali Manasteel:\n\n\n\n\n\n\n\n\n\n\nTworzenie włóczni ze stali Manasteel:",
   "lexicon_mystical_items_manaitem_p16": "Tworzenie dłuta Manasteel:\n\n\n\nTworzenie łomu ze stali Manasteel:\n\n\n\n\nTworzenie klucza Manasteel:\n\n\n\n\nTworzenie szczypiec Manasteel\n\n\n\n\nTworzenie nożyc Manasteel:",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Różdżka Mórz</link>, podobnie jak jej ziemski odpowiednik, zużywa <link=mana>manę</link>, aby tworzyć <link=game:water-still-7>wodę</link>. Po użyciu umieszcza blok wody w wybranym miejscu.\nDodatkowo różdżka może być używana do napełniania <link=apothecary>aptekarskiego kotła</link>, <link=game:barrel>beczek</link>, <link=game:woodbucket>wiader</link> oraz nawet <link=game:claypot-black-fired>garnka na ognisku</link>. Utrzymuj Ziemię w czystości — to nie Uran.",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "Tworzenie Różdżki Mórz:\n\n\n\n\n\n\n\n\n\n\nUtrzymuj Ziemię w czystości — to nie Uran.",
 
   "lexicon_mystical_items_wandofbinding_title": "Różdżka Masowego Spętania",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Różdżka Masowego Spętania</link> jest wykonana z <link=manapool>Manasteel</link> i <link=livingwood_stick>Gałązki Livingwood</link>. Pozwala na jednoczesne powiązanie kilku pobliskich kwiatów z <link=manaspreader>Rozrzutnikiem Many</link> lub <link=manapool>Pulą Many</link>.\n\nNaciśnij <link=nothing>PPM</link> na żądanym bloku, aby automatycznie powiązać z nim pobliskie kwiaty.",

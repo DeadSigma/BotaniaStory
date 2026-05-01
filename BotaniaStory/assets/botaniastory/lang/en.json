@@ -148,8 +148,8 @@
   "item-rune-water": "Rune of Water",
   "item-rune-winter": "Rune of Winter",
   "item-rune-wrath": "Rune of Wrath",
-  "item-rustworld-air-empty": "Empty Vial",
-  "item-rustworld-air-full": "Rusted World Air",
+  "item-flask-empty": "Empty Vial",
+  "item-flask-rustworldair": "Rusted World Air",
   "item-saw-manasteel": "Manasteel Saw",
   "item-sawblade-manasteel": "Manasteel Saw Blade",
   "item-scythe-manasteel": "Manasteel Scythe",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "Crafting Manasteel Scythe Blade:\n\n\n\n\n\n\n\n\n\n\nCrafting Manasteel Scythe:",
   "lexicon_mystical_items_manaitem_p15": "Crafting Manasteel Spear Head:\n\n\n\n\n\n\n\n\n\n\nCrafting Manasteel Spear:",
   "lexicon_mystical_items_manaitem_p16": "Crafting Manasteel Chisel:\n\n\n\nCrafting Manasteel Crowbar:\n\n\n\n\nCrafting Manasteel Wrench:\n\n\n\n\nCrafting Manasteel Tongs\n\n\n\n\nCrafting Manasteel Shears:",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Rod of the Seas</link>, like its earthly counterpart, consumes <link=mana>mana</link> to create <link=game:water-still-7>water</link>. When used, it places a water block at the targeted location.\nAdditionally, the rod can be used to fill a <link=apothecary>petal apothecary</link>, <link=game:barrel>barrels</link>, <link=game:woodbucket>buckets</link>, and even a <link=game:claypot-black-fired>campfire pot</link>. Keep the Earth clean — this is not Uranus.",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "Crafting the Rod of the Seas:\n\n\n\n\n\n\n\n\n\n\nKeep the Earth clean — this is not Uranus.",
 
   "lexicon_mystical_items_wandofbinding_title": "Wand of Mass Binding",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Wand of Mass Binding</link> is crafted from <link=manapool>Manasteel</link> and a <link=livingwood_stick>Livingwood Twig</link>. It allows you to bind several nearby flowers at once to a <link=manaspreader>Mana Spreader</link> or <link=manapool>Mana Pool</link>.\n\nPress <link=nothing>RMB</link> on the desired block to automatically bind nearby flowers to it.",

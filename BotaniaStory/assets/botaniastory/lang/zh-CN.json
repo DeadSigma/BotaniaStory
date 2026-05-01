@@ -148,8 +148,8 @@
   "item-rune-water": "水之符文",
   "item-rune-winter": "冬之符文",
   "item-rune-wrath": "愤怒符文",
-  "item-rustworld-air-empty": "空瓶",
-  "item-rustworld-air-full": "锈蚀世界的空气",
+  "item-flask-empty": "空瓶",
+  "item-flask-rustworldair": "锈蚀世界的空气",
   "item-saw-manasteel": "魔钢锯",
   "item-sawblade-manasteel": "魔钢锯刃",
   "item-scythe-manasteel": "魔钢长镰",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "魔钢镰刀刃的制作：\n\n\n\n\n\n\n\n\n\n\n魔钢长镰的制作：",
   "lexicon_mystical_items_manaitem_p15": "魔钢矛头的制作：\n\n\n\n\n\n\n\n\n\n\n魔钢长矛的制作：",
   "lexicon_mystical_items_manaitem_p16": "魔钢凿的制作：\n\n\n\n魔钢撬棍的制作：\n\n\n\n\n魔钢扳手的制作：\n\n\n\n\n魔钢钳的制作\n\n\n\n\n魔钢剪刀的制作：",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>海之法杖</link>与其陆地对应物类似，会消耗<link=mana>魔力</link>来生成<link=game:water-still-7>水</link>。使用时，它会在目标位置放置一个水方块。\n此外，该法杖还可用于填充<link=apothecary>花瓣炼药台</link>、<link=game:barrel>桶</link>、<link=game:woodbucket>水桶</link>，甚至<link=game:claypot-black-fired>营火锅</link>。保持地球清洁——这里不是天王星。",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "海之法杖的制作：\n\n\n\n\n\n\n\n\n\n\n保持地球清洁——这里不是天王星。",
 
   "lexicon_mystical_items_wandofbinding_title": "群体绑定法杖",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>群体绑定法杖</link> 由 <link=manapool>魔钢</link> 与 <link=livingwood_stick>活木树枝</link> 制成。它可以一次性将多个附近花朵绑定到 <link=manaspreader>魔力发射器</link> 或 <link=manapool>魔力池</link>。\n\n对目标方块按下 <link=nothing>右键</link>，即可自动绑定附近花朵。",

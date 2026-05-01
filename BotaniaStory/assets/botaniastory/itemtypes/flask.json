@@ -1,28 +1,32 @@
 {
-	"code": "rustworld-air",
-	"class": "ItemRiftBottle",
+	"code": "flask",
+	"class": "ItemFlask",
 	"maxstacksize": 64,
 
 	"variantgroups": [
 		{
-			"code": "state",
-			"states": [ "empty", "full" ]
+			"code": "content",
+			"states": [ "empty", "rustworldair", "water" ]
 		}
 	],
 
 	"shapeByType": {
 		"*-empty": {
-			"base": "botaniastory:item/rustworld_air_empty"
+			"base": "botaniastory:item/flask_empty"
 		},
-		"*-full": {
-			"base": "botaniastory:item/rustworld_air"
+		"*": {
+			"base": "botaniastory:item/flask"
 		}
 	},
 
-	"textures": {
-		"all": { "base": "botaniastory:item/rustworld_air" }
+	"texturesByType": {
+		"*-rustworldair": {
+			"liquid": { "base": "botaniastory:item/flask_glass" }
+		},
+		"*-water": {
+			"liquid": { "base": "game:block/liquid/waterportion" }
+		}
 	},
-
 	"attributes": {
 		"shelvable": true,
 		"displaycaseable": true,

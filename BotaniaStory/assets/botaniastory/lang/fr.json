@@ -148,8 +148,8 @@
   "item-rune-water": "Rune d'Eau",
   "item-rune-winter": "Rune d'Hiver",
   "item-rune-wrath": "Rune de colère",
-  "item-rustworld-air-empty": "Fiole vide",
-  "item-rustworld-air-full": "Air du Monde Rouillé",
+  "item-flask-empty": "Fiole vide",
+  "item-flask-rustworldair": "Air du Monde Rouillé",
   "item-saw-manasteel": "Scie en manacier",
   "item-sawblade-manasteel": "Lame de scie en manacier",
   "item-scythe-manasteel": "Faux en manacier",
@@ -483,6 +483,9 @@
   "lexicon_mystical_items_manaitem_p14": "Fabrication d'une lame de faux en manasteel :\n\n\n\n\n\n\n\n\n\n\nFabriquer une faux en manacier :",
   "lexicon_mystical_items_manaitem_p15": "Fabrication d'une tête de lance en manacier :\n\n\n\n\n\n\n\n\n\n\nFabrication d'une lance en manacier :",
   "lexicon_mystical_items_manaitem_p16": "Fabrication d'un ciseau en manacier :\n\n\n\nFabrication d'un pied-de-biche en manasteel :\n\n\n\n\nFabrication d'une clé en manacier :\n\n\n\n\nFabriquer des pinces en manacier\n\n\n\n\nFabriquer des cisailles en manacier :",
+
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Bâton des mers</link>, comme son équivalent terrestre, consomme de la <link=mana>mana</link> pour créer de <link=game:water-still-7>l’eau</link>. Lorsqu’il est utilisé, il place un bloc d’eau à l’endroit ciblé.\nDe plus, le bâton peut être utilisé pour remplir un <link=apothecary>apothicaire floral</link>, des <link=game:barrel>barils</link>, des <link=game:woodbucket>seaux</link> et même un <link=game:claypot-black-fired>pot sur feu</link>. Gardez la Terre propre — ce n’est pas Uranus.",
+  "lexicon_mystical_items_rod_of_the_seas_p2": "Fabrication du Bâton des mers :\n\n\n\n\n\n\n\n\n\n\nGardez la Terre propre — ce n’est pas Uranus.",
 
   "lexicon_mystical_items_wandofbinding_title": "Baguette de liaison de masse",
   "lexicon_mystical_items_wandofbinding_p1": "La <link=wandofbindings>Baguette de liaison de masse</link> est fabriquée à partir de <link=manapool>Manasteel</link> et d'une <link=livingwood_stick>Brindille de Bois vivant</link>. Il vous permet de lier plusieurs fleurs proches à la fois à un <link=manaspreader>Mana Spreader</link> ou à un <link=manapool>Mana Pool</link>.\n\nAppuyez sur <link=nothing>RMB</link> sur le bloc souhaité pour y lier automatiquement les fleurs à proximité.",
