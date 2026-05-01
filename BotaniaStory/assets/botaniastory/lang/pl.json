@@ -79,6 +79,7 @@
   "item-axe-manasteel": "Topór Manasteela",
   "item-axehead-manasteel": "Głowa topora Manasteela",
   "item-blackholetalisman": "Talizman czarnej dziury",
+  "item-blackholetalisman_frame": "Rama talizmanu czarnej dziury",
   "item-checkmark": "Akcesoria: wykrzyknik",
   "item-chisel-manasteel": "Dłuto Manasteela",
   "item-cleaver-manasteel": "Tasak Manasteela",
@@ -92,6 +93,8 @@
   "item-falx-manasteel": "Manasteela Falxa",
   "item-falxblade-manasteel": "Manasteelowe ostrze Falx",
   "item-flight-tiara": "Skrzydlata tiara",
+  "item-flight-tiara_frame": "Rama skrzydlatej tiary",
+  "item-gaiaspirit": "Duch Gai",
   "item-hammer-manasteel": "Młot Manasteela",
   "item-hammerhead-manasteel": "Głowica młotka Manasteela",
   "item-hoe-manasteel": "Manasteel Motyka",
@@ -145,6 +148,8 @@
   "item-rune-water": "Runa Wody",
   "item-rune-winter": "Runa zimy",
   "item-rune-wrath": "Runa Gniewu",
+  "item-rustworld-air-empty": "Pusta fiolka",
+  "item-rustworld-air-full": "Powietrze zardzewiałego świata",
   "item-saw-manasteel": "Piła Manasteela",
   "item-sawblade-manasteel": "Brzeszczot Manasteela",
   "item-scythe-manasteel": "Kosa Manasteela",
@@ -481,6 +486,17 @@
 
   "lexicon_mystical_items_wandofbinding_title": "Różdżka Masowego Spętania",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Różdżka Masowego Spętania</link> jest wykonana z <link=manapool>Manasteel</link> i <link=livingwood_stick>Gałązki Livingwood</link>. Pozwala na jednoczesne powiązanie kilku pobliskich kwiatów z <link=manaspreader>Rozrzutnikiem Many</link> lub <link=manapool>Pulą Many</link>.\n\nNaciśnij <link=nothing>PPM</link> na żądanym bloku, aby automatycznie powiązać z nim pobliskie kwiaty.",
-  "lexicon_mystical_items_wandofbinding_p2": "Różdżka dla leniwych?"
+  "lexicon_mystical_items_wandofbinding_p2": "Różdżka dla leniwych?",
+
+  "lexicon_rusted_world_artifacts_blackholetalisman_title": "Talizman Czarnej Dziury",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Pustka to ogromna przestrzeń wypełniona... pustką. Nic w niej nie ma. Jednak przy odpowiedniej pomysłowości można wykorzystać tę przestrzeń do przechowywania przedmiotów w nieograniczonych ilościach. <link=blackholetalisman>Talizman Czarnej Dziury</link> wykorzystuje potężną magię Gai i Zardzewiałego Świata, pozwalając przechowywać niemal nieskończoną ilość bloków jednego typu w jednym slocie. Kliknięcie prawym przyciskiem (<link=nothing>PPM</link>) na blok w świecie ustawia typ bloków do przechowywania, ale tylko jeśli talizman jest pusty. Następnie, naciskając <link=nothing>Shift+PPM</link> w powietrzu, można go włączyć lub wyłączyć. Gdy jest aktywny w ekwipunku, automatycznie pochłania bloki wybranego typu.",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Umieszczając talizman w siatce craftingu, można wyjmować z niego stosy bloków. Dopóki zawiera przedmioty, bloki można umieszczać bezpośrednio z talizmanu zwykłym <link=nothing>PPM</link>, jakby znajdowały się w ekwipunku. Kliknięcie na pojemnik spróbuje wypełnić go tymi blokami.\n\nTworzenie ramy talizmanu:\n\n\n\nTworzenie Talizmanu Czarnej Dziury:",
+
+  "lexicon_rusted_world_artifacts_flight-tiara_title": "Skrzydlata tiara",
+  "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Skrzydlata tiara</link> — artefakt inspirowany starożytną rasą Flugel. Niegdyś byli dominującym gatunkiem, stworzonym jako zabójcy bogów i posiadającym zdolność latania. Dzięki <link=gaiaspirit>duchom Gai</link> udało się odtworzyć część ich mocy: tiara pozwala latać kosztem many.\n\nJednak technologia jest niedoskonała. Tiara nie może utrzymywać lotu w nieskończoność — jeśli używana jest dłużej niż 60 sekund bez przerwy, przestanie działać, dopóki się nie zregeneruje. Do kontroli służy wskaźnik lotu na ekranie. Oprócz lotu umożliwia także szybkie doskoki i szybowanie. Naciśnięcie klawisza sprintu podczas lotu wykonuje doskok w kierunku patrzenia. Doskoki można wykonywać co 2 sekundy.",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Szybowanie pozwala łagodnie opadać, pokonywać odległości poziome i unikać obrażeń od upadku. Aby to zrobić, należy kucnąć podczas spadania. Nawet przy pustym wskaźniku lotu można szybować, jednak regeneracja będzie wolniejsza.\n\nTworzenie ramy tiary:\n\n\n\nTworzenie skrzydlatej tiary:",
+
+  "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiolka z powietrzem zardzewiałego świata",
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiolka z powietrzem zardzewiałego świata</link> zawiera zniekształcone powietrze zebrane z rozłamów prowadzących do obcego świata. Aby napełnić fiolkę, należy trzymać <link=rustworld-air-empty>pustą fiolkę</link> w ręce i nacisnąć <link=nothing>PPM</link> w pobliżu rozłamu.\n\nPowietrze to posiada właściwości mutagenne, jednak ich natura wciąż pozostaje niezbadana. "
 
 }

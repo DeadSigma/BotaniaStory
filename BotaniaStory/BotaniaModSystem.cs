@@ -91,7 +91,13 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemFlightTiara", typeof(ItemFlightTiara));
             api.RegisterItemClass("ItemBlackHoleTalisman", typeof(ItemBlackHoleTalisman));
             api.RegisterItemClass("ItemRiftBottle", typeof(ItemRiftBottle));
+            api.RegisterItemClass("ItemRodOfTheSeas", typeof(ItemRodOfTheSeas));
+            api.RegisterCollectibleBehaviorClass("AnimatedItem", typeof(BotaniaStory.systems.BehaviorAnimatedItem));
+
+
+
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
+
         }
 
         // --- 2. КЛИЕНТСКАЯ ЧАСТЬ (Звуки и Искры) ---

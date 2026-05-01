@@ -79,6 +79,7 @@
   "item-axe-manasteel": "Сокира з маністелі",
   "item-axehead-manasteel": "Наконечник сокири зі сталі Manasteel",
   "item-blackholetalisman": "Талісман чорної діри",
+  "item-blackholetalisman_frame": "Каркас талісмана чорної діри",
   "item-checkmark": "Аксесуар: знак оклику",
   "item-chisel-manasteel": "Долото Manasteel",
   "item-cleaver-manasteel": "Тесак Manasteel",
@@ -92,6 +93,8 @@
   "item-falx-manasteel": "Манастил Фалькс",
   "item-falxblade-manasteel": "Клинок Manasteel Falx",
   "item-flight-tiara": "Крилата тіара",
+  "item-flight-tiara_frame": "Каркас крилатої тіари",
+  "item-gaiaspirit": "Дух Гайї",
   "item-hammer-manasteel": "Молоток зі сталі Manasteel",
   "item-hammerhead-manasteel": "Головка молотка Manasteel",
   "item-hoe-manasteel": "Мотика Manasteel",
@@ -145,6 +148,8 @@
   "item-rune-water": "Руна Води",
   "item-rune-winter": "Руна Зими",
   "item-rune-wrath": "Руна Гніву",
+  "item-rustworld-air-empty": "Порожній флакон",
+  "item-rustworld-air-full": "Повітря іржавого світу",
   "item-saw-manasteel": "Пила Manasteel",
   "item-sawblade-manasteel": "Пильне полотно Manasteel",
   "item-scythe-manasteel": "Коса Manasteel",
@@ -481,6 +486,17 @@
 
   "lexicon_mystical_items_wandofbinding_title": "Wand of Mass Binding",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Wand of Mass Binding</link> виготовляється з <link=manapool>Манасталі</link> та <link=livingwood_stick>гілочки живого дерева</link>. Це дозволяє прив’язати кілька сусідніх квітів одночасно до <link=manaspreader>розсіювача мани</link> або <link=manapool>базу мани</link>.\n\nНатисніть <link=nothing>ПКМ</link> на потрібному блоці, щоб автоматично прив’язати до нього сусідні квіти.",
-  "lexicon_mystical_items_wandofbinding_p2": "Паличка для ледачих?"
+  "lexicon_mystical_items_wandofbinding_p2": "Паличка для ледачих?",
+
+  "lexicon_rusted_world_artifacts_blackholetalisman_title": "Талісман чорної діри",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Порожнеча — це величезний простір, наповнений... нічим. У ній нічого немає. Однак за достатньої винахідливості цей простір можна використати для зберігання предметів у необмеженій кількості. <link=blackholetalisman>Талісман чорної діри</link> використовує потужну магію Гайї та Іржавого світу, дозволяючи зберігати майже нескінченну кількість блоків одного типу в одному слоті. Натискання <link=nothing>ПКМ</link> по блоку у світі задає тип блоків для зберігання, але лише якщо талісман порожній. Потім, натиснувши <link=nothing>Shift+ПКМ</link> у повітрі, можна увімкнути або вимкнути його. В активному стані, перебуваючи в інвентарі, він автоматично поглинає блоки вибраного типу.",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Розмістивши талісман у сітці крафту, можна витягувати з нього стаки блоків. Поки в ньому є вміст, блоки можна розміщувати прямо з талісмана звичайним <link=nothing>ПКМ</link>, ніби вони знаходяться в інвентарі. Натискання по контейнеру спробує заповнити його цими блоками.\n\nСтворення каркаса талісмана:\n\n\n\nСтворення талісмана чорної діри:",
+
+  "lexicon_rusted_world_artifacts_flight-tiara_title": "Крилата тіара",
+  "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Крилата тіара</link> — артефакт, натхненний давньою расою Флюгелів. Колись вони були домінуючим видом, створеним як винищувачі богів і наділеним здатністю до польоту. За допомогою <link=gaiaspirit>духів Гайї</link> вдалося відтворити частину їхньої сили: тіара дозволяє літати, витрачаючи ману.\n\nОднак технологія недосконала. Тіара не може підтримувати політ безкінечно — якщо використовувати її понад 60 секунд без перерви, вона перестане працювати, доки не відновиться. Для контролю використовується шкала польоту на екрані. Окрім польоту, тіара дає можливість ривка та планерування. Натиснувши клавішу бігу під час польоту, можна здійснити ривок у напрямку погляду. Ривки можна виконувати раз на 2 секунди.",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Планерування дозволяє плавно знижуватися, долати відстані по горизонталі та уникати шкоди від падіння. Для цього потрібно пригнутися під час падіння. Навіть при порожній шкалі польоту можна планерувати, однак відновлення буде повільнішим.\n\nСтворення каркаса тіари:\n\n\n\nСтворення крилатої тіари:",
+
+  "lexicon_rusted_world_artifacts_rustworld-air_title": "Флакон з повітрям Іржавого світу",
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Флакон з повітрям Іржавого світу</link> містить спотворене повітря, зібране з розломів, що ведуть у чужий світ. Щоб наповнити флакон, потрібно тримати <link=rustworld-air-empty>порожній флакон</link> у руках і натиснути <link=nothing>ПКМ</link>, перебуваючи поруч із розломом.\n\nЦе повітря має мутуючі властивості, однак їх природа поки що залишається недослідженою. "
 
 }

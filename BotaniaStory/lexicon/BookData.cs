@@ -96,7 +96,7 @@ namespace BotaniaStory.lexicon
 
             { "elfmania", new[] { "alfheimgates", "elfresources" } },
 
-            { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass" } },
+            { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "rustworld-air-empty" } },
 
             { "trials", new[] { "ch1" } }
         };
@@ -1044,6 +1044,23 @@ namespace BotaniaStory.lexicon
 
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ПУЗЫРЁК ДЛЯ РЖАВОГО ВОЗДУХА ===
+                    else if (chapId == "rustworld-air-empty")
+                    {
+                        chapter.TabItemCode = "botaniastory:rustworld-air-empty";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                            null, null, null,
+                            null, "game:glass-plain", null,
+                            null, "game:glass-plain", null},
+                            Output = "botaniastory:rustworld-air-empty"
+                        });
+                    }
 
                     // === НАСТРОЙКА ГЛАВЫ РУНЫ ===
                     else if (chapId == "rune")

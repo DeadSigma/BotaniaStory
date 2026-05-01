@@ -79,6 +79,7 @@
   "item-axe-manasteel": "Axt aus Manastahl",
   "item-axehead-manasteel": "Axtkopf aus Manastahl",
   "item-blackholetalisman": "Schwarzes-Loch-Talisman",
+  "item-blackholetalisman_frame": "Rahmen des Schwarze-Loch-Talismans",
   "item-checkmark": "Accessoire: Ausrufezeichen",
   "item-chisel-manasteel": "Meißel aus Manastahl",
   "item-cleaver-manasteel": "Hackbeil aus Manastahl",
@@ -92,6 +93,8 @@
   "item-falx-manasteel": "Falx aus Manastahl",
   "item-falxblade-manasteel": "Falxklinge aus Manastahl",
   "item-flight-tiara": "Geflügelte Tiara",
+  "item-flight-tiara_frame": "Rahmen der geflügelten Tiara",
+  "item-gaiaspirit": "Geist Gaias",
   "item-hammer-manasteel": "Hammer aus Manastahl",
   "item-hammerhead-manasteel": "Hammerkopf aus Manastahl",
   "item-hoe-manasteel": "Hacke aus Manastahl",
@@ -145,6 +148,8 @@
   "item-rune-water": "Rune des Wassers",
   "item-rune-winter": "Rune des Winters",
   "item-rune-wrath": "Rune des Zorns",
+  "item-rustworld-air-empty": "Leeres Fläschchen",
+  "item-rustworld-air-full": "Luft der Rostwelt",
   "item-saw-manasteel": "Säge aus Manastahl",
   "item-sawblade-manasteel": "Sägeblatt aus Manastahl",
   "item-scythe-manasteel": "Sense aus Manastahl",
@@ -481,6 +486,17 @@
 
   "lexicon_mystical_items_wandofbinding_title": "Stab der Massenbindung",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Stab der Massenbindung</link> wird aus <link=manapool>Manastahl</link> und einem <link=livingwood_stick>Zweig aus Lebendholz</link> hergestellt. Er erlaubt es, mehrere nahe Blumen gleichzeitig an einen <link=manaspreader>Manaverteiler</link> oder <link=manapool>Manabecken</link> zu binden.\n\nDrücke <link=nothing>RMT</link> auf den gewünschten Block, um nahe Blumen automatisch daran zu binden.",
-  "lexicon_mystical_items_wandofbinding_p2": "Ein Stab für Faule?"
+  "lexicon_mystical_items_wandofbinding_p2": "Ein Stab für Faule?",
+
+  "lexicon_rusted_world_artifacts_blackholetalisman_title": "Schwarze-Loch-Talisman",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Die Leere ist ein gewaltiger Raum, gefüllt mit... Leere. Es gibt nichts darin. Mit genügend Einfallsreichtum kann dieser Raum jedoch genutzt werden, um Gegenstände in unbegrenzter Menge zu speichern. Der <link=blackholetalisman>Schwarze-Loch-Talisman</link> nutzt die mächtige Magie von Gaia und der Rostwelt und erlaubt es, nahezu unendlich viele Blöcke eines Typs in einem Slot zu lagern. Ein Rechtsklick (<link=nothing>RMB</link>) auf einen Block in der Welt legt den Blocktyp fest, aber nur wenn der Talisman leer ist. Anschließend kann man ihn mit <link=nothing>Shift+RMB</link> in der Luft ein- oder ausschalten. Im aktiven Zustand absorbiert er im Inventar automatisch Blöcke des gewählten Typs.",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Platziert man den Talisman im Crafting-Gitter, können Stapel von Blöcken daraus entnommen werden. Solange er Inhalte enthält, können Blöcke direkt aus dem Talisman mit einem normalen <link=nothing>RMB</link> platziert werden, als wären sie im Inventar. Ein Klick auf einen Behälter versucht, ihn mit diesen Blöcken zu füllen.\n\nHerstellung des Talisman-Rahmens:\n\n\n\nHerstellung des Schwarze-Loch-Talismans:",
+
+  "lexicon_rusted_world_artifacts_flight-tiara_title": "Geflügelte Tiara",
+  "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Geflügelte Tiara</link> — ein Artefakt, inspiriert von der uralten Rasse der Flugel. Einst waren sie die dominierende Spezies, erschaffen als Göttertöter und mit der Fähigkeit zu fliegen. Mithilfe von <link=gaiaspirit>Gaias Geistern</link> konnte ein Teil ihrer Kraft wiederhergestellt werden: Die Tiara ermöglicht das Fliegen unter Verbrauch von Mana.\n\nDie Technologie ist jedoch unvollkommen. Die Tiara kann den Flug nicht unbegrenzt aufrechterhalten — wird sie länger als 60 Sekunden ohne Pause verwendet, hört sie auf zu funktionieren, bis sie sich erholt hat. Eine Fluganzeige auf dem Bildschirm dient zur Kontrolle. Neben dem Flug ermöglicht sie auch Dash und Gleiten. Durch Drücken der Sprinttaste während des Fluges kann man sich in Blickrichtung beschleunigen. Dashes sind alle 2 Sekunden möglich.",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Gleiten ermöglicht ein sanftes Absinken, das Zurücklegen horizontaler Distanzen und das Vermeiden von Fallschaden. Dazu muss man sich während des Falls ducken. Selbst bei leerer Fluganzeige kann man gleiten, jedoch erfolgt die Regeneration langsamer.\n\nHerstellung des Tiara-Rahmens:\n\n\n\nHerstellung der geflügelten Tiara:",
+
+  "lexicon_rusted_world_artifacts_rustworld-air_title": "Fläschchen mit Luft der Rostwelt",
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fläschchen mit Luft der Rostwelt</link> enthält verzerrte Luft, die aus Rissen gesammelt wurde, die in eine fremde Welt führen. Um das Fläschchen zu füllen, muss man ein <link=rustworld-air-empty>leeres Fläschchen</link> in der Hand halten und <link=nothing>Rechtsklick</link> in der Nähe eines Risses drücken.\n\nDiese Luft besitzt mutierende Eigenschaften, deren Natur jedoch noch nicht erforscht ist. "
 
 }

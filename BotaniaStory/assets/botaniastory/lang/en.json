@@ -79,6 +79,7 @@
   "item-axe-manasteel": "Manasteel Axe",
   "item-axehead-manasteel": "Manasteel Axe Head",
   "item-blackholetalisman": "Black Hole Talisman",
+  "item-blackholetalisman_frame": "Black Hole Talisman Frame",
   "item-checkmark": "Accessory: Exclamation Mark",
   "item-chisel-manasteel": "Manasteel Chisel",
   "item-cleaver-manasteel": "Manasteel Cleaver",
@@ -92,6 +93,8 @@
   "item-falx-manasteel": "Manasteel Falx",
   "item-falxblade-manasteel": "Manasteel Falx Blade",
   "item-flight-tiara": "Winged Tiara",
+  "item-flight-tiara_frame": "Winged Tiara Frame",
+  "item-gaiaspirit": "Gaia Spirit",
   "item-hammer-manasteel": "Manasteel Hammer",
   "item-hammerhead-manasteel": "Manasteel Hammer Head",
   "item-hoe-manasteel": "Manasteel Hoe",
@@ -145,6 +148,8 @@
   "item-rune-water": "Rune of Water",
   "item-rune-winter": "Rune of Winter",
   "item-rune-wrath": "Rune of Wrath",
+  "item-rustworld-air-empty": "Empty Vial",
+  "item-rustworld-air-full": "Rusted World Air",
   "item-saw-manasteel": "Manasteel Saw",
   "item-sawblade-manasteel": "Manasteel Saw Blade",
   "item-scythe-manasteel": "Manasteel Scythe",
@@ -481,6 +486,17 @@
 
   "lexicon_mystical_items_wandofbinding_title": "Wand of Mass Binding",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Wand of Mass Binding</link> is crafted from <link=manapool>Manasteel</link> and a <link=livingwood_stick>Livingwood Twig</link>. It allows you to bind several nearby flowers at once to a <link=manaspreader>Mana Spreader</link> or <link=manapool>Mana Pool</link>.\n\nPress <link=nothing>RMB</link> on the desired block to automatically bind nearby flowers to it.",
-  "lexicon_mystical_items_wandofbinding_p2": "A wand for the lazy?"
+  "lexicon_mystical_items_wandofbinding_p2": "A wand for the lazy?",
+
+  "lexicon_rusted_world_artifacts_blackholetalisman_title": "Black Hole Talisman",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p1": "The void is a vast expanse filled with... nothingness. There is nothing within it. However, with enough ingenuity, this space can be used to store items in unlimited quantities. The <link=blackholetalisman>Black Hole Talisman</link> uses the powerful magic of Gaia and the Rusted World, allowing it to store nearly infinite amounts of a single block type in one slot. Right-clicking (<link=nothing>RMB</link>) a block in the world sets the block type for storage, but only if the talisman is empty. Then, by pressing <link=nothing>Shift+RMB</link> in the air, you can toggle it on or off. When active and in the inventory, it will automatically absorb blocks of the selected type.",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "By placing the talisman in the crafting grid, you can extract stacks of blocks from it. As long as it contains items, blocks can be placed directly from the talisman with a normal <link=nothing>RMB</link>, as if they were in your inventory. Clicking on a container will attempt to fill it with those blocks.\n\nCrafting the talisman frame:\n\n\n\nCrafting the Black Hole Talisman:",
+
+  "lexicon_rusted_world_artifacts_flight-tiara_title": "Winged Tiara",
+  "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Winged Tiara</link> — an artifact inspired by the ancient race of the Flugel. Once, they were the dominant species, created as god-slayers and possessing the ability to fly. With the help of <link=gaiaspirit>Gaia Spirits</link>, part of their power has been recreated: the tiara allows flight at the cost of mana.\n\nHowever, the technology is imperfect. The tiara cannot sustain flight indefinitely — if used for more than 60 seconds without a break, it will stop working until it recovers. A flight meter on the screen is used for control. In addition to flight, the tiara grants the ability to dash and glide. Pressing the sprint key during flight performs a dash in the direction you are looking. Dashes can be used once every 2 seconds.",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Gliding allows you to descend smoothly, travel horizontally, and avoid fall damage. To do this, crouch while falling. Even with an empty flight meter, you can glide, though regeneration will be slower.\n\nCrafting the tiara frame:\n\n\n\nCrafting the Winged Tiara:",
+
+  "lexicon_rusted_world_artifacts_rustworld-air_title": "Vial of Rusted World Air",
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Vial of Rusted World Air</link> contains distorted air collected from rifts leading to an alien world. To fill the vial, hold an <link=rustworld-air-empty>empty vial</link> in your hand and press <link=nothing>RMB</link> near a rift.\n\nThis air possesses mutating properties, though their nature remains unstudied. "
 
 }

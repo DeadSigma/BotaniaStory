@@ -161,7 +161,6 @@ namespace BotaniaStory.client.renderers
         {
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
             quadMeshRef?.Dispose();
-            foreach (var t in textures) t?.Dispose();
         }
     }
 }

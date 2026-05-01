@@ -1,0 +1,63 @@
+{
+	"code": "rod_of_the_seas",
+	"class": "ItemRodOfTheSeas",
+	"maxstacksize": 1,
+	"shape": { "base": "botaniastory:item/rod_of_the_seas" },
+	"textures": {
+		"rod_of_the_seas": { "base": "botaniastory:item/rod_of_the_seas" }
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"behaviors": [
+		{
+			"name": "AnimatedItem",
+			"properties": { "speed": 150 }
+		}
+	],
+	"guiTransform": {
+		"translation": {
+			"x": -23,
+			"y": 13,
+			"z": 0
+		},
+		"rotation": {
+			"x": 180,
+			"y": 0,
+			"z": -5
+		},
+		"scale": 1.52
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 1,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 22,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5,
+			"z": 0.5299
+		},
+		"scale": 6
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.8,
+			"y": -0.64,
+			"z": -0.3
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": -67
+		},
+		"scale": 0.58
+	}
+}

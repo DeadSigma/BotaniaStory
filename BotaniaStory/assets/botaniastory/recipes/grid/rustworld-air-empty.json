@@ -1,0 +1,18 @@
+[
+    {
+        "ingredientPattern": " G , G ,   ",
+        "ingredients": {
+            "G": {
+                "type": "block",
+                "code": "game:glass-plain"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:rustworld-air-empty",
+            "quantity": 1
+        }
+    }
+]

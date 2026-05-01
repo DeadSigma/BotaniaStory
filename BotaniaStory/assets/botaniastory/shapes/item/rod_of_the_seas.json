@@ -1,0 +1,2627 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 8,
+	"textureHeight": 8,
+	"textureSizes": {
+		"rod_of_the_seas": [128, 128]
+	},
+	"textures": {
+		"rod_of_the_seas": "rod_of_the_seas"
+	},
+	"elements": [
+		{
+			"name": "rod",
+			"rotationOrigin": [17.85, 14.6, 16],
+			"from": [0, 0, 0],
+			"to": [0, 0, 0],
+			"faces": {
+				"north": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"east": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"south": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"west": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"up": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"down": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				}
+			},
+			"rotationZ": -27.5,
+			"children": [
+				{
+					"name": "waterbase",
+					"rotationOrigin": [17.85, 14.6, 16],
+					"from": [0, 0, 0],
+					"to": [0, 0, 0],
+					"faces": {
+						"north": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"east": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"south": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"west": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"up": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						},
+						"down": {
+							"texture": "#",
+							"uv": [0, 0, 0, 0]
+						}
+					},
+					"children": [
+						{
+							"name": "1",
+							"rotationOrigin": [17.7601, 17.0608, 16.1937],
+							"from": [0, 0, 0],
+							"to": [0, 0, 0],
+							"faces": {
+								"north": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"east": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"south": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"west": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"up": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"down": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								}
+							},
+							"children": [
+								{
+									"name": "waterbase_1",
+									"from": [14.95, 15.05, 13.875],
+									"to": [20.85, 19.225, 18.275],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [17, 93, 43, 117],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 94, 37, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 93.5, 31, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									}
+								},
+								{
+									"name": "waterbase_1",
+									"from": [15.8, 15.025, 13.1],
+									"to": [20, 19.175, 19],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [21.25, 93, 37, 107],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									}
+								},
+								{
+									"name": "waterbase_1",
+									"from": [15.75, 14.15, 13.85],
+									"to": [19.95, 20.05, 18.3],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									}
+								},
+								{
+									"name": "waterbase_1",
+									"from": [16.225, 13.75, 14.625],
+									"to": [19.425, 20.45, 17.775],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [23, 93, 46.25, 119.75],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [14.25, 101, 31, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									}
+								},
+								{
+									"name": "waterbase_1",
+									"from": [16.275, 15.575, 12.675],
+									"to": [19.5, 18.55, 19.3],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [27, 85, 50.25, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 94, 37, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [17, 98, 31, 114],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									}
+								},
+								{
+									"name": "waterbase_1",
+									"from": [14.55, 15.65, 14.275],
+									"to": [21.05, 18.55, 17.7],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [23, 82, 49.5, 105],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [27, 88, 50.25, 111],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 93.5, 31, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									}
+								},
+								{
+									"name": "waterbase_1",
+									"from": [15.3, 14.6, 13.35],
+									"to": [20.5, 19.6, 18.75],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.125, 108.175, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -22.5
+								}
+							]
+						},
+						{
+							"name": "2",
+							"rotationOrigin": [17.7601, 17.0608, 16.1937],
+							"from": [0, 0, 0],
+							"to": [0, 0, 0],
+							"faces": {
+								"north": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"east": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"south": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"west": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"up": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"down": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								}
+							},
+							"children": [
+								{
+									"name": "waterbase_2",
+									"from": [15.3, 14.6, 13.35],
+									"to": [20.5, 19.6, 18.75],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.125, 108.175, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationX": -14.3588,
+									"rotationY": -29.2189,
+									"rotationZ": -7.1228
+								},
+								{
+									"name": "waterbase_2",
+									"from": [14.55, 15.65, 14.275],
+									"to": [21.05, 18.55, 17.7],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [23, 82, 49.5, 105],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [27, 88, 50.25, 111],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 93.5, 31, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -7.5
+								},
+								{
+									"name": "waterbase_2",
+									"from": [16.275, 15.575, 12.675],
+									"to": [19.5, 18.55, 19.3],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [27, 85, 50.25, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 94, 37, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [17, 98, 31, 114],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -7.5
+								},
+								{
+									"name": "waterbase_2",
+									"from": [16.225, 13.75, 14.625],
+									"to": [19.425, 20.45, 17.775],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [23, 93, 46.25, 119.75],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [14.25, 101, 31, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -7.5
+								},
+								{
+									"name": "waterbase_2",
+									"from": [15.75, 14.15, 13.85],
+									"to": [19.95, 20.05, 18.3],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -7.5
+								},
+								{
+									"name": "waterbase_2",
+									"from": [15.8, 15.025, 13.1],
+									"to": [20, 19.175, 19],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [21.25, 93, 37, 107],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -25
+								},
+								{
+									"name": "waterbase_2",
+									"from": [14.95, 15.05, 13.875],
+									"to": [20.85, 19.225, 18.275],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [17, 93, 43, 117],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 94, 37, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 93.5, 31, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": 17.5
+								}
+							]
+						},
+						{
+							"name": "3",
+							"rotationOrigin": [17.7601, 17.0608, 16.1937],
+							"from": [0, 0, 0],
+							"to": [0, 0, 0],
+							"faces": {
+								"north": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"east": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"south": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"west": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"up": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"down": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								}
+							},
+							"children": [
+								{
+									"name": "waterbase_3",
+									"from": [14.95, 15.05, 13.875],
+									"to": [20.85, 19.225, 18.275],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [17, 93, 43, 117],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 94, 37, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 93.5, 31, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -15
+								},
+								{
+									"name": "waterbase_3",
+									"from": [15.8, 15.025, 13.1],
+									"to": [20, 19.175, 19],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [21.25, 93, 37, 107],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -40,
+									"rotationZ": -20
+								},
+								{
+									"name": "waterbase_3",
+									"from": [15.75, 14.15, 13.85],
+									"to": [19.95, 20.05, 18.3],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -40,
+									"rotationZ": 12.5
+								},
+								{
+									"name": "waterbase_3",
+									"from": [16.225, 13.75, 14.625],
+									"to": [19.425, 20.45, 17.775],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [23, 93, 46.25, 119.75],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [14.25, 101, 31, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -40
+								},
+								{
+									"name": "waterbase_3",
+									"from": [16.275, 15.575, 12.675],
+									"to": [19.5, 18.55, 19.3],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [27, 85, 50.25, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 94, 37, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [17, 98, 31, 114],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -40
+								},
+								{
+									"name": "waterbase_3",
+									"from": [14.55, 15.65, 14.275],
+									"to": [21.05, 18.55, 17.7],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [23, 82, 49.5, 105],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [27, 88, 50.25, 111],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 93.5, 31, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -40
+								},
+								{
+									"name": "waterbase_3",
+									"from": [15.3, 14.6, 13.35],
+									"to": [20.5, 19.6, 18.75],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.125, 108.175, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationY": -40
+								}
+							]
+						},
+						{
+							"name": "4",
+							"rotationOrigin": [17.7601, 17.0608, 16.1937],
+							"from": [0, 0, 0],
+							"to": [0, 0, 0],
+							"faces": {
+								"north": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"east": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"south": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"west": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"up": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								},
+								"down": {
+									"texture": "#",
+									"uv": [0, 0, 0, 0]
+								}
+							},
+							"children": [
+								{
+									"name": "waterbase_4",
+									"from": [14.55, 15.65, 14.275],
+									"to": [21.05, 18.55, 17.7],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [23, 82, 49.5, 105],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [27, 88, 50.25, 111],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 93.5, 31, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationX": -17.5,
+									"rotationY": -65
+								},
+								{
+									"name": "waterbase_4",
+									"from": [16.275, 15.575, 12.675],
+									"to": [19.5, 18.55, 19.3],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [27, 85, 50.25, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 94, 37, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [17, 98, 31, 114],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationX": -17.5,
+									"rotationY": -65
+								},
+								{
+									"name": "waterbase_4",
+									"from": [16.225, 13.75, 14.625],
+									"to": [19.425, 20.45, 17.775],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [23, 93, 46.25, 119.75],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [14.25, 101, 31, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationX": -17.5,
+									"rotationY": -65,
+									"rotationZ": 15
+								},
+								{
+									"name": "waterbase_4",
+									"from": [15.75, 14.15, 13.85],
+									"to": [19.95, 20.05, 18.3],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [22, 87, 46.25, 113],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationX": 20.5724,
+									"rotationY": -83.1053,
+									"rotationZ": 49.6385
+								},
+								{
+									"name": "waterbase_4",
+									"from": [15.8, 15.025, 13.1],
+									"to": [20, 19.175, 19],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 88, 36.25, 113.5],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [21.25, 93, 37, 107],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationX": -17.5,
+									"rotationY": -65,
+									"rotationZ": -20
+								},
+								{
+									"name": "waterbase_4",
+									"from": [14.95, 15.05, 13.875],
+									"to": [20.85, 19.225, 18.275],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [17, 93, 43, 117],
+											"autoUv": false,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [11, 94, 37, 118],
+											"autoUv": false,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [90, 111, 107.25, 128],
+											"autoUv": false,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 93.5, 31, 108],
+											"autoUv": false,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationX": -17.5,
+									"rotationY": -40
+								},
+								{
+									"name": "waterbase_4",
+									"from": [15.3, 14.6, 13.35],
+									"to": [20.5, 19.6, 18.75],
+									"rotationOrigin": [17.7601, 17.0608, 16.1937],
+									"faces": {
+										"north": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.125, 108.175, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"east": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"south": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"west": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"up": {
+											"texture": "#rod_of_the_seas",
+											"uv": [107.15, 108.225, 127.75, 128],
+											"autoUv": false,
+											"rotation": 270,
+											"glow": 255
+										},
+										"down": {
+											"texture": "#rod_of_the_seas",
+											"uv": [16.25, 88, 31, 113.5],
+											"autoUv": false,
+											"glow": 255
+										}
+									},
+									"rotationX": -17.5,
+									"rotationY": -65,
+									"rotationZ": 177.5
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "base",
+					"from": [16.5, 13.175, 14.725],
+					"to": [19.1, 14.15, 17.125],
+					"rotationOrigin": [17.85, 10.525, 13.425],
+					"faces": {
+						"north": {
+							"texture": "#rod_of_the_seas",
+							"uv": [12.875, 1, 0, 5.8],
+							"autoUv": false,
+							"rotation": 180
+						},
+						"east": {
+							"texture": "#rod_of_the_seas",
+							"uv": [1, 0, 13.875, 4.8],
+							"autoUv": false,
+							"rotation": 180
+						},
+						"south": {
+							"texture": "#rod_of_the_seas",
+							"uv": [0, 7, 12.875, 11.8],
+							"autoUv": false,
+							"rotation": 180
+						},
+						"west": {
+							"texture": "#rod_of_the_seas",
+							"uv": [0, 4, 12.875, 8.8],
+							"autoUv": false,
+							"rotation": 180
+						},
+						"up": {
+							"texture": "#rod_of_the_seas",
+							"uv": [0, 0, 12.875, 11.8],
+							"autoUv": false,
+							"rotation": 180
+						},
+						"down": {
+							"texture": "#rod_of_the_seas",
+							"uv": [0, 0, 12.875, 11.8],
+							"autoUv": false,
+							"rotation": 180
+						}
+					}
+				},
+				{
+					"name": "base",
+					"from": [16.982, 9.564, 15.132],
+					"to": [18.55, 13.512, 16.7],
+					"rotationOrigin": [18.046, 9.816, 13.116],
+					"faces": {
+						"north": {
+							"texture": "#rod_of_the_seas",
+							"uv": [40, 0, 53, 32],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#rod_of_the_seas",
+							"uv": [40, 32, 53, 64],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#rod_of_the_seas",
+							"uv": [40, 32, 53, 0],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#rod_of_the_seas",
+							"uv": [40, 64, 53, 32],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#rod_of_the_seas",
+							"uv": [53, 77, 40, 64],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#rod_of_the_seas",
+							"uv": [53, 64, 40, 77],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "base",
+					"from": [17.2777, 9.6523, 14.882],
+					"to": [18.2458, 13.8503, 16.95],
+					"rotationOrigin": [18.0418, 10.0293, 13.116],
+					"faces": {
+						"north": {
+							"texture": "#rod_of_the_seas",
+							"uv": [40, 66, 48, 34],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#rod_of_the_seas",
+							"uv": [40, 64, 53, 32],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#rod_of_the_seas",
+							"uv": [40, 64, 53, 32],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#rod_of_the_seas",
+							"uv": [40, 64, 53, 32],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#rod_of_the_seas",
+							"uv": [53, 60, 40, 47],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#rod_of_the_seas",
+							"uv": [53, 47, 40, 60],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "base",
+					"from": [16.982, 6.708, 15.133],
+					"to": [18.55, 9.564, 16.701],
+					"rotationOrigin": [18.55, 9.564, 15.86],
+					"faces": {
+						"north": {
+							"texture": "#rod_of_the_seas",
+							"uv": [56, 24, 69, 47],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#rod_of_the_seas",
+							"uv": [56, 48, 69, 71],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#rod_of_the_seas",
+							"uv": [91.35, 59, 103.65, 36],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#rod_of_the_seas",
+							"uv": [58, 71, 68, 48],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#rod_of_the_seas",
+							"uv": [53, 50, 40, 63],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#rod_of_the_seas",
+							"uv": [53, 50, 40, 63],
+							"autoUv": false
+						}
+					},
+					"rotationZ": -40
+				},
+				{
+					"name": "base",
+					"from": [17.4272, 6.8008, 14.883],
+					"to": [18.3952, 9.4318, 16.951],
+					"rotationOrigin": [18.6202, 9.7568, 15.86],
+					"faces": {
+						"north": {
+							"texture": "#rod_of_the_seas",
+							"uv": [50.7, 44, 44, 22],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#rod_of_the_seas",
+							"uv": [40, 64, 53, 32],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#rod_of_the_seas",
+							"uv": [50.7, 16, 40, 0],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#rod_of_the_seas",
+							"uv": [56, 0, 73, 21],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#rod_of_the_seas",
+							"uv": [53, 77, 40, 64],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#rod_of_the_seas",
+							"uv": [53, 64, 40, 77],
+							"autoUv": false
+						}
+					},
+					"rotationZ": -40
+				},
+				{
+					"name": "base",
+					"from": [15.513, -0.1319, 15.132],
+					"to": [17.081, 8.3841, 16.7],
+					"rotationOrigin": [17.081, 8.3841, 15.86],
+					"faces": {
+						"north": {
+							"texture": "#rod_of_the_seas",
+							"uv": [91, 0, 104, 68],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#rod_of_the_seas",
+							"uv": [91, 0, 104, 68],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#rod_of_the_seas",
+							"uv": [75, 0, 88, 68],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#rod_of_the_seas",
+							"uv": [91, 0, 104, 68],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#rod_of_the_seas",
+							"uv": [128, 64, 115, 77],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#rod_of_the_seas",
+							"uv": [128, 77, 115, 64],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "base",
+					"from": [15.813, -0.1319, 14.882],
+					"to": [16.781, 8.2591, 16.95],
+					"rotationOrigin": [17.081, 8.3841, 15.86],
+					"faces": {
+						"north": {
+							"texture": "#rod_of_the_seas",
+							"uv": [107, 1, 115, 67],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#rod_of_the_seas",
+							"uv": [75, 0.8, 88, 68],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#rod_of_the_seas",
+							"uv": [107, 1, 115, 67],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#rod_of_the_seas",
+							"uv": [75, 1, 88, 68],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#rod_of_the_seas",
+							"uv": [128, 64, 115, 77],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#rod_of_the_seas",
+							"uv": [128, 77, 115, 64],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "base",
+					"from": [15.388, 0.7931, 14.782],
+					"to": [17.206, 2.7591, 17.05],
+					"rotationOrigin": [17.081, 3.9841, 15.86],
+					"faces": {
+						"north": {
+							"texture": "#rod_of_the_seas",
+							"uv": [26.025, 24.8, 13.15, 13],
+							"autoUv": false,
+							"rotation": 180
+						},
+						"east": {
+							"texture": "#rod_of_the_seas",
+							"uv": [13.15, 11.875, 26.025, 0],
+							"autoUv": false,
+							"rotation": 180
+						},
+						"south": {
+							"texture": "#rod_of_the_seas",
+							"uv": [26.025, 24.8, 13.15, 13],
+							"autoUv": false,
+							"rotation": 180
+						},
+						"west": {
+							"texture": "#rod_of_the_seas",
+							"uv": [27.125, 11.8, 40, 0],
+							"autoUv": false,
+							"rotation": 180
+						},
+						"up": {
+							"texture": "#rod_of_the_seas",
+							"uv": [76.525, 23.025, 86.8, 14.275],
+							"autoUv": false,
+							"rotation": 90
+						},
+						"down": {
+							"texture": "#rod_of_the_seas",
+							"uv": [0.3, 26.575, 12.7, 13.45],
+							"autoUv": false,
+							"rotation": 90
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "water_1",
+			"from": [20.233, 13.4175, 14.125],
+			"to": [21.183, 14.5175, 15.075],
+			"rotationOrigin": [20.708, 14.1925, 14.6],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [41, 74, 52.25, 87],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water_2",
+			"from": [20.358, 12.9424, 14.25],
+			"to": [21.058, 13.4925, 14.95],
+			"rotationOrigin": [20.708, 14.1925, 14.6],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water_3",
+			"from": [20.458, 11.4424, 14.35],
+			"to": [20.958, 12.9925, 14.85],
+			"rotationOrigin": [20.708, 12.5925, 14.6],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [43, 76, 54.25, 89],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [14, 89, 25.25, 102],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water_4",
+			"from": [20.508, 10.5175, 14.4],
+			"to": [20.908, 11.0175, 14.8],
+			"rotationOrigin": [20.708, 10.6675, 14.6],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			},
+			"rotationZ": 16
+		},
+		{
+			"name": "water_5",
+			"from": [20.533, 9.6675, 14.425],
+			"to": [20.883, 10.1175, 14.775],
+			"rotationOrigin": [20.708, 9.7925, 14.6],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [14, 110, 25.25, 123],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [41, 74, 52.25, 87],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [10, 103, 21.25, 116],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			},
+			"rotationZ": 2
+		},
+		{
+			"name": "water_6",
+			"from": [20.733, 9.0425, 14.5],
+			"to": [20.933, 9.3425, 14.7],
+			"rotationOrigin": [20.833, 9.0925, 14.6],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			},
+			"rotationZ": 10.5
+		},
+		{
+			"name": "water_6",
+			"from": [20.783, 8.9175, 14.425],
+			"to": [20.883, 9.0425, 14.525],
+			"rotationOrigin": [20.833, 8.8425, 14.475],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			},
+			"rotationZ": 10.5
+		},
+		{
+			"name": "water_6",
+			"from": [20.933, 8.8174, 14.425],
+			"to": [20.983, 8.8925, 14.475],
+			"rotationOrigin": [20.958, 8.7175, 14.45],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			},
+			"rotationZ": 10.5
+		},
+		{
+			"name": "water2_8",
+			"from": [21.833, 11.1175, 17.175],
+			"to": [21.883, 11.1924, 17.225],
+			"rotationOrigin": [21.858, 11.0175, 17.2],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water2_8",
+			"from": [21.683, 11.2175, 17.175],
+			"to": [21.783, 11.3425, 17.275],
+			"rotationOrigin": [21.733, 11.1425, 17.225],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water2_8",
+			"from": [21.633, 11.3425, 17.25],
+			"to": [21.833, 11.6425, 17.45],
+			"rotationOrigin": [21.733, 11.3925, 17.35],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water2_7",
+			"from": [21.558, 11.9675, 17.175],
+			"to": [21.908, 12.4175, 17.525],
+			"rotationOrigin": [21.733, 12.0925, 17.35],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [41, 74, 52.25, 87],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			},
+			"rotationZ": 2.5
+		},
+		{
+			"name": "water2_6",
+			"from": [21.533, 12.8174, 17.15],
+			"to": [21.933, 13.3175, 17.55],
+			"rotationOrigin": [21.733, 12.9675, 17.35],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [23, 83, 34.25, 96],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [32, 94, 43.25, 107],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [19, 97, 30.25, 110],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [13, 74, 24.25, 87],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [18, 99, 29.25, 112],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [42, 75, 53.25, 88],
+					"autoUv": false
+				}
+			},
+			"rotationZ": -22.75
+		},
+		{
+			"name": "water2_5",
+			"from": [21.483, 13.7425, 17.1],
+			"to": [21.983, 14.7675, 17.6],
+			"rotationOrigin": [21.733, 14.8925, 17.35],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [12, 108, 23.25, 121],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [44, 85, 55.25, 98],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [10, 103, 21.25, 116],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water2_4",
+			"from": [21.283, 14.6675, 16.9],
+			"to": [22.083, 15.8925, 17.8],
+			"rotationOrigin": [21.733, 15.5175, 17.35],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [33, 79, 44.25, 92],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			},
+			"rotationZ": 10
+		},
+		{
+			"name": "water_third_3",
+			"from": [19.108, 12.2425, 15.325],
+			"to": [20.458, 13.6425, 16.675],
+			"rotationOrigin": [19.783, 13.0425, 16],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [28, 86, 39.25, 99],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water_third_4",
+			"from": [19.308, 11.2175, 15.525],
+			"to": [20.258, 12.2175, 16.475],
+			"rotationOrigin": [19.783, 11.8174, 16],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [14, 110, 25.25, 123],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [23, 81, 34.25, 94],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water_third_5",
+			"from": [19.508, 10.6175, 15.725],
+			"to": [20.058, 11.2175, 16.275],
+			"rotationOrigin": [19.783, 11.0175, 16],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water_third_6",
+			"from": [19.583, 9.6924, 15.8],
+			"to": [19.983, 10.1425, 16.2],
+			"rotationOrigin": [19.783, 10.0175, 16],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [44, 107, 55.25, 120],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [41, 74, 52.25, 87],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [31, 114, 42.25, 127],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "water_third_7",
+			"from": [19.683, 8.7925, 15.9],
+			"to": [19.883, 9.0425, 16.1],
+			"rotationOrigin": [19.783, 9.0175, 16],
+			"faces": {
+				"north": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#rod_of_the_seas",
+					"uv": [35, 100, 46.25, 113],
+					"autoUv": false
+				}
+			}
+		}
+	],
+	"animations": [
+		{
+			"name": "animation",
+			"code": "animation",
+			"onActivityStopped": "EaseOut",
+			"onAnimationEnd": "Stop",
+			"quantityframes": 21,
+			"keyframes": [
+				{
+					"frame": 0,
+					"elements": {
+						"1": {
+							"rotationX": 0,
+							"rotationY": 0,
+							"rotationZ": 0
+						}
+					}
+				},
+				{
+					"frame": 13,
+					"elements": {
+						"1": {
+							"rotationX": 0,
+							"rotationY": 0,
+							"rotationZ": 0
+						}
+					}
+				}
+			]
+		}
+	]
+}

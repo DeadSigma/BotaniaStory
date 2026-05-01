@@ -79,6 +79,7 @@
   "item-axe-manasteel": "Hacha de acero de manzanilla",
   "item-axehead-manasteel": "Cabeza de hacha de acero de manzanilla",
   "item-blackholetalisman": "Talismán de agujero negro",
+  "item-blackholetalisman_frame": "Marco del Talismán del Agujero Negro",
   "item-checkmark": "Accesorio: Signo de exclamación",
   "item-chisel-manasteel": "Cincel de manacero",
   "item-cleaver-manasteel": "Cuchilla de manacero",
@@ -92,6 +93,8 @@
   "item-falx-manasteel": "Falsa de manacero",
   "item-falxblade-manasteel": "Hoja de falx de acero de manacero",
   "item-flight-tiara": "Tiara alada",
+  "item-flight-tiara_frame": "Marco de tiara alada",
+  "item-gaiaspirit": "Espíritu de Gaia",
   "item-hammer-manasteel": "Martillo de acero de maná",
   "item-hammerhead-manasteel": "Cabeza de martillo de manacero",
   "item-hoe-manasteel": "Azada de manacero",
@@ -145,6 +148,8 @@
   "item-rune-water": "Runa de agua",
   "item-rune-winter": "Runa de invierno",
   "item-rune-wrath": "Runa de ira",
+  "item-rustworld-air-empty": "Vial vacío",
+  "item-rustworld-air-full": "Aire del Mundo Oxidado",
   "item-saw-manasteel": "Sierra de manacero",
   "item-sawblade-manasteel": "Hoja de sierra de acero manacero",
   "item-scythe-manasteel": "Guadaña de acero de manzanilla",
@@ -481,6 +486,17 @@
 
   "lexicon_mystical_items_wandofbinding_title": "Varita de unión masiva",
   "lexicon_mystical_items_wandofbinding_p1": "La <link=wandofbindings>Varita de unión masiva</link> está elaborada a partir de <link=manapool>Manasteel</link> y una <link=livingwood_stick>Livingwood Twig</link>. Te permite vincular varias flores cercanas a la vez a un <link=manaspreader>Mana Spreader</link> o <link=manapool>Mana Pool</link>.\n\nPresione <link=nothing>RMB</link> en el bloque deseado para vincularle automáticamente las flores cercanas.",
-  "lexicon_mystical_items_wandofbinding_p2": "¿Una varita para los perezosos?"
+  "lexicon_mystical_items_wandofbinding_p2": "¿Una varita para los perezosos?",
+
+  "lexicon_rusted_world_artifacts_blackholetalisman_title": "Talismán del Agujero Negro",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p1": "El vacío es una vasta extensión llena de... vacío. No hay nada en él. Sin embargo, con suficiente ingenio, este espacio puede usarse para almacenar objetos en cantidades ilimitadas. El <link=blackholetalisman>Talismán del Agujero Negro</link> utiliza la poderosa magia de Gaia y del Mundo Oxidado, permitiendo almacenar cantidades casi infinitas de un solo tipo de bloque en una sola ranura. Al hacer clic derecho (<link=nothing>RMB</link>) sobre un bloque en el mundo se establece el tipo de bloque a almacenar, pero solo si el talismán está vacío. Luego, presionando <link=nothing>Shift+RMB</link> en el aire, se puede activar o desactivar. Cuando está activo y en el inventario, absorberá automáticamente los bloques del tipo seleccionado.",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Al colocar el talismán en la mesa de crafteo, puedes extraer pilas de bloques de él. Mientras tenga contenido, los bloques pueden colocarse directamente desde el talismán con un <link=nothing>RMB</link> normal, como si estuvieran en el inventario. Al hacer clic en un contenedor se intentará llenarlo con estos bloques.\n\nCreación del marco del talismán:\n\n\n\nCreación del Talismán del Agujero Negro:",
+
+  "lexicon_rusted_world_artifacts_flight-tiara_title": "Tiara alada",
+  "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Tiara alada</link> — un artefacto inspirado en la antigua raza de los Flugel. En su día fueron la especie dominante, creada como asesinos de dioses y con la capacidad de volar. Con la ayuda de los <link=gaiaspirit>espíritus de Gaia</link>, se ha logrado recrear parte de su poder: la tiara permite volar a costa de maná.\n\nSin embargo, la tecnología es imperfecta. La tiara no puede mantener el vuelo indefinidamente — si se usa durante más de 60 segundos sin descanso, dejará de funcionar hasta recuperarse. Un indicador de vuelo en pantalla sirve para el control. Además del vuelo, la tiara permite realizar impulsos y planear. Al pulsar la tecla de correr durante el vuelo, se realiza un impulso en la dirección de la mirada. Los impulsos pueden usarse una vez cada 2 segundos.",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Planear permite descender suavemente, recorrer distancias horizontales y evitar el daño por caída. Para ello, hay que agacharse durante la caída. Incluso con la barra de vuelo vacía, se puede planear, aunque la regeneración será más lenta.\n\nCreación del marco de la tiara:\n\n\n\nCreación de la tiara alada:",
+
+  "lexicon_rusted_world_artifacts_rustworld-air_title": "Vial con aire del Mundo Oxidado",
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Vial con aire del Mundo Oxidado</link> contiene aire distorsionado recogido de grietas que conducen a un mundo extraño. Para llenar el vial, debes sostener un <link=rustworld-air-empty>vial vacío</link> en la mano y pulsar <link=nothing>clic derecho</link> cerca de una grieta.\n\nEste aire posee propiedades mutantes, aunque su naturaleza aún no ha sido estudiada. "
 
 }

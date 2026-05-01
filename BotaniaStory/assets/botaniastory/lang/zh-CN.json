@@ -79,6 +79,7 @@
   "item-axe-manasteel": "魔钢斧",
   "item-axehead-manasteel": "魔钢斧头",
   "item-blackholetalisman": "黑洞护符",
+  "item-blackholetalisman_frame": "黑洞护符框架",
   "item-checkmark": "饰品：感叹号",
   "item-chisel-manasteel": "魔钢凿",
   "item-cleaver-manasteel": "魔钢切刀",
@@ -92,6 +93,8 @@
   "item-falx-manasteel": "魔钢镰刀",
   "item-falxblade-manasteel": "魔钢镰刃",
   "item-flight-tiara": "翼之王冠",
+  "item-flight-tiara_frame": "翼之王冠框架",
+  "item-gaiaspirit": "盖亚之灵",
   "item-hammer-manasteel": "魔钢锤",
   "item-hammerhead-manasteel": "魔钢锤头",
   "item-hoe-manasteel": "魔钢锄",
@@ -145,6 +148,8 @@
   "item-rune-water": "水之符文",
   "item-rune-winter": "冬之符文",
   "item-rune-wrath": "愤怒符文",
+  "item-rustworld-air-empty": "空瓶",
+  "item-rustworld-air-full": "锈蚀世界的空气",
   "item-saw-manasteel": "魔钢锯",
   "item-sawblade-manasteel": "魔钢锯刃",
   "item-scythe-manasteel": "魔钢长镰",
@@ -481,6 +486,17 @@
 
   "lexicon_mystical_items_wandofbinding_title": "群体绑定法杖",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>群体绑定法杖</link> 由 <link=manapool>魔钢</link> 与 <link=livingwood_stick>活木树枝</link> 制成。它可以一次性将多个附近花朵绑定到 <link=manaspreader>魔力发射器</link> 或 <link=manapool>魔力池</link>。\n\n对目标方块按下 <link=nothing>右键</link>，即可自动绑定附近花朵。",
-  "lexicon_mystical_items_wandofbinding_p2": "给懒人的法杖？"
+  "lexicon_mystical_items_wandofbinding_p2": "给懒人的法杖？",
+
+  "lexicon_rusted_world_artifacts_blackholetalisman_title": "黑洞护符",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p1": "虚空是一片充满……虚无的广阔空间。里面什么都没有。然而，只要足够有创造力，这个空间可以用来存储无限数量的物品。<link=blackholetalisman>黑洞护符</link>利用盖亚与锈蚀世界的强大魔法，使其能够在一个槽位中存储几乎无限数量的同类型方块。对世界中的方块进行<link=nothing>右键点击</link>可以设定要存储的方块类型，但前提是护符为空。随后，在空中按下<link=nothing>Shift+右键</link>可以将其开启或关闭。当处于激活状态并在物品栏中时，它会自动吸收所选类型的方块。",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "将护符放入合成网格中，可以从中取出成组的方块。只要其中有内容，就可以像在物品栏中一样，通过普通的<link=nothing>右键</link>直接从护符中放置方块。点击容器会尝试用这些方块填充它。\n\n护符框架的制作：\n\n\n\n黑洞护符的制作：",
+
+  "lexicon_rusted_world_artifacts_flight-tiara_title": "翼之王冠",
+  "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>翼之王冠</link>——一种受古老种族弗鲁格尔启发的神器。曾经，他们是主导种族，被创造为弑神者，并拥有飞行能力。借助<link=gaiaspirit>盖亚之灵</link>的力量，人们成功重现了部分能力：该王冠可以通过消耗法力实现飞行。\n\n然而，这项技术并不完美。王冠无法无限维持飞行——如果连续使用超过60秒，它将停止工作，直到恢复。屏幕上的飞行条用于控制。此外，它还提供冲刺和滑翔能力。在飞行中按下冲刺键可以朝视线方向进行冲刺。冲刺每2秒可使用一次。",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑翔可以让你平稳下降，横向移动并避免坠落伤害。为此，需要在下落时蹲下。即使飞行条为空也可以滑翔，但恢复速度会更慢。\n\n王冠框架的制作：\n\n\n\n翼之王冠的制作：",
+
+  "lexicon_rusted_world_artifacts_rustworld-air_title": "锈蚀世界空气瓶",
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>锈蚀世界空气瓶</link>中封存着从通往异界的裂隙中收集到的扭曲空气。要填充该瓶，需要手持<link=rustworld-air-empty>空瓶</link>并在裂隙附近按下<link=nothing>右键</link>。\n\n这种空气具有变异特性，但其本质仍未被研究清楚。 "
 
 }

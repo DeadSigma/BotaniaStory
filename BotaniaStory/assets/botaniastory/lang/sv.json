@@ -79,6 +79,7 @@
   "item-axe-manasteel": "Manasteel Axe",
   "item-axehead-manasteel": "Manasteel yxhuvud",
   "item-blackholetalisman": "Svart hål-talisman",
+  "item-blackholetalisman_frame": "Ram för svart hål-talisman",
   "item-checkmark": "Tillbehör: Utropstecken",
   "item-chisel-manasteel": "Manasteel Mejsel",
   "item-cleaver-manasteel": "Manasteel Cleaver",
@@ -92,6 +93,8 @@
   "item-falx-manasteel": "Manasteel Falx",
   "item-falxblade-manasteel": "Manasteel Falx Blade",
   "item-flight-tiara": "Bevingad tiara",
+  "item-flight-tiara_frame": "Ram för bevingad tiara",
+  "item-gaiaspirit": "Gaias ande",
   "item-hammer-manasteel": "Manasteel Hammer",
   "item-hammerhead-manasteel": "Manasteel Hammer Head",
   "item-hoe-manasteel": "Manasteel Hoe",
@@ -145,6 +148,8 @@
   "item-rune-water": "Runa av vatten",
   "item-rune-winter": "Runa av vintern",
   "item-rune-wrath": "Rune of Wrath",
+  "item-rustworld-air-empty": "Tom flaska",
+  "item-rustworld-air-full": "Luft från den rostiga världen",
   "item-saw-manasteel": "Manasteel såg",
   "item-sawblade-manasteel": "Manasteel sågblad",
   "item-scythe-manasteel": "Manasteel Scythe",
@@ -481,6 +486,17 @@
 
   "lexicon_mystical_items_wandofbinding_title": "Trollstav av massbindning",
   "lexicon_mystical_items_wandofbinding_p1": "<link=wandofbindings>Wand of Mass Binding</link> är tillverkad av <link=manapool>Manasteel</link> och en <link=livingwood_stick>Livingwood Twig</link>. Det låter dig binda flera närliggande blommor samtidigt till en <link=manaspreader>Mana-spridare</link> eller <link=manapool>Mana-pool</link>.\n\nTryck på <link=nothing>RMB</link> på önskat block för att automatiskt binda närliggande blommor till det.",
-  "lexicon_mystical_items_wandofbinding_p2": "En trollstav för de lata?"
+  "lexicon_mystical_items_wandofbinding_p2": "En trollstav för de lata?",
+
+  "lexicon_rusted_world_artifacts_blackholetalisman_title": "Svart hål-talisman",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Tomrummet är ett enormt område fyllt med... tomhet. Det finns ingenting där. Men med tillräcklig uppfinningsrikedom kan detta utrymme användas för att lagra föremål i obegränsade mängder. <link=blackholetalisman>Svart hål-talisman</link> använder den kraftfulla magin från Gaia och den Rostiga världen, vilket gör det möjligt att lagra nästan oändliga mängder av en blocktyp i en enda plats. Högerklick (<link=nothing>RMB</link>) på ett block i världen ställer in vilken typ som ska lagras, men endast om talismanen är tom. Sedan kan du trycka <link=nothing>Shift+RMB</link> i luften för att slå på eller av den. När den är aktiv i inventariet absorberar den automatiskt block av den valda typen.",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Genom att placera talismanen i crafting-rutan kan du ta ut staplar av block från den. Så länge den innehåller något kan block placeras direkt från talismanen med ett vanligt <link=nothing>RMB</link>, som om de fanns i inventariet. Att klicka på en behållare försöker fylla den med dessa block.\n\nTillverkning av talismanens ram:\n\n\n\nTillverkning av svart hål-talisman:",
+
+  "lexicon_rusted_world_artifacts_flight-tiara_title": "Bevingad tiara",
+  "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Bevingad tiara</link> — en artefakt inspirerad av den uråldriga rasen Flugel. En gång var de den dominerande arten, skapade som gudadråpare och med förmågan att flyga. Med hjälp av <link=gaiaspirit>Gaias andar</link> har en del av deras kraft återskapats: tiaran gör det möjligt att flyga genom att förbruka mana.\n\nTeknologin är dock ofullständig. Tiaran kan inte upprätthålla flygning oändligt — om den används i mer än 60 sekunder utan paus slutar den fungera tills den återhämtar sig. En flygmätare på skärmen används för kontroll. Förutom flygning ger den även möjlighet till rusningar och glidflykt. Genom att trycka sprint under flygning utförs en rusning i den riktning du tittar. Rusningar kan göras var 2:e sekund.",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Glidflykt låter dig sjunka mjukt, färdas horisontellt och undvika fallskada. För att göra detta måste du ducka under fallet. Även med tom flygmätare kan du glidflyga, men återhämtningen blir långsammare.\n\nTillverkning av tiarans ram:\n\n\n\nTillverkning av bevingad tiara:",
+
+  "lexicon_rusted_world_artifacts_rustworld-air_title": "Flaska med luft från den rostiga världen",
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Flaska med luft från den rostiga världen</link> innehåller förvrängd luft insamlad från sprickor som leder till en främmande värld. För att fylla flaskan måste du hålla en <link=rustworld-air-empty>tom flaska</link> i handen och trycka <link=nothing>högerklick</link> nära en spricka.\n\nDenna luft har muterande egenskaper, men deras natur är ännu inte utforskad. "
 
 }

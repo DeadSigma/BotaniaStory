@@ -79,6 +79,7 @@
   "item-axe-manasteel": "Ascia di Manasteel",
   "item-axehead-manasteel": "Testa d'ascia di acciaio di mana",
   "item-blackholetalisman": "Talismano del buco nero",
+  "item-blackholetalisman_frame": "Struttura del Talismano del Buco Nero",
   "item-checkmark": "Accessorio: punto esclamativo",
   "item-chisel-manasteel": "Scalpello di manaacciaio",
   "item-cleaver-manasteel": "Mannaia di Manasteel",
@@ -92,6 +93,8 @@
   "item-falx-manasteel": "Manasteel Falx",
   "item-falxblade-manasteel": "Lama Falx di acciaio di mana",
   "item-flight-tiara": "Tiara alata",
+  "item-flight-tiara_frame": "Struttura della tiara alata",
+  "item-gaiaspirit": "Spirito di Gaia",
   "item-hammer-manasteel": "Martello di acciaio di mana",
   "item-hammerhead-manasteel": "Testa di martello di acciaio di mana",
   "item-hoe-manasteel": "Zappa di Manasteel",
@@ -145,6 +148,8 @@
   "item-rune-water": "Runa dell'Acqua",
   "item-rune-winter": "Runa dell'inverno",
   "item-rune-wrath": "Runa dell'Ira",
+  "item-rustworld-air-empty": "Fiala vuota",
+  "item-rustworld-air-full": "Aria del Mondo Arrugginito",
   "item-saw-manasteel": "Sega di manasteel",
   "item-sawblade-manasteel": "Lama per sega in acciaio di mana",
   "item-scythe-manasteel": "Falce di Manasteel",
@@ -481,6 +486,17 @@
 
   "lexicon_mystical_items_wandofbinding_title": "Bacchetta del Vincolo di Massa",
   "lexicon_mystical_items_wandofbinding_p1": "La <link=wandofbindings>Bacchetta del Vincolo di Massa</link> è realizzata con <link=manapool>Manasteel</link> e un <link=livingwood_stick>Ramoscello di Legno Vivente</link>. Ti consente di legare diversi fiori vicini contemporaneamente a un <link=manasreader>diffusore di mana</link> o a una <link=manapool>riserva di mana</link>.\n\nPremi <link=nothing>RMB</link> sul blocco desiderato per legarvi automaticamente i fiori vicini.",
-  "lexicon_mystical_items_wandofbinding_p2": "Una bacchetta per i pigri?"
+  "lexicon_mystical_items_wandofbinding_p2": "Una bacchetta per i pigri?",
+
+  "lexicon_rusted_world_artifacts_blackholetalisman_title": "Talismano del Buco Nero",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Il vuoto è una vasta distesa piena di... nulla. Non c’è niente al suo interno. Tuttavia, con sufficiente ingegno, questo spazio può essere usato per immagazzinare oggetti in quantità illimitate. Il <link=blackholetalisman>Talismano del Buco Nero</link> utilizza la potente magia di Gaia e del Mondo Arrugginito, permettendo di conservare quantità quasi infinite di un singolo tipo di blocco in uno slot. Facendo clic destro (<link=nothing>RMB</link>) su un blocco nel mondo si imposta il tipo di blocco da immagazzinare, ma solo se il talismano è vuoto. Poi, premendo <link=nothing>Shift+RMB</link> nell’aria, è possibile attivarlo o disattivarlo. Quando è attivo nell’inventario, assorbirà automaticamente i blocchi del tipo selezionato.",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Posizionando il talismano nella griglia di crafting è possibile estrarre pile di blocchi da esso. Finché contiene oggetti, i blocchi possono essere posizionati direttamente dal talismano con un normale <link=nothing>RMB</link>, come se fossero nell’inventario. Facendo clic su un contenitore si tenterà di riempirlo con questi blocchi.\n\nCreazione della struttura del talismano:\n\n\n\nCreazione del Talismano del Buco Nero:",
+
+  "lexicon_rusted_world_artifacts_flight-tiara_title": "Tiara alata",
+  "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Tiara alata</link> — un artefatto ispirato all’antica razza dei Flugel. Un tempo erano la specie dominante, creata come sterminatrice di dei e dotata della capacità di volare. Con l’aiuto degli <link=gaiaspirit>spiriti di Gaia</link>, parte del loro potere è stata ricreata: la tiara consente di volare consumando mana.\n\nTuttavia, la tecnologia è imperfetta. La tiara non può sostenere il volo indefinitamente — se usata per più di 60 secondi senza pausa, smetterà di funzionare finché non si riprende. Un indicatore di volo sullo schermo viene utilizzato per il controllo. Oltre al volo, la tiara consente scatti e planata. Premendo il tasto di corsa durante il volo si esegue uno scatto nella direzione dello sguardo. Gli scatti possono essere eseguiti ogni 2 secondi.",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "La planata consente di scendere dolcemente, coprire distanze orizzontali ed evitare danni da caduta. Per farlo, bisogna accovacciarsi durante la caduta. Anche con la barra di volo vuota è possibile planare, ma la rigenerazione sarà più lenta.\n\nCreazione della struttura della tiara:\n\n\n\nCreazione della tiara alata:",
+
+  "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiala con aria del Mondo Arrugginito",
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiala con aria del Mondo Arrugginito</link> contiene aria distorta raccolta da fenditure che conducono a un mondo alieno. Per riempire la fiala, tieni una <link=rustworld-air-empty>fiala vuota</link> in mano e premi <link=nothing>tasto destro</link> vicino a una fenditura.\n\nQuest’aria possiede proprietà mutagene, ma la loro natura non è ancora stata studiata. "
 
 }
