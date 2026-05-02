@@ -92,6 +92,9 @@
   "item-dreamwood_stick": "梦境木棍",
   "item-falx-manasteel": "魔钢镰刀",
   "item-falxblade-manasteel": "魔钢镰刃",
+  "item-flask-empty": "空瓶",
+  "item-flask-rustworldair": "锈蚀世界的空气",
+  "item-flask-water": "装有水的瓶子",
   "item-flight-tiara": "翼之王冠",
   "item-flight-tiara_frame": "翼之王冠框架",
   "item-gaiaspirit": "盖亚之灵",
@@ -132,6 +135,7 @@
   "item-pixie-dust": "精灵粉尘",
   "item-prospectingpick-manasteel": "魔钢探矿镐",
   "item-prospectingpickhead-manasteel": "魔钢探矿镐头",
+  "item-rod_of_the_seas": "海之法杖",
   "item-rune-air": "风之符文",
   "item-rune-autumn": "秋之符文",
   "item-rune-earth": "土之符文",
@@ -148,8 +152,6 @@
   "item-rune-water": "水之符文",
   "item-rune-winter": "冬之符文",
   "item-rune-wrath": "愤怒符文",
-  "item-flask-empty": "空瓶",
-  "item-flask-rustworldair": "锈蚀世界的空气",
   "item-saw-manasteel": "魔钢锯",
   "item-sawblade-manasteel": "魔钢锯刃",
   "item-scythe-manasteel": "魔钢长镰",
@@ -433,6 +435,9 @@
   "lexicon_mana_management_sparkaugment_p3": "制作隔离增强器：\n\n\n\n\n\n\n\n\n\n\n\n制作主导增强器：",
   "lexicon_mana_management_sparkaugment_p4": "制作分散增强器：\n\n\n\n\n\n\n\n\n\n\n\n制作从属增强器：",
 
+  "lexicon_misc_flask_title": "空瓶",
+  "lexicon_misc_flask_p1": "用于收集锈蚀空气和水的瓶子。目前没有其他用途。",
+
   "lexicon_misc_livingrock_title": "活石",
   "lexicon_misc_livingrock_p1": "<link=livingrock>活石</link> 是植物学家的基础材料之一。它用于制作 <link=manapool>魔力池</link> 与各种魔法装置。\n\n除了实用价值外，活石也因其外观而备受喜爱，非常适合建造魔法建筑与装饰结构。\n\n它还可用于制作 <link=livingrock_slab>活石台阶</link>，详情可阅读对应条目。",
   "lexicon_misc_livingrock_p2": "只需稍微等待一下：",
@@ -484,7 +489,8 @@
   "lexicon_mystical_items_manaitem_p15": "魔钢矛头的制作：\n\n\n\n\n\n\n\n\n\n\n魔钢长矛的制作：",
   "lexicon_mystical_items_manaitem_p16": "魔钢凿的制作：\n\n\n\n魔钢撬棍的制作：\n\n\n\n\n魔钢扳手的制作：\n\n\n\n\n魔钢钳的制作\n\n\n\n\n魔钢剪刀的制作：",
 
-  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>海之法杖</link>与其陆地对应物类似，会消耗<link=mana>魔力</link>来生成<link=game:water-still-7>水</link>。使用时，它会在目标位置放置一个水方块。\n此外，该法杖还可用于填充<link=apothecary>花瓣炼药台</link>、<link=game:barrel>桶</link>、<link=game:woodbucket>水桶</link>，甚至<link=game:claypot-black-fired>营火锅</link>。保持地球清洁——这里不是天王星。",
+  "lexicon_mystical_items_rod_of_the_seas_title": "海之法杖",
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>海之法杖</link>与其陆地对应物类似，会消耗<link=mana>魔力</link>来生成<link=game:water-still-7>水</link>。使用时，它会在目标位置放置一个水方块。\n此外，该法杖还可用于填充<link=apothecary>花瓣炼药台</link>、<link=game:barrel>桶</link>、<link=game:woodbucket>水桶</link>，甚至<link=game:claypot-black-fired>营火锅</link>",
   "lexicon_mystical_items_rod_of_the_seas_p2": "海之法杖的制作：\n\n\n\n\n\n\n\n\n\n\n保持地球清洁——这里不是天王星。",
 
   "lexicon_mystical_items_wandofbinding_title": "群体绑定法杖",
@@ -500,6 +506,6 @@
   "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑翔可以让你平稳下降，横向移动并避免坠落伤害。为此，需要在下落时蹲下。即使飞行条为空也可以滑翔，但恢复速度会更慢。\n\n王冠框架的制作：\n\n\n\n翼之王冠的制作：",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "锈蚀世界空气瓶",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>锈蚀世界空气瓶</link>中封存着从通往异界的裂隙中收集到的扭曲空气。要填充该瓶，需要手持<link=rustworld-air-empty>空瓶</link>并在裂隙附近按下<link=nothing>右键</link>。\n\n这种空气具有变异特性，但其本质仍未被研究清楚。 "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>锈蚀世界空气瓶</link>中封存着从通往异界的裂隙中收集到的扭曲空气。要填充该瓶，需要手持<link=flask>空瓶</link>并在裂隙附近按下<link=nothing>右键</link>。\n\n这种空气具有变异特性，但其本质仍未被研究清楚。 "
 
 }

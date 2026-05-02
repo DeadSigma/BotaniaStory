@@ -92,6 +92,9 @@
   "item-dreamwood_stick": "夢見の木の棒",
   "item-falx-manasteel": "マナスティール・ファルクス",
   "item-falxblade-manasteel": "マナスチール ファルクスブレード",
+  "item-flask-empty": "空の小瓶",
+  "item-flask-rustworldair": "錆びた世界の空気",
+  "item-flask-water": "水入りの小瓶",
   "item-flight-tiara": "翼のティアラ",
   "item-flight-tiara_frame": "翼のティアラのフレーム",
   "item-gaiaspirit": "ガイアの精霊",
@@ -132,6 +135,7 @@
   "item-pixie-dust": "ピクシーダスト",
   "item-prospectingpick-manasteel": "マナスチールの採掘ピック",
   "item-prospectingpickhead-manasteel": "マナスチール探鉱ピックヘッド",
+  "item-rod_of_the_seas": "海の杖",
   "item-rune-air": "空気のルーン",
   "item-rune-autumn": "秋のルーン",
   "item-rune-earth": "大地のルーン",
@@ -148,8 +152,6 @@
   "item-rune-water": "水のルーン",
   "item-rune-winter": "冬のルーン",
   "item-rune-wrath": "怒りのルーン",
-  "item-flask-empty": "空の小瓶",
-  "item-flask-rustworldair": "錆びた世界の空気",
   "item-saw-manasteel": "マナスチールソー",
   "item-sawblade-manasteel": "マナスチール鋸刃",
   "item-scythe-manasteel": "マナスチールの鎌",
@@ -433,6 +435,9 @@
   "lexicon_mana_management_sparkaugment_p3": "隔離オーグメントの作成:\n\n\n\n\n\n\n\n\n\n\n\nドミナントオーグメントの作成:",
   "lexicon_mana_management_sparkaugment_p4": "分散型オーグメントの作成:\n\n\n\n\n\n\n\n\n\n\n\n劣性オーグメントの作成:",
 
+  "lexicon_misc_flask_title": "空の小瓶",
+  "lexicon_misc_flask_p1": "錆びた空気と水を収集するための小瓶。現在のところ他の用途はない。",
+
   "lexicon_misc_livingrock_title": "リヴィングロック",
   "lexicon_misc_livingrock_p1": "<link=livingrock>リビングロック</link>は、植物学者の基本的な材料の 1 つです。 <link=manapool>マナプール</link>やさまざまな魔法の装置を作成するために使用されます。\n\nリヴィングロックは実用的な用途を超えて、その外観が高く評価されており、魔法の構造物や装飾的な建造物を構築するのに適しています。\n\nまた、<link=livingrock_slab>リビングロック スラブ</link>を作成することもできます。これについては、対応する記事で説明されています。",
   "lexicon_misc_livingrock_p2": "ほんの少しの忍耐が必要です。",
@@ -484,7 +489,8 @@
   "lexicon_mystical_items_manaitem_p15": "マナスチールの槍頭を作成する:\n\n\n\n\n\n\n\n\n\n\nマナスチールの槍の作成:",
   "lexicon_mystical_items_manaitem_p16": "マナスチールノミの作成:\n\n\n\nマナスチールバールの作成:\n\n\n\n\nマナスチールレンチの作成:\n\n\n\n\nマナスチール製トングの作成\n\n\n\n\nマナスチール鋏の作成:",
 
-  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>海の杖</link>は地上の類似品と同様に<link=mana>マナ</link>を消費して<link=game:water-still-7>水</link>を生成する。使用すると指定した場所に水ブロックを設置する。\nさらに、この杖は<link=apothecary>花びらのアポセカリー</link>、<link=game:barrel>樽</link>、<link=game:woodbucket>バケツ</link>、さらには<link=game:claypot-black-fired>焚き火の鍋</link>を満たすこともできる。地球を清潔に保とう — ここは天王星ではない。",
+  "lexicon_mystical_items_rod_of_the_seas_title": "海の杖",
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>海の杖</link>は地上の類似品と同様に<link=mana>マナ</link>を消費して<link=game:water-still-7>水</link>を生成する。使用すると指定した場所に水ブロックを設置する。\nさらに、この杖は<link=apothecary>花びらのアポセカリー</link>、<link=game:barrel>樽</link>、<link=game:woodbucket>バケツ</link>、さらには<link=game:claypot-black-fired>焚き火の鍋</link>を満たすこともできる",
   "lexicon_mystical_items_rod_of_the_seas_p2": "海の杖の作成：\n\n\n\n\n\n\n\n\n\n\n地球を清潔に保とう — ここは天王星ではない。",
 
   "lexicon_mystical_items_wandofbinding_title": "マスバインディングの杖",
@@ -500,6 +506,6 @@
   "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑空により、滑らかに下降し、水平方向に移動し、落下ダメージを回避できる。これを行うには落下中にしゃがむ必要がある。飛行ゲージが空でも滑空は可能だが、回復は遅くなる。\n\nティアラのフレーム作成：\n\n\n\n翼のティアラ作成：",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "錆びた世界の空気の小瓶",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>錆びた世界の空気の小瓶</link>には、異世界へ通じる裂け目から採取された歪んだ空気が封じられている。小瓶を満たすには、<link=rustworld-air-empty>空の小瓶</link>を手に持ち、裂け目の近くで<link=nothing>右クリック</link>する必要がある。\n\nこの空気は変異的な性質を持つが、その本質はまだ解明されていない。 "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>錆びた世界の空気の小瓶</link>には、異世界へ通じる裂け目から採取された歪んだ空気が封じられている。小瓶を満たすには、<link=flask>空の小瓶</link>を手に持ち、裂け目の近くで<link=nothing>右クリック</link>する必要がある。\n\nこの空気は変異的な性質を持つが、その本質はまだ解明されていない。 "
 
 }

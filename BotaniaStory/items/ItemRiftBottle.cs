@@ -13,33 +13,49 @@ namespace BotaniaStory.items
         {
             if (!firstEvent) return;
 
-            // Обновляем название варианта: теперь проверяем "content", а не "state"
-            if (Variant["content"] != "empty")
+            string content = Variant["content"];
+
+            // === 1. ОПУСТОШЕНИЕ ЛЮБОГО ПУЗЫРЬКА (Ctrl + ПКМ) ===
+            if (content != "empty" && byEntity.Controls.CtrlKey)
             {
-                base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
+                handling = EnumHandHandling.PreventDefaultAction;
+
+                if (api.Side == EnumAppSide.Server)
+                {
+                    ReplaceItem(slot, byEntity, "flask-empty");
+
+                    // Проверяем, что именно мы опустошаем, чтобы проиграть правильный звук
+                    if (content == "water")
+                    {
+                        api.World.PlaySoundAt(new AssetLocation("game", "sounds/environment/smallsplash"), byEntity, null, true, 16f, 1f);
+                    }
+                    else if (content == "rustworldair")
+                    {
+                        // Звук шипения пара 
+                        api.World.PlaySoundAt(new AssetLocation("game", "sounds/effect/extinguish"), byEntity, null, true, 16f, 1f);
+                    }
+                }
                 return;
             }
 
-            bool riftFound = false;
-            Vec3d playerPos = byEntity.Pos.XYZ;
-
-            ModSystemRifts riftSystem = api.ModLoader.GetModSystem<ModSystemRifts>();
-
-            if (riftSystem != null)
+            // === 2. НАПОЛНЕНИЕ ПУСТОГО ПУЗЫРЬКА ===
+            if (content == "empty" && !byEntity.Controls.CtrlKey)
             {
-                if (api.Side == EnumAppSide.Server)
+                // 2.1. Сначала проверяем, есть ли рядом разлом
+                bool riftFound = false;
+                Vec3d playerPos = byEntity.Pos.XYZ;
+                ModSystemRifts riftSystem = api.ModLoader.GetModSystem<ModSystemRifts>();
+
+                if (riftSystem != null)
                 {
-                    if (riftSystem.ServerRifts != null)
+                    if (api.Side == EnumAppSide.Server && riftSystem.ServerRifts != null)
                     {
                         foreach (Rift rift in riftSystem.ServerRifts)
                         {
                             if (rift.Position.DistanceTo(playerPos) < 2.0 && rift.Size > 0f) riftFound = true;
                         }
                     }
-                }
-                else
-                {
-                    if (riftSystem.riftsById != null)
+                    else if (api.Side == EnumAppSide.Client && riftSystem.riftsById != null)
                     {
                         foreach (var kvp in riftSystem.riftsById)
                         {
@@ -47,43 +63,83 @@ namespace BotaniaStory.items
                         }
                     }
                 }
-            }
 
-            if (riftFound)
-            {
-                handling = EnumHandHandling.PreventDefaultAction;
-
-                if (api.Side == EnumAppSide.Server)
+                if (riftFound)
                 {
-                    // Обновляем код выдаваемого предмета на новый универсальный формат "flask-rustworldair"
-                    AssetLocation fullBottleCode = new AssetLocation("botaniastory", "flask-rustworldair");
-                    Item fullBottleItem = api.World.GetItem(fullBottleCode);
-
-                    if (fullBottleItem != null)
+                    handling = EnumHandHandling.PreventDefaultAction;
+                    if (api.Side == EnumAppSide.Server)
                     {
-                        ItemStack fullStack = new ItemStack(fullBottleItem);
-
-                        if (slot.StackSize == 1)
-                        {
-                            slot.Itemstack = fullStack;
-                        }
-                        else
-                        {
-                            slot.TakeOut(1);
-                            if (!byEntity.TryGiveItemStack(fullStack))
-                            {
-                                api.World.SpawnItemEntity(fullStack, byEntity.Pos.XYZ);
-                            }
-                        }
-
-                        slot.MarkDirty();
+                        ReplaceItem(slot, byEntity, "flask-rustworldair");
                         api.World.PlaySoundAt(new AssetLocation("botaniastory", "sounds/transmute"), byEntity, null, true, 16f, 1f);
                     }
+                    return;
                 }
-                return;
+
+                // 2.2. Если разлома нет, проверяем клик по воде
+                if (blockSel != null)
+                {
+                    BlockPos clickedPos = blockSel.Position;
+                    BlockPos offsetPos = blockSel.Position.AddCopy(blockSel.Face);
+
+                    Block[] blocksToCheck = new Block[] {
+                        api.World.BlockAccessor.GetBlock(clickedPos),
+                        api.World.BlockAccessor.GetBlock(offsetPos),
+                        api.World.BlockAccessor.GetBlock(clickedPos, 1),
+                        api.World.BlockAccessor.GetBlock(offsetPos, 1),
+                        api.World.BlockAccessor.GetBlock(clickedPos, 2),
+                        api.World.BlockAccessor.GetBlock(offsetPos, 2)
+                    };
+
+                    bool foundWater = false;
+
+                    foreach (Block b in blocksToCheck)
+                    {
+                        if (b != null && b.Code != null && (b.LiquidCode == "water" || b.Code.Path.StartsWith("water")))
+                        {
+                            foundWater = true;
+                            break;
+                        }
+                    }
+
+                    if (foundWater)
+                    {
+                        handling = EnumHandHandling.PreventDefaultAction;
+                        if (api.Side == EnumAppSide.Server)
+                        {
+                            ReplaceItem(slot, byEntity, "flask-water");
+                            api.World.PlaySoundAt(new AssetLocation("game", "sounds/environment/smallsplash"), byEntity, null, true, 16f, 1f);
+                        }
+                        return;
+                    }
+                }
             }
 
             base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
+        }
+
+        private void ReplaceItem(ItemSlot slot, EntityAgent byEntity, string newItemCode)
+        {
+            AssetLocation code = new AssetLocation("botaniastory", newItemCode);
+            Item newItem = api.World.GetItem(code);
+
+            if (newItem != null)
+            {
+                ItemStack newStack = new ItemStack(newItem);
+
+                if (slot.StackSize == 1)
+                {
+                    slot.Itemstack = newStack;
+                }
+                else
+                {
+                    slot.TakeOut(1);
+                    if (!byEntity.TryGiveItemStack(newStack))
+                    {
+                        api.World.SpawnItemEntity(newStack, byEntity.Pos.XYZ);
+                    }
+                }
+                slot.MarkDirty();
+            }
         }
     }
 }

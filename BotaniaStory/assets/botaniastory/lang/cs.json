@@ -92,6 +92,9 @@
   "item-dreamwood_stick": "Hůlka ze snového dřeva",
   "item-falx-manasteel": "Manasteel Falx",
   "item-falxblade-manasteel": "Čepel Manasteel Falx",
+  "item-flask-empty": "Prázdná lahvička",
+  "item-flask-rustworldair": "Vzduch rezavého světa",
+  "item-flask-water": "Lahvička s vodou",
   "item-flight-tiara": "Okřídlená tiára",
   "item-flight-tiara_frame": "Rám okřídlené tiáry",
   "item-gaiaspirit": "Duch Gaii",
@@ -132,6 +135,7 @@
   "item-pixie-dust": "Vílí prach",
   "item-prospectingpick-manasteel": "Manasteel Prospecting Pick",
   "item-prospectingpickhead-manasteel": "Manasteel Prospecting Pick Head",
+  "item-rod_of_the_seas": "Hůl moří",
   "item-rune-air": "Rune of Air",
   "item-rune-autumn": "Runa podzimu",
   "item-rune-earth": "Runa Země",
@@ -148,8 +152,6 @@
   "item-rune-water": "Rune vody",
   "item-rune-winter": "Runa zimy",
   "item-rune-wrath": "Runa hněvu",
-  "item-flask-empty": "Prázdná lahvička",
-  "item-flask-rustworldair": "Vzduch rezavého světa",
   "item-saw-manasteel": "Manasteel Saw",
   "item-sawblade-manasteel": "Pilový kotouč Manasteel",
   "item-scythe-manasteel": "Manasteel Scythe",
@@ -433,6 +435,9 @@
   "lexicon_mana_management_sparkaugment_p3": "Vytvoření izolačního augmentu:\n\n\n\n\n\n\n\n\n\n\n\nVytvoření dominantního augmentu:",
   "lexicon_mana_management_sparkaugment_p4": "Vytvoření disperzního augmentu:\n\n\n\n\n\n\n\n\n\n\n\nVytvoření recesivního rozšíření:",
 
+  "lexicon_misc_flask_title": "Prázdná lahvička",
+  "lexicon_misc_flask_p1": "Lahvička určená ke sběru rezavého vzduchu a vody. V současnosti nemá žádné jiné využití.",
+
   "lexicon_misc_livingrock_title": "Livingrock",
   "lexicon_misc_livingrock_p1": "<link=livingrock>Livingrock</link> je jedním ze základních materiálů botaniků. Používá se k vytváření <link=manapool>Mana Pools</link> a různých magických zařízení.\n\nKromě praktického využití je Livingrock ceněn pro svůj vzhled a je vhodný pro stavbu magických struktur a dekorativních staveb.\n\nMůže být také vytvořen do <link=livingrock_slab>Livingrock Slabs</link>, které jsou popsány v odpovídajícím článku.",
   "lexicon_misc_livingrock_p2": "Chce to jen trochu trpělivosti:",
@@ -484,7 +489,8 @@
   "lexicon_mystical_items_manaitem_p15": "Výroba Manasteel Spear Head:\n\n\n\n\n\n\n\n\n\n\nVýroba Manasteel Spear:",
   "lexicon_mystical_items_manaitem_p16": "Crafting Manasteel Chisel:\n\n\n\nVýroba Manasteel Crowbar:\n\n\n\n\nManasteel klíč na výrobu:\n\n\n\n\nVýroba Manasteel Tongs\n\n\n\n\nVýroba nůžek Manasteel:",
 
-  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Hůl moří</link>, podobně jako její pozemní protějšek, spotřebovává <link=mana>manu</link> k vytvoření <link=game:water-still-7>vody</link>. Při použití umístí blok vody na zvolené místo.\nNavíc lze hůl použít k naplnění <link=apothecary>květinového apotékáře</link>, <link=game:barrel>sudů</link>, <link=game:woodbucket>věder</link> a dokonce i <link=game:claypot-black-fired>kotlíku na ohni</link>. Udržujte Zemi čistou — není to Uran.",
+  "lexicon_mystical_items_rod_of_the_seas_title": "Hůl moří",
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Hůl moří</link>, podobně jako její pozemní protějšek, spotřebovává <link=mana>manu</link> k vytvoření <link=game:water-still-7>vody</link>. Při použití umístí blok vody na zvolené místo.\nNavíc lze hůl použít k naplnění <link=apothecary>květinového apotékáře</link>, <link=game:barrel>sudů</link>, <link=game:woodbucket>věder</link> a dokonce i <link=game:claypot-black-fired>kotlíku na ohni</link>",
   "lexicon_mystical_items_rod_of_the_seas_p2": "Vytvoření hole moří:\n\n\n\n\n\n\n\n\n\n\nUdržujte Zemi čistou — není to Uran.",
 
   "lexicon_mystical_items_wandofbinding_title": "Hůlka hromadné vazby",
@@ -500,6 +506,6 @@
   "lexicon_rusted_world_artifacts_flight-tiara_p2": "Plachtění umožňuje plynule klesat, překonávat vzdálenosti vodorovně a vyhnout se poškození pádem. K tomu je třeba se při pádu skrčit. I při prázdném ukazateli letu lze plachtit, avšak obnova bude pomalejší.\n\nVytvoření rámu tiáry:\n\n\n\nVytvoření okřídlené tiáry:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Lahvička se vzduchem rezavého světa",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Lahvička se vzduchem rezavého světa</link> obsahuje zdeformovaný vzduch, shromážděný z trhlin vedoucích do cizího světa. Pro naplnění lahvičky je nutné držet <link=rustworld-air-empty>prázdnou lahvičku</link> v ruce a stisknout <link=nothing>PKM</link> v blízkosti trhliny.\n\nTento vzduch má mutagenní vlastnosti, avšak jejich podstata zatím zůstává neprozkoumána. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Lahvička se vzduchem rezavého světa</link> obsahuje zdeformovaný vzduch, shromážděný z trhlin vedoucích do cizího světa. Pro naplnění lahvičky je nutné držet <link=flask>prázdnou lahvičku</link> v ruce a stisknout <link=nothing>PKM</link> v blízkosti trhliny.\n\nTento vzduch má mutagenní vlastnosti, avšak jejich podstata zatím zůstává neprozkoumána. "
 
 }

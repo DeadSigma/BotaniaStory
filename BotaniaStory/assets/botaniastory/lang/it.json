@@ -92,6 +92,9 @@
   "item-dreamwood_stick": "Bastone di legnodelsogno",
   "item-falx-manasteel": "Manasteel Falx",
   "item-falxblade-manasteel": "Lama Falx di acciaio di mana",
+  "item-flask-empty": "Fiala vuota",
+  "item-flask-rustworldair": "Aria del Mondo Arrugginito",
+  "item-flask-water": "Fiala d’acqua",
   "item-flight-tiara": "Tiara alata",
   "item-flight-tiara_frame": "Struttura della tiara alata",
   "item-gaiaspirit": "Spirito di Gaia",
@@ -132,6 +135,7 @@
   "item-pixie-dust": "Polvere fatata",
   "item-prospectingpick-manasteel": "Piccone da prospezione di Manasteel",
   "item-prospectingpickhead-manasteel": "Testa di piccone per prospezione di Manasteel",
+  "item-rod_of_the_seas": "Bastone dei Mari",
   "item-rune-air": "Runa dell'Aria",
   "item-rune-autumn": "Runa dell'autunno",
   "item-rune-earth": "Runa della Terra",
@@ -148,8 +152,6 @@
   "item-rune-water": "Runa dell'Acqua",
   "item-rune-winter": "Runa dell'inverno",
   "item-rune-wrath": "Runa dell'Ira",
-  "item-flask-empty": "Fiala vuota",
-  "item-flask-rustworldair": "Aria del Mondo Arrugginito",
   "item-saw-manasteel": "Sega di manasteel",
   "item-sawblade-manasteel": "Lama per sega in acciaio di mana",
   "item-scythe-manasteel": "Falce di Manasteel",
@@ -433,6 +435,9 @@
   "lexicon_mana_management_sparkaugment_p3": "Creare il Potenziamento Isolante:\n\n\n\n\n\n\n\n\n\n\n\nCreare il Potenziamento Dominante:",
   "lexicon_mana_management_sparkaugment_p4": "Creare il Potenziamento Dispersivo:\n\n\n\n\n\n\n\n\n\n\n\nCreare il Potenziamento Recessivo:",
 
+  "lexicon_misc_flask_title": "Fiala vuota",
+  "lexicon_misc_flask_p1": "Una fiala destinata alla raccolta dell’aria arrugginita e dell’acqua. Attualmente non ha altri utilizzi.",
+
   "lexicon_misc_livingrock_title": "Livingrock",
   "lexicon_misc_livingrock_p1": "Il <link=livingrock>Livingrock</link> è uno dei materiali di base del botanico. Viene utilizzato per creare <link=manapool>Riserve di Mana</link> e vari dispositivi magici.\n\nAl di là dei suoi usi pratici, Livingrock è apprezzato per il suo aspetto ed è particolarmente adatto per costruire strutture magiche e costruzioni decorative.\n\nPuò anche essere creato in <link=livingrock_slab>Livingrock Slabs</link>, descritti nell'articolo corrispondente.",
   "lexicon_misc_livingrock_p2": "Ci vuole solo un po' di pazienza:",
@@ -484,7 +489,8 @@
   "lexicon_mystical_items_manaitem_p15": "Creazione di punte di lancia in acciaio di mana:\n\n\n\n\n\n\n\n\n\n\nCreazione della lancia di acciaio di mana:",
   "lexicon_mystical_items_manaitem_p16": "Scalpello di manaacciaio:\n\n\n\nCreazione del piede di porco di acciaio di mana:\n\n\n\n\nCreazione della chiave di manaacciaio:\n\n\n\n\nCreare pinze di acciaio di mana\n\n\n\n\nForgiatura di cesoie di manaacciaio:",
 
-  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Bastone dei Mari</link>, come la sua controparte terrestre, consuma <link=mana>mana</link> per creare <link=game:water-still-7>acqua</link>. Quando utilizzato, piazza un blocco d’acqua nel punto selezionato.\nInoltre, il bastone può essere usato per riempire un <link=apothecary>apotecario di petali</link>, <link=game:barrel>barili</link>, <link=game:woodbucket>secchi</link> e persino una <link=game:claypot-black-fired>pentola sul fuoco</link>. Mantieni la Terra pulita — non è Urano.",
+  "lexicon_mystical_items_rod_of_the_seas_title": "Bastone dei Mari",
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Bastone dei Mari</link>, come la sua controparte terrestre, consuma <link=mana>mana</link> per creare <link=game:water-still-7>acqua</link>. Quando utilizzato, piazza un blocco d’acqua nel punto selezionato.\nInoltre, il bastone può essere usato per riempire un <link=apothecary>apotecario di petali</link>, <link=game:barrel>barili</link>, <link=game:woodbucket>secchi</link> e persino una <link=game:claypot-black-fired>pentola sul fuoco</link>",
   "lexicon_mystical_items_rod_of_the_seas_p2": "Creazione del Bastone dei Mari:\n\n\n\n\n\n\n\n\n\n\nMantieni la Terra pulita — non è Urano.",
 
   "lexicon_mystical_items_wandofbinding_title": "Bacchetta del Vincolo di Massa",
@@ -500,6 +506,6 @@
   "lexicon_rusted_world_artifacts_flight-tiara_p2": "La planata consente di scendere dolcemente, coprire distanze orizzontali ed evitare danni da caduta. Per farlo, bisogna accovacciarsi durante la caduta. Anche con la barra di volo vuota è possibile planare, ma la rigenerazione sarà più lenta.\n\nCreazione della struttura della tiara:\n\n\n\nCreazione della tiara alata:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiala con aria del Mondo Arrugginito",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiala con aria del Mondo Arrugginito</link> contiene aria distorta raccolta da fenditure che conducono a un mondo alieno. Per riempire la fiala, tieni una <link=rustworld-air-empty>fiala vuota</link> in mano e premi <link=nothing>tasto destro</link> vicino a una fenditura.\n\nQuest’aria possiede proprietà mutagene, ma la loro natura non è ancora stata studiata. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiala con aria del Mondo Arrugginito</link> contiene aria distorta raccolta da fenditure che conducono a un mondo alieno. Per riempire la fiala, tieni una <link=flask>fiala vuota</link> in mano e premi <link=nothing>tasto destro</link> vicino a una fenditura.\n\nQuest’aria possiede proprietà mutagene, ma la loro natura non è ancora stata studiata. "
 
 }

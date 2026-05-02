@@ -92,6 +92,9 @@
   "item-dreamwood_stick": "Patyk z drewna snów",
   "item-falx-manasteel": "Manasteela Falxa",
   "item-falxblade-manasteel": "Manasteelowe ostrze Falx",
+  "item-flask-empty": "Pusta fiolka",
+  "item-flask-rustworldair": "Powietrze zardzewiałego świata",
+  "item-flask-water": "Fiolka z wodą",
   "item-flight-tiara": "Skrzydlata tiara",
   "item-flight-tiara_frame": "Rama skrzydlatej tiary",
   "item-gaiaspirit": "Duch Gai",
@@ -132,6 +135,7 @@
   "item-pixie-dust": "Pył wróżek",
   "item-prospectingpick-manasteel": "Wybór poszukiwaczy Manasteela",
   "item-prospectingpickhead-manasteel": "Głowica kilofowa Manasteel",
+  "item-rod_of_the_seas": "Różdżka Mórz",
   "item-rune-air": "Runa Powietrza",
   "item-rune-autumn": "Runa Jesieni",
   "item-rune-earth": "Runa Ziemi",
@@ -148,8 +152,6 @@
   "item-rune-water": "Runa Wody",
   "item-rune-winter": "Runa zimy",
   "item-rune-wrath": "Runa Gniewu",
-  "item-flask-empty": "Pusta fiolka",
-  "item-flask-rustworldair": "Powietrze zardzewiałego świata",
   "item-saw-manasteel": "Piła Manasteela",
   "item-sawblade-manasteel": "Brzeszczot Manasteela",
   "item-scythe-manasteel": "Kosa Manasteela",
@@ -433,6 +435,9 @@
   "lexicon_mana_management_sparkaugment_p3": "Tworzenie ulepszenia izolującego:\n\n\n\n\n\n\n\n\n\n\n\nTworzenie dominującego ulepszenia:",
   "lexicon_mana_management_sparkaugment_p4": "Tworzenie rozpraszającego ulepszenia:\n\n\n\n\n\n\n\n\n\n\n\nTworzenie recesywnego wzmocnienia:",
 
+  "lexicon_misc_flask_title": "Pusta fiolka",
+  "lexicon_misc_flask_p1": "Fiolka przeznaczona do zbierania zardzewiałego powietrza i wody. Obecnie nie ma innych zastosowań.",
+
   "lexicon_misc_livingrock_title": "Żywa skała",
   "lexicon_misc_livingrock_p1": "<link=livingrock>Livingrock</link> to jeden z podstawowych materiałów botanika. Służy do tworzenia <link=manapool>pul many</link> i różnych magicznych urządzeń.\n\nOprócz praktycznych zastosowań Livingrock jest ceniony ze względu na swój wygląd i doskonale nadaje się do konstruowania magicznych struktur i konstrukcji dekoracyjnych.\n\nMożna go również przetworzyć w <link=livingrock_slab>płyty Livingrock</link>, które opisano w odpowiednim artykule.",
   "lexicon_misc_livingrock_p2": "Wystarczy trochę cierpliwości:",
@@ -484,7 +489,8 @@
   "lexicon_mystical_items_manaitem_p15": "Tworzenie grotu włóczni ze stali Manasteel:\n\n\n\n\n\n\n\n\n\n\nTworzenie włóczni ze stali Manasteel:",
   "lexicon_mystical_items_manaitem_p16": "Tworzenie dłuta Manasteel:\n\n\n\nTworzenie łomu ze stali Manasteel:\n\n\n\n\nTworzenie klucza Manasteel:\n\n\n\n\nTworzenie szczypiec Manasteel\n\n\n\n\nTworzenie nożyc Manasteel:",
 
-  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Różdżka Mórz</link>, podobnie jak jej ziemski odpowiednik, zużywa <link=mana>manę</link>, aby tworzyć <link=game:water-still-7>wodę</link>. Po użyciu umieszcza blok wody w wybranym miejscu.\nDodatkowo różdżka może być używana do napełniania <link=apothecary>aptekarskiego kotła</link>, <link=game:barrel>beczek</link>, <link=game:woodbucket>wiader</link> oraz nawet <link=game:claypot-black-fired>garnka na ognisku</link>. Utrzymuj Ziemię w czystości — to nie Uran.",
+  "lexicon_mystical_items_rod_of_the_seas_title": "Różdżka Mórz",
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Różdżka Mórz</link>, podobnie jak jej ziemski odpowiednik, zużywa <link=mana>manę</link>, aby tworzyć <link=game:water-still-7>wodę</link>. Po użyciu umieszcza blok wody w wybranym miejscu.\nDodatkowo różdżka może być używana do napełniania <link=apothecary>aptekarskiego kotła</link>, <link=game:barrel>beczek</link>, <link=game:woodbucket>wiader</link> oraz nawet <link=game:claypot-black-fired>garnka na ognisku</link>",
   "lexicon_mystical_items_rod_of_the_seas_p2": "Tworzenie Różdżki Mórz:\n\n\n\n\n\n\n\n\n\n\nUtrzymuj Ziemię w czystości — to nie Uran.",
 
   "lexicon_mystical_items_wandofbinding_title": "Różdżka Masowego Spętania",
@@ -500,6 +506,6 @@
   "lexicon_rusted_world_artifacts_flight-tiara_p2": "Szybowanie pozwala łagodnie opadać, pokonywać odległości poziome i unikać obrażeń od upadku. Aby to zrobić, należy kucnąć podczas spadania. Nawet przy pustym wskaźniku lotu można szybować, jednak regeneracja będzie wolniejsza.\n\nTworzenie ramy tiary:\n\n\n\nTworzenie skrzydlatej tiary:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiolka z powietrzem zardzewiałego świata",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiolka z powietrzem zardzewiałego świata</link> zawiera zniekształcone powietrze zebrane z rozłamów prowadzących do obcego świata. Aby napełnić fiolkę, należy trzymać <link=rustworld-air-empty>pustą fiolkę</link> w ręce i nacisnąć <link=nothing>PPM</link> w pobliżu rozłamu.\n\nPowietrze to posiada właściwości mutagenne, jednak ich natura wciąż pozostaje niezbadana. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiolka z powietrzem zardzewiałego świata</link> zawiera zniekształcone powietrze zebrane z rozłamów prowadzących do obcego świata. Aby napełnić fiolkę, należy trzymać <link=flask>pustą fiolkę</link> w ręce i nacisnąć <link=nothing>PPM</link> w pobliżu rozłamu.\n\nPowietrze to posiada właściwości mutagenne, jednak ich natura wciąż pozostaje niezbadana. "
 
 }

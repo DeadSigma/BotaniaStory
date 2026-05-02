@@ -23,10 +23,10 @@
         },
         "A": {
             "type": "item",
-            "code": "botaniastory:rustworld-air-full",
+            "code": "botaniastory:flask-rustworldair",
             "returnedStack": {
                 "type": "item",
-                "code": "botaniastory:rustworld-air-empty",
+                "code": "botaniastory:flask-empty",
                 "quantity": 1
             }
         }

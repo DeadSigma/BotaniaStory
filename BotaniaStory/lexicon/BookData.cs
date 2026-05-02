@@ -96,7 +96,7 @@ namespace BotaniaStory.lexicon
 
             { "elfmania", new[] { "alfheimgates", "elfresources" } },
 
-            { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "rustworld-air-empty" } },
+            { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "flask" } },
 
             { "trials", new[] { "ch1" } }
         };
@@ -114,7 +114,13 @@ namespace BotaniaStory.lexicon
         { "botaniastory:livingrock", "puredaisy" },
         { "botaniastory:rune-*", "runicaltar" },
         { "botaniastory:manaitem-*", "manapool" },
-        { "game:ingot-manasteel*", "manapool" }
+        { "game:ingot-manasteel*", "manapool" },
+        { "game:ingot-elementium*", "elfresources" },
+        { "botaniastory:dragonstone", "elfresources" },
+        { "botaniastory:elvenglass-*", "elfresources" },
+        { "botaniastory:pixie-dust", "elfresources" },
+        { "botaniastory:flask-rustworldair", "rustworld-air" },
+        { "botaniastory:flask-empty", "flask" },
     };
 
         //  Метод для поиска главы по блоку ===
@@ -1045,9 +1051,9 @@ namespace BotaniaStory.lexicon
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ПУЗЫРЁК ДЛЯ РЖАВОГО ВОЗДУХА ===
-                    else if (chapId == "rustworld-air-empty")
+                    else if (chapId == "flask")
                     {
-                        chapter.TabItemCode = "botaniastory:rustworld-air-empty";
+                        chapter.TabItemCode = "botaniastory:flask-empty";
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -1058,7 +1064,7 @@ namespace BotaniaStory.lexicon
                             null, null, null,
                             null, "game:glass-plain", null,
                             null, "game:glass-plain", null},
-                            Output = "botaniastory:rustworld-air-empty"
+                            Output = "botaniastory:flask-empty"
                         });
                     }
 
@@ -1852,7 +1858,7 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                           null, null, null,
+                           null, null, "botaniastory:flask-water",
                            null, "botaniastory:livingwood_stick", null,
                            "botaniastory:rune-water", null, null},
                             Output = "botaniastory:rod_of_the_seas"
@@ -2040,7 +2046,7 @@ namespace BotaniaStory.lexicon
                     // === НАСТРОЙКА ГЛАВЫ ВОЗДУХ РЖАВОГО МИРА ===
                     else if (chapId == "rustworld-air")
                     {
-                        chapter.TabItemCode = "botaniastory:rustworld-air-full";
+                        chapter.TabItemCode = "botaniastory:flask-rustworldair";
 
                         chapter.Images.Add(new BookPageImage()
                         {
@@ -2073,7 +2079,7 @@ namespace BotaniaStory.lexicon
                             Grid = new string[9] {
                             "botaniastory:gaiaspirit", "botaniastory:gaiaspirit", "botaniastory:gaiaspirit",
                             "botaniastory:flight-tiara_frame", "botaniastory:gaiaspirit", "botaniastory:dragonstone",
-                            "game:feather", "botaniastory:rustworld-air-full", "game:feather"
+                            "game:feather", "botaniastory:flask-rustworldair", "game:feather"
                         },
                             Output = "botaniastory:flight-tiara"
                         });
@@ -2102,7 +2108,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
                             "botaniastory:rune-earth", "botaniastory:gaiaspirit", "botaniastory:rune-mana",
-                            "game:gear-rusty", "botaniastory:rustworld-air-full", "game:gear-rusty",
+                            "game:gear-rusty", "botaniastory:flask-rustworldair", "game:gear-rusty",
                             null, "botaniastory:blackholetalisman_frame", null
                         },
                             Output = "botaniastory:blackholetalisman"

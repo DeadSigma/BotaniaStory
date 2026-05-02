@@ -92,6 +92,9 @@
   "item-dreamwood_stick": "Bâton en bois des rêves",
   "item-falx-manasteel": "Falx en manacier",
   "item-falxblade-manasteel": "Lame Falx en manacier",
+  "item-flask-empty": "Fiole vide",
+  "item-flask-rustworldair": "Air du Monde Rouillé",
+  "item-flask-water": "Fiole d’eau",
   "item-flight-tiara": "Tiare ailée",
   "item-flight-tiara_frame": "Cadre de la tiare ailée",
   "item-gaiaspirit": "Esprit de Gaïa",
@@ -132,6 +135,7 @@
   "item-pixie-dust": "Poussière féerique",
   "item-prospectingpick-manasteel": "Pioche de prospection en manasteel",
   "item-prospectingpickhead-manasteel": "Tête de pioche de prospection Manasteel",
+  "item-rod_of_the_seas": "Bâton des mers",
   "item-rune-air": "Rune d'Air",
   "item-rune-autumn": "Rune d'Automne",
   "item-rune-earth": "Rune de Terre",
@@ -148,8 +152,6 @@
   "item-rune-water": "Rune d'Eau",
   "item-rune-winter": "Rune d'Hiver",
   "item-rune-wrath": "Rune de colère",
-  "item-flask-empty": "Fiole vide",
-  "item-flask-rustworldair": "Air du Monde Rouillé",
   "item-saw-manasteel": "Scie en manacier",
   "item-sawblade-manasteel": "Lame de scie en manacier",
   "item-scythe-manasteel": "Faux en manacier",
@@ -433,6 +435,9 @@
   "lexicon_mana_management_sparkaugment_p3": "Fabriquer l'augmentation d'isolation :\n\n\n\n\n\n\n\n\n\n\n\nFabriquer l'augmentation dominante :",
   "lexicon_mana_management_sparkaugment_p4": "Fabriquer l'augmentation dispersive :\n\n\n\n\n\n\n\n\n\n\n\nFabriquer l'augmentation récessive :",
 
+  "lexicon_misc_flask_title": "Fiole vide",
+  "lexicon_misc_flask_p1": "Une fiole destinée à collecter l’air rouillé et l’eau. N’a actuellement aucune autre utilisation.",
+
   "lexicon_misc_livingrock_title": "Roche vivante",
   "lexicon_misc_livingrock_p1": "<link=livingrock>Livingrock</link> est l'un des matériaux de base du botaniste. Il est utilisé pour créer des <link=manapool>Mana Pools</link> et divers appareils magiques.\n\nAu-delà de ses utilisations pratiques, Livingrock est apprécié pour son apparence et convient bien à la construction de structures magiques et de constructions décoratives.\n\nIl peut également être transformé en <link=livingrock_slab>dalles Livingrock</link>, décrites dans l'article correspondant.",
   "lexicon_misc_livingrock_p2": "Il suffit d'un peu de patience :",
@@ -484,7 +489,8 @@
   "lexicon_mystical_items_manaitem_p15": "Fabrication d'une tête de lance en manacier :\n\n\n\n\n\n\n\n\n\n\nFabrication d'une lance en manacier :",
   "lexicon_mystical_items_manaitem_p16": "Fabrication d'un ciseau en manacier :\n\n\n\nFabrication d'un pied-de-biche en manasteel :\n\n\n\n\nFabrication d'une clé en manacier :\n\n\n\n\nFabriquer des pinces en manacier\n\n\n\n\nFabriquer des cisailles en manacier :",
 
-  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Bâton des mers</link>, comme son équivalent terrestre, consomme de la <link=mana>mana</link> pour créer de <link=game:water-still-7>l’eau</link>. Lorsqu’il est utilisé, il place un bloc d’eau à l’endroit ciblé.\nDe plus, le bâton peut être utilisé pour remplir un <link=apothecary>apothicaire floral</link>, des <link=game:barrel>barils</link>, des <link=game:woodbucket>seaux</link> et même un <link=game:claypot-black-fired>pot sur feu</link>. Gardez la Terre propre — ce n’est pas Uranus.",
+  "lexicon_mystical_items_rod_of_the_seas_title": "Bâton des mers",
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Bâton des mers</link>, comme son équivalent terrestre, consomme de la <link=mana>mana</link> pour créer de <link=game:water-still-7>l’eau</link>. Lorsqu’il est utilisé, il place un bloc d’eau à l’endroit ciblé.\nDe plus, le bâton peut être utilisé pour remplir un <link=apothecary>apothicaire floral</link>, des <link=game:barrel>barils</link>, des <link=game:woodbucket>seaux</link> et même un <link=game:claypot-black-fired>pot sur feu</link>",
   "lexicon_mystical_items_rod_of_the_seas_p2": "Fabrication du Bâton des mers :\n\n\n\n\n\n\n\n\n\n\nGardez la Terre propre — ce n’est pas Uranus.",
 
   "lexicon_mystical_items_wandofbinding_title": "Baguette de liaison de masse",
@@ -500,6 +506,6 @@
   "lexicon_rusted_world_artifacts_flight-tiara_p2": "Le plané permet de descendre en douceur, de parcourir des distances horizontales et d’éviter les dégâts de chute. Pour cela, il faut s’accroupir pendant la chute. Même avec une jauge de vol vide, il est possible de planer, mais la régénération sera plus lente.\n\nFabrication du cadre de la tiare :\n\n\n\nFabrication de la tiare ailée :",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiole d’air du Monde Rouillé",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiole d’air du Monde Rouillé</link> contient un air altéré, collecté à partir de failles menant à un monde étranger. Pour remplir la fiole, tenez une <link=rustworld-air-empty>fiole vide</link> dans la main et appuyez sur <link=nothing>clic droit</link> près d’une faille.\n\nCet air possède des propriétés mutagènes, mais leur nature reste encore inconnue. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiole d’air du Monde Rouillé</link> contient un air altéré, collecté à partir de failles menant à un monde étranger. Pour remplir la fiole, tenez une <link=flask>fiole vide</link> dans la main et appuyez sur <link=nothing>clic droit</link> près d’une faille.\n\nCet air possède des propriétés mutagènes, mais leur nature reste encore inconnue. "
 
 }

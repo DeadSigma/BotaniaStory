@@ -92,6 +92,9 @@
   "item-dreamwood_stick": "Palo de madera onírica",
   "item-falx-manasteel": "Falsa de manacero",
   "item-falxblade-manasteel": "Hoja de falx de acero de manacero",
+  "item-flask-empty": "Frasco vacío",
+  "item-flask-rustworldair": "Aire del Mundo Oxidado",
+  "item-flask-water": "Frasco con agua",
   "item-flight-tiara": "Tiara alada",
   "item-flight-tiara_frame": "Marco de tiara alada",
   "item-gaiaspirit": "Espíritu de Gaia",
@@ -132,6 +135,7 @@
   "item-pixie-dust": "Polvo feérico",
   "item-prospectingpick-manasteel": "Selección de prospección de Manasteel",
   "item-prospectingpickhead-manasteel": "Cabezal de prospección de Manasteel",
+  "item-rod_of_the_seas": "Vara de los Mares",
   "item-rune-air": "Runa de aire",
   "item-rune-autumn": "Runa de otoño",
   "item-rune-earth": "Runa de la Tierra",
@@ -148,8 +152,6 @@
   "item-rune-water": "Runa de agua",
   "item-rune-winter": "Runa de invierno",
   "item-rune-wrath": "Runa de ira",
-  "item-flask-empty": "Vial vacío",
-  "item-flask-rustworldair": "Aire del Mundo Oxidado",
   "item-saw-manasteel": "Sierra de manacero",
   "item-sawblade-manasteel": "Hoja de sierra de acero manacero",
   "item-scythe-manasteel": "Guadaña de acero de manzanilla",
@@ -433,6 +435,9 @@
   "lexicon_mana_management_sparkaugment_p3": "Elaboración del aumento aislante:\n\n\n\n\n\n\n\n\n\n\n\nElaboración del aumento dominante:",
   "lexicon_mana_management_sparkaugment_p4": "Elaboración del aumento dispersivo:\n\n\n\n\n\n\n\n\n\n\n\nElaboración del aumento recesivo:",
 
+  "lexicon_misc_flask_title": "Frasco vacío",
+  "lexicon_misc_flask_p1": "Un frasco destinado a recolectar aire oxidado y agua. Actualmente no tiene otros usos.",
+
   "lexicon_misc_livingrock_title": "Livingrock",
   "lexicon_misc_livingrock_p1": "<link=livingrock>Livingrock</link> es uno de los materiales básicos del botánico. Se utiliza para crear <link=manapool>Mana Pools</link> y varios dispositivos mágicos.\n\nMás allá de sus usos prácticos, Livingrock es valorado por su apariencia y es muy adecuado para construir estructuras mágicas y construcciones decorativas.\n\nTambién se puede elaborar en <link=livingrock_slab>Livingrock Slabs</link>, que se describen en el artículo correspondiente.",
   "lexicon_misc_livingrock_p2": "Sólo hace falta un poco de paciencia:",
@@ -484,7 +489,8 @@
   "lexicon_mystical_items_manaitem_p15": "Elaboración de cabeza de lanza de manacero:\n\n\n\n\n\n\n\n\n\n\nElaboración de lanza de acero de maná:",
   "lexicon_mystical_items_manaitem_p16": "Elaboración de cincel de acero de manzanilla:\n\n\n\nElaboración de palanca de manacero:\n\n\n\n\nFabricación de llave de acero de maná:\n\n\n\n\nFabricación de pinzas de acero de maná\n\n\n\n\nElaboración de tijeras de manacero:",
 
-  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Vara de los Mares</link>, al igual que su contraparte terrestre, consume <link=mana>maná</link> para crear <link=game:water-still-7>agua</link>. Al usarla, coloca un bloque de agua en el punto seleccionado.\nAdemás, la vara puede utilizarse para llenar el <link=apothecary>apotecario de pétalos</link>, <link=game:barrel>barriles</link>, <link=game:woodbucket>cubos</link> e incluso un <link=game:claypot-black-fired>caldero en la hoguera</link>. Mantén la Tierra limpia — no es Urano.",
+  "lexicon_mystical_items_rod_of_the_seas_title": "Vara de los Mares",
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Vara de los Mares</link>, al igual que su contraparte terrestre, consume <link=mana>maná</link> para crear <link=game:water-still-7>agua</link>. Al usarla, coloca un bloque de agua en el punto seleccionado.\nAdemás, la vara puede utilizarse para llenar el <link=apothecary>apotecario de pétalos</link>, <link=game:barrel>barriles</link>, <link=game:woodbucket>cubos</link> e incluso un <link=game:claypot-black-fired>caldero en la hoguera</link>",
   "lexicon_mystical_items_rod_of_the_seas_p2": "Creación de la Vara de los Mares:\n\n\n\n\n\n\n\n\n\n\nMantén la Tierra limpia — no es Urano.",
 
   "lexicon_mystical_items_wandofbinding_title": "Varita de unión masiva",
@@ -500,6 +506,6 @@
   "lexicon_rusted_world_artifacts_flight-tiara_p2": "Planear permite descender suavemente, recorrer distancias horizontales y evitar el daño por caída. Para ello, hay que agacharse durante la caída. Incluso con la barra de vuelo vacía, se puede planear, aunque la regeneración será más lenta.\n\nCreación del marco de la tiara:\n\n\n\nCreación de la tiara alada:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Vial con aire del Mundo Oxidado",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Vial con aire del Mundo Oxidado</link> contiene aire distorsionado recogido de grietas que conducen a un mundo extraño. Para llenar el vial, debes sostener un <link=rustworld-air-empty>vial vacío</link> en la mano y pulsar <link=nothing>clic derecho</link> cerca de una grieta.\n\nEste aire posee propiedades mutantes, aunque su naturaleza aún no ha sido estudiada. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Vial con aire del Mundo Oxidado</link> contiene aire distorsionado recogido de grietas que conducen a un mundo extraño. Para llenar el vial, debes sostener un <link=flask>vial vacío</link> en la mano y pulsar <link=nothing>clic derecho</link> cerca de una grieta.\n\nEste aire posee propiedades mutantes, aunque su naturaleza aún no ha sido estudiada. "
 
 }

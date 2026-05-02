@@ -92,6 +92,9 @@
   "item-dreamwood_stick": "Pinne av drömträ",
   "item-falx-manasteel": "Manasteel Falx",
   "item-falxblade-manasteel": "Manasteel Falx Blade",
+  "item-flask-empty": "Tom flaska",
+  "item-flask-rustworldair": "Luft från den rostiga världen",
+  "item-flask-water": "Flaska med vatten",
   "item-flight-tiara": "Bevingad tiara",
   "item-flight-tiara_frame": "Ram för bevingad tiara",
   "item-gaiaspirit": "Gaias ande",
@@ -132,6 +135,7 @@
   "item-pixie-dust": "Fédamm",
   "item-prospectingpick-manasteel": "Manasteel Prospecting Pick",
   "item-prospectingpickhead-manasteel": "Manasteel Prospekteringshuvud",
+  "item-rod_of_the_seas": "Havets stav",
   "item-rune-air": "Rune of Air",
   "item-rune-autumn": "Runa av hösten",
   "item-rune-earth": "Rune of Earth",
@@ -148,8 +152,6 @@
   "item-rune-water": "Runa av vatten",
   "item-rune-winter": "Runa av vintern",
   "item-rune-wrath": "Rune of Wrath",
-  "item-flask-empty": "Tom flaska",
-  "item-flask-rustworldair": "Luft från den rostiga världen",
   "item-saw-manasteel": "Manasteel såg",
   "item-sawblade-manasteel": "Manasteel sågblad",
   "item-scythe-manasteel": "Manasteel Scythe",
@@ -433,6 +435,9 @@
   "lexicon_mana_management_sparkaugment_p3": "Skapa den isolerande förstärkningen:\n\n\n\n\n\n\n\n\n\n\n\nSkapa den dominerande förstärkningen:",
   "lexicon_mana_management_sparkaugment_p4": "Skapa den dispersiva förstärkningen:\n\n\n\n\n\n\n\n\n\n\n\nSkapa den recessiva förstärkningen:",
 
+  "lexicon_misc_flask_title": "Tom flaska",
+  "lexicon_misc_flask_p1": "En flaska avsedd för att samla rostig luft och vatten. Har för närvarande inga andra användningsområden.",
+
   "lexicon_misc_livingrock_title": "Livingrock",
   "lexicon_misc_livingrock_p1": "<link=livingrock>Livingrock</link> är ett av botanikerns grundmaterial. Den används för att skapa <link=manapool>Mana-pooler</link> och olika magiska enheter.\n\nUtöver sina praktiska användningsområden är Livingrock uppskattad för sitt utseende och är väl lämpad för att konstruera magiska strukturer och dekorativa byggnader.\n\nDet kan också skapas till <link=livingrock_slab>Livingrock-plattor</link>, som beskrivs i motsvarande artikel.",
   "lexicon_misc_livingrock_p2": "Det krävs bara lite tålamod:",
@@ -484,7 +489,8 @@
   "lexicon_mystical_items_manaitem_p15": "Att skapa Manasteel spjuthuvud:\n\n\n\n\n\n\n\n\n\n\nAtt skapa Manasteel Spear:",
   "lexicon_mystical_items_manaitem_p16": "Att skapa Manasteel Mejsel:\n\n\n\nAtt skapa Manasteel kofot:\n\n\n\n\nAtt skapa manasteel skiftnyckel:\n\n\n\n\nHantverkar manasteltång\n\n\n\n\nHantverksmanastelsaxar:",
 
-  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Havets stav</link>, likt sin jordiska motsvarighet, förbrukar <link=mana>mana</link> för att skapa <link=game:water-still-7>vatten</link>. När den används placerar den ett vattenblock på den valda platsen.\nDessutom kan staven användas för att fylla en <link=apothecary>blomapotekare</link>, <link=game:barrel>tunnor</link>, <link=game:woodbucket>hinkar</link> och till och med en <link=game:claypot-black-fired>gryta över eld</link>. Håll jorden ren — det här är inte Uranus.",
+  "lexicon_mystical_items_rod_of_the_seas_title": "Havets stav",
+  "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Havets stav</link>, likt sin jordiska motsvarighet, förbrukar <link=mana>mana</link> för att skapa <link=game:water-still-7>vatten</link>. När den används placerar den ett vattenblock på den valda platsen.\nDessutom kan staven användas för att fylla en <link=apothecary>blomapotekare</link>, <link=game:barrel>tunnor</link>, <link=game:woodbucket>hinkar</link> och till och med en <link=game:claypot-black-fired>gryta över eld</link>",
   "lexicon_mystical_items_rod_of_the_seas_p2": "Tillverkning av Havets stav:\n\n\n\n\n\n\n\n\n\n\nHåll jorden ren — det här är inte Uranus.",
 
   "lexicon_mystical_items_wandofbinding_title": "Trollstav av massbindning",
@@ -500,6 +506,6 @@
   "lexicon_rusted_world_artifacts_flight-tiara_p2": "Glidflykt låter dig sjunka mjukt, färdas horisontellt och undvika fallskada. För att göra detta måste du ducka under fallet. Även med tom flygmätare kan du glidflyga, men återhämtningen blir långsammare.\n\nTillverkning av tiarans ram:\n\n\n\nTillverkning av bevingad tiara:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Flaska med luft från den rostiga världen",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Flaska med luft från den rostiga världen</link> innehåller förvrängd luft insamlad från sprickor som leder till en främmande värld. För att fylla flaskan måste du hålla en <link=rustworld-air-empty>tom flaska</link> i handen och trycka <link=nothing>högerklick</link> nära en spricka.\n\nDenna luft har muterande egenskaper, men deras natur är ännu inte utforskad. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Flaska med luft från den rostiga världen</link> innehåller förvrängd luft insamlad från sprickor som leder till en främmande värld. För att fylla flaskan måste du hålla en <link=flask>tom flaska</link> i handen och trycka <link=nothing>högerklick</link> nära en spricka.\n\nDenna luft har muterande egenskaper, men deras natur är ännu inte utforskad. "
 
 }

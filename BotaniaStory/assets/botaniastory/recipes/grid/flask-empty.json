@@ -11,7 +11,7 @@
         "height": 3,
         "output": {
             "type": "item",
-            "code": "botaniastory:rustworld-air-empty",
+            "code": "botaniastory:flask-empty",
             "quantity": 1
         }
     }
