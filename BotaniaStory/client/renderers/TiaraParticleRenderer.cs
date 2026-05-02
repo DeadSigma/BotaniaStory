@@ -42,10 +42,10 @@ namespace BotaniaStory.client.renderers
         }
 
         // МЕТОД ДЛЯ ГЕНЕРАЦИИ ШЛЕЙФА
-        public void SpawnFlightParticles(IClientPlayer player, bool isDashing)
+        public void SpawnFlightParticles(Vintagestory.API.Common.Entities.Entity entity, bool isDashing)
         {
             int count = isDashing ? 3 : 1;
-            Vec3d pos = player.Entity.Pos.XYZ.Add(0, 0.9, 0); // Уровень пояса/спины
+            Vec3d pos = entity.Pos.XYZ.Add(0, 0.9, 0); // Уровень пояса/спины
 
             for (int i = 0; i < count; i++)
             {

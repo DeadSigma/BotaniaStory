@@ -7,6 +7,7 @@
   "botaniastory:dialog-settings-poolvolume": "Poolvolym",
   "botaniastory:dialog-settings-portalvolume": "Alvport",
   "botaniastory:dialog-settings-sounds": "Ljudinställningar",
+  "botaniastory:dialog-settings-tiaravolum": "Bevingad tiara",
   "botaniastory:error-cannotbind": "Kan inte bindas till behållare!",
   "botaniastory:handbook-intro-text": "Välkommen till en värld av blommig magi!\n\nBotania Story är en mod som lägger till många nya mekaniker relaterade till mystisk flora och manahantering.\n\nFör att börja din resa behöver du det viktigaste verktyget för varje botanist - kunskapens bok. Du kan se dess hantverksrecept genom att klicka på denna länk: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nSkapa den, håll den i dina händer och högerklicka för att fördjupa dig i magi!",
   "botaniastory:handbook-intro-title": "Introduktion till Botania Story",
@@ -383,6 +384,11 @@
   "lexicon_elfmania_elfresources_p4": "Byte av manakvarts mot fédamm:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMagiskt fédamm. Används i alvrecept och skapandet av särskilda föremål.",
   "lexicon_elfmania_elfresources_p5": "Byte av managlas mot alvglas:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGenomskinligt glas från Alfheim. Ser vackert ut, lyser starkt och passar dekorativa byggen.",
 
+  "lexicon_functional_flora_jadedamaranthus_title": "Utmattad amarant",
+  "lexicon_functional_flora_jadedamaranthus_p1": "Alla älskar blommor, eller hur? \nDå är <link=jadedamaranthus>utmattad amarant</link> skapad just för detta.\nGenom att använda <link=mana>mana</link> från en <link=manapool>manapool</link> kan den snabbt odla <link=mysticalflower>mystiska blommor</link> runt sig.",
+  "lexicon_functional_flora_jadedamaranthus_p2": "         Är det den eller en klematis?",
+  "lexicon_functional_flora_jadedamaranthus_p3": "--Vänta, tänker du framkalla en massa blommor på ett ögonblick?\n\n--Ja, och?\n\n--Det är mot reglerna, vet du det?\n\n--Åt helvete med reglerna, jag har mana!!!",
+
   "lexicon_functional_flora_puredaisy_title": "Ren Daisy",
   "lexicon_functional_flora_puredaisy_p1": "<link=puredaisy>Pure Daisy</link> är inte bara den allra första blomman, utan också en av de viktigaste blommorna för alla botaniker. Denna blomma renar och förvandlar intilliggande trä- och stenblock till sina renade former: <link=livingwood>Livingwood</link> och <link=puredaisy>Livingrock</link>, som båda behövs för att tillverka många föremål.",
   "lexicon_functional_flora_puredaisy_p2": "\nGe den bara en minut eller så...",
@@ -499,13 +505,14 @@
 
   "lexicon_rusted_world_artifacts_blackholetalisman_title": "Svart hål-talisman",
   "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Tomrummet är ett enormt område fyllt med... tomhet. Det finns ingenting där. Men med tillräcklig uppfinningsrikedom kan detta utrymme användas för att lagra föremål i obegränsade mängder. <link=blackholetalisman>Svart hål-talisman</link> använder den kraftfulla magin från Gaia och den Rostiga världen, vilket gör det möjligt att lagra nästan oändliga mängder av en blocktyp i en enda plats. Högerklick (<link=nothing>RMB</link>) på ett block i världen ställer in vilken typ som ska lagras, men endast om talismanen är tom. Sedan kan du trycka <link=nothing>Shift+RMB</link> i luften för att slå på eller av den. När den är aktiv i inventariet absorberar den automatiskt block av den valda typen.",
-  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Genom att placera talismanen i crafting-rutan kan du ta ut staplar av block från den. Så länge den innehåller något kan block placeras direkt från talismanen med ett vanligt <link=nothing>RMB</link>, som om de fanns i inventariet. Att klicka på en behållare försöker fylla den med dessa block.\n\nTillverkning av talismanens ram:\n\n\n\nTillverkning av svart hål-talisman:",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Genom att placera talismanen i hantverksrutan kan du ta ut block i staplar från den. Så länge den innehåller något kan block placeras direkt från talismanen med <link=nothing>högerklick</link>, som om de fanns i inventariet. Ett klick på en behållare försöker fylla den med dessa block.\n\n\nSkapande av talismanens ram:\n\n\n\nSkapande av svart hål-talismanen:",
 
   "lexicon_rusted_world_artifacts_flight-tiara_title": "Bevingad tiara",
   "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Bevingad tiara</link> — en artefakt inspirerad av den uråldriga rasen Flugel. En gång var de den dominerande arten, skapade som gudadråpare och med förmågan att flyga. Med hjälp av <link=gaiaspirit>Gaias andar</link> har en del av deras kraft återskapats: tiaran gör det möjligt att flyga genom att förbruka mana.\n\nTeknologin är dock ofullständig. Tiaran kan inte upprätthålla flygning oändligt — om den används i mer än 60 sekunder utan paus slutar den fungera tills den återhämtar sig. En flygmätare på skärmen används för kontroll. Förutom flygning ger den även möjlighet till rusningar och glidflykt. Genom att trycka sprint under flygning utförs en rusning i den riktning du tittar. Rusningar kan göras var 2:e sekund.",
-  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Glidflykt låter dig sjunka mjukt, färdas horisontellt och undvika fallskada. För att göra detta måste du ducka under fallet. Även med tom flygmätare kan du glidflyga, men återhämtningen blir långsammare.\n\nTillverkning av tiarans ram:\n\n\n\nTillverkning av bevingad tiara:",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Glidning låter dig sjunka mjukt, färdas horisontellt och undvika fallskada. För att göra detta måste du huka dig under fallet. Även med tom flygmätare kan du glida, men återhämtningen sker långsammare.\n\n\n\n\nSkapande av tiarans ram:\n\n\n\nSkapande av den bevingade tiaran:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Flaska med luft från den rostiga världen",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Flaska med luft från den rostiga världen</link> innehåller förvrängd luft insamlad från sprickor som leder till en främmande värld. För att fylla flaskan måste du hålla en <link=flask>tom flaska</link> i handen och trycka <link=nothing>högerklick</link> nära en spricka.\n\nDenna luft har muterande egenskaper, men deras natur är ännu inte utforskad. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Flaska med luft från den rostiga världen</link> innehåller förvrängd luft insamlad från sprickor som leder till en främmande värld. För att fylla flaskan måste du hålla en <link=flask>tom flaska</link> i handen och trycka <link=nothing>högerklick</link> nära en spricka.\n\nDenna luft har muterande egenskaper, men deras natur är ännu inte utforskad. ",
+  "lexicon_rusted_world_artifacts_rustworld-air_p2": "Det är endast känt att det kan användas vid skapandet av vissa mystiska föremål."
 
 }

@@ -7,6 +7,7 @@
   "botaniastory:dialog-settings-poolvolume": "Objem bazénu",
   "botaniastory:dialog-settings-portalvolume": "Elfská brána",
   "botaniastory:dialog-settings-sounds": "Nastavení zvuku",
+  "botaniastory:dialog-settings-tiaravolum": "Okřídlená diadéma",
   "botaniastory:error-cannotbind": "Nelze svázat s kontejnery!",
   "botaniastory:handbook-intro-text": "Vítejte ve světě květinové magie!\n\nBotania Story je mod, který přidává mnoho nových mechanik souvisejících s mystickou flórou a správou many.\n\nK zahájení své cesty budete potřebovat hlavní nástroj každého botanika — knihu znalostí. Recept na jeho výrobu si můžete prohlédnout kliknutím na tento odkaz: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nVytvořte jej, držte jej v rukou a kliknutím pravým tlačítkem se ponořte do magie!",
   "botaniastory:handbook-intro-title": "Úvod do příběhu Botania",
@@ -383,6 +384,11 @@
   "lexicon_elfmania_elfresources_p4": "Výměna mana křemene za vílí prach:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nKouzelný vílí prach. Používá se v elfských receptech a při tvorbě zvláštních předmětů.",
   "lexicon_elfmania_elfresources_p5": "Výměna mana skla za elfské sklo:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPrůhledné sklo Alfheimu. Krásně vypadá, jasně září a hodí se pro dekorativní stavby.",
 
+  "lexicon_functional_flora_jadedamaranthus_title": "Uvadlý amarant",
+  "lexicon_functional_flora_jadedamaranthus_p1": "Každý má rád květiny, že? \nPak je <link=jadedamaranthus>uvadlý amarant</link> vytvořen právě pro to.\nŽiven <link=mana>manou</link> z <link=manapool>bazénu many</link> dokáže rychle pěstovat <link=mysticalflower>mystické květiny</link> v okolí.",
+  "lexicon_functional_flora_jadedamaranthus_p2": "         Je to on, nebo plamének?",
+  "lexicon_functional_flora_jadedamaranthus_p3": "--Počkej, ty teď vyvoláš hromadu květin během okamžiku?\n\n--Jo, a co?\n\n--To je proti pravidlům, víš o tom?\n\n--K čertu s pravidly, mám manu!!!",
+
   "lexicon_functional_flora_puredaisy_title": "Čistá Daisy",
   "lexicon_functional_flora_puredaisy_p1": "<link=puredaisy>Čistá sedmikráska</link> není jen úplně první květina, ale také jedna z nejdůležitějších květin pro každého botanika. Tato květina čistí a přeměňuje sousední dřevěné a kamenné bloky do jejich čistých forem: <link=livingwood>Livingwood</link> a <link=puredaisy>Livingrock</link>, které jsou obě potřebné k výrobě mnoha předmětů.",
   "lexicon_functional_flora_puredaisy_p2": "\nJen jí dejte minutku nebo tak něco...",
@@ -499,13 +505,14 @@
 
   "lexicon_rusted_world_artifacts_blackholetalisman_title": "Talisman černé díry",
   "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Prázdnota je obrovský prostor naplněný... prázdnotou. Nic v ní není. Při dostatečné vynalézavosti však lze tento prostor využít k ukládání předmětů v neomezeném množství. <link=blackholetalisman>Talisman černé díry</link> využívá mocnou magii Gaii a Rezavého světa, což umožňuje ukládat téměř nekonečné množství bloků jednoho typu v jednom slotu. Kliknutí <link=nothing>PPM</link> na blok ve světě nastaví typ bloků pro ukládání, ale pouze pokud je talisman prázdný. Poté lze stisknutím <link=nothing>Shift+PPM</link> ve vzduchu zapnout nebo vypnout jeho režim. V aktivním stavu bude v inventáři automaticky pohlcovat bloky zvoleného typu.",
-  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Umístěním talismanu do craftovací mřížky z něj lze odebírat stacky bloků. Dokud obsahuje nějaké bloky, lze je pokládat přímo z talismanu běžným <link=nothing>PPM</link>, jako by byly v inventáři. Kliknutí na kontejner se jej pokusí těmito bloky naplnit.\n\nVytvoření rámu talismanu:\n\n\n\nVytvoření talismanu černé díry:",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Umístěním talismanu do výrobní mřížky z něj lze získávat celé stacky bloků. Dokud obsahuje nějaké předměty, lze bloky pokládat přímo z talismanu běžným <link=nothing>PKM</link>, jako by byly v inventáři. Kliknutí na kontejner se jej pokusí těmito bloky zaplnit.\n\n\nVytvoření kostry talismanu:\n\n\n\nVytvoření talismanu černé díry:",
 
   "lexicon_rusted_world_artifacts_flight-tiara_title": "Okřídlená tiára",
   "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Okřídlená tiára</link> — artefakt inspirovaný dávnou rasou Flugelů. Kdysi byli dominantním druhem, stvořeným jako zabijáci bohů a obdařeným schopností letu. Pomocí <link=gaiaspirit>duchů Gaii</link> se podařilo obnovit část jejich síly: tiára umožňuje létat za cenu many.\n\nTechnologie však není dokonalá. Tiára nedokáže udržet let nekonečně — pokud ji používáte déle než 60 sekund bez přestávky, přestane fungovat, dokud se neobnoví. Pro kontrolu slouží ukazatel letu na obrazovce. Kromě letu umožňuje také dash a plachtění. Stisknutím klávesy běhu během letu lze provést rychlý pohyb ve směru pohledu. Dash lze použít jednou za 2 sekundy.",
-  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Plachtění umožňuje plynule klesat, překonávat vzdálenosti vodorovně a vyhnout se poškození pádem. K tomu je třeba se při pádu skrčit. I při prázdném ukazateli letu lze plachtit, avšak obnova bude pomalejší.\n\nVytvoření rámu tiáry:\n\n\n\nVytvoření okřídlené tiáry:",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Plachtění umožňuje plynule klesat, překonávat vzdálenost vodorovně a vyhnout se poškození pádem. Pro aktivaci je potřeba se během pádu skrčit. I při prázdném ukazateli letu lze plachtit, avšak obnova bude pomalejší.\n\n\n\n\nVytvoření kostry tiáry:\n\n\n\nVytvoření okřídlené tiáry:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Lahvička se vzduchem rezavého světa",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Lahvička se vzduchem rezavého světa</link> obsahuje zdeformovaný vzduch, shromážděný z trhlin vedoucích do cizího světa. Pro naplnění lahvičky je nutné držet <link=flask>prázdnou lahvičku</link> v ruce a stisknout <link=nothing>PKM</link> v blízkosti trhliny.\n\nTento vzduch má mutagenní vlastnosti, avšak jejich podstata zatím zůstává neprozkoumána. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Lahvička se vzduchem rezavého světa</link> obsahuje zdeformovaný vzduch, shromážděný z trhlin vedoucích do cizího světa. Pro naplnění lahvičky je nutné držet <link=flask>prázdnou lahvičku</link> v ruce a stisknout <link=nothing>PKM</link> v blízkosti trhliny.\n\nTento vzduch má mutagenní vlastnosti, avšak jejich podstata zatím zůstává neprozkoumána. ",
+  "lexicon_rusted_world_artifacts_rustworld-air_p2": "Je známo pouze to, že může být použit při vytváření některých mystických předmětů."
 
 }

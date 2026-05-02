@@ -7,6 +7,7 @@
   "botaniastory:dialog-settings-poolvolume": "プールボリューム",
   "botaniastory:dialog-settings-portalvolume": "エルフの門",
   "botaniastory:dialog-settings-sounds": "サウンド設定",
+  "botaniastory:dialog-settings-tiaravolum": "翼のティアラ",
   "botaniastory:error-cannotbind": "コンテナにはバインドできません！",
   "botaniastory:handbook-intro-text": "フラワーマジックの世界へようこそ！\n\nBotania Story は、神秘的な植物相とマナ管理に関連する多くの新しいメカニズムを追加する MOD です。\n\n旅を始めるには、すべての植物学者の主要なツールである知識の本が必要です。このリンクをクリックすると、その作成レシピを表示できます: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>。\n\n作成し、手に持って、右クリックして魔法の世界に浸ってください。",
   "botaniastory:handbook-intro-title": "ボタニア物語の紹介",
@@ -383,6 +384,11 @@
   "lexicon_elfmania_elfresources_p4": "マナクォーツを妖精の粉に交換:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n魔法の妖精の粉。エルフのレシピや特別なアイテム作成に使われます。",
   "lexicon_elfmania_elfresources_p5": "マナガラスをエルフガラスに交換:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nアルフヘイムの透明なガラス。美しく輝き、装飾建築に適しています。",
 
+  "lexicon_functional_flora_jadedamaranthus_title": "枯れたアマランサス",
+  "lexicon_functional_flora_jadedamaranthus_p1": "誰もが花が好きですよね？ \nならば<link=jadedamaranthus>枯れたアマランサス</link>はまさにそのためのものです。\n<link=manapool>マナプール</link>からの<link=mana>マナ</link>で動作し、周囲に<link=mysticalflower>神秘の花</link>を素早く成長させます。",
+  "lexicon_functional_flora_jadedamaranthus_p2": "         それともクレマチス？",
+  "lexicon_functional_flora_jadedamaranthus_p3": "--ちょっと待って、今一瞬で大量の花を召喚するつもり？\n\n--ああ、それがどうした？\n\n--それはルール違反だって分かってる？\n\n--ルールなんて知るか、マナがあるんだ！！！",
+
   "lexicon_functional_flora_puredaisy_title": "ピュアデイジー",
   "lexicon_functional_flora_puredaisy_p1": "<link=puredaisy>ピュア デイジー</link> は、最初の花であるだけでなく、植物学者にとって最も重要な花の 1 つでもあります。この花は、隣接する木や石のブロックを浄化し、浄化された形の<link=livingwood>リビングウッド</link>と<link=puredaisy>リビングロック</link>に変換します。どちらも多くのアイテムを作成するために必要です。",
   "lexicon_functional_flora_puredaisy_p2": "\nそのまま1分ほど待ってください...",
@@ -499,13 +505,14 @@
 
   "lexicon_rusted_world_artifacts_blackholetalisman_title": "ブラックホールのタリスマン",
   "lexicon_rusted_world_artifacts_blackholetalisman_p1": "虚無とは…何もない広大な空間である。そこには何も存在しない。しかし、十分な工夫があれば、この空間は無限にアイテムを保管するために利用できる。<link=blackholetalisman>ブラックホールのタリスマン</link>はガイアと錆びた世界の強力な魔法を利用し、1つのスロットに同一種類のブロックをほぼ無限に保存することができる。ワールド内のブロックを<link=nothing>右クリック</link>すると保存するブロックの種類が設定される（ただしタリスマンが空の場合のみ）。その後、空中で<link=nothing>Shift+右クリック</link>することでオン／オフを切り替えられる。アクティブ状態でインベントリにある場合、選択した種類のブロックを自動的に吸収する。",
-  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "タリスマンをクラフトグリッドに配置すると、そこからブロックのスタックを取り出すことができる。内容がある限り、ブロックはインベントリにあるかのように通常の<link=nothing>右クリック</link>で直接配置できる。コンテナをクリックすると、それをこれらのブロックで満たそうとする。\n\nタリスマンのフレーム作成：\n\n\n\nブラックホールのタリスマン作成：",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "タリスマンをクラフトグリッドに置くと、中からブロックのスタックを取り出せる。中身がある限り、<link=nothing>右クリック</link>でインベントリにあるかのように直接設置できる。コンテナをクリックすると、それらのブロックで満たそうとする。\n\n\nタリスマンのフレームの作成:\n\n\n\nブラックホールのタリスマンの作成:",
 
   "lexicon_rusted_world_artifacts_flight-tiara_title": "翼のティアラ",
   "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>翼のティアラ</link> — 古代種フリューゲルに着想を得たアーティファクト。かつて彼らは神殺しとして創られ、飛行能力を持つ支配的な種族だった。<link=gaiaspirit>ガイアの精霊</link>の力により、その力の一部が再現されている：このティアラはマナを消費して飛行を可能にする。\n\nしかし、この技術は不完全である。ティアラは無限に飛行を維持できず、60秒以上連続で使用すると回復するまで機能を停止する。画面上の飛行ゲージで管理される。飛行に加え、ダッシュと滑空も可能。飛行中にダッシュキーを押すと視線方向へ加速できる。ダッシュは2秒ごとに使用可能。",
-  "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑空により、滑らかに下降し、水平方向に移動し、落下ダメージを回避できる。これを行うには落下中にしゃがむ必要がある。飛行ゲージが空でも滑空は可能だが、回復は遅くなる。\n\nティアラのフレーム作成：\n\n\n\n翼のティアラ作成：",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑空するとゆっくり下降し、水平距離を移動しつつ落下ダメージを回避できる。発動するには落下中にしゃがむ必要がある。飛行ゲージが空でも滑空は可能だが、回復は遅くなる。\n\n\n\n\nティアラのフレームの作成:\n\n\n\n翼付きティアラの作成:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "錆びた世界の空気の小瓶",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>錆びた世界の空気の小瓶</link>には、異世界へ通じる裂け目から採取された歪んだ空気が封じられている。小瓶を満たすには、<link=flask>空の小瓶</link>を手に持ち、裂け目の近くで<link=nothing>右クリック</link>する必要がある。\n\nこの空気は変異的な性質を持つが、その本質はまだ解明されていない。 "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>錆びた世界の空気の小瓶</link>には、異世界へ通じる裂け目から採取された歪んだ空気が封じられている。小瓶を満たすには、<link=flask>空の小瓶</link>を手に持ち、裂け目の近くで<link=nothing>右クリック</link>する必要がある。\n\nこの空気は変異的な性質を持つが、その本質はまだ解明されていない。 ",
+  "lexicon_rusted_world_artifacts_rustworld-air_p2": "それがいくつかの神秘的なアイテムの作成に使用できることだけが知られている。"
 
 }

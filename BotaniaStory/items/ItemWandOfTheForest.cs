@@ -20,11 +20,13 @@ namespace BotaniaStory.items
         {
             bool hadFlower = slot.Itemstack.Attributes.HasAttribute("hasFlower");
             bool hadSpreader = slot.Itemstack.Attributes.HasAttribute("hasSpreader");
+            bool hadAmaranthus = slot.Itemstack.Attributes.HasAttribute("hasAmaranthus");
 
             if (hadFlower || hadSpreader)
             {
                 slot.Itemstack.Attributes.RemoveAttribute("hasFlower");
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");
+                slot.Itemstack.Attributes.RemoveAttribute("hasAmaranthus");
                 slot.MarkDirty();
 
                 /* if (byEntity.World.Side == EnumAppSide.Client)
@@ -233,6 +235,29 @@ namespace BotaniaStory.items
 
             bool hasFlowerInMemory = slot.Itemstack.Attributes.GetBool("hasFlower");
             bool hasSpreaderInMemory = slot.Itemstack.Attributes.GetBool("hasSpreader");
+            bool hasAmaranthusInMemory = slot.Itemstack.Attributes.GetBool("hasAmaranthus");
+
+            if (hasAmaranthusInMemory)
+            {
+                if (block is BlockManaPool || be is BlockEntityManaPool)
+                {
+                    int ax = slot.Itemstack.Attributes.GetInt("amaranthusX");
+                    int ay = slot.Itemstack.Attributes.GetInt("amaranthusY");
+                    int az = slot.Itemstack.Attributes.GetInt("amaranthusZ");
+                    BlockPos amaranthusPos = new BlockPos(ax, ay, az);
+
+                    if (world.BlockAccessor.GetBlockEntity(amaranthusPos) is BlockEntityJadedAmaranthus jaded)
+                    {
+                        jaded.LinkedPool = pos.Copy();
+                        jaded.MarkDirty(true);
+                        world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
+                    }
+                }
+                slot.Itemstack.Attributes.RemoveAttribute("hasAmaranthus");
+                slot.MarkDirty();
+                handling = EnumHandHandling.Handled;
+                return;
+            }
 
             // ЗАВЕРШЕНИЕ ПРИВЯЗКИ ЦВЕТКА -> К РАСПРОСТРАНИТЕЛЮ
             if (hasFlowerInMemory)
@@ -330,7 +355,19 @@ namespace BotaniaStory.items
                 return;
             }
 
-            // НАЧАЛО ПРИВЯЗКИ (Если память посоха пуста)
+            if (be is BlockEntityJadedAmaranthus)
+            {
+                slot.Itemstack.Attributes.SetInt("amaranthusX", pos.X);
+                slot.Itemstack.Attributes.SetInt("amaranthusY", pos.Y);
+                slot.Itemstack.Attributes.SetInt("amaranthusZ", pos.Z);
+                slot.Itemstack.Attributes.SetBool("hasAmaranthus", true);
+                slot.MarkDirty();
+
+                world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
+                handling = EnumHandHandling.Handled;
+                return;
+            }
+
             if ((be is Flora.GeneratingFlora.BlockEntityDaybloom) ||
                 (be is Flora.GeneratingFlora.BlockEntityEndoflame))
             {

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using BotaniaStory.blockentity;
+using BotaniaStory.blocks;
+using BotaniaStory.Flora.GeneratingFlora;
+using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
-using BotaniaStory.Flora.GeneratingFlora;
-using BotaniaStory.blocks;
 
 namespace BotaniaStory.items
 {
@@ -88,6 +89,34 @@ namespace BotaniaStory.items
                 return;
             }
 
+            else if (clickedBe is BlockEntityManaPool)
+            {
+                int radius = 6;
+                int boundCount = 0;
+
+                for (int x = -radius; x <= radius; x++)
+                {
+                    for (int y = -radius; y <= radius; y++)
+                    {
+                        for (int z = -radius; z <= radius; z++)
+                        {
+                            BlockPos checkPos = pos.AddCopy(x, y, z);
+                            if (world.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityJadedAmaranthus flower)
+                            {
+                                flower.LinkedPool = pos.Copy();
+                                flower.MarkDirty(true);
+                                boundCount++;
+                                // Луч идет ОТ бассейна К цветку
+                                SpawnBindingParticles(world, pos, checkPos);
+                            }
+                        }
+                    }
+                }
+                if (boundCount > 0) world.PlaySoundAt(bindSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
+                handling = EnumHandHandling.Handled;
+                return;
+            }
+
             // ==========================================
             // 2. КЛИК ПО ЦВЕТКУ (Копирование привязки на соседей)
             // ==========================================
@@ -123,18 +152,6 @@ namespace BotaniaStory.items
                         }
                     }
 
-                    if (world.Side == EnumAppSide.Client)
-                    {
-                        var clientApi = world.Api as ICoreClientAPI;
-                        if (boundCount > 0)
-                        {
-                            clientApi?.ShowChatMessage($"Связь скопирована! Подключено соседних цветов: {boundCount} шт. к тому же Распространителю.");
-                        }
-                        else
-                        {
-                            clientApi?.ShowChatMessage("Поблизости нет других генерирующих цветов для привязки.");
-                        }
-                    }
 
                     if (boundCount > 0)
                     {
@@ -143,13 +160,78 @@ namespace BotaniaStory.items
                 }
                 else
                 {
-                    if (world.Side == EnumAppSide.Client)
+                   
+                }
+
+                handling = EnumHandHandling.Handled;
+                return;
+            }
+
+            // 3. КЛИК ПО АМАРАНТУ
+            else if (clickedBe is BlockEntityJadedAmaranthus clickedAmaranthus)
+            {
+                BlockPos poolPos = clickedAmaranthus.LinkedPool;
+
+                // Если амарант не привязан, посох пытается найти бассейн сам!
+                if (poolPos == null)
+                {
+                    int searchRadius = 6;
+                    for (int x = -searchRadius; x <= searchRadius; x++)
                     {
-                        var clientApi = world.Api as ICoreClientAPI;
-                        clientApi?.ShowChatMessage("Этот цветок ещё не привязан к Распространителю!");
+                        for (int y = -searchRadius; y <= searchRadius; y++)
+                        {
+                            for (int z = -searchRadius; z <= searchRadius; z++)
+                            {
+                                BlockPos checkPos = pos.AddCopy(x, y, z);
+                                if (world.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaPool)
+                                {
+                                    poolPos = checkPos.Copy();
+                                    break;
+                                }
+                            }
+                            if (poolPos != null) break;
+                        }
+                        if (poolPos != null) break;
                     }
                 }
 
+                // Если бассейн найден (или уже был привязан) - связываем все амаранты вокруг
+                if (poolPos != null)
+                {
+                    int radius = 6;
+                    int boundCount = 0;
+
+                    // Привязываем цветок, по которому кликнули
+                    clickedAmaranthus.LinkedPool = poolPos.Copy();
+                    clickedAmaranthus.MarkDirty(true);
+
+                    SpawnBindingParticles(world, poolPos, pos);
+
+                    // Ищем соседей
+                    for (int x = -radius; x <= radius; x++)
+                    {
+                        for (int y = -radius; y <= radius; y++)
+                        {
+                            for (int z = -radius; z <= radius; z++)
+                            {
+                                BlockPos checkPos = pos.AddCopy(x, y, z);
+                                if (world.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityJadedAmaranthus flower && !checkPos.Equals(pos))
+                                {
+                                    flower.LinkedPool = poolPos.Copy();
+                                    flower.MarkDirty(true);
+                                    boundCount++;
+                                    SpawnBindingParticles(world, poolPos, checkPos);
+                                }
+                            }
+                        }
+                    }
+
+                    world.PlaySoundAt(bindSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
+                }
+                else
+                {
+                    
+                }
                 handling = EnumHandHandling.Handled;
                 return;
             }

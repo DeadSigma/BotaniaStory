@@ -129,7 +129,7 @@ namespace BotaniaStory.blocks
                     {
                         be.HasWater = true;
                         be.MarkDirty(true);
-                        world.PlaySoundAt(new AssetLocation("game:sounds/environment/water-splash"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
+                        world.PlaySoundAt(new AssetLocation("game:sounds/environment/smallsplash"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
                         liquidInside.StackSize -= 1000;
                         if (liquidInside.StackSize <= 0) liquidContainer.SetContent(slot.Itemstack, null);
                         else liquidContainer.SetContent(slot.Itemstack, liquidInside);
@@ -160,7 +160,7 @@ namespace BotaniaStory.blocks
 
                     be.UpdateRenderer(); // Очищаем рендер лепестков
                     be.MarkDirty(true);
-                    world.PlaySoundAt(new AssetLocation("game:sounds/environment/water-splash"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
+                    world.PlaySoundAt(new AssetLocation("sounds/environment/smallsplash"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
                     slot.MarkDirty();
                     return true;
                 }

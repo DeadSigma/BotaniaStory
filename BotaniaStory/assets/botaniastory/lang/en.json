@@ -7,6 +7,7 @@
   "botaniastory:dialog-settings-poolvolume": "Pool Volume",
   "botaniastory:dialog-settings-portalvolume": "Elven Gateway",
   "botaniastory:dialog-settings-sounds": "Sound Settings",
+  "botaniastory:dialog-settings-tiaravolum": "Winged Tiara",
   "botaniastory:error-cannotbind": "Cannot bind to containers!",
   "botaniastory:handbook-intro-text": "Welcome to the world of floral magic!\n\nBotania Story is a mod that adds many new mechanics related to mystical flora and mana management.\n\nTo begin your journey, you will need the main tool of every botanist — the book of knowledge. You can view its crafting recipe by clicking this link: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nCraft it, hold it in your hands, and right-click to immerse yourself in magic!",
   "botaniastory:handbook-intro-title": "Introduction to Botania Story",
@@ -383,6 +384,11 @@
   "lexicon_elfmania_elfresources_p4": "Trading mana quartz for pixie dust:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMagical pixie dust. Used in elven recipes and crafting special items.",
   "lexicon_elfmania_elfresources_p5": "Trading mana glass for elven glass:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTransparent glass of Alfheim. Looks beautiful, shines brightly, and suits decorative builds.",
 
+  "lexicon_functional_flora_jadedamaranthus_title": "Jaded Amaranthus",
+  "lexicon_functional_flora_jadedamaranthus_p1": "Everyone loves flowers, right? \nThen the <link=jadedamaranthus>Jaded Amaranthus</link> is made just for that.\nFed with <link=mana>mana</link> from a <link=manapool>mana pool</link>, it can quickly grow <link=mysticalflower>mystical flowers</link> in the area around it.",
+  "lexicon_functional_flora_jadedamaranthus_p2": "         Is it that, or a clematis?",
+  "lexicon_functional_flora_jadedamaranthus_p3": "--Wait, you're about to summon a bunch of flowers in an instant?\n\n--Yeah, so what?\n\n--That's against the rules, you know?\n\n--To hell with the rules, I have mana!!!",
+
   "lexicon_functional_flora_puredaisy_title": "Pure Daisy",
   "lexicon_functional_flora_puredaisy_p1": "<link=puredaisy>Pure Daisy</link> is not only the very first flower, but also one of the most important flowers for any botanist. This flower purifies and transforms adjacent wood and stone blocks into their purified forms: <link=livingwood>Livingwood</link> and <link=puredaisy>Livingrock</link>, both of which are needed for crafting many items.",
   "lexicon_functional_flora_puredaisy_p2": "\nJust give it a minute or so...",
@@ -499,13 +505,14 @@
 
   "lexicon_rusted_world_artifacts_blackholetalisman_title": "Black Hole Talisman",
   "lexicon_rusted_world_artifacts_blackholetalisman_p1": "The void is a vast expanse filled with... nothingness. There is nothing within it. However, with enough ingenuity, this space can be used to store items in unlimited quantities. The <link=blackholetalisman>Black Hole Talisman</link> uses the powerful magic of Gaia and the Rusted World, allowing it to store nearly infinite amounts of a single block type in one slot. Right-clicking (<link=nothing>RMB</link>) a block in the world sets the block type for storage, but only if the talisman is empty. Then, by pressing <link=nothing>Shift+RMB</link> in the air, you can toggle it on or off. When active and in the inventory, it will automatically absorb blocks of the selected type.",
-  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "By placing the talisman in the crafting grid, you can extract stacks of blocks from it. As long as it contains items, blocks can be placed directly from the talisman with a normal <link=nothing>RMB</link>, as if they were in your inventory. Clicking on a container will attempt to fill it with those blocks.\n\nCrafting the talisman frame:\n\n\n\nCrafting the Black Hole Talisman:",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "By placing the talisman in the crafting grid, you can extract stacks of blocks from it. As long as it contains items, blocks can be placed directly from the talisman with a normal <link=nothing>RMB</link>, as if they were in your inventory. Clicking on a container will attempt to fill it with those blocks.\n\n\nCrafting the talisman frame:\n\n\n\nCrafting the Black Hole Talisman:",
 
   "lexicon_rusted_world_artifacts_flight-tiara_title": "Winged Tiara",
   "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Winged Tiara</link> — an artifact inspired by the ancient race of the Flugel. Once, they were the dominant species, created as god-slayers and possessing the ability to fly. With the help of <link=gaiaspirit>Gaia Spirits</link>, part of their power has been recreated: the tiara allows flight at the cost of mana.\n\nHowever, the technology is imperfect. The tiara cannot sustain flight indefinitely — if used for more than 60 seconds without a break, it will stop working until it recovers. A flight meter on the screen is used for control. In addition to flight, the tiara grants the ability to dash and glide. Pressing the sprint key during flight performs a dash in the direction you are looking. Dashes can be used once every 2 seconds.",
-  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Gliding allows you to descend smoothly, travel horizontally, and avoid fall damage. To do this, crouch while falling. Even with an empty flight meter, you can glide, though regeneration will be slower.\n\nCrafting the tiara frame:\n\n\n\nCrafting the Winged Tiara:",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Gliding allows you to descend smoothly, travel horizontally, and avoid fall damage. To do this, crouch while falling. Even with an empty flight meter, you can glide, though regeneration will be slower.\n\n\n\n\nCrafting the tiara frame:\n\n\n\nCrafting the Winged Tiara:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Vial of Rusted World Air",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Vial of Rusted World Air</link> contains distorted air collected from rifts leading to an alien world. To fill the vial, hold an <link=flask>empty vial</link> in your hand and press <link=nothing>RMB</link> near a rift.\n\nThis air possesses mutating properties, though their nature remains unstudied. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Vial of Rusted World Air</link> contains distorted air collected from rifts leading to an alien world. To fill the vial, hold an <link=flask>empty vial</link> in your hand and press <link=nothing>RMB</link> near a rift.\n\nThis air possesses mutating properties, though their nature remains unstudied. ",
+  "lexicon_rusted_world_artifacts_rustworld-air_p2": "It is only known that it can be used in the creation of certain mystical items."
 
 }

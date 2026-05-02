@@ -1,11 +1,9 @@
 {
     "code": "jadedamaranthus",
-    "class": "BlockPlant",
+    "class": "BlockJadedAmaranthus",
+    "entityclass": "JadedAmaranthus",
     "creativeinventory": {
         "general": [
-            "*-free"
-        ],
-        "flora": [
             "*-free"
         ],
         "botaniastory": [

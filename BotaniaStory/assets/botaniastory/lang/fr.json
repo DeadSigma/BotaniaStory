@@ -7,6 +7,7 @@
   "botaniastory:dialog-settings-poolvolume": "Volume de la piscine",
   "botaniastory:dialog-settings-portalvolume": "Porte elfique",
   "botaniastory:dialog-settings-sounds": "Paramètres sonores",
+  "botaniastory:dialog-settings-tiaravolum": "Diadème ailé",
   "botaniastory:error-cannotbind": "Impossible de lier aux conteneurs !",
   "botaniastory:handbook-intro-text": "Bienvenue dans le monde de la magie florale !\n\nBotania Story est un mod qui ajoute de nombreuses nouvelles mécaniques liées à la flore mystique et à la gestion du mana.\n\nPour commencer votre voyage, vous aurez besoin de l’outil principal de tout botaniste : le livre de la connaissance. Vous pouvez consulter sa recette de fabrication en cliquant sur ce lien : <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nFabriquez-le, tenez-le dans vos mains et faites un clic droit pour vous immerger dans la magie !",
   "botaniastory:handbook-intro-title": "Introduction à l'histoire de Botania",
@@ -383,6 +384,11 @@
   "lexicon_elfmania_elfresources_p4": "Échange de quartz de mana contre poussière féerique :\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPoussière magique des fées. Utilisée dans les recettes elfiques et la création d'objets spéciaux.",
   "lexicon_elfmania_elfresources_p5": "Échange de verre de mana contre verre elfique :\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVerre transparent d'Alfheim. Très beau, brillant et idéal pour les constructions décoratives.",
 
+  "lexicon_functional_flora_jadedamaranthus_title": "Amarante fanée",
+  "lexicon_functional_flora_jadedamaranthus_p1": "Tout le monde aime les fleurs, n’est-ce pas ? \nAlors l’<link=jadedamaranthus>amarante fanée</link> est faite pour ça.\nAlimentée en <link=mana>mana</link> depuis une <link=manapool>piscine de mana</link>, elle peut faire pousser rapidement des <link=mysticalflower>fleurs mystiques</link> autour d’elle.",
+  "lexicon_functional_flora_jadedamaranthus_p2": "         Est-ce ça ou une clématite ?",
+  "lexicon_functional_flora_jadedamaranthus_p3": "--Attends, tu vas invoquer plein de fleurs en un instant ?\n\n--Ouais, et alors ?\n\n--C’est contre les règles, tu le sais ?\n\n--Au diable les règles, j’ai du mana !!!",
+
   "lexicon_functional_flora_puredaisy_title": "Marguerite pure",
   "lexicon_functional_flora_puredaisy_p1": "<link=puredaisy>Pure Daisy</link> n'est pas seulement la toute première fleur, mais aussi l'une des fleurs les plus importantes pour tout botaniste. Cette fleur purifie et transforme les blocs de bois et de pierre adjacents en leurs formes purifiées : <link=livingwood>Livingwood</link> et <link=puredaisy>Livingrock</link>, qui sont tous deux nécessaires à la fabrication de nombreux objets.",
   "lexicon_functional_flora_puredaisy_p2": "\nDonnez-lui juste une minute environ...",
@@ -499,13 +505,14 @@
 
   "lexicon_rusted_world_artifacts_blackholetalisman_title": "Talisman du Trou Noir",
   "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Le vide est une immense étendue remplie de... vide. Il n’y a rien en son sein. Cependant, avec suffisamment d’ingéniosité, cet espace peut être utilisé pour stocker des objets en quantité illimitée. Le <link=blackholetalisman>Talisman du Trou Noir</link> utilise la puissante magie de Gaïa et du Monde Rouillé, permettant de stocker presque une quantité infinie de blocs d’un même type dans un seul emplacement. Un clic droit (<link=nothing>RMB</link>) sur un bloc dans le monde définit le type de bloc à stocker, mais seulement si le talisman est vide. Ensuite, en appuyant sur <link=nothing>Shift+RMB</link> dans l’air, vous pouvez l’activer ou le désactiver. Lorsqu’il est actif dans l’inventaire, il absorbera automatiquement les blocs du type sélectionné.",
-  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "En plaçant le talisman dans la grille de fabrication, il est possible d’en extraire des piles de blocs. Tant qu’il contient des éléments, les blocs peuvent être placés directement depuis le talisman avec un <link=nothing>RMB</link> normal, comme s’ils étaient dans l’inventaire. Cliquer sur un conteneur tentera de le remplir avec ces blocs.\n\nFabrication du cadre du talisman :\n\n\n\nFabrication du Talisman du Trou Noir :",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "En plaçant le talisman dans la grille de fabrication, vous pouvez en extraire des piles de blocs. Tant qu’il contient des objets, les blocs peuvent être placés directement depuis le talisman avec un <link=nothing>clic droit</link>, comme s’ils étaient dans l’inventaire. Cliquer sur un conteneur tentera de le remplir avec ces blocs.\n\n\nCréation de l’armature du talisman :\n\n\n\nCréation du talisman de trou noir :",
 
   "lexicon_rusted_world_artifacts_flight-tiara_title": "Tiare ailée",
   "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Tiare ailée</link> — un artefact inspiré par l’ancienne race des Flugel. Autrefois, ils étaient l’espèce dominante, créés comme des tueurs de dieux et capables de voler. Grâce aux <link=gaiaspirit>esprits de Gaïa</link>, une partie de leur puissance a pu être recréée : la tiare permet de voler au prix de mana.\n\nCependant, la technologie est imparfaite. La tiare ne peut pas maintenir le vol indéfiniment — si elle est utilisée plus de 60 secondes sans pause, elle cessera de fonctionner jusqu’à récupération. Une jauge de vol à l’écran permet de la contrôler. En plus du vol, elle permet de faire des ruées et de planer. En appuyant sur la touche de course pendant le vol, vous effectuez une ruée dans la direction du regard. Les ruées peuvent être utilisées toutes les 2 secondes.",
-  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Le plané permet de descendre en douceur, de parcourir des distances horizontales et d’éviter les dégâts de chute. Pour cela, il faut s’accroupir pendant la chute. Même avec une jauge de vol vide, il est possible de planer, mais la régénération sera plus lente.\n\nFabrication du cadre de la tiare :\n\n\n\nFabrication de la tiare ailée :",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Le planeur permet de descendre en douceur, de parcourir une distance horizontale et d’éviter les dégâts de chute. Pour cela, il faut s’accroupir pendant la chute. Même avec une jauge de vol vide, il est possible de planer, mais la récupération sera plus lente.\n\n\n\n\nCréation de l’armature de la tiare :\n\n\n\nCréation de la tiare ailée :",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiole d’air du Monde Rouillé",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiole d’air du Monde Rouillé</link> contient un air altéré, collecté à partir de failles menant à un monde étranger. Pour remplir la fiole, tenez une <link=flask>fiole vide</link> dans la main et appuyez sur <link=nothing>clic droit</link> près d’une faille.\n\nCet air possède des propriétés mutagènes, mais leur nature reste encore inconnue. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiole d’air du Monde Rouillé</link> contient un air altéré, collecté à partir de failles menant à un monde étranger. Pour remplir la fiole, tenez une <link=flask>fiole vide</link> dans la main et appuyez sur <link=nothing>clic droit</link> près d’une faille.\n\nCet air possède des propriétés mutagènes, mais leur nature reste encore inconnue. ",
+  "lexicon_rusted_world_artifacts_rustworld-air_p2": "On sait seulement qu’il peut être utilisé dans la création de certains objets mystiques."
 
 }

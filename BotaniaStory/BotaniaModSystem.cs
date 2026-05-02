@@ -49,8 +49,15 @@ namespace BotaniaStory
             api.RegisterBlockClass("BlockMysticalFlower", typeof(BlockMysticalFlower));
             api.RegisterBlockClass("BlockApothecary", typeof(BlockApothecary));
             api.RegisterBlockEntityClass("ApothecaryEntity", typeof(BlockEntityApothecary));
+
+
             api.RegisterBlockClass("BlockPureDaisy", typeof(BlockPureDaisy));
             api.RegisterBlockEntityClass("PureDaisyEntity", typeof(BlockEntityPureDaisy));
+
+            api.RegisterBlockClass("BlockJadedAmaranthus", typeof(BlockJadedAmaranthus));
+            api.RegisterBlockEntityClass("JadedAmaranthus", typeof(BlockEntityJadedAmaranthus));
+
+
             api.RegisterBlockClass("BlockManaPool", typeof(BlockManaPool));
             api.RegisterBlockEntityClass("ManaPoolEntity", typeof(BlockEntityManaPool));
             api.RegisterBlockClass("ManaSpreader", typeof(ManaSpreader));
@@ -96,7 +103,7 @@ namespace BotaniaStory
 
 
 
-            api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
+        api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 
         }
 

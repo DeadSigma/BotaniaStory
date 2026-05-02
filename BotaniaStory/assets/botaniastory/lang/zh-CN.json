@@ -7,6 +7,7 @@
   "botaniastory:dialog-settings-poolvolume": "魔力池音量",
   "botaniastory:dialog-settings-portalvolume": "精灵之门",
   "botaniastory:dialog-settings-sounds": "声音设置",
+  "botaniastory:dialog-settings-tiaravolum": "飞翼头饰",
   "botaniastory:error-cannotbind": "无法绑定到容器！",
   "botaniastory:handbook-intro-text": "欢迎来到花之魔法的世界！\n\nBotania Story 是一个添加了大量新机制的模组，内容围绕神秘植物群与魔力管理展开。\n\n要开始你的旅程，你需要每位植物学家的核心工具——知识之书。你可以点击此链接查看其合成配方：<a href=\"handbook://item-botaniastory:lexicon-closed\">植物学辞典</a>。\n\n制作它，拿在手中并按右键，投入魔法的世界吧！",
   "botaniastory:handbook-intro-title": "Botania Story 简介",
@@ -383,6 +384,11 @@
   "lexicon_elfmania_elfresources_p4": "用魔力石英交换妖精粉尘：\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n神奇的妖精粉尘。用于精灵配方和特殊物品制作。",
   "lexicon_elfmania_elfresources_p5": "用魔力玻璃交换精灵玻璃：\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n亚尔夫海姆的透明玻璃。外观精美，明亮发光，适合装饰建筑。",
 
+  "lexicon_functional_flora_jadedamaranthus_title": "枯萎的苋花",
+  "lexicon_functional_flora_jadedamaranthus_p1": "每个人都喜欢花，对吧？ \n那么<link=jadedamaranthus>枯萎的苋花</link>正是为此而生。\n通过从<link=manapool>魔力池</link>中吸收<link=mana>魔力</link>，它可以在周围快速生长<link=mysticalflower>神秘之花</link>。",
+  "lexicon_functional_flora_jadedamaranthus_p2": "         这是它，还是铁线莲？",
+  "lexicon_functional_flora_jadedamaranthus_p3": "--等等，你现在要在一瞬间召唤一堆花？\n\n--对啊，那又怎样？\n\n--这违反规则，你知道吗？\n\n--去他的规则，我有魔力！！！",
+
   "lexicon_functional_flora_puredaisy_title": "纯净雏菊",
   "lexicon_functional_flora_puredaisy_p1": "<link=puredaisy>纯净雏菊</link> 不仅是植物学家的第一个花朵，也是最重要的花朵之一。它会净化并转化紧贴着它的木头与石头方块，将其变为净化后的版本：<link=livingwood>活木</link> 与 <link=puredaisy>活石</link>，这些材料可用于制作许多物品。",
   "lexicon_functional_flora_puredaisy_p2": "\n给它一分钟左右的时间...",
@@ -499,13 +505,14 @@
 
   "lexicon_rusted_world_artifacts_blackholetalisman_title": "黑洞护符",
   "lexicon_rusted_world_artifacts_blackholetalisman_p1": "虚空是一片充满……虚无的广阔空间。里面什么都没有。然而，只要足够有创造力，这个空间可以用来存储无限数量的物品。<link=blackholetalisman>黑洞护符</link>利用盖亚与锈蚀世界的强大魔法，使其能够在一个槽位中存储几乎无限数量的同类型方块。对世界中的方块进行<link=nothing>右键点击</link>可以设定要存储的方块类型，但前提是护符为空。随后，在空中按下<link=nothing>Shift+右键</link>可以将其开启或关闭。当处于激活状态并在物品栏中时，它会自动吸收所选类型的方块。",
-  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "将护符放入合成网格中，可以从中取出成组的方块。只要其中有内容，就可以像在物品栏中一样，通过普通的<link=nothing>右键</link>直接从护符中放置方块。点击容器会尝试用这些方块填充它。\n\n护符框架的制作：\n\n\n\n黑洞护符的制作：",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "将护符放入合成网格中，可以从中取出成组的方块。只要其中还有内容，就可以像在背包中一样，通过<link=nothing>右键</link>直接从护符放置方块。点击容器会尝试用这些方块将其填满。\n\n\n制作护符框架：\n\n\n\n制作黑洞护符:",
 
   "lexicon_rusted_world_artifacts_flight-tiara_title": "翼之王冠",
   "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>翼之王冠</link>——一种受古老种族弗鲁格尔启发的神器。曾经，他们是主导种族，被创造为弑神者，并拥有飞行能力。借助<link=gaiaspirit>盖亚之灵</link>的力量，人们成功重现了部分能力：该王冠可以通过消耗法力实现飞行。\n\n然而，这项技术并不完美。王冠无法无限维持飞行——如果连续使用超过60秒，它将停止工作，直到恢复。屏幕上的飞行条用于控制。此外，它还提供冲刺和滑翔能力。在飞行中按下冲刺键可以朝视线方向进行冲刺。冲刺每2秒可使用一次。",
-  "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑翔可以让你平稳下降，横向移动并避免坠落伤害。为此，需要在下落时蹲下。即使飞行条为空也可以滑翔，但恢复速度会更慢。\n\n王冠框架的制作：\n\n\n\n翼之王冠的制作：",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑翔可以让你平稳下降，横向移动距离并避免坠落伤害。要触发滑翔，需要在下落时蹲下。即使飞行槽为空也可以滑翔，但恢复速度会更慢。\n\n\n\n\n制作头冠框架：\n\n\n\n制作翼状头冠:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "锈蚀世界空气瓶",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>锈蚀世界空气瓶</link>中封存着从通往异界的裂隙中收集到的扭曲空气。要填充该瓶，需要手持<link=flask>空瓶</link>并在裂隙附近按下<link=nothing>右键</link>。\n\n这种空气具有变异特性，但其本质仍未被研究清楚。 "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>锈蚀世界空气瓶</link>中封存着从通往异界的裂隙中收集到的扭曲空气。要填充该瓶，需要手持<link=flask>空瓶</link>并在裂隙附近按下<link=nothing>右键</link>。\n\n这种空气具有变异特性，但其本质仍未被研究清楚。 ",
+  "lexicon_rusted_world_artifacts_rustworld-air_p2": "目前只知道它可以用于制作某些神秘物品。"
 
 }

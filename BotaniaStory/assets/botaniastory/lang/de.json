@@ -3,10 +3,11 @@
   "botaniastory:btn-visualize-stop": "Visualisierung stoppen",
   "botaniastory:dialog-settings-apothecaryvolume": "Lautstärke Apotheker",
   "botaniastory:dialog-settings-flowervolume": "Lautstärke der Blumen",
-  "botaniastory:dialog-settings-platevolume": "Lautstärke der terrestrischen Platte",
+  "botaniastory:dialog-settings-platevolume": "Terrestrische Platte",
   "botaniastory:dialog-settings-poolvolume": "Lautstärke des Pools",
   "botaniastory:dialog-settings-portalvolume": "Elfentor",
   "botaniastory:dialog-settings-sounds": "Toneinstellungen",
+  "botaniastory:dialog-settings-tiaravolum": "Geflügelte Tiara",
   "botaniastory:error-cannotbind": "Kann nicht an Container gebunden werden!",
   "botaniastory:handbook-intro-text": "Willkommen in der Welt der Blumenmagie!\n\nBotania Story ist ein Mod, der viele neue Mechaniken hinzufügt, die mit mystischer Flora und dem Umgang mit Mana verbunden sind.\n\nUm deine Reise zu beginnen, brauchst du das wichtigste Werkzeug jedes Botanikers — ein Wissensbuch. Du kannst das Herstellungsrezept über diesen Link ansehen: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania-Lexikon</a>.\n\nStelle es her, nimm es in die Hand und drücke RMB, um in die Magie einzutauchen!",
   "botaniastory:handbook-intro-title": "Einführung in BotaniaStory",
@@ -378,10 +379,15 @@
 
   "lexicon_elfmania_elfresources_title": "Ressourcen von Alfheim",
   "lexicon_elfmania_elfresources_p1": "<link=alfheim>Alfheim</link> birgt viele seltene und edle Ressourcen. Die meisten davon sind wegen ihres hohen Wertes und der Rivalität zwischen elfischen Clans schwer zugänglich. Dennoch sind die Elfen bereit, einige Materialien gegen Gegenstände aus unserer Welt zu tauschen.\n\nZu den bekanntesten Waren gehören <link=dreamwood>Traumholz</link>, <link=elementium>elementium</link>, <link=pixiedust>Feenstaub</link> und <link=dragonstone>Drachenstein</link>. Nutze das <link=alfheimgates>Tor nach Alfheim</link>, um Handel zu treiben und Zugang zu diesen Kostbarkeiten zu erhalten.",
-  "lexicon_elfmania_elfresources_p2": "Tausch von Manastahl gegen Elementium:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeltenes Metall der Elfen. Wird für Werkzeuge, Rüstungen und fortschrittliche Mechanismen verwendet.",
-  "lexicon_elfmania_elfresources_p3": "Tausch von Mana-Zahnrad gegen Drachenstein:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeltener Kristall Alfheims. Wird für Runenartefakte, Rüstungen und mächtige elfische Mechanismen verwendet.",
+  "lexicon_elfmania_elfresources_p2": "Tausch von Manastahl gegen Elementium:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeltenes Metall der Elfen. Wird für Werkzeuge, Rüstungen und fortschrittliche Mechanismen verwendet.",
+  "lexicon_elfmania_elfresources_p3": "Tausch von Mana-Zahnrad gegen Drachenstein:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSeltener Kristall Alfheims. Wird für Runenartefakte, Rüstungen und mächtige elfische Mechanismen verwendet.",
   "lexicon_elfmania_elfresources_p4": "Tausch von Manaquarz gegen Feenstaub:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMagischer Feenstaub. Wird in elfischen Rezepten und zur Herstellung besonderer Gegenstände verwendet.",
   "lexicon_elfmania_elfresources_p5": "Tausch von Managlas gegen Elfenglas:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTransparentes Glas aus Alfheim. Sieht schön aus, leuchtet hell und eignet sich für dekorative Bauten.",
+
+  "lexicon_functional_flora_jadedamaranthus_title": "Erschöpfter Amarant",
+  "lexicon_functional_flora_jadedamaranthus_p1": "Jeder liebt Blumen, oder? \nDann ist der <link=jadedamaranthus>erschöpfte Amarant</link> genau dafür gemacht.\nEr wird mit <link=mana>Mana</link> aus einem <link=manapool>Manabecken</link> versorgt und kann schnell <link=mysticalflower>mystische Blumen</link> in seiner Umgebung wachsen lassen.",
+  "lexicon_functional_flora_jadedamaranthus_p2": "         Ist das er oder eine Clematis?",
+  "lexicon_functional_flora_jadedamaranthus_p3": "--Moment mal, du wirst jetzt in einem Augenblick eine Menge Blumen beschwören?\n\n--Ja, und?\n\n--Das ist gegen die Regeln, weißt du das?\n\n--Zum Teufel mit den Regeln, ich habe Mana!!!",
 
   "lexicon_functional_flora_puredaisy_title": "Reine Margerite",
   "lexicon_functional_flora_puredaisy_p1": "<link=puredaisy>Reine Margerite</link> — nicht nur die allererste, sondern auch eine der wichtigsten Blumen für jeden Botaniker. Diese Blume reinigt und verwandelt direkt angrenzende Holz- und Steinblöcke in ihre gereinigten Versionen: <link=livingwood>Lebendholz</link> und <link=puredaisy>Lebendstein</link>, die für viele Gegenstände benötigt werden.",
@@ -499,13 +505,14 @@
 
   "lexicon_rusted_world_artifacts_blackholetalisman_title": "Schwarze-Loch-Talisman",
   "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Die Leere ist ein gewaltiger Raum, gefüllt mit... Leere. Es gibt nichts darin. Mit genügend Einfallsreichtum kann dieser Raum jedoch genutzt werden, um Gegenstände in unbegrenzter Menge zu speichern. Der <link=blackholetalisman>Schwarze-Loch-Talisman</link> nutzt die mächtige Magie von Gaia und der Rostwelt und erlaubt es, nahezu unendlich viele Blöcke eines Typs in einem Slot zu lagern. Ein Rechtsklick (<link=nothing>RMB</link>) auf einen Block in der Welt legt den Blocktyp fest, aber nur wenn der Talisman leer ist. Anschließend kann man ihn mit <link=nothing>Shift+RMB</link> in der Luft ein- oder ausschalten. Im aktiven Zustand absorbiert er im Inventar automatisch Blöcke des gewählten Typs.",
-  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Platziert man den Talisman im Crafting-Gitter, können Stapel von Blöcken daraus entnommen werden. Solange er Inhalte enthält, können Blöcke direkt aus dem Talisman mit einem normalen <link=nothing>RMB</link> platziert werden, als wären sie im Inventar. Ein Klick auf einen Behälter versucht, ihn mit diesen Blöcken zu füllen.\n\nHerstellung des Talisman-Rahmens:\n\n\n\nHerstellung des Schwarze-Loch-Talismans:",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Wenn du den Talisman ins Herstellungsraster legst, kannst du Stapel von Blöcken daraus entnehmen. Solange er Inhalt besitzt, können Blöcke direkt daraus mit <link=nothing>Rechtsklick</link> platziert werden, als wären sie im Inventar. Ein Klick auf einen Behälter versucht, ihn mit diesen Blöcken zu füllen.\n\nHerstellung des Talisman-Rahmens:\n\n\n\nHerstellung: Schwarzes-Loch-Talisman",
 
   "lexicon_rusted_world_artifacts_flight-tiara_title": "Geflügelte Tiara",
   "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Geflügelte Tiara</link> — ein Artefakt, inspiriert von der uralten Rasse der Flugel. Einst waren sie die dominierende Spezies, erschaffen als Göttertöter und mit der Fähigkeit zu fliegen. Mithilfe von <link=gaiaspirit>Gaias Geistern</link> konnte ein Teil ihrer Kraft wiederhergestellt werden: Die Tiara ermöglicht das Fliegen unter Verbrauch von Mana.\n\nDie Technologie ist jedoch unvollkommen. Die Tiara kann den Flug nicht unbegrenzt aufrechterhalten — wird sie länger als 60 Sekunden ohne Pause verwendet, hört sie auf zu funktionieren, bis sie sich erholt hat. Eine Fluganzeige auf dem Bildschirm dient zur Kontrolle. Neben dem Flug ermöglicht sie auch Dash und Gleiten. Durch Drücken der Sprinttaste während des Fluges kann man sich in Blickrichtung beschleunigen. Dashes sind alle 2 Sekunden möglich.",
-  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Gleiten ermöglicht ein sanftes Absinken, das Zurücklegen horizontaler Distanzen und das Vermeiden von Fallschaden. Dazu muss man sich während des Falls ducken. Selbst bei leerer Fluganzeige kann man gleiten, jedoch erfolgt die Regeneration langsamer.\n\nHerstellung des Tiara-Rahmens:\n\n\n\nHerstellung der geflügelten Tiara:",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Gleiten ermöglicht ein sanftes Sinken, das Überwinden horizontaler Distanzen und das Vermeiden von Fallschaden. Dazu musst du dich während des Falls ducken. Selbst bei leerer Fluganzeige kannst du gleiten, allerdings regeneriert sie sich langsamer.\n\n\nHerstellung des Tiara-Rahmens:\n\n\n\nHerstellung der geflügelten Tiara:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Fläschchen mit Luft der Rostwelt",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fläschchen mit Luft der Rostwelt</link> enthält verzerrte Luft, die aus Rissen gesammelt wurde, die in eine fremde Welt führen. Um das Fläschchen zu füllen, muss man ein <link=flask>leeres Fläschchen</link> in der Hand halten und <link=nothing>Rechtsklick</link> in der Nähe eines Risses drücken.\n\nDiese Luft besitzt mutierende Eigenschaften, deren Natur jedoch noch nicht erforscht ist. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fläschchen mit Luft der Rostwelt</link> enthält verzerrte Luft, die aus Rissen gesammelt wurde, die in eine fremde Welt führen. Um das Fläschchen zu füllen, muss man ein <link=flask>leeres Fläschchen</link> in der Hand halten und <link=nothing>Rechtsklick</link> in der Nähe eines Risses drücken.\n\nDiese Luft besitzt mutierende Eigenschaften, deren Natur jedoch noch nicht erforscht ist. ",
+  "lexicon_rusted_world_artifacts_rustworld-air_p2": "Es ist lediglich bekannt, dass es zur Herstellung einiger mystischer Gegenstände verwendet werden kann."
 
 }

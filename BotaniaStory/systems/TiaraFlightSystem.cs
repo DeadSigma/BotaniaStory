@@ -55,7 +55,7 @@ namespace BotaniaStory.systems
         {
             sapi = api;
             sapi.Network.GetChannel("tiaranetwork").SetMessageHandler<TiaraStatePacket>((p, pkt) => {
-                p.Entity.Attributes.SetBool("tiaraIsFlying", pkt.IsFlying);
+                p.Entity.WatchedAttributes.SetBool("tiaraIsFlying", pkt.IsFlying);
 
                 if (pkt.IsDashing)
                 {
@@ -86,7 +86,7 @@ namespace BotaniaStory.systems
                             // Если игрок как-то обошел клиентскую проверку, отключаем полет
                             tablet.SetMana(tabletSlot.Itemstack, 0);
                             tabletSlot.MarkDirty();
-                            p.Entity.Attributes.SetBool("tiaraIsFlying", false);
+                            p.Entity.WatchedAttributes.SetBool("tiaraIsFlying", false);
                             sapi.Network.GetChannel("tiaranetwork").SendPacket(new TiaraStatePacket { ForceStop = true }, p);
                         }
                     }
@@ -99,7 +99,7 @@ namespace BotaniaStory.systems
         {
             foreach (IServerPlayer player in sapi.World.AllOnlinePlayers)
             {
-                if (player.Entity?.Attributes.GetBool("tiaraIsFlying", false) == true)
+                if (player.Entity?.WatchedAttributes.GetBool("tiaraIsFlying", false) == true)
                 {
                     ItemSlot tabletSlot = FindManaTablet(player);
                     ItemManaTablet tablet = tabletSlot?.Itemstack?.Item as ItemManaTablet;
@@ -110,7 +110,7 @@ namespace BotaniaStory.systems
                     }
                     else
                     {
-                        player.Entity.Attributes.SetBool("tiaraIsFlying", false);
+                        player.Entity.WatchedAttributes.SetBool("tiaraIsFlying", false);
                         sapi.Network.GetChannel("tiaranetwork").SendPacket(new TiaraStatePacket { ForceStop = true }, player);
                     }
                 }
@@ -193,7 +193,7 @@ namespace BotaniaStory.systems
                 currentFlightTime -= dt;
                 if (currentFlightTime <= 0 || !HasTiara(player)) { isExhausted = true; clientTiaraFlying = false; SendStateToServer(false); return; }
 
-                particleRenderer.SpawnFlightParticles(player, dashActiveTimer > 0);
+                particleRenderer.SpawnFlightParticles(player.Entity, dashActiveTimer > 0);
 
                 player.Entity.AnimManager.StopAnimation("idle");
                 player.Entity.AnimManager.StopAnimation("walk");
@@ -260,7 +260,7 @@ namespace BotaniaStory.systems
                 if (isGliding || player.Entity.Pos.Motion.Y < -0.15f)
                 {
                     isGliding = true; // Фиксируем состояние
-                    particleRenderer.SpawnFlightParticles(player, false);
+                    particleRenderer.SpawnFlightParticles(player.Entity, false);
                     player.Entity.AnimManager.StopAnimation("fly");
                     player.Entity.AnimManager.StartAnimation("Creativefly");
 
@@ -275,6 +275,20 @@ namespace BotaniaStory.systems
             {
                 // Если игрок в воздухе, но отпустил Shift или снял тиару - сбрасываем планирование
                 isGliding = false;
+            }
+            foreach (IPlayer otherPlayer in capi.World.AllOnlinePlayers)
+            {
+                // Пропускаем себя (себя мы уже обработали выше) и не прогруженные сущности
+                if (otherPlayer.Entity == null || otherPlayer.PlayerUID == player.PlayerUID) continue;
+
+                // Читаем синхронизированный атрибут, который устанавливается на сервере
+                bool isOtherFlying = otherPlayer.Entity.WatchedAttributes.GetBool("tiaraIsFlying", false);
+
+                if (isOtherFlying)
+                {
+                    // Отрисовываем партиклы для других игроков
+                    particleRenderer.SpawnFlightParticles(otherPlayer.Entity, false);
+                }
             }
         }
 

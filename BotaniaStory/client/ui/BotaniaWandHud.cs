@@ -121,6 +121,25 @@ namespace BotaniaStory.client.ui
                     displayName = spreader.Block.GetPlacedBlockName(capi.World, sel.Position);
                     showHud = true;
                 }
+                else if (be is BlockEntityJadedAmaranthus amaranthus)
+                {
+                    displayMana = 0;
+                    displayMaxMana = 1;
+
+                    // ИСПРАВЛЕНИЕ: Проверяем, существует ли всё ещё бассейн по этим координатам
+                    if (amaranthus.LinkedPool != null &&
+                        capi.World.BlockAccessor.GetBlockEntity(amaranthus.LinkedPool) is BlockEntityManaPool)
+                    {
+                        highlightPos = amaranthus.LinkedPool; // Бассейн на месте - рисуем рамку
+                    }
+                    else
+                    {
+                        highlightPos = null; // Бассейна нет - покажет иконку разрыва связи (красный крестик)
+                    }
+
+                    displayName = amaranthus.Block.GetPlacedBlockName(capi.World, sel.Position);
+                    showHud = true;
+                }
                 else if (be is BlockEntityManaPool pool)
                 {
                     displayMana = pool.CurrentMana;

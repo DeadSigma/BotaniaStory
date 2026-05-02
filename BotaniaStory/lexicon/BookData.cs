@@ -84,7 +84,7 @@ namespace BotaniaStory.lexicon
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame" } },
 
-            { "functional_flora", new[] { "puredaisy"} },
+            { "functional_flora", new[] { "puredaisy", "jadedamaranthus" } },
 
             { "natural_apparatus", new[] { "ch1" } },
 
@@ -468,6 +468,31 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:puredaisy-free"
                         });
                     }
+
+                    // === НАСТРОЙКА ГЛАВЫ ИЗМУЧЕННЫЙ АМАРАНТ ===
+                    else if (chapId == "jadedamaranthus")
+                    {
+                        chapter.TabItemCode = "botaniastory:jadedamaranthus-free";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                             {
+                                 "botaniastory:mysticalpetal-lime",
+                                 "botaniastory:mysticalpetal-green",
+                                 "botaniastory:mysticalpetal-magenta",
+                                 "botaniastory:rust-root",
+                                 "botaniastory:rune-spring"
+                             },
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+                            Output = "botaniastory:jadedamaranthus-free"
+                        });
+
+                    }
+
                     // === НАСТРОЙКА БАССЕЙН МАНЫ ===
                     else if (chapId == "manapool")
                     {

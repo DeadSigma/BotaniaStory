@@ -7,6 +7,7 @@
   "botaniastory:dialog-settings-poolvolume": "Objętość basenu",
   "botaniastory:dialog-settings-portalvolume": "Elfia brama",
   "botaniastory:dialog-settings-sounds": "Ustawienia dźwięku",
+  "botaniastory:dialog-settings-tiaravolum": "Skrzydlata tiara",
   "botaniastory:error-cannotbind": "Nie można powiązać z kontenerami!",
   "botaniastory:handbook-intro-text": "Witamy w świecie kwiatowej magii!\n\nBotania Story to mod, który dodaje wiele nowych mechanik związanych z mistyczną florą i zarządzaniem maną.\n\nAby rozpocząć swoją podróż, będziesz potrzebować głównego narzędzia każdego botanika – księgi wiedzy. Możesz zobaczyć przepis na jego wykonanie, klikając ten link: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Leksykon</a>.\n\nStwórz go, trzymaj w dłoniach i kliknij prawym przyciskiem myszy, aby zanurzyć się w magii!",
   "botaniastory:handbook-intro-title": "Wprowadzenie do historii Botanii",
@@ -383,6 +384,11 @@
   "lexicon_elfmania_elfresources_p4": "Wymiana manakwarcu na pył wróżek:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMagiczny pył wróżek. Używany w elfich recepturach i tworzeniu wyjątkowych przedmiotów.",
   "lexicon_elfmania_elfresources_p5": "Wymiana manaszkła na elfie szkło:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPrzezroczyste szkło Alfheimu. Pięknie wygląda, jasno świeci i nadaje się do dekoracyjnych budowli.",
 
+  "lexicon_functional_flora_jadedamaranthus_title": "Zwiędły amarant",
+  "lexicon_functional_flora_jadedamaranthus_p1": "Każdy lubi kwiaty, prawda? \nW takim razie <link=jadedamaranthus>zwiędły amarant</link> jest stworzony właśnie do tego.\nZasilany <link=mana>maną</link> z <link=manapool>basenu many</link>, potrafi szybko hodować <link=mysticalflower>mistyczne kwiaty</link> wokół siebie.",
+  "lexicon_functional_flora_jadedamaranthus_p2": "         To to czy powojnik?",
+  "lexicon_functional_flora_jadedamaranthus_p3": "--Chwila, zamierzasz przywołać mnóstwo kwiatów w jednej chwili?\n\n--Tak, i co z tego?\n\n--To jest niezgodne z zasadami, wiesz o tym?\n\n--Do diabła z zasadami, mam manę!!!",
+
   "lexicon_functional_flora_puredaisy_title": "Czysta stokrotka",
   "lexicon_functional_flora_puredaisy_p1": "<link=puredaisy>Pure Daisy</link> to nie tylko pierwszy kwiat, ale także jeden z najważniejszych kwiatów dla każdego botanika. Ten kwiat oczyszcza i przekształca sąsiadujące bloki drewna i kamienia w ich oczyszczone formy: <link=livingwood>Livingwood</link> i <link=puredaisy>Livingrock</link>, które są potrzebne do wytworzenia wielu przedmiotów.",
   "lexicon_functional_flora_puredaisy_p2": "\nPo prostu daj jej minutę lub coś koło tego...",
@@ -499,13 +505,14 @@
 
   "lexicon_rusted_world_artifacts_blackholetalisman_title": "Talizman Czarnej Dziury",
   "lexicon_rusted_world_artifacts_blackholetalisman_p1": "Pustka to ogromna przestrzeń wypełniona... pustką. Nic w niej nie ma. Jednak przy odpowiedniej pomysłowości można wykorzystać tę przestrzeń do przechowywania przedmiotów w nieograniczonych ilościach. <link=blackholetalisman>Talizman Czarnej Dziury</link> wykorzystuje potężną magię Gai i Zardzewiałego Świata, pozwalając przechowywać niemal nieskończoną ilość bloków jednego typu w jednym slocie. Kliknięcie prawym przyciskiem (<link=nothing>PPM</link>) na blok w świecie ustawia typ bloków do przechowywania, ale tylko jeśli talizman jest pusty. Następnie, naciskając <link=nothing>Shift+PPM</link> w powietrzu, można go włączyć lub wyłączyć. Gdy jest aktywny w ekwipunku, automatycznie pochłania bloki wybranego typu.",
-  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Umieszczając talizman w siatce craftingu, można wyjmować z niego stosy bloków. Dopóki zawiera przedmioty, bloki można umieszczać bezpośrednio z talizmanu zwykłym <link=nothing>PPM</link>, jakby znajdowały się w ekwipunku. Kliknięcie na pojemnik spróbuje wypełnić go tymi blokami.\n\nTworzenie ramy talizmanu:\n\n\n\nTworzenie Talizmanu Czarnej Dziury:",
+  "lexicon_rusted_world_artifacts_blackholetalisman_p2": "Umieszczając talizman w siatce rzemieślniczej, można wyciągać z niego stosy bloków. Dopóki zawiera przedmioty, bloki można stawiać bezpośrednio z talizmanu zwykłym <link=nothing>PPM</link>, jakby znajdowały się w ekwipunku. Kliknięcie na pojemnik spróbuje wypełnić go tymi blokami.\n\n\nTworzenie szkieletu talizmanu:\n\n\n\nTworzenie talizmanu czarnej dziury:",
 
   "lexicon_rusted_world_artifacts_flight-tiara_title": "Skrzydlata tiara",
   "lexicon_rusted_world_artifacts_flight-tiara_p1": "<link=flight-tiara>Skrzydlata tiara</link> — artefakt inspirowany starożytną rasą Flugel. Niegdyś byli dominującym gatunkiem, stworzonym jako zabójcy bogów i posiadającym zdolność latania. Dzięki <link=gaiaspirit>duchom Gai</link> udało się odtworzyć część ich mocy: tiara pozwala latać kosztem many.\n\nJednak technologia jest niedoskonała. Tiara nie może utrzymywać lotu w nieskończoność — jeśli używana jest dłużej niż 60 sekund bez przerwy, przestanie działać, dopóki się nie zregeneruje. Do kontroli służy wskaźnik lotu na ekranie. Oprócz lotu umożliwia także szybkie doskoki i szybowanie. Naciśnięcie klawisza sprintu podczas lotu wykonuje doskok w kierunku patrzenia. Doskoki można wykonywać co 2 sekundy.",
-  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Szybowanie pozwala łagodnie opadać, pokonywać odległości poziome i unikać obrażeń od upadku. Aby to zrobić, należy kucnąć podczas spadania. Nawet przy pustym wskaźniku lotu można szybować, jednak regeneracja będzie wolniejsza.\n\nTworzenie ramy tiary:\n\n\n\nTworzenie skrzydlatej tiary:",
+  "lexicon_rusted_world_artifacts_flight-tiara_p2": "Szybowanie pozwala łagodnie opadać, pokonywać dystans w poziomie i unikać obrażeń od upadku. Aby je aktywować, należy kucnąć podczas spadania. Nawet przy pustym pasku lotu można szybować, jednak regeneracja będzie wolniejsza.\n\n\n\n\nTworzenie szkieletu tiary:\n\n\n\nTworzenie skrzydlatej tiary:",
 
   "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiolka z powietrzem zardzewiałego świata",
-  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiolka z powietrzem zardzewiałego świata</link> zawiera zniekształcone powietrze zebrane z rozłamów prowadzących do obcego świata. Aby napełnić fiolkę, należy trzymać <link=flask>pustą fiolkę</link> w ręce i nacisnąć <link=nothing>PPM</link> w pobliżu rozłamu.\n\nPowietrze to posiada właściwości mutagenne, jednak ich natura wciąż pozostaje niezbadana. "
+  "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiolka z powietrzem zardzewiałego świata</link> zawiera zniekształcone powietrze zebrane z rozłamów prowadzących do obcego świata. Aby napełnić fiolkę, należy trzymać <link=flask>pustą fiolkę</link> w ręce i nacisnąć <link=nothing>PPM</link> w pobliżu rozłamu.\n\nPowietrze to posiada właściwości mutagenne, jednak ich natura wciąż pozostaje niezbadana. ",
+  "lexicon_rusted_world_artifacts_rustworld-air_p2": "Wiadomo jedynie, że może być używany do tworzenia niektórych mistycznych przedmiotów."
 
 }

@@ -7,6 +7,7 @@
   "botaniastory:dialog-settings-poolvolume": "Бассейн маны",
   "botaniastory:dialog-settings-portalvolume": "Эльфийские врата",
   "botaniastory:dialog-settings-sounds": "Настройки звука",
+  "botaniastory:dialog-settings-tiaravolum": "Крылатая тиара",
   "botaniastory:error-cannotbind": "Нельзя привязывать к контейнерам!",
   "botaniastory:handbook-intro-text": "Добро пожаловать в мир цветочной магии!\n\nBotania Story — это мод, который добавляет множество новых механик, связанных с мистической флорой и управлением маной.\n\nЧтобы начать свое путешествие, вам понадобится главный инструмент каждого ботаника — книга знаний. Вы можете посмотреть рецепт её создания, нажав на эту ссылку: <a href=\"handbook://item-botaniastory:lexicon-closed\">Лексикон Ботании</a>.\n\nСоздайте её, возьмите в руки и нажмите ПКМ, чтобы погрузиться в магию!",
   "botaniastory:handbook-intro-title": "Введение в Botania Story",
@@ -382,6 +383,11 @@
   "lexicon_elfmania_elfresources_p3": "Обмен манашестерни на драконий камень:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nРедкий кристалл Альфхейма. Используется для рунных артефактов, брони и мощных эльфийских механизмов.",
   "lexicon_elfmania_elfresources_p4": "Обмен манастекла на эльфийское стекло:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nПрозрачное стекло Альфхейма. Красиво выглядит, ярко светится и подходит для декоративных построек.",
   "lexicon_elfmania_elfresources_p5": "Обмен манакварца на эльфийскую пыль:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nВолшебная пыль фей. Применяется в эльфийских рецептах и создании особых предметов.",
+
+  "lexicon_functional_flora_jadedamaranthus_title": "Измученный амарант",
+  "lexicon_functional_flora_jadedamaranthus_p1": "Все любят цветы, верно? \nТогда <link=jadedamaranthus>измученный амарант</link> создан именно для этого.\nПитаясь <link=mana>маной</link> из <link=manapool>бассейна маны</link>, он способен быстро выращивать <link=mysticalflower>мистические цветы</link> в области вокруг себя.",
+  "lexicon_functional_flora_jadedamaranthus_p2": "         Это он или клематис?",
+  "lexicon_functional_flora_jadedamaranthus_p3": "--Минуточку, ты сейчас призовёшь кучу цветов за мгновение?\n\n--Ага, и чё?\n\n-Это против правил, ты в курсе?\n\n--К чёрту правила, у меня есть мана!!!",
 
   "lexicon_functional_flora_puredaisy_title": "Чистая маргаритка",
   "lexicon_functional_flora_puredaisy_p1": "<link=puredaisy>Чистая маргаритка</link> — это не только самый первый, но и один из самых важных цветов для ботаника. Этот цветок будет очищать и превращать стоящие вплотную блоки дерева и камня в их очищенные версии: <link=livingwood>жизнедерево</link> и <link=puredaisy>жизнекамень</link>, которые пригодятся для создания многих предметов.",
