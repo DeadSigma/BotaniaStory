@@ -2,10 +2,11 @@ using BotaniaStory.blockentity;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
+using BotaniaStory.Blocks;
 
 namespace BotaniaStory
 {
-    public class BlockJadedAmaranthus : BlockPlant
+    public class BlockJadedAmaranthus : BlockBotaniaFlower
     {
         public override void OnBlockPlaced(IWorldAccessor world, BlockPos blockPos, ItemStack byItemStack = null)
         {

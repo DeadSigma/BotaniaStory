@@ -1,6 +1,6 @@
 {
     "code": "entropinnyum",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

@@ -1,6 +1,6 @@
 {
     "code": "spectrolus",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

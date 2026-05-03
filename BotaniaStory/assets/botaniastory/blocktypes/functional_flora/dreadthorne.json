@@ -1,6 +1,6 @@
 {
     "code": "dreadthorne",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

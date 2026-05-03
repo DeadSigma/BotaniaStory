@@ -1,6 +1,6 @@
 {
     "code": "munchdew",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

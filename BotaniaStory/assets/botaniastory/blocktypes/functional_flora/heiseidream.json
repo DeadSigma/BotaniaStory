@@ -1,6 +1,6 @@
 {
     "code": "heiseidream",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

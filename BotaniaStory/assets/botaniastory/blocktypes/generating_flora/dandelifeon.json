@@ -1,6 +1,6 @@
 {
     "code": "dandelifeon",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

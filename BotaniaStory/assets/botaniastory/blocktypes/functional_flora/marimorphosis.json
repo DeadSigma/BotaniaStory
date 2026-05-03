@@ -1,6 +1,6 @@
 {
     "code": "marimorphosis",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

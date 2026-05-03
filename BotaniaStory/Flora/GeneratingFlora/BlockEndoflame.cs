@@ -1,9 +1,10 @@
 ﻿using Vintagestory.API.Common;
 using Vintagestory.GameContent;
+using BotaniaStory.Blocks;
 
 namespace BotaniaStory.Flora.GeneratingFlora
 {
-    public class BlockEndoflame : BlockPlant
+    public class BlockEndoflame : BlockBotaniaFlower
     {
         public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack)
         {

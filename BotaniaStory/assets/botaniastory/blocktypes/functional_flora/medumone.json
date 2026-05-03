@@ -1,6 +1,6 @@
 {
     "code": "medumone",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

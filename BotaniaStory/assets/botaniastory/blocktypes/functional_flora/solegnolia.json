@@ -1,6 +1,6 @@
 {
     "code": "solegnolia",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

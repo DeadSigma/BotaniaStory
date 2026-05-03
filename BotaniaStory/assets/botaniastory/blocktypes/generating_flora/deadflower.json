@@ -1,6 +1,6 @@
 {
     "code": "deadflower",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [ "deadflower-free" ],
         "flora": [ "deadflower-free" ],

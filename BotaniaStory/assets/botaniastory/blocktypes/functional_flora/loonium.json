@@ -1,6 +1,6 @@
 {
     "code": "loonium",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

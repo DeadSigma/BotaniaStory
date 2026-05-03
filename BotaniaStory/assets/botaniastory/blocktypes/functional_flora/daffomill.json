@@ -1,6 +1,6 @@
 {
     "code": "daffomill",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

@@ -1,6 +1,6 @@
 {
     "code": "narslimmus",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

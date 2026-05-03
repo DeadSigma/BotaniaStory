@@ -1,6 +1,6 @@
 {
     "code": "pollidisiac",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

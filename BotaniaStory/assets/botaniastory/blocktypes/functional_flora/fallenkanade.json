@@ -1,6 +1,6 @@
 {
     "code": "fallenkanade",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "creativeinventory": {
         "general": [
             "*-free"

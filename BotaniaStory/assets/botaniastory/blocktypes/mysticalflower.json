@@ -1,6 +1,6 @@
 {
     "code": "mysticalflower",
-    "class": "BlockPlant",
+    "class": "BlockBotaniaFlower",
     "attributes": {
         "handbook": {
             "groupBy": [

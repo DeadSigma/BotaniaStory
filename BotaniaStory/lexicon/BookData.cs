@@ -77,8 +77,8 @@ namespace BotaniaStory.lexicon
     {
         private static readonly Dictionary<string, string[]> BookStructure = new Dictionary<string, string[]>
         {
-            { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "wandoftheforest", "terrasteel",
-                "puredaisy", "runicaltar", "rune", "pylon" } },
+            { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower","puredaisy", "wandoftheforest",
+              "runicaltar", "rune","terrasteel", "pylon" } },
 
             { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment", "catalyst_alchemy", "catalyst_conjuration" } },
 
@@ -590,7 +590,7 @@ namespace BotaniaStory.lexicon
                         {
                             Spread = 2,
                             ManaCost = 30000,
-                            UiKey = "Бассейн_Область_Левая_Верхняя"
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
                         // 4. Мана-нить

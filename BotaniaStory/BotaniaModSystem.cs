@@ -1,19 +1,20 @@
-﻿using BotaniaStory.Flora.GeneratingFlora;
+﻿using BotaniaStory.blockentity;
+using BotaniaStory.blocks;
+using BotaniaStory.Blocks;
+using BotaniaStory.client.renderers;
+using BotaniaStory.client.ui;
+using BotaniaStory.entities;
+using BotaniaStory.Flora.GeneratingFlora;
+using BotaniaStory.items;
+using BotaniaStory.lexicon;
+using BotaniaStory.network;
+using BotaniaStory.util;
+using ProtoBuf;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
-using ProtoBuf;
-using BotaniaStory.lexicon;
-using BotaniaStory.blocks;
-using BotaniaStory.blockentity;
-using BotaniaStory.items;
-using BotaniaStory.entities;
-using BotaniaStory.client.renderers;
-using BotaniaStory.client.ui;
-using BotaniaStory.util;
-using BotaniaStory.network;
 
 
 namespace BotaniaStory
@@ -100,10 +101,10 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemFlask", typeof(ItemFlask));
             api.RegisterItemClass("ItemRodOfTheSeas", typeof(ItemRodOfTheSeas));
             api.RegisterCollectibleBehaviorClass("AnimatedItem", typeof(BotaniaStory.systems.BehaviorAnimatedItem));
+            api.RegisterBlockClass("BlockBotaniaFlower", typeof(BlockBotaniaFlower));
 
 
-
-        api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
+            api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 
         }
 
@@ -275,7 +276,7 @@ namespace BotaniaStory
         public string SoundName;
     }
 
-    public class BlockMysticalFlower : BlockPlant
+    public class BlockMysticalFlower : BlockBotaniaFlower
     {
         public override void OnLoaded(ICoreAPI api)
         {
