@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "Manasteel Prospecting Pick",
   "item-prospectingpickhead-manasteel": "Manasteel Prospekteringshuvud",
   "item-rod_of_the_seas": "Havets stav",
+  "item-root": "Rot",
+  "item-root_rusted": "Rostig rot",
   "item-rune-air": "Rune of Air",
   "item-rune-autumn": "Runa av hösten",
   "item-rune-earth": "Rune of Earth",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "Manasteel spjuthuvud",
   "item-tongs-manasteel": "Manasteel Tongs",
   "item-wandofbinding": "Trollstav av bindning",
+  "item-wandofbinding_frame": "Kärna för bindningsstav",
   "item-wandoftheforest-*": "Skogens trollstav",
   "item-wrench-manasteel": "Manasteel skiftnyckel",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "Kronbladsapoteker",
   "block-bellethorne-free": "Bellethorne",
   "block-bubbell-free": "Bubbell",
+  "block-catalyst_alchemy": "Alkemisk katalysator",
+  "block-catalyst_conjuration": "Framkallningskatalysator",
   "block-clayconia-free": "Clayconia",
   "block-daffomill-free": "Daffomill",
   "block-dandelifeon-free": "Dandelifeon",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "Att generera mana bör vara en av huvudprioriteringarna för alla botaniker. Det finns många <link=generatingflora>genererande blommor</link> som kan hjälpa till med detta. Dessa blommor producerar mana passivt eller aktivt beroende på förhållandena.\n\nAlla <link=category:generating_flora>Genererande blommor</link>, som <link=category:functional_flora>Funktionella blommor</link>, har en intern manabuffert. För att se mängden mana, rikta skogens trollstav mot blomman. Genererad mana kommer att skickas till närmaste <link=manaspreader>Mana-spridare</link>.\n\nGenererande blommor kom ihåg Mana-spridaren de var anslutna till. De skickar bara mana till den om inte spridaren tas bort.",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "Till att börja med rekommenderar vi att du använder <link=endoflame>Endoflame</link> eller <link=hydroangeas>Hydroangeas</link>. Endoflame använder bränsle för att generera mana, medan Hydroangeas producerar mana från vattenkällor. Om du föredrar att göra absolut ingenting och vänta är <link=daybloom>Daybloom</link> eller <link=nightshade>Nightshade</link> perfekt för dig.",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "Alkemisk katalysator",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>Mana</link> är en extremt eterisk substans vars egenskaper ännu inte är helt förstådda. En av de få kända användningarna är skapandet av en <link=catalyst_alchemy>alkemisk katalysator</link>. Genom att placera den under en <link=manapool>manapool</link> kan alkemiska omvandlingar utföras direkt i poolen.\n\n\n\n\nSkapande av den alkemiska katalysatorn:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "Förvandling av en pinne till en rot.\n\n\n\n\n\n\n\n\n\n\n\nFörvandling av en rot till en planka.",
+  "lexicon_mana_management_catalyst_alchemy_p3": "Förvandling av en planka till en bjälke.\n\n\n\n\n\n\n\n\n\n\n\nFörvandling av en bjälke till en pinne.",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "Framkallningskatalysator",
+  "lexicon_mana_management_catalyst_conjuration_p1": "En motsvarighet till <link=catalyst_alchemy>den alkemiska katalysatorn</link> finns även för <link=catalyst_conjuration>manamaning</link>. <link=conjurationcatalyst>Framkallningskatalysatorn</link>, placerad under en <link=manapool>manapool</link>, gör det möjligt att materialisera block direkt från mana. Principen liknar manaal kemi — kasta helt enkelt föremål i poolen med katalysatorn installerad för att starta omvandlingar.",
+  "lexicon_mana_management_catalyst_conjuration_p2": "Duplicering av en pinne:\n\n\n\n\n\n\n\n\n\n\n\nDuplicering av torrt gräs:",
+  "lexicon_mana_management_catalyst_conjuration_p3": "Duplicering av bergkristall:\n\n\n\n\n\n\n\n\n\n\n\nDuplicering av kvarts:",
+  "lexicon_mana_management_catalyst_conjuration_p4": "Duplicering av järnoxid:\n\n\n\n\n\n\n\n\n\n\n\nDuplicering av en snöboll:",
+  "lexicon_mana_management_catalyst_conjuration_p5": "Duplicering av röd lera:\n\n\n\n\n\n\n\n\n\n\n\nDuplicering av murbruk:",
+
   "lexicon_mana_management_manaintroduction_title": "Introduktion till Mana",
   "lexicon_mana_management_manaintroduction_p1": "Mana är en speciell eterisk substans. Enkelt uttryckt är det en form av mystisk energi. Dess färg kan ändras beroende på den omgivande miljön. Mana management är en av de viktigaste färdigheterna en botanist måste behärska.\n\nFör att få mana behöver du blommor från kategorin <link=category:generating_flora>Generera flora</link>. Mana kan överföras med <link=manaspreader>Mana-spridare</link> och lagras i <link=manapool>Mana-pooler</link>. Det används för ett stort antal saker, som att driva <link=category:functional_flora>Functional Flowers</link>.\n\nFör att börja hantera mana, rekommenderas det att studera användningen av <link=endoflame>Endoflame</link>, <link=hydroangeas>Hydroangeas</link>, <link=manaspreader>Mana Spreaders</link> och <link=manapool>Mana Pools</link>.",
   "lexicon_mana_management_manaintroduction_p2": "Tillsammans bildar de ett grundläggande mana-överföringssystem som kan användas för många ändamål. Det rekommenderas också att du granskar avsnitten <link=category:functional_flora>Funktionell Flora</link> och <link=naturalapparatus>Natural Apparatus</link> i detta lexikon.",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "Managlass",
   "lexicon_misc_managlass_p1": "<link=managlass>Managlass</link> är renat glas infunderat med mana. Den kombinerar genomskinligheten hos vanligt glas med en magisk glödande effekt och används ofta i botaniska strukturer och enheter. Tack vare sin renhet leder den manaflöden väl genom sig själv, vilket tillåter slutna utrymmen där mana kan passera genom Managlasset.",
+
+  "lexicon_misc_root_title": "Rot",
+  "lexicon_misc_root_p1": "Det finns ingen anledning att gräva upp trädrötter om du har en <link=catalyst_alchemy>alkemisk katalysator</link>. Släng bara en <link=game:stick>pinne</link> i en <link=manapool>manapool</link> placerad på katalysatorn, så förvandlas den till en <link=root>rot</link>. Denna metod är mycket enklare och kräver inte att naturen förstörs.",
+  "lexicon_misc_root_p2": "Tillverkning av en rot från en pinne:",
+
+  "lexicon_misc_root_rusted_title": "Rostig rot",
+  "lexicon_misc_root_rusted_p1": "Rost förtär gradvis allt den rör vid och för med sig sällan något gott. Ändå har den sina användningar. Om du genomsyrar en <link=root>trädröt</link> med den, kommer den att förändras och få ovanliga egenskaper.\nEn sådan <link=rustyroot>rostig rot</link> kan användas i alkemi, skapandet av vissa blommor och olika mystiska föremål. Dess egenskaper är ännu inte helt förstådda, men en sak är klar — det är inte bara rostigt skräp.",
+  "lexicon_misc_root_rusted_p2": "Tillverkning av en rostig rot:",
 
   "lexicon_mystical_items_manaitem_title": "Manasteel föremål",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>Manasteel</link> används för att skapa verktyg och rustningar. Manasteel-artiklar är jämförbara i hållbarhet med koppar. Detta beror på att alla metallgöt som kommer i kontakt med mana får ungefär samma egenskaper, motsvarande kopparstyrkan.\n\nDen största skillnaden mellan Manasteel ligger i dess magiska egenskaper. När man tar skada förbrukar Manasteel-objekt mana från tillgängliga källor, som en <link=manatablet>Mana-surfplatta</link>, istället för att förlora hållbarhet. Detta gör Manasteel till ett unikt och oumbärligt material för att tillverka verktyg och rustningar.",

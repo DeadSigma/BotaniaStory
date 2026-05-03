@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "魔钢探矿镐",
   "item-prospectingpickhead-manasteel": "魔钢探矿镐头",
   "item-rod_of_the_seas": "海之法杖",
+  "item-root": "根",
+  "item-root_rusted": "生锈的根",
   "item-rune-air": "风之符文",
   "item-rune-autumn": "秋之符文",
   "item-rune-earth": "土之符文",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "魔钢矛头",
   "item-tongs-manasteel": "魔钢钳",
   "item-wandofbinding": "绑定法杖",
+  "item-wandofbinding_frame": "束缚法杖核心",
   "item-wandoftheforest-*": "森林法杖",
   "item-wrench-manasteel": "魔钢扳手",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "花瓣炼药锅",
   "block-bellethorne-free": "铃刺花",
   "block-bubbell-free": "泡铃花",
+  "block-catalyst_alchemy": "炼金催化器",
+  "block-catalyst_conjuration": "具现催化器",
   "block-clayconia-free": "黏土花",
   "block-daffomill-free": "风信花",
   "block-dandelifeon-free": "生命蒲公英",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "生产魔力应当是每位植物学家的首要任务之一。有许多 <link=generatingflora>产能花朵</link> 能帮助你做到这一点。这些花朵会根据条件，被动或主动地产生魔力。\n\n所有 <link=category:generating_flora>产能花卉</link>，和 <link=category:functional_flora>功能花卉</link> 一样，都拥有内部魔力缓冲区。若想查看魔力量，请将森林法杖指向花朵。生成的魔力会传送到附近的 <link=manaspreader>魔力发射器</link>\n\n产能花朵会记住所连接的魔力发射器。除非该发射器被移除，否则它们只会向其传输魔力。",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "初期推荐使用 <link=endoflame>终焰花</link> 或 <link=hydroangeas>水绣球</link>。终焰花通过燃料产生魔力，而水绣球则从水源中生成魔力。如果你只想挂机等待，那么 <link=daybloom>昼花</link> 或 <link=nightshade>夜影花</link> 会很适合你。",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "炼金催化器",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>魔力</link>是一种极其空灵的物质，其性质尚未被完全理解。已知用途之一是制作<link=catalyst_alchemy>炼金催化器</link>。将其放置在<link=manapool>魔力池</link>下方，可以直接在池中进行炼金转化。\n\n\n\n\n制作炼金催化器:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "将木棍转化为根。\n\n\n\n\n\n\n\n\n\n\n\n将根转化为木板。",
+  "lexicon_mana_management_catalyst_alchemy_p3": "将木板转化为梁。\n\n\n\n\n\n\n\n\n\n\n\n将梁转化为木棍。",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "具现催化器",
+  "lexicon_mana_management_catalyst_conjuration_p1": "<link=catalyst_alchemy>炼金催化器</link>的对应物也存在于<link=catalyst_conjuration>魔力具现</link>中。将<link=conjurationcatalyst>具现催化器</link>放置在<link=manapool>魔力池</link>下方，可以直接从魔力中实体化方块。其原理类似于魔力炼金——只需将物品丢入安装了催化器的池中即可触发转化。",
+  "lexicon_mana_management_catalyst_conjuration_p2": "木棍的复制：\n\n\n\n\n\n\n\n\n\n\n\n干草的复制：",
+  "lexicon_mana_management_catalyst_conjuration_p3": "水晶的复制：\n\n\n\n\n\n\n\n\n\n\n\n石英的复制：",
+  "lexicon_mana_management_catalyst_conjuration_p4": "氧化铁的复制：\n\n\n\n\n\n\n\n\n\n\n\n雪球的复制：",
+  "lexicon_mana_management_catalyst_conjuration_p5": "红色黏土的复制：\n\n\n\n\n\n\n\n\n\n\n\n砂浆的复制：",
+
   "lexicon_mana_management_manaintroduction_title": "魔力简介",
   "lexicon_mana_management_manaintroduction_p1": "魔力是一种特殊的以太物质。简单来说，它是一种神秘能量的形态。它的颜色会随着周围环境而变化。掌控魔力，是植物学家必须掌握的最重要能力之一。\n\n要获得魔力，你需要 <link=category:generating_flora>产能花卉</link>。魔力可以通过 <link=manaspreader>魔力发射器</link> 传输，并储存在 <link=manapool>魔力池</link> 中。它用途极广，例如为 <link=category:functional_flora>功能花卉</link> 提供能量。\n\n若想开始学习魔力管理，建议先了解 <link=endoflame>终焰花</link>、<link=hydroangeas>水绣球</link>、<link=manaspreader>魔力发射器</link> 与 <link=manapool>魔力池</link> 的使用方法。",
   "lexicon_mana_management_manaintroduction_p2": "它们共同组成一套基础的魔力传输系统，可用于各种用途。同时也建议阅读本辞典中的 <link=category:functional_flora>功能花卉</link> 与 <link=naturalapparatus>自然装置</link> 分类。",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "魔力玻璃",
   "lexicon_misc_managlass_p1": "<link=managlass>魔力玻璃</link> 是被魔力浸润后的净化玻璃。它兼具普通玻璃的透明性与魔法般的微光效果，常用于植物建筑与装置之中。由于其纯净特性，魔力流能够穿透其中，因此可以建造封闭空间，同时让魔力通过魔力玻璃进入内部。",
+
+  "lexicon_misc_root_title": "根",
+  "lexicon_misc_root_p1": "如果你拥有<link=catalyst_alchemy>炼金催化器</link>，就没有必要去挖树根。只需将一根<link=game:stick>木棍</link>丢入放置在催化器上的<link=manapool>魔力池</link>中，它就会转化为<link=root>根</link>。这种方法更加简单，也不需要破坏自然。",
+  "lexicon_misc_root_p2": "由木棍制作根：",
+
+  "lexicon_misc_root_rusted_title": "生锈的根",
+  "lexicon_misc_root_rusted_p1": "锈蚀会逐渐吞噬它所接触的一切，很少带来好处。然而，它仍然有其用途。如果将其渗入<link=root>树根</link>中，它会发生变化并获得异常的特性。\n这种<link=rustyroot>生锈的根</link>可以用于炼金术、某些花的制作以及各种神秘物品。它的性质尚未完全被理解，但有一点已经很清楚——它绝不仅仅是生锈的废物。",
+  "lexicon_misc_root_rusted_p2": "生锈根的制作：",
 
   "lexicon_mystical_items_manaitem_title": "魔钢物品",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>魔钢</link> 用于制作工具与护甲。魔钢制物品的耐久度与铜制品相近。这是因为任何金属锭在接触魔力后，都会获得大致相同的性质，其强度相当于铜。\n\n魔钢最大的不同之处在于其魔法特性。受到损耗时，魔钢物品会消耗可用来源中的魔力，例如 <link=manatablet>魔力石板</link>，而不是损失耐久度。这使魔钢成为制作工具与护甲时独特且不可替代的材料。",

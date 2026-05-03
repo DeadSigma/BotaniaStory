@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "Manasteel Prospecting Pick",
   "item-prospectingpickhead-manasteel": "Manasteel Prospecting Pick Head",
   "item-rod_of_the_seas": "Rod of the Seas",
+  "item-root": "Root",
+  "item-root_rusted": "Rusty Root",
   "item-rune-air": "Rune of Air",
   "item-rune-autumn": "Rune of Autumn",
   "item-rune-earth": "Rune of Earth",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "Manasteel Spear Head",
   "item-tongs-manasteel": "Manasteel Tongs",
   "item-wandofbinding": "Wand of Binding",
+  "item-wandofbinding_frame": "Wand of Binding Core",
   "item-wandoftheforest-*": "Wand of the Forest",
   "item-wrench-manasteel": "Manasteel Wrench",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "Petal Apothecary",
   "block-bellethorne-free": "Bellethorne",
   "block-bubbell-free": "Bubbell",
+  "block-catalyst_alchemy": "Alchemical Catalyst",
+  "block-catalyst_conjuration": "Conjuration Catalyst",
   "block-clayconia-free": "Clayconia",
   "block-daffomill-free": "Daffomill",
   "block-dandelifeon-free": "Dandelifeon",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "Generating mana should be one of the main priorities of any botanist. There are many <link=generatingflora>generating flowers</link> that can help with this. These flowers produce mana passively or actively depending on conditions.\n\nAll <link=category:generating_flora>Generating Flowers</link>, like <link=category:functional_flora>Functional Flowers</link>, have an internal mana buffer. To see the amount of mana, point the Wand of the Forest at the flower. Generated mana will be sent to the nearest <link=manaspreader>Mana Spreader</link>.\n\nGenerating flowers remember the Mana Spreader they were connected to. They will send mana only to it unless that spreader is removed.",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "To begin, it is recommended to use <link=endoflame>Endoflame</link> or <link=hydroangeas>Hydroangeas</link>. Endoflame uses fuel to generate mana, while Hydroangeas produces mana from water sources. If you prefer doing absolutely nothing and waiting, then <link=daybloom>Daybloom</link> or <link=nightshade>Nightshade</link> is perfect for you.",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "Alchemical Catalyst",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>Mana</link> is an extremely ethereal substance whose properties are not yet fully understood. One of the few known uses is the creation of an <link=catalyst_alchemy>alchemical catalyst</link>. Placing it beneath a <link=manapool>mana pool</link> allows alchemical transformations to be performed directly within the pool.\n\n\n\n\nCrafting the alchemical catalyst:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "Transforming a stick into a root.\n\n\n\n\n\n\n\n\n\n\n\nTransforming a root into a plank.",
+  "lexicon_mana_management_catalyst_alchemy_p3": "Transforming a plank into a beam.\n\n\n\n\n\n\n\n\n\n\n\nTransforming a beam into a stick.",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "Conjuration Catalyst",
+  "lexicon_mana_management_catalyst_conjuration_p1": "An analogue of the <link=catalyst_alchemy>alchemical catalyst</link> also exists for <link=catalyst_conjuration>mana conjuration</link>. The <link=conjurationcatalyst>conjuration catalyst</link>, placed beneath a <link=manapool>mana pool</link>, allows blocks to be materialized directly from mana. The principle is similar to mana alchemy — simply throw items into the pool with the catalyst installed to trigger transformations.",
+  "lexicon_mana_management_catalyst_conjuration_p2": "Duplicating a stick:\n\n\n\n\n\n\n\n\n\n\n\nDuplicating dry grass:",
+  "lexicon_mana_management_catalyst_conjuration_p3": "Duplicating rock crystal:\n\n\n\n\n\n\n\n\n\n\n\nDuplicating quartz:",
+  "lexicon_mana_management_catalyst_conjuration_p4": "Duplicating iron oxide:\n\n\n\n\n\n\n\n\n\n\n\nDuplicating a snowball:",
+  "lexicon_mana_management_catalyst_conjuration_p5": "Duplicating red clay:\n\n\n\n\n\n\n\n\n\n\n\nDuplicating mortar:",
+
   "lexicon_mana_management_manaintroduction_title": "Introduction to Mana",
   "lexicon_mana_management_manaintroduction_p1": "Mana is a special ethereal substance. Simply put, it is a form of mystical energy. Its color may change depending on the surrounding environment. Mana management is one of the most important skills a botanist must master.\n\nTo obtain mana, you will need flowers from the <link=category:generating_flora>Generating Flora</link> category. Mana can be transferred using <link=manaspreader>Mana Spreaders</link> and stored in <link=manapool>Mana Pools</link>. It is used for a vast number of things, such as powering <link=category:functional_flora>Functional Flowers</link>.\n\nTo begin managing mana, it is recommended to study the use of <link=endoflame>Endoflame</link>, <link=hydroangeas>Hydroangeas</link>, <link=manaspreader>Mana Spreaders</link>, and <link=manapool>Mana Pools</link>.",
   "lexicon_mana_management_manaintroduction_p2": "Together they form a basic mana transfer system that can be used for many purposes. It is also recommended to review the <link=category:functional_flora>Functional Flora</link> and <link=naturalapparatus>Natural Apparatus</link> sections in this lexicon.",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "Managlass",
   "lexicon_misc_managlass_p1": "<link=managlass>Managlass</link> is purified glass infused with mana. It combines the transparency of ordinary glass with a magical glowing effect and is often used in botanical structures and devices. Thanks to its purity, it conducts mana flows well through itself, allowing enclosed spaces where mana can pass through the Managlass.",
+
+  "lexicon_misc_root_title": "Root",
+  "lexicon_misc_root_p1": "There is no need to dig up tree roots if you have an <link=catalyst_alchemy>alchemy catalyst</link>. Simply throw a <link=game:stick>stick</link> into a <link=manapool>mana pool</link> placed on the catalyst, and it will transform into a <link=root>root</link>. This method is much easier and does not require harming nature.",
+  "lexicon_misc_root_p2": "Crafting a Root from a Stick:",
+
+  "lexicon_misc_root_rusted_title": "Rusty Root",
+  "lexicon_misc_root_rusted_p1": "Rust gradually consumes everything it touches and rarely brings anything good. However, it still has its uses. If you infuse a <link=root>tree root</link> with it, it will change and gain unusual properties.\nSuch a <link=rustyroot>rusty root</link> can be used in alchemy, the creation of certain flowers, and various mystical items. Its properties are not yet fully understood, but it is already clear — it is not just rusty junk.",
+  "lexicon_misc_root_rusted_p2": "Crafting a Rusty Root:",
 
   "lexicon_mystical_items_manaitem_title": "Manasteel Items",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>Manasteel</link> is used to create tools and armor. Manasteel items are comparable in durability to copper ones. This is because any metal ingots that come into contact with mana gain roughly the same properties, equivalent to the strength of copper.\n\nThe main difference of Manasteel lies in its magical properties. When taking damage, Manasteel items consume mana from available sources, such as a <link=manatablet>Mana Tablet</link>, instead of losing durability. This makes Manasteel a unique and indispensable material for crafting tools and armor.",

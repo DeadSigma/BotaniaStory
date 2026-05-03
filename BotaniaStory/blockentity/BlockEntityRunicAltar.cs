@@ -131,8 +131,6 @@ namespace BotaniaStory.blockentity
             }
             catch (Exception ex)
             {
-                // Если произойдет ошибка, алтарь НЕ удалится из мира!
-                // Мы увидим точную причину в логах (server-main.txt или client-main.txt)
                 Api?.Logger.Error($"[BotaniaStory] Сбой загрузки алтаря по координатам {Pos}: {ex}");
             }
 
@@ -142,9 +140,7 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ========================================================
         // ЛОГИКА ПРЕДМЕТОВ
-        // ========================================================
         public bool TryAddItem(ItemSlot slot, IPlayer player)
         {
             if (slot.Itemstack.Collectible.Code.Path.Contains("livingrock"))

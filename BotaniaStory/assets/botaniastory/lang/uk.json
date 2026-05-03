@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "Manasteel Prospecting Pick",
   "item-prospectingpickhead-manasteel": "Manasteel Prospecting Pick Head",
   "item-rod_of_the_seas": "Жезл морів",
+  "item-root": "Корінь",
+  "item-root_rusted": "Іржавий корінь",
   "item-rune-air": "Руна повітря",
   "item-rune-autumn": "Руна осені",
   "item-rune-earth": "Руна Землі",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "Наконечник списа зі сталі",
   "item-tongs-manasteel": "Щипці Manasteel",
   "item-wandofbinding": "Жезл зв'язування",
+  "item-wandofbinding_frame": "Ядро посоха зв’язування",
   "item-wandoftheforest-*": "Паличка лісу",
   "item-wrench-manasteel": "Гайковий ключ Manasteel",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "Пелюстковий аптекар",
   "block-bellethorne-free": "Беллторн",
   "block-bubbell-free": "Bubbell",
+  "block-catalyst_alchemy": "Алхімічний каталізатор",
+  "block-catalyst_conjuration": "Колдовський каталізатор",
   "block-clayconia-free": "Клейконія",
   "block-daffomill-free": "Нарцис",
   "block-dandelifeon-free": "Dandelifeon",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "Генерація мани має бути одним із головних пріоритетів будь-якого ботаніка. Існує багато <link=generatingflora>генеруючих квітів</link>, які можуть допомогти в цьому. Ці квіти виробляють ману пасивно або активно залежно від умов.\n\nУсі <link=category:generating_flora>генеруючі квіти</link>, як і <link=category:functional_flora>функціональні квіти</link>, мають внутрішній буфер мани. Щоб побачити кількість мани, наведіть жезл лісу на квітку. Згенеровану ману буде надіслано до найближчого <link=manaspreader>розповсюджувача мани</link>.\n\nСтворюючі квіти пам'ятають про розсіювач мани, до якого вони були підключені. Вони надсилатимуть ману лише йому, якщо цей розповсюджувач не буде видалено.",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "Для початку рекомендується використовувати <link=endoflame>Endoflame</link> або <link=hydroangeas>Hydroangeas</link>. Endoflame використовує паливо для створення мани, тоді як Hydroangeas виробляє ману з джерел води. Якщо ви надаєте перевагу абсолютно нічого не робити й чекати, тоді <link=daybloom>Daybloom</link> або <link=nightshade>Nightshade</link> ідеально підійде вам.",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "Алхімічний каталізатор",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>Мана</link> — надзвичайно ефірна речовина, властивості якої ще не повністю вивчені. Одне з небагатьох відомих застосувань — створення <link=catalyst_alchemy>алхімічного каталізатора</link>. Розмістивши його під <link=manapool>басейном мани</link>, можна проводити алхімічні перетворення прямо в басейні.\n\n\n\n\nСтворення алхімічного каталізатора:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "Перетворення палиці на корінь.\n\n\n\n\n\n\n\n\n\n\n\nПеретворення кореня на дошку.",
+  "lexicon_mana_management_catalyst_alchemy_p3": "Перетворення дошки на балку.\n\n\n\n\n\n\n\n\n\n\n\nПеретворення балки на палицю.",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "Колдовський каталізатор",
+  "lexicon_mana_management_catalyst_conjuration_p1": "Аналог <link=catalyst_alchemy>алхімічного каталізатора</link> існує і для <link=catalyst_conjuration>манаколдовства</link>. <link=conjurationcatalyst>Колдовський каталізатор</link>, встановлений під <link=manapool>басейном мани</link>, дозволяє матеріалізувати блоки прямо з мани. Принцип роботи подібний до маноалхімії — достатньо кидати предмети в басейн із встановленим каталізатором, щоб запускати перетворення.",
+  "lexicon_mana_management_catalyst_conjuration_p2": "Множення палиці:\n\n\n\n\n\n\n\n\n\n\n\nМноження сухої трави:",
+  "lexicon_mana_management_catalyst_conjuration_p3": "Множення гірського кришталю:\n\n\n\n\n\n\n\n\n\n\n\nМноження кварцу:",
+  "lexicon_mana_management_catalyst_conjuration_p4": "Множення оксиду заліза:\n\n\n\n\n\n\n\n\n\n\n\nМноження сніжки:",
+  "lexicon_mana_management_catalyst_conjuration_p5": "Множення червоної глини:\n\n\n\n\n\n\n\n\n\n\n\nМноження розчину:",
+
   "lexicon_mana_management_manaintroduction_title": "Введення в Mana",
   "lexicon_mana_management_manaintroduction_p1": "Мана — особлива ефірна субстанція. Простіше кажучи, це форма містичної енергії. Його колір може змінюватися залежно від навколишнього середовища. Управління маною є одним із найважливіших навичок, яким повинен опанувати ботанік.\n\nЩоб отримати ману, вам знадобляться квіти з категорії <link=category:generating_flora>Створення флори</link>. Ману можна передавати за допомогою <link=manaspreader>розповсюджувачів мани</link> та зберігати в <link=manapool>базах мани</link>. Він використовується для великої кількості речей, наприклад для живлення <link=category:functional_flora>Functional Flowers</link>.\n\nЩоб почати керувати маною, рекомендується вивчити використання <link=endoflame>Endoflame</link>, <link=hydroangeas>Hydroangeas</link>, <link=manaspreader>Mana Spreaders</link> і <link=manapool>Mana Pools</link>.",
   "lexicon_mana_management_manaintroduction_p2": "Разом вони утворюють базову систему передачі мани, яку можна використовувати для багатьох цілей. Також рекомендується переглянути розділи <link=category:functional_flora>Функціональна флора</link> та <link=naturalapparatus>Природний апарат</link> у цьому лексиконі.",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "Managlass",
   "lexicon_misc_managlass_p1": "<link=managlass>Managlass</link> — це очищене скло, наповнене маною. Він поєднує в собі прозорість звичайного скла з чарівним ефектом світіння і часто використовується в ботанічних спорудах і пристроях. Завдяки своїй чистоті він добре пропускає потоки мани через себе, створюючи замкнуті простори, де мана може проходити через Managlass.",
+
+  "lexicon_misc_root_title": "Корінь",
+  "lexicon_misc_root_p1": "Немає потреби викопувати корені дерев, якщо у вас є <link=catalyst_alchemy>алхімічний каталізатор</link>. Достатньо кинути <link=game:stick>палицю</link> в <link=manapool>басейн мани</link>, встановлений на каталізаторі, і вона перетвориться на <link=root>корінь</link>. Цей спосіб набагато простіший і не потребує руйнування природи.",
+  "lexicon_misc_root_p2": "Створення кореня з палиці:",
+
+  "lexicon_misc_root_rusted_title": "Іржавий корінь",
+  "lexicon_misc_root_rusted_p1": "Іржа поступово поглинає все, до чого торкається, і рідко приносить щось добре. Однак і вона має своє застосування. Якщо просочити нею <link=root>корінь дерева</link>, він зміниться і набуде незвичайних властивостей.\nТакий <link=rustyroot>іржавий корінь</link> можна використовувати в алхімії, створенні деяких квітів і різних містичних предметів. Його властивості ще не повністю вивчені, але вже зараз ясно — це не просто іржаве сміття.",
+  "lexicon_misc_root_rusted_p2": "Створення іржавого кореня:",
 
   "lexicon_mystical_items_manaitem_title": "Предмети Manasteel",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>Manasteel</link> використовується для створення інструментів і броні. Вироби з Manasteel по міцності можна порівняти з мідними. Це пояснюється тим, що будь-які металеві злитки, які контактують з маною, набувають приблизно таких же властивостей, еквівалентних міцності міді.\n\nОсновна відмінність Manasteel полягає в його магічних властивостях. Одержуючи пошкодження, предмети Manasteel споживають ману з доступних джерел, наприклад <link=manatablet>таблиці мани</link>, замість того, щоб втрачати міцність. Це робить Manasteel унікальним і незамінним матеріалом для виготовлення інструментів і броні.",

@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "Piccone da prospezione di Manasteel",
   "item-prospectingpickhead-manasteel": "Testa di piccone per prospezione di Manasteel",
   "item-rod_of_the_seas": "Bastone dei Mari",
+  "item-root": "Radice",
+  "item-root_rusted": "Radice arrugginita",
   "item-rune-air": "Runa dell'Aria",
   "item-rune-autumn": "Runa dell'autunno",
   "item-rune-earth": "Runa della Terra",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "Punta di lancia di acciaio di mana",
   "item-tongs-manasteel": "Pinze di acciaio di mana",
   "item-wandofbinding": "Bacchetta del Vincolo",
+  "item-wandofbinding_frame": "Nucleo della bacchetta vincolante",
   "item-wandoftheforest-*": "Bacchetta della foresta",
   "item-wrench-manasteel": "Chiave di acciaio di mana",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "Farmacista dei petali",
   "block-bellethorne-free": "Bellethorne",
   "block-bubbell-free": "Bolla",
+  "block-catalyst_alchemy": "Catalizzatore alchemico",
+  "block-catalyst_conjuration": "Catalizzatore di congiurazione",
   "block-clayconia-free": "Clayconia",
   "block-daffomill-free": "Narciso",
   "block-dandelifeon-free": "Dentelifeon",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "Generare mana dovrebbe essere una delle principali priorità di ogni botanico. Ci sono molti <link=generatingflora>generazione di fiori</link> che possono aiutarti in questo. Questi fiori producono mana passivamente o attivamente a seconda delle condizioni.\n\nTutti i <link=category:generating_flora>fiori generatori</link>, come i <link=category:functional_flora>fiori funzionali</link>, hanno un buffer di mana interno. Per vedere la quantità di mana, punta la Bacchetta della Foresta verso il fiore. Il mana generato verrà inviato al <link=manasreader>spargitore di mana</link> più vicino.\n\nI fiori generati ricordano il Mana Spreader a cui erano collegati. Invieranno mana solo ad esso a meno che lo spreader non venga rimosso.",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "Per iniziare, si consiglia di utilizzare <link=endoflame>Endoflame</link> o <link=idroangeas>Hydroangeas</link>. Endoflame utilizza il carburante per generare mana, mentre Hydroangeas produce mana da fonti d'acqua. Se preferisci non fare assolutamente nulla e aspettare, allora <link=daybloom>Daybloom</link> o <link=nightshade>Nightshade</link> sono perfetti per te.",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "Catalizzatore alchemico",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>La mana</link> è una sostanza estremamente eterea le cui proprietà non sono ancora del tutto comprese. Uno dei pochi utilizzi noti è la creazione di un <link=catalyst_alchemy>catalizzatore alchemico</link>. Posizionandolo sotto una <link=manapool>piscina di mana</link>, è possibile eseguire trasformazioni alchemiche direttamente nella piscina.\n\n\n\n\nCreazione del catalizzatore alchemico:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "Trasformazione di un bastone in una radice.\n\n\n\n\n\n\n\n\n\n\n\nTrasformazione di una radice in una tavola.",
+  "lexicon_mana_management_catalyst_alchemy_p3": "Trasformazione di una tavola in una trave.\n\n\n\n\n\n\n\n\n\n\n\nTrasformazione della trave in un bastone.",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "Catalizzatore di congiurazione",
+  "lexicon_mana_management_catalyst_conjuration_p1": "Esiste un analogo del <link=catalyst_alchemy>catalizzatore alchemico</link> anche per la <link=catalyst_conjuration>congiurazione della mana</link>. Il <link=conjurationcatalyst>catalizzatore di congiurazione</link>, posizionato sotto una <link=manapool>piscina di mana</link>, consente di materializzare blocchi direttamente dalla mana. Il principio è simile all’alchimia della mana — basta lanciare oggetti nella piscina con il catalizzatore installato per avviare le trasformazioni.",
+  "lexicon_mana_management_catalyst_conjuration_p2": "Duplicazione di un bastone:\n\n\n\n\n\n\n\n\n\n\n\nDuplicazione di erba secca:",
+  "lexicon_mana_management_catalyst_conjuration_p3": "Duplicazione di cristallo di rocca:\n\n\n\n\n\n\n\n\n\n\n\nDuplicazione di quarzo:",
+  "lexicon_mana_management_catalyst_conjuration_p4": "Duplicazione di ossido di ferro:\n\n\n\n\n\n\n\n\n\n\n\nDuplicazione di una palla di neve:",
+  "lexicon_mana_management_catalyst_conjuration_p5": "Duplicazione di argilla rossa:\n\n\n\n\n\n\n\n\n\n\n\nDuplicazione di malta:",
+
   "lexicon_mana_management_manaintroduction_title": "Introduzione a Manà",
   "lexicon_mana_management_manaintroduction_p1": "Il mana è una sostanza eterea speciale. In poche parole, è una forma di energia mistica. Il suo colore può cambiare a seconda dell'ambiente circostante. La gestione del mana è una delle abilità più importanti che un botanico deve padroneggiare.\n\nPer ottenere mana, avrai bisogno dei fiori della categoria <link=category:generating_flora>Generazione di flora</link>. Il mana può essere trasferito utilizzando i <link=manasreader>diffusori di mana</link> e conservato nelle <link=manapool>riserve di mana</link>. Viene utilizzato per un vasto numero di cose, come alimentare i <link=category:functional_flora>fiori funzionali</link>.\n\nPer iniziare a gestire il mana, si consiglia di studiare l'uso di <link=endoflame>Endoflame</link>, <link=idroangeas>Idroangeas</link>, <link=manasspreader>Distributori di mana</link> e <link=manapool>Riserve di mana</link>.",
   "lexicon_mana_management_manaintroduction_p2": "Insieme formano un sistema di trasferimento di mana di base che può essere utilizzato per molti scopi. Si consiglia inoltre di rivedere le sezioni <link=category:functional_flora>Flora funzionale</link> e <link=naturalapparatus>Apparato naturale</link> in questo lessico.",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "Vetro di mana",
   "lexicon_misc_managlass_p1": "Il <link=managlass>Il managlass</link> è vetro purificato infuso di mana. Combina la trasparenza del vetro ordinario con un magico effetto luminoso ed è spesso utilizzato in strutture e dispositivi botanici. Grazie alla sua purezza, conduce bene i flussi di mana attraverso se stesso, consentendo spazi chiusi dove il mana può passare attraverso il Managlass.",
+
+  "lexicon_misc_root_title": "Radice",
+  "lexicon_misc_root_p1": "Non è necessario scavare le radici degli alberi se hai un <link=catalyst_alchemy>catalizzatore alchemico</link>. Basta gettare un <link=game:stick>bastone</link> in una <link=manapool>vasca di mana</link> posta sul catalizzatore, e si trasformerà in una <link=root>radice</link>. Questo metodo è molto più semplice e non richiede di danneggiare la natura.",
+  "lexicon_misc_root_p2": "Creazione di una radice da un bastone:",
+
+  "lexicon_misc_root_rusted_title": "Radice arrugginita",
+  "lexicon_misc_root_rusted_p1": "La ruggine consuma gradualmente tutto ciò che tocca e raramente porta qualcosa di buono. Tuttavia, ha comunque le sue applicazioni. Se impregni una <link=root>radice di albero</link> con essa, cambierà e acquisirà proprietà insolite.\nUna <link=rustyroot>radice arrugginita</link> può essere utilizzata in alchimia, nella creazione di alcuni fiori e in vari oggetti mistici. Le sue proprietà non sono ancora completamente comprese, ma è già chiaro — non è solo spazzatura arrugginita.",
+  "lexicon_misc_root_rusted_p2": "Creazione di una radice arrugginita:",
 
   "lexicon_mystical_items_manaitem_title": "Oggetti di acciaio di mana",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>Manasteel</link> viene utilizzato per creare strumenti e armature. Gli oggetti in acciaio di mana sono paragonabili in termini di durabilità a quelli in rame. Questo perché tutti i lingotti di metallo che entrano in contatto con il mana acquisiscono all'incirca le stesse proprietà, equivalenti alla resistenza del rame.\n\nLa principale differenza di Manasteel risiede nelle sue proprietà magiche. Quando subiscono danni, gli oggetti di Acciaio di Mana consumano mana dalle fonti disponibili, come una <link=manatablet>Tavoletta di Mana</link>, invece di perdere durabilità. Ciò rende il Manasteel un materiale unico e indispensabile per creare strumenti e armature.",

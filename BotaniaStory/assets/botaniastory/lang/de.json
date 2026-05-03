@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "Prospektorhammer aus Manastahl",
   "item-prospectingpickhead-manasteel": "Prospektorhammerkopf aus Manastahl",
   "item-rod_of_the_seas": "Stab der Meere",
+  "item-root": "Wurzel",
+  "item-root_rusted": "Verrostete Wurzel",
   "item-rune-air": "Rune der Luft",
   "item-rune-autumn": "Rune des Herbstes",
   "item-rune-earth": "Rune der Erde",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "Speerspitze aus Manastahl",
   "item-tongs-manasteel": "Zange aus Manastahl",
   "item-wandofbinding": "Bindungsstab",
+  "item-wandofbinding_frame": "Kern des Bindungsstabs",
   "item-wandoftheforest-*": "Waldstab",
   "item-wrench-manasteel": "Schlüssel aus Manastahl",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "Blütenapotheker",
   "block-bellethorne-free": "Klangblüte",
   "block-bubbell-free": "Bubbel",
+  "block-catalyst_alchemy": "Alchemischer Katalysator",
+  "block-catalyst_conjuration": "Beschwörungskatalysator",
   "block-clayconia-free": "Steinblüte",
   "block-daffomill-free": "Bergamotte",
   "block-dandelifeon-free": "Lebenslöwenzahn",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "Die Erzeugung von Mana sollte eine der höchsten Prioritäten jedes Botanikers sein. Es gibt viele <link=generatingflora>erzeugende Blumen</link>, die dabei helfen können. Diese Blumen produzieren Mana passiv oder aktiv, abhängig von den Bedingungen.\n\nAlle <link=category:generating_flora>erzeugenden Blumen</link> besitzen, genau wie <link=category:functional_flora>funktionale Blumen</link>, einen internen Manapuffer. Um die Manamenge zu sehen, richte den Waldstab auf die Blume. Das erzeugte Mana wird an den nächstgelegenen <link=manaspreader>Manaverteiler</link> gesendet.\n\nErzeugende Blumen merken sich den Manaverteiler, mit dem sie verbunden wurden. Sie senden Mana nur an diesen, solange dieser Verteiler nicht entfernt wird.",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "Für den Anfang empfiehlt es sich, <link=endoflame>Endflamme</link> oder <link=hydroangeas>Wasserhortensie</link> zu verwenden. Die Endflamme nutzt Brennstoff zur Manaerzeugung, während die Wasserhortensie Mana aus Wasserquellen erzeugt. Wenn du einfach nichts tun und warten möchtest, sind <link=daybloom>Tagblüte</link> oder <link=nightshade>Nachtschatten</link> ideal für dich.",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "Alchemischer Katalysator",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>Mana</link> ist eine äußerst ätherische Substanz, deren Eigenschaften noch nicht vollständig erforscht sind. Eine der wenigen bekannten Anwendungen ist die Herstellung eines <link=catalyst_alchemy>alchemistischen Katalysators</link>. Wird er unter einem <link=manapool>Manabecken</link> platziert, können alchemistische Umwandlungen direkt im Becken durchgeführt werden.\n\n\n\nHerstellung des alchemistischen Katalysators:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "Wurzel aus Stock\n\n\n\n\n\n\n\n\n\n\n\nUmwandlung der Wurzel in ein Brett.",
+  "lexicon_mana_management_catalyst_alchemy_p3": "Brett zu Balken\n\n\n\n\n\n\n\n\n\n\n\nUmwandlung des Balkens in einen Stock.",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "Beschwörungskatalysator",
+  "lexicon_mana_management_catalyst_conjuration_p1": "Ein Gegenstück zum <link=catalyst_alchemy>alchemistischen Katalysator</link> existiert auch für <link=catalyst_conjuration>Manabeschwörung</link>. Der <link=conjurationcatalyst>Beschwörungskatalysator</link>, der unter einem <link=manapool>Manabecken</link> platziert wird, ermöglicht es, Blöcke direkt aus Mana zu materialisieren. Das Funktionsprinzip ähnelt der Mana-Alchemie — es genügt, Gegenstände in das Becken mit installiertem Katalysator zu werfen, um Umwandlungen zu starten.",
+  "lexicon_mana_management_catalyst_conjuration_p2": "Vervielfältigung eines Stocks:\n\n\n\n\n\n\n\n\n\n\n\nVervielfältigung von trockenem Gras:",
+  "lexicon_mana_management_catalyst_conjuration_p3": "Vervielfältigung von Bergkristall:\n\n\n\n\n\n\n\n\n\n\n\nVervielfältigung von Quarz:",
+  "lexicon_mana_management_catalyst_conjuration_p4": "Vervielfältigung von Eisenoxid:\n\n\n\n\n\n\n\n\n\n\n\nVervielfältigung eines Schneeballs:",
+  "lexicon_mana_management_catalyst_conjuration_p5": "Vervielfältigung von rotem Ton:\n\n\n\n\n\n\n\n\n\n\n\nVervielfältigung von Mörtel:",
+
   "lexicon_mana_management_manaintroduction_title": "Einführung in Mana",
   "lexicon_mana_management_manaintroduction_p1": "Mana ist eine besondere ätherische Substanz. Einfach gesagt ist es eine Form mystischer Energie. Seine Farbe kann sich je nach Umgebung verändern. Der Umgang mit Mana ist eine der wichtigsten Fähigkeiten, die ein Botaniker beherrschen muss.\n\nUm Mana zu erhalten, benötigst du Blumen der <link=category:generating_flora>erzeugenden Flora</link>. Mana kann mit <link=manaspreader>Manaverteilern</link> übertragen und in <link=manapool>Manabecken</link> gespeichert werden. Es wird für eine große Anzahl von Dingen verwendet, zum Beispiel für den Betrieb von <link=category:functional_flora>funktionalen Blumen</link>.\n\nUm mit Mana zu beginnen, wird empfohlen, die Nutzung von <link=endoflame>Endflamme</link>, <link=hydroangeas>Wasserhortensie</link>, <link=manaspreader>Manaverteilern</link> und <link=manapool>Manabecken</link> zu studieren.",
   "lexicon_mana_management_manaintroduction_p2": "Zusammen bilden sie ein grundlegendes Mana-Übertragungssystem, das für verschiedene Zwecke genutzt werden kann. Es wird außerdem empfohlen, die Abschnitte <link=category:functional_flora>Funktionale Flora</link> und <link=naturalapparatus>Natürliche Apparate</link> in diesem Lexikon zu lesen.",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "Managlas",
   "lexicon_misc_managlass_p1": "<link=managlass>Managlas</link> — gereinigtes Glas, das mit Mana durchtränkt ist. Es vereint die Transparenz gewöhnlichen Glases mit einem magischen Leuchteffekt und wird häufig in botanischen Bauwerken und Geräten verwendet. Dank seiner Reinheit leitet es Manaflüsse gut durch sich hindurch, wodurch geschlossene Räume gebaut werden können, in die Mana durch das Managlas eindringt.",
+
+  "lexicon_misc_root_title": "Wurzel",
+  "lexicon_misc_root_p1": "Es ist nicht nötig, Baumwurzeln auszugraben, wenn du einen <link=catalyst_alchemy>alchemistischen Katalysator</link> hast. Wirf einfach einen <link=game:stick>Stock</link> in einen <link=manapool>Manapool</link>, der auf dem Katalysator steht, und er verwandelt sich in eine <link=root>Wurzel</link>. Diese Methode ist deutlich einfacher und erfordert keine Zerstörung der Natur.",
+  "lexicon_misc_root_p2": "Herstellung einer Wurzel aus einem Stock:",
+
+  "lexicon_misc_root_rusted_title": "Verrostete Wurzel",
+  "lexicon_misc_root_rusted_p1": "Rost verschlingt nach und nach alles, was er berührt, und bringt selten etwas Gutes hervor. Dennoch hat er seine Anwendung. Wenn man damit eine <link=root>Baumwurzel</link> tränkt, verändert sie sich und erhält ungewöhnliche Eigenschaften.\nEine solche <link=rustyroot>verrostete Wurzel</link> kann in der Alchemie, bei der Herstellung einiger Blumen und verschiedener mystischer Gegenstände verwendet werden. Ihre Eigenschaften sind noch nicht vollständig erforscht, doch schon jetzt ist klar — es ist nicht einfach nur rostiger Müll.",
+  "lexicon_misc_root_rusted_p2": "Herstellung einer verrosteten Wurzel:",
 
   "lexicon_mystical_items_manaitem_title": "Gegenstände aus Manastahl",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>Manastahl</link> wird zur Herstellung von Werkzeugen und Rüstungen verwendet. Gegenstände aus Manastahl sind in ihrer Haltbarkeit mit Kupfer vergleichbar. Das liegt daran, dass alle Metallbarren bei Kontakt mit Mana ungefähr gleiche Eigenschaften annehmen, entsprechend der Festigkeit von Kupfer.\n\nDer Hauptunterschied von Manastahl sind seine magischen Eigenschaften. Beim Erleiden von Schaden verbrauchen Gegenstände aus Manastahl Mana aus verfügbaren Quellen, zum Beispiel aus dem <link=manatablet>Manatablet</link>, anstatt Haltbarkeit zu verlieren. Das macht Manastahl zu einem einzigartigen und unverzichtbaren Material für Werkzeuge und Rüstungen.",

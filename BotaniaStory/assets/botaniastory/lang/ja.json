@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "マナスチールの採掘ピック",
   "item-prospectingpickhead-manasteel": "マナスチール探鉱ピックヘッド",
   "item-rod_of_the_seas": "海の杖",
+  "item-root": "根",
+  "item-root_rusted": "錆びた根",
   "item-rune-air": "空気のルーン",
   "item-rune-autumn": "秋のルーン",
   "item-rune-earth": "大地のルーン",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "マナスチールの槍頭",
   "item-tongs-manasteel": "マナスチールトング",
   "item-wandofbinding": "束縛の杖",
+  "item-wandofbinding_frame": "束縛の杖のコア",
   "item-wandoftheforest-*": "森の杖",
   "item-wrench-manasteel": "マナスチールレンチ",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "ペタルアポセカリー",
   "block-bellethorne-free": "ベルソーン",
   "block-bubbell-free": "バベル",
+  "block-catalyst_alchemy": "錬金触媒",
+  "block-catalyst_conjuration": "具現化触媒",
   "block-clayconia-free": "クレイコニア",
   "block-daffomill-free": "水仙",
   "block-dandelifeon-free": "ダンデリフェオン",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "マナの生成は植物学者にとっての主要な優先事項の 1 つであるはずです。これに役立つ <link=generatedflora>生成花</link> が多数あります。これらの花は、条件に応じて受動的または能動的にマナを生成します。\n\n<link=category:generated_flora>機能的な花</link>など、すべての<link=category:generated_flora>生成する花</link>には内部マナバッファがあります。マナの量を確認するには、森の杖を花に向けます。生成されたマナは最寄りの<link=manaspreader>マナスプレッダー</link>に送られます。\n\n花を生成すると、接続されていたマナスプレッダーを覚えています。そのスプレッダーが除去されない限り、彼らはそこにのみマナを送ります。",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "まず、<link=endoflame>Endoflame</link> または <link=hydroangeas>Hydroangeas</link> を使用することをお勧めします。 Endoflameは燃料を使用してマナを生成しますが、Hydroangeasは水源からマナを生成します。何もせずに待ちたい場合は、<link=daybloom>Daybloom</link> または <link=nightshade>Nightshade</link> が最適です。",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "錬金触媒",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>マナ</link>は非常にエーテル的な物質であり、その性質はまだ完全には解明されていない。数少ない既知の用途の一つが<link=catalyst_alchemy>錬金触媒</link>の作成である。これを<link=manapool>マナプール</link>の下に設置すると、プール内で直接錬金変換を行うことができる。\n\n\n\n\n錬金触媒の作成:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "棒を根に変換する。\n\n\n\n\n\n\n\n\n\n\n\n根を板に変換する。",
+  "lexicon_mana_management_catalyst_alchemy_p3": "板を梁に変換する。\n\n\n\n\n\n\n\n\n\n\n\n梁を棒に変換する。",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "具現化触媒",
+  "lexicon_mana_management_catalyst_conjuration_p1": "<link=catalyst_alchemy>錬金触媒</link>の類似物は、<link=catalyst_conjuration>マナ具現化</link>にも存在する。<link=conjurationcatalyst>具現化触媒</link>を<link=manapool>マナプール</link>の下に設置すると、マナから直接ブロックを具現化できる。仕組みはマナ錬金と同様で、触媒を設置したプールにアイテムを投げ入れることで変換が開始される。",
+  "lexicon_mana_management_catalyst_conjuration_p2": "棒の複製:\n\n\n\n\n\n\n\n\n\n\n\n枯れ草の複製:",
+  "lexicon_mana_management_catalyst_conjuration_p3": "水晶の複製:\n\n\n\n\n\n\n\n\n\n\n\n石英の複製:",
+  "lexicon_mana_management_catalyst_conjuration_p4": "酸化鉄の複製:\n\n\n\n\n\n\n\n\n\n\n\n雪玉の複製:",
+  "lexicon_mana_management_catalyst_conjuration_p5": "赤い粘土の複製:\n\n\n\n\n\n\n\n\n\n\n\nモルタルの複製:",
+
   "lexicon_mana_management_manaintroduction_title": "マナの紹介",
   "lexicon_mana_management_manaintroduction_p1": "マナは特別なエーテル物質です。簡単に言えば、それは神秘的なエネルギーの一種です。周囲の環境により色が変化する場合があります。マナ管理は植物学者が習得しなければならない最も重要なスキルの 1 つです。\n\nマナを入手するには、<link=category:generated_flora>Generating Flora</link> カテゴリの花が必要です。マナは<link=manaspreader>マナスプレッダー</link>を使用して転送し、<link=manapool>マナプール</link>に保存できます。 <link=category:function_flora>Functional Flowers</link> の動力源など、非常に多くの用途に使用されます。\n\nマナの管理を始めるには、<link=endoflame>エンドフレイム</link>、<link=hydroangeas>Hydroangeas</link>、<link=manaspreader>マナ スプレッダー</link>、および <link=manapool>マナ プール</link>の使用方法を研究することをお勧めします。",
   "lexicon_mana_management_manaintroduction_p2": "これらは一緒になって、さまざまな目的に使用できる基本的なマナ転送システムを形成します。この辞書の <link=category:function_flora>機能植物相</link> と <link=naturalapparatus>自然装置</link> セクションを確認することもお勧めします。",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "マナグラス",
   "lexicon_misc_managlass_p1": "<link=managlass>マナグラス</link>は、マナが注入された精製されたガラスです。通常のガラスの透明性と魔法のような輝く効果を組み合わせたもので、植物の構造物や装置によく使用されます。その純粋さのおかげで、それ自体を介してマナの流れがよく伝わり、マナがマナグラスを通過できる密閉空間が可能になります。",
+
+  "lexicon_misc_root_title": "根",
+  "lexicon_misc_root_p1": "<link=catalyst_alchemy>錬金触媒</link>があれば、木の根を掘り起こす必要はない。<link=game:stick>棒</link>を触媒の上に設置された<link=manapool>マナプール</link>に投げ入れるだけで、<link=root>根</link>へと変化する。この方法ははるかに簡単で、自然を破壊する必要もない。",
+  "lexicon_misc_root_p2": "棒から根を作成:",
+
+  "lexicon_misc_root_rusted_title": "錆びた根",
+  "lexicon_misc_root_rusted_p1": "錆は触れたものすべてを徐々に侵食し、良い結果をもたらすことはほとんどない。しかし、それにも用途はある。<link=root>木の根</link>に染み込ませると、それは変化し、異なる特性を得る。\nこのような<link=rustyroot>錆びた根</link>は、錬金術や特定の花の作成、さまざまな神秘的なアイテムに使用できる。その性質はまだ完全には解明されていないが、ひとつだけ確かなことがある――それは単なる錆びたゴミではない。",
+  "lexicon_misc_root_rusted_p2": "錆びた根の作成:",
 
   "lexicon_mystical_items_manaitem_title": "マナスチールアイテム",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>マナスティール</link>は道具や防具の作成に使用されます。マナスチール製品の耐久性は銅製品に匹敵します。これは、マナと接触した金属インゴットはほぼ同じ特性、つまり銅と同等の強度を獲得するためです。\n\nマナスティールの主な違いは、その魔法の特性にあります。マナスティール アイテムはダメージを受けると、耐久性を失う代わりに、<link=manatablet>マナ タブレット</link> などの利用可能なソースからマナを消費します。このため、マナスティールは道具や鎧を作るのにユニークで不可欠な素材となっています。",

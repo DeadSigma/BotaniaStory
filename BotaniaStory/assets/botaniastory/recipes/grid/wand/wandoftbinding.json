@@ -3,7 +3,7 @@
     "ingredients": {
         "M": {
             "type": "item",
-            "code": "game:ingot-manasteel"
+            "code": "botaniastory:wandofbinding_frame"
         },
         "S": {
             "type": "item",

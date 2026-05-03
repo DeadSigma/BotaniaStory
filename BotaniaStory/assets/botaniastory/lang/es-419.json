@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "Selección de prospección de Manasteel",
   "item-prospectingpickhead-manasteel": "Cabezal de prospección de Manasteel",
   "item-rod_of_the_seas": "Vara de los Mares",
+  "item-root": "Raíz",
+  "item-root_rusted": "Raíz oxidada",
   "item-rune-air": "Runa de aire",
   "item-rune-autumn": "Runa de otoño",
   "item-rune-earth": "Runa de la Tierra",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "Cabeza de lanza de manacero",
   "item-tongs-manasteel": "Pinzas de manacero",
   "item-wandofbinding": "Varita de atadura",
+  "item-wandofbinding_frame": "Núcleo de la vara de enlace",
   "item-wandoftheforest-*": "Varita del bosque",
   "item-wrench-manasteel": "Llave de acero de maná",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "Boticario de pétalos",
   "block-bellethorne-free": "bellethorne",
   "block-bubbell-free": "burbuja",
+  "block-catalyst_alchemy": "Catalizador alquímico",
+  "block-catalyst_conjuration": "Catalizador de conjuración",
   "block-clayconia-free": "arcillaconia",
   "block-daffomill-free": "Narciso",
   "block-dandelifeon-free": "dandelifeon",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "Generar maná debería ser una de las principales prioridades de cualquier botánico. Hay muchas <link=generatingflora>flores generadoras</link> que pueden ayudar con esto. Estas flores producen maná de forma pasiva o activa dependiendo de las condiciones.\n\nTodas las <link=category:generating_flora>Flores generadoras</link>, como las <link=category:functional_flora>Flores funcionales</link>, tienen un buffer de maná interno. Para ver la cantidad de maná, apunta con la Varita del Bosque a la flor. El maná generado se enviará al <link=manaspreader>Mana Spreader</link> más cercano.\n\nLas flores generadas recuerdan el esparcidor de maná al que estaban conectadas. Le enviarán maná únicamente a menos que se elimine ese esparcidor.",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "Para empezar, se recomienda utilizar <link=endoflame>Endoflame</link> o <link=hidroangeas>Hydroangeas</link>. Endoflame usa combustible para generar maná, mientras que Hydroangeas produce maná a partir de fuentes de agua. Si prefieres no hacer absolutamente nada y esperar, entonces <link=daybloom>Daybloom</link> o <link=nightshade>Nightshade</link> son perfectos para ti.",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "Catalizador alquímico",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>El maná</link> es una sustancia extremadamente etérea cuyas propiedades aún no se comprenden completamente. Uno de sus pocos usos conocidos es la creación de un <link=catalyst_alchemy>catalizador alquímico</link>. Al colocarlo debajo de un <link=manapool>depósito de maná</link>, se pueden realizar transformaciones alquímicas directamente en el depósito.\n\n\n\n\nCreación del catalizador alquímico:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "Transformación de un palo en una raíz.\n\n\n\n\n\n\n\n\n\n\n\nTransformación de una raíz en una tabla.",
+  "lexicon_mana_management_catalyst_alchemy_p3": "Transformación de una tabla en una viga.\n\n\n\n\n\n\n\n\n\n\n\nTransformación de una viga en un palo.",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "Catalizador de conjuración",
+  "lexicon_mana_management_catalyst_conjuration_p1": "Existe un análogo del <link=catalyst_alchemy>catalizador alquímico</link> para la <link=catalyst_conjuration>conjuración de maná</link>. El <link=conjurationcatalyst>catalizador de conjuración</link>, colocado bajo un <link=manapool>depósito de maná</link>, permite materializar bloques directamente a partir del maná. El principio es similar a la alquimia de maná — basta con arrojar objetos al depósito con el catalizador instalado para iniciar las transformaciones.",
+  "lexicon_mana_management_catalyst_conjuration_p2": "Multiplicación de un palo:\n\n\n\n\n\n\n\n\n\n\n\nMultiplicación de hierba seca:",
+  "lexicon_mana_management_catalyst_conjuration_p3": "Multiplicación de cristal de roca:\n\n\n\n\n\n\n\n\n\n\n\nMultiplicación de cuarzo:",
+  "lexicon_mana_management_catalyst_conjuration_p4": "Multiplicación de óxido de hierro:\n\n\n\n\n\n\n\n\n\n\n\nMultiplicación de bola de nieve:",
+  "lexicon_mana_management_catalyst_conjuration_p5": "Multiplicación de arcilla roja:\n\n\n\n\n\n\n\n\n\n\n\nMultiplicación de mortero:",
+
   "lexicon_mana_management_manaintroduction_title": "Introducción al maná",
   "lexicon_mana_management_manaintroduction_p1": "Mana es una sustancia etérea especial. En pocas palabras, es una forma de energía mística. Su color puede cambiar dependiendo del entorno. La gestión del maná es una de las habilidades más importantes que debe dominar un botánico.\n\nPara obtener maná, necesitarás flores de la categoría <link=category:generating_flora>Generating Flora</link>. El maná se puede transferir usando <link=manaspreader>Mana Spreaders</link> y almacenarse en <link=manapool>Mana Pools</link>. Se utiliza para una gran cantidad de cosas, como alimentar <link=category:functional_flora>Flores funcionales</link>.\n\nPara comenzar a administrar maná, se recomienda estudiar el uso de <link=endoflame>Endoflame</link>, <link=hidroangeas>Hydroangeas</link>, <link=manaspreader>Mana Spreaders</link> y <link=manapool>Mana Pools</link>.",
   "lexicon_mana_management_manaintroduction_p2": "Juntos forman un sistema básico de transferencia de maná que puede usarse para muchos propósitos. También se recomienda revisar las secciones <link=category:functional_flora>Flora funcional</link> y <link=naturalapparatus>Aparatos naturales</link> de este léxico.",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "Manáglass",
   "lexicon_misc_managlass_p1": "<link=managlass>Managlass</link> es vidrio purificado infundido con maná. Combina la transparencia del vidrio común con un efecto mágico de brillo y se usa a menudo en estructuras y dispositivos botánicos. Gracias a su pureza, conduce bien los flujos de maná a través de sí mismo, permitiendo espacios cerrados donde el maná puede pasar a través del Managlass.",
+
+  "lexicon_misc_root_title": "Raíz",
+  "lexicon_misc_root_p1": "No es necesario desenterrar raíces de árboles si tienes un <link=catalyst_alchemy>catalizador alquímico</link>. Basta con lanzar un <link=game:stick>palo</link> en una <link=manapool>piscina de maná</link> colocada sobre el catalizador, y se transformará en una <link=root>raíz</link>. Este método es mucho más sencillo y no requiere dañar la naturaleza.",
+  "lexicon_misc_root_p2": "Creación de una raíz a partir de un palo:",
+
+  "lexicon_misc_root_rusted_title": "Raíz oxidada",
+  "lexicon_misc_root_rusted_p1": "El óxido consume gradualmente todo lo que toca y rara vez trae algo bueno. Sin embargo, también tiene sus usos. Si impregnas una <link=root>raíz de árbol</link> con él, cambiará y adquirirá propiedades inusuales.\nUna <link=rustyroot>raíz oxidada</link> puede usarse en alquimia, en la creación de ciertas flores y en diversos objetos místicos. Sus propiedades aún no se comprenden completamente, pero ya está claro: no es solo chatarra oxidada.",
+  "lexicon_misc_root_rusted_p2": "Creación de una raíz oxidada:",
 
   "lexicon_mystical_items_manaitem_title": "Artículos de manacero",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>Manasteel</link> se utiliza para crear herramientas y armaduras. Los artículos de Manasteel son comparables en durabilidad a los de cobre. Esto se debe a que cualquier lingote de metal que entre en contacto con el maná adquiere aproximadamente las mismas propiedades, equivalentes a la fuerza del cobre.\n\nLa principal diferencia de Manasteel radica en sus propiedades mágicas. Al recibir daño, los objetos de Manasteel consumen maná de fuentes disponibles, como una <link=manatablet>Tableta de maná</link>, en lugar de perder durabilidad. Esto convierte a Manasteel en un material único e indispensable para fabricar herramientas y armaduras.",

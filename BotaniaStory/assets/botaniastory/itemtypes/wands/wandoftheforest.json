@@ -60,20 +60,17 @@
         "rackable": true,
         "toolrackTransform": {
             "translation": {
-                "x": 0.47,
-                "y": 0,
-                "z": 0
+                "x": 0.4,
+                "y": -0.02,
+                "z": 0.09
             },
             "rotation": {
-                "x": 85,
-                "y": -15,
-                "z": -90
-            },
-            "scale": 1.4
+                "x": 86,
+                "y": -20,
+                "z": -92
+            }
         }
     },
-
-
     "guiTransform": {
         "translation": {
             "x": 0,

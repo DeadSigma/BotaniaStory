@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "Manasteel Prospecting Pick",
   "item-prospectingpickhead-manasteel": "Manasteel Prospecting Pick Head",
   "item-rod_of_the_seas": "Hůl moří",
+  "item-root": "Kořen",
+  "item-root_rusted": "Zrezivělý kořen",
   "item-rune-air": "Rune of Air",
   "item-rune-autumn": "Runa podzimu",
   "item-rune-earth": "Runa Země",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "Hlava kopí Manasteel",
   "item-tongs-manasteel": "Manasteel Tongs",
   "item-wandofbinding": "Hůlka vazby",
+  "item-wandofbinding_frame": "Jádro hůlky svazování",
   "item-wandoftheforest-*": "Hůlka lesa",
   "item-wrench-manasteel": "Manasteel klíč",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "Lékárna Petal",
   "block-bellethorne-free": "Bellethorne",
   "block-bubbell-free": "Bubbell",
+  "block-catalyst_alchemy": "Alchymický katalyzátor",
+  "block-catalyst_conjuration": "Vyvolávací katalyzátor",
   "block-clayconia-free": "Clayconia",
   "block-daffomill-free": "Narcis",
   "block-dandelifeon-free": "pampeliška",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "Generování many by mělo být jednou z hlavních priorit každého botanika. Existuje mnoho <link=generatingflora>generujících květiny</link>, které s tím mohou pomoci. Tyto květiny produkují manu pasivně nebo aktivně v závislosti na podmínkách.\n\nVšechny <link=category:generating_flora>Generating Flowers</link>, jako <link=category:functional_flora>Functional Flowers</link>, mají interní mana buffer. Chcete-li vidět množství many, namiřte hůlku lesa na květinu. Vygenerovaná mana bude odeslána nejbližšímu <link=manaspreader>Mana Spreader</link>.\n\nGenerování květin si pamatuje Mana Spreader, ke kterému byli připojeni. Budou posílat manu pouze do ní, pokud nebude tento rozšiřovač odstraněn.",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "Pro začátek se doporučuje použít <link=endoflame>Endoflame</link> nebo <link=hydroangeas>Hydroangeas</link>. Endoflame využívá palivo k generování many, zatímco Hydroangeas vyrábí manu z vodních zdrojů. Pokud raději nic neděláte a čekáte, pak je pro vás ideální řešení <link=daybloom>Daybloom</link> nebo <link=nightshade>Nightshade</link>.",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "Alchymický katalyzátor",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>Mana</link> je velmi éterická látka, jejíž vlastnosti nejsou dosud plně prozkoumány. Jedním z mála známých využití je vytvoření <link=catalyst_alchemy>alchymického katalyzátoru</link>. Umístěním pod <link=manapool>bazén many</link> lze provádět alchymické přeměny přímo v bazénu.\n\n\n\n\nVytvoření alchymického katalyzátoru:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "Přeměna klacku na kořen.\n\n\n\n\n\n\n\n\n\n\n\nPřeměna kořene na prkno.",
+  "lexicon_mana_management_catalyst_alchemy_p3": "Přeměna prkna na trám.\n\n\n\n\n\n\n\n\n\n\n\nPřeměna trámu na klacek.",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "Vyvolávací katalyzátor",
+  "lexicon_mana_management_catalyst_conjuration_p1": "Analog <link=catalyst_alchemy>alchymického katalyzátoru</link> existuje i pro <link=catalyst_conjuration>manové vyvolávání</link>. <link=conjurationcatalyst>Vyvolávací katalyzátor</link>, umístěný pod <link=manapool>bazén many</link>, umožňuje materializovat bloky přímo z many. Princip fungování je podobný manové alchymii — stačí házet předměty do bazénu s nainstalovaným katalyzátorem, aby se spustily přeměny.",
+  "lexicon_mana_management_catalyst_conjuration_p2": "Násobení klacku:\n\n\n\n\n\n\n\n\n\n\n\nNásobení suché trávy:",
+  "lexicon_mana_management_catalyst_conjuration_p3": "Násobení horského křišťálu:\n\n\n\n\n\n\n\n\n\n\n\nNásobení křemene:",
+  "lexicon_mana_management_catalyst_conjuration_p4": "Násobení oxidu železa:\n\n\n\n\n\n\n\n\n\n\n\nNásobení sněhové koule:",
+  "lexicon_mana_management_catalyst_conjuration_p5": "Násobení červené hlíny:\n\n\n\n\n\n\n\n\n\n\n\nNásobení malty:",
+
   "lexicon_mana_management_manaintroduction_title": "Úvod do Mana",
   "lexicon_mana_management_manaintroduction_p1": "Mana je speciální éterická látka. Jednoduše řečeno, je to forma mystické energie. Jeho barva se může měnit v závislosti na okolním prostředí. Správa many je jednou z nejdůležitějších dovedností, kterou musí botanik ovládat.\n\nK získání many budete potřebovat květiny z kategorie <link=category:generating_flora>Generating Flora</link>. Manu lze přenést pomocí <link=manaspreader>Mana Spreaders</link> a uložit do <link=manapool>Mana Pools</link>. Používá se pro velké množství věcí, jako je napájení <link=category:functional_flora>Functional Flowers</link>.\n\nChcete-li začít se správou many, doporučujeme prostudovat si použití <link=endoflame>Endoflame</link>, <link=hydroangeas>Hydroangeas</link>, <link=manaspreader>Mana Spreaders</link> a <link=manapool>Mana Pools</link>.",
   "lexicon_mana_management_manaintroduction_p2": "Společně tvoří základní systém přenosu many, který lze využít k mnoha účelům. Doporučuje se také projít si sekce <link=category:functional_flora>Funkční flóra</link> a <link=naturalapparatus>Přírodní přístroje</link> v tomto lexikonu.",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "Managlass",
   "lexicon_misc_managlass_p1": "<link=managlass>Managlass</link> je čištěné sklo napuštěné manou. Kombinuje průhlednost obyčejného skla s magicky zářícím efektem a často se používá v botanických strukturách a zařízeních. Díky své čistotě přes sebe dobře vede toky many a umožňuje uzavřené prostory, kudy může mana procházet Managlass.",
+
+  "lexicon_misc_root_title": "Kořen",
+  "lexicon_misc_root_p1": "Není třeba vykopávat kořeny stromů, pokud máte <link=catalyst_alchemy>alchymický katalyzátor</link>. Stačí hodit <link=game:stick>klacek</link> do <link=manapool>bazénu many</link>, umístěného na katalyzátoru, a promění se v <link=root>kořen</link>. Tento způsob je mnohem jednodušší a nevyžaduje ničení přírody.",
+  "lexicon_misc_root_p2": "Vytvoření kořene z klacku:",
+
+  "lexicon_misc_root_rusted_title": "Zrezivělý kořen",
+  "lexicon_misc_root_rusted_p1": "Rez postupně pohlcuje vše, čeho se dotkne, a jen zřídka přináší něco dobrého. Přesto má své využití. Pokud jí nasytíte <link=root>kořen stromu</link>, změní se a získá neobvyklé vlastnosti.\nTakový <link=rustyroot>zrezivělý kořen</link> lze využít v alchymii, při vytváření některých květin a různých mystických předmětů. Jeho vlastnosti nejsou dosud plně prozkoumány, ale už teď je jasné — není to jen rezavý odpad.",
+  "lexicon_misc_root_rusted_p2": "Vytvoření zrezivělého kořene:",
 
   "lexicon_mystical_items_manaitem_title": "Položky Manasteel",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>Manasteel</link> se používá k vytváření nástrojů a brnění. Položky Manasteel jsou srovnatelné v odolnosti s měděnými. Je to proto, že jakékoli kovové ingoty, které přijdou do kontaktu s manou, získávají zhruba stejné vlastnosti, ekvivalentní síle mědi.\n\nHlavní rozdíl Manasteel spočívá v jeho magických vlastnostech. Při poškození spotřebovávají předměty Manasteel manu z dostupných zdrojů, jako je <link=manatablet>Mana Tablet</link>, místo toho, aby ztrácely trvanlivost. Díky tomu je Manasteel jedinečným a nepostradatelným materiálem pro výrobu nástrojů a brnění.",

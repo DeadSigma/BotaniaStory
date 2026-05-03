@@ -58,33 +58,15 @@
 			}
 		}
 	],
-
 	"attributes": {
-
-		"groundStorageTransform": {
-			"translation": {
-				"x": 0,
-				"y": -0,
-				"z": 0.33
-			},
-			"rotation": {
-				"x": 22,
-				"y": -10,
-				"z": 0
-			}
-		},
 		"rackable": true,
-		"translation": {
-			"x": 0.161,
-			"y": 0.02,
-			"z": -0.06
-		},
-		"rotation": {
-			"x": 85,
-			"y": -15,
-			"z": -70
-		},
-		"scale": 0.99
+		"toolrackTransform": {
+			"rotation": {
+				"x": 2,
+				"y": 1,
+				"z": -73
+			}
+		}
 	},
 	"guiTransform": {
 		"translation": {

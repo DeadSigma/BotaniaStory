@@ -1,0 +1,111 @@
+{
+    "code": "wandofbinding_frame",
+    "class": "Item",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "shape": { "base": "botaniastory:item/workitems/wandofbinding_frame" },
+    "textures": {
+        "manasteel": { "base": "game:block/metal/ingot/manasteel" }
+    },
+    "behaviors": [
+        {
+            "name": "GroundStorable",
+            "properties": {
+                "layout": "Quadrants",
+                "collisionBox": {
+                    "x1": 0,
+                    "y1": 0,
+                    "z1": 0,
+                    "x2": 1,
+                    "y2": 0.1,
+                    "z2": 1
+                }
+            }
+        }
+    ],
+    "attributes": {
+        "handbook": {
+            "groupBy": [ "wandoftheforest-*" ]
+        },
+        "groundStorageTransform": {
+            "rotation": {
+                "x": 90,
+                "y": 45,
+                "z": 0
+            },
+            "origin": {
+                "x": 0.5,
+                "y": 0,
+                "z": 0.5
+            },
+            "scale": 1.58
+        },
+        "rackable": true,
+        "toolrackTransform": {
+            "translation": {
+                "x": 0.3,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": 90,
+                "y": -2,
+                "z": -90
+            },
+            "scale": 1.4
+        }
+    },
+    "guiTransform": {
+        "translation": {
+            "x": 3.8,
+            "y": 1,
+            "z": 0
+        },
+        "rotation": {
+            "x": -180,
+            "y": -156,
+            "z": -33
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0,
+            "z": 0.5
+        },
+        "scale": 7,
+        "rotate": true
+    },
+    "tpHandTransform": {
+        "translation": {
+            "x": -0.74,
+            "y": 0.02,
+            "z": -0.532
+        },
+        "rotation": {
+            "x": 164,
+            "y": -4,
+            "z": -91
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0.1,
+            "z": 0.5
+        },
+        "scale": 0.9
+    },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0.1,
+            "z": 0
+        },
+        "rotation": {
+            "x": 90,
+            "y": 45,
+            "z": 0
+        },
+        "scale": 4.62
+    }
+
+}

@@ -1,0 +1,97 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+		"manasteel": [32, 32]
+	},
+	"textures": {
+		"manasteel": "game:block/metal/ingot/manasteel"
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [7.413, -0.5772, 7.0492],
+			"to": [8.9155, 0.9488, 8.4352],
+			"rotationOrigin": [8.1642, 0.1858, 7.7422],
+			"faces": {
+				"north": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				}
+			},
+			"rotationZ": -14.5
+		},
+		{
+			"name": "cube",
+			"from": [7.413, -0.5772, 7.0492],
+			"to": [8.9155, 0.9488, 8.4352],
+			"rotationOrigin": [8.1642, 0.1858, 7.7422],
+			"faces": {
+				"north": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#manasteel",
+					"uv": [18.5, 18.375, 2, 4],
+					"autoUv": false
+				}
+			},
+			"rotationX": -18.0716,
+			"rotationY": -50.1821,
+			"rotationZ": -63.767
+		}
+	],
+	"animations": []
+}

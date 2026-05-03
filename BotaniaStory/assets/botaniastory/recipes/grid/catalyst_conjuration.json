@@ -1,0 +1,27 @@
+{
+    "ingredientPattern": "LPL,TCT,LTL",
+    "ingredients": {
+        "L": {
+            "type": "block",
+            "code": "botaniastory:livingrock"
+        },
+        "P": {
+            "type": "item",
+            "code": "botaniastory:pixie-dust"
+        },
+        "T": {
+            "type": "item",
+            "code": "game:metalplate-terrasteel"
+        },
+        "C": {
+            "type": "block",
+            "code": "botaniastory:catalyst_alchemy"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "block",
+        "code": "botaniastory:catalyst_conjuration"
+    }
+}

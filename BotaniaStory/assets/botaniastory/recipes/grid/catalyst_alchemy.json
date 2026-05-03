@@ -1,0 +1,27 @@
+{
+    "ingredientPattern": "LGL,SQS,LGL",
+    "ingredients": {
+        "L": {
+            "type": "block",
+            "code": "botaniastory:livingrock"
+        },
+        "G": {
+            "type": "item",
+            "code": "game:metalplate-gold"
+        },
+        "S": {
+            "type": "item",
+            "code": "game:powder-sulfur"
+        },
+        "Q": {
+            "type": "item",
+            "code": "botaniastory:manaitem-manaquartz"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "block",
+        "code": "botaniastory:catalyst_alchemy"
+    }
+}

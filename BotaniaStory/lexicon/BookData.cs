@@ -80,7 +80,7 @@ namespace BotaniaStory.lexicon
             { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "wandoftheforest", "terrasteel",
                 "puredaisy", "runicaltar", "rune", "pylon" } },
 
-            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment" } },
+            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment", "catalyst_alchemy", "catalyst_conjuration" } },
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame" } },
 
@@ -96,7 +96,7 @@ namespace BotaniaStory.lexicon
 
             { "elfmania", new[] { "alfheimgates", "elfresources" } },
 
-            { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "flask" } },
+            { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "flask", "root", "root_rusted" } },
 
             { "trials", new[] { "ch1" } }
         };
@@ -342,9 +342,9 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                            "botaniastory:livingrock", "botaniastory:livingrock", "botaniastory:livingrock", // Сверху 3 камня
-                            "botaniastory:livingrock", "botaniastory:manaitem-managear, botaniastory:manaitem-manaquartz", "botaniastory:livingrock", // Бока + Ядро в центре
-                            null,                      null,                      null                       // Нижний ряд пустой
+                            "botaniastory:livingrock", "botaniastory:manaitem-managear", "botaniastory:livingrock", 
+                            "game:hammer-*",           "botaniastory:livingrock",        "game:chisel-*",           
+                            "botaniastory:livingrock", "botaniastory:livingrock",        "botaniastory:livingrock"  
                         },
                             Output = "botaniastory:runicaltar"
                         });
@@ -484,7 +484,7 @@ namespace BotaniaStory.lexicon
                                  "botaniastory:mysticalpetal-lime",
                                  "botaniastory:mysticalpetal-green",
                                  "botaniastory:mysticalpetal-magenta",
-                                 "botaniastory:rust-root",
+                                 "botaniastory:root_rusted",
                                  "botaniastory:rune-spring"
                              },
                             ApothecaryCenter = "botaniastory:apothecary-*",
@@ -590,7 +590,7 @@ namespace BotaniaStory.lexicon
                         {
                             Spread = 2,
                             ManaCost = 30000,
-                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                            UiKey = "Бассейн_Область_Левая_Верхняя"
                         });
 
                         // 4. Мана-нить
@@ -741,6 +741,268 @@ namespace BotaniaStory.lexicon
                               null, null, null},
                             Output = "botaniastory:sparkaugment-recessive"
                         });
+
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ АЛХИМИЧЕСКИЙ КАТАЛИЗАТОР ===
+                    else if (chapId == "catalyst_alchemy")
+                    {
+                        chapter.TabItemCode = "botaniastory:catalyst_alchemy";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                             "botaniastory:livingrock", "game:metalplate-gold", "botaniastory:livingrock",
+                             "game:powder-sulfur",  "botaniastory:manaitem-manaquartz", "game:powder-sulfur",
+                             "botaniastory:livingrock", "game:metalplate-gold", "botaniastory:livingrock"},
+                            Output = "botaniastory:catalyst_alchemy"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 0,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+
+                            PoolInput = new string[] { "game:stick" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "botaniastory:root"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 0,
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+
+                            PoolInput = new string[] { "botaniastory:root" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:plank-veryaged"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+
+                            PoolInput = new string[] { "game:plank-veryaged" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:supportbeam-veryaged"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
+
+                            PoolInput = new string[] { "game:supportbeam-veryaged" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:stick"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
+
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ КОЛДОВСКОЙ КАТАЛИЗАТОР ===
+                    else if (chapId == "catalyst_conjuration")
+                    {
+                        chapter.TabItemCode = "botaniastory:catalyst_conjuration";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                             "botaniastory:livingrock", "botaniastory:pixie-dust", "botaniastory:livingrock",
+                             "game:metalplate-terrasteel", "botaniastory:catalyst_alchemy", "game:metalplate-terrasteel",
+                             "botaniastory:livingrock", "game:metalplate-terrasteel", "botaniastory:livingrock"},
+                            Output = "botaniastory:catalyst_conjuration"
+                        });
+
+                        // 1. Палка (Право Верх)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 0,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+                            PoolInput = new string[] { "game:stick" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:stick@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        // 2. Сухая трава (Право Низ)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 0,
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+                            PoolInput = new string[] { "game:drygrass" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:drygrass@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        // 3. Чистый кварц (Лево Верх)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+                            PoolInput = new string[] { "game:clearquartz" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:clearquartz@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                        // 4. Кварцевая руда (Лево Низ)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
+                            PoolInput = new string[] { "game:ore-quartz" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:ore-quartz@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
+
+                        // 5. Порошок оксида железа (Право Верх)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+                            PoolInput = new string[] { "game:powder-iron-oxide" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:powder-iron-oxide@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        // 6. Снежок (Право Низ)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+                            PoolInput = new string[] { "game:snowball-snow" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:snowball-snow@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 1000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        // 7. Красная глина (Лево Верх)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+                            PoolInput = new string[] { "game:clay-red" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:clay-red@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                        // 8. Известь/Раствор (Лево Низ)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
+                            PoolInput = new string[] { "game:mortar" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:mortar@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ГЕНЕРИРУЮЩУЮ ФЛОРУ ===
@@ -804,10 +1066,20 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                              null, null, "game:ingot-manasteel",
+                              null, null, "botaniastory:wandofbinding_frame",
                               null, "botaniastory:livingwood_stick", null,
                               "botaniastory:livingwood_stick", null, null},
                             Output = "botaniastory:wandofbinding"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 0,
+                            UiKey = "Кузня_ЖезлСвязывания",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:wandofbinding_frame"
                         });
 
                     }
@@ -1091,6 +1363,51 @@ namespace BotaniaStory.lexicon
                             null, "game:glass-plain", null},
                             Output = "botaniastory:flask-empty"
                         });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ КОРЕНЬ ===
+                    else if (chapId == "root")
+                    {
+                        chapter.TabItemCode = "botaniastory:root";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 0,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+
+                            PoolInput = new string[] { "game:stick" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "botaniastory:root"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ЗАРЖАВЕВШИЙ КОРЕНЬ ===
+                    else if (chapId == "root_rusted")
+                    {
+                        chapter.TabItemCode = "botaniastory:root_rusted";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             "botaniastory:root", null, null,
+                             "game:powder-iron-oxide", null, null,
+                             null, null, null},
+                            Output = "botaniastory:root_rusted"
+                        });
+
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ РУНЫ ===

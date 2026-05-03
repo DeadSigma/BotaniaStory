@@ -10,19 +10,16 @@ namespace BotaniaStory.blocks
     public class BlockApothecary : Block
     {
 
-        // ==========================================
         // БАЗА ДАННЫХ РЕЦЕПТОВ ЦВЕТОВ
-        // Формат: "название_блока_цветка" -> { "лепесток1" : количество, "лепесток2" : количество }
-        // ==========================================
         private readonly Dictionary<string, Dictionary<string, int>> flowerRecipes = new Dictionary<string, Dictionary<string, int>>
         {
             { "puredaisy-free", new Dictionary<string, int> { { "mysticalpetal-white", 4 } } },
             { "daybloom-free", new Dictionary<string, int> { { "mysticalpetal-yellow", 2 }, { "mysticalpetal-orange", 1 }, { "mysticalpetal-lightblue", 1 } } },
             { "endoflame-free", new Dictionary<string, int> { { "mysticalpetal-brown", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
-            { "agricarnation-free", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } }
+            { "agricarnation-free", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
+            { "jadedamaranthus-free", new Dictionary<string, int> { { "mysticalpetal-lime", 1 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-magenta", 1 }, { "root_rusted", 1 }, { "rune-spring", 1 } } },
 
 
-            // Добавляй новые цветы сюда по аналогии!
         };
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
@@ -61,7 +58,7 @@ namespace BotaniaStory.blocks
                         PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
 
                         itemTaken = true;
-                        break; // <-- ВАЖНО: Выходим из цикла, чтобы за клик взять только 1 предмет!
+                        break; 
                     }
                 }
 
@@ -73,7 +70,6 @@ namespace BotaniaStory.blocks
                 }
 
                 // --- ЛОГИКА АВТОКРАФТА ---
-                // (тут остается  старый код проверки if (be.HasWater && be.LastCraftedFlower != null) ...)
 
               
                 if (be.HasWater && be.LastCraftedFlower != null)
@@ -110,7 +106,6 @@ namespace BotaniaStory.blocks
                         }
                     }
                 }
-                // -------------------------
 
                 return base.OnBlockInteractStart(world, byPlayer, blockSel);
             }
@@ -169,28 +164,24 @@ namespace BotaniaStory.blocks
             // ЕСЛИ НЕТ ВОДЫ — ПРЕДМЕТЫ КЛАСТЬ НЕЛЬЗЯ
             if (!be.HasWater) return base.OnBlockInteractStart(world, byPlayer, blockSel);
 
-            // ==========================================
             // 3. УМНЫЙ КРАФТ ЦВЕТОВ
-            // ==========================================
             if (!slot.Empty && slot.Itemstack.Collectible.Code.Path.StartsWith("treeseed"))
             {
-                Dictionary<string, int> currentPetals = new Dictionary<string, int>();
-                int nonPetalCount = 0;
+                //  currentPetals в currentItems для логики
+                Dictionary<string, int> currentItems = new Dictionary<string, int>();
 
                 foreach (var invSlot in be.inventory)
                 {
                     if (invSlot.Empty) continue;
                     string code = invSlot.Itemstack.Collectible.Code.Path;
 
-                    if (code.StartsWith("mysticalpetal-"))
-                    {
-                        if (currentPetals.ContainsKey(code)) currentPetals[code] += invSlot.StackSize;
-                        else currentPetals[code] = invSlot.StackSize;
-                    }
-                    else nonPetalCount++;
+                    // Просто записываем ВСЕ предметы, которые есть в аптекаре
+                    if (currentItems.ContainsKey(code)) currentItems[code] += invSlot.StackSize;
+                    else currentItems[code] = invSlot.StackSize;
                 }
 
-                if (nonPetalCount == 0 && currentPetals.Count > 0)
+                // Если в алтаре вообще есть хоть какие-то предметы
+                if (currentItems.Count > 0)
                 {
                     string craftedFlower = null;
 
@@ -198,13 +189,13 @@ namespace BotaniaStory.blocks
                     {
                         bool match = true;
 
-                        // Быстрая проверка: совпадает ли количество видов?
-                        if (recipe.Value.Count != currentPetals.Count) continue;
+                        // Быстрая проверка: совпадает ли количество уникальных предметов?
+                        if (recipe.Value.Count != currentItems.Count) continue;
 
-                        // Детальная проверка количеств
+                        // Детальная проверка количеств каждого предмета
                         foreach (var req in recipe.Value)
                         {
-                            if (!currentPetals.ContainsKey(req.Key) || currentPetals[req.Key] != req.Value)
+                            if (!currentItems.ContainsKey(req.Key) || currentItems[req.Key] != req.Value)
                             {
                                 match = false;
                                 break;
@@ -237,14 +228,12 @@ namespace BotaniaStory.blocks
                 }
             }
 
-            // ==========================================
             // 4. ПОЛОЖИТЬ ПРЕДМЕТ (УМНЫЙ WHITELIST)
-            // ==========================================
             if (!slot.Empty)
             {
                 string[] allowedKeywords = new string[]
                 {
-                    "petal", "flower", "шаблон", "berry", "fruit", "vine", "fern", "treeseed", "root"
+                    "petal", "flower", "шаблон", "berry", "fruit", "vine", "fern", "treeseed", "root", "rune"
                 };
 
                 bool isAllowed = false;
@@ -280,9 +269,7 @@ namespace BotaniaStory.blocks
 
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }
-        // ==========================================
         // МЕТОД ДЛЯ АВТОКРАФТА (ПОИСК И ИЗЪЯТИЕ ПРЕДМЕТОВ)
-        // ==========================================
         private bool CheckAndConsumePlayerItems(IPlayer player, Dictionary<string, int> recipe, bool simulate)
         {
             Dictionary<string, int> remainingItems = new Dictionary<string, int>(recipe);
@@ -353,9 +340,7 @@ namespace BotaniaStory.blocks
             }
             return true;
         }
-        // ==========================================
         // ОТПРАВКА СЕТЕВОГО ПАКЕТА ЗВУКА ИЗ БЛОКА
-        // ==========================================
         private void PlayApothecarySound(IWorldAccessor world, BlockPos pos, string soundName)
         {
             if (world.Side == EnumAppSide.Server)

@@ -1,0 +1,103 @@
+{
+	"code": "root_rusted",
+	"class": "Item",
+	"maxstacksize": 64,
+	"shape": {
+		"base": "botaniastory:item/root_rusted"
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"textures": {
+		"all": { "base": "botaniastory:item/root_rusted" }
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "Quadrants",
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.1,
+					"z2": 1
+				}
+			}
+		}
+	],
+	"attributes": {
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0,
+				"y": -0.16,
+				"z": 0
+			},
+			"rotation": {
+				"x": -91,
+				"y": -16,
+				"z": 10
+			},
+			"origin": {
+				"x": 0.6,
+				"y": 0.2,
+				"z": 0.4699
+			},
+			"scale": 1.12
+		}
+
+	},
+	"materialDensity": 500,
+	"guiTransform": {
+		"translation": {
+			"x": -5,
+			"y": 2,
+			"z": 0
+		},
+		"rotation": {
+			"x": 20,
+			"y": 0,
+			"z": 180
+		},
+		"origin": {
+			"x": 0.6,
+			"y": 0.2,
+			"z": 0.4699
+		},
+		"scale": 3.79,
+		"rotate": true
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.6,
+			"y": -0.3,
+			"z": -0.6
+		},
+		"rotation": {
+			"x": -14,
+			"y": -2,
+			"z": 43
+		},
+		"scale": 0.9
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.138,
+			"z": 0
+		},
+		"rotation": {
+			"x": 108,
+			"y": 0,
+			"z": -6
+		},
+		"origin": {
+			"x": 0.6,
+			"y": 0.2,
+			"z": 0.4699
+		},
+		"scale": 6
+	}
+}

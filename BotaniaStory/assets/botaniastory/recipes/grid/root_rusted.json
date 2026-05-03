@@ -1,0 +1,23 @@
+[
+    {
+        "ingredientPattern": "R,P",
+        "shapeless": true,
+        "ingredients": {
+            "R": {
+                "type": "item",
+                "code": "botaniastory:root"
+            },
+            "P": {
+                "type": "item",
+                "code": "game:powder-iron-oxide"
+            }
+        },
+        "width": 1,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:root_rusted",
+            "quantity": 1
+        }
+    }
+]

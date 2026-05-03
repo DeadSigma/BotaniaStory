@@ -287,8 +287,6 @@ namespace BotaniaStory.items
         public static void AbsorbBlocksFromPlayer(IServerPlayer player, ICoreServerAPI sapi)
         {
             
-            bool debug = false;
-
             foreach (var inv in player.InventoryManager.Inventories.Values)
             {
                 if (inv.ClassName != "hotbar" && inv.ClassName != "backpack") continue;
@@ -307,8 +305,6 @@ namespace BotaniaStory.items
                     int count = attrs.GetInt("count", 0);
                     bool absorbedSomething = false;
 
-                    // Если талисман активен и привязан, пишем в лог
-                    if (debug) sapi.Logger.Notification($"[Talisman] Активен! Ищем: {targetLoc.Path}. Внутри: {count}");
 
                     foreach (var searchInv in player.InventoryManager.Inventories.Values)
                     {
@@ -318,11 +314,6 @@ namespace BotaniaStory.items
                         {
                             if (targetSlot.Empty || targetSlot == talismanSlot) continue;
 
-                            // Если это блок - выводим его код в консоль, чтобы сравнить глазами
-                            if (debug && targetSlot.Itemstack.Class == EnumItemClass.Block)
-                            {
-                                sapi.Logger.Notification($"[Talisman] Вижу блок в инвентаре: {targetSlot.Itemstack.Block.Code.Path}");
-                            }
 
                             // Сравниваем только по Path (игнорируем домен game:)
                             if (targetSlot.Itemstack.Class == EnumItemClass.Block && targetSlot.Itemstack.Block.Code.Path == targetLoc.Path)
@@ -335,7 +326,6 @@ namespace BotaniaStory.items
                                     targetSlot.MarkDirty();
                                     absorbedSomething = true;
 
-                                    if (debug) sapi.Logger.Notification($"[Talisman] СКУШАЛ! +{amount}");
                                 }
                             }
                         }

@@ -1,6 +1,7 @@
 using BotaniaStory.blocks;
 using BotaniaStory.entities;
 using BotaniaStory.items;
+using BotaniaStory.recipes;
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -130,9 +131,7 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ==========================================
-        //  ОТРИСОВКА ЖИДКОСТИ
-        // ==========================================
+        //  ОТРИСОВКА ЖИДКОСТИ, УБРАТЬ!
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
             // 1. СНАЧАЛА ГЕНЕРИРУЕМ И РИСУЕМ САМ БАССЕЙН
@@ -180,14 +179,10 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            // 3. ВОЗВРАЩАЕМ TRUE
-            // Это очень важно! Мы говорим игре, что полностью взяли рендер на себя.
             return true;
         }
 
-        // ==========================================
         // ГЕНЕРАЦИЯ ИСКР
-        // ==========================================
         private void SpawnManaParticles(float dt)
         {
             if (CurrentMana <= 0) return;
@@ -208,9 +203,7 @@ namespace BotaniaStory.blockentity
             bool isPylonAbove = blockAbove is BlockPylon || (blockAbove.Code != null && blockAbove.Code.Path.Contains("pylon"));
             float particleLife = isPylonAbove ? 0.35f : 1.5f;
 
-            // ====================================================
             // ИСПОЛЬЗУЕМ ADVANCED ПАРТИКЛЫ ДЛЯ ЭФФЕКТОВ ЗАТУХАНИЯ
-            // ====================================================
             AdvancedParticleProperties particles = new AdvancedParticleProperties()
             {
                 // Позиция: Центр бассейна
@@ -238,16 +231,12 @@ namespace BotaniaStory.blockentity
                 NatFloat.createUniform(255, 0)   // Прозрачность
                 },
 
-                // ====================================================
                 // 1. ПЛАВНОЕ ЗАТУХАНИЕ ПРОЗРАЧНОСТИ
                 // Линейно отнимаем 255 от Альфа-канала к концу жизни
-                // ====================================================
                 OpacityEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -255f),
 
-                // ====================================================
                 // 2. ПЛАВНОЕ СЖАТИЕ
                 // Частицы будут слегка "сдуваться" перед исчезновением
-                // ====================================================
                 SizeEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -0.15f),
 
                 // Количество, Жизнь и Гравитация
@@ -268,6 +257,10 @@ namespace BotaniaStory.blockentity
             // Если маны нет, даже не пытаемся искать
             if (CurrentMana <= 0) return;
 
+            Block blockBelow = Api.World.BlockAccessor.GetBlock(Pos.DownCopy());
+            bool hasAlchemyCatalyst = blockBelow?.Code?.Path.Contains("catalyst_alchemy") == true;
+            bool hasConjurationCatalyst = blockBelow?.Code?.Path.Contains("catalyst_conjuration") == true;
+
             // Ищем все сущности над бассейном. Радиус 1 блок вверх и в стороны
             Entity[] entities = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 1.0, 0.5), 1.0f, 1.0f, e => e is EntityItem);
 
@@ -278,6 +271,9 @@ namespace BotaniaStory.blockentity
                     ItemStack stack = entityItem.Itemstack;
                     string code = stack.Collectible.Code.Path;
                     string domain = stack.Collectible.Code.Domain;
+                    string fullItemCode = $"{domain}:{code}";
+
+                  
 
                     // Игнорируем предметы, которые еще летят по воздуху
                     if (!entityItem.Collided && !entityItem.Swimming) continue;
@@ -302,9 +298,7 @@ namespace BotaniaStory.blockentity
 
                                 entityItem.Itemstack = stack;
 
-                                // ==========================================
-                                // НОВОЕ: СИНХРОНИЗАЦИЯ ПРЕДМЕТА С КЛИЕНТОМ
-                                // ==========================================
+                                //  СИНХРОНИЗАЦИЯ ПРЕДМЕТА С КЛИЕНТОМ
                                 entityItem.WatchedAttributes.SetItemstack("itemstack", stack);
                                 entityItem.WatchedAttributes.MarkAllDirty();
 
@@ -326,9 +320,7 @@ namespace BotaniaStory.blockentity
 
                                 entityItem.Itemstack = stack;
 
-                                // ==========================================
-                                // НОВОЕ: СИНХРОНИЗАЦИЯ ПРЕДМЕТА С КЛИЕНТОМ
-                                // ==========================================
+                                // СИНХРОНИЗАЦИЯ ПРЕДМЕТА С КЛИЕНТОМ
                                 entityItem.WatchedAttributes.SetItemstack("itemstack", stack);
                                 entityItem.WatchedAttributes.MarkAllDirty();
 
@@ -339,6 +331,21 @@ namespace BotaniaStory.blockentity
                     }
 
                     // --- РЕЦЕПТЫ ---
+
+                    // Алхимия
+                    if (hasAlchemyCatalyst && CatalystRegistry.AlchemyRecipes.ContainsKey(fullItemCode))
+                    {
+                        string outputCode = CatalystRegistry.AlchemyRecipes[fullItemCode];
+                        int cost = CatalystRegistry.AlchemyManaCosts[fullItemCode];
+                        if (TryTransmuteItem(entityItem, outputCode, cost)) continue;
+                    }
+
+                    // Колдовство
+                    if (hasConjurationCatalyst && CatalystRegistry.ConjurationRecipes.ContainsKey(fullItemCode))
+                    {
+                        int cost = CatalystRegistry.ConjurationRecipes[fullItemCode];
+                        if (TryConjureItem(entityItem, fullItemCode, cost)) continue;
+                    }
 
                     // 1. Любой слиток -> Манасталь 
                     if (domain == "game" && code.StartsWith("ingot-"))
@@ -428,9 +435,7 @@ namespace BotaniaStory.blockentity
             // Вызываем всплеск частиц
             SpawnCraftingParticles(inputEntity.Pos.XYZ);
 
-            // ==========================================
             // ОТПРАВКА СЕТЕВОГО ПАКЕТА (ЗВУК)
-            // ==========================================
             if (Api.Side == EnumAppSide.Server)
             {
                 ICoreServerAPI sapi = Api as ICoreServerAPI;
@@ -467,6 +472,49 @@ namespace BotaniaStory.blockentity
 
             Api.World.SpawnParticles(particles);
         }
+        private bool TryConjureItem(EntityItem inputEntity, string itemCode, int manaCost)
+        {
+            if (CurrentMana < manaCost) return false;
 
+            AssetLocation loc = new AssetLocation(itemCode);
+            ItemStack outputStack = null;
+
+            Item outputItem = Api.World.GetItem(loc);
+            if (outputItem != null) outputStack = new ItemStack(outputItem, 2);
+            else
+            {
+                Block outputBlock = Api.World.GetBlock(loc);
+                if (outputBlock != null) outputStack = new ItemStack(outputBlock, 2);
+            }
+
+            if (outputStack == null) return false;
+
+            // Списываем ману
+            CurrentMana -= manaCost;
+            MarkDirty(true);
+
+            // Расходуем оригинал
+            inputEntity.Itemstack.StackSize--;
+            if (inputEntity.Itemstack.StackSize <= 0)
+            {
+                inputEntity.Die(EnumDespawnReason.Death);
+            }
+
+            // Выдаем удвоенный результат
+            Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
+            SpawnCraftingParticles(inputEntity.Pos.XYZ);
+
+            if (Api.Side == EnumAppSide.Server)
+            {
+                ICoreServerAPI sapi = Api as ICoreServerAPI;
+                sapi.Network.GetChannel("botanianetwork").BroadcastPacket(new PlayManaSoundPacket()
+                {
+                    Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
+                    SoundName = "transmute"
+                });
+            }
+
+            return true;
+        }
     }
 }

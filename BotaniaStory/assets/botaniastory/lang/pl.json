@@ -137,6 +137,8 @@
   "item-prospectingpick-manasteel": "Wybór poszukiwaczy Manasteela",
   "item-prospectingpickhead-manasteel": "Głowica kilofowa Manasteel",
   "item-rod_of_the_seas": "Różdżka Mórz",
+  "item-root": "Korzeń",
+  "item-root_rusted": "Zardzewiały korzeń",
   "item-rune-air": "Runa Powietrza",
   "item-rune-autumn": "Runa Jesieni",
   "item-rune-earth": "Runa Ziemi",
@@ -169,6 +171,7 @@
   "item-spearhead-manasteel": "Głowa Włóczni Manasteela",
   "item-tongs-manasteel": "Szczypce Manasteela",
   "item-wandofbinding": "Różdżka Spętania",
+  "item-wandofbinding_frame": "Rdzeń różdżki wiązania",
   "item-wandoftheforest-*": "Różdżka Lasu",
   "item-wrench-manasteel": "Klucz Manasteela",
 
@@ -177,6 +180,8 @@
   "block-apothecary-*": "Płatkowy Aptekarz",
   "block-bellethorne-free": "Bellethorne",
   "block-bubbell-free": "Bubbell",
+  "block-catalyst_alchemy": "Katalizator alchemiczny",
+  "block-catalyst_conjuration": "Katalizator przywołania",
   "block-clayconia-free": "Glikonia",
   "block-daffomill-free": "Żonkil",
   "block-dandelifeon-free": "Mniszek lekarski",
@@ -409,6 +414,18 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "Generowanie many powinno być jednym z głównych priorytetów każdego botanika. Istnieje wiele <link=generatingflora>generujących kwiaty</link>, które mogą w tym pomóc. Kwiaty te wytwarzają manę pasywnie lub aktywnie, w zależności od warunków.\n\nWszystkie <link=category:generating_flora>Kwiaty generujące</link>, takie jak <link=category:function_flora>Kwiaty funkcjonalne</link>, mają wewnętrzny bufor many. Aby zobaczyć ilość many, skieruj Leśną Różdżkę na kwiat. Wygenerowana mana zostanie wysłana do najbliższego <link=manaspreader>Rozsiewacza Many</link>.\n\nGenerując kwiaty pamiętaj o Rozrzutniku Many, z którym były połączone. Wyślą manę tylko do niego, chyba że ten rozrzutnik zostanie usunięty.",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "Na początek zaleca się użycie <link=endoflame>Endoflame</link> lub <link=hydroangeas>Hydroangeas</link>. Endoflame wykorzystuje paliwo do generowania many, podczas gdy Hydroangeas produkuje manę ze źródeł wody. Jeśli wolisz nic nie robić i czekać, to <link=daybloom>Daybloom</link> lub <link=nightshade>Nightshade</link> jest dla Ciebie idealny.",
 
+  "lexicon_mana_management_catalyst_alchemy_title": "Katalizator alchemiczny",
+  "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>Mana</link> to niezwykle eteryczna substancja, której właściwości nie są jeszcze w pełni poznane. Jednym z niewielu znanych zastosowań jest tworzenie <link=catalyst_alchemy>katalizatora alchemicznego</link>. Umieszczając go pod <link=manapool>basenem many</link>, można przeprowadzać przemiany alchemiczne bezpośrednio w basenie.\n\n\n\n\nTworzenie katalizatora alchemicznego:",
+  "lexicon_mana_management_catalyst_alchemy_p2": "Przemiana patyka w korzeń.\n\n\n\n\n\n\n\n\n\n\n\nPrzemiana korzenia w deskę.",
+  "lexicon_mana_management_catalyst_alchemy_p3": "Przemiana deski w belkę.\n\n\n\n\n\n\n\n\n\n\n\nPrzemiana belki w patyk.",
+
+  "lexicon_mana_management_catalyst_conjuration_title": "Katalizator przywołania",
+  "lexicon_mana_management_catalyst_conjuration_p1": "Odpowiednik <link=catalyst_alchemy>katalizatora alchemicznego</link> istnieje również dla <link=catalyst_conjuration>przywoływania many</link>. <link=conjurationcatalyst>Katalizator przywołania</link>, umieszczony pod <link=manapool>basenem many</link>, pozwala materializować bloki bezpośrednio z many. Zasada działania jest podobna do alchemii many — wystarczy wrzucać przedmioty do basenu z zainstalowanym katalizatorem, aby rozpocząć przemiany.",
+  "lexicon_mana_management_catalyst_conjuration_p2": "Powielanie patyka:\n\n\n\n\n\n\n\n\n\n\n\nPowielanie suchej trawy:",
+  "lexicon_mana_management_catalyst_conjuration_p3": "Powielanie kryształu górskiego:\n\n\n\n\n\n\n\n\n\n\n\nPowielanie kwarcu:",
+  "lexicon_mana_management_catalyst_conjuration_p4": "Powielanie tlenku żelaza:\n\n\n\n\n\n\n\n\n\n\n\nPowielanie śnieżki:",
+  "lexicon_mana_management_catalyst_conjuration_p5": "Powielanie czerwonej gliny:\n\n\n\n\n\n\n\n\n\n\n\nPowielanie zaprawy:",
+
   "lexicon_mana_management_manaintroduction_title": "Wprowadzenie do Many",
   "lexicon_mana_management_manaintroduction_p1": "Mana jest specjalną substancją eteryczną. Mówiąc najprościej, jest to forma mistycznej energii. Jego kolor może się zmieniać w zależności od otaczającego środowiska. Zarządzanie maną to jedna z najważniejszych umiejętności, jakie musi opanować botanik.\n\nDo zdobycia many potrzebne będą kwiaty z kategorii <link=category:generating_flora>Generating Flora</link>. Manę można przenosić za pomocą <link=manaspreader>Rozrzutników many</link> i przechowywać w <link=manapool>Pulach many</link>. Wykorzystuje się go do wielu celów, takich jak zasilanie <link=category:function_flora>kwiatów funkcjonalnych</link>.\n\nAby rozpocząć zarządzanie maną, zaleca się przestudiowanie użycia <link=endoflame>Endoflame</link>, <link=hydroangeas>Hydroangeas</link>, <link=manaspreader>Rozrzutniki many</link> i <link=manapool>Pule many</link>.",
   "lexicon_mana_management_manaintroduction_p2": "Razem tworzą podstawowy system transferu many, który można wykorzystać do wielu celów. Zalecane jest także zapoznanie się z sekcjami <link=category:function_flora>Flora funkcjonalna</link> i <link=naturalapparatus>Aparat naturalny</link> w tym leksykonie.",
@@ -476,6 +493,14 @@
 
   "lexicon_misc_managlass_title": "Managlass",
   "lexicon_misc_managlass_p1": "<link=managlass>Managlass</link> to oczyszczone szkło nasycone maną. Łączy w sobie przezroczystość zwykłego szkła z magicznym efektem świecenia i jest często stosowany w konstrukcjach i urządzeniach botanicznych. Dzięki swojej czystości dobrze przewodzi przepływ many, umożliwiając zamknięte przestrzenie, w których mana może przepływać przez Managlass.",
+
+  "lexicon_misc_root_title": "Korzeń",
+  "lexicon_misc_root_p1": "Nie ma potrzeby wykopywania korzeni drzew, jeśli masz <link=catalyst_alchemy>katalizator alchemiczny</link>. Wystarczy wrzucić <link=game:stick>patyk</link> do <link=manapool>basenu many</link> ustawionego na katalizatorze, a zamieni się on w <link=root>korzeń</link>. Ten sposób jest znacznie prostszy i nie wymaga niszczenia natury.",
+  "lexicon_misc_root_p2": "Tworzenie korzenia z patyka:",
+
+  "lexicon_misc_root_rusted_title": "Zardzewiały korzeń",
+  "lexicon_misc_root_rusted_p1": "Rdza stopniowo pochłania wszystko, czego dotknie, i rzadko przynosi coś dobrego. Mimo to ma swoje zastosowania. Jeśli nasączysz nią <link=root>korzeń drzewa</link>, zmieni się on i nabierze niezwykłych właściwości.\nTaki <link=rustyroot>zardzewiały korzeń</link> można wykorzystać w alchemii, do tworzenia niektórych kwiatów oraz różnych mistycznych przedmiotów. Jego właściwości nie są jeszcze w pełni poznane, ale już teraz wiadomo — to nie jest tylko zardzewiały odpad.",
+  "lexicon_misc_root_rusted_p2": "Tworzenie zardzewiałego korzenia:",
 
   "lexicon_mystical_items_manaitem_title": "Przedmioty Manasteela",
   "lexicon_mystical_items_manaitem_p1": "<link=manapool>Manastal</link> służy do tworzenia narzędzi i zbroi. Przedmioty ze stali Manasteel są porównywalne pod względem wytrzymałości z miedzianymi. Dzieje się tak, ponieważ wszelkie sztabki metalu, które wchodzą w kontakt z maną, zyskują mniej więcej takie same właściwości, równoważne wytrzymałości miedzi.\n\nGłówna różnica Manasteela polega na jego magicznych właściwościach. Otrzymując obrażenia, przedmioty Manasteel zużywają manę z dostępnych źródeł, takich jak <link=manatablet>Tablica Many</link>, zamiast tracić wytrzymałość. To sprawia, że ​​Manasteel jest wyjątkowym i niezbędnym materiałem do wytwarzania narzędzi i zbroi.",

@@ -46,9 +46,7 @@ namespace BotaniaStory.client.renderers
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
 
-        // ==========================================
         // ЕДИНСТВЕННЫЙ КОНСТРУКТОР
-        // ==========================================
         public ApothecaryRenderer(BlockPos pos, ICoreClientAPI capi)
         {
             this.pos = pos;
@@ -64,7 +62,6 @@ namespace BotaniaStory.client.renderers
                 yRots[i] = (float)(rand.NextDouble() * GameMath.TWOPI);
             }
 
-            // Настройки кастомных предметов (добавляй свои сюда)
             // 1. Настройка для белого лепестка из  мода
             customTransforms["точное_имя_айтема"] = new ItemRenderTransform(
                 0.2f,             // Масштаб (Scale): 0.4f делает предмет чуть больше базового (0.3f). Буква 'f' означает тип float.
@@ -90,9 +87,7 @@ namespace BotaniaStory.client.renderers
             );
         }
 
-        // ==========================================
         // МЕТОДЫ
-        // ==========================================
         public void SetContents(InventoryBase inv)
         {
             for (int i = 0; i < 16; i++)
@@ -122,9 +117,7 @@ namespace BotaniaStory.client.renderers
                 {
                     string itemCode = stack.Collectible.Code.Domain + ":" + stack.Collectible.Code.Path;
 
-                    // ==========================================
                     // 1. БАЗА (Для всех предметов)
-                    // ==========================================
                     float finalScale = this.itemScale;
                     float finalRotX = 0f;
                     float finalRotY = 0f;
@@ -135,9 +128,7 @@ namespace BotaniaStory.client.renderers
                     // БАЗОВЫЙ ЦЕНТР: Ровно посередине блока
                     Vec3f finalCenter = new Vec3f(0.5f, 0.5f, 0.5f);
 
-                    // ==========================================
                     // 2. ФИЛЬТРЫ 
-                    // ==========================================
 
                     // СНАЧАЛА проверяем словарь кастомных настроек!
                     if (customTransforms.TryGetValue(itemCode, out ItemRenderTransform transform))
@@ -147,7 +138,7 @@ namespace BotaniaStory.client.renderers
                         finalRotY = transform.RotY;
                         finalRotZ = transform.RotZ;
 
-                        // Если для кастомных предметов тоже нужно смещать центр вниз, раскомментируй строку ниже:
+                        // Если для кастомных предметов тоже нужно смещать центр вниз
                         // finalCenter = new Vec3f(0.5f, 0.05f, 0.5f); 
                     }
 
@@ -172,6 +163,18 @@ namespace BotaniaStory.client.renderers
 
                         finalSpread = 7f; 
                     }
+                    //РУНЫ
+                    if (itemCode.Contains("rune"))
+                    {
+                        finalScale = 0.25f;
+                        finalHeight += 0.08f;
+                        finalRotX = GameMath.PIHALF;
+                        finalRotY = GameMath.PI;
+                        finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
+
+                        finalSpread = 5f;
+                    }
+
 
                     if (itemCode.Contains("gray-free") || itemCode.Contains("blue-free") 
                         || itemCode.Contains("lightgray-free") || itemCode.Contains("red-free") 
