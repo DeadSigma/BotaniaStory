@@ -1,0 +1,40 @@
+{
+    "ingredientPattern": "AAA,BCD,EFG",
+    "ingredients": {
+        "A": {
+            "type": "block",
+            "code": "game:rockpolished-andesite"
+        },
+        "B": {
+            "type": "item",
+            "code": "botaniastory:rune-water"
+        },
+        "C": {
+            "type": "block",
+            "code": "game:metalblock-new-riveted-manasteel"
+        },
+        "D": {
+            "type": "item",
+            "code": "botaniastory:rune-fire"
+        },
+        "E": {
+            "type": "item",
+            "code": "botaniastory:rune-earth"
+        },
+        "F": {
+            "type": "item",
+            "code": "botaniastory:rune-mana"
+        },
+        "G": {
+            "type": "item",
+            "code": "botaniastory:rune-air"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "block",
+        "code": "botaniastory:terrestrialplate",
+        "quantity": 1
+    }
+}
