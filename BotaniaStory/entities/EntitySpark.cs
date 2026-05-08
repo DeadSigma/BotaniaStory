@@ -25,6 +25,18 @@ namespace BotaniaStory.entities
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
             base.Initialize(properties, api, InChunkIndex3d);
+
+            if (api is ICoreServerAPI sapi)
+            {
+                // Проверяем, была ли искра поставлена baotaniastory:spark
+                if (!WatchedAttributes.HasAttribute("baseX"))
+                {
+                    // Если её заспавнили консолью или как-то иначе - убиваем её
+                    this.Die();
+                    return;
+                }
+            }
+
             if (api is ICoreClientAPI capi)
             {
                 // 2. СОХРАНЯЕМ ССЫЛКУ ПРИ РЕГИСТРАЦИИ
@@ -59,10 +71,37 @@ namespace BotaniaStory.entities
                 double baseY = WatchedAttributes.GetDouble("baseY", Pos.Y);
                 double baseZ = WatchedAttributes.GetDouble("baseZ", Pos.Z);
 
-                // Просто удерживаем искру на заданной высоте (1.7), без поиска потолка
-                if (Math.Abs(Pos.Y - baseY) > 0.05)
+                // --- УМНАЯ СИСТЕМА ВСПЛЫТИЯ ИСКРЫ ---
+                double targetY = baseY;
+                BlockPos checkPos = new BlockPos((int)Math.Floor(baseX), (int)Math.Floor(targetY), (int)Math.Floor(baseZ));
+
+                // Ищем свободное место (ограничим поиск 10 блоками вверх, чтобы не грузить сервер)
+                for (int i = 0; i < 10; i++)
                 {
-                    Pos.Y = baseY;
+                    Block blockHere = Api.World.BlockAccessor.GetBlock(checkPos);
+                    BlockEntity beHere = Api.World.BlockAccessor.GetBlockEntity(checkPos);
+
+                    // Как понять, что блоком можно пренебречь (воздух, вода, высокая трава)?
+                    // Если у блока НЕТ коллизии, искра может в нем находиться.
+                    bool isSolid = blockHere.CollisionBoxes != null && blockHere.CollisionBoxes.Length > 0;
+
+                    // Если блок не твердый ИЛИ это бассейн маны (разрешаем строить столбы из бассейнов)
+                    if (!isSolid || beHere is BlockEntityManaPool)
+                    {
+                        break; // Нашли идеальное место!
+                    }
+
+                    // Место занято! Поднимаем цель на 1 блок вверх
+                    targetY += 1.0;
+                    checkPos.Y += 1;
+                }
+
+                // Плавно (с анимацией) перемещаем искру к целевой высоте
+                if (Math.Abs(Pos.Y - targetY) > 0.01)
+                {
+                    // Умножаем на dt для независимости от ТПС сервера (плавное скольжение)
+                    Pos.Y += (targetY - Pos.Y) * (dt * 5f);
+                    Pos.SetFrom(Pos); // Обновляем позицию для синхронизации с клиентом
                 }
 
                 transferAccumulator += dt;
@@ -70,10 +109,7 @@ namespace BotaniaStory.entities
                 {
                     transferAccumulator = 0f;
 
-                    // ==========================================
                     // ДОБАВЛЯЕМ ВАЛИДАЦИЮ ОПОРНОГО БЛОКА
-                    //
-                    // 
                     BlockPos anchorPos = new BlockPos((int)Math.Floor(baseX), (int)Math.Floor(baseY) - 1, (int)Math.Floor(baseZ));
                     BlockEntity anchorBE = Api.World.BlockAccessor.GetBlockEntity(anchorPos);
 
