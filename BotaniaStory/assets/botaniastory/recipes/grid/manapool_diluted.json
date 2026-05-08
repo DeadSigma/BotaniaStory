@@ -4,12 +4,12 @@
         "ingredients": {
             "C": {
                 "type": "item",
-                "code": "game:chisel-*",
+                "tags": [ "tool-chisel" ],
                 "isTool": true
             },
             "H": {
                 "type": "item",
-                "code": "game:hammer-*",
+                "tags": [ "tool-hammer" ],
                 "isTool": true
             },
             "S": {

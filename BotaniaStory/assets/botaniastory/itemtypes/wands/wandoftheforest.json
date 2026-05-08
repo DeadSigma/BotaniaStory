@@ -17,15 +17,18 @@
         "general": [ "wandoftheforest-white-white" ],
         "botaniastory": [ "wandoftheforest-white-white" ]
     },
-
+    "faceCullMode": "NeverCull",
     "shape": { "base": "botaniastory:item/wandoftheforest" },
 
     "textures": {
         "tip1": { "base": "botaniastory:item/colors/{color1}" },
         "tip2": { "base": "botaniastory:item/colors/{color2}" }
     },
-
-
+    "randomDrawOffset": true,
+    "renderpass": "OpaqueNoCull",
+    "sidesolid": {
+        "all": false
+    },
     "behaviors": [
         {
             "name": "GroundStorable",

@@ -27,17 +27,17 @@ namespace BotaniaStory.lexicon
     public class BookRecipe
     {
         public string RecipeType { get; set; }
-        public int Spread { get; set; }      
+        public int Spread { get; set; }
 
-        public string Output { get; set; }    
+        public string Output { get; set; }
 
         public string[] Grid { get; set; }
         public string UiKey { get; set; }
         public string[] ApothecaryIngredients { get; set; }
         public string ApothecaryCenter { get; set; }
         public string[] AlfheimInputs { get; set; }
-        public string[] PoolInput { get; set; }   
-        public string PoolBlock { get; set; }      
+        public string[] PoolInput { get; set; }
+        public string PoolBlock { get; set; }
         public string[] PoolCatalyst { get; set; }
         public string AnvilInput { get; set; }
         public string AnvilBlock { get; set; }
@@ -88,7 +88,7 @@ namespace BotaniaStory.lexicon
 
             { "natural_apparatus", new[] { "ch1" } },
 
-            { "mystical_items", new[] { "wandofbinding", "manaitem", "rod_of_the_seas" } },
+            { "mystical_items", new[] { "wandofbinding", "manaitem", "terrasteelitem", "rod_of_the_seas" } },
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
@@ -157,7 +157,7 @@ namespace BotaniaStory.lexicon
                         // (например, "mysticalflower-orange-free" содержит "mysticalflower")
                         if (blockPath.Contains(chapterId))
                         {
-                            return chapterId; 
+                            return chapterId;
                         }
                     }
                 }
@@ -173,7 +173,7 @@ namespace BotaniaStory.lexicon
             int catIndex = 0;
             foreach (var kvp in BookStructure)
             {
-                string catId = kvp.Key;      
+                string catId = kvp.Key;
                 string[] chapterIds = kvp.Value;
 
                 // Ищем название категории
@@ -193,7 +193,7 @@ namespace BotaniaStory.lexicon
 
                 for (int j = 0; j < chapterIds.Length; j++)
                 {
-                    string chapId = chapterIds[j]; 
+                    string chapId = chapterIds[j];
 
 
                     string titleKey = $"botaniastory:lexicon_{catId}_{chapId}_title";
@@ -342,9 +342,9 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                            "botaniastory:livingrock", "botaniastory:manaitem-managear", "botaniastory:livingrock", 
-                            "game:hammer-*",           "botaniastory:livingrock",        "game:chisel-*",           
-                            "botaniastory:livingrock", "botaniastory:livingrock",        "botaniastory:livingrock"  
+                            "botaniastory:livingrock", "botaniastory:manaitem-managear", "botaniastory:livingrock",
+                            "game:hammer-*",           "botaniastory:livingrock",        "game:chisel-*",
+                            "botaniastory:livingrock", "botaniastory:livingrock",        "botaniastory:livingrock"
                         },
                             Output = "botaniastory:runicaltar"
                         });
@@ -841,6 +841,270 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
+                        // ================= РАЗВОРОТ 1, ПРАВАЯ СТРАНИЦА (p4) =================
+
+                        // Рецепт: Гниль -> Компост (Верхний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+
+                            PoolInput = new string[] { "game:rot@3" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:compost"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 5000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        // Рецепт: Маленькая шкура -> Кожа (Нижний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+
+                            PoolInput = new string[] { "game:hide-raw-small" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:leather-normal-plain"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 5000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        // ================= РАЗВОРОТ 2, ЛЕВАЯ СТРАНИЦА (p5) =================
+
+                        // Рецепт: Средняя шкура -> 2 Кожи (Верхний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+
+                            PoolInput = new string[] { "game:hide-raw-medium" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:leather-normal-plain@2"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 7000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                        // Рецепт: Большая шкура -> 3 Кожи (Нижний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
+
+                            PoolInput = new string[] { "game:hide-raw-large" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:leather-normal-plain@3"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
+
+                        // ================= РАЗВОРОТ 2, ПРАВАЯ СТРАНИЦА (p6) =================
+
+                        // Рецепт: Огромная шкура -> 5 Кожи (Верхний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+
+                            PoolInput = new string[] { "game:hide-raw-huge" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:leather-normal-plain@5"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 13000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        // Рецепт: Медвежья шкура -> 5 Кожи (Нижний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+
+                            PoolInput = new string[] { "game:hide-raw-bear-" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:leather-normal-plain@5"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 15000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        // ================= РАЗВОРОТ 3, ЛЕВАЯ СТРАНИЦА (p7) =================
+
+                        // Рецепт: Компост -> Селитра (Верхний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 3,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+
+                            PoolInput = new string[] { "game:compost@3" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:saltpeter"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                        // Рецепт: Селитра -> Поташ (Нижний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 3,
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
+
+                            PoolInput = new string[] { "game:saltpeter@3" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:potash"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
+
+                        // ================= РАЗВОРОТ 3, ПРАВАЯ СТРАНИЦА (p8) =================
+
+                        // Рецепт: Лук -> Сера (Верхний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 3,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+
+                            PoolInput = new string[] { "game:vegetable-onion@6" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:powder-sulfur"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        // Рецепт: Капуста -> Сера (Нижний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 3,
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+
+                            PoolInput = new string[] { "game:vegetable-cabbage@2" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:powder-sulfur"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        // ================= РАЗВОРОТ 4, ЛЕВАЯ СТРАНИЦА (p9) =================
+
+                        // Рецепт: Поташ -> Каменная соль/Галит (Верхний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 4,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+
+                            PoolInput = new string[] { "game:potash@4" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:stone-halite"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 4,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                        // Рецепт: Древесный уголь -> Каменный уголь (Нижний)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 4,
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
+
+                            PoolInput = new string[] { "game:charcoal@2" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
+
+                            Output = "game:ore-bituminouscoal"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 4,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
+
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ КОЛДОВСКОЙ КАТАЛИЗАТОР ===
@@ -860,7 +1124,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:catalyst_conjuration"
                         });
 
-                        // 1. Палка (Право Верх)
+                        //  Палка 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -874,11 +1138,11 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 10000,
+                            ManaCost = 5000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
-                        // 2. Сухая трава (Право Низ)
+                        // Сухая трава 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -892,11 +1156,11 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 20000,
+                            ManaCost = 5000,
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
-                        // 3. Чистый кварц (Лево Верх)
+                        //  Чистый кварц 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -914,7 +1178,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
-                        // 4. Кварцевая руда (Лево Низ)
+                        //  Кварцевая руда 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -932,7 +1196,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
-                        // 5. Порошок оксида железа (Право Верх)
+                        //  Порошок оксида железа 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -950,7 +1214,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
-                        // 6. Снежок (Право Низ)
+                        //  Снежок (Право Низ)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -968,7 +1232,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
-                        // 7. Красная глина (Лево Верх)
+                        // Красная глина 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -986,7 +1250,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
-                        // 8. Известь/Раствор (Лево Низ)
+                        //  Известь/Раствор 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -1001,6 +1265,92 @@ namespace BotaniaStory.lexicon
                         {
                             Spread = 2,
                             ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
+
+
+                        // Рецепт: Бурый уголь / Лигнит 
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+
+                            PoolInput = new string[] { "game:ore-lignite" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+
+                            Output = "game:ore-lignite@2"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        // Рецепт: Каменный уголь / Битуминозный 
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 2,
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+
+                            PoolInput = new string[] { "game:ore-bituminouscoal" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+
+                            Output = "game:ore-bituminouscoal@2"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+
+                        // Рецепт: Антрацит 
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 3,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+
+                            PoolInput = new string[] { "game:ore-anthracite" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+
+                            Output = "game:ore-anthracite@2"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                        // Рецепт: Торфяной кирпич 
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 3,
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
+
+                            PoolInput = new string[] { "game:peatbrick" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+
+                            Output = "game:peatbrick@2"
+                        });
+
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 10000,
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
                     }
@@ -1320,7 +1670,7 @@ namespace BotaniaStory.lexicon
                         });
                         /////////////Кирпичи
                     }
-                   
+
                     // === НАСТРОЙКА ГЛАВЫ МАНАСТЕКЛО ===
                     else if (chapId == "managlass")
                     {
@@ -1827,6 +2177,16 @@ namespace BotaniaStory.lexicon
                         {
                             RecipeType = "Anvil",
                             Spread = 0,
+                            UiKey = "Кузня_Плита",
+                            AnvilInput = "game:ingot-manasteel@2",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:metalplate-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 0,
                             UiKey = "Кузня_Манасталь",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
@@ -1842,7 +2202,7 @@ namespace BotaniaStory.lexicon
                               null, "game:metalchain-manasteel", null,
                               "game:metalchain-manasteel", null, "game:metalchain-manasteel",
                               null, null, null},
-                            Output = "botaniastory:armor-chain-manasteel-head"
+                            Output = "botaniastory:manasteel-armor-head-chain"
                         });
                         ////////////////////////////////////////////////
 
@@ -1856,7 +2216,7 @@ namespace BotaniaStory.lexicon
                               "game:metalchain-manasteel", "game:armor-body-jerkin-leather", "game:metalchain-manasteel",
                               "game:metalchain-manasteel@2", "game:metalchain-manasteel@2", "game:metalchain-manasteel@2",
                               "game:metalchain-manasteel", "game:metalchain-manasteel", "game:metalchain-manasteel"},
-                            Output = "botaniastory:armor-chain-manasteel-body"
+                            Output = "botaniastory:manasteel-armor-body-chain"
                         });
                         ////////////////////////////////////////////////
 
@@ -1870,280 +2230,398 @@ namespace BotaniaStory.lexicon
                               "game:metalchain-manasteel", "game:metalchain-manasteel@2", "game:metalchain-manasteel",
                               "game:metalchain-manasteel", "game:armor-legs-jerkin-leather", "game:metalchain-manasteel",
                               null, null, null},
-                            Output = "botaniastory:armor-chain-manasteel-legs"
+                            Output = "botaniastory:manasteel-armor-legs-chain"
                         });
-                        ////////////////////////////////////////////////
-                        ///
+
+                        // --- ЛАТЫ ИЗ МАНАСТАЛИ ---
+
+                        // Латный шлем (Манасталь) - Spread 1, Правая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                               "game:leather-normal-plain", "game:metalplate-manasteel", "game:leather-normal-plain",
+                               "game:metalplate-manasteel", "botaniastory:manasteel-armor-head-chain", "game:metalplate-manasteel",
+                               null, null, null},
+                            Output = "botaniastory:manasteel-armor-head-plate"
+                        });
+
+                        // Латный нагрудник (Манасталь) - Spread 1, Правая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                              "game:metalplate-manasteel", "botaniastory:manasteel-armor-body-chain", "game:metalplate-manasteel",
+                              "game:metalplate-manasteel", "game:metalplate-manasteel", "game:metalplate-manasteel",
+                              "game:metalplate-manasteel", "game:metalplate-manasteel", "game:metalplate-manasteel"},
+                            Output = "botaniastory:manasteel-armor-body-plate"
+                        });
+
+                        // Латные поножи (Манасталь) - Spread 2, Левая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                             "game:metalplate-manasteel", "game:metalplate-manasteel", "game:metalplate-manasteel",
+                             "game:metalplate-manasteel", "botaniastory:manasteel-armor-legs-chain", "game:metalplate-manasteel",
+                             null, null, null},
+                            Output = "botaniastory:manasteel-armor-legs-plate"
+                        });
+
+                        // --- ЧЕШУЙЧАТАЯ БРОНЯ ИЗ МАНАСТАЛИ ---
+
+                        // Чешуйчатый шлем (Манасталь) - Spread 2, Левая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                              "botaniastory:metalscale-manasteel", "botaniastory:manasteel-armor-head-chain", "botaniastory:metalscale-manasteel",
+                              "game:leather-normal-plain", null, "game:leather-normal-plain",
+                              null, null, null},
+                            Output = "botaniastory:manasteel-armor-head-scale"
+                        });
+
+                        // Чешуйчатый нагрудник (Манасталь) - Spread 2, Правая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             "botaniastory:metalscale-manasteel", "botaniastory:manasteel-armor-body-chain", "botaniastory:metalscale-manasteel",
+                             "botaniastory:metalscale-manasteel", "botaniastory:metalscale-manasteel", "botaniastory:metalscale-manasteel",
+                             null, "botaniastory:metalscale-manasteel", null},
+                            Output = "botaniastory:manasteel-armor-body-scale"
+                        });
+
+                        // Чешуйчатые поножи (Манасталь) - Spread 2, Правая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                              "botaniastory:metalscale-manasteel", "botaniastory:manasteel-armor-legs-chain", "botaniastory:metalscale-manasteel",
+                              "botaniastory:metalscale-manasteel", null, "botaniastory:metalscale-manasteel",
+                              null, null, null},
+                            Output = "botaniastory:manasteel-armor-legs-scale"
+                        });
+
+                        // --- БРИГАНТИНА ИЗ МАНАСТАЛИ ---
+
+                        // Бригантинный шлем (Манасталь) - Spread 3, Левая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                              "game:leather-normal-plain", "game:metalplate-manasteel", "game:leather-normal-plain",
+                              "game:leather-normal-plain", null, "game:leather-normal-plain",
+                              null, null, null},
+                            Output = "botaniastory:manasteel-armor-head-brigandine"
+                        });
+
+                        // Бригантинный нагрудник (Манасталь) - Spread 3, Левая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                             "game:metalplate-manasteel", null, "game:metalplate-manasteel",
+                             "game:metalplate-manasteel", "game:armor-body-jerkin-leather", "game:metalplate-manasteel",
+                             "game:metalplate-manasteel", "game:metalplate-manasteel", "game:metalplate-manasteel"},
+                            Output = "botaniastory:manasteel-armor-body-brigandine"
+                        });
+
+                        // Бригантинные поножи (Манасталь) - Spread 3, Правая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                          "game:metalplate-manasteel", "game:armor-legs-jerkin-leather", "game:metalplate-manasteel",
+                          "game:metalplate-manasteel", null, "game:metalplate-manasteel",
+                          null, null, null},
+                            Output = "botaniastory:manasteel-armor-legs-brigandine"
+                        });
+
+                        // ==================== ИНСТРУМЕНТЫ ====================
+
+                        // --- Spread 4: Кирка (Левая) и Топор (Правая) ---
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 1,
-                            UiKey = "Кузня_Правая_Верхняя",
+                            Spread = 4,
+                            UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:pickaxehead-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 1,
-                            UiKey = "Сетка_Правая_Нижняя",
+                            Spread = 4,
+                            UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:pickaxehead-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:pickaxehead-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:pickaxe-manasteel"
                         });
-                      //////////////////////////////
+
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 2,
-                            UiKey = "Кузня_Левая_Верхняя",
+                            Spread = 4,
+                            UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:axehead-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 2,
-                            UiKey = "Сетка_Левая_Нижняя",
+                            Spread = 4,
+                            UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:axehead-manasteel", null, null,
-                                  "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:axehead-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:axe-manasteel"
                         });
-                        //////////////////////////////
+
+                        // --- Spread 5: Лопата (Левая) и Тесак (Правая) ---
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 2,
-                            UiKey = "Кузня_Правая_Верхняя",
+                            Spread = 5,
+                            UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:shovelhead-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 2,
-                            UiKey = "Сетка_Правая_Нижняя",
+                            Spread = 5,
+                            UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:shovelhead-manasteel", null, null,
-                                  "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:shovelhead-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:shovel-manasteel"
                         });
-                        //////////////////////////////
+
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 3,
-                            UiKey = "Кузня_Левая_Верхняя",
+                            Spread = 5,
+                            UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:cleaverblade-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 3,
-                            UiKey = "Сетка_Левая_Нижняя",
+                            Spread = 5,
+                            UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:cleaverblade-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:cleaverblade-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:cleaver-manasteel"
                         });
-                        //////////////////////////////
+
+                        // --- Spread 6: Фалькс (Левая) и Молот (Правая) ---
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 3,
-                            UiKey = "Кузня_Правая_Верхняя",
+                            Spread = 6,
+                            UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:falxblade-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 3,
-                            UiKey = "Сетка_Правая_Нижняя",
+                            Spread = 6,
+                            UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:falxblade-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:falxblade-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:falx-manasteel"
                         });
-                        //////////////////////////////
+
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 4,
-                            UiKey = "Кузня_Левая_Верхняя",
+                            Spread = 6,
+                            UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:hammerhead-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 4,
-                            UiKey = "Сетка_Левая_Нижняя",
+                            Spread = 6,
+                            UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:hammerhead-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:hammerhead-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:hammer-manasteel"
                         });
-                        //////////////////////////////
+
+                        // --- Spread 7: Мотыга (Левая) и Нож (Правая) ---
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 4,
-                            UiKey = "Кузня_Правая_Верхняя",
+                            Spread = 7,
+                            UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:hoehead-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 4,
-                            UiKey = "Сетка_Правая_Нижняя",
+                            Spread = 7,
+                            UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:hoehead-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:hoehead-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:hoe-manasteel"
                         });
-                        //////////////////////////////
+
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 5,
-                            UiKey = "Кузня_Левая_Верхняя",
+                            Spread = 7,
+                            UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:knifeblade-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 5,
-                            UiKey = "Сетка_Левая_Нижняя",
+                            Spread = 7,
+                            UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:knifeblade-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:knifeblade-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:knife-manasteel"
                         });
-                        //////////////////////////////
+
+                        // --- Spread 8: Геолог. кирка (Левая) и Пила (Правая) ---
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 5,
-                            UiKey = "Кузня_Правая_Верхняя",
+                            Spread = 8,
+                            UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:prospectingpickhead-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 5,
-                            UiKey = "Сетка_Правая_Нижняя",
+                            Spread = 8,
+                            UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:prospectingpickhead-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:prospectingpickhead-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:prospectingpick-manasteel"
                         });
-                        //////////////////////////////
+
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 6,
-                            UiKey = "Кузня_Левая_Верхняя",
+                            Spread = 8,
+                            UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:sawblade-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 6,
-                            UiKey = "Сетка_Левая_Нижняя",
+                            Spread = 8,
+                            UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:sawblade-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
+        "botaniastory:sawblade-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
                             Output = "botaniastory:saw-manasteel"
                         });
-                        //////////////////////////////
+
+                        // --- Spread 9: Коса (Левая) и Копье (Правая) ---
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 6,
-                            UiKey = "Кузня_Правая_Верхняя",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:scytheblade-manasteel"
                         });
-
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Grid",
-                            Spread = 6,
-                            UiKey = "Сетка_Правая_Нижняя",
-                            Grid = new string[9] {
-                                 "botaniastory:scytheblade-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
-                            Output = "botaniastory:scythe-manasteel"
-                        });
-                        //////////////////////////////
-                        chapter.Recipes.Add(new BookRecipe()
-                        {
-                            RecipeType = "Grid",
-                            Spread = 7,
+                            Spread = 9,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                 "botaniastory:spearhead-manasteel", null, null,
-                                 "game:stick", null, null,
-                                 null, null, null},
-                            Output = "botaniastory:spear-manasteel"
+        "botaniastory:scytheblade-manasteel", null, null,
+        "game:stick", null, null,
+        null, null, null},
+                            Output = "botaniastory:scythe-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 7,
-                            UiKey = "Кузня_Левая_Верхняя",
+                            Spread = 9,
+                            UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:spearhead-manasteel"
                         });
-                        //////////////////////////////
-                        ///
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 9,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                             "botaniastory:spearhead-manasteel", null, null,
+                             "game:stick", null, null,
+                             null, null, null},
+                            Output = "botaniastory:spear-manasteel"
+                        });
+
+                        // --- Spread 10: Мелкие кузнечные инструменты (Левая) ---
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 7,
-                            UiKey = "Кузня_Правая_Зубило",
+                            Spread = 10,
+                            UiKey = "Кузня_Левая_Зубило",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:chisel-manasteel"
@@ -2152,8 +2630,8 @@ namespace BotaniaStory.lexicon
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 7,
-                            UiKey = "Кузня_Правая_Ключ",
+                            Spread = 10,
+                            UiKey = "Кузня_Левая_Ключ",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:wrench-manasteel"
@@ -2162,8 +2640,8 @@ namespace BotaniaStory.lexicon
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 7,
-                            UiKey = "Кузня_Правая_Клещи",
+                            Spread = 10,
+                            UiKey = "Кузня_Левая_Клещи",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:tongs-manasteel"
@@ -2172,8 +2650,8 @@ namespace BotaniaStory.lexicon
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 7,
-                            UiKey = "Кузня_Правая_Монтировка",
+                            Spread = 10,
+                            UiKey = "Кузня_Левая_Монтировка",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:crowbar-manasteel"
@@ -2182,11 +2660,465 @@ namespace BotaniaStory.lexicon
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
-                            Spread = 7,
-                            UiKey = "Кузня_Правая_Ножницы",
+                            Spread = 10,
+                            UiKey = "Кузня_Левая_Ножницы",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:shears-manasteel"
+                        });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ТЕРРАСТАЛИ ===
+                    else if (chapId == "terrasteelitem")
+                    {
+                        chapter.TabItemCode = "botaniastory:pickaxe-terrasteel";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 0,
+                            UiKey = "Кузня_Плита",
+                            AnvilInput = "game:ingot-terrasteel@2",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:metalplate-terrasteel"
+                        });
+
+                        // --- КОЛЬЧУГА ИЗ ТЕРРАСТАЛИ ---
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 0,
+                            UiKey = "Кузня_Террасталь",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:metalchain-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Манашлем",
+                            Grid = new string[9] {
+                      null, "game:metalchain-terrasteel", null,
+                      "game:metalchain-terrasteel", null, "game:metalchain-terrasteel",
+                      null, null, null},
+                            Output = "botaniastory:terrasteel-armor-head-chain"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                      "game:metalchain-terrasteel", "game:armor-body-jerkin-leather", "game:metalchain-terrasteel",
+                      "game:metalchain-terrasteel@2", "game:metalchain-terrasteel@2", "game:metalchain-terrasteel@2",
+                      "game:metalchain-terrasteel", "game:metalchain-terrasteel", "game:metalchain-terrasteel"},
+                            Output = "botaniastory:terrasteel-armor-body-chain"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                      "game:metalchain-terrasteel", "game:metalchain-terrasteel@2", "game:metalchain-terrasteel",
+                      "game:metalchain-terrasteel", "game:armor-legs-jerkin-leather", "game:metalchain-terrasteel",
+                      null, null, null},
+                            Output = "botaniastory:terrasteel-armor-legs-chain"
+                        });
+
+                        // --- ЛАТЫ ИЗ ТЕРРАСТАЛИ ---
+                        // Латный шлем (ТЕРРАСТАЛЬ) - Spread 1, Правая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                       "game:leather-normal-plain", "game:metalplate-terrasteel", "game:leather-normal-plain",
+                       "game:metalplate-terrasteel", "botaniastory:terrasteel-armor-head-chain", "game:metalplate-terrasteel",
+                       null, null, null},
+                            Output = "botaniastory:terrasteel-armor-head-plate"
+                        });
+
+                        // Латный нагрудник (ТЕРРАСТАЛЬ) - Spread 1, Правая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                      "game:metalplate-terrasteel", "botaniastory:terrasteel-armor-body-chain", "game:metalplate-terrasteel",
+                      "game:metalplate-terrasteel", "game:metalplate-terrasteel", "game:metalplate-terrasteel",
+                      "game:metalplate-terrasteel", "game:metalplate-terrasteel", "game:metalplate-terrasteel"},
+                            Output = "botaniastory:terrasteel-armor-body-plate"
+                        });
+
+                        // Латные поножи (ТЕРРАСТАЛЬ) - Spread 2, Левая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                     "game:metalplate-terrasteel", "game:metalplate-terrasteel", "game:metalplate-terrasteel",
+                     "game:metalplate-terrasteel", "botaniastory:terrasteel-armor-legs-chain", "game:metalplate-terrasteel",
+                     null, null, null},
+                            Output = "botaniastory:terrasteel-armor-legs-plate"
+                        });
+
+                        // --- ЧЕШУЙЧАТАЯ БРОНЯ ИЗ ТЕРРАСТАЛИ ---
+                        // Чешуйчатый шлем (ТЕРРАСТАЛЬ) - Spread 2, Левая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                      "botaniastory:metalscale-terrasteel", "botaniastory:terrasteel-armor-head-chain", "botaniastory:metalscale-terrasteel",
+                      "game:leather-normal-plain", null, "game:leather-normal-plain",
+                      null, null, null},
+                            Output = "botaniastory:terrasteel-armor-head-scale"
+                        });
+
+                        // Чешуйчатый нагрудник (ТЕРРАСТАЛЬ) - Spread 2, Правая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                     "botaniastory:metalscale-terrasteel", "botaniastory:terrasteel-armor-body-chain", "botaniastory:metalscale-terrasteel",
+                     "botaniastory:metalscale-terrasteel", "botaniastory:metalscale-terrasteel", "botaniastory:metalscale-terrasteel",
+                     null, "botaniastory:metalscale-terrasteel", null},
+                            Output = "botaniastory:terrasteel-armor-body-scale"
+                        });
+
+                        // Чешуйчатые поножи (ТЕРРАСТАЛЬ) - Spread 2, Правая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                      "botaniastory:metalscale-terrasteel", "botaniastory:terrasteel-armor-legs-chain", "botaniastory:metalscale-terrasteel",
+                      "botaniastory:metalscale-terrasteel", null, "botaniastory:metalscale-terrasteel",
+                      null, null, null},
+                            Output = "botaniastory:terrasteel-armor-legs-scale"
+                        });
+
+                        // ==================== ИНСТРУМЕНТЫ (Сдвинуты на -1 Spread) ====================
+
+                        // --- Spread 3: Кирка (Левая) и Топор (Правая) ---
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 3,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:pickaxehead-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:pickaxehead-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:pickaxe-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 3,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:axehead-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:axehead-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:axe-terrasteel"
+                        });
+
+                        // --- Spread 4: Лопата (Левая) и Тесак (Правая) ---
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 4,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:shovelhead-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 4,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:shovelhead-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:shovel-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 4,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:cleaverblade-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 4,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:cleaverblade-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:cleaver-terrasteel"
+                        });
+
+                        // --- Spread 5: Фалькс (Левая) и Молот (Правая) ---
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 5,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:falxblade-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 5,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:falxblade-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:falx-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 5,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:hammerhead-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 5,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:hammerhead-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:hammer-terrasteel"
+                        });
+
+                        // --- Spread 6: Мотыга (Левая) и Нож (Правая) ---
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 6,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:hoehead-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 6,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:hoehead-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:hoe-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 6,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:knifeblade-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 6,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:knifeblade-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:knife-terrasteel"
+                        });
+
+                        // --- Spread 7: Геолог. кирка (Левая) и Пила (Правая) ---
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 7,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:prospectingpickhead-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 7,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:prospectingpickhead-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:prospectingpick-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 7,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:sawblade-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 7,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:sawblade-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:saw-terrasteel"
+                        });
+
+                        // --- Spread 8: Коса (Левая) и Копье (Правая) ---
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 8,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:scytheblade-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 8,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:scytheblade-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:scythe-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 8,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:spearhead-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 8,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                "botaniastory:spearhead-terrasteel", null, null,
+                                "game:stick", null, null,
+                                null, null, null},
+                            Output = "botaniastory:spear-terrasteel"
+                        });
+
+                        // --- Spread 9: Мелкие кузнечные инструменты (Левая) ---
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Зубило",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:chisel-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Ключ",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:wrench-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Клещи",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:tongs-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Монтировка",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:crowbar-terrasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Ножницы",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:shears-terrasteel"
                         });
                     }
 
@@ -2316,8 +3248,8 @@ namespace BotaniaStory.lexicon
                     {
                         chapter.TabItemCode = "botaniastory:elvenglass-1";
 
-                      
-                      
+
+
                         //////////////////////////////////////////////
                         //0
                         chapter.Recipes.Add(new BookRecipe()
@@ -2331,12 +3263,12 @@ namespace BotaniaStory.lexicon
 
                         chapter.ManaBars.Add(new BookManaBar()
                         {
-                            Spread = 0,               
+                            Spread = 0,
                             ManaCost = 1000,
                             UiKey = "Полоска_Маны_Правая_Альфхейм"
                         });
-                            /////////////////////////1
-                            chapter.Recipes.Add(new BookRecipe()
+                        /////////////////////////1
+                        chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Alfheim",
                             Spread = 1,
@@ -2345,14 +3277,14 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:dragonstone"
                         });
 
-                    chapter.ManaBars.Add(new BookManaBar()
+                        chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
                             ManaCost = 1000,
                             UiKey = "Полоска_Маны_Левая_Альфхейм"
                         });
-                            //////////
-                            chapter.Recipes.Add(new BookRecipe()
+                        //////////
+                        chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Alfheim",
                             Spread = 1,
@@ -2376,8 +3308,8 @@ namespace BotaniaStory.lexicon
                             AlfheimInputs = new string[] { "botaniastory:manaitem-manaquartz" },
                             Output = "botaniastory:pixie-dust"
                         });
-                             /////
-                             chapter.ManaBars.Add(new BookManaBar()
+                        /////
+                        chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
                             ManaCost = 1000,
@@ -2435,12 +3367,12 @@ namespace BotaniaStory.lexicon
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
-                            RecipeType = "Anvil", 
-                            Spread = 0,          
-                            UiKey = "Кузня_Правая_Талисман", 
-                            AnvilInput = "game:ingot-elementium", 
-                            AnvilBlock = "game:anvil-iron", 
-                            Output = "botaniastory:blackholetalisman_frame"      
+                            RecipeType = "Anvil",
+                            Spread = 0,
+                            UiKey = "Кузня_Правая_Талисман",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-iron",
+                            Output = "botaniastory:blackholetalisman_frame"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()

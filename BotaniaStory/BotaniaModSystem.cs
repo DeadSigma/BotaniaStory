@@ -74,6 +74,7 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemSparkAugment", typeof(ItemSparkAugment));
             api.RegisterItemClass("ItemManaTablet", typeof(ItemManaTablet));
             api.RegisterItemClass("ItemManaArmor", typeof(ItemManaArmor));
+
             api.RegisterItemClass("ItemManaTool", typeof(ItemManaTool));
             api.RegisterItemClass("ItemManaAxe", typeof(ItemManaAxe));
             api.RegisterItemClass("ItemManaScythe", typeof(ItemManaScythe));
@@ -88,6 +89,23 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemManaSpear", typeof(ItemManaSpear));
             api.RegisterItemClass("ItemManaWrench", typeof(ItemManaWrench));
             api.RegisterItemClass("ItemManaCrowbar", typeof(ItemManaCrowbar));
+            api.RegisterItemClass("ItemTerraTool", typeof(ItemTerraTool));
+            api.RegisterItemClass("ItemTerraAxe", typeof(ItemTerraAxe));
+            api.RegisterItemClass("ItemTerraScythe", typeof(ItemTerraScythe));
+            api.RegisterItemClass("ItemTerraChisel", typeof(ItemTerraChisel));
+            api.RegisterItemClass("ItemTerraKnife", typeof(ItemTerraKnife));
+            api.RegisterItemClass("ItemTerraCleaver", typeof(ItemTerraCleaver));
+            api.RegisterItemClass("ItemTerraProspectingPick", typeof(ItemTerraProspectingPick));
+            api.RegisterItemClass("ItemTerraTongs", typeof(ItemTerraTongs));
+            api.RegisterItemClass("ItemTerraShears", typeof(ItemTerraShears));
+            api.RegisterItemClass("ItemTerraHammer", typeof(ItemTerraHammer));
+            api.RegisterItemClass("ItemTerraHoe", typeof(ItemTerraHoe));
+            api.RegisterItemClass("ItemTerraSpear", typeof(ItemTerraSpear));
+            api.RegisterItemClass("ItemTerraWrench", typeof(ItemTerraWrench));
+            api.RegisterItemClass("ItemTerraCrowbar", typeof(ItemTerraCrowbar));
+
+
+
             api.RegisterBlockClass("BlockRunicAltar", typeof(BlockRunicAltar));
             api.RegisterBlockEntityClass("RunicAltar", typeof(BlockEntityRunicAltar));
             api.RegisterBlockClass("BlockTerrestrialPlate", typeof(BlockTerrestrialPlate));

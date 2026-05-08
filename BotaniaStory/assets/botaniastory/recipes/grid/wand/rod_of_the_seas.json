@@ -1,0 +1,23 @@
+{
+    "ingredientPattern": "  F, L ,R  ",
+    "ingredients": {
+        "F": {
+            "type": "item",
+            "code": "botaniastory:flask-water"
+        },
+        "L": {
+            "type": "item",
+            "code": "botaniastory:livingwood_stick"
+        },
+        "R": {
+            "type": "item",
+            "code": "botaniastory:rune-water"
+        }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+        "type": "item",
+        "code": "botaniastory:rod_of_the_seas"
+    }
+}

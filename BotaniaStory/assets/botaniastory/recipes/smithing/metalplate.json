@@ -1,0 +1,27 @@
+{
+    "code": "plate-{metal}",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": [ "manasteel", "terrasteel" ]
+    },
+    "name": "plate",
+    "pattern": [
+        [
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########",
+            "#########"
+        ]
+    ],
+    "output": {
+        "type": "item",
+        "code": "game:metalplate-{metal}"
+    }
+}

@@ -1,0 +1,371 @@
+[
+    {
+        "ingredientPattern": "_T_,T_T",
+        "recipeGroup": 1,
+        "ingredients": {
+            "T": {
+                "type": "item",
+                "code": "game:metalchain-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "quantity": 1
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-head-chain"
+        }
+    },
+    {
+        "ingredientPattern": "TJT,CCC,TTT",
+        "recipeGroup": 1,
+        "ingredients": {
+            "J": {
+                "type": "item",
+                "code": "game:armor-body-jerkin-leather",
+                "quantity": 1
+            },
+            "T": {
+                "type": "item",
+                "code": "game:metalchain-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "quantity": 1
+            },
+            "C": {
+                "type": "item",
+                "code": "game:metalchain-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "quantity": 2
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-body-chain"
+        }
+    },
+    {
+        "ingredientPattern": "TCT,TJT",
+        "recipeGroup": 1,
+        "ingredients": {
+            "J": {
+                "type": "item",
+                "code": "game:armor-legs-jerkin-leather",
+                "quantity": 1
+            },
+            "T": {
+                "type": "item",
+                "code": "game:metalchain-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "quantity": 1
+            },
+            "C": {
+                "type": "item",
+                "code": "game:metalchain-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "quantity": 2
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-legs-chain"
+        }
+    },
+
+    {
+        "ingredientPattern": "LPL,PCP",
+        "recipeGroup": 1,
+        "ingredients": {
+            "P": {
+                "type": "item",
+                "code": "game:metalplate-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ]
+            },
+            "C": {
+                "type": "item",
+                "code": "botaniastory:{metal}-armor-head-chain",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "recipeAttributes": {
+                    "repairMat": {
+                        "type": "item",
+                        "code": "game:metalchain-{metal}",
+                        "stacksize": 4
+                    }
+                }
+            },
+            "L": {
+                "type": "item",
+                "code": "game:leather-normal-plain"
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-head-plate"
+        }
+    },
+    {
+        "ingredientPattern": "PCP,PPP,PPP",
+        "recipeGroup": 1,
+        "ingredients": {
+            "P": {
+                "type": "item",
+                "code": "game:metalplate-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ]
+            },
+            "C": {
+                "type": "item",
+                "code": "botaniastory:{metal}-armor-body-chain",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "recipeAttributes": {
+                    "repairMat": {
+                        "type": "item",
+                        "code": "game:metalchain-{metal}",
+                        "stacksize": 12
+                    }
+                }
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-body-plate"
+        }
+    },
+    {
+        "ingredientPattern": "PPP,PCP",
+        "recipeGroup": 1,
+        "ingredients": {
+            "P": {
+                "type": "item",
+                "code": "game:metalplate-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ]
+            },
+            "C": {
+                "type": "item",
+                "code": "botaniastory:{metal}-armor-legs-chain",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "recipeAttributes": {
+                    "repairMat": {
+                        "type": "item",
+                        "code": "game:metalchain-{metal}",
+                        "stacksize": 6
+                    }
+                }
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-legs-plate"
+        }
+    },
+
+    {
+        "ingredientPattern": "SCS,L_L",
+        "recipeGroup": 1,
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "code": "botaniastory:metalscale-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ]
+            },
+            "C": {
+                "type": "item",
+                "code": "botaniastory:{metal}-armor-head-chain",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "recipeAttributes": {
+                    "repairMat": {
+                        "type": "item",
+                        "code": "game:metalchain-{metal}",
+                        "stacksize": 4
+                    }
+                }
+            },
+            "L": {
+                "type": "item",
+                "code": "game:leather-normal-plain"
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-head-scale"
+        }
+    },
+    {
+        "ingredientPattern": "SCS,SSS,_S_",
+        "recipeGroup": 1,
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "code": "botaniastory:metalscale-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ]
+            },
+            "C": {
+                "type": "item",
+                "code": "botaniastory:{metal}-armor-body-chain",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "recipeAttributes": {
+                    "repairMat": {
+                        "type": "item",
+                        "code": "game:metalchain-{metal}",
+                        "stacksize": 12
+                    }
+                }
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-body-scale"
+        }
+    },
+    {
+        "ingredientPattern": "SCS,S_S",
+        "recipeGroup": 1,
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "code": "botaniastory:metalscale-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ]
+            },
+            "C": {
+                "type": "item",
+                "code": "botaniastory:{metal}-armor-legs-chain",
+                "name": "metal",
+                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "recipeAttributes": {
+                    "repairMat": {
+                        "type": "item",
+                        "code": "game:metalchain-{metal}",
+                        "stacksize": 6
+                    }
+                }
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-legs-scale"
+        }
+    },
+    {
+        "ingredientPattern": "LPL,L_L",
+        "recipeGroup": 1,
+        "ingredients": {
+            "L": {
+                "type": "item",
+                "code": "game:leather-normal-plain",
+                "quantity": 2,
+                "recipeAttributes": {
+                    "repairMat": {
+                        "type": "item",
+                        "code": "game:leather-normal-plain",
+                        "stacksize": 1
+                    }
+                }
+            },
+            "P": {
+                "type": "item",
+                "code": "game:metalplate-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel" ],
+                "quantity": 2
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-head-brigandine"
+        }
+    },
+    {
+        "ingredientPattern": "P_P,PJP,PPP",
+        "recipeGroup": 1,
+        "ingredients": {
+            "J": {
+                "type": "item",
+                "code": "game:armor-body-jerkin-leather",
+                "quantity": 1,
+                "recipeAttributes": {
+                    "repairMat": {
+                        "type": "item",
+                        "code": "game:leather-normal-plain",
+                        "stacksize": 9
+                    }
+                }
+            },
+            "P": {
+                "type": "item",
+                "code": "game:metalplate-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel" ],
+                "quantity": 1
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-body-brigandine"
+        }
+    },
+    {
+        "ingredientPattern": "PJP,P_P",
+        "recipeGroup": 1,
+        "ingredients": {
+            "J": {
+                "type": "item",
+                "code": "game:armor-legs-jerkin-leather",
+                "recipeAttributes": {
+                    "repairMat": {
+                        "type": "item",
+                        "code": "game:leather-normal-plain",
+                        "stacksize": 6
+                    }
+                }
+            },
+            "P": {
+                "type": "item",
+                "code": "game:metalplate-*",
+                "name": "metal",
+                "allowedVariants": [ "manasteel" ],
+                "quantity": 1
+            }
+        },
+        "width": 3,
+        "height": 2,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:{metal}-armor-legs-brigandine"
+        }
+    }
+]

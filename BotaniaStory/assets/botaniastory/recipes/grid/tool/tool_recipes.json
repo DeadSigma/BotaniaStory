@@ -1,0 +1,242 @@
+[
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:axehead-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:axe-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:cleaverblade-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:cleaver-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:falxblade-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:falx-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:hammerhead-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:hammer-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:hoehead-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:hoe-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:knifeblade-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:knife-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:pickaxehead-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:pickaxe-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:prospectingpickhead-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:prospectingpick-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:sawblade-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:saw-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:scytheblade-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:scythe-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:shovelhead-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:shovel-manasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:spearhead-manasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:spear-manasteel" }
+    },
+	   {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:axehead-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:axe-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:cleaverblade-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:cleaver-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:falxblade-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:falx-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:hammerhead-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:hammer-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:hoehead-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:hoe-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:knifeblade-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:knife-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:pickaxehead-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:pickaxe-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:prospectingpickhead-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:prospectingpick-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:sawblade-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:saw-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:scytheblade-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:scythe-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:shovelhead-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:shovel-terrasteel" }
+    },
+    {
+        "ingredientPattern": "H,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "H": { "type": "item", "code": "botaniastory:spearhead-terrasteel" },
+            "S": { "type": "item", "code": "game:stick" }
+        },
+        "output": { "type": "item", "code": "botaniastory:spear-terrasteel" }
+    }
+]

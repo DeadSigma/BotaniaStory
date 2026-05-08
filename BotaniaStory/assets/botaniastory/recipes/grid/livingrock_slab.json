@@ -1,0 +1,29 @@
+[
+    {
+        "ingredientPattern": "CH_,L__,___",
+        "ingredients": {
+            "C": {
+                "type": "item",
+                "tags": [ "tool-chisel" ],
+                "isTool": true
+            },
+            "H": {
+                "type": "item",
+                "tags": [ "tool-hammer" ],
+                "isTool": true
+            },
+            "L": {
+                "type": "block",
+                "code": "botaniastory:livingrock"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "shapeless": false,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:livingrock_slab-down-free",
+            "quantity": 1
+        }
+    }
+]

@@ -102,8 +102,8 @@
         "scale": 5.58
     },
     "combustibleProps": {
-        "burnTemperature": 400,
-        "burnDuration": 10,
+        "burnTemperature": 600,
+        "burnDuration": 40,
         "enabled": true
     }
 }

@@ -49,7 +49,7 @@ namespace BotaniaStory.systems
             // Предохранитель от слишком тяжелых моделей
             if (totalFrames > 60)
             {
-                capi.Logger.Warning("BehaviorAnimatedItem: Слишком много кадров ({0}) сгенерировано для {1}. Осторожно с памятью!", totalFrames, collObj.Code);
+                capi.Logger.Warning("BehaviorAnimatedItem: Too many frames ({0}) generated for {1}. Please, somebody if you can make animtaion, help me!", totalFrames, collObj.Code);
             }
 
             frames = new MultiTextureMeshRef[totalFrames];

@@ -1,8 +1,9 @@
 using BotaniaStory.blocks;
 using BotaniaStory.entities;
 using BotaniaStory.items;
-using BotaniaStory.recipes;
+using BotaniaStory.util;
 using System;
+using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -254,26 +255,25 @@ namespace BotaniaStory.blockentity
         }
         private void CheckForDroppedItems(float dt)
         {
-            // Если маны нет, даже не пытаемся искать
             if (CurrentMana <= 0) return;
 
             Block blockBelow = Api.World.BlockAccessor.GetBlock(Pos.DownCopy());
             bool hasAlchemyCatalyst = blockBelow?.Code?.Path.Contains("catalyst_alchemy") == true;
             bool hasConjurationCatalyst = blockBelow?.Code?.Path.Contains("catalyst_conjuration") == true;
 
-            // Ищем все сущности над бассейном. Радиус 1 блок вверх и в стороны
             Entity[] entities = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 1.0, 0.5), 1.0f, 1.0f, e => e is EntityItem);
 
             foreach (Entity entity in entities)
             {
+                // ВАЖНО: Пропускаем сущности, которые уже были уничтожены в этом же тике другими рецептами
+                if (!entity.Alive) continue;
+
                 if (entity is EntityItem entityItem && entityItem.Itemstack != null)
                 {
                     ItemStack stack = entityItem.Itemstack;
                     string code = stack.Collectible.Code.Path;
                     string domain = stack.Collectible.Code.Domain;
                     string fullItemCode = $"{domain}:{code}";
-
-                  
 
                     // Игнорируем предметы, которые еще летят по воздуху
                     if (!entityItem.Collided && !entityItem.Swimming) continue;
@@ -330,66 +330,110 @@ namespace BotaniaStory.blockentity
                         }
                     }
 
-                    // --- РЕЦЕПТЫ ---
 
-                    // Алхимия
-                    if (hasAlchemyCatalyst && CatalystRegistry.AlchemyRecipes.ContainsKey(fullItemCode))
+                    //РЕЦЕПТЫ КАТАЛИЗАТОРОВ НАХОДЯТСЯ В CatalystRegistry.cs
+                    if (hasAlchemyCatalyst)
                     {
-                        string outputCode = CatalystRegistry.AlchemyRecipes[fullItemCode];
-                        int cost = CatalystRegistry.AlchemyManaCosts[fullItemCode];
-                        if (TryTransmuteItem(entityItem, outputCode, cost)) continue;
+                        AlchemyRecipe recipe = null;
+
+                        // 1. Сначала ищем точное совпадение (работает быстрее)
+                        if (CatalystRegistry.AlchemyRecipes.ContainsKey(fullItemCode))
+                        {
+                            recipe = CatalystRegistry.AlchemyRecipes[fullItemCode];
+                        }
+                        else
+                        {
+                            // 2. Если точного совпадения нет, перебираем рецепты со звездочкой (wildcard)
+                            foreach (var kvp in CatalystRegistry.AlchemyRecipes)
+                            {
+                                if (kvp.Key.EndsWith("-"))
+                                {
+                                    string prefix = kvp.Key.TrimEnd('-'); // Отрезаем звездочку (получаем "game:hide-raw-bear-")
+                                    if (fullItemCode.StartsWith(prefix))  // Проверяем, начинается ли брошенный предмет с этого префикса
+                                    {
+                                        recipe = kvp.Value;
+                                        break; // Рецепт найден, прерываем цикл
+                                    }
+                                }
+                            }
+                        }
+
+                        // Если рецепт в итоге был найден
+                        if (recipe != null)
+                        {
+                            // Собираем все такие же предметы вокруг
+                            int totalAvailable = 0;
+                            List<EntityItem> matchingItems = new List<EntityItem>();
+
+                            foreach (Entity e in entities)
+                            {
+                                if (e.Alive && e is EntityItem ei &&
+                                    ei.Itemstack?.Collectible.Code.Path == code &&
+                                    ei.Itemstack?.Collectible.Code.Domain == domain &&
+                                    (ei.Collided || ei.Swimming))
+                                {
+                                    matchingItems.Add(ei);
+                                    totalAvailable += ei.Itemstack.StackSize;
+                                }
+                            }
+
+                            // Проверяем общую сумму
+                            if (totalAvailable >= recipe.InputAmount)
+                            {
+                                if (TryTransmuteMultiple(matchingItems, recipe.OutputCode, recipe.OutputAmount, recipe.InputAmount, recipe.ManaCost))
+                                    continue;
+                            }
+                        }
                     }
 
-                    // Колдовство
+                    // Колдовство (оставляем как есть, если там только 1 к 2)
                     if (hasConjurationCatalyst && CatalystRegistry.ConjurationRecipes.ContainsKey(fullItemCode))
                     {
                         int cost = CatalystRegistry.ConjurationRecipes[fullItemCode];
                         if (TryConjureItem(entityItem, fullItemCode, cost)) continue;
                     }
 
+                    // --- РЕЦЕПТЫ ---
                     // 1. Любой слиток -> Манасталь 
                     if (domain == "game" && code.StartsWith("ingot-"))
                     {
-                        if (TryTransmuteItem(entityItem, "game:ingot-manasteel", 25000)) continue;
+                        if (TryTransmuteItem(entityItem, "game:ingot-manasteel", 1, 1, 25000)) continue;
                     }
 
                     // 2. Ржавая шестеренка -> Манашестерня 
                     if (domain == "game" && code == "gear-rusty")
                     {
-                        
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-managear", 30000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-managear", 1, 1, 30000)) continue;
                     }
 
                     // 3. Волокно -> Мана-нить
                     if (domain == "game" && code == "flaxfibers")
                     {
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaflax", 10000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaflax", 1, 1, 10000)) continue;
                     }
 
                     // 4. Смола -> Манакварц 
                     if (domain == "game" && code == "clearquartz")
                     {
-                       
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaquartz", 25000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaquartz", 1, 1, 25000)) continue;
                     }
 
                     // 5. Стекло -> Манастекло
                     if (domain == "game" && code.StartsWith("glass-"))
                     {
-                       
-                        if (TryTransmuteItem(entityItem, "botaniastory:managlass", 5000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:managlass", 1, 1, 5000)) continue;
                     }
 
                     // 6. Измельчённое что-то  -> манапорошок
                     if (domain == "game" && code.StartsWith("powder-"))
                     {
-                       
-                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manapowder", 10000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manapowder", 1, 1, 10000)) continue;
                     }
                 }
             }
         }
-        private bool TryTransmuteItem(EntityItem inputEntity, string outputItemCode, int manaCost)
+        // Добавляем параметры outputAmount и inputAmount
+        private bool TryTransmuteMultiple(List<EntityItem> inputs, string outputItemCode, int outputAmount, int inputAmount, int manaCost)
         {
             // Проверяем, хватает ли маны
             if (CurrentMana < manaCost) return false;
@@ -397,56 +441,120 @@ namespace BotaniaStory.blockentity
             AssetLocation loc = new AssetLocation(outputItemCode);
             ItemStack outputStack = null;
 
-            // 1. Сначала пытаемся найти результат как Предмет (Item)
             Item outputItem = Api.World.GetItem(loc);
-            if (outputItem != null)
-            {
-                outputStack = new ItemStack(outputItem, 1);
-            }
+            if (outputItem != null) outputStack = new ItemStack(outputItem, outputAmount);
             else
             {
-                // 2. Если предмета нет, пытаемся найти как Блок (Block)
                 Block outputBlock = Api.World.GetBlock(loc);
-                if (outputBlock != null)
+                if (outputBlock != null) outputStack = new ItemStack(outputBlock, outputAmount);
+            }
+
+            if (outputStack == null) return false;
+
+            // Списываем ману
+            CurrentMana -= manaCost;
+            MarkDirty(true);
+
+            int remainingToConsume = inputAmount;
+            Vec3d lastPos = inputs[0].Pos.XYZ;
+
+            // Проходимся по списку сущностей и "откусываем" нужное количество
+            foreach (EntityItem entityItem in inputs)
+            {
+                if (remainingToConsume <= 0) break;
+
+                int take = Math.Min(entityItem.Itemstack.StackSize, remainingToConsume);
+                entityItem.Itemstack.StackSize -= take;
+                remainingToConsume -= take;
+
+                // Обновляем позицию для спавна результата и частиц
+                lastPos = entityItem.Pos.XYZ;
+
+                if (entityItem.Itemstack.StackSize <= 0)
                 {
-                    outputStack = new ItemStack(outputBlock, 1);
+                    entityItem.Die(EnumDespawnReason.Death);
+                }
+                else
+                {
+                    entityItem.WatchedAttributes.SetItemstack("itemstack", entityItem.Itemstack);
+                    entityItem.WatchedAttributes.MarkAllDirty();
                 }
             }
 
-            // Если игра не нашла ни предмета, ни блока с таким кодом — отмена
+            // Спавним результат
+            Api.World.SpawnItemEntity(outputStack, lastPos);
+            SpawnCraftingParticles(lastPos);
+
+            if (Api.Side == EnumAppSide.Server)
+            {
+                ICoreServerAPI sapi = Api as ICoreServerAPI;
+                sapi.Network.GetChannel("botanianetwork").BroadcastPacket(new PlayManaSoundPacket()
+                {
+                    Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
+                    SoundName = "transmute"
+                });
+            }
+
+            return true;
+        }
+
+        private bool TryTransmuteItem(EntityItem inputEntity, string outputItemCode, int outputAmount, int inputAmount, int manaCost)
+        {
+            // Проверяем, хватает ли маны
+            if (CurrentMana < manaCost) return false;
+
+            AssetLocation loc = new AssetLocation(outputItemCode);
+            ItemStack outputStack = null;
+
+            Item outputItem = Api.World.GetItem(loc);
+            if (outputItem != null)
+            {
+                outputStack = new ItemStack(outputItem, outputAmount);
+            }
+            else
+            {
+                Block outputBlock = Api.World.GetBlock(loc);
+                if (outputBlock != null)
+                {
+                    outputStack = new ItemStack(outputBlock, outputAmount);
+                }
+            }
+
             if (outputStack == null) return false;
 
             // Списываем ману и сохраняем бассейн
             CurrentMana -= manaCost;
             MarkDirty(true);
 
-            // Забираем один элемент из стака, который бросил игрок
-            inputEntity.Itemstack.StackSize--;
+            // Забираем НУЖНОЕ КОЛИЧЕСТВО элементов из стака, который бросил игрок
+            inputEntity.Itemstack.StackSize -= inputAmount;
 
             // Если в стаке больше ничего не осталось — удаляем брошенную сущность
             if (inputEntity.Itemstack.StackSize <= 0)
             {
                 inputEntity.Die(EnumDespawnReason.Death);
             }
+            else
+            {
+                // Обязательно помечаем оставшийся стак как измененный, чтобы клиент увидел
+                inputEntity.WatchedAttributes.SetItemstack("itemstack", inputEntity.Itemstack);
+                inputEntity.WatchedAttributes.MarkAllDirty();
+            }
 
-            // Спавним созданный ItemStack (неважно, блок это или предмет) в тех же координатах
+            // Спавним созданный ItemStack
             Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
 
-            // Вызываем всплеск частиц
             SpawnCraftingParticles(inputEntity.Pos.XYZ);
 
-            // ОТПРАВКА СЕТЕВОГО ПАКЕТА (ЗВУК)
             if (Api.Side == EnumAppSide.Server)
             {
                 ICoreServerAPI sapi = Api as ICoreServerAPI;
                 IServerNetworkChannel channel = sapi.Network.GetChannel("botanianetwork");
-
                 PlayManaSoundPacket soundMessage = new PlayManaSoundPacket()
                 {
                     Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
-                    SoundName = "transmute" 
+                    SoundName = "transmute"
                 };
-
                 channel.BroadcastPacket(soundMessage);
             }
 
