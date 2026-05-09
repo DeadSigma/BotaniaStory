@@ -46,7 +46,7 @@ namespace BotaniaStory.client.renderers
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
 
-        // ЕДИНСТВЕННЫЙ КОНСТРУКТОР
+        // ТОЧНЫЙ КОНСТРУКТОР
         public ApothecaryRenderer(BlockPos pos, ICoreClientAPI capi)
         {
             this.pos = pos;
@@ -62,15 +62,13 @@ namespace BotaniaStory.client.renderers
                 yRots[i] = (float)(rand.NextDouble() * GameMath.TWOPI);
             }
 
-            // 1. Настройка для белого лепестка из  мода
-            customTransforms["точное_имя_айтема"] = new ItemRenderTransform(
+            customTransforms["шаблон"] = new ItemRenderTransform(
                 0.2f,             // Масштаб (Scale): 0.4f делает предмет чуть больше базового (0.3f). Буква 'f' означает тип float.
                 GameMath.PIHALF,  // Поворот по оси X (RotX): Наклоняем на 90 градусов (PI / 2), чтобы лепесток лежал плашмя на воде.
                 0f,               // Поворот по оси Y (RotY): Не крутим вокруг вертикальной оси (оставляем 0).
                 0f                // Поворот по оси Z (RotZ): Не наклоняем вбок (оставляем 0).
             );
 
-            // 2. Настройка для  mysticalpetal-white
             customTransforms["точное_имя_айтема"] = new ItemRenderTransform(
                 2.15f,            // Масштаб: 
                 GameMath.PIHALF,  // Поворот по оси X:
@@ -140,6 +138,13 @@ namespace BotaniaStory.client.renderers
 
                         // Если для кастомных предметов тоже нужно смещать центр вниз
                         // finalCenter = new Vec3f(0.5f, 0.05f, 0.5f); 
+                    }
+
+                    if (itemCode.Contains("game:gear-rusty"))
+                    {
+                        finalScale = 0.55f;
+                        finalHeight += -0.2f;
+                        finalSpread = 5f; 
                     }
 
                     if (itemCode.Contains("mysticalflower"))

@@ -99,9 +99,9 @@
     "tool": "wrench",
     "damagedby": [ "blockbreaking", "attacking" ],
     "heldTpHitAnimation": "smithing",
-    "tooltier": 2,
-    "durability": 500,
-    "attackpower": 1.25,
+    "tooltier": 4,
+    "durability": 1800,
+    "attackpower": 3.25,
     "creativeinventory": {
         "general": [ "*" ],
         "botaniastory": [ "*" ]

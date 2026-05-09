@@ -1,6 +1,7 @@
 {
     "code": "rosaarcana",
-    "class": "BlockBotaniaFlower",
+    "class": "BlockRosaArcana",
+    "entityClass": "BlockEntityRosaArcana",
     "creativeinventory": {
         "general": [
             "*-free"

@@ -461,6 +461,10 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "生产魔力应当是每位植物学家的首要任务之一。有许多 <link=generatingflora>产能花朵</link> 能帮助你做到这一点。这些花朵会根据条件，被动或主动地产生魔力。\n\n所有 <link=category:generating_flora>产能花卉</link>，和 <link=category:functional_flora>功能花卉</link> 一样，都拥有内部魔力缓冲区。若想查看魔力量，请将森林法杖指向花朵。生成的魔力会传送到附近的 <link=manaspreader>魔力发射器</link>\n\n产能花朵会记住所连接的魔力发射器。除非该发射器被移除，否则它们只会向其传输魔力。",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "初期推荐使用 <link=endoflame>终焰花</link> 或 <link=hydroangeas>水绣球</link>。终焰花通过燃料产生魔力，而水绣球则从水源中生成魔力。如果你只想挂机等待，那么 <link=daybloom>昼花</link> 或 <link=nightshade>夜影花</link> 会很适合你。",
 
+  "lexicon_generating_flora_rosaarcana_title": "秘玫瑰",
+  "lexicon_generating_flora_rosaarcana_p1": "这朵花看似无害，但实际上隐藏着巨大的力量。\n<link=rosaarcana>秘玫瑰</link>吞噬稳定性能量，并将其转化为<link=mana>魔力</link>。但与此同时，这朵花也会削弱锈蚀世界与炽天使世界之间的边界，让噩梦得以侵入你的现实。",
+  "lexicon_generating_flora_rosaarcana_p2": "愿乔纳斯庇护那些胆敢使用这朵花的人。",
+
   "lexicon_mana_management_catalyst_alchemy_title": "炼金催化器",
   "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>魔力</link>是一种极其空灵的物质，其性质尚未被完全理解。已知用途之一是制作<link=catalyst_alchemy>炼金催化器</link>。将其放置在<link=manapool>魔力池</link>下方，可以直接在池中进行炼金转化。\n\n\n\n\n制作炼金催化器:",
   "lexicon_mana_management_catalyst_alchemy_p2": "将木棍转化为根。\n\n\n\n\n\n\n\n\n\n\n\n将根转化为木板。",

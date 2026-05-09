@@ -85,9 +85,9 @@
 	],
 	"heldTpHitAnimation": "falx",
 	"attackRange": 2.5,
-	"tooltier": 2,
-	"attackpower": 3.75,
-	"durability": 250,
+	"tooltier": 4,
+	"attackpower": 5,
+	"durability": 650,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

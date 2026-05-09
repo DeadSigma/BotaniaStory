@@ -92,9 +92,9 @@
 		"metal": { "base": "game:item/resource/plate/terrasteel" },
 		"wood": { "base": "game:item/tool/handle" }
 	},
-	"tooltier": 2,
-	"durability": 500,
-	"attackpower": 1.25,
+	"tooltier": 4,
+	"durability": 1800,
+	"attackpower": 2.25,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

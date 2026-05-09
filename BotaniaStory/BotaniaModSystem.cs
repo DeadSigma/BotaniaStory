@@ -4,18 +4,20 @@ using BotaniaStory.Blocks;
 using BotaniaStory.client.renderers;
 using BotaniaStory.client.ui;
 using BotaniaStory.entities;
+using BotaniaStory.entities.ai;
 using BotaniaStory.Flora.GeneratingFlora;
 using BotaniaStory.items;
 using BotaniaStory.lexicon;
 using BotaniaStory.network;
 using BotaniaStory.util;
 using ProtoBuf;
+using System.Numerics;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
-
 
 namespace BotaniaStory
 {
@@ -27,7 +29,6 @@ namespace BotaniaStory
         public IClientNetworkChannel clientChannel;
         public static LexiconConfig ClientConfig;
 
-        // --- ПЕРЕМЕННАЯ РЕНДЕРЕРА ЧАСТИЦ ---
         public static ManaStreamRenderer ManaRenderer;
 
         private ICoreClientAPI capi;
@@ -38,43 +39,45 @@ namespace BotaniaStory
         {
             base.Start(api);
 
-            // Регистрируем канал и ВСЕ пакеты один раз здесь
+
             api.Network.RegisterChannel("botanianetwork")
                 .RegisterMessageType<PlayManaSoundPacket>()
                 .RegisterMessageType<LexiconStatePacket>()
-                .RegisterMessageType<ManaStreamPacket>();
+                .RegisterMessageType<ManaStreamPacket>()
+            .RegisterMessageType<GaiaLightningPacket>();
 
-            // Регистрация контента мода
+
             api.RegisterItemClass("ItemLexicon", typeof(ItemLexicon));
             api.RegisterItemClass("ItemWandOfTheForest", typeof(ItemWandOfTheForest));
             api.RegisterBlockClass("BlockMysticalFlower", typeof(BlockMysticalFlower));
             api.RegisterBlockClass("BlockApothecary", typeof(BlockApothecary));
             api.RegisterBlockEntityClass("ApothecaryEntity", typeof(BlockEntityApothecary));
-
-
-            api.RegisterBlockClass("BlockPureDaisy", typeof(BlockPureDaisy));
-            api.RegisterBlockEntityClass("PureDaisyEntity", typeof(BlockEntityPureDaisy));
-
-            api.RegisterBlockClass("BlockJadedAmaranthus", typeof(BlockJadedAmaranthus));
-            api.RegisterBlockEntityClass("JadedAmaranthus", typeof(BlockEntityJadedAmaranthus));
-
-
             api.RegisterBlockClass("BlockManaPool", typeof(BlockManaPool));
             api.RegisterBlockEntityClass("ManaPoolEntity", typeof(BlockEntityManaPool));
             api.RegisterBlockClass("ManaSpreader", typeof(ManaSpreader));
             api.RegisterBlockEntityClass("ManaSpreaderEntity", typeof(BlockEntityManaSpreader));
+            api.RegisterEntity("EntityManaBurst", typeof(EntityManaBurst));
+
+            //Функциональные цветы
+            api.RegisterBlockClass("BlockPureDaisy", typeof(BlockPureDaisy));
+            api.RegisterBlockEntityClass("PureDaisyEntity", typeof(BlockEntityPureDaisy));
+            api.RegisterBlockClass("BlockJadedAmaranthus", typeof(BlockJadedAmaranthus));
+            api.RegisterBlockEntityClass("JadedAmaranthus", typeof(BlockEntityJadedAmaranthus));
+
+            //Генерирующие цветы
+            api.RegisterBlockEntityClass("EndoflameEntity", typeof(BlockEntityEndoflame));
+            api.RegisterBlockClass("BlockEndoflame", typeof(BlockEndoflame));
+            api.RegisterBlockClass("BlockRosaArcana", typeof(BlockRosaArcana));
+            api.RegisterBlockEntityClass("BlockEntityRosaArcana", typeof(BlockEntityRosaArcana));
             api.RegisterBlockClass("BlockDaybloom", typeof(BlockDaybloom));
             api.RegisterBlockEntityClass("DaybloomEntity", typeof(BlockEntityDaybloom));
-            api.RegisterEntity("EntityManaBurst", typeof(EntityManaBurst));
-            api.RegisterBlockClass("BlockEndoflame", typeof(BlockEndoflame));
-            api.RegisterBlockEntityClass("EndoflameEntity", typeof(BlockEntityEndoflame));
+
             api.RegisterItemClass("ItemWandOfBinding", typeof(ItemWandOfBinding));
             api.RegisterItemClass("ItemSpark", typeof(ItemSpark));
             api.RegisterEntity("EntitySpark", typeof(EntitySpark));
             api.RegisterItemClass("ItemSparkAugment", typeof(ItemSparkAugment));
             api.RegisterItemClass("ItemManaTablet", typeof(ItemManaTablet));
             api.RegisterItemClass("ItemManaArmor", typeof(ItemManaArmor));
-
             api.RegisterItemClass("ItemManaTool", typeof(ItemManaTool));
             api.RegisterItemClass("ItemManaAxe", typeof(ItemManaAxe));
             api.RegisterItemClass("ItemManaScythe", typeof(ItemManaScythe));
@@ -103,9 +106,6 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemTerraSpear", typeof(ItemTerraSpear));
             api.RegisterItemClass("ItemTerraWrench", typeof(ItemTerraWrench));
             api.RegisterItemClass("ItemTerraCrowbar", typeof(ItemTerraCrowbar));
-
-
-
             api.RegisterBlockClass("BlockRunicAltar", typeof(BlockRunicAltar));
             api.RegisterBlockEntityClass("RunicAltar", typeof(BlockEntityRunicAltar));
             api.RegisterBlockClass("BlockTerrestrialPlate", typeof(BlockTerrestrialPlate));
@@ -120,6 +120,9 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemRodOfTheSeas", typeof(ItemRodOfTheSeas));
             api.RegisterCollectibleBehaviorClass("AnimatedItem", typeof(BotaniaStory.systems.BehaviorAnimatedItem));
             api.RegisterBlockClass("BlockBotaniaFlower", typeof(BlockBotaniaFlower));
+            api.RegisterEntity("EntityGaiaGuardian", typeof(EntityGaiaGuardian));
+            AiTaskRegistry.Register<AiTaskGaiaTeleport>("gaiateleport");
+            AiTaskRegistry.Register<AiTaskGaiaLightning>("gaialightning");
 
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
@@ -134,17 +137,18 @@ namespace BotaniaStory
 
             ClientConfig = api.LoadModConfig<LexiconConfig>("lexicon_client.json") ?? new LexiconConfig();
 
+
             // Получаем канал и вешаем слушателей
             clientChannel = api.Network.GetChannel("botanianetwork") as IClientNetworkChannel;
             clientChannel
                 .SetMessageHandler<PlayManaSoundPacket>(OnSoundPacketReceived)
-                .SetMessageHandler<ManaStreamPacket>(OnManaStreamPacketReceived); 
-
+                .SetMessageHandler<ManaStreamPacket>(OnManaStreamPacketReceived);
             wandHud = new BotaniaWandHud(api);
 
             // Инициализируем рендерер частиц
             ManaRenderer = new ManaStreamRenderer(api);
         }
+
 
         // --- 3. СЕРВЕРНАЯ ЧАСТЬ (Лексикон и Талисман) ---
         public override void StartServerSide(ICoreServerAPI api)
@@ -157,6 +161,34 @@ namespace BotaniaStory
             serverChannel.SetMessageHandler<LexiconStatePacket>(OnLexiconStateMessage);
 
             api.Event.RegisterGameTickListener(OnTalismanTick, 500);
+
+            sapi.ChatCommands.GetOrCreate("b")
+             .WithDescription("Botania Admin Commands")
+             .RequiresPrivilege(Privilege.controlserver) // Только для админов
+             .BeginSubCommand("sg")
+             .WithDescription("Spawns the Gaia Guardian")
+             .HandleWith(OnSpawnGaiaCommand)
+             .EndSubCommand();
+        }
+
+        private TextCommandResult OnSpawnGaiaCommand(TextCommandCallingArgs args)
+        {
+            IServerPlayer player = args.Caller.Player as IServerPlayer;
+            if (player == null) return TextCommandResult.Error("Команду может использовать только игрок.");
+
+            // Ищем тип сущности (убедись, что создашь gaiaguardian.json позже)
+            EntityProperties type = sapi.World.GetEntityType(new AssetLocation("botaniastory", "gaiaguardian"));
+            if (type == null) return TextCommandResult.Error("Сущность gaiaguardian не найдена в JSON.");
+
+            Entity entity = sapi.World.ClassRegistry.CreateEntity(type);
+
+            // Спавним немного впереди игрока
+            entity.Pos.SetPos(player.Entity.Pos.AsBlockPos.ToVec3d().Add(0, 1, 2));
+            entity.Pos.SetFrom(entity.Pos);
+
+            sapi.World.SpawnEntity(entity);
+
+            return TextCommandResult.Success("Страж Гайи призван! Да начнется битва!");
         }
 
         private void OnTalismanTick(float dt)
@@ -301,4 +333,11 @@ namespace BotaniaStory
             base.OnLoaded(api);
         }
     }
+
+    [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
+    public class GaiaLightningPacket
+    {
+        public Vec3d Position;
+    }
+
 }

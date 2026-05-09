@@ -69,10 +69,10 @@
 	},
 	"tool": "hoe",
 	"miningspeed": {
-		"soil": 3.0
+		"soil": 4.5
 	},
-	"durability": 200,
-	"attackpower": 1.25,
+	"durability": 500,
+	"attackpower": 2.25,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

@@ -21,7 +21,9 @@
 			"tallplant-coopersreed-water-normal",
 			"tallplant-papyrus-water-normal",
 			"tallplant-coopersreed-ice-normal",
-			"flower-horsetail"
+			"flower-horsetail",
+			"mysticalflower",
+			"mysticalflower-*"
 		],
 		"disallowedSuffixes": [ "snow2", "snow3" ],
 		"handbook": {
@@ -84,7 +86,7 @@
 	"heldTpIdleAnimation": "scytheIdle",
 	"heldRightReadyAnimation": "scytheReady",
 	"heldTpUseAnimation": "interactStaticLong",
-	"durability": 450,
+	"durability": 1350,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

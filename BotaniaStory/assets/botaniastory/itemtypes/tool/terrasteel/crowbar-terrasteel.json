@@ -112,7 +112,7 @@
 			"scale": 0.7
 		}
 	},
-	"durability": 250,
+	"durability": 900,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

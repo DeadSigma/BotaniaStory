@@ -461,6 +461,10 @@
   "lexicon_generating_flora_generatingfloraintroduction_p1": "マナの生成は植物学者にとっての主要な優先事項の 1 つであるはずです。これに役立つ <link=generatedflora>生成花</link> が多数あります。これらの花は、条件に応じて受動的または能動的にマナを生成します。\n\n<link=category:generated_flora>機能的な花</link>など、すべての<link=category:generated_flora>生成する花</link>には内部マナバッファがあります。マナの量を確認するには、森の杖を花に向けます。生成されたマナは最寄りの<link=manaspreader>マナスプレッダー</link>に送られます。\n\n花を生成すると、接続されていたマナスプレッダーを覚えています。そのスプレッダーが除去されない限り、彼らはそこにのみマナを送ります。",
   "lexicon_generating_flora_generatingfloraintroduction_p2": "まず、<link=endoflame>Endoflame</link> または <link=hydroangeas>Hydroangeas</link> を使用することをお勧めします。 Endoflameは燃料を使用してマナを生成しますが、Hydroangeasは水源からマナを生成します。何もせずに待ちたい場合は、<link=daybloom>Daybloom</link> または <link=nightshade>Nightshade</link> が最適です。",
 
+  "lexicon_generating_flora_rosaarcana_title": "秘密の薔薇",
+  "lexicon_generating_flora_rosaarcana_p1": "この花は無害に見えるだけで、実際には莫大な力を秘めています。\n<link=rosaarcana>秘密の薔薇</link>は安定性のエネルギーを喰らい、それを<link=mana>マナ</link>へと変換します。しかし同時に、この花は錆びた世界と熾天使の世界との境界を弱め、悪夢があなたの現実へ侵入することを許してしまいます。",
+  "lexicon_generating_flora_rosaarcana_p2": "この花を使う者たちを、ジョナスが守らんことを。",
+
   "lexicon_mana_management_catalyst_alchemy_title": "錬金触媒",
   "lexicon_mana_management_catalyst_alchemy_p1": "<link=mana>マナ</link>は非常にエーテル的な物質であり、その性質はまだ完全には解明されていない。数少ない既知の用途の一つが<link=catalyst_alchemy>錬金触媒</link>の作成である。これを<link=manapool>マナプール</link>の下に設置すると、プール内で直接錬金変換を行うことができる。\n\n\n\n\n錬金触媒の作成:",
   "lexicon_mana_management_catalyst_alchemy_p2": "棒を根に変換する。\n\n\n\n\n\n\n\n\n\n\n\n根を板に変換する。",

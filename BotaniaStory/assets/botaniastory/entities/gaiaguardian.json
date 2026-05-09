@@ -1,0 +1,156 @@
+{
+	"code": "gaiaguardian",
+	"class": "EntityGaiaGuardian",
+	"tags": [ "magical", "boss", "humanoid" ],
+	"weight": 100,
+	"fallDamageMultiplier": 0.0,
+	"habitat": "Land",
+	"hitboxSize": {
+		"x": 0.6,
+		"y": 1.8
+	},
+	"deadHitboxSize": {
+		"x": 0.6,
+		"y": 0.5
+	},
+	"eyeHeight": 1.6,
+	"attributes": {
+		"spawnDamageParticles": true
+	},
+	"client": {
+		"renderer": "Shape",
+		"shape": { "base": "game:entity/humanoid/seraph" },
+		"glowLevel": 64,
+		"size": 1.1,
+		"behaviors": [
+			{ "code": "repulseagents" },
+			{
+				"code": "controlledphysics",
+				"stepHeight": 1.1251
+			},
+			{ "code": "interpolateposition" },
+			{
+				"code": "bossErel",
+				"bossHpBarRange": 60,
+				"showHealthBarBetweenDimensions": true
+			}
+		],
+		"animations": [
+			{
+				"code": "hurt",
+				"animation": "hurt",
+				"animationSpeed": 2.2,
+				"weight": 5,
+				"blendMode": "AddAverage"
+			},
+			{
+				"code": "die",
+				"animation": "die",
+				"animationSpeed": 1.25,
+				"weight": 10,
+				"blendMode": "Average",
+				"triggeredBy": { "onControls": [ "dead" ] }
+			},
+			{
+				"code": "idle",
+				"animation": "idle",
+				"blendMode": "Average",
+				"triggeredBy": { "defaultAnim": true }
+			},
+			{
+				"code": "walk",
+				"animation": "walk",
+				"blendMode": "Average"
+			},
+			{
+				"code": "attack",
+				"animation": "attack",
+				"blendMode": "Average",
+				"weight": 10
+			}
+		]
+	},
+	"server": {
+		"behaviors": [
+			{ "code": "repulseagents" },
+			{
+				"code": "controlledphysics",
+				"stepHeight": 1.1251
+			},
+			{
+				"code": "health",
+				"currenthealth": 500,
+				"maxhealth": 500
+			},
+			{
+				"code": "deaddecay",
+				"hoursToDecay": 24
+			},
+			{
+				"code": "emotionstates",
+				"states": [
+					{
+						"code": "aggressiveondamage",
+						"duration": 200,
+						"chance": 1,
+						"slot": 0,
+						"priority": 2,
+						"accumType": "max"
+					}
+				]
+			},
+			{
+				"code": "taskai",
+				"aitasks": [
+					{
+						"code": "gaialightning",
+						"priority": 2.0,
+						"cooldownMs": 8000,
+						"damage": 15,
+						"animation": "attack"
+					},
+					{
+						"code": "gaiateleport",
+						"priority": 1.5,
+						"cooldownMs": 5000,
+						"range": 15
+					},
+					{
+						"code": "seekentity",
+						"priority": 1.4,
+						"entityCodes": [ "player" ],
+						"seekingRange": 30,
+						"movespeed": 0.04,
+						"animation": "walk"
+					},
+					{
+						"code": "meleeattack",
+						"priority": 1.3,
+						"damage": 8,
+						"minDist": 1.5,
+						"maxDist": 3,
+						"animation": "attack"
+					},
+					{
+						"code": "wander",
+						"priority": 0.5,
+						"movespeed": 0.02,
+						"animation": "walk"
+					},
+					{
+						"code": "idle",
+						"priority": 0.1,
+						"minduration": 2000,
+						"maxduration": 5000,
+						"animation": "idle"
+					}
+				]
+			}
+		]
+	},
+	"sounds": {
+		"hurt": "game:creature/player/hurt*",
+		"idle": "game:creature/player/idle*"
+	},
+	"idleSoundChance": 0.05
+}

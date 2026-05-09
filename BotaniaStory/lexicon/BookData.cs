@@ -82,7 +82,7 @@ namespace BotaniaStory.lexicon
 
             { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment", "catalyst_alchemy", "catalyst_conjuration" } },
 
-            { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame" } },
+            { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame", "rosaarcana" } },
 
             { "functional_flora", new[] { "puredaisy", "jadedamaranthus" } },
 
@@ -1402,6 +1402,30 @@ namespace BotaniaStory.lexicon
                             ApothecaryCenter = "botaniastory:apothecary-*",
 
                             Output = "botaniastory:endoflame-free"
+                        });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ТАЙНАЯ РОЗА ===
+                    else if (chapId == "rosaarcana")
+                    {
+                        chapter.TabItemCode = "botaniastory:rosaarcana-free";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                            {
+                                 "botaniastory:mysticalpetal-brown",
+                                 "botaniastory:mysticalpetal-pink",
+                                 "botaniastory:mysticalpetal-pink",
+                                 "botaniastory:mysticalpetal-brown",
+                                 "game:gear-rusty",
+                            },
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+
+                            Output = "botaniastory:rosaarcana-free"
                         });
                     }
 
