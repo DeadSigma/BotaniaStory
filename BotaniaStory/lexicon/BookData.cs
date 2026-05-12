@@ -3148,7 +3148,7 @@ namespace BotaniaStory.lexicon
                     // === НАСТРОЙКА ГЛАВЫ ЗЕМЛЕКРУШИТЕЛЬ ===
                     else if (chapId == "terrashatterer")
                     {
-                        chapter.TabItemCode = "botaniastory:pickaxe-terrashatterer-0";
+                        chapter.TabItemCode = "botaniastory:pickaxe-terrashatterer-0-on";
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3156,10 +3156,10 @@ namespace BotaniaStory.lexicon
                             Spread = 1,
                             UiKey = "Сетка_Левая_Верхняя",
                             Grid = new string[9] {
-                              "game:ingot-terrasteel", "botaniastory:manatablet", "game:ingot-terrasteel",
-                              "game:ingot-terrasteel", "botaniastory:livingwood_stick", "game:ingot-terrasteel",
+                              null, "botaniastory:terrashatterer_head", null,
+                              "botaniastory:terrashatterer_parts", "botaniastory:livingwood_stick", "botaniastory:manatablet",
                               null, "botaniastory:livingwood_stick", null},
-                            Output = "botaniastory:pickaxe-terrashatterer-0"
+                            Output = "botaniastory:pickaxe-terrashatterer-0-off"
                         });
 
                     }

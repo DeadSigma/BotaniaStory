@@ -1,0 +1,19 @@
+{
+    "code": "terrashatterer_head",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "_____####_____",
+            "__##########__",
+            "#####____#####"
+        ]
+    ],
+    "name": "Terrashatterer Pickaxe",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:terrashatterer_head"
+    }
+}

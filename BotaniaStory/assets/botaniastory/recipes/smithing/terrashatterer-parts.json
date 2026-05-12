@@ -1,0 +1,29 @@
+{
+    "code": "terrashatterer_parts",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-gold"
+    },
+    "pattern": [
+        [
+            
+            "##_##_##",
+            "##_##_##",
+            "________",
+            "##_##___",
+            "##_##_##",
+            "________",
+            "##_##_##",
+            "________",
+            "###__###",
+            "###__###",
+            "###__###"
+            
+        ]
+    ],
+    "name": "Terrashatterer Gold Parts",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:terrashatterer_parts"
+    }
+}

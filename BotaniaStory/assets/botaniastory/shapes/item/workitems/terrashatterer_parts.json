@@ -1,0 +1,512 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 64,
+	"textureHeight": 64,
+	"textureSizes": {
+		"terrashetter_gold_parts": [32, 32]
+	},
+	"textures": {
+		"terrashetter_gold_parts": "botaniastory:item/terrashatterer_gold_parts"
+	},
+	"elements": [
+		{
+			"name": "group3",
+			"rotationOrigin": [8.4051, 11.9216, 8],
+			"from": [0, 0, 0],
+			"to": [0, 0, 0],
+			"faces": {
+				"north": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"east": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"south": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"west": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"up": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"down": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				}
+			}
+		},
+		{
+			"name": "group4",
+			"rotationOrigin": [9.5929, 11.8766, 8],
+			"from": [0, 0, 0],
+			"to": [0, 0, 0],
+			"faces": {
+				"north": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"east": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"south": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"west": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"up": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				},
+				"down": {
+					"texture": "#",
+					"uv": [0, 0, 0, 0]
+				}
+			}
+		},
+		{
+			"name": "cube",
+			"from": [7.425, 0, 5.775],
+			"to": [9.425, 1, 7.775],
+			"rotationOrigin": [9.425, 0, 6.775],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 6.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				}
+			},
+			"rotationX": -32.5
+		},
+		{
+			"name": "cube",
+			"from": [9.175, 0, 4],
+			"to": [11.175, 1, 6],
+			"rotationOrigin": [11.175, 0, 5],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 6.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				}
+			},
+			"rotationY": 45
+		},
+		{
+			"name": "cube",
+			"from": [9.425, 0, 7],
+			"to": [11.425, 1, 9],
+			"rotationOrigin": [10.425, 0.5, 8],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 6.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				}
+			},
+			"rotationZ": -30
+		},
+		{
+			"name": "cube",
+			"from": [8.6, 0, 9.175],
+			"to": [10.6, 1, 11.175],
+			"rotationOrigin": [9.6, 0.5, 10.175],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 6.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				}
+			},
+			"rotationY": 22.5
+		},
+		{
+			"name": "cube",
+			"from": [7.425, 0, 7],
+			"to": [9.425, 1, 9],
+			"rotationOrigin": [9.425, 0, 8],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 6.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "cube",
+			"from": [6.425, 0, 4.925],
+			"to": [7.425, 1, 6.925],
+			"rotationOrigin": [6.925, 0.5, 5.75],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				}
+			},
+			"rotationX": 170.2637,
+			"rotationY": -41.6411,
+			"rotationZ": 173.6183
+		},
+		{
+			"name": "cube",
+			"from": [5.425, 1, 7],
+			"to": [6.425, 2, 9],
+			"rotationOrigin": [6.425, 1, 8],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				}
+			},
+			"rotationY": 27.5
+		},
+		{
+			"name": "cube",
+			"from": [8.6196, 1, 8.3327],
+			"to": [9.6196, 2, 10.3327],
+			"rotationOrigin": [9.1196, 1.5, 9.3327],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				}
+			},
+			"rotationX": -8.1543,
+			"rotationY": 23.0396,
+			"rotationZ": 3.2097
+		},
+		{
+			"name": "cube",
+			"from": [6.2, 1, 7.975],
+			"to": [7.2, 2, 9.975],
+			"rotationOrigin": [6.425, 0, 11],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 4.5, 5.75, 6.5],
+					"autoUv": false
+				}
+			},
+			"rotationY": -20
+		},
+		{
+			"name": "cube",
+			"from": [4.425, 0, 6],
+			"to": [7.425, 1, 9],
+			"rotationOrigin": [6.425, 0, 7],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 7.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 7.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 6.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 6.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 6.75, 7.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 6.75, 8.5],
+					"autoUv": false
+				}
+			},
+			"rotationY": -30
+		},
+		{
+			"name": "cube",
+			"from": [5.425, 0, 9],
+			"to": [8.425, 1, 12],
+			"rotationOrigin": [4.425, 0, 10],
+			"faces": {
+				"north": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 7.75, 6.5],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [4.75, 5.5, 7.75, 6.5],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 6.75, 6.5],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 6.75, 6.5],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 4.5, 6.75, 7.5],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#terrashetter_gold_parts",
+					"uv": [3.75, 5.5, 6.75, 8.5],
+					"autoUv": false
+				}
+			}
+		}
+	],
+	"animations": []
+}

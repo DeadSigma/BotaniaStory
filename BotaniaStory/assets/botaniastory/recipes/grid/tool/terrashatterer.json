@@ -1,25 +1,29 @@
 [
     {
-        "ingredientPattern": "TMT,TST, S ",
+        "ingredientPattern": " H ,PSM, S ",
         "ingredients": {
-            "T": {
+            "H": {
                 "type": "item",
-                "code": "game:ingot-terrasteel"
+                "code": "botaniastory:terrashatterer_head"
             },
-            "M": {
+            "P": {
                 "type": "item",
-                "code": "botaniastory:manatablet"
+                "code": "botaniastory:terrashatterer_parts"
             },
             "S": {
                 "type": "item",
                 "code": "botaniastory:livingwood_stick"
+            },
+            "M": {
+                "type": "item",
+                "code": "botaniastory:manatablet"
             }
         },
         "width": 3,
         "height": 3,
         "output": {
             "type": "item",
-            "code": "botaniastory:pickaxe-terrashatterer-0",
+            "code": "botaniastory:pickaxe-terrashatterer-0-off",
             "quantity": 1
         }
     }
