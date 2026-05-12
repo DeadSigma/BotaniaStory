@@ -1,0 +1,22 @@
+{
+    "code": "shovelhead-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "__#####",
+            "_######",
+            "#######",
+            "#######",
+            "_######",
+            "__#####"
+        ]
+    ],
+    "name": "Terrasteel Shovel",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:shovelhead-terrasteel"
+    }
+}

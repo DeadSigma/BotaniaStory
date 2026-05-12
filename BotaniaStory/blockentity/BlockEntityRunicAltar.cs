@@ -27,11 +27,13 @@ namespace BotaniaStory.blockentity
         private Dictionary<string, (int mana, List<string> items)> runeRecipes = new Dictionary<string, (int, List<string>)>
 {
     // === Базовые руны (Стихии и Мана) - 5200 маны ===
-    { "rune-water", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "bone", "cattailtops", "cattailroot" }) },
-    { "rune-fire", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "mushroom-flyagaric-normal", "burnedbrick-*", "powder-sulfur" }) },
-    { "rune-earth", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "rock-granite", "ore-bituminouscoal", "mushroom-almondmushroom-normal" }) },
-    { "rune-air", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "manaitem-manaflax", "feather", "cloth-plain" }) },
-    { "rune-mana", (5200, new List<string> { "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "manaitem-manaquartz" }) },
+     { "rune-water", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "bone", "cattailtops", "cattailroot" }) },
+     { "rune-fire", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "mushroom-flyagaric-normal", "burnedbrick-*", "powder-sulfur" }) },
+    
+     { "rune-earth", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "rock-granite", "ore-bituminouscoal", "mushroom-almondmushroom-normal" }) },
+    
+     { "rune-air", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "manaitem-manaflax", "feather", "cloth-plain" }) },
+     { "rune-mana", (5200, new List<string> { "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "manaitem-manaquartz" }) },
 
     // === Руны Сезонов - 8000 маны ===
     { "rune-spring", (8000, new List<string> { "rune-water", "rune-fire", "treeseed-oak", "treeseed-oak", "treeseed-oak", "hay-normal-ud" }) },

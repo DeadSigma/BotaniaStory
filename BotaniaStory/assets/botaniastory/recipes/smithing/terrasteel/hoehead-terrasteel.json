@@ -1,0 +1,24 @@
+{
+    "code": "hoehead-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "__#########_____",
+            "____#_#####_____",
+            "__#########_____"
+        ],
+        [
+            "____###____#____",
+            "____#_#____#____",
+            "____###____#____"
+        ]
+    ],
+    "name": "Terrasteel Hoe",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:hoehead-terrasteel"
+    }
+}

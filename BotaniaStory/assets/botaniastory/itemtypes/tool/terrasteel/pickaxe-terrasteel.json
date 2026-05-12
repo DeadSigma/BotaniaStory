@@ -1,6 +1,7 @@
 {
 	"code": "pickaxe-terrasteel",
 	"class": "ItemTerraTool",
+	"tags": [ "tool", "tool-pickaxe" ],
 	"tool": "pickaxe",
 	"shape": { "base": "game:item/tool/pickaxe" },
 	"textures": {

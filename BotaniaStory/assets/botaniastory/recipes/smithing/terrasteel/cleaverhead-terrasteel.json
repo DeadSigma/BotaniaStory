@@ -1,0 +1,20 @@
+{
+    "code": "cleaverhead-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "########____",
+            "############",
+            "########____",
+            "########____"
+        ]
+    ],
+    "name": "Terrasteel Cleaver",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:cleaverblade-terrasteel"
+    }
+}

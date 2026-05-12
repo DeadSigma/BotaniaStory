@@ -77,7 +77,7 @@
 	"heldTpHitAnimation": "knifestab",
 	"durability": 300,
 	"miningspeed": {
-		"plant": 1.5,
+		"plant": 1.5
 	},
 	"attackpower": 1.5,
 	"creativeinventory": {

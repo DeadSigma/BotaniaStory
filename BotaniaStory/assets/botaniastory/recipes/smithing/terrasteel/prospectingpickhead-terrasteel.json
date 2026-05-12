@@ -1,0 +1,19 @@
+{
+    "code": "prospectingpickhead-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "_____####",
+            "__#######",
+            "#####____"
+        ]
+    ],
+    "name": "Terrasteel ProspectingPick",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:prospectingpickhead-terrasteel"
+    }
+}

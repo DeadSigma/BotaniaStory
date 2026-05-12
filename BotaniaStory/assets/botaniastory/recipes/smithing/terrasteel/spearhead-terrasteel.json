@@ -1,0 +1,21 @@
+{
+    "code": "spearhead-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "_____###__",
+            "__########",
+            "##########",
+            "__########",
+            "_____###__"
+        ]
+    ],
+    "name": "Terrasteel Spear",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:spearhead-terrasteel"
+    }
+}

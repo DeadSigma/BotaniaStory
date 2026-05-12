@@ -1,0 +1,21 @@
+{
+    "code": "tongs-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "__________###",
+            "###########__",
+            "_______##____",
+            "###########__",
+            "__________###"
+        ]
+    ],
+    "name": "Terrasteel Tongs",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:tongs-terrasteel"
+    }
+}

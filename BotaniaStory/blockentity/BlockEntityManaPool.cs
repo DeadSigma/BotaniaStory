@@ -330,6 +330,67 @@ namespace BotaniaStory.blockentity
                         }
                     }
 
+                    // --- ВЗАИМОДЕЙСТВИЕ С ЗЕМЛЕКРУШИТЕЛЕМ ---
+                    if (stack.Item is ItemTerraShatterer shatterer)
+                    {
+                        if (!IsAcceptingFromItems && CurrentMana > 0)
+                        {
+                            int currentShattererMana = shatterer.GetCurrentMana(stack);
+                            int maxShattererMana = shatterer.GetMaxMana(stack);
+
+                            if (currentShattererMana < maxShattererMana)
+                            {
+                                int transferAmount = Math.Min(CurrentMana, maxShattererMana - currentShattererMana);
+                                transferAmount = Math.Min(transferAmount, 10000);
+
+                                CurrentMana -= transferAmount;
+                                MarkDirty(true);
+
+                                // 1. ЗАПОМИНАЕМ СТАРУЮ КИРКУ
+                                Item oldItem = entityItem.Slot.Itemstack.Item;
+
+                                // 2. ВЛИВАЕМ МАНУ
+                                shatterer.ReceiveMana(entityItem.Slot, transferAmount, Api.World);
+
+                                // 3. ПРОВЕРЯЕМ ЭВОЛЮЦИЮ И ИГРАЕМ ЗВУКИ
+                                if (entityItem.Slot.Itemstack.Item != oldItem)
+                                {
+                                    // Эволюция произошла
+                                    Api.World.SpawnItemEntity(entityItem.Slot.Itemstack, entityItem.Pos.XYZ);
+                                    entityItem.Die(EnumDespawnReason.Death);
+
+                                    if (Api.Side == EnumAppSide.Server)
+                                    {
+                                        var sapi = Api as ICoreServerAPI;
+                                        sapi.Network.GetChannel("botanianetwork").BroadcastPacket(new PlayManaSoundPacket()
+                                        {
+                                            Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
+                                            SoundName = "terrashatterer_evolve"
+                                        });
+                                    }
+                                }
+                                else
+                                {
+                                    // Обычное накопление маны
+                                    entityItem.WatchedAttributes.SetItemstack("itemstack", entityItem.Itemstack);
+                                    entityItem.WatchedAttributes.MarkAllDirty();
+
+                                    if (Api.Side == EnumAppSide.Server)
+                                    {
+                                        var sapi = Api as ICoreServerAPI;
+                                        sapi.Network.GetChannel("botanianetwork").BroadcastPacket(new PlayManaSoundPacket()
+                                        {
+                                            Position = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5),
+                                            SoundName = "terrashatterer_fill"
+                                        });
+                                    }
+                                }
+
+                                SpawnCraftingParticles(entityItem.Pos.XYZ);
+                                continue;
+                            }
+                        }
+                    }
 
                     //РЕЦЕПТЫ КАТАЛИЗАТОРОВ НАХОДЯТСЯ В CatalystRegistry.cs
                     if (hasAlchemyCatalyst)

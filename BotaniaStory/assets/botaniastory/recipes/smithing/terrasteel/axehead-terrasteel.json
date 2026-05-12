@@ -1,0 +1,21 @@
+{
+    "code": "axehead-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "#####____",
+            "#########",
+            "#########",
+            "#########",
+            "#####____"
+        ]
+    ],
+    "name": "Terrasteel Axe",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:axehead-terrasteel"
+    }
+}

@@ -88,7 +88,7 @@ namespace BotaniaStory.lexicon
 
             { "natural_apparatus", new[] { "ch1" } },
 
-            { "mystical_items", new[] { "wandofbinding", "manaitem", "terrasteelitem", "rod_of_the_seas" } },
+            { "mystical_items", new[] { "wandofbinding", "manaitem", "rod_of_the_seas", "terrasteelitem", "terrashatterer" } },
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
@@ -2194,7 +2194,6 @@ namespace BotaniaStory.lexicon
                     // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ МАНАСТАЛИ ===
                     else if (chapId == "manaitem")
                     {
-                        ////////////////////////////////////////////////
                         chapter.TabItemCode = "botaniastory:pickaxe-manasteel";
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -2695,7 +2694,7 @@ namespace BotaniaStory.lexicon
                     // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ТЕРРАСТАЛИ ===
                     else if (chapId == "terrasteelitem")
                     {
-                        chapter.TabItemCode = "botaniastory:pickaxe-terrasteel";
+                        chapter.TabItemCode = "botaniastory:terrasteel-armor-head-chain";
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3146,6 +3145,25 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ЗЕМЛЕКРУШИТЕЛЬ ===
+                    else if (chapId == "terrashatterer")
+                    {
+                        chapter.TabItemCode = "botaniastory:pickaxe-terrashatterer-0";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+                              "game:ingot-terrasteel", "botaniastory:manatablet", "game:ingot-terrasteel",
+                              "game:ingot-terrasteel", "botaniastory:livingwood_stick", "game:ingot-terrasteel",
+                              null, "botaniastory:livingwood_stick", null},
+                            Output = "botaniastory:pickaxe-terrashatterer-0"
+                        });
+
+                    }
+
                     // === НАСТРОЙКА ГЛАВЫ ЖЕЗЛ МОРЕЙ ===
                     else if (chapId == "rod_of_the_seas")
                     {
@@ -3207,7 +3225,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
                                  null, "game:ingot-gold", null,
-                                 "game:ingot-manasteel", "botaniastory:manaitem-managear", "game:ingot-manasteel",
+                                 "game:ingot-manasteel", "botaniastory:pylon-mana", "game:ingot-manasteel",
                                  null, "game:ingot-gold", null},
                             Output = "botaniastory:pylon-natura"
                         });
@@ -3219,7 +3237,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
                                 null, "game:metalbit-terrasteel", null,
-                                "game:metalbit-terrasteel", "botaniastory:pylon-mana", "game:metalbit-terrasteel",
+                                "game:metalbit-terrasteel", "botaniastory:manaitem-managear", "game:metalbit-terrasteel",
                                 null, "game:gear-temporal", null },
                             Output = "botaniastory:pylon-mana"
                         });

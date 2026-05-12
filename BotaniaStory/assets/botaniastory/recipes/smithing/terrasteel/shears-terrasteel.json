@@ -1,0 +1,21 @@
+{
+    "code": "shears-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "###########",
+            "#____######",
+            "#__________",
+            "#____######",
+            "###########"
+        ]
+    ],
+    "name": "Terrasteel Shears",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:shears-terrasteel"
+    }
+}

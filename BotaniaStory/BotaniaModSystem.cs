@@ -11,6 +11,7 @@ using BotaniaStory.lexicon;
 using BotaniaStory.network;
 using BotaniaStory.util;
 using ProtoBuf;
+using System;
 using System.Numerics;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -123,6 +124,7 @@ namespace BotaniaStory
             api.RegisterEntity("EntityGaiaGuardian", typeof(EntityGaiaGuardian));
             AiTaskRegistry.Register<AiTaskGaiaTeleport>("gaiateleport");
             AiTaskRegistry.Register<AiTaskGaiaLightning>("gaialightning");
+            api.RegisterItemClass("ItemTerraShatterer", typeof(ItemTerraShatterer));
 
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
@@ -147,6 +149,8 @@ namespace BotaniaStory
 
             // Инициализируем рендерер частиц
             ManaRenderer = new ManaStreamRenderer(api);
+
+            capi.Event.RegisterRenderer(new TerraShattererRenderer(capi), EnumRenderStage.Ortho);
         }
 
 
@@ -221,7 +225,7 @@ namespace BotaniaStory
 
             float volume = 0f;
 
-            if (packet.SoundName == "transmute")
+            if (packet.SoundName == "transmute" || packet.SoundName == "terrashatterer_evolve" || packet.SoundName == "terrashatterer_fill")
             {
                 volume = ClientConfig.PoolVolume / 100f;
             }

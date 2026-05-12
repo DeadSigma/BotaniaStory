@@ -1,0 +1,19 @@
+{
+    "code": "scythehead-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "pattern": [
+        [
+            "###########____",
+            "_______########",
+            "____________###"
+        ]
+    ],
+    "name": "Terrasteel Scythe",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:scytheblade-terrasteel"
+    }
+}

@@ -1,27 +1,30 @@
 {
-	"code": "pickaxe-manasteel",
-	"class": "ItemManaTool",
-	"tags": [ "tool", "tool-pickaxe" ],
+	"code": "pickaxe-terrashatterer",
+	"class": "ItemTerraShatterer",
+	"variantgroups": [
+		{
+			"code": "rank",
+			"states": [ "0", "1", "2", "3", "4", "5" ]
+		}
+	],
 	"tool": "pickaxe",
-	"shape": { "base": "game:item/tool/pickaxe" },
-	"textures": {
-		"metal": { "base": "game:item/resource/plate/manasteel" }
-	},
-	"miningspeed": {
-		"ceramic": 1.5,
-		"stone": 4,
-		"ore": 4,
-		"metal": 4,
-		"ice": 1.75
-	},
-	"attackpower": 1.25,
-	"durability": 300,
-	"tooltier": 2,
-	"creativeinventory": {
-		"general": [ "*" ],
-		"botaniastory": [ "*" ]
-	},
 	"attributes": {
+		"manaCapacityByType": {
+			"*-0": 1000000,
+			"*-1": 10000000,
+			"*-2": 100000000,
+			"*-3": 1000000000,
+			"*-4": 1000000000,
+			"*-5": 2147483647
+		},
+		"breakRadiusByType": {
+			"*-0": 0,
+			"*-1": 1,
+			"*-2": 1,
+			"*-3": 2,
+			"*-4": 3,
+			"*-5": 4
+		},
 		"heldItemPitchFollow": 0.9,
 		"handbook": {
 			"groupBy": [ "pickaxe-*" ]
@@ -53,6 +56,40 @@
 		},
 		"slotRefillIdentifier": "pickaxe"
 	},
+	"tooltierByType": {
+		"*-0": 3,
+		"*-1": 4,
+		"*-2": 5,
+		"*-3": 6,
+		"*-4": 7,
+		"*-5": 9
+	},
+	"heldToughnessByType": {
+		"*-0": 2,
+		"*-1": 3,
+		"*-2": 5,
+		"*-3": 7,
+		"*-4": 10,
+		"*-5": 15
+	},
+	"shape": { "base": "botaniastory:item/tool/terrashatterer" },
+	"textures": {
+		"terrasteel": { "base": "game:item/resource/plate/terrasteel" }
+	},
+	"creativeinventory": {
+		"general": [ "*-0" ],
+		"botaniastory": [ "*" ]
+	},
+	"miningspeed": {
+		"ceramic": 2.75,
+		"stone": 7.5,
+		"ore": 7.5,
+		"metal": 7.5,
+		"ice": 3.5
+	},
+	"attackpower": 2.25,
+	"durability": 1000,
+	"tooltier": 4,
 	"behaviors": [
 		{
 			"name": "GroundStorable",

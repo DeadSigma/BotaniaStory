@@ -1,0 +1,24 @@
+{
+    "code": "falxhead-terrasteel",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+    },
+    "name": "Terrasteel Falx",
+    "pattern": [
+        [
+            "_______________",
+            "_______________",
+            "____#######____",
+            "__###########__",
+            "_############__",
+            "####_____#_#___",
+            "###____________",
+            "#______________"
+        ]
+    ],
+    "output": {
+        "type": "item",
+        "code": "botaniastory:falxblade-terrasteel"
+    }
+}
