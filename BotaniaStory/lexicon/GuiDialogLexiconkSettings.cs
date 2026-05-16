@@ -129,7 +129,9 @@ namespace BotaniaStory.lexicon
             config.ApothecaryVolume = 50;
             config.PlateVolume = 50;
             config.PortalVolume = 50;
+            config.TalismanVolume = 50;
             config.TiaraVolume = 50;
+            config.MechanicsVolume = 50;
 
             mainDialog.UpdateScale(1.0f);
             SingleComposer?.Dispose();
@@ -180,8 +182,8 @@ namespace BotaniaStory.lexicon
             ElementBounds bgBounds = ElementBounds.Fill.WithFixedPadding(GuiStyle.ElementToDialogPadding);
             bgBounds.BothSizing = ElementSizing.FitToChildren;
 
-            // Увеличил высоту окна с 310 до 430, чтобы влез 6-й ползунок
-            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 370, 430);
+            // Увеличиваем высоту до 510, чтобы влез 12-й ползунок для механизмов
+            ElementBounds listBounds = ElementBounds.Fixed(0, 30, 370, 510);
 
             CairoFont font = CairoFont.WhiteSmallText();
 
@@ -237,9 +239,19 @@ namespace BotaniaStory.lexicon
             SingleComposer.AddSlider(OnPortalVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderPortalVolume");
             y += 40;
 
-            // 10. Громкость Тиары (НОВОЕ)
+            // 10. Громкость Тиары 
             SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-tiaravolume"), font, ElementBounds.Fixed(0, y, 140, 30));
             SingleComposer.AddSlider(OnTiaraVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderTiaraVolume");
+            y += 40;
+
+            // 11. Громкость Талисмана 
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-talismanvolume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnTalismanVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderTalismanVolume");
+            y += 40;
+
+            // 12. Громкость Механизмов (ВЫБРАСЫВАТЕЛЬ)
+            SingleComposer.AddStaticText(Lang.Get("botaniastory:dialog-settings-mechanicsvolume"), font, ElementBounds.Fixed(0, y, 140, 30));
+            SingleComposer.AddSlider(OnMechanicsVolumeChanged, ElementBounds.Fixed(150, y, 190, 30), "sliderMechanicsVolume");
             y += 40;
 
             // Кнопка Сохранить и Закрыть
@@ -258,6 +270,8 @@ namespace BotaniaStory.lexicon
             SingleComposer.GetSlider("sliderPlateVolume")?.SetValues(config.PlateVolume, 0, 100, 1);
             SingleComposer.GetSlider("sliderPortalVolume")?.SetValues(config.PortalVolume, 0, 100, 1);
             SingleComposer.GetSlider("sliderTiaraVolume")?.SetValues(config.TiaraVolume, 0, 100, 1);
+            SingleComposer.GetSlider("sliderTalismanVolume")?.SetValues(config.TalismanVolume, 0, 100, 1);
+            SingleComposer.GetSlider("sliderMechanicsVolume")?.SetValues(config.MechanicsVolume, 0, 100, 1);
         }
 
         private bool OnVolumeChanged(int value) { config.Volume = value; return true; }
@@ -270,6 +284,8 @@ namespace BotaniaStory.lexicon
         private bool OnPlateVolumeChanged(int value) { config.PlateVolume = value; return true; }
         private bool OnPortalVolumeChanged(int value) { config.PortalVolume = value; return true; }
         private bool OnTiaraVolumeChanged(int value) { config.TiaraVolume = value; return true; }
+        private bool OnTalismanVolumeChanged(int value) { config.TalismanVolume = value; return true; }
+        private bool OnMechanicsVolumeChanged(int value) { config.MechanicsVolume = value; return true; }
 
         private bool OnSaveAndClose()
         {

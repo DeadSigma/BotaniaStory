@@ -1,0 +1,145 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 32,
+	"textureHeight": 32,
+	"textureSizes": {
+		"glass": [32, 32],
+		"transparent": [32, 32],
+		"gold": [32, 32]
+	},
+	"textures": {
+		"glass": "",
+		"transparent": "",
+		"gold": ""
+	},
+	"elements": [
+		{
+			"name": "hourglass",
+			"from": [8, 3.05876, 8],
+			"to": [8, 3.05876, 8],
+			"rotationOrigin": [8, 3.05876, 8],
+			"children": [
+				{
+					"name": "glass",
+					"from": [0, 0, 0],
+					"to": [0, 0, 0],
+					"rotationOrigin": [0, 0, 0],
+					"children": [
+						{
+							"name": "glass",
+							"from": [-1.85, 1.975, -1.85],
+							"to": [1.85, 4.975, 1.85],
+							"rotationOrigin": [0, 3.975, 0],
+							"uv": [0, 0],
+							"shade": true,
+							"faces": {
+								"north": {"texture": "#glass", "uv": [1.8, 0, 9.2, 6], "autoUv": false, "snapUv": false},
+								"east": {"texture": "#glass", "uv": [1.8, 0, 9.2, 6], "autoUv": false, "snapUv": false},
+								"south": {"texture": "#glass", "uv": [1.8, 0, 9.2, 6], "autoUv": false, "snapUv": false},
+								"west": {"texture": "#glass", "uv": [1.8, 0, 9.2, 6], "autoUv": false, "snapUv": false},
+								"up": {"texture": "#transparent", "uv": [1.8, 1.8, 9.2, 9.2], "autoUv": false, "snapUv": false},
+								"down": {"texture": "#glass", "uv": [1.8, 1.8, 9.2, 9.2], "autoUv": false, "snapUv": false}
+							},
+							"renderPass": 3
+						},
+						{
+							"name": "glass",
+							"from": [-1.85, -2, -1.85],
+							"to": [1.85, 1, 1.85],
+							"rotationOrigin": [0, 0, 0],
+							"uv": [0, 0],
+							"shade": true,
+							"faces": {
+								"north": {"texture": "#glass", "uv": [1.8, 0, 9.2, 6], "autoUv": false, "snapUv": false},
+								"east": {"texture": "#glass", "uv": [1.8, 0, 9.2, 6], "autoUv": false, "snapUv": false},
+								"south": {"texture": "#glass", "uv": [1.8, 0, 9.2, 6], "autoUv": false, "snapUv": false},
+								"west": {"texture": "#glass", "uv": [1.8, 0, 9.2, 6], "autoUv": false, "snapUv": false},
+								"up": {"texture": "#glass", "uv": [1.8, 1.8, 9.2, 9.2], "autoUv": false, "snapUv": false},
+								"down": {"texture": "#transparent", "uv": [1.8, 1.8, 9.2, 9.2], "autoUv": false, "snapUv": false}
+							},
+							"renderPass": 3
+						},
+						{
+							"name": "glass",
+							"from": [-1.05, 1, -1.05],
+							"to": [1.05, 1.975, 1.05],
+							"rotationOrigin": [0, 1.5, 0],
+							"uv": [0, 0],
+							"shade": true,
+							"faces": {
+								"north": {"texture": "#glass", "uv": [3.4, 1.05, 7.6, 3], "autoUv": false, "snapUv": false},
+								"east": {"texture": "#glass", "uv": [3.4, 1.05, 7.6, 3], "autoUv": false, "snapUv": false},
+								"south": {"texture": "#glass", "uv": [3.4, 1.05, 7.6, 3], "autoUv": false, "snapUv": false},
+								"west": {"texture": "#glass", "uv": [3.4, 1.05, 7.6, 3], "autoUv": false, "snapUv": false},
+								"up": {"texture": "#transparent", "uv": [3.4, 3.4, 7.6, 7.6], "autoUv": false, "snapUv": false},
+								"down": {"texture": "#transparent", "uv": [3.4, 3.4, 7.6, 7.6], "autoUv": false, "snapUv": false}
+							},
+							"stepParentName": "",
+							"climateColorMap": "",
+							"gradientShade": false,
+							"renderPass": 3,
+							"seasonColorMap": ""
+						}
+					],
+					"stepParentName": ""
+				},
+				{
+					"name": "gold",
+					"from": [0, 4.975, 0],
+					"to": [0, 4.975, 0],
+					"rotationOrigin": [0, 4.975, 0],
+					"children": [
+						{
+							"name": "cube",
+							"from": [-2.45, -7.975, -2.45],
+							"to": [2.45, -6.975, 2.45],
+							"rotationOrigin": [0, -7.975, 0],
+							"uv": [0, 0],
+							"shade": true,
+							"faces": {
+								"north": {"texture": "#gold", "uv": [0.6, 0, 10.4, 2], "autoUv": false, "snapUv": false},
+								"east": {"texture": "#gold", "uv": [0.6, 0, 10.4, 2], "autoUv": false, "snapUv": false},
+								"south": {"texture": "#gold", "uv": [0.6, 0, 10.4, 2], "autoUv": false, "snapUv": false},
+								"west": {"texture": "#gold", "uv": [0.6, 0, 10.4, 2], "autoUv": false, "snapUv": false},
+								"up": {"texture": "#gold", "uv": [0.6, 0.6, 10.4, 10.4], "autoUv": false, "snapUv": false},
+								"down": {"texture": "#gold", "uv": [0.6, 0.6, 10.4, 10.4], "autoUv": false, "snapUv": false}
+							},
+							"stepParentName": "",
+							"climateColorMap": "",
+							"gradientShade": false,
+							"renderPass": 0,
+							"seasonColorMap": ""
+						},
+						{
+							"name": "cube",
+							"from": [-2.45, 0, -2.45],
+							"to": [2.45, 1, 2.45],
+							"rotationOrigin": [0, 0, 0],
+							"uv": [0, 0],
+							"shade": true,
+							"faces": {
+								"north": {"texture": "#gold", "uv": [0.6, 0, 10.4, 2], "autoUv": false, "snapUv": false},
+								"east": {"texture": "#gold", "uv": [0.6, 0, 10.4, 2], "autoUv": false, "snapUv": false},
+								"south": {"texture": "#gold", "uv": [0.6, 0, 10.4, 2], "autoUv": false, "snapUv": false},
+								"west": {"texture": "#gold", "uv": [0.6, 0, 10.4, 2], "autoUv": false, "snapUv": false},
+								"up": {"texture": "#gold", "uv": [0.6, 0.6, 10.4, 10.4], "autoUv": false, "snapUv": false},
+								"down": {"texture": "#gold", "uv": [0.6, 0.6, 10.4, 10.4], "autoUv": false, "snapUv": false}
+							},
+							"stepParentName": "",
+							"climateColorMap": "",
+							"gradientShade": false,
+							"renderPass": 0,
+							"seasonColorMap": ""
+						}
+					],
+					"stepParentName": ""
+				}
+			],
+			"stepParentName": ""
+		}
+	],
+	"animations": []
+}

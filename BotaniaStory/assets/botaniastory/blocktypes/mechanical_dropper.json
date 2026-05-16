@@ -1,0 +1,101 @@
+{
+    "code": "mechanical_dropper",
+    "class": "BlockMechanicalDropper",
+    "entityClass": "BlockEntityMechanicalDropper",
+    "entityBehaviors": [
+        {
+            "name": "MPConsumer",
+            "properties": { "mechPartShape": null }
+        }
+    ],
+    "creativeinventory": {
+        "general": [ "mechanical_dropper-north-iron-oak" ],
+        "botaniastory": [ "mechanical_dropper-north-iron-oak" ]
+    },
+    "behaviors": [
+        { "name": "Container" }
+    ],
+    "attributes": {
+        "inventoryClassName": "dropper",
+        "dialogTitleLangCode": "botaniastory:dialog-dropper-title",
+        "quantitySlots": 8,
+        "handbook": {
+            "groupBy": [ "botaniastory:mechanical_dropper-*" ]
+        },
+        "openSound": "botaniastory:sounds/dropper_open",
+        "closeSound": "botaniastory:sounds/dropper_close"
+    },
+    "variantgroups": [
+        {
+            "code": "facing",
+            "states": [ "north", "east", "south", "west", "up", "down" ]
+        },
+        {
+            "code": "metal",
+            "states": [ "zinc", "bismuth", "bismuthbronze", "blackbronze", "brass", "chromium", "copper", "gold", "iron", "lead", "molybdochalkos", "nickel", "platinum", "silver", "stainlesssteel", "steel", "tin", "tinbronze", "titanium", "uranium", "terrasteel", "elementium", "manasteel" ]
+        },
+        {
+            "code": "wood",
+            "states": [
+                "acacia",
+                "aged",
+                "baldcypress",
+                "birch",
+                "ebony",
+                "kapok",
+                "larch",
+                "maple",
+                "oak",
+                "pine",
+                "purpleheart",
+                "redwood",
+                "walnut"
+            ]
+        }
+    ],
+    "shape": {
+        "base": "botaniastory:block/mechanical_dropper"
+    },
+
+    "shapeByType": {
+        "@.*-north-.*": {
+            "base": "botaniastory:block/mechanical_dropper"
+        },
+        "@.*-south-.*": {
+            "base": "botaniastory:block/mechanical_dropper",
+            "rotateY": 180
+        },
+        "@.*-east-.*": {
+            "base": "botaniastory:block/mechanical_dropper",
+            "rotateY": 270
+        },
+        "@.*-west-.*": {
+            "base": "botaniastory:block/mechanical_dropper",
+            "rotateY": 90
+        },
+        "@.*-up-.*": {
+            "base": "botaniastory:block/mechanical_dropper",
+            "rotateX": 90
+        },
+        "@.*-down-.*": {
+            "base": "botaniastory:block/mechanical_dropper",
+            "rotateX": 270
+        }
+    },
+    "textures": {
+        "metal": { "base": "game:item/resource/plate/{metal}" },
+        "wood": { "base": "game:block/wood/crate/{wood}-sides" }
+    },
+    "drawtype": "json",
+    "blockmaterial": "Wood",
+    "resistance": 3,
+    "lightabsorption": 0,
+    "sideopaque": { "all": true },
+    "sidesolid": { "all": true },
+    "sounds": {
+        "place": "game:block/planks",
+        "break": "game:block/planks",
+        "walk": "game:walk/wood"
+
+    }
+}

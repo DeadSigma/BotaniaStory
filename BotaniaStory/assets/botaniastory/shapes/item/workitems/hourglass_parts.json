@@ -1,0 +1,94 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 32,
+	"textureHeight": 32,
+	"textureSizes": {
+		"gold": [32, 32]
+	},
+	"textures": {
+		"gold": "game:item/resource/plate/gold"
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [3.1, 0, 3.1],
+			"to": [12.9, 2, 12.9],
+			"rotationOrigin": [8, 0, 8],
+			"faces": {
+				"north": {
+					"texture": "#gold",
+					"uv": [0.6, 0, 10.4, 2],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#gold",
+					"uv": [0.6, 0, 10.4, 2],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#gold",
+					"uv": [0.6, 0, 10.4, 2],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#gold",
+					"uv": [0.6, 0, 10.4, 2],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#gold",
+					"uv": [0.6, 0.6, 10.4, 10.4],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#gold",
+					"uv": [0.6, 0.6, 10.4, 10.4],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "cube",
+			"from": [3.1, 1.95, 3.1],
+			"to": [12.9, 3.95, 12.9],
+			"rotationOrigin": [8, 1.95, 8],
+			"faces": {
+				"north": {
+					"texture": "#gold",
+					"uv": [0.6, 0, 10.4, 2],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#gold",
+					"uv": [0.6, 0, 10.4, 2],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#gold",
+					"uv": [0.6, 0, 10.4, 2],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#gold",
+					"uv": [0.6, 0, 10.4, 2],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#gold",
+					"uv": [0.6, 0.6, 10.4, 10.4],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#gold",
+					"uv": [0.6, 0.6, 10.4, 10.4],
+					"autoUv": false
+				}
+			},
+			"rotationY": -12.5
+		}
+	],
+	"animations": []
+}

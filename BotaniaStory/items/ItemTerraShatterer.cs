@@ -5,10 +5,11 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using BotaniaStory.util;
 
 namespace BotaniaStory.items
 {
-    public class ItemTerraShatterer : Item
+    public class ItemTerraShatterer : Item, IManaRepairable
     {
         // 1. ЧТЕНИЕ НАСТРОЕК ИЗ JSON
         public int GetMaxMana(ItemStack stack)
@@ -299,6 +300,16 @@ namespace BotaniaStory.items
                 return true;
             }
             return false;
+        }
+
+        //  тратим ману вместо прочности
+        public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
+        {
+            amount = ManaHelper.ProcessDamage(byEntity, amount);
+            if (amount > 0)
+            {
+                base.DamageItem(world, byEntity, itemslot, amount, destroyOnZeroDurability);
+            }
         }
     }
 }

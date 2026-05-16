@@ -1,0 +1,90 @@
+{
+    "code": "hourglass",
+    "class": "BlockHourglass",
+    "entityClass": "BlockEntityHourglass",
+    "creativeinventory": {
+        "general": [ "*" ],
+        "botaniastory": [ "*" ]
+    },
+    "behaviors": [
+        { "name": "HorizontalOrientable" }
+    ],
+    "shape": { "base": "botaniastory:block/hourglass" },
+    "drawtype": "json",
+    "blockmaterial": "Glass",
+    "faceCullMode": "NeverCull",
+    "lightAbsorption": 0,
+    "sidesolid": { "all": false },
+    "sideopaque": { "all": false },
+    "collisionbox": {
+        "x1": 0.424,
+        "y1": 0.359,
+        "z1": 0.424,
+        "x2": 0.576,
+        "y2": 0.641,
+        "z2": 0.576
+    },
+    "selectionbox": {
+        "x1": 0.424,
+        "y1": 0.359,
+        "z1": 0.424,
+        "x2": 0.576,
+        "y2": 0.641,
+        "z2": 0.576
+    },
+    "resistance": 0,
+    "textures": {
+        "gold": { "base": "game:block/metal/ingot/gold" },
+        "glass": { "base": "game:block/glass/plain" },
+        "transparent": { "base": "botaniastory:block/transparent" }
+    },
+    "guiTransform": {
+        "translation": {
+            "x": 1.02,
+            "y": -2,
+            "z": 0
+        },
+        "rotation": {
+            "x": -22.5,
+            "y": 45,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.51,
+            "y": 0.32,
+            "z": 0.5
+        },
+        "scale": 2.18
+    },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": 0,
+            "y": -45,
+            "z": 0
+        },
+        "origin": {
+            "x": 0.5,
+            "y": 0,
+            "z": 0.5
+        },
+        "scale": 2.47
+    },
+    "tpHandTransform": {
+        "translation": {
+            "x": -0.8,
+            "y": -1.0,
+            "z": -0.5
+        },
+        "rotation": {
+            "x": -85,
+            "y": 0,
+            "z": -10
+        },
+        "scale": 0.7
+    }
+}

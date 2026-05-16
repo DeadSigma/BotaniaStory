@@ -1,0 +1,80 @@
+[
+    {
+        "ingredientPattern": "HMC,PSP,PPP",
+        "ingredients": {
+            "H": {
+                "type": "item",
+                "tags": [ "tool-hammer" ],
+                "isTool": true,
+                "toolDurabilityCost": 10
+            },
+            "C": {
+                "type": "item",
+                "tags": [ "tool-chisel" ],
+                "isTool": true,
+                "toolDurabilityCost": 10
+            },
+            "M": {
+                "type": "item",
+                "code": "game:metalplate-{metal}"
+            },
+            "P": {
+                "type": "item",
+                "code": "game:plank-{wood}"
+            },
+            "S": {
+                "type": "block",
+                "code": "game:archimedesscrew-ported-north"
+            }
+        },
+        "allowedVariants": {
+            "wood": [
+                "acacia",
+                "baldcypress",
+                "birch",
+                "ebony",
+                "kapok",
+                "larch",
+                "maple",
+                "oak",
+                "pine",
+                "purpleheart",
+                "redwood",
+                "walnut",
+                "aged"
+            ],
+            "metal": [
+                "zinc",
+                "bismuth",
+                "bismuthbronze",
+                "blackbronze",
+                "brass",
+                "chromium",
+                "copper",
+                "gold",
+                "iron",
+                "lead",
+                "molybdochalkos",
+                "nickel",
+                "platinum",
+                "silver",
+                "stainlesssteel",
+                "steel",
+                "tin",
+                "tinbronze",
+                "titanium",
+                "uranium",
+                "terrasteel",
+                "elementium",
+                "manasteel"
+            ]
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:mechanical_dropper-north-{metal}-{wood}",
+            "quantity": 1
+        }
+    }
+]

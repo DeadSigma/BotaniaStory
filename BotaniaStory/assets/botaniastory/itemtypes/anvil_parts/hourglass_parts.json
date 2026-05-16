@@ -1,0 +1,187 @@
+{
+    "code": "hourglass_parts",
+    "class": "Item",
+    "maxstacksize": 8,
+    "shape": {
+        "base": "botaniastory:item/workitems/hourglass_parts"
+    },
+    "textures": {
+        "gold": {
+            "base": "game:item/resource/plate/gold"
+        }
+    },
+    "creativeinventory": {
+        "general": [
+            "*"
+        ],
+        "botaniastory": [
+            "*"
+        ]
+    },
+    "attributes": {
+        "shelvable": true,
+        "inForgeTransform": {
+            "translation": {
+                "x": -0.3,
+                "y": 0.06,
+                "z": 0.08
+            },
+            "rotation": {
+                "x": 12,
+                "y": 1,
+                "z": 2
+            },
+            "origin": {
+                "x": 1,
+                "y": 0,
+                "z": 0.5
+            },
+            "scale": 0.38
+        },
+        "forgable": true,
+        "onTongTransform": {
+            "translation": {
+                "x": -3.48,
+                "y": -1.98,
+                "z": -1.22
+            },
+            "rotation": {
+                "x": 94,
+                "y": 105,
+                "z": 86
+            },
+            "origin": {
+                "x": 0.54,
+                "y": 0.59,
+                "z": 0.5
+            },
+            "scale": 0.37
+        },
+        "tongOpening": "small",
+        "onMetalTongTransform": {
+            "translation": {
+                "x": -4.53,
+                "y": -0.54,
+                "z": -1.42
+            },
+            "rotation": {
+                "x": -6,
+                "y": 0,
+                "z": -10
+            },
+            "origin": {
+                "x": 1,
+                "y": 0,
+                "z": 0.5
+            },
+            "scale": 0.38
+        },
+        "groundStorageTransform": {
+            "translation": {
+                "x": -0.2,
+                "y": -0.3,
+                "z": -0.07
+            },
+            "rotation": {
+                "x": 0,
+                "y": 35,
+                "z": 0
+            },
+            "origin": {
+                "x": 0.8,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "scale": 0.43
+        },
+        "handbook": {
+            "groupBy": [
+                "pickaxehead-*"
+            ]
+        },
+        "onshelfTransform": {
+            "translation": {
+                "x": -0.3,
+                "y": -0.297,
+                "z": 0.02
+            },
+            "origin": {
+                "x": 1,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "scale": 0.42
+        }
+    },
+    "behaviors": [
+        {
+            "name": "GroundStorable",
+            "properties": {
+                "layout": "Quadrants",
+                "collisionBox": {
+                    "x1": 0,
+                    "y1": 0,
+                    "z1": 0,
+                    "x2": 1,
+                    "y2": 0.1,
+                    "z2": 1
+                }
+            }
+        }
+    ],
+    "heldTpUseAnimation": "interactstatic",
+    "guiTransform": {
+        "translation": {
+            "x": -0.01,
+            "y": 1,
+            "z": 0
+        },
+        "rotation": {
+            "x": -89,
+            "y": 47,
+            "z": 33
+        },
+        "origin": {
+            "x": 0.76,
+            "y": 0.5,
+            "z": 0.45
+        },
+        "scale": 1.66
+    },
+    "groundTransform": {
+        "translation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "rotation": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "origin": {
+            "x": 1,
+            "y": 0,
+            "z": 0.5
+        },
+        "scale": 2.32
+    },
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.47,
+            "y": -0.01,
+            "z": -0.56
+        },
+        "rotation": {
+            "x": -95,
+            "y": 66,
+            "z": 0
+        },
+        "origin": {
+            "x": 1,
+            "y": 0,
+            "z": 0.5
+        },
+        "scale": 0.8
+    }
+}

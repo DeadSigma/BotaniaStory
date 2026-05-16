@@ -4,6 +4,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputPath>bin\$(Configuration)\Mods\BotaniaStory</OutputPath>
     <VINTAGE_STORY>C:\Users\Mrzub\AppData\Roaming\Vintagestory 1.22.2</VINTAGE_STORY>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="VintagestoryAPI">
@@ -76,21 +77,15 @@
 		<PropertyGroup>
 			<ModName>$([System.Text.RegularExpressions.Regex]::Match('$([System.IO.File]::ReadAllText("$(ProjectDir)modinfo.json"))', '"name"\s*:\s*"([^"]+)"').Groups[1].Value)</ModName>
 			<ModVersion>$([System.Text.RegularExpressions.Regex]::Match('$([System.IO.File]::ReadAllText("$(ProjectDir)modinfo.json"))', '"version"\s*:\s*"([^"]+)"').Groups[1].Value)</ModVersion>
-
 			<ZipTempDir>$(TargetDir)ZipTemp</ZipTempDir>
 			<ZipOutDir>..\..\releases\$(ModName)</ZipOutDir>
-
-			<!-- Папка живой версии -->
 			<DevOutDir>..\..\releases\$(ModName)\dev</DevOutDir>
-
 		</PropertyGroup>
 
 		<MakeDir Directories="$(ZipOutDir)" Condition="!Exists('$(ZipOutDir)')" />
-
 		<RemoveDir Directories="$(ZipTempDir)" Condition="Exists('$(ZipTempDir)')" />
 		<MakeDir Directories="$(ZipTempDir)" />
 
-		<!-- Очистка dev копии -->
 		<RemoveDir Directories="$(DevOutDir)" Condition="Exists('$(DevOutDir)')" />
 		<MakeDir Directories="$(DevOutDir)" />
 
@@ -119,8 +114,8 @@
 		<Copy SourceFiles="@(AssetFiles)" DestinationFolder="$(DevOutDir)\assets\%(RecursiveDir)" />
 
 		<ZipDirectory SourceDirectory="$(ZipTempDir)" DestinationFile="$(ZipOutDir)\$(ModName) v$(ModVersion).zip" Overwrite="true" />
-
 		<RemoveDir Directories="$(ZipTempDir)" />
 
+		<Exec Command="py &quot;C:\sourcecode\копирует botaniastory в папку с модами.py&quot;" />
 	</Target>
 </Project>

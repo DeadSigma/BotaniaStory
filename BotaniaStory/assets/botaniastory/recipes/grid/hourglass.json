@@ -1,0 +1,26 @@
+[
+    {
+        "ingredientPattern": "_P_,GMG,_P_",
+        "ingredients": {
+            "P": {
+                "type": "block",
+                "code": "botaniastory:managlass"
+            },
+            "G": {
+                "type": "item",
+                "code": "botaniastory:manaitem-managear"
+            },
+            "M": {
+                "type": "item",
+                "code": "botaniastory:hourglass_parts"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:hourglass",
+            "quantity": 1
+        }
+    }
+]

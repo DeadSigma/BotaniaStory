@@ -2,14 +2,172 @@ using System;
 using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config; // Важно для Lang.Get
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 using System.Collections.Generic;
+using HarmonyLib;
+using botaniastory;
 
 namespace BotaniaStory.items
 {
+    // ИНИЦИАЛИЗАЦИЯ HARMONY ДЛЯ ИНВЕНТАРЯ
+
+    public class BotaniaStoryTalismanSystem : ModSystem
+    {
+        private Harmony harmony;
+
+        public override void Start(ICoreAPI api)
+        {
+            base.Start(api);
+            harmony = new Harmony("botaniastory.talisman");
+            harmony.PatchAll(); // Применяем патч при запуске
+        }
+
+        public override void Dispose()
+        {
+            harmony?.UnpatchAll("botaniastory.talisman");
+            base.Dispose();
+        }
+    }
+
+    // ПАТЧ КЛИКА В ИНВЕНТАРЕ (DRAG & DROP)
+
+    [HarmonyPatch(typeof(ItemSlot), nameof(ItemSlot.ActivateSlot))]
+    public static class TalismanSlotClickPatch
+    {
+        // Метод-помощник для отправки звука всем игрокам вокруг
+        public static void SendTalismanSound(IWorldAccessor world, IPlayer player, string soundName)
+        {
+            if (world.Api.Side == EnumAppSide.Server && player != null)
+            {
+                var sapi = world.Api as ICoreServerAPI;
+                var channel = sapi.Network.GetChannel("botanianetwork");
+                if (channel != null)
+                {
+                    channel.BroadcastPacket(new PlayManaSoundPacket() // Проверь правильность пути (namespace) до пакета
+                    {
+                        Position = player.Entity.Pos.XYZ.Clone().Add(0, 1, 0), // Звук примерно на уровне груди игрока
+                        SoundName = soundName
+                    });
+                }
+            }
+        }
+
+        public static bool Prefix(ItemSlot __instance, ItemSlot sourceSlot, ref ItemStackMoveOperation op)
+        {
+            if (__instance.Empty && sourceSlot.Empty) return true;
+
+            ItemSlot talismanSlot = null;
+            ItemSlot otherSlot = null;
+
+            bool isTalismanOnCursor = sourceSlot.Itemstack?.Item is ItemBlackHoleTalisman;
+            bool isTalismanInSlot = __instance.Itemstack?.Item is ItemBlackHoleTalisman;
+
+            if (isTalismanOnCursor && isTalismanInSlot) return true;
+
+            if (isTalismanOnCursor) { talismanSlot = sourceSlot; otherSlot = __instance; }
+            else if (isTalismanInSlot) { talismanSlot = __instance; otherSlot = sourceSlot; }
+            else { return true; }
+
+            // Получаем доступ к миру
+            IWorldAccessor world = __instance.Inventory?.Api?.World ?? sourceSlot.Inventory?.Api?.World;
+            if (world == null) return true;
+
+            var attrs = talismanSlot.Itemstack.Attributes;
+            string storedCode = attrs.GetString("blockCode", "");
+            int storedCount = attrs.GetInt("count", 0);
+            int storedClassInt = attrs.GetInt("storedClass", (int)EnumItemClass.Block);
+
+            // 1. ЛОГИКА ПОГЛОЩЕНИЯ (ЛКМ)
+            if (op.MouseButton == EnumMouseButton.Left && !op.ShiftDown && !op.CtrlDown)
+            {
+                if (otherSlot.Empty) return true;
+
+                var itemStack = otherSlot.Itemstack;
+
+                if (storedCount == 0 || string.IsNullOrEmpty(storedCode))
+                {
+                    attrs.SetString("blockCode", itemStack.Collectible.Code.ToShortString());
+                    attrs.SetInt("storedClass", (int)itemStack.Class);
+                    attrs.SetInt("count", 0);
+                    talismanSlot.MarkDirty();
+
+                    storedCode = attrs.GetString("blockCode", "");
+                    storedClassInt = attrs.GetInt("storedClass", (int)EnumItemClass.Block);
+                }
+
+                if (itemStack.Collectible.Code.ToShortString() == storedCode && (int)itemStack.Class == storedClassInt)
+                {
+                    int space = int.MaxValue - storedCount;
+                    if (space > 0)
+                    {
+                        int toTake = Math.Min(space, itemStack.StackSize);
+                        attrs.SetInt("count", storedCount + toTake);
+                        otherSlot.TakeOut(toTake);
+                        otherSlot.MarkDirty();
+                        talismanSlot.MarkDirty();
+
+                        // ОТПРАВЛЯЕМ ЗВУК ВСТАВКИ ПРЕДМЕТА
+                        SendTalismanSound(world, op.ActingPlayer, "talisman_insert");
+                    }
+                    return false;
+                }
+                return true;
+            }
+
+            // 2. ЛОГИКА ВЫКЛАДЫВАНИЯ (ПКМ или CTRL+ПКМ)
+            if (op.MouseButton == EnumMouseButton.Right && storedCount > 0 && !string.IsNullOrEmpty(storedCode))
+            {
+                CollectibleObject objToPlace = storedClassInt == (int)EnumItemClass.Block
+                    ? (CollectibleObject)world.GetBlock(new AssetLocation(storedCode))
+                    : (CollectibleObject)world.GetItem(new AssetLocation(storedCode));
+
+                if (objToPlace != null)
+                {
+                    bool isSameItem = !otherSlot.Empty &&
+                                      otherSlot.Itemstack.Class == (EnumItemClass)storedClassInt &&
+                                      otherSlot.Itemstack.Collectible.Code.Path == objToPlace.Code.Path;
+
+                    if (otherSlot.Empty || isSameItem)
+                    {
+                        int maxStack = objToPlace.MaxStackSize;
+                        int currentStack = otherSlot.Empty ? 0 : otherSlot.Itemstack.StackSize;
+                        int space = maxStack - currentStack;
+
+                        if (space > 0)
+                        {
+                            int amountToPlace = op.CtrlDown ? maxStack : 1;
+
+                            amountToPlace = Math.Min(amountToPlace, space);
+                            amountToPlace = Math.Min(amountToPlace, storedCount);
+
+                            if (amountToPlace > 0)
+                            {
+                                if (otherSlot.Empty) { otherSlot.Itemstack = new ItemStack(objToPlace, amountToPlace); }
+                                else { otherSlot.Itemstack.StackSize += amountToPlace; }
+
+                                attrs.SetInt("count", storedCount - amountToPlace);
+                                otherSlot.MarkDirty();
+                                talismanSlot.MarkDirty();
+
+                                // ОТПРАВЛЯЕМ ЗВУК ИЗВЛЕЧЕНИЯ ПРЕДМЕТА
+                                SendTalismanSound(world, op.ActingPlayer, "talisman_extract");
+
+                                op.MovableQuantity = 0;
+                                return false;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
+
     public class ItemBlackHoleTalisman : Item
     {
         private const int MaxCapacity = int.MaxValue;
@@ -26,6 +184,7 @@ namespace BotaniaStory.items
             string storedCode = attrs.GetString("blockCode", "");
             int storedCount = attrs.GetInt("count", 0);
             bool isActive = attrs.GetBool("isActive", true);
+            int storedClassInt = attrs.GetInt("storedClass", (int)EnumItemClass.Block);
 
             if (player.Controls.Sneak && player.Controls.CtrlKey)
             {
@@ -58,12 +217,16 @@ namespace BotaniaStory.items
             {
                 BlockEntity be = api.World.BlockAccessor.GetBlockEntity(blockSel.Position);
 
+                // Выгрузка в контейнер
                 if (be is BlockEntityGenericTypedContainer container)
                 {
                     if (api.Side == EnumAppSide.Server && storedCount > 0 && !string.IsNullOrEmpty(storedCode))
                     {
-                        Block blockToPlace = api.World.GetBlock(new AssetLocation(storedCode));
-                        if (blockToPlace != null)
+                        CollectibleObject objToPlace = storedClassInt == (int)EnumItemClass.Block
+                            ? (CollectibleObject)api.World.GetBlock(new AssetLocation(storedCode))
+                            : (CollectibleObject)api.World.GetItem(new AssetLocation(storedCode));
+
+                        if (objToPlace != null)
                         {
                             int toTransfer = storedCount;
 
@@ -73,14 +236,14 @@ namespace BotaniaStory.items
 
                                 if (invSlot.Empty)
                                 {
-                                    int transferAmount = Math.Min(toTransfer, blockToPlace.MaxStackSize);
-                                    invSlot.Itemstack = new ItemStack(blockToPlace, transferAmount);
+                                    int transferAmount = Math.Min(toTransfer, objToPlace.MaxStackSize);
+                                    invSlot.Itemstack = new ItemStack(objToPlace, transferAmount);
                                     toTransfer -= transferAmount;
                                     invSlot.MarkDirty();
                                 }
-                                else if (invSlot.Itemstack.Class == EnumItemClass.Block && invSlot.Itemstack.Block.Code.Path == blockToPlace.Code.Path)
+                                else if (invSlot.Itemstack.Class == (EnumItemClass)storedClassInt && invSlot.Itemstack.Collectible.Code.Path == objToPlace.Code.Path)
                                 {
-                                    int space = blockToPlace.MaxStackSize - invSlot.Itemstack.StackSize;
+                                    int space = objToPlace.MaxStackSize - invSlot.Itemstack.StackSize;
                                     if (space > 0)
                                     {
                                         int transferAmount = Math.Min(toTransfer, space);
@@ -103,6 +266,7 @@ namespace BotaniaStory.items
                     return;
                 }
 
+                // Бинд блока по клику в мире
                 if (string.IsNullOrEmpty(storedCode) || storedCount == 0)
                 {
                     if (clickedBlock.EntityClass != null)
@@ -118,6 +282,7 @@ namespace BotaniaStory.items
                         : clickedBlock.Code;
 
                     attrs.SetString("blockCode", codeToSave.ToShortString());
+                    attrs.SetInt("storedClass", (int)EnumItemClass.Block); // Указываем, что это блок
                     attrs.SetInt("count", 0);
                     slot.MarkDirty();
 
@@ -131,41 +296,43 @@ namespace BotaniaStory.items
                 return;
             }
 
+            //  ЗАПРЕТ УСТАНОВКИ, ЕСЛИ ЭТО ПРЕДМЕТ (НЕ БЛОК)
             if (storedCount > 0 && !string.IsNullOrEmpty(storedCode) && isActive)
             {
-                Block blockToPlace = api.World.GetBlock(new AssetLocation(storedCode));
-                if (blockToPlace != null && clickedBlock.EntityClass == null)
+                if (storedClassInt == (int)EnumItemClass.Block) // Проверка на блок
                 {
-                    BlockPos placePos = blockSel.Position.AddCopy(blockSel.Face);
-                    Block blockAtPos = api.World.BlockAccessor.GetBlock(placePos);
-
-                    if (blockAtPos.IsReplacableBy(blockToPlace))
+                    Block blockToPlace = api.World.GetBlock(new AssetLocation(storedCode));
+                    if (blockToPlace != null && clickedBlock.EntityClass == null)
                     {
-                        if (api.Side == EnumAppSide.Server)
+                        BlockPos placePos = blockSel.Position.AddCopy(blockSel.Face);
+                        Block blockAtPos = api.World.BlockAccessor.GetBlock(placePos);
+
+                        if (blockAtPos.IsReplacableBy(blockToPlace))
                         {
-                            api.World.BlockAccessor.SetBlock(blockToPlace.BlockId, placePos);
-                            attrs.SetInt("count", storedCount - 1);
-                            slot.MarkDirty();
+                            if (api.Side == EnumAppSide.Server)
+                            {
+                                api.World.BlockAccessor.SetBlock(blockToPlace.BlockId, placePos);
+                                attrs.SetInt("count", storedCount - 1);
+                                slot.MarkDirty();
+                            }
+                            handling = EnumHandHandling.Handled;
+                            api.World.PlaySoundAt(blockToPlace.Sounds?.Place.Location ?? new AssetLocation("game:sounds/block/dirt"), placePos.X, placePos.Y, placePos.Z, player.Player);
+                            return;
                         }
-                        handling = EnumHandHandling.Handled;
-                        api.World.PlaySoundAt(blockToPlace.Sounds?.Place.Location ?? new AssetLocation("game:sounds/block/dirt"), placePos.X, placePos.Y, placePos.Z, player.Player);
-                        return;
                     }
                 }
             }
 
             base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
         }
-        // ==========================================
-        // === ЛОГИКА СКРЫТИЯ ШЕЙПОВ ПРИ РЕНДЕРЕ ====
-        // ==========================================
 
-        private MultiTextureMeshRef activeMesh;   // Оригинальная (включенная) модель
+        // ЛОГИКА СКРЫТИЯ ШЕЙПОВ ПРИ РЕНДЕРЕ
+
+        private MultiTextureMeshRef activeMesh;
         private MultiTextureMeshRef inactiveMesh;
 
         public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo)
         {
-            // 1. При самом первом рендере кэшируем оригинальную модель, которую собрала игра
             if (activeMesh == null)
             {
                 activeMesh = renderinfo.ModelRef;
@@ -173,20 +340,16 @@ namespace BotaniaStory.items
 
             bool isActive = itemstack.Attributes.GetBool("isActive", true);
 
-            // 2. Если талисман выключен — генерируем (один раз) и ставим модель без анимации
             if (!isActive)
             {
                 if (inactiveMesh == null)
                 {
                     inactiveMesh = GenerateInactiveMesh(capi);
                 }
-
                 renderinfo.ModelRef = inactiveMesh;
             }
             else
             {
-                // 3. ОБЯЗАТЕЛЬНО возвращаем оригинальную модель!
-                // Если этого не сделать, игра применит "кастрированную" модель к другим предметам на витрине.
                 renderinfo.ModelRef = activeMesh;
             }
 
@@ -195,20 +358,13 @@ namespace BotaniaStory.items
 
         private MultiTextureMeshRef GenerateInactiveMesh(ICoreClientAPI capi)
         {
-            // ВАЖНО: Добавляем .Clone(), чтобы не сломать глобальный путь модели в памяти игры!
             var shapeLoc = this.Shape.Base.Clone();
-
-            // Безопасно формируем путь к json-файлу
             shapeLoc.WithPathPrefixOnce("shapes/").WithPathAppendixOnce(".json");
-
             var shape = capi.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
 
             if (shape == null) return null;
 
-            // Вырезаем все детали с именем "animatedpart"
             shape.Elements = RemoveAnimatedParts(shape.Elements);
-
-            // Используем НАШ источник текстур, чтобы избежать невидимых моделей и поломок полок
             var texSource = new TalismanTexSource(capi, this, shape);
 
             capi.Tesselator.TesselateShape(
@@ -221,7 +377,6 @@ namespace BotaniaStory.items
             return capi.Render.UploadMultiTextureMesh(meshData);
         }
 
-        // Рекурсивный метод удаления элементов
         private Vintagestory.API.Common.ShapeElement[] RemoveAnimatedParts(Vintagestory.API.Common.ShapeElement[] elements)
         {
             if (elements == null) return null;
@@ -243,7 +398,6 @@ namespace BotaniaStory.items
             return result.ToArray();
         }
 
-        // Вспомогательный класс-источник, который умеет читать текстуры прямо из Shape
         private class TalismanTexSource : ITexPositionSource
         {
             private ICoreClientAPI capi;
@@ -263,30 +417,26 @@ namespace BotaniaStory.items
             {
                 get
                 {
-                    // Шаг 1: Ищем текстуру в конфигурации предмета
                     if (baseSource != null)
                     {
                         var pos = baseSource[textureCode];
                         if (pos != null) return pos;
                     }
 
-                    // Шаг 2: Если не нашли, ищем внутри самого JSON-файла модели (это чинит невидимость!)
                     if (shape.Textures != null && shape.Textures.TryGetValue(textureCode, out var texPath))
                     {
                         capi.ItemTextureAtlas.GetOrInsertTexture(texPath, out _, out var shapePos);
                         return shapePos;
                     }
 
-                    // Если вообще ничего не найдено, отдаем текстуру "неизвестно" (фиолетово-черные квадраты), 
-                    // чтобы не крашить OpenGL и не ломать полки.
                     return capi.ItemTextureAtlas.UnknownTexturePosition;
                 }
             }
         }
-        // --- ДЕБАГГЕР И УЛУЧШЕННОЕ ПОГЛОЩЕНИЕ ---
+
+        //  ДЕБАГГЕР И УЛУЧШЕННОЕ ПОГЛОЩЕНИЕ 
         public static void AbsorbBlocksFromPlayer(IServerPlayer player, ICoreServerAPI sapi)
         {
-            
             foreach (var inv in player.InventoryManager.Inventories.Values)
             {
                 if (inv.ClassName != "hotbar" && inv.ClassName != "backpack") continue;
@@ -303,8 +453,8 @@ namespace BotaniaStory.items
 
                     AssetLocation targetLoc = new AssetLocation(storedCode);
                     int count = attrs.GetInt("count", 0);
+                    int storedClassInt = attrs.GetInt("storedClass", (int)EnumItemClass.Block);
                     bool absorbedSomething = false;
-
 
                     foreach (var searchInv in player.InventoryManager.Inventories.Values)
                     {
@@ -314,9 +464,8 @@ namespace BotaniaStory.items
                         {
                             if (targetSlot.Empty || targetSlot == talismanSlot) continue;
 
-
-                            // Сравниваем только по Path (игнорируем домен game:)
-                            if (targetSlot.Itemstack.Class == EnumItemClass.Block && targetSlot.Itemstack.Block.Code.Path == targetLoc.Path)
+                            // проверяем и тип (блок/предмет), и код
+                            if ((int)targetSlot.Itemstack.Class == storedClassInt && targetSlot.Itemstack.Collectible.Code.Path == targetLoc.Path)
                             {
                                 int amount = targetSlot.Itemstack.StackSize;
                                 if (count + amount <= MaxCapacity && count + amount > 0)
@@ -325,7 +474,6 @@ namespace BotaniaStory.items
                                     targetSlot.TakeOutWhole();
                                     targetSlot.MarkDirty();
                                     absorbedSomething = true;
-
                                 }
                             }
                         }
@@ -335,6 +483,17 @@ namespace BotaniaStory.items
                     {
                         attrs.SetInt("count", count);
                         talismanSlot.MarkDirty();
+
+                        // ЗВУК АВТОМАТИЧЕСКОГО ПОГЛОЩЕНИЯ 
+                        var channel = sapi.Network.GetChannel("botanianetwork");
+                        if (channel != null)
+                        {
+                            channel.BroadcastPacket(new PlayManaSoundPacket()
+                            {
+                                Position = player.Entity.Pos.XYZ.Clone().Add(0, 1, 0),
+                                SoundName = "talisman_absorb"
+                            });
+                        }
                     }
                 }
             }
@@ -355,6 +514,7 @@ namespace BotaniaStory.items
             string storedCode = attrs.GetString("blockCode", "");
             int storedCount = attrs.GetInt("count", 0);
             bool isActive = attrs.GetBool("isActive", true);
+            int storedClassInt = attrs.GetInt("storedClass", (int)EnumItemClass.Block);
 
             dsc.AppendLine();
             dsc.AppendLine(isActive ? Lang.Get("botaniastory:talisman-mode-on") : Lang.Get("botaniastory:talisman-mode-off"));
@@ -366,10 +526,20 @@ namespace BotaniaStory.items
             }
             else
             {
-                Block storedBlock = world.GetBlock(new AssetLocation(storedCode));
-                string blockName = storedBlock != null ? storedBlock.GetPlacedBlockName(world, null) : storedCode;
+                string displayName = storedCode;
 
-                dsc.AppendLine(Lang.Get("botaniastory:talisman-contains", blockName));
+                if (storedClassInt == (int)EnumItemClass.Block)
+                {
+                    Block storedBlock = world.GetBlock(new AssetLocation(storedCode));
+                    if (storedBlock != null) displayName = storedBlock.GetPlacedBlockName(world, null);
+                }
+                else
+                {
+                    Item storedItem = world.GetItem(new AssetLocation(storedCode));
+                    if (storedItem != null) displayName = storedItem.GetHeldItemName(new ItemStack(storedItem));
+                }
+
+                dsc.AppendLine(Lang.Get("botaniastory:talisman-contains", displayName));
                 dsc.AppendLine(Lang.Get("botaniastory:talisman-count", storedCount));
                 dsc.AppendLine();
                 dsc.AppendLine(Lang.Get("botaniastory:talisman-hint-place"));

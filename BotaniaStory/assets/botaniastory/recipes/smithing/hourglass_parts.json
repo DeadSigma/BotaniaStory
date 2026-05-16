@@ -1,0 +1,19 @@
+{
+    "code": "hourglass_parts",
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-gold"
+    },
+    "pattern": [
+        [
+            "###_###",
+            "###_###",
+            "###_###"
+        ]
+    ],
+    "name": "Hourglass Gold Parts",
+    "output": {
+        "type": "item",
+        "code": "botaniastory:hourglass_parts"
+    }
+}

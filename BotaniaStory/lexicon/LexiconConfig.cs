@@ -17,6 +17,8 @@ namespace BotaniaStory.lexicon
         public int PlateVolume { get; set; } = 50;
         public int PortalVolume { get; set; } = 50;
         public int TiaraVolume { get; set; } = 50;
+        public int TalismanVolume { get; set; } = 50;
+        public int MechanicsVolume { get; set; } = 50;
         public Dictionary<string, double[]> CustomUI { get; set; } = null;
     }
 }

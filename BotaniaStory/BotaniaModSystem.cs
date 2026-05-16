@@ -125,6 +125,10 @@ namespace BotaniaStory
             AiTaskRegistry.Register<AiTaskGaiaTeleport>("gaiateleport");
             AiTaskRegistry.Register<AiTaskGaiaLightning>("gaialightning");
             api.RegisterItemClass("ItemTerraShatterer", typeof(ItemTerraShatterer));
+            api.RegisterBlockClass("BlockMechanicalDropper", typeof(BlockMechanicalDropper));
+            api.RegisterBlockEntityClass("BlockEntityMechanicalDropper", typeof(BlockEntityMechanicalDropper));
+            api.RegisterBlockClass("BlockHourglass", typeof(BlockHourglass));
+            api.RegisterBlockEntityClass("BlockEntityHourglass", typeof(BlockEntityHourglass));
 
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
@@ -150,7 +154,7 @@ namespace BotaniaStory
             // Инициализируем рендерер частиц
             ManaRenderer = new ManaStreamRenderer(api);
 
-            capi.Event.RegisterRenderer(new TerraShattererRenderer(capi), EnumRenderStage.Ortho);
+            capi.Event.RegisterRenderer(new TerraShattererHud(capi), EnumRenderStage.Ortho);
         }
 
 
@@ -260,6 +264,14 @@ namespace BotaniaStory
             else if (packet.SoundName == "wand_bind")
             {
                 volume = ClientConfig.WandVolume / 100f;
+            }
+            else if (packet.SoundName == "talisman_insert" || packet.SoundName == "talisman_extract" || packet.SoundName == "talisman_absorb")
+            {
+                volume = ClientConfig.TalismanVolume / 100f;
+            }
+            else if (packet.SoundName == "mechanical_dropper")
+            {
+                volume = ClientConfig.MechanicsVolume / 100f;
             }
             else
             {
