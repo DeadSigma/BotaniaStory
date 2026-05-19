@@ -1,6 +1,6 @@
 {
 	"code": "meadowseed",
-	"class": "Item",
+	"class": "ItemMeadowSeed",
 	"maxstacksize": 64,
 	"variantgroups": [
 		{
@@ -21,24 +21,6 @@
 		"*-medium": {
 			"meadowseed": { "base": "botaniastory:item/meadowseed_medium" }
 		}
-	},
-	"behaviorsByType": {
-		"*-normal": [
-			{
-				"name": "MeadowseedGrassCreator",
-				"properties": { "comment": "" }
-			}
-		],
-		"*-peat": [
-			{
-				"name": "MeadowseedPeatCreator"
-			}
-		],
-		"*-medium": [
-			{
-				"name": "MeadowseedMediumSoilCreator"
-			}
-		]
 	},
 	"attributes": {
 		"shelvable": true,
