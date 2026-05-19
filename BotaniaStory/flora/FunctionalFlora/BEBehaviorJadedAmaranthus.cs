@@ -6,7 +6,7 @@ using Vintagestory.API.MathTools;
 
 namespace BotaniaStory.blockentity
 {
-    public class BlockEntityJadedAmaranthus : BlockEntity
+    public class BEBehaviorJadedAmaranthus : BlockEntityBehavior, ILinkableToPool
     {
         private int flowerSpawnRadius = 4;
         private int manaCostPerFlower = 100;
@@ -19,32 +19,35 @@ namespace BotaniaStory.blockentity
             "lightgray", "cyan", "purple", "blue", "brown", "green", "red", "black"
         };
 
-        public override void Initialize(ICoreAPI api)
+        // Обязательный конструктор
+        public BEBehaviorJadedAmaranthus(BlockEntity blockentity) : base(blockentity)
         {
-            base.Initialize(api);
+        }
+
+        public override void Initialize(ICoreAPI api, JsonObject properties)
+        {
+            base.Initialize(api, properties);
             if (api.Side == EnumAppSide.Server)
             {
-                RegisterGameTickListener(OnTick, 1000); // Оставь 1000 для теста, потом верни 3000
+                // Используем this.Blockentity
+                this.Blockentity.RegisterGameTickListener(OnTick, 1000);
             }
         }
 
         private void OnTick(float dt)
         {
-            // Если бассейн не привязан - ничего не делаем
             if (LinkedPool == null) return;
 
-            // Получаем блок по координатам привязки
-            BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(LinkedPool);
+            // Используем this.Api
+            BlockEntity be = this.Api.World.BlockAccessor.GetBlockEntity(LinkedPool);
 
-            // 1. ИСПРАВЛЕНИЕ: Если бассейна больше нет (сломали), очищаем память цветка!
             if (!(be is BlockEntityManaPool pool))
             {
                 LinkedPool = null;
-                MarkDirty(true);
+                this.Blockentity.MarkDirty(true);
                 return;
             }
 
-            // Проверяем ману
             if (pool.CurrentMana >= manaCostPerFlower)
             {
                 if (TrySpawnMysticalFlower())
@@ -54,22 +57,22 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // 2. ИСПРАВЛЕНИЕ: Метод для автоматического поиска бассейна
         public void AutoFindPool()
         {
-            int searchRadius = 6; // Радиус поиска 6 блоков
+            int searchRadius = 6;
             for (int x = -searchRadius; x <= searchRadius; x++)
             {
                 for (int y = -searchRadius; y <= searchRadius; y++)
                 {
                     for (int z = -searchRadius; z <= searchRadius; z++)
                     {
-                        BlockPos checkPos = Pos.AddCopy(x, y, z);
-                        if (Api.World.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaPool)
+                        // Используем this.Blockentity.Pos
+                        BlockPos checkPos = this.Blockentity.Pos.AddCopy(x, y, z);
+                        if (this.Api.World.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaPool)
                         {
                             LinkedPool = checkPos.Copy();
-                            MarkDirty(true);
-                            return; // Привязываемся к первому найденному и выходим
+                            this.Blockentity.MarkDirty(true);
+                            return;
                         }
                     }
                 }
@@ -78,32 +81,31 @@ namespace BotaniaStory.blockentity
 
         private bool TrySpawnMysticalFlower()
         {
-            int xOffset = Api.World.Rand.Next(-flowerSpawnRadius, flowerSpawnRadius + 1);
-            int zOffset = Api.World.Rand.Next(-flowerSpawnRadius, flowerSpawnRadius + 1);
-            int yOffset = Api.World.Rand.Next(-2, 3);
+            int xOffset = this.Api.World.Rand.Next(-flowerSpawnRadius, flowerSpawnRadius + 1);
+            int zOffset = this.Api.World.Rand.Next(-flowerSpawnRadius, flowerSpawnRadius + 1);
+            int yOffset = this.Api.World.Rand.Next(-2, 3);
 
-            BlockPos targetPos = Pos.AddCopy(xOffset, yOffset, zOffset);
+            BlockPos targetPos = this.Blockentity.Pos.AddCopy(xOffset, yOffset, zOffset);
             BlockPos belowPos = targetPos.DownCopy();
 
-            Block targetBlock = Api.World.BlockAccessor.GetBlock(targetPos);
-            Block belowBlock = Api.World.BlockAccessor.GetBlock(belowPos);
+            Block targetBlock = this.Api.World.BlockAccessor.GetBlock(targetPos);
+            Block belowBlock = this.Api.World.BlockAccessor.GetBlock(belowPos);
 
             if (targetBlock?.Code == null || belowBlock?.Code == null) return false;
 
             if (targetBlock.Replaceable >= 6000 &&
                 (belowBlock.Code.Path.Contains("soil") || belowBlock.Code.Path.Contains("grass")))
             {
-                string randomColor = flowerColors[Api.World.Rand.Next(flowerColors.Length)];
+                string randomColor = flowerColors[this.Api.World.Rand.Next(flowerColors.Length)];
                 AssetLocation flowerLocation = new AssetLocation("botaniastory", "mysticalflower-" + randomColor + "-free");
-                Block flowerBlock = Api.World.GetBlock(flowerLocation);
+                Block flowerBlock = this.Api.World.GetBlock(flowerLocation);
 
                 if (flowerBlock != null)
                 {
-                    Api.World.BlockAccessor.SetBlock(flowerBlock.BlockId, targetPos);
+                    this.Api.World.BlockAccessor.SetBlock(flowerBlock.BlockId, targetPos);
                     SpawnSpawnParticles(targetPos);
 
-                    // ДОБАВЛЕН ЗВУК ИГРЫ (Обычная посадка растения)
-                    Api.World.PlaySoundAt(new AssetLocation("game", "sounds/block/plant"), targetPos.X + 0.5, targetPos.Y + 0.5, targetPos.Z + 0.5, null, true, 16, 1f);
+                    this.Api.World.PlaySoundAt(new AssetLocation("game", "sounds/block/plant"), targetPos.X + 0.5, targetPos.Y + 0.5, targetPos.Z + 0.5, null, true, 16, 1f);
 
                     return true;
                 }
@@ -119,10 +121,9 @@ namespace BotaniaStory.blockentity
                 new Vec3f(-0.5f, 0.5f, -0.5f), new Vec3f(0.5f, 1f, 0.5f),
                 1.5f, -0.05f, 0.2f, 0.4f, EnumParticleModel.Quad
             );
-            Api.World.SpawnParticles(particles);
+            this.Api.World.SpawnParticles(particles);
         }
 
-        // СОХРАНЕНИЕ ПРИВЯЗКИ ПРИ ВЫХОДЕ ИЗ ИГРЫ
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
@@ -134,7 +135,6 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ЗАГРУЗКА ПРИВЯЗКИ ПРИ ЗАХОДЕ В ИГРУ
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);

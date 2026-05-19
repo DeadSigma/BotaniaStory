@@ -1,12 +1,12 @@
 {
-	"code": "blackholetalisman_frame",
+	"code": "meadowseed",
 	"class": "Item",
 	"maxstacksize": 64,
 	"shape": {
-		"base": "botaniastory:item/workitems/blackholetalisman_frame"
+		"base": "botaniastory:item/meadowseed"
 	},
 	"textures": {
-		"blackholetalisman_frame": { "base": "botaniastory:item/blackholetalisman_frame" }
+		"elementium": { "base": "botaniastory:item/meadowseed" }
 
 	},
 	"attributes": {
@@ -16,20 +16,20 @@
 		"onshelfTransform": {
 			"translation": {
 				"x": 0.03,
-				"y": -0.36,
+				"y": -0.24,
 				"z": 0.02
 			},
 			"rotation": {
-				"x": 0,
-				"y": -90,
-				"z": 0
+				"x": 90,
+				"y": 90,
+				"z": -90
 			},
-			"scale": 0.29
+			"scale": 0.56
 		},
 		"onDisplayTransform": {
 			"translation": {
 				"x": 0,
-				"y": -0.25,
+				"y": 0.24,
 				"z": 0
 			},
 			"rotation": {
@@ -37,15 +37,20 @@
 				"y": 144,
 				"z": 0
 			},
-			"scale": 0.47
+			"scale": 1.48
 		},
 		"groundStorageTransform": {
 			"translation": {
-				"x": -0.04,
-				"y": -0.32,
-				"z": 0.03
+				"x": -0.02,
+				"y": -0.5,
+				"z": 0.34
 			},
-			"scale": 0.37
+			"rotation": {
+				"x": 90,
+				"y": 0,
+				"z": 0
+			},
+			"scale": 1.13
 		}
 	},
 	"behaviors": [
@@ -66,33 +71,33 @@
 	],
 	"guiTransform": {
 		"translation": {
-			"x": 1.49,
-			"y": 2.8,
+			"x": -0.51,
+			"y": -1.2,
 			"z": 0
 		},
 		"rotation": {
-			"x": -21,
+			"x": -5,
 			"y": -153,
 			"z": 180
 		},
 		"origin": {
 			"x": 0.51,
-			"y": 0.43,
+			"y": 0.22,
 			"z": 0.51
 		},
-		"scale": 1.16,
+		"scale": 3.37,
 		"rotate": true
 	},
 	"tpHandTransform": {
 		"translation": {
-			"x": -1.8799,
-			"y": -1.57,
-			"z": -1.57
+			"x": -2.12,
+			"y": -1.37,
+			"z": -1.62
 		},
 		"rotation": {
 			"x": -180,
 			"y": -180,
-			"z": 91
+			"z": 103
 		}
 	},
 	"fpHandTransform": {
@@ -111,11 +116,11 @@
 	"groundTransform": {
 		"translation": {
 			"x": 0,
-			"y": 0.1,
+			"y": 0,
 			"z": 0
 		},
 		"rotation": {
-			"x": 0,
+			"x": 90,
 			"y": 0,
 			"z": 0
 		},
@@ -124,7 +129,7 @@
 			"y": 0.3,
 			"z": 0.5399
 		},
-		"scale": 1.74
+		"scale": 4.99
 	},
 	"creativeinventory": {
 		"general": [ "*" ],

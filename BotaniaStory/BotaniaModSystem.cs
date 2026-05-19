@@ -61,17 +61,20 @@ namespace BotaniaStory
 
             //Функциональные цветы
             api.RegisterBlockClass("BlockPureDaisy", typeof(BlockPureDaisy));
-            api.RegisterBlockEntityClass("PureDaisyEntity", typeof(BlockEntityPureDaisy));
+            api.RegisterBlockEntityBehaviorClass("puredaisylogic", typeof(BEBehaviorPureDaisy));
             api.RegisterBlockClass("BlockJadedAmaranthus", typeof(BlockJadedAmaranthus));
-            api.RegisterBlockEntityClass("JadedAmaranthus", typeof(BlockEntityJadedAmaranthus));
+            api.RegisterBlockEntityBehaviorClass("jadedamaranthuslogic", typeof(BEBehaviorJadedAmaranthus));
+            api.RegisterBlockClass("BlockHopperhock", typeof(BlockHopperhock));
+            api.RegisterBlockEntityBehaviorClass("hopperhocklogic", typeof(BEBehaviorHopperhock));
+
 
             //Генерирующие цветы
-            api.RegisterBlockEntityClass("EndoflameEntity", typeof(BlockEntityEndoflame));
+            api.RegisterBlockEntityBehaviorClass("endoflamelogic", typeof(BEBehaviorEndoflame));
             api.RegisterBlockClass("BlockEndoflame", typeof(BlockEndoflame));
             api.RegisterBlockClass("BlockRosaArcana", typeof(BlockRosaArcana));
-            api.RegisterBlockEntityClass("BlockEntityRosaArcana", typeof(BlockEntityRosaArcana));
+            api.RegisterBlockEntityBehaviorClass("rosaarcanalogic", typeof(BEBehaviorRosaArcana));
             api.RegisterBlockClass("BlockDaybloom", typeof(BlockDaybloom));
-            api.RegisterBlockEntityClass("DaybloomEntity", typeof(BlockEntityDaybloom));
+            api.RegisterBlockEntityBehaviorClass("daybloomlogic", typeof(BEBehaviorDaybloom));
 
             api.RegisterItemClass("ItemWandOfBinding", typeof(ItemWandOfBinding));
             api.RegisterItemClass("ItemSpark", typeof(ItemSpark));
@@ -129,6 +132,7 @@ namespace BotaniaStory
             api.RegisterBlockEntityClass("BlockEntityMechanicalDropper", typeof(BlockEntityMechanicalDropper));
             api.RegisterBlockClass("BlockHourglass", typeof(BlockHourglass));
             api.RegisterBlockEntityClass("BlockEntityHourglass", typeof(BlockEntityHourglass));
+            api.RegisterBlockEntityClass("FloatingIslandEntity", typeof(BlockEntityFloatingIsland));
 
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");

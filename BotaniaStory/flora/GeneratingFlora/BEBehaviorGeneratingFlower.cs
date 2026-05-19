@@ -6,14 +6,23 @@ using Vintagestory.API.MathTools;
 
 namespace BotaniaStory.Flora.GeneratingFlora
 {
-    // Абстрактный класс - это значит, что сам по себе он не существует в игре,
-    // он нужен только для того, чтобы другие цветы от него наследовались.
-    public abstract class BlockEntityGeneratingFlower : BlockEntity
+    // Абстрактный класс поведения для всех генерирующих цветов
+    public abstract class BEBehaviorGeneratingFlower : BlockEntityBehavior, ILinkableToSpreader
     {
         // Общие переменные
         public int CurrentMana = 0;
         public int MaxMana = 10000;
-        public BlockPos LinkedSpreader = null;
+
+        // ВАЖНО: Это теперь свойство (Property), чтобы соответствовать интерфейсу ILinkableToSpreader
+        public BlockPos LinkedSpreader { get; set; } = null;
+
+        public BEBehaviorGeneratingFlower(BlockEntity blockentity) : base(blockentity) { }
+
+        // Добавляем обязательный метод Initialize для поведения
+        public override void Initialize(ICoreAPI api, JsonObject properties)
+        {
+            base.Initialize(api, properties);
+        }
 
         // Общий поиск распространителя (при установке)
         public void FindSpreader()
@@ -25,10 +34,13 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 {
                     for (int z = -radius; z <= radius; z++)
                     {
-                        BlockPos checkPos = Pos.AddCopy(x, y, z);
-                        if (Api.World.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaSpreader)
+                        // ВАЖНО: Используем this.Blockentity.Pos
+                        BlockPos checkPos = this.Blockentity.Pos.AddCopy(x, y, z);
+
+                        // ВАЖНО: Используем this.Api
+                        if (this.Api.World.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaSpreader)
                         {
-                            LinkedSpreader = checkPos;
+                            LinkedSpreader = checkPos.Copy(); // Копируем позицию для безопасности
                             return;
                         }
                     }
@@ -37,13 +49,13 @@ namespace BotaniaStory.Flora.GeneratingFlora
         }
 
         // Общая функция для проверки связи и передачи маны!
-        // Вызов её в OnServerTick каждого цветка.
         protected void ProcessManaTransfer(ref bool dirty)
         {
             // 1. ПРОВЕРКА СВЯЗИ
             if (LinkedSpreader != null)
             {
-                BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
+                // ВАЖНО: Используем this.Api
+                BlockEntity be = this.Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
                 if (!(be is BlockEntityManaSpreader))
                 {
                     LinkedSpreader = null;
@@ -54,7 +66,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
             // 2. ПЕРЕДАЧА МАНЫ
             if (LinkedSpreader != null && CurrentMana > 0)
             {
-                BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
+                BlockEntity be = this.Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
                 if (be is BlockEntityManaSpreader spreader)
                 {
                     int space = spreader.MaxMana - spreader.CurrentMana;

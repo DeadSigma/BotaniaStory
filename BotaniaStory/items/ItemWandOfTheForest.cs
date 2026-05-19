@@ -235,25 +235,31 @@ namespace BotaniaStory.items
 
             bool hasFlowerInMemory = slot.Itemstack.Attributes.GetBool("hasFlower");
             bool hasSpreaderInMemory = slot.Itemstack.Attributes.GetBool("hasSpreader");
-            bool hasAmaranthusInMemory = slot.Itemstack.Attributes.GetBool("hasAmaranthus");
+            bool hasFunctionalFlowerInMemory = slot.Itemstack.Attributes.GetBool("hasFunctionalFlower");
 
-            if (hasAmaranthusInMemory)
+            // ЗАВЕРШЕНИЕ ПРИВЯЗКИ ЦВЕТКА К БАССЕЙНУ
+            if (hasFunctionalFlowerInMemory)
             {
                 if (block is BlockManaPool || be is BlockEntityManaPool)
                 {
-                    int ax = slot.Itemstack.Attributes.GetInt("amaranthusX");
-                    int ay = slot.Itemstack.Attributes.GetInt("amaranthusY");
-                    int az = slot.Itemstack.Attributes.GetInt("amaranthusZ");
-                    BlockPos amaranthusPos = new BlockPos(ax, ay, az);
+                    int ax = slot.Itemstack.Attributes.GetInt("functionalFlowerX");
+                    int ay = slot.Itemstack.Attributes.GetInt("functionalFlowerY");
+                    int az = slot.Itemstack.Attributes.GetInt("functionalFlowerZ");
+                    BlockPos flowerPos = new BlockPos(ax, ay, az);
 
-                    if (world.BlockAccessor.GetBlockEntity(amaranthusPos) is BlockEntityJadedAmaranthus jaded)
+                    BlockEntity flowerBe = world.BlockAccessor.GetBlockEntity(flowerPos);
+
+                    // Больше не нужны if / else для каждого цветка
+                    ILinkableToPool targetFlower = GetInterface<ILinkableToPool>(flowerBe);
+                    if (targetFlower != null)
                     {
-                        jaded.LinkedPool = pos.Copy();
-                        jaded.MarkDirty(true);
+                        targetFlower.LinkedPool = pos.Copy();
+                        flowerBe.MarkDirty(true);
                         world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                     }
                 }
-                slot.Itemstack.Attributes.RemoveAttribute("hasAmaranthus");
+
+                slot.Itemstack.Attributes.RemoveAttribute("hasFunctionalFlower");
                 slot.MarkDirty();
                 handling = EnumHandHandling.Handled;
                 return;
@@ -271,15 +277,11 @@ namespace BotaniaStory.items
 
                     BlockEntity flowerEntity = world.BlockAccessor.GetBlockEntity(flowerPos);
 
-                    if (flowerEntity is Flora.GeneratingFlora.BlockEntityDaybloom daybloom)
+                    ILinkableToSpreader targetGeneratingFlower = GetInterface<ILinkableToSpreader>(flowerEntity);
+                    if (targetGeneratingFlower != null)
                     {
-                        daybloom.LinkedSpreader = pos.Copy();
-                        daybloom.MarkDirty(true);
-                    }
-                    else if (flowerEntity is Flora.GeneratingFlora.BlockEntityEndoflame endoflame)
-                    {
-                        endoflame.LinkedSpreader = pos.Copy();
-                        endoflame.MarkDirty(true);
+                        targetGeneratingFlower.LinkedSpreader = pos.Copy();
+                        flowerEntity.MarkDirty(true);
                     }
 
                     slot.Itemstack.Attributes.RemoveAttribute("hasFlower");
@@ -355,12 +357,12 @@ namespace BotaniaStory.items
                 return;
             }
 
-            if (be is BlockEntityJadedAmaranthus)
+            if (GetInterface<ILinkableToPool>(be) != null)
             {
-                slot.Itemstack.Attributes.SetInt("amaranthusX", pos.X);
-                slot.Itemstack.Attributes.SetInt("amaranthusY", pos.Y);
-                slot.Itemstack.Attributes.SetInt("amaranthusZ", pos.Z);
-                slot.Itemstack.Attributes.SetBool("hasAmaranthus", true);
+                slot.Itemstack.Attributes.SetInt("functionalFlowerX", pos.X);
+                slot.Itemstack.Attributes.SetInt("functionalFlowerY", pos.Y);
+                slot.Itemstack.Attributes.SetInt("functionalFlowerZ", pos.Z);
+                slot.Itemstack.Attributes.SetBool("hasFunctionalFlower", true);
                 slot.MarkDirty();
 
                 world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
@@ -368,8 +370,8 @@ namespace BotaniaStory.items
                 return;
             }
 
-            if ((be is Flora.GeneratingFlora.BlockEntityDaybloom) ||
-                (be is Flora.GeneratingFlora.BlockEntityEndoflame))
+
+            if (GetInterface<ILinkableToSpreader>(be) != null)
             {
                 slot.Itemstack.Attributes.SetInt("flowerX", pos.X);
                 slot.Itemstack.Attributes.SetInt("flowerY", pos.Y);
@@ -460,6 +462,21 @@ namespace BotaniaStory.items
                 world.SpawnParticles(beamParticles);
             }
         }
+        // Универсальный искатель интерфейсов в блоке и всех его поведениях
+        private T GetInterface<T>(BlockEntity be) where T : class
+        {
+            if (be == null) return null;
 
+            // Сначала ищем в самой сущности
+            if (be is T entityInterface) return entityInterface;
+
+            // Затем перебираем поведения
+            foreach (var behavior in be.Behaviors)
+            {
+                if (behavior is T behaviorInterface) return behaviorInterface;
+            }
+
+            return null;
+        }
     }
 }

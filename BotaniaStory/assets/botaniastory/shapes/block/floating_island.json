@@ -1,0 +1,634 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 8,
+	"textureHeight": 8,
+	"textureSizes": {
+		"grasstop": [ 32, 32 ],
+		"grass-side": [ 32, 32 ],
+		"plant": [ 32, 32 ],
+		"stem": [ 32, 32 ]
+	},
+	"textures": {
+	},
+	"elements": [
+		{
+			"name": "soil",
+			"from": [ 0.0, 0.0, 0.0 ],
+			"to": [ 0.0, 0.0, 0.0 ],
+			"rotationOrigin": [ 8.0, 5.0, 8.0 ],
+			"faces": {
+				"north": {
+					"texture": "#",
+					"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+				},
+				"east": {
+					"texture": "#",
+					"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+				},
+				"south": {
+					"texture": "#",
+					"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+				},
+				"west": {
+					"texture": "#",
+					"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+				},
+				"up": {
+					"texture": "#",
+					"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+				},
+				"down": {
+					"texture": "#",
+					"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+				}
+			},
+			"children": [
+				{
+					"name": "plant",
+					"from": [ 0.0, 0.0, 0.0 ],
+					"to": [ 0.0, 0.0, 0.0 ],
+					"rotationOrigin": [ 8.0, 5.0, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#",
+							"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+						},
+						"east": {
+							"texture": "#",
+							"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+						},
+						"south": {
+							"texture": "#",
+							"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+						},
+						"west": {
+							"texture": "#",
+							"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+						},
+						"up": {
+							"texture": "#",
+							"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+						},
+						"down": {
+							"texture": "#",
+							"uv": [ 0.0, 0.0, 0.0, 0.0 ]
+						}
+					},
+					"children": [
+						{
+							"name": "stem",
+							"from": [ 4.422, 7.0, 8.03 ],
+							"to": [ 11.638, 14.216, 8.03 ],
+							"shade": false,
+							"climateColorMap": "climatePlantTint",
+							"seasonColorMap": "seasonalGrass",
+							"rotationOrigin": [ 8.03, 7.0, 8.03 ],
+							"rotationY": -22.5,
+							"faces": {
+								"north": {
+									"texture": "#stem",
+									"uv": [ 0.0, 0.0, 7.0, 7.0 ],
+									"glow": 20,
+									"windMode": [ 0, 2, 2, 0 ]
+								},
+								"east": {
+									"texture": "#stem",
+									"uv": [ 0.0, 0.0, 0.5, 7.0 ],
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"south": {
+									"texture": "#stem",
+									"uv": [ 0.0, 0.0, 7.0, 7.0 ],
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"west": {
+									"texture": "#stem",
+									"uv": [ 0.0, 0.0, 0.5, 7.0 ],
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"up": {
+									"texture": "#stem",
+									"uv": [ 0.0, 0.0, 7.0, 0.5 ],
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"down": {
+									"texture": "#stem",
+									"uv": [ 0.0, 0.0, 1.0, 1.0 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								}
+							}
+						},
+						{
+							"name": "stem",
+							"from": [ 4.422, 7.0, 8.03 ],
+							"to": [ 11.638, 14.216, 8.03 ],
+							"shade": false,
+							"climateColorMap": "climatePlantTint",
+							"seasonColorMap": "seasonalGrass",
+							"rotationOrigin": [ 8.03, 7.0, 8.03 ],
+							"rotationX": -180.0,
+							"rotationY": -72.5,
+							"rotationZ": -180.0,
+							"faces": {
+								"north": {
+									"texture": "#stem",
+									"uv": [ 0.0, 0.0, 32.0, 32.0 ],
+									"glow": 20,
+									"autoUv": false
+								},
+								"east": {
+									"texture": "#stem",
+									"uv": [ 3.0, 38.0, 4.0, 39.0 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"south": {
+									"texture": "#stem",
+									"uv": [ 1.0, 28.0, 2.0, 29.0 ],
+									"autoUv": false,
+									"enabled": false
+								},
+								"west": {
+									"texture": "#stem",
+									"uv": [ 3.0, 18.5, 4.0, 19.5 ],
+									"autoUv": false,
+									"enabled": false
+								},
+								"up": {
+									"texture": "#stem",
+									"uv": [ 3.0, 13.0, 4.0, 14.0 ],
+									"autoUv": false,
+									"enabled": false
+								},
+								"down": {
+									"texture": "#stem",
+									"uv": [ 0.0, 0.0, 1.0, 1.0 ],
+									"autoUv": false,
+									"enabled": false
+								}
+							}
+						},
+						{
+							"name": "plant",
+							"from": [ 4.422, 7.0, 8.03 ],
+							"to": [ 11.638, 14.216, 8.03 ],
+							"shade": false,
+							"rotationOrigin": [ 8.03, 7.0, 8.03 ],
+							"rotationY": -22.5,
+							"faces": {
+								"north": {
+									"texture": "#plant",
+									"uv": [ 0.0, 0.0, 32.0, 32.0 ],
+									"glow": 20,
+									"autoUv": false
+								},
+								"east": {
+									"texture": "#plant",
+									"uv": [ 0.0, 0.0, 1.0, 1.0 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"south": {
+									"texture": "#plant",
+									"uv": [ 0.0, 0.0, 1.0, 1.0 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"west": {
+									"texture": "#plant",
+									"uv": [ 0.0, 0.0, 1.0, 1.0 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"up": {
+									"texture": "#plant",
+									"uv": [ 0.0, 0.0, 1.0, 1.0 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"down": {
+									"texture": "#plant",
+									"uv": [ 0.0, 0.0, 1.0, 1.0 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								}
+							}
+						},
+						{
+							"name": "plant",
+							"from": [ 4.422, 7.0, 8.03 ],
+							"to": [ 11.638, 14.216, 8.03 ],
+							"shade": false,
+							"rotationOrigin": [ 8.03, 7.0, 8.03 ],
+							"rotationX": -180.0,
+							"rotationY": -72.5,
+							"rotationZ": -180.0,
+							"faces": {
+								"north": {
+									"texture": "#plant",
+									"uv": [ 0.0, 0.0, 32.0, 32.0 ],
+									"glow": 20,
+									"autoUv": false
+								},
+								"east": {
+									"texture": "#plant",
+									"uv": [ 2.5, 3.5, 3.5, 4.5 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"south": {
+									"texture": "#plant",
+									"uv": [ 0.0, 0.0, 1.0, 1.0 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"west": {
+									"texture": "#plant",
+									"uv": [ 0.5, 13.0, 1.5, 14.0 ],
+									"autoUv": false,
+									"windMode": [ -1, -1, -1, -1 ],
+									"enabled": false
+								},
+								"up": {
+									"texture": "#plant",
+									"uv": [ 0.0, 3.5, 1.0, 4.5 ],
+									"autoUv": false,
+									"enabled": false
+								},
+								"down": {
+									"texture": "#plant",
+									"uv": [ 1.0, -8.5, 2.0, -7.5 ],
+									"autoUv": false,
+									"enabled": false
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "soil",
+					"from": [ 3.0, 5.75, 3.0 ],
+					"to": [ 13.0, 7.0, 13.0 ],
+					"rotationOrigin": [ 8.0, 5.0, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#grass-side",
+							"uv": [ 11.0, 8.0, 32.0, 10.95 ],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#grass-side",
+							"uv": [ 11.0, 8.0, 32.0, 10.95 ],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#grass-side",
+							"uv": [ 11.0, 8.0, 32.0, 10.95 ],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#grass-side",
+							"uv": [ 0.0, 8.0, 21.0, 10.95 ],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#grasstop",
+							"uv": [ 0.0, 0.0, 24.0, 22.0 ],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#grass-side",
+							"uv": [ 0.0, 13.0, 20.0, 32.0 ],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "soil",
+					"from": [ 5.0, 4.625, 3.275 ],
+					"to": [ 11.0, 5.8, 12.725 ],
+					"rotationOrigin": [ 8.0, 3.625, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#grass-side",
+							"uv": [ 15.0, 10.0, 29.0, 12.95 ],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 17.0, 29.0, 21.0 ],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#grass-side",
+							"uv": [ 15.0, 10.0, 29.0, 12.95 ],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 15.0, 20.0, 32.0 ],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "soil",
+					"from": [ 7.0, 3.525, 3.475 ],
+					"to": [ 9.0, 4.725, 12.525 ],
+					"rotationOrigin": [ 8.0, 2.525, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#grass-side",
+							"uv": [ 25.0, 22.0, 32.0, 26.0 ],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 17.0, 29.0, 21.0 ],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 28.0, 12.0, 32.0 ],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#grass-side",
+							"uv": [ 0.0, 14.0, 5.0, 32.0 ],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "soil",
+					"from": [ 5.7, 2.525, 7.0 ],
+					"to": [ 10.3, 3.525, 9.0 ],
+					"rotationOrigin": [ 8.0, 1.525, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 17.0, 29.0, 21.0 ],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#grass-side",
+							"uv": [ 15.0, 22.0, 22.0, 26.0 ],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#grass-side",
+							"uv": [ 6.0, 28.0, 13.0, 32.0 ],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"rotation": 90,
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 17.0, 17.0, 23.0 ],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "soil",
+					"from": [ 3.4, 4.625, 5.0 ],
+					"to": [ 12.6, 5.8, 11.0 ],
+					"rotationOrigin": [ 8.0, 3.625, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 17.0, 29.0, 21.0 ],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#grass-side",
+							"uv": [ 15.0, 10.0, 29.0, 12.95 ],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#grass-side",
+							"uv": [ 1.0, 10.0, 15.0, 12.975 ],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"rotation": 90,
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#grass-side",
+							"uv": [ 0.0, 13.0, 20.0, 32.0 ],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "soil",
+					"from": [ 5.0, 3.65, 5.0 ],
+					"to": [ 11.0, 4.825, 11.0 ],
+					"rotationOrigin": [ 8.0, 2.65, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#grass-side",
+							"uv": [ 5.05, 16.35, 29.05, 20.35 ],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 17.0, 29.0, 21.0 ],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#grass-side",
+							"uv": [ 12.0, 13.0, 32.0, 32.0 ],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "soil",
+					"from": [ 7.0, 1.65, 7.0 ],
+					"to": [ 9.0, 2.825, 9.0 ],
+					"rotationOrigin": [ 8.0, 0.65, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#grass-side",
+							"uv": [ 15.0, 22.0, 22.0, 26.0 ],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 19.0, 12.0, 23.0 ],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#grass-side",
+							"uv": [ 15.0, 22.0, 22.0, 26.0 ],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#grass-side",
+							"uv": [ 15.0, 22.0, 22.0, 26.0 ],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#grass-side",
+							"uv": [ 14.0, 14.0, 20.0, 20.0 ],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "soil",
+					"from": [ 3.7, 3.525, 7.0 ],
+					"to": [ 12.3, 4.725, 9.0 ],
+					"rotationOrigin": [ 8.0, 2.525, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 17.0, 29.0, 21.0 ],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#grass-side",
+							"uv": [ 4.0, 26.0, 11.0, 30.0 ],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#grass-side",
+							"uv": [ 4.0, 23.0, 11.0, 27.0 ],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"rotation": 90,
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 17.0, 29.0, 23.0 ],
+							"autoUv": false
+						}
+					}
+				},
+				{
+					"name": "soil",
+					"from": [ 7.0, 2.55, 5.3 ],
+					"to": [ 9.0, 3.525, 10.7 ],
+					"rotationOrigin": [ 8.0, 1.325, 8.0 ],
+					"faces": {
+						"north": {
+							"texture": "#grass-side",
+							"uv": [ 5.0, 23.0, 12.0, 27.0 ],
+							"autoUv": false
+						},
+						"east": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"south": {
+							"texture": "#grass-side",
+							"uv": [ 0.0, 20.0, 7.0, 24.0 ],
+							"autoUv": false
+						},
+						"west": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"autoUv": false
+						},
+						"up": {
+							"texture": "#grass-side",
+							"uv": [ 17.0, 28.0, 32.0, 32.0 ],
+							"rotation": 180,
+							"autoUv": false
+						},
+						"down": {
+							"texture": "#grass-side",
+							"uv": [ 14.0, 14.0, 19.0, 32.0 ],
+							"autoUv": false
+						}
+					}
+				}
+			]
+		}
+	]
+}

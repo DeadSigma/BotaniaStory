@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
@@ -79,6 +80,11 @@ namespace BotaniaStory.blockentity
                 renderer.UpdateMeshes();
                 RegisterGameTickListener(SpawnIdleParticles, 50);
             }
+
+            if (api.Side == EnumAppSide.Server)
+            {
+                RegisterGameTickListener(ScanForDroppedItems, 500);
+            }
         }
 
         private void PlayAltarSound(string soundName)
@@ -145,7 +151,16 @@ namespace BotaniaStory.blockentity
         // ЛОГИКА ПРЕДМЕТОВ
         public bool TryAddItem(ItemSlot slot, IPlayer player)
         {
-            if (slot.Itemstack.Collectible.Code.Path.Contains("livingrock"))
+            string path = slot.Itemstack.Collectible.Code.Path;
+
+            // Сначала проверяем, не мусор ли это, опираясь на наш новый метод
+            if (!IsValidAltarItem(path))
+            {
+                return false;
+            }
+
+            // Если это живой камень - особая логика
+            if (path.Contains("livingrock"))
             {
                 if (HasLivingrock) return false;
                 HasLivingrock = true;
@@ -155,35 +170,7 @@ namespace BotaniaStory.blockentity
                 return true;
             }
 
-            string path = slot.Itemstack.Collectible.Code.Path;
-
-            if (!path.StartsWith("rune-") &&
-                !path.StartsWith("manaitem-") &&
-                !path.StartsWith("ingot-") &&
-                !path.StartsWith("cattail") &&
-                !path.StartsWith("mushroom-") &&
-                !path.StartsWith("burnedbrick-") &&
-                !path.StartsWith("sand-") &&
-                !path.StartsWith("butterfly-dead-") &&
-                !path.StartsWith("dough-") &&
-                path != "bone" &&
-                path != "powder-sulfur" &&
-                path != "rock-granite" &&
-                path != "ore-bituminouscoal" &&
-                path != "feather" &&
-                path != "cloth-plain" &&
-                path != "treeseed-oak" &&
-                path != "hay-normal-ud" &&
-                path != "fat" &&
-                path != "fruit-cherry" &&
-                path != "treeseed-oak" &&
-                path != "pumpkin-fruit-4" &&
-                path != "snowblock" &&
-                path != "clearquartz")
-            {
-                return false;
-            }
-
+            // Если это обычный предмет из белого списка - кладем в слот
             for (int i = 0; i < inventory.Count; i++)
             {
                 if (inventory[i].Empty)
@@ -332,7 +319,10 @@ namespace BotaniaStory.blockentity
         private void UpdateState(IPlayer player)
         {
             MarkDirty(true);
-            if (player != null) Api.World.PlaySoundAt(new AssetLocation("game:sounds/player/throw"), Pos.X, Pos.Y, Pos.Z, player);
+
+            // Убрали проверку if (player != null), теперь звук проиграется в любом случае
+            Api.World.PlaySoundAt(new AssetLocation("game:sounds/player/throw"), Pos.X, Pos.Y, Pos.Z, player);
+
             if (Api.Side == EnumAppSide.Client) renderer?.UpdateMeshes();
         }
 
@@ -536,6 +526,81 @@ namespace BotaniaStory.blockentity
             }
             base.OnBlockBroken(byPlayer);
         }
+        private void ScanForDroppedItems(float dt)
+        {
+            //  Если алтарь уже ждет клика посохом (есть камень), предметы ему не нужны
+            if (HasLivingrock) return;
 
+            //  Проверяем, есть ли вообще свободное место в инвентаре
+            bool hasEmptySlot = false;
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                if (inventory[i].Empty)
+                {
+                    hasEmptySlot = true;
+                    break;
+                }
+            }
+
+            // Если мест нет — прерываем выполнение метода, не нагружая сервер
+            if (!hasEmptySlot) return;
+
+            // Движок игры даже не передаст нам предмет, если его нет в белом списке
+            Entity[] entities = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 0.75, 0.5), 0.8f, 0.8f,
+                e => e is EntityItem item &&
+                     item.Alive &&
+                     item.Itemstack != null &&
+                     IsValidAltarItem(item.Itemstack.Collectible.Code.Path));
+
+            foreach (Entity entity in entities)
+            {
+                EntityItem entityItem = (EntityItem)entity;
+                ItemStack stack = entityItem.Itemstack;
+
+                if (stack.StackSize == 0) continue;
+
+                DummySlot dummySlot = new DummySlot(stack);
+
+                if (TryAddItem(dummySlot, null))
+                {
+                    if (dummySlot.Empty)
+                    {
+                        entityItem.Die();
+                    }
+                    else
+                    {
+                        entityItem.Itemstack = dummySlot.Itemstack;
+                    }
+                }
+            }
+        }
+        private bool IsValidAltarItem(string path)
+        {
+            // Живой камень нужен для завершения крафта, так что он тоже валиден
+            if (path.Contains("livingrock")) return true;
+
+            return path.StartsWith("rune-") ||
+                   path.StartsWith("manaitem-") ||
+                   path.StartsWith("ingot-") ||
+                   path.StartsWith("cattail") ||
+                   path.StartsWith("mushroom-") ||
+                   path.StartsWith("burnedbrick-") ||
+                   path.StartsWith("sand-") ||
+                   path.StartsWith("butterfly-dead-") ||
+                   path.StartsWith("dough-") ||
+                   path == "bone" ||
+                   path == "powder-sulfur" ||
+                   path == "rock-granite" ||
+                   path == "ore-bituminouscoal" ||
+                   path == "feather" ||
+                   path == "cloth-plain" ||
+                   path == "treeseed-oak" ||
+                   path == "hay-normal-ud" ||
+                   path == "fat" ||
+                   path == "fruit-cherry" ||
+                   path == "pumpkin-fruit-4" ||
+                   path == "snowblock" ||
+                   path == "clearquartz";
+        }
     }
 }

@@ -1,7 +1,10 @@
 {
     "code": "endoflame",
     "class": "BlockEndoflame",
-    "entityClass": "EndoflameEntity",
+    "entityClass": "Generic",
+    "entityBehaviors": [
+        { "name": "endoflamelogic" }
+    ],
     "creativeinventory": {
         "general": [
             "*-free"

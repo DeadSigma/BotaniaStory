@@ -1,7 +1,10 @@
 {
     "code": "rosaarcana",
     "class": "BlockRosaArcana",
-    "entityClass": "BlockEntityRosaArcana",
+    "entityClass": "Generic",
+    "entityBehaviors": [
+        { "name": "rosaarcanalogic" }
+    ],
     "creativeinventory": {
         "general": [
             "*-free"

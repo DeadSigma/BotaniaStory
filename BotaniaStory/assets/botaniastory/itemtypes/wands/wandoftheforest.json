@@ -18,6 +18,7 @@
         "botaniastory": [ "wandoftheforest-white-white" ]
     },
     "faceCullMode": "NeverCull",
+    "renderpass": "OpaqueNoCull",
     "shape": { "base": "botaniastory:item/wandoftheforest" },
 
     "textures": {
@@ -25,10 +26,6 @@
         "tip2": { "base": "botaniastory:item/colors/{color2}" }
     },
     "randomDrawOffset": true,
-    "renderpass": "OpaqueNoCull",
-    "sidesolid": {
-        "all": false
-    },
     "behaviors": [
         {
             "name": "GroundStorable",

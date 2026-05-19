@@ -55,9 +55,7 @@ namespace BotaniaStory.blockentity
             MarkDirty(true);
         }
 
-        // ==========================================
         // ИНИЦИАЛИЗАЦИЯ
-        // ==========================================
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
@@ -101,9 +99,7 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ==========================================
         // УДАЛЕНИЕ БАССЕЙНА (ДРОП ИСКРЫ)
-        // ==========================================
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
@@ -255,8 +251,6 @@ namespace BotaniaStory.blockentity
         }
         private void CheckForDroppedItems(float dt)
         {
-            if (CurrentMana <= 0) return;
-
             Block blockBelow = Api.World.BlockAccessor.GetBlock(Pos.DownCopy());
             bool hasAlchemyCatalyst = blockBelow?.Code?.Path.Contains("catalyst_alchemy") == true;
             bool hasConjurationCatalyst = blockBelow?.Code?.Path.Contains("catalyst_conjuration") == true;
@@ -489,6 +483,24 @@ namespace BotaniaStory.blockentity
                     if (domain == "game" && code.StartsWith("powder-"))
                     {
                         if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manapowder", 1, 1, 10000)) continue;
+                    }
+
+                    // 7. Трава  -> луговое семя
+                    if (domain == "game" && code.StartsWith("drygrass"))
+                    {
+                        if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-normal", 1, 1, 1000)) continue;
+                    }
+
+                    // 8. Луговое семя  -> Торфяное семя
+                    if (domain == "botaniastory" && code.StartsWith("meadowseed-normal"))
+                    {
+                        if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-peat", 1, 1, 5000)) continue;
+                    }
+
+                    // 9. Торфяное семя  -> Плодородное семя
+                    if (domain == "botaniastory" && code.StartsWith("meadowseed-peat"))
+                    {
+                        if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-medium", 1, 1, 10000)) continue;
                     }
                 }
             }

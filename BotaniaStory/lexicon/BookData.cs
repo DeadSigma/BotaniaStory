@@ -77,18 +77,18 @@ namespace BotaniaStory.lexicon
     {
         private static readonly Dictionary<string, string[]> BookStructure = new Dictionary<string, string[]>
         {
-            { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower","puredaisy", "wandoftheforest",
-              "runicaltar", "rune","terrasteel", "pylon" } },
+            { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "puredaisy", "wandoftheforest",
+              "runicaltar", "rune","terrasteel", "pylon"} },
 
             { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment", "catalyst_alchemy", "catalyst_conjuration" } },
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame", "rosaarcana" } },
 
-            { "functional_flora", new[] { "puredaisy", "jadedamaranthus" } },
+            { "functional_flora", new[] { "puredaisy", "jadedamaranthus", "hopperhock" } },
 
             { "natural_apparatus", new[] { "mechanical_dropper", "hourglass" } },
 
-            { "mystical_items", new[] { "wandofbinding", "manaitem", "rod_of_the_seas", "terrasteelitem", "terrashatterer" } },
+            { "mystical_items", new[] { "wandofbinding", "meadowseed", "floating_island", "manaitem", "rod_of_the_seas", "terrasteelitem", "terrashatterer" } },
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
@@ -493,6 +493,32 @@ namespace BotaniaStory.lexicon
 
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ ВОРОТОК ===
+                    else if (chapId == "hopperhock")
+                    {
+                        chapter.TabItemCode = "botaniastory:hopperhock-free";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                             {
+                                 "botaniastory:mysticalpetal-gray",
+                                 "botaniastory:mysticalpetal-gray",
+                                 "botaniastory:mysticalpetal-lightgray",
+                                 "botaniastory:mysticalpetal-lightgray",
+                                 "botaniastory:root_rusted",
+                                 "botaniastory:rune-air"
+                             },
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+
+                            Output = "botaniastory:hopperhock-free"
+                        });
+
+                    }
+
                     // === НАСТРОЙКА ГЛАВЫ МЕХАНИЧЕСКИЙ ВЫБРАСЫВАТЕЛЬ ===
                     else if (chapId == "mechanical_dropper")
                     {
@@ -740,8 +766,8 @@ namespace BotaniaStory.lexicon
                             Spread = 1,
                             UiKey = "Сетка_Левая_Верхняя",
                             Grid = new string[9] {
+                                  "game:ingot-manasteel", "botaniastory:rune-air", "botaniastory:pixie-dust",
                                   null, null, null,
-                                  "game:ingot-manasteel", "botaniastory:rune-air", "game:stick",
                                   null, null, null},
                             Output = "botaniastory:sparkaugment-isolated"
                         });
@@ -752,8 +778,8 @@ namespace BotaniaStory.lexicon
                             Spread = 1,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
+                              "game:ingot-manasteel", "botaniastory:rune-fire", "botaniastory:pixie-dust",
                               null, null, null,
-                              "game:ingot-manasteel", "botaniastory:rune-fire", "game:stick",
                               null, null, null},
                             Output = "botaniastory:sparkaugment-dominant"
                         });
@@ -764,8 +790,8 @@ namespace BotaniaStory.lexicon
                             Spread = 1,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
+                              "game:ingot-manasteel", "botaniastory:rune-water", "botaniastory:pixie-dust",
                               null, null, null,
-                              "game:ingot-manasteel", "botaniastory:rune-water", "game:stick",
                               null, null, null},
                             Output = "botaniastory:sparkaugment-dispersive"
                         });
@@ -776,8 +802,8 @@ namespace BotaniaStory.lexicon
                             Spread = 1,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
+                              "game:ingot-manasteel", "botaniastory:rune-earth", "botaniastory:pixie-dust",
                               null, null, null,
-                              "game:ingot-manasteel", "botaniastory:rune-earth", "game:stick",
                               null, null, null},
                             Output = "botaniastory:sparkaugment-recessive"
                         });
@@ -3302,6 +3328,99 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:pylon-gaia"
                         });
 
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ЛУГОВОЕ СЕМЯ ===
+                    else if (chapId == "meadowseed")
+                    {
+                        chapter.TabItemCode = "botaniastory:meadowseed-normal";
+
+                        // 1. Трава -> Луговое семя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 0,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+                            PoolInput = new string[] { "game:drygrass" }, // Добавлена *, так как в коде было StartsWith
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[0],
+                            Output = "botaniastory:meadowseed-normal"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 1000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+
+                        // 2. Луговое семя -> Торфяное семя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 0,
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
+                            PoolInput = new string[] { "botaniastory:meadowseed-normal" }, // Указываем базовое луговое семя
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[0],
+                            Output = "botaniastory:meadowseed-peat"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 5000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        // 3. Торфяное семя -> Плодородное семя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
+                            PoolInput = new string[] { "botaniastory:meadowseed-peat" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[0],
+                            Output = "botaniastory:meadowseed-medium"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 1,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                        });
+
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ПАРЯЩИЙ ОСТРОВОК ===
+                    else if (chapId == "floating_island")
+                    {
+                        chapter.TabItemCode = "botaniastory:floatingisland-endoflame";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             "botaniastory:mysticalflower-*-free", null, null,
+                             "game:soil-*-none", null, null,
+                             "botaniastory:meadowseed-normal", null, null
+                             },
+                            Output = "botaniastory:floatingisland-white,botaniastory:floatingisland-orange,botaniastory:floatingisland-magenta,botaniastory:floatingisland-lightblue,botaniastory:floatingisland-yellow,botaniastory:floatingisland-lime,botaniastory:floatingisland-pink,botaniastory:floatingisland-gray,botaniastory:floatingisland-lightgray,botaniastory:floatingisland-cyan,botaniastory:floatingisland-purple,botaniastory:floatingisland-blue,botaniastory:floatingisland-brown,botaniastory:floatingisland-green,botaniastory:floatingisland-red,botaniastory:floatingisland-black"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                         "botaniastory:vinculotus-free,botaniastory:agricarnation-free,botaniastory:bellethorne-free,botaniastory:bubbell-free,botaniastory:clayconia-free,botaniastory:daffomill-free,botaniastory:dreadthorne-free,botaniastory:exoflame-free,botaniastory:fallenkanade-free,botaniastory:heiseidream-free,botaniastory:hopperhock-free,botaniastory:hyacidus-free,botaniastory:jadedamaranthus-free,botaniastory:jiyuulia-free,botaniastory:loonium-free,botaniastory:marimorphosis-free,botaniastory:medumone-free,botaniastory:orechid-free,botaniastory:pollidisiac-free,botaniastory:puredaisy-free,botaniastory:rannuncarpus-free,botaniastory:solegnolia-free,botaniastory:spectranthemum-free,botaniastory:tangleberrie-free,botaniastory:tigerseye-free,botaniastory:dandelifeon-free,botaniastory:daybloom-free,botaniastory:deadflower-free,botaniastory:endoflame-free,botaniastory:entropinnyum-free,botaniastory:gourmaryllis-free,botaniastory:hydroangeas-free,botaniastory:kekimurus-free,botaniastory:munchdew-free,botaniastory:narslimmus-free,botaniastory:nightshade-free,botaniastory:rafflowsia-free,botaniastory:rosaarcana-free,botaniastory:spectrolus-free,botaniastory:thermalily-free", null, null,
+                         "botaniastory:floatingisland-white,botaniastory:floatingisland-orange,botaniastory:floatingisland-magenta,botaniastory:floatingisland-lightblue,botaniastory:floatingisland-yellow,botaniastory:floatingisland-lime,botaniastory:floatingisland-pink,botaniastory:floatingisland-gray,botaniastory:floatingisland-lightgray,botaniastory:floatingisland-cyan,botaniastory:floatingisland-purple,botaniastory:floatingisland-blue,botaniastory:floatingisland-brown,botaniastory:floatingisland-green,botaniastory:floatingisland-red,botaniastory:floatingisland-black", null, null,
+                         null, null, null
+                         },
+                            Output = "botaniastory:floatingisland-vinculotus,botaniastory:floatingisland-agricarnation,botaniastory:floatingisland-bellethorne,botaniastory:floatingisland-bubbell,botaniastory:floatingisland-clayconia,botaniastory:floatingisland-daffomill,botaniastory:floatingisland-dreadthorne,botaniastory:floatingisland-exoflame,botaniastory:floatingisland-fallenkanade,botaniastory:floatingisland-heiseidream,botaniastory:floatingisland-hopperhock,botaniastory:floatingisland-hyacidus,botaniastory:floatingisland-jadedamaranthus,botaniastory:floatingisland-jiyuulia,botaniastory:floatingisland-loonium,botaniastory:floatingisland-marimorphosis,botaniastory:floatingisland-medumone,botaniastory:floatingisland-orechid,botaniastory:floatingisland-pollidisiac,botaniastory:floatingisland-puredaisy,botaniastory:floatingisland-rannuncarpus,botaniastory:floatingisland-solegnolia,botaniastory:floatingisland-spectranthemum,botaniastory:floatingisland-tangleberrie,botaniastory:floatingisland-tigerseye,botaniastory:floatingisland-dandelifeon,botaniastory:floatingisland-daybloom,botaniastory:floatingisland-deadflower,botaniastory:floatingisland-endoflame,botaniastory:floatingisland-entropinnyum,botaniastory:floatingisland-gourmaryllis,botaniastory:floatingisland-hydroangeas,botaniastory:floatingisland-kekimurus,botaniastory:floatingisland-munchdew,botaniastory:floatingisland-narslimmus,botaniastory:floatingisland-nightshade,botaniastory:floatingisland-rafflowsia,botaniastory:floatingisland-rosaarcana,botaniastory:floatingisland-spectrolus,botaniastory:floatingisland-thermalily"
+                        });
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ВРАТА АЛЬФХЕЙМ ===

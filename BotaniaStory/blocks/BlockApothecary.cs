@@ -18,7 +18,8 @@ namespace BotaniaStory.blocks
             { "endoflame-free", new Dictionary<string, int> { { "mysticalpetal-brown", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
             { "agricarnation-free", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
             { "jadedamaranthus-free", new Dictionary<string, int> { { "mysticalpetal-lime", 1 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-magenta", 1 }, { "root_rusted", 1 }, { "rune-spring", 1 } } },
-            { "rosaarcana-free", new Dictionary<string, int> { { "mysticalpetal-brown", 2 }, { "mysticalpetal-pink", 2 }, { "gear-rusty", 1 } } }
+            { "rosaarcana-free", new Dictionary<string, int> { { "mysticalpetal-brown", 2 }, { "mysticalpetal-pink", 2 }, { "gear-rusty", 1 } } },
+             { "hopperhock-free", new Dictionary<string, int> { { "mysticalpetal-lightgray", 2 }, { "mysticalpetal-gray", 2 }, { "rune-air", 1 }, { "root_rusted", 1 } } }
 
 
         };

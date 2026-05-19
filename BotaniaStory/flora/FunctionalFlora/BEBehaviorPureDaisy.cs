@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 
 namespace BotaniaStory
 {
-    public class BlockEntityPureDaisy : BlockEntity
+    public class BEBehaviorPureDaisy : BlockEntityBehavior
     {
         private readonly Vec3i[] offsets = new Vec3i[]
         {
@@ -18,49 +19,48 @@ namespace BotaniaStory
 
         private Dictionary<Vec3i, int> progress = new Dictionary<Vec3i, int>();
 
-        public override void Initialize(ICoreAPI api)
+        // Обязательный публичный конструктор для движка
+        public BEBehaviorPureDaisy(BlockEntity blockentity) : base(blockentity)
         {
-            base.Initialize(api);
-            // Запускаю таймер (тик каждую секунду)
-            RegisterGameTickListener(OnTick, 1000);
         }
 
+        public override void Initialize(ICoreAPI api, JsonObject properties)
+        {
+            base.Initialize(api, properties);
+            // Запускаем таймер, привязываясь к базовой сущности блока
+            this.Blockentity.RegisterGameTickListener(OnTick, 1000);
+        }
 
-        // УМНАЯ ПРОВЕРКА БЛОКОВ "НА ЛЕТУ" (Без парсера)
         private string GetRecipeOutput(Block block)
         {
             if (block == null || block.Code == null) return null;
-
-            // 1. ЗАЩИТА: Игнорирую блоки  мода (Жизнекамень, Жизнедерево, сами цветы)
             if (block.Code.Domain == "botaniastory") return null;
 
-            // 2. ДЕРЕВО: Превращаю любые ванильные и модовые брёвна в Жизнедерево
             if (block.FirstCodePart() == "log" || block is BlockLog)
             {
                 return "botaniastory:livingwood-normal";
             }
-
-            // 3. КАМЕНЬ: Превращаю любой камень в Жизнекамень
             if (block.BlockMaterial == EnumBlockMaterial.Stone)
             {
                 return "botaniastory:livingrock";
             }
 
-            return null; // Если это земля, песок, доски и т.д. — ничего не делает
+            return null;
         }
 
         private void OnTick(float dt)
         {
             foreach (Vec3i offset in offsets)
             {
-                BlockPos targetPos = Pos.AddCopy(offset.X, offset.Y, offset.Z);
-                Block block = Api.World.BlockAccessor.GetBlock(targetPos);
+                // Используем координаты родительского блока
+                BlockPos targetPos = this.Blockentity.Pos.AddCopy(offset.X, offset.Y, offset.Z);
+                Block block = this.Api.World.BlockAccessor.GetBlock(targetPos);
 
                 string outputCode = GetRecipeOutput(block);
 
                 if (outputCode != null)
                 {
-                    if (Api.Side == EnumAppSide.Client)
+                    if (this.Api.Side == EnumAppSide.Client)
                     {
                         SpawnParticles(targetPos);
                         continue;
@@ -69,22 +69,20 @@ namespace BotaniaStory
                     if (!progress.ContainsKey(offset)) progress[offset] = 0;
                     progress[offset]++;
 
-                    // 30 секунд магии
                     if (progress[offset] >= 30)
                     {
-                        Block resultBlock = Api.World.GetBlock(new AssetLocation(outputCode));
+                        Block resultBlock = this.Api.World.GetBlock(new AssetLocation(outputCode));
                         if (resultBlock != null)
                         {
-                            Api.World.BlockAccessor.SetBlock(resultBlock.Id, targetPos);
+                            this.Api.World.BlockAccessor.SetBlock(resultBlock.Id, targetPos);
 
-                            // ЗВУКИ
                             if (outputCode == "botaniastory:livingwood-normal")
                             {
-                                Api.World.PlaySoundAt(new AssetLocation("game:sounds/block/planks"), targetPos.X, targetPos.Y, targetPos.Z);
+                                this.Api.World.PlaySoundAt(new AssetLocation("game:sounds/block/planks"), targetPos.X, targetPos.Y, targetPos.Z);
                             }
                             else if (outputCode == "botaniastory:livingrock")
                             {
-                                Api.World.PlaySoundAt(new AssetLocation("game:sounds/effect/stonecrush"), targetPos.X, targetPos.Y, targetPos.Z);
+                                this.Api.World.PlaySoundAt(new AssetLocation("game:sounds/effect/stonecrush"), targetPos.X, targetPos.Y, targetPos.Z);
                             }
                         }
                         progress[offset] = 0;
@@ -92,8 +90,7 @@ namespace BotaniaStory
                 }
                 else
                 {
-                    // Если блок убрали или он не подходит - сбрасываем прогресс
-                    if (Api.Side == EnumAppSide.Server)
+                    if (this.Api.Side == EnumAppSide.Server)
                     {
                         progress.Remove(offset);
                     }
@@ -117,7 +114,7 @@ namespace BotaniaStory
             );
 
             particles.AddPos.Set(new Vec3d(0, 0, 0));
-            Api.World.SpawnParticles(particles);
+            this.Api.World.SpawnParticles(particles);
         }
     }
 }

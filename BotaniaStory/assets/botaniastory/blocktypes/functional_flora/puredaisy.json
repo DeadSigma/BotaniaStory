@@ -1,7 +1,10 @@
 {
     "code": "puredaisy",
     "class": "BlockPureDaisy",
-    "entityClass": "PureDaisyEntity",
+    "entityClass": "Generic",
+    "entityBehaviors": [
+        { "name": "puredaisylogic" }
+    ],
     "creativeinventory": {
         "general": [
             "*-free"

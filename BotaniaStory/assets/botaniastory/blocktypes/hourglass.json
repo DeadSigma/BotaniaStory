@@ -14,6 +14,7 @@
     "blockmaterial": "Glass",
     "faceCullMode": "NeverCull",
     "lightAbsorption": 0,
+    "renderpass": "blendNoCull",
     "sidesolid": { "all": false },
     "sideopaque": { "all": false },
     "collisionbox": {
@@ -36,7 +37,7 @@
     "textures": {
         "gold": { "base": "game:block/metal/ingot/gold" },
         "glass": { "base": "game:block/glass/plain" },
-        "transparent": { "base": "botaniastory:block/transparent" }
+        "transparent": { "base": "game:block/transparent" }
     },
     "guiTransform": {
         "translation": {

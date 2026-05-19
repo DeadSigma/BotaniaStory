@@ -1,7 +1,10 @@
 {
     "code": "daybloom",
     "class": "BlockDaybloom",
-    "entityClass": "DaybloomEntity",
+    "entityClass": "Generic",
+    "entityBehaviors": [
+        { "name": "daybloomlogic" } 
+    ],
     "creativeinventory": {
         "general": [
             "*-free"

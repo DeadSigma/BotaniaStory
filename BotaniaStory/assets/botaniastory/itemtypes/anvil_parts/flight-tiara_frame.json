@@ -29,6 +29,87 @@
 			}
 		}
 	],
+	"attributes": {
+		"shelvable": true,
+		"inForgeTransform": {
+			"translation": {
+				"x": -0.15,
+				"y": 0.06,
+				"z": 0.08
+			},
+			"rotation": {
+				"x": 12,
+				"y": 1,
+				"z": 2
+			},
+			"origin": {
+				"x": 1,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.77
+		},
+		"forgable": true,
+		"onTongTransform": {
+			"translation": {
+				"x": -1.52,
+				"y": -0.47,
+				"z": -0.35
+			},
+			"rotation": {
+				"x": 94,
+				"y": 105,
+				"z": 86
+			},
+			"origin": {
+				"x": 0.54,
+				"y": 0.59,
+				"z": 0.5
+			},
+			"scale": 0.99
+		},
+		"tongOpening": "small",
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -2.49,
+				"y": -0.35,
+				"z": -0.82
+			},
+			"rotation": {
+				"x": -6,
+				"y": 0,
+				"z": -10
+			},
+			"origin": {
+				"x": 1,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.79
+		},
+		"displayable": {
+			"shelf": {
+				"size": {
+					"width": 2.5,
+					"height": 1.5,
+					"length": 8
+				},
+				"transform": {
+					"translation": {
+						"x": -0.5,
+						"y": -0.087,
+						"z": 0.12
+					},
+					"origin": {
+						"x": 1,
+						"y": 0.5,
+						"z": 0.5
+					},
+					"scale": 0.8
+				}
+			}
+		}
+	},
 	"guiTransform": {
 		"translation": {
 			"x": 0,

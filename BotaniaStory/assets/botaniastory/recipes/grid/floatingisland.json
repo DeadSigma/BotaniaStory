@@ -1,0 +1,117 @@
+[
+    {
+        "ingredientPattern": "FAB,S  ,T  ",
+        "ingredients": {
+            "F": {
+                "type": "block",
+                "code": "botaniastory:mysticalflower-*-free",
+                "name": "color"
+            },
+            "A": {
+                "type": "item",
+                "code": "botaniastory:manaitem-manapowder"
+            },
+            "B": {
+                "type": "item",
+                "code": "botaniastory:manaitem-manapowder"
+            },
+            "S": {
+                "type": "block",
+                "code": "game:soil-*-none"
+            },
+            "T": {
+                "type": "item",
+                "code": "botaniastory:meadowseed-normal"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:floatingisland-{color}",
+            "quantity": 1
+        }
+    },
+    {
+        "ingredientPattern": "F,S",
+        "width": 1,
+        "height": 2,
+        "ingredients": {
+            "F": {
+                "type": "block",
+                "code": "botaniastory:*-free",
+                "name": "flower",
+                "allowedVariants": [
+                    "vinculotus",
+                    "agricarnation",
+                    "bellethorne",
+                    "bubbell",
+                    "clayconia",
+                    "daffomill",
+                    "dreadthorne",
+                    "exoflame",
+                    "fallenkanade",
+                    "heiseidream",
+                    "hopperhock",
+                    "hyacidus",
+                    "jadedamaranthus",
+                    "jiyuulia",
+                    "loonium",
+                    "marimorphosis",
+                    "medumone",
+                    "orechid",
+                    "pollidisiac",
+                    "puredaisy",
+                    "rannuncarpus",
+                    "solegnolia",
+                    "spectranthemum",
+                    "tangleberrie",
+                    "tigerseye",
+                    "dandelifeon",
+                    "daybloom",
+                    "deadflower",
+                    "endoflame",
+                    "entropinnyum",
+                    "gourmaryllis",
+                    "hydroangeas",
+                    "kekimurus",
+                    "munchdew",
+                    "narslimmus",
+                    "nightshade",
+                    "rafflowsia",
+                    "rosaarcana",
+                    "spectrolus",
+                    "thermalily"
+                ]
+            },
+            "S": {
+                "type": "block",
+                "code": "botaniastory:floatingisland-*",
+                "name": "color",
+                "allowedVariants": [
+                    "white",
+                    "orange",
+                    "magenta",
+                    "lightblue",
+                    "yellow",
+                    "lime",
+                    "pink",
+                    "gray",
+                    "lightgray",
+                    "cyan",
+                    "purple",
+                    "blue",
+                    "brown",
+                    "green",
+                    "red",
+                    "black"
+                ]
+            }
+        },
+        "output": {
+            "type": "block",
+            "code": "botaniastory:floatingisland-{flower}",
+            "quantity": 1
+        }
+    }
+]
