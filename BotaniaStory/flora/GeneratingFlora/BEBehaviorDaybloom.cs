@@ -63,7 +63,21 @@ namespace BotaniaStory.Flora.GeneratingFlora
             double daysAlive = currentDays - PlantedTotalDays;
             if (daysAlive >= 1.0)
             {
-                Block deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "deadflower-free"));
+                // Узнаем, какой блок сейчас стоит по этим координатам
+                Block currentBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos);
+                Block deadBlock = null;
+
+                // Проверяем, является ли текущий блок парящим островом
+                if (currentBlock != null && currentBlock.Code.Path.Contains("floatingisland"))
+                {
+                    deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "floatingisland-deadflower"));
+                }
+                else
+                {
+                    deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "deadflower-free"));
+                }
+
+                // Если нужный мертвый блок найден, устанавливаем его
                 if (deadBlock != null)
                 {
                     this.Api.World.BlockAccessor.SetBlock(deadBlock.BlockId, this.Blockentity.Pos);

@@ -6,8 +6,6 @@ using Vintagestory.API.MathTools;
 
 namespace BotaniaStory
 {
-    // 1. Главный класс мода. Если у тебя уже есть свой ModSystem, 
-    // просто добавь регистрацию в его метод Start.
     public class BotaniaStoryMod : ModSystem
     {
         public override void Start(ICoreAPI api)

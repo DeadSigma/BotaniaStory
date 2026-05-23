@@ -1,6 +1,6 @@
 {
     "code": "floatingisland",
-    "class": "BlockBotaniaFlower",
+    "class": "BlockBotaniaFloatingIsland",
     "entityClass": "BotaniaFloatingIsland",
     "creativeinventory": {
         "general": [ "*" ],

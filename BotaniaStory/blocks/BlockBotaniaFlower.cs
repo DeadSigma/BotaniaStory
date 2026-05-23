@@ -1,4 +1,5 @@
 ﻿using Vintagestory.API.Common;
+using Vintagestory.API.MathTools; // Не забудь этот using для BlockPos и BlockFacing!
 using BotaniaStory.blockentity;
 using BotaniaStory.Flora.GeneratingFlora;
 using System.Collections.Generic;
@@ -7,6 +8,61 @@ namespace BotaniaStory.Blocks
 {
     public class BlockBotaniaFlower : Block
     {
+
+        public override bool TryPlaceBlock(IWorldAccessor world, IPlayer byPlayer, ItemStack itemstack, BlockSelection blockSel, ref string failureCode)
+        {
+            BlockPos posBelow = blockSel.Position.DownCopy();
+            Block blockBelow = world.BlockAccessor.GetBlock(posBelow);
+
+            if (!blockBelow.CanAttachBlockAt(world.BlockAccessor, this, posBelow, BlockFacing.UP))
+            {
+                failureCode = "requiresteadiersurface";
+                return false;
+            }
+
+            return base.TryPlaceBlock(world, byPlayer, itemstack, blockSel, ref failureCode);
+        }
+
+        public override bool TryPlaceBlockForWorldGen(IBlockAccessor blockAccessor, BlockPos pos, BlockFacing onBlockFace, IRandom worldgenRandom, BlockPatchAttributes attributes = null)
+        {
+            BlockPos posBelow = pos.DownCopy();
+            Block blockBelow = blockAccessor.GetBlock(posBelow);
+
+            if (!blockBelow.CanAttachBlockAt(blockAccessor, this, posBelow, BlockFacing.UP))
+            {
+                return false;
+            }
+
+            Block currentBlock = blockAccessor.GetBlock(pos);
+
+            if (currentBlock.IsLiquid())
+            {
+                return false;
+            }
+
+            if (currentBlock is BlockBotaniaFlower)
+            {
+                return false;
+            }
+
+            return base.TryPlaceBlockForWorldGen(blockAccessor, pos, onBlockFace, worldgenRandom, attributes);
+        }
+
+        public override void OnNeighbourBlockChange(IWorldAccessor world, BlockPos pos, BlockPos neigbourPos)
+        {
+            BlockPos posBelow = pos.DownCopy();
+            Block blockBelow = world.BlockAccessor.GetBlock(posBelow);
+
+            if (!blockBelow.CanAttachBlockAt(world.BlockAccessor, this, posBelow, BlockFacing.UP))
+            {
+                world.BlockAccessor.BreakBlock(pos, null);
+                return;
+            }
+
+            base.OnNeighbourBlockChange(world, pos, neigbourPos);
+        }
+
+
         public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack)
         {
             // Сначала ставим сам блок

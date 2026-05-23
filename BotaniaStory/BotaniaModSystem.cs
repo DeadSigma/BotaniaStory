@@ -35,7 +35,6 @@ namespace BotaniaStory
         private ICoreClientAPI capi;
         private ICoreServerAPI sapi;
 
-        // --- 1. ОБЩАЯ РЕГИСТРАЦИЯ ДЛЯ КЛИЕНТА И СЕРВЕРА ---
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
@@ -133,6 +132,7 @@ namespace BotaniaStory
             api.RegisterBlockClass("BlockHourglass", typeof(BlockHourglass));
             api.RegisterBlockEntityClass("BlockEntityHourglass", typeof(BlockEntityHourglass));
             api.RegisterBlockEntityClass("FloatingIslandEntity", typeof(BlockEntityFloatingIsland));
+            api.RegisterBlockClass("BlockBotaniaFloatingIsland", typeof(BlockBotaniaFloatingIsland));
             api.RegisterItemClass("ItemMeadowSeed", typeof(ItemMeadowSeed));
 
 
@@ -140,7 +140,7 @@ namespace BotaniaStory
 
         }
 
-        // --- 2. КЛИЕНТСКАЯ ЧАСТЬ (Звуки и Искры) ---
+        // КЛИЕНТСКАЯ ЧАСТЬ (Звуки и Искры)
         public override void StartClientSide(ICoreClientAPI api)
         {
             base.StartClientSide(api);
@@ -163,7 +163,7 @@ namespace BotaniaStory
         }
 
 
-        // --- 3. СЕРВЕРНАЯ ЧАСТЬ (Лексикон и Талисман) ---
+        // СЕРВЕРНАЯ ЧАСТЬ
         public override void StartServerSide(ICoreServerAPI api)
         {
             base.StartServerSide(api);
@@ -189,7 +189,7 @@ namespace BotaniaStory
             IServerPlayer player = args.Caller.Player as IServerPlayer;
             if (player == null) return TextCommandResult.Error("Команду может использовать только игрок.");
 
-            // Ищем тип сущности (убедись, что создашь gaiaguardian.json позже)
+            // Ищем тип сущности 
             EntityProperties type = sapi.World.GetEntityType(new AssetLocation("botaniastory", "gaiaguardian"));
             if (type == null) return TextCommandResult.Error("Сущность gaiaguardian не найдена в JSON.");
 
@@ -214,7 +214,7 @@ namespace BotaniaStory
             }
         }
 
-        // --- ОБРАБОТЧИК ДЛЯ ЧАСТИЦ (КЛИЕНТ) ---
+        // ОБРАБОТЧИК ДЛЯ ЧАСТИЦ (КЛИЕНТ)
         private void OnManaStreamPacketReceived(ManaStreamPacket packet)
         {
             if (ManaRenderer != null)
@@ -226,7 +226,7 @@ namespace BotaniaStory
             }
         }
 
-        // --- ОБРАБОТЧИК ДЛЯ ЗВУКОВ (КЛИЕНТ) ---
+        // ОБРАБОТЧИК ДЛЯ ЗВУКОВ (КЛИЕНТ)
         private void OnSoundPacketReceived(PlayManaSoundPacket packet)
         {
             if (capi.World?.Player?.Entity == null) return;
@@ -292,7 +292,7 @@ namespace BotaniaStory
             );
         }
 
-        // --- ОБРАБОТЧИК ДЛЯ ЛЕКСИКОНА (СЕРВЕР) ---
+        // ОБРАБОТЧИК ДЛЯ ЛЕКСИКОНА (СЕРВЕР)
         private void OnLexiconStateMessage(IServerPlayer fromPlayer, LexiconStatePacket packet)
         {
             ItemSlot activeSlot = fromPlayer.InventoryManager.ActiveHotbarSlot;
@@ -332,7 +332,7 @@ namespace BotaniaStory
         }
     }
 
-    // --- ПАКЕТЫ И КЛАССЫ ---
+    // ПАКЕТЫ И КЛАССЫ
 
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     public class LexiconStatePacket
