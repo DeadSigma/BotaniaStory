@@ -6,6 +6,26 @@
             "groupBy": [
                 "mysticalflower-*"
             ]
+        },
+        "plantContainable": {
+            "smallContainerByType": {
+                "*": {
+                    "shape": { "base": "game:block/clay/flowerpot/contents" },
+                    "textures": {
+                        "north": { "base": "botaniastory:block/mysticalflower/potted/{color}" },
+                        "south": { "base": "botaniastory:block/mysticalflower/potted/{color}" }
+                    }
+                }
+            },
+            "largeContainerByType": {
+                "*": {
+                    "shape": { "base": "game:block/clay/planter/contents" },
+                    "textures": {
+                        "north": { "base": "botaniastory:block/mysticalflower/potted/{color}" },
+                        "south": { "base": "botaniastory:block/mysticalflower/potted/{color}" }
+                    }
+                }
+            }
         }
     },
     "creativeinventory": {

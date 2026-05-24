@@ -39,12 +39,12 @@
 	"heldTpIdleAnimation": "spearidle",
 	"heldRightReadyAnimation": "spearidle",
 	"heldTpHitAnimation": "spearhit",
-	"attackRange": 3.5,
-	"attackpower": 4.2,
-	"durability": 400,
+	"attackRange": 3.6,
+	"attackpower": 4.5,
+	"durability": 700,
 	"attributes": {
 		"heldItemPitchFollow": 1,
-		"damage": 6.8,
+		"damage": 7.1,
 		"spearEntityCode": "botaniastory:spear-terrasteel",
 		"handbook": {
 			"groupBy": [ "spear-*" ]

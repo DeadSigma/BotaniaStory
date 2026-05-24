@@ -75,11 +75,11 @@
 		{ "name": "Buffable" }
 	],
 	"heldTpHitAnimation": "knifestab",
-	"durability": 900,
+	"durability": 2250,
 	"miningspeed": {
-		"plant": 2
+		"plant": 2.5
 	},
-	"attackpower": 3.5,
+	"attackpower": 4.1,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

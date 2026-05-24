@@ -92,15 +92,15 @@
 	"heldRightReadyAnimation": "shovelready",
 	"heldTpHitAnimation": "shoveldig",
 	"heldTpUseAnimation": "interactStaticLong",
-	"tooltier": 4,
+	"tooltier": 5,
 	"miningspeed": {
-		"soil": 6,
-		"sand": 6,
-		"gravel": 4,
-		"snow": 4
+		"soil": 7.1,
+		"sand": 7.1,
+		"gravel": 4.5,
+		"snow": 4.5
 	},
-	"durability": 1200,
-	"attackpower": 2.25,
+	"durability": 3000,
+	"attackpower": 2.5,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

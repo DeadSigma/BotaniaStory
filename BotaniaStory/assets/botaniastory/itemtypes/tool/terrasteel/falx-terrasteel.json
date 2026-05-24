@@ -84,10 +84,10 @@
 		{ "name": "Sharpenable" }
 	],
 	"heldTpHitAnimation": "falx",
-	"attackRange": 2.5,
-	"tooltier": 4,
-	"attackpower": 5,
-	"durability": 650,
+	"attackRange": 2.6,
+	"tooltier": 5,
+	"attackpower": 5.26,
+	"durability": 2125,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

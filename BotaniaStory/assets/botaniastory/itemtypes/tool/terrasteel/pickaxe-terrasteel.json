@@ -8,15 +8,15 @@
 		"metal": { "base": "game:item/resource/plate/terrasteel" }
 	},
 	"miningspeed": {
-		"ceramic": 2.75,
-		"stone": 7.5,
-		"ore": 7.5,
-		"metal": 7.5,
-		"ice": 3.5
+		"ceramic": 3.3,
+		"stone": 9.1,
+		"ore": 9.1,
+		"metal": 9.1,
+		"ice": 4.3
 	},
-	"attackpower": 2.25,
-	"durability": 1000,
-	"tooltier": 4,
+	"attackpower": 2.6,
+	"durability": 2500,
+	"tooltier": 5,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

@@ -74,12 +74,12 @@
 		"slotRefillIdentifier": "pickaxe"
 	},
 	"tooltierByType": {
-		"*-0": 4,
-		"*-1": 4,
-		"*-2": 4,
-		"*-3": 4,
-		"*-4": 4,
-		"*-5": 4
+		"*-0": 5,
+		"*-1": 5,
+		"*-2": 5,
+		"*-3": 5,
+		"*-4": 5,
+		"*-5": 5
 	},
 	"heldToughnessByType": {
 		"*-0": 2,
@@ -94,15 +94,15 @@
 		"terrasteel": { "base": "game:item/resource/plate/terrasteel" }
 	},
 	"miningspeed": {
-		"ceramic": 2.75,
-		"stone": 7.5,
-		"ore": 7.5,
-		"metal": 7.5,
-		"ice": 3.5
+		"ceramic": 4.0,
+		"stone": 10,
+		"ore": 10,
+		"metal": 10,
+		"ice": 5.3
 	},
-	"attackpower": 2.25,
-	"durability": 1000,
-	"tooltier": 4,
+	"attackpower": 4,
+	"durability": 3000,
+	"tooltier": 5,
 	"behaviors": [
 		{
 			"name": "GroundStorable",

@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
@@ -62,7 +63,10 @@ namespace BotaniaStory.blockentity
             if (!IsStructureValid)
             {
                 if (Api.Side == EnumAppSide.Client)
-                    ((ICoreClientAPI)Api).ShowChatMessage("Конструкция плиты не завершена или неверна!");
+                {
+                    string message = Lang.Get("botaniastory:error-stove-invalid");
+                    ((ICoreClientAPI)Api).ShowChatMessage(message);
+                }
                 return false;
             }
 
@@ -94,7 +98,7 @@ namespace BotaniaStory.blockentity
             string code = hotbarSlot.Itemstack.Collectible.Code.ToString();
             bool isValidItem = code == "botaniastory:manaitem-manaquartz" ||
                                code == "botaniastory:manaitem-managear" ||
-                               code == "game:ingot-manasteel";
+                               code == "game:ingot-steel";
 
             if (isValidItem && !IsCrafting) // Нельзя докладывать, если крафт уже идет
             {
@@ -133,7 +137,7 @@ namespace BotaniaStory.blockentity
                 string code = inventory[i].Itemstack.Collectible.Code.ToString();
                 if (code == "botaniastory:manaitem-manaquartz") hasQuartz = true;
                 if (code == "botaniastory:manaitem-managear") hasGear = true;
-                if (code == "game:ingot-manasteel") hasSteel = true;
+                if (code == "game:ingot-steel") hasSteel = true;
             }
 
             bool wasCrafting = IsCrafting;

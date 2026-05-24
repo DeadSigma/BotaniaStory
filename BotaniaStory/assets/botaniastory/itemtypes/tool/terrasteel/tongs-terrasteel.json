@@ -146,7 +146,7 @@
 	},
 	"storageFlags": 257,
 	"tool": "Tongs",
-	"durability": 2500,
+	"durability": 5000,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]

@@ -76,8 +76,8 @@
 	],
 	"heldTpHitAnimation": "cleaverhit",
 	"heldTpUseAnimation": "cleaverhit",
-	"durability": 800,
-	"attackpower": 2.5,
+	"durability": 2000,
+	"attackpower": 2.76,
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]
