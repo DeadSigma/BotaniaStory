@@ -88,7 +88,7 @@ namespace BotaniaStory.lexicon
 
             { "natural_apparatus", new[] { "mechanical_dropper", "hourglass" } },
 
-            { "mystical_items", new[] { "wandofbinding", "meadowseed", "floating_island", "manaitem", "rod_of_the_seas", "terrasteelitem", "terrashatterer" } },
+            { "mystical_items", new[] { "wandofbinding", "flower_bag", "meadowseed", "floating_island", "manaitem", "rod_of_the_seas", "terrasteelitem", "terrashatterer" } },
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
@@ -1522,6 +1522,25 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:wandofbinding_frame"
                         });
 
+                    }
+
+                    // === НАСТРОЙКА МЕШОЧЕК ДЛЯ ЦВЕТОВ ===
+                    else if (chapId == "flower_bag")
+                    {
+                        chapter.TabItemCode = "botaniastory:flower_bag";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             "game:knife-*", "botaniastory:mysticalflower-green-free", "game:hide-pelt-small, botanicalleathers:botanicalhide-prepared-small-*",
+                             null, null, null,
+                             null, null, null
+                             },
+                            Output = "botaniastory:flower_bag"
+                        });
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ЖИЗНЕДЕРЕВА ===

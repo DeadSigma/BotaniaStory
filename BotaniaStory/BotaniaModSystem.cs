@@ -134,7 +134,7 @@ namespace BotaniaStory
             api.RegisterBlockEntityClass("FloatingIslandEntity", typeof(BlockEntityFloatingIsland));
             api.RegisterBlockClass("BlockBotaniaFloatingIsland", typeof(BlockBotaniaFloatingIsland));
             api.RegisterItemClass("ItemMeadowSeed", typeof(ItemMeadowSeed));
-
+            api.RegisterItemClass("ItemFlowerBag", typeof(ItemFlowerBag));
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 
