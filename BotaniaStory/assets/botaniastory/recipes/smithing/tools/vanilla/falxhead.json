@@ -1,0 +1,26 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "_______________",
+            "_______________",
+            "____#######____",
+            "__###########__",
+            "_############__",
+            "####_____#_#___",
+            "###____________",
+            "#______________"
+        ]
+    ],
+    "name": "Falx blade head",
+    "code": "falxhead-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:bladehead-falx-{metal}"
+    }
+}

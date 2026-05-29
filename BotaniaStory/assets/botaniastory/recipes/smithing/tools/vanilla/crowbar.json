@@ -1,0 +1,24 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "#__#############",
+            "####____________"
+        ],
+        [
+            "#__#############",
+            "####____________"
+        ]
+    ],
+    "name": "Crowbar",
+    "code": "crowbar-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:crowbar-{metal}"
+    }
+}

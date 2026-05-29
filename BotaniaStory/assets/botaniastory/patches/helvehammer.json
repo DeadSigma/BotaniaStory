@@ -1,0 +1,29 @@
+[
+    {
+        "file": "game:itemtypes/part/helvehammer.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:itemtypes/part/helvehammer.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:itemtypes/part/helvehammer.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "terrasteel"
+    },
+    {
+        "file": "game:itemtypes/part/helvehammer.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [
+            "*-elementium",
+            "*-terrasteel"
+        ]
+    }
+]

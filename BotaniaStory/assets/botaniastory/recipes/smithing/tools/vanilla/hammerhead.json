@@ -1,0 +1,28 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "#####",
+            "#####",
+            "#####",
+            "#####"
+        ],
+        [
+            "#####",
+            "#####",
+            "#####",
+            "#####"
+        ]
+    ],
+    "name": "Hammer head",
+    "code": "hammerhead-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:hammerhead-{metal}"
+    }
+}

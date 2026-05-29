@@ -2,9 +2,15 @@
     "code": "deadflower",
     "class": "BlockBotaniaFlower",
     "creativeinventory": {
-        "general": [ "deadflower-free" ],
-        "flora": [ "deadflower-free" ],
-        "botaniastory": [ "deadflower-free" ]
+        "general": [
+            "deadflower-free"
+        ],
+        "flora": [
+            "deadflower-free"
+        ],
+        "botaniastory": [
+            "deadflower-free"
+        ]
     },
     "shape": {
         "base": "game:block/plant/flower/1patch-3faces-24x24",
@@ -12,7 +18,9 @@
     },
     "randomDrawOffset": true,
     "renderpass": "OpaqueNoCull",
-    "sidesolid": { "all": false },
+    "sidesolid": {
+        "all": false
+    },
     "lightAbsorption": 0,
     "replaceable": 3000,
     "resistance": 0.1,
@@ -113,12 +121,21 @@
         },
         "scale": 0.48
     },
-    "groundTransform": { "scale": 2.5 },
-    "behaviors": [ { "name": "DropNotSnowCovered" } ],
+    "groundTransform": {
+        "scale": 2.5
+    },
+    "behaviors": [
+        {
+            "name": "DropNotSnowCovered"
+        }
+    ],
     "variantgroups": [
         {
             "code": "cover",
-            "states": [ "free", "snow" ]
+            "states": [
+                "free",
+                "snow"
+            ]
         }
     ],
     "frostable": true,
@@ -139,6 +156,12 @@
             "all": false,
             "down": true
         },
-        "*": { "all": false }
+        "*": {
+            "all": false
+        }
+    },
+    "attributes": {
+        "beeFeed": true,
+        "butterflyFeed": true
     }
 }

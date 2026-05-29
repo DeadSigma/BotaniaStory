@@ -1,0 +1,539 @@
+[
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "terrasteel"
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [ "*-manasteel", "*-elementium", "*-terrasteel" ]
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "remove",
+        "path": "/shapeByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/shapeByType/*-manasteel",
+        "value": { "base": "item/tool/shovelhead-copper" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/shapeByType/*-elementium",
+        "value": { "base": "item/tool/shovelhead-copper" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/shapeByType/*-terrasteel",
+        "value": { "base": "item/tool/shovelhead-copper" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/shapeByType/*",
+        "value": { "base": "item/tool/shovel-stone" }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "remove",
+        "path": "/attributes/forgableByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*-manasteel",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*-elementium",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*-terrasteel",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*",
+        "value": false
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "remove",
+        "path": "/attributes/groundStorageTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*-manasteel",
+        "value": {
+            "translation": {
+                "x": -0.08,
+                "y": -0.043,
+                "z": 0.07
+            },
+            "rotation": {
+                "x": 0,
+                "y": 45,
+                "z": -3
+            },
+            "scale": 0.9
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*-elementium",
+        "value": {
+            "translation": {
+                "x": -0.08,
+                "y": -0.043,
+                "z": 0.07
+            },
+            "rotation": {
+                "x": 0,
+                "y": 45,
+                "z": -3
+            },
+            "scale": 0.9
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*-terrasteel",
+        "value": {
+            "translation": {
+                "x": -0.08,
+                "y": -0.043,
+                "z": 0.07
+            },
+            "rotation": {
+                "x": 0,
+                "y": 45,
+                "z": -3
+            },
+            "scale": 0.9
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*",
+        "value": {
+            "translation": {
+                "x": -0.72,
+                "y": -0.012,
+                "z": 0
+            },
+            "rotation": {
+                "x": 0,
+                "y": 44,
+                "z": 0
+            },
+            "origin": {
+                "x": 1.2,
+                "y": 0.5,
+                "z": 0.5
+            }
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "remove",
+        "path": "/attributes/displayable/shelf/sizeByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/*-manasteel",
+        "value": {
+            "width": 6,
+            "height": 2,
+            "length": 8
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/*-elementium",
+        "value": {
+            "width": 6,
+            "height": 2,
+            "length": 8
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/*-terrasteel",
+        "value": {
+            "width": 6,
+            "height": 2,
+            "length": 8
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/*",
+        "value": {
+            "width": 5,
+            "height": 1,
+            "length": 8
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "remove",
+        "path": "/attributes/displayable/shelf/transformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/*-manasteel",
+        "value": {
+            "translation": {
+                "x": -0.7,
+                "y": 0.005,
+                "z": -0.5
+            },
+            "rotation": {
+                "x": 0,
+                "y": 90,
+                "z": 0
+            },
+            "origin": {
+                "x": 1.2,
+                "y": 0.5,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/*-elementium",
+        "value": {
+            "translation": {
+                "x": -0.7,
+                "y": 0.005,
+                "z": -0.5
+            },
+            "rotation": {
+                "x": 0,
+                "y": 90,
+                "z": 0
+            },
+            "origin": {
+                "x": 1.2,
+                "y": 0.5,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/*-terrasteel",
+        "value": {
+            "translation": {
+                "x": -0.7,
+                "y": 0.005,
+                "z": -0.5
+            },
+            "rotation": {
+                "x": 0,
+                "y": 90,
+                "z": 0
+            },
+            "origin": {
+                "x": 1.2,
+                "y": 0.5,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/*",
+        "value": {
+            "translation": {
+                "x": -0.7,
+                "y": -0.01,
+                "z": 0
+            },
+            "rotation": {
+                "x": 0,
+                "y": 90,
+                "z": 0
+            },
+            "origin": {
+                "x": 1.2,
+                "y": 0.5,
+                "z": 0.5
+            }
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "remove",
+        "path": "/guiTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*-manasteel",
+        "value": {
+            "rotate": false,
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 4
+            },
+            "rotation": {
+                "x": 141,
+                "y": 33,
+                "z": -38
+            },
+            "origin": {
+                "x": 0.52,
+                "y": 0.29,
+                "z": 0.3
+            },
+            "scale": 2.24
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*-elementium",
+        "value": {
+            "rotate": false,
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 4
+            },
+            "rotation": {
+                "x": 141,
+                "y": 33,
+                "z": -38
+            },
+            "origin": {
+                "x": 0.52,
+                "y": 0.29,
+                "z": 0.3
+            },
+            "scale": 2.24
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*-terrasteel",
+        "value": {
+            "rotate": false,
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 4
+            },
+            "rotation": {
+                "x": 141,
+                "y": 33,
+                "z": -38
+            },
+            "origin": {
+                "x": 0.52,
+                "y": 0.29,
+                "z": 0.3
+            },
+            "scale": 2.24
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*",
+        "value": {
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 120
+            },
+            "rotation": {
+                "x": -45,
+                "y": -134,
+                "z": -180
+            },
+            "origin": {
+                "x": 0.87,
+                "y": 0.55,
+                "z": 0.2
+            },
+            "scale": 3
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "remove",
+        "path": "/tpHandTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/tpHandTransformByType/*-manasteel",
+        "value": {
+            "translation": {
+                "x": -0.7,
+                "y": -0.6,
+                "z": -0.1
+            },
+            "rotation": {
+                "x": 90,
+                "y": 20,
+                "z": 0
+            },
+            "scale": 0.85
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/tpHandTransformByType/*-elementium",
+        "value": {
+            "translation": {
+                "x": -0.7,
+                "y": -0.6,
+                "z": -0.1
+            },
+            "rotation": {
+                "x": 90,
+                "y": 20,
+                "z": 0
+            },
+            "scale": 0.85
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/tpHandTransformByType/*-terrasteel",
+        "value": {
+            "translation": {
+                "x": -0.7,
+                "y": -0.6,
+                "z": -0.1
+            },
+            "rotation": {
+                "x": 90,
+                "y": 20,
+                "z": 0
+            },
+            "scale": 0.85
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/tpHandTransformByType/*",
+        "value": {
+            "translation": {
+                "x": 0,
+                "y": -0.4,
+                "z": -0.1
+            },
+            "rotation": {
+                "x": 90,
+                "y": 20,
+                "z": 0
+            },
+            "scale": 0.85
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "remove",
+        "path": "/behaviorsByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/behaviorsByType/@(.*-elementium|.*-terrasteel)",
+        "value": [
+            {
+                "name": "Quenchable",
+                "properties": { "metalVariantgroupCode": "material" }
+            },
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "file": "game:itemtypes/toolhead/shovelhead.json",
+        "op": "add",
+        "path": "/behaviorsByType/*",
+        "value": [
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    }
+]

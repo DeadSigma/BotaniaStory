@@ -1,0 +1,20 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "###############",
+            "#_#_#_#_#_#_#__"
+        ]
+    ],
+    "name": "Saw blade",
+    "code": "sawblade-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:sawblade-{metal}"
+    }
+}

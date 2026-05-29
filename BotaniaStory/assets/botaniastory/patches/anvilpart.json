@@ -1,0 +1,23 @@
+[
+    {
+        "file": "game:blocktypes/metal/anvilpart.json",
+        "op": "add",
+        "path": "/variantgroups/1/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:blocktypes/metal/anvilpart.json",
+        "op": "add",
+        "path": "/variantgroups/1/states/-",
+        "value": "terrasteel"
+    },
+    {
+        "file": "game:blocktypes/metal/anvilpart.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [
+            "*-elementium",
+            "*-terrasteel"
+        ]
+    }
+]

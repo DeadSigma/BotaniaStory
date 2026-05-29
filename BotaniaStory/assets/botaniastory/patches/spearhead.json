@@ -1,0 +1,414 @@
+[
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "terrasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [ "*-manasteel", "*-elementium", "*-terrasteel" ]
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/shapeByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/shapeByType/spearhead-manasteel",
+        "value": { "base": "game:item/tool/spear/manasteel" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/shapeByType/spearhead-elementium",
+        "value": { "base": "game:item/tool/spear/elementium" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/shapeByType/spearhead-terrasteel",
+        "value": { "base": "game:item/tool/spear/terrasteel" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/shapeByType/*",
+        "value": { "base": "item/tool/spear/stone" }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/behaviorsByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/behaviorsByType/@(.*-elementium|.*-terrasteel)",
+        "value": [
+            {
+                "name": "Quenchable",
+                "properties": { "metalVariantgroupCode": "material" }
+            },
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/behaviorsByType/*",
+        "value": [
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/attributes/forgableByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/@spearhead-(manasteel|elementium|terrasteel)",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*",
+        "value": false
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/guiTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/guiTransformByType/@*-(manasteel|elementium|terrasteel)",
+        "value": {
+            "rotation": {
+                "x": -180,
+                "y": -32,
+                "z": 137
+            },
+            "origin": {
+                "x": 1.45,
+                "y": 0.04,
+                "z": 0.5
+            },
+            "scale": 2.33
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*",
+        "value": {
+            "rotation": {
+                "x": -66,
+                "y": -58,
+                "z": -180
+            },
+            "origin": {
+                "x": 1.43,
+                "y": 0.04,
+                "z": 0.5
+            },
+            "scale": 3.09
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/tpHandTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/tpHandTransformByType/@*-(manasteel|elementium|terrasteel)",
+        "value": {
+            "translation": {
+                "x": 0,
+                "y": 0.04,
+                "z": -0.4
+            },
+            "rotation": {
+                "x": -11,
+                "y": -17,
+                "z": -2
+            },
+            "origin": {
+                "x": 0.5,
+                "y": 0,
+                "z": 0.5
+            },
+            "scale": 0.82
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/tpHandTransformByType/*",
+        "value": {
+            "translation": {
+                "x": -1.5,
+                "y": 0,
+                "z": -0.6
+            },
+            "rotation": {
+                "x": -51,
+                "y": -22,
+                "z": -22
+            },
+            "origin": {
+                "x": 1.25,
+                "y": 0,
+                "z": 0.5
+            },
+            "scale": 0.82
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/groundTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/groundTransformByType/@*-(manasteel|elementium|terrasteel)",
+        "value": {
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": 90,
+                "y": -5,
+                "z": 0
+            },
+            "origin": {
+                "x": 1.3,
+                "y": 0.05,
+                "z": 0.52
+            },
+            "scale": 4.63
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/groundTransformByType/*",
+        "value": {
+            "translation": {
+                "x": 0,
+                "y": 0.03,
+                "z": 0
+            },
+            "rotation": {
+                "x": 121,
+                "y": 0,
+                "z": 0
+            },
+            "origin": {
+                "x": 1.3,
+                "y": 0.1,
+                "z": 0.5
+            },
+            "scale": 3.56
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/attributes/groundStorageTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/@*-(manasteel|elementium|terrasteel)",
+        "value": {
+            "translation": {
+                "x": -0.9,
+                "y": 0.05,
+                "z": 0
+            },
+            "rotation": {
+                "x": 93,
+                "y": -8,
+                "z": -37
+            },
+            "origin": {
+                "x": 1.4,
+                "y": 0,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*",
+        "value": {
+            "translation": {
+                "x": -0.81,
+                "y": 0,
+                "z": -0.07
+            },
+            "rotation": {
+                "x": 0,
+                "y": 43,
+                "z": -11
+            },
+            "origin": {
+                "x": 1.4,
+                "y": 0.5,
+                "z": 0.5
+            }
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/attributes/displayable/shelf/sizeByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/@*-(manasteel|elementium|terrasteel)",
+        "value": {
+            "width": 3,
+            "height": 2.5,
+            "length": 8
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/*",
+        "value": {
+            "width": 2.5,
+            "height": 0.5,
+            "length": 7.5
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/attributes/displayable/shelf/transformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/@*-(manasteel|elementium|terrasteel)",
+        "value": {
+            "translation": {
+                "x": -1.05,
+                "y": 0.02,
+                "z": 0.25
+            },
+            "rotation": {
+                "x": -82,
+                "y": 0,
+                "z": -90
+            },
+            "origin": {
+                "x": 1.5,
+                "y": 0,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/*",
+        "value": {
+            "translation": {
+                "x": -1,
+                "y": -0.03,
+                "z": -0.075
+            },
+            "rotation": {
+                "x": 0,
+                "y": 90,
+                "z": 0
+            },
+            "origin": {
+                "x": 1.5,
+                "y": 90,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/texturesByType",
+        "value": {
+            "*-manasteel": {
+                "rock": { "base": "game:block/metal/ingot/manasteel" }
+            },
+            "*-elementium": {
+                "rock": { "base": "game:block/metal/ingot/elementium" }
+            },
+            "*-terrasteel": {
+                "rock": { "base": "game:block/metal/ingot/terrasteel" }
+            }
+        }
+    }
+]

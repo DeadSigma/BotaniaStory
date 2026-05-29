@@ -1,5 +1,5 @@
 {
-	"code": "crowbar-manasteel",
+	"code": "game:crowbar-manasteel",
 	"tool": "crowbar",
 	"heldTpUseAnimation": "falx",
 	"class": "ItemManaCrowbar",

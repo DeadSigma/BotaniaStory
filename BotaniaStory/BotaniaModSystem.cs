@@ -63,6 +63,8 @@ namespace BotaniaStory
             api.RegisterBlockEntityBehaviorClass("puredaisylogic", typeof(BEBehaviorPureDaisy));
             api.RegisterBlockClass("BlockJadedAmaranthus", typeof(BlockJadedAmaranthus));
             api.RegisterBlockEntityBehaviorClass("jadedamaranthuslogic", typeof(BEBehaviorJadedAmaranthus));
+            api.RegisterBlockClass("BlockWitheredAmaranthus", typeof(BlockWitheredAmaranthus));
+            api.RegisterBlockEntityBehaviorClass("witheredamaranthuslogic", typeof(BEBehaviorWitheredAmaranthus));
             api.RegisterBlockClass("BlockHopperhock", typeof(BlockHopperhock));
             api.RegisterBlockEntityBehaviorClass("hopperhocklogic", typeof(BEBehaviorHopperhock));
 

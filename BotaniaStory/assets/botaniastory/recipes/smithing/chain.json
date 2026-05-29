@@ -1,0 +1,27 @@
+{
+  "ingredient": { 
+    "type": "item", 
+    "code": "game:ingot-*", 
+    "name": "metal", 
+    "allowedVariants": ["manasteel", "terrasteel", "elementium"] 
+  },
+  "pattern": [
+    [
+      "_#_#_#_#_",
+      "#########",
+      "#_#_#_#_#",
+      "#########",
+      "_#_#_#_#_",
+      "#########",
+      "#_#_#_#_#",
+      "#########",
+      "_#_#_#_#_"
+    ]
+  ],
+  "name": "Chain",
+  "code": "metalchain-{metal}",
+  "output": { 
+    "type": "item", 
+    "code": "game:metalchain-{metal}" 
+  }
+}

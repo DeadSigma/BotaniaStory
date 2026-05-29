@@ -1,5 +1,5 @@
 {
-	"code": "tongs-manasteel",
+	"code": "game:tongs-manasteel",
 	"class": "ItemManaTongs",
 	"tags": [ "tool", "tool-tongs" ],
 	"behaviors": [

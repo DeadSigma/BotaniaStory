@@ -1,0 +1,434 @@
+[
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "terrasteel"
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [ "*-manasteel", "*-elementium", "*-terrasteel" ]
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "remove",
+        "path": "/shapeByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/shapeByType/*-manasteel",
+        "value": { "base": "item/tool/hoe-copper" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/shapeByType/*-elementium",
+        "value": { "base": "item/tool/hoe-copper" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/shapeByType/*-terrasteel",
+        "value": { "base": "item/tool/hoe-copper" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/shapeByType/*",
+        "value": { "base": "item/tool/hoe-stone" }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "remove",
+        "path": "/attributes/forgableByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*-manasteel",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*-elementium",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*-terrasteel",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*",
+        "value": false
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "remove",
+        "path": "/attributes/groundStorageTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*-manasteel",
+        "value": {
+            "translation": {
+                "x": -0.4,
+                "y": 0,
+                "z": 0.05
+            },
+            "rotation": {
+                "x": 0,
+                "y": 39,
+                "z": 0
+            },
+            "origin": {
+                "x": 0.9,
+                "y": 0,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*-elementium",
+        "value": {
+            "translation": {
+                "x": -0.4,
+                "y": 0,
+                "z": 0.05
+            },
+            "rotation": {
+                "x": 0,
+                "y": 39,
+                "z": 0
+            },
+            "origin": {
+                "x": 0.9,
+                "y": 0,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*-terrasteel",
+        "value": {
+            "translation": {
+                "x": -0.4,
+                "y": 0,
+                "z": 0.05
+            },
+            "rotation": {
+                "x": 0,
+                "y": 39,
+                "z": 0
+            },
+            "origin": {
+                "x": 0.9,
+                "y": 0,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*",
+        "value": {
+            "translation": {
+                "x": -0.4,
+                "y": 0,
+                "z": 0.05
+            },
+            "rotation": {
+                "x": 0,
+                "y": 39,
+                "z": 0
+            },
+            "origin": {
+                "x": 0.9,
+                "y": 0,
+                "z": 0.5
+            }
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "remove",
+        "path": "/attributes/displayable/shelf/sizeByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/*-manasteel",
+        "value": {
+            "width": 2.5,
+            "height": 2,
+            "length": 8
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/*-elementium",
+        "value": {
+            "width": 2.5,
+            "height": 2,
+            "length": 8
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/*-terrasteel",
+        "value": {
+            "width": 2.5,
+            "height": 2,
+            "length": 8
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/sizeByType/*",
+        "value": {
+            "width": 2,
+            "height": 1.5,
+            "length": 6.5
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "remove",
+        "path": "/attributes/displayable/shelf/transformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/*-manasteel",
+        "value": {
+            "translation": {
+                "x": -0.4,
+                "y": 0.02,
+                "z": 0.12
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/*-elementium",
+        "value": {
+            "translation": {
+                "x": -0.4,
+                "y": 0.02,
+                "z": 0.12
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/*-terrasteel",
+        "value": {
+            "translation": {
+                "x": -0.4,
+                "y": 0.02,
+                "z": 0.12
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/attributes/displayable/shelf/transformByType/*",
+        "value": {
+            "translation": {
+                "x": -0.53,
+                "y": 0,
+                "z": 0.06
+            }
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "remove",
+        "path": "/guiTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*-manasteel",
+        "value": {
+            "rotate": false,
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": -52,
+                "y": -131,
+                "z": -180
+            },
+            "origin": {
+                "x": 0.93,
+                "y": 0,
+                "z": 0.5
+            },
+            "scale": 3.76
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*-elementium",
+        "value": {
+            "rotate": false,
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": -52,
+                "y": -131,
+                "z": -180
+            },
+            "origin": {
+                "x": 0.93,
+                "y": 0,
+                "z": 0.5
+            },
+            "scale": 3.76
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*-terrasteel",
+        "value": {
+            "rotate": false,
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": -52,
+                "y": -131,
+                "z": -180
+            },
+            "origin": {
+                "x": 0.93,
+                "y": 0,
+                "z": 0.5
+            },
+            "scale": 3.76
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*",
+        "value": {
+            "rotate": false,
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": -63,
+                "y": -128,
+                "z": -131
+            },
+            "origin": {
+                "x": 1,
+                "y": 0,
+                "z": 0.46
+            },
+            "scale": 3.76
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "remove",
+        "path": "/behaviorsByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/behaviorsByType/@(.*-elementium|.*-terrasteel)",
+        "value": [
+            {
+                "name": "Quenchable",
+                "properties": { "metalVariantgroupCode": "material" }
+            },
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "file": "game:itemtypes/toolhead/hoehead.json",
+        "op": "add",
+        "path": "/behaviorsByType/*",
+        "value": [
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    }
+]

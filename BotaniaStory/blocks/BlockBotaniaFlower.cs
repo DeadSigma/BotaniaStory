@@ -1,5 +1,5 @@
 ﻿using Vintagestory.API.Common;
-using Vintagestory.API.MathTools; // Не забудь этот using для BlockPos и BlockFacing!
+using Vintagestory.API.MathTools;
 using BotaniaStory.blockentity;
 using BotaniaStory.Flora.GeneratingFlora;
 using System.Collections.Generic;
@@ -8,15 +8,25 @@ namespace BotaniaStory.Blocks
 {
     public class BlockBotaniaFlower : Block
     {
+        // Вспомогательный метод для проверки: является ли блок подходящей почвой
+        private bool IsValidSoil(Block block)
+        {
+            if (block == null) return false;
+
+            return block.BlockMaterial == EnumBlockMaterial.Soil ||
+            block.BlockMaterial == EnumBlockMaterial.Sand ||
+            block.BlockMaterial == EnumBlockMaterial.Gravel;
+        }
 
         public override bool TryPlaceBlock(IWorldAccessor world, IPlayer byPlayer, ItemStack itemstack, BlockSelection blockSel, ref string failureCode)
         {
             BlockPos posBelow = blockSel.Position.DownCopy();
             Block blockBelow = world.BlockAccessor.GetBlock(posBelow);
 
-            if (!blockBelow.CanAttachBlockAt(world.BlockAccessor, this, posBelow, BlockFacing.UP))
+            // Теперь проверяем и физическую опору, и материал
+            if (!blockBelow.CanAttachBlockAt(world.BlockAccessor, this, posBelow, BlockFacing.UP) || !IsValidSoil(blockBelow))
             {
-                failureCode = "requiresteadiersurface";
+                failureCode = "requirefertileground"; 
                 return false;
             }
 
@@ -28,7 +38,8 @@ namespace BotaniaStory.Blocks
             BlockPos posBelow = pos.DownCopy();
             Block blockBelow = blockAccessor.GetBlock(posBelow);
 
-            if (!blockBelow.CanAttachBlockAt(blockAccessor, this, posBelow, BlockFacing.UP))
+            // Проверка для генерации мира
+            if (!blockBelow.CanAttachBlockAt(blockAccessor, this, posBelow, BlockFacing.UP) || !IsValidSoil(blockBelow))
             {
                 return false;
             }
@@ -53,7 +64,8 @@ namespace BotaniaStory.Blocks
             BlockPos posBelow = pos.DownCopy();
             Block blockBelow = world.BlockAccessor.GetBlock(posBelow);
 
-            if (!blockBelow.CanAttachBlockAt(world.BlockAccessor, this, posBelow, BlockFacing.UP))
+            // Если блок снизу сломали или заменили на камень - цветок выпадает
+            if (!blockBelow.CanAttachBlockAt(world.BlockAccessor, this, posBelow, BlockFacing.UP) || !IsValidSoil(blockBelow))
             {
                 world.BlockAccessor.BreakBlock(pos, null);
                 return;
@@ -61,7 +73,6 @@ namespace BotaniaStory.Blocks
 
             base.OnNeighbourBlockChange(world, pos, neigbourPos);
         }
-
 
         public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack)
         {

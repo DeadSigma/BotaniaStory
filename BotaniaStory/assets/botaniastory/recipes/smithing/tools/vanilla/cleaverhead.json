@@ -1,0 +1,22 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "########____",
+            "############",
+            "########____",
+            "########____"
+        ]
+    ],
+    "name": "Cleaver head",
+    "code": "cleaverhead-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:cleaverhead-{metal}"
+    }
+}

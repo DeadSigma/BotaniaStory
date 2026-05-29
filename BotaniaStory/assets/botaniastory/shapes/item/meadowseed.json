@@ -9,7 +9,7 @@
 		"meadowseed": [16, 16]
 	},
 	"textures": {
-		"meadowseed": "meadowseed"
+		"meadowseed": "botaniastory:item/meadowseed_normal"
 	},
 	"elements": [
 		{

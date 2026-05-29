@@ -1,0 +1,21 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "_###########____",
+            "______######____",
+            "________________"
+        ]
+    ],
+    "name": "Knife blade",
+    "code": "knifeblade-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:knifeblade-{metal}"
+    }
+}

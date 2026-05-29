@@ -1,0 +1,30 @@
+[
+    {
+        "file": "game:blocktypes/metal/anvil.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:blocktypes/metal/anvil.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:blocktypes/metal/anvil.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "terrasteel"
+    },
+    {
+        "file": "game:blocktypes/metal/anvil.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [
+            "*-manasteel",
+            "*-elementium",
+            "*-terrasteel"
+        ]
+    }
+]

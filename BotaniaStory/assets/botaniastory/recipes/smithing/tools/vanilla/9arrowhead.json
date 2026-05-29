@@ -1,0 +1,21 @@
+{
+  "ingredient": { 
+    "type": "item", 
+    "code": "game:ingot-*", 
+    "name": "metal", 
+    "allowedVariants": ["manasteel", "terrasteel", "elementium"] 
+  },
+  "pattern": [[
+    "##_##_##",
+    "#__#__#_",
+    "________",
+    "##_##_##",
+    "#__#__#_",
+    "________",
+    "##_##_##",
+    "#__#__#_"
+  ]],
+  "name": "9 Arrowheads",
+  "code": "9arrowheads-{metal}",
+  "output": { "type": "item", "code": "game:arrowhead-{metal}", "stacksize": 9 }
+}

@@ -3,7 +3,9 @@
     "class": "BlockDaybloom",
     "entityClass": "Generic",
     "entityBehaviors": [
-        { "name": "daybloomlogic" } 
+        {
+            "name": "daybloomlogic"
+        }
     ],
     "creativeinventory": {
         "general": [
@@ -173,5 +175,9 @@
         "*": {
             "all": false
         }
+    },
+    "attributes": {
+        "beeFeed": true,
+        "butterflyFeed": true
     }
 }

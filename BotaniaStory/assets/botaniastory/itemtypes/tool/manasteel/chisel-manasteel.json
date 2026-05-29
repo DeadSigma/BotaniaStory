@@ -1,5 +1,5 @@
 {
-	"code": "chisel-manasteel",
+	"code": "game:chisel-manasteel",
 	"class": "ItemManaChisel",
 	"tags": [ "tool", "tool-chisel" ],
 	"tool": "Chisel",

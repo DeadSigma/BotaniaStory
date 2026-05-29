@@ -3,7 +3,9 @@
     "class": "BlockJadedAmaranthus",
     "entityClass": "Generic",
     "entityBehaviors": [
-        { "name": "jadedamaranthuslogic" } 
+        {
+            "name": "jadedamaranthuslogic"
+        }
     ],
     "creativeinventory": {
         "general": [
@@ -170,5 +172,9 @@
         "*": {
             "all": false
         }
+    },
+    "attributes": {
+        "beeFeed": true,
+        "butterflyFeed": true
     }
 }

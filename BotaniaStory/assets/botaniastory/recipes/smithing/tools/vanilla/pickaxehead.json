@@ -1,0 +1,21 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "_____####_____",
+            "__##########__",
+            "#####____#####"
+        ]
+    ],
+    "name": "Pickaxe head",
+    "code": "pickaxehead-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:pickaxehead-{metal}"
+    }
+}

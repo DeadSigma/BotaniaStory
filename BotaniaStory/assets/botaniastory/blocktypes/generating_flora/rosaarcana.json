@@ -3,7 +3,9 @@
     "class": "BlockRosaArcana",
     "entityClass": "Generic",
     "entityBehaviors": [
-        { "name": "rosaarcanalogic" }
+        {
+            "name": "rosaarcanalogic"
+        }
     ],
     "creativeinventory": {
         "general": [
@@ -173,5 +175,9 @@
         "*": {
             "all": false
         }
+    },
+    "attributes": {
+        "beeFeed": true,
+        "butterflyFeed": true
     }
 }

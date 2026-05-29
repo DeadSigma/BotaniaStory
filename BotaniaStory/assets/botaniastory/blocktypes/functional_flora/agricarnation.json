@@ -12,48 +12,12 @@
             "*-free"
         ]
     },
-    "drawtypeByType": {
-        "*-snow": "JSONAndSnowLayer",
-        "*": "JSON"
-    },
-    "faceCullModeByType": {
-        "*-free": "NeverCull",
-        "*": "MergeSnowLayer"
-    },
-    "blockmaterialByType": {
-        "*-free": "Plant",
-        "*": "Snow"
-    },
-    "behaviors": [
-        {
-            "name": "DropNotSnowCovered"
-        }
-    ],
-    "variantgroups": [
-        {
-            "code": "cover",
-            "states": [
-                "free",
-                "snow"
-            ]
-        }
-    ],
-    "frostable": true,
     "shape": {
-        "base": "game:block/plant/flower/lilyofthevalley",
-        "scale": 1.2
+        "base": "game:block/plant/flower/1patch-3faces-24x24",
+        "scale": 0.5
     },
     "randomDrawOffset": true,
     "renderpass": "OpaqueNoCull",
-    "sideopaqueByType": {
-        "*-snow": {
-            "all": false,
-            "down": true
-        },
-        "*": {
-            "all": false
-        }
-    },
     "sidesolid": {
         "all": false
     },
@@ -75,57 +39,66 @@
         "z2": 0.875
     },
     "textures": {
-        "stem1": {
-            "base": "botaniastory:block/functional_flora/agricarnation_stem"
-        },
-        "stem2": {
-            "base": "botaniastory:block/functional_flora/agricarnation_stem"
-        },
-        "stem3": {
-            "base": "botaniastory:block/functional_flora/agricarnation_stem"
-        },
-        "petal1": {
-            "base": "botaniastory:block/functional_flora/agricarnation_bud"
-        },
-        "petal2": {
-            "base": "botaniastory:block/functional_flora/agricarnation_bud"
-        },
-        "petal3": {
-            "base": "botaniastory:block/functional_flora/agricarnation_bud"
-        },
-        "leaves1": {
-            "base": "botaniastory:block/functional_flora/agricarnation_leaves"
-        },
         "north1": {
-            "base": "game:block/transparent"
+            "base": "botaniastory:block/functional_flora/vinculotus_bud"
         },
         "south1": {
-            "base": "game:block/transparent"
+            "base": "botaniastory:block/functional_flora/vinculotus_bud"
+        },
+        "north2": {
+            "base": "botaniastory:block/functional_flora/vinculotus_bud"
+        },
+        "south2": {
+            "base": "botaniastory:block/functional_flora/vinculotus_bud"
+        },
+        "north3": {
+            "base": "botaniastory:block/functional_flora/vinculotus_bud"
+        },
+        "south3": {
+            "base": "botaniastory:block/functional_flora/vinculotus_bud"
+        },
+        "flower2": {
+            "base": "botaniastory:block/functional_flora/vinculotus_bud"
         },
         "northTinted1": {
-            "base": "game:block/transparent"
+            "base": "botaniastory:block/functional_flora/vinculotus_stem"
         },
         "southTinted1": {
-            "base": "game:block/transparent"
+            "base": "botaniastory:block/functional_flora/vinculotus_stem"
+        },
+        "northTinted2": {
+            "base": "botaniastory:block/functional_flora/vinculotus_stem"
+        },
+        "southTinted2": {
+            "base": "botaniastory:block/functional_flora/vinculotus_stem"
+        },
+        "northTinted3": {
+            "base": "botaniastory:block/functional_flora/vinculotus_stem"
+        },
+        "southTinted3": {
+            "base": "botaniastory:block/functional_flora/vinculotus_stem"
+        },
+        "flower2Tinted": {
+            "base": "botaniastory:block/functional_flora/vinculotus_stem"
         }
     },
     "guiTransform": {
         "translation": {
             "x": 0,
-            "y": 5.0,
+            "y": -10.0,
             "z": 0
         },
         "rotation": {
-            "x": -33,
-            "y": -150,
+            "x": 0,
+            "y": 0,
             "z": 0
         },
         "origin": {
             "x": 0.5,
-            "y": 0.42,
+            "y": 0.6,
             "z": 0.5
         },
-        "scale": 1.0
+        "scale": 2.0
     },
     "fpHandTransform": {
         "translation": {
@@ -160,5 +133,45 @@
     },
     "groundTransform": {
         "scale": 2.5
+    },
+    "behaviors": [
+        {
+            "name": "DropNotSnowCovered"
+        }
+    ],
+    "variantgroups": [
+        {
+            "code": "cover",
+            "states": [
+                "free",
+                "snow"
+            ]
+        }
+    ],
+    "frostable": true,
+    "drawtypeByType": {
+        "*-snow": "JSONAndSnowLayer",
+        "*": "JSON"
+    },
+    "faceCullModeByType": {
+        "*-free": "NeverCull",
+        "*": "MergeSnowLayer"
+    },
+    "blockmaterialByType": {
+        "*-free": "Plant",
+        "*": "Snow"
+    },
+    "sideopaqueByType": {
+        "*-snow": {
+            "all": false,
+            "down": true
+        },
+        "*": {
+            "all": false
+        }
+    },
+    "attributes": {
+        "beeFeed": true,
+        "butterflyFeed": true
     }
 }

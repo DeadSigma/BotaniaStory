@@ -1,0 +1,23 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "__________###",
+            "###########__",
+            "_______##____",
+            "###########__",
+            "__________###"
+        ]
+    ],
+    "name": "Tongs",
+    "code": "tongs-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:tongs-{metal}"
+    }
+}

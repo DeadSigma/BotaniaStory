@@ -1,5 +1,5 @@
 {
-    "code": "wrench-terrasteel",
+    "code": "game:wrench-terrasteel",
     "class": "ItemTerraWrench",
     "tags": [ "tool", "tool-wrench" ],
     "storageFlags": 257,

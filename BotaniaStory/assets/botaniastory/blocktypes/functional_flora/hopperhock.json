@@ -3,7 +3,9 @@
     "class": "BlockHopperhock",
     "entityClass": "Generic",
     "entityBehaviors": [
-        { "name": "hopperhocklogic" }
+        {
+            "name": "hopperhocklogic"
+        }
     ],
     "creativeinventory": {
         "general": [
@@ -173,5 +175,9 @@
         "*": {
             "all": false
         }
+    },
+    "attributes": {
+        "beeFeed": true,
+        "butterflyFeed": true
     }
 }

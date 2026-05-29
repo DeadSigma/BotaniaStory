@@ -1,5 +1,5 @@
 {
-	"code": "crowbar-terrasteel",
+	"code": "game:crowbar-terrasteel",
 	"tool": "crowbar",
 	"heldTpUseAnimation": "falx",
 	"class": "ItemTerraCrowbar",

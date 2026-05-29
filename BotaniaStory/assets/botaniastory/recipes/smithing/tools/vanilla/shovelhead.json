@@ -1,0 +1,24 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "__#####",
+            "_######",
+            "#######",
+            "#######",
+            "_######",
+            "__#####"
+        ]
+    ],
+    "name": "Shovel head",
+    "code": "shovelhead-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:shovelhead-{metal}"
+    }
+}

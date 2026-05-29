@@ -10,7 +10,7 @@
 		"op": "add",
 		"path": "/combustiblePropsByType/*-manasteel",
 		"value": {
-			"meltingPoint": 800,
+			"meltingPoint": 1084,
 			"meltingDuration": 30,
 			"smeltedRatio": 1,
 			"smeltedStack": {
@@ -24,7 +24,7 @@
 		"op": "add",
 		"path": "/combustiblePropsByType/*-terrasteel",
 		"value": {
-			"meltingPoint": 1100,
+			"meltingPoint": 1502,
 			"meltingDuration": 40,
 			"smeltedRatio": 1,
 			"smeltedStack": {
@@ -38,8 +38,8 @@
 		"op": "add",
 		"path": "/combustiblePropsByType/*-elementium",
 		"value": {
-			"meltingPoint": 950,
-			"meltingDuration": 35,
+			"meltingPoint": 1482,
+			"meltingDuration": 30,
 			"smeltedRatio": 1,
 			"smeltedStack": {
 				"type": "item",

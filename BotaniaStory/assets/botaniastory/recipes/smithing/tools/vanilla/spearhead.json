@@ -1,0 +1,23 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "_____###__",
+            "__########",
+            "##########",
+            "__########",
+            "_____###__"
+        ]
+    ],
+    "name": "Spear head",
+    "code": "spearhead-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:spearhead-{metal}"
+    }
+}

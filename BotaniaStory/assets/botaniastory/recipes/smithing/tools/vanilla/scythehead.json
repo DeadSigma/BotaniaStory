@@ -1,0 +1,21 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "###########____",
+            "_______########",
+            "____________###"
+        ]
+    ],
+    "name": "Scythe head",
+    "code": "scythehead-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:scythehead-{metal}"
+    }
+}

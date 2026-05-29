@@ -1,0 +1,31 @@
+{
+  "ingredient": { 
+    "type": "item", 
+    "code": "game:ingot-*", 
+    "name": "metal", 
+    "allowedVariants": ["manasteel", "terrasteel", "elementium"] 
+  },
+  "pattern": [
+    [
+      "_######",
+      "#######",
+      "#######",
+      "_######"
+    ],
+    [
+      "_######",
+      "#######",
+      "#######",
+      "_######"
+    ],
+    [
+      "_######",
+      "#######",
+      "#######",
+      "_######"
+    ]
+  ],
+  "name": "Helve hammer head",
+  "code": "helvehammerhead-{metal}",
+  "output": { "type": "item", "code": "game:helvehammerhead-{metal}" }
+}

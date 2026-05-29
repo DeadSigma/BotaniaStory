@@ -84,11 +84,11 @@ namespace BotaniaStory.lexicon
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame", "rosaarcana" } },
 
-            { "functional_flora", new[] { "puredaisy", "jadedamaranthus", "hopperhock" } },
+            { "functional_flora", new[] { "puredaisy", "jadedamaranthus", "witheredamaranthus", "hopperhock" } },
 
             { "natural_apparatus", new[] { "mechanical_dropper", "hourglass" } },
 
-            { "mystical_items", new[] { "wandofbinding", "flower_bag", "meadowseed", "floating_island", "manaitem", "rod_of_the_seas", "terrasteelitem", "terrashatterer" } },
+            { "mystical_items", new[] { "wandofbinding", "flower_bag", "meadowseed", "floating_island", "rod_of_the_seas", "manaitem", "terrasteelitem", "terrashatterer" } },
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
@@ -491,6 +491,29 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:jadedamaranthus-free"
                         });
 
+                    }
+
+                    // === НАСТРОЙКА УВЯДШИЙ АМАРАНТ ===
+                    else if (chapId == "witheredamaranthus")
+                    {
+                        chapter.TabItemCode = "botaniastory:witheredamaranthus-free";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                            {
+                                 "botaniastory:mysticalpetal-red",
+                                 "botaniastory:mysticalpetal-blue",
+                                 "botaniastory:mysticalpetal-magenta",
+                                 "botaniastory:root_rusted",
+                                 "botaniastory:rune-spring"
+                            },
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+                            Output = "botaniastory:witheredamaranthus-free"
+                        });
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ВОРОТОК ===
@@ -2474,7 +2497,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:pickaxehead-manasteel"
+                            Output = "game:pickaxehead-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2482,7 +2505,7 @@ namespace BotaniaStory.lexicon
                             Spread = 4,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:pickaxehead-manasteel", null, null,
+        "game:pickaxehead-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:pickaxe-manasteel"
@@ -2495,7 +2518,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:axehead-manasteel"
+                            Output = "game:axehead-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2503,7 +2526,7 @@ namespace BotaniaStory.lexicon
                             Spread = 4,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:axehead-manasteel", null, null,
+        "game:axehead-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:axe-manasteel"
@@ -2517,7 +2540,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:shovelhead-manasteel"
+                            Output = "game:shovelhead-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2525,7 +2548,7 @@ namespace BotaniaStory.lexicon
                             Spread = 5,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:shovelhead-manasteel", null, null,
+        "game:shovelhead-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:shovel-manasteel"
@@ -2538,7 +2561,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:cleaverblade-manasteel"
+                            Output = "game:cleaverhead-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2546,7 +2569,7 @@ namespace BotaniaStory.lexicon
                             Spread = 5,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:cleaverblade-manasteel", null, null,
+        "game:cleaverhead-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:cleaver-manasteel"
@@ -2560,7 +2583,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:falxblade-manasteel"
+                            Output = "game:bladehead-falx-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2568,7 +2591,7 @@ namespace BotaniaStory.lexicon
                             Spread = 6,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:falxblade-manasteel", null, null,
+        "game:bladehead-falx-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:falx-manasteel"
@@ -2581,7 +2604,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:hammerhead-manasteel"
+                            Output = "game:hammerhead-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2589,7 +2612,7 @@ namespace BotaniaStory.lexicon
                             Spread = 6,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:hammerhead-manasteel", null, null,
+        "game:hammerhead-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:hammer-manasteel"
@@ -2603,7 +2626,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:hoehead-manasteel"
+                            Output = "game:hoehead-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2611,7 +2634,7 @@ namespace BotaniaStory.lexicon
                             Spread = 7,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:hoehead-manasteel", null, null,
+        "game:hoehead-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:hoe-manasteel"
@@ -2624,7 +2647,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:knifeblade-manasteel"
+                            Output = "game:knifeblade-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2632,7 +2655,7 @@ namespace BotaniaStory.lexicon
                             Spread = 7,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:knifeblade-manasteel", null, null,
+        "game:knifeblade-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:knife-manasteel"
@@ -2646,7 +2669,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:prospectingpickhead-manasteel"
+                            Output = "game:prospectingpickhead-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2654,7 +2677,7 @@ namespace BotaniaStory.lexicon
                             Spread = 8,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:prospectingpickhead-manasteel", null, null,
+        "game:prospectingpickhead-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:prospectingpick-manasteel"
@@ -2667,7 +2690,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:sawblade-manasteel"
+                            Output = "game:sawblade-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2675,7 +2698,7 @@ namespace BotaniaStory.lexicon
                             Spread = 8,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:sawblade-manasteel", null, null,
+        "game:sawblade-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:saw-manasteel"
@@ -2689,7 +2712,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:scytheblade-manasteel"
+                            Output = "game:scythehead-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2697,7 +2720,7 @@ namespace BotaniaStory.lexicon
                             Spread = 9,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "botaniastory:scytheblade-manasteel", null, null,
+        "game:scythehead-manasteel", null, null,
         "game:stick", null, null,
         null, null, null},
                             Output = "botaniastory:scythe-manasteel"
@@ -2710,7 +2733,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:spearhead-manasteel"
+                            Output = "game:spearhead-manasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2718,7 +2741,7 @@ namespace BotaniaStory.lexicon
                             Spread = 9,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                             "botaniastory:spearhead-manasteel", null, null,
+                             "game:spearhead-manasteel", null, null,
                              "game:stick", null, null,
                              null, null, null},
                             Output = "botaniastory:spear-manasteel"
@@ -2732,7 +2755,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Зубило",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:chisel-manasteel"
+                            Output = "game:chisel-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -2742,7 +2765,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Ключ",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:wrench-manasteel"
+                            Output = "game:wrench-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -2752,7 +2775,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Клещи",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:tongs-manasteel"
+                            Output = "game:tongs-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -2762,7 +2785,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Монтировка",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:crowbar-manasteel"
+                            Output = "game:crowbar-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -2772,7 +2795,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Ножницы",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:shears-manasteel"
+                            Output = "game:shears-manasteel"
                         });
                     }
 
@@ -2918,7 +2941,6 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:terrasteel-armor-legs-scale"
                         });
 
-                        // ==================== ИНСТРУМЕНТЫ (Сдвинуты на -1 Spread) ====================
 
                         // --- Spread 3: Кирка (Левая) и Топор (Правая) ---
                         chapter.Recipes.Add(new BookRecipe()
@@ -2928,7 +2950,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:pickaxehead-terrasteel"
+                            Output = "game:pickaxehead-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2936,7 +2958,7 @@ namespace BotaniaStory.lexicon
                             Spread = 3,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:pickaxehead-terrasteel", null, null,
+                                "game:pickaxehead-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:pickaxe-terrasteel"
@@ -2949,7 +2971,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:axehead-terrasteel"
+                            Output = "game:axehead-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2957,7 +2979,7 @@ namespace BotaniaStory.lexicon
                             Spread = 3,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:axehead-terrasteel", null, null,
+                                "game:axehead-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:axe-terrasteel"
@@ -2971,7 +2993,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:shovelhead-terrasteel"
+                            Output = "game:shovelhead-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2979,7 +3001,7 @@ namespace BotaniaStory.lexicon
                             Spread = 4,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:shovelhead-terrasteel", null, null,
+                                "game:shovelhead-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:shovel-terrasteel"
@@ -2992,7 +3014,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:cleaverblade-terrasteel"
+                            Output = "game:cleaverhead-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3000,7 +3022,7 @@ namespace BotaniaStory.lexicon
                             Spread = 4,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:cleaverblade-terrasteel", null, null,
+                                "game:cleaverhead-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:cleaver-terrasteel"
@@ -3014,7 +3036,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:falxblade-terrasteel"
+                            Output = "game:bladehead-falx-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3022,7 +3044,7 @@ namespace BotaniaStory.lexicon
                             Spread = 5,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:falxblade-terrasteel", null, null,
+                                "game:bladehead-falx-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:falx-terrasteel"
@@ -3035,7 +3057,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:hammerhead-terrasteel"
+                            Output = "game:hammerhead-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3043,7 +3065,7 @@ namespace BotaniaStory.lexicon
                             Spread = 5,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:hammerhead-terrasteel", null, null,
+                                "game:hammerhead-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:hammer-terrasteel"
@@ -3057,7 +3079,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:hoehead-terrasteel"
+                            Output = "game:hoehead-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3065,7 +3087,7 @@ namespace BotaniaStory.lexicon
                             Spread = 6,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:hoehead-terrasteel", null, null,
+                                "game:hoehead-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:hoe-terrasteel"
@@ -3078,7 +3100,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:knifeblade-terrasteel"
+                            Output = "game:knifeblade-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3086,7 +3108,7 @@ namespace BotaniaStory.lexicon
                             Spread = 6,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:knifeblade-terrasteel", null, null,
+                                "game:knifeblade-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:knife-terrasteel"
@@ -3100,7 +3122,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:prospectingpickhead-terrasteel"
+                            Output = "game:prospectingpickhead-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3108,7 +3130,7 @@ namespace BotaniaStory.lexicon
                             Spread = 7,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:prospectingpickhead-terrasteel", null, null,
+                                "game:prospectingpickhead-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:prospectingpick-terrasteel"
@@ -3121,7 +3143,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:sawblade-terrasteel"
+                            Output = "game:sawblade-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3129,7 +3151,7 @@ namespace BotaniaStory.lexicon
                             Spread = 7,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:sawblade-terrasteel", null, null,
+                                "game:sawblade-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:saw-terrasteel"
@@ -3143,7 +3165,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:scytheblade-terrasteel"
+                            Output = "game:scythehead-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3151,7 +3173,7 @@ namespace BotaniaStory.lexicon
                             Spread = 8,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:scytheblade-terrasteel", null, null,
+                                "game:scythehead-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:scythe-terrasteel"
@@ -3164,7 +3186,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Правая_Верхняя",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:spearhead-terrasteel"
+                            Output = "game:spearhead-terrasteel"
                         });
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3172,7 +3194,7 @@ namespace BotaniaStory.lexicon
                             Spread = 8,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-                                "botaniastory:spearhead-terrasteel", null, null,
+                                "game:spearhead-terrasteel", null, null,
                                 "game:stick", null, null,
                                 null, null, null},
                             Output = "botaniastory:spear-terrasteel"
@@ -3186,7 +3208,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Зубило",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:chisel-terrasteel"
+                            Output = "game:chisel-terrasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -3196,7 +3218,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Ключ",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:wrench-terrasteel"
+                            Output = "game:wrench-terrasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -3206,7 +3228,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Клещи",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:tongs-terrasteel"
+                            Output = "game:tongs-terrasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -3216,7 +3238,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Монтировка",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:crowbar-terrasteel"
+                            Output = "game:crowbar-terrasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -3226,7 +3248,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Ножницы",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "botaniastory:shears-terrasteel"
+                            Output = "game:shears-terrasteel"
                         });
                     }
 

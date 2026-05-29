@@ -1,0 +1,494 @@
+[
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "terrasteel"
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [ "*-manasteel", "*-elementium", "*-terrasteel" ]
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "remove",
+        "path": "/shapeByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/shapeByType/*-manasteel",
+        "value": { "base": "item/tool/axe/copper" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/shapeByType/*-elementium",
+        "value": { "base": "item/tool/axe/copper" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/shapeByType/*-terrasteel",
+        "value": { "base": "item/tool/axe/copper" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/shapeByType/*",
+        "value": { "base": "item/tool/axe/stone" }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "remove",
+        "path": "/attributes/forgableByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*-manasteel",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*-elementium",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*-terrasteel",
+        "value": true
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/forgableByType/*",
+        "value": false
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "remove",
+        "path": "/attributes/onTongTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/onTongTransformByType/*-manasteel",
+        "value": {
+            "translation": {
+                "x": -0.55,
+                "y": -0.51,
+                "z": -0.11
+            },
+            "rotation": {
+                "x": -105,
+                "y": -16,
+                "z": 85
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/onTongTransformByType/*-elementium",
+        "value": {
+            "translation": {
+                "x": -0.55,
+                "y": -0.51,
+                "z": -0.11
+            },
+            "rotation": {
+                "x": -105,
+                "y": -16,
+                "z": 85
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/onTongTransformByType/*-terrasteel",
+        "value": {
+            "translation": {
+                "x": -0.55,
+                "y": -0.51,
+                "z": -0.11
+            },
+            "rotation": {
+                "x": -105,
+                "y": -16,
+                "z": 85
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/onTongTransformByType/*",
+        "value": {
+            "translation": {
+                "x": -0.4,
+                "y": -0.8,
+                "z": -0.53
+            },
+            "rotation": {
+                "x": 37,
+                "y": 0,
+                "z": -2
+            }
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "remove",
+        "path": "/attributes/onMetalTongTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/onMetalTongTransformByType/*-manasteel",
+        "value": {
+            "translation": {
+                "x": -1.35,
+                "y": -0.13,
+                "z": -0.51
+            },
+            "rotation": {
+                "x": -82,
+                "y": -21,
+                "z": 85
+            },
+            "origin": {
+                "x": 0.875,
+                "y": 0,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/onMetalTongTransformByType/*-elementium",
+        "value": {
+            "translation": {
+                "x": -1.35,
+                "y": -0.13,
+                "z": -0.51
+            },
+            "rotation": {
+                "x": -82,
+                "y": -21,
+                "z": 85
+            },
+            "origin": {
+                "x": 0.875,
+                "y": 0,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/onMetalTongTransformByType/*-terrasteel",
+        "value": {
+            "translation": {
+                "x": -1.35,
+                "y": -0.13,
+                "z": -0.51
+            },
+            "rotation": {
+                "x": -82,
+                "y": -21,
+                "z": 85
+            },
+            "origin": {
+                "x": 0.875,
+                "y": 0,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/onMetalTongTransformByType/*",
+        "value": {
+            "translation": {
+                "x": -0.4,
+                "y": -0.8,
+                "z": -0.53
+            },
+            "rotation": {
+                "x": 37,
+                "y": 0,
+                "z": -2
+            }
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "remove",
+        "path": "/attributes/groundStorageTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*-manasteel",
+        "value": {
+            "translation": {
+                "x": -0.6,
+                "y": 0,
+                "z": 0.05
+            },
+            "rotation": {
+                "x": 0,
+                "y": -66,
+                "z": 0
+            },
+            "origin": {
+                "x": 1,
+                "y": 0.5,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*-elementium",
+        "value": {
+            "translation": {
+                "x": -0.6,
+                "y": 0,
+                "z": 0.05
+            },
+            "rotation": {
+                "x": 0,
+                "y": -66,
+                "z": 0
+            },
+            "origin": {
+                "x": 1,
+                "y": 0.5,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*-terrasteel",
+        "value": {
+            "translation": {
+                "x": -0.6,
+                "y": 0,
+                "z": 0.05
+            },
+            "rotation": {
+                "x": 0,
+                "y": -66,
+                "z": 0
+            },
+            "origin": {
+                "x": 1,
+                "y": 0.5,
+                "z": 0.5
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/attributes/groundStorageTransformByType/*",
+        "value": {
+            "translation": {
+                "x": -0.54,
+                "y": -0.01,
+                "z": 0.08
+            },
+            "rotation": {
+                "x": 0,
+                "y": 41,
+                "z": 0
+            },
+            "origin": {
+                "x": 1.05,
+                "y": 0.5,
+                "z": 0.4
+            }
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "remove",
+        "path": "/guiTransformByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*-manasteel",
+        "value": {
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": -57,
+                "y": -119,
+                "z": -172
+            },
+            "origin": {
+                "x": 0.97,
+                "y": 0.17,
+                "z": 0.37
+            },
+            "scale": 3.15
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*-elementium",
+        "value": {
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": -57,
+                "y": -119,
+                "z": -172
+            },
+            "origin": {
+                "x": 0.97,
+                "y": 0.17,
+                "z": 0.37
+            },
+            "scale": 3.15
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*-terrasteel",
+        "value": {
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": -57,
+                "y": -119,
+                "z": -172
+            },
+            "origin": {
+                "x": 0.97,
+                "y": 0.17,
+                "z": 0.37
+            },
+            "scale": 3.15
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/guiTransformByType/*",
+        "value": {
+            "translation": {
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            "rotation": {
+                "x": -73,
+                "y": -117,
+                "z": -19
+            },
+            "origin": {
+                "x": 1.06,
+                "y": -0.02,
+                "z": 0.43
+            },
+            "scale": 3.69
+        }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "remove",
+        "path": "/behaviorsByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/behaviorsByType/@(.*-elementium|.*-terrasteel)",
+        "value": [
+            {
+                "name": "Quenchable",
+                "properties": { "metalVariantgroupCode": "material" }
+            },
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "file": "game:itemtypes/toolhead/axehead.json",
+        "op": "add",
+        "path": "/behaviorsByType/*",
+        "value": [
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    }
+]

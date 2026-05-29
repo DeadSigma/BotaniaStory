@@ -2,6 +2,8 @@
     "code": "mysticalflower",
     "class": "BlockBotaniaFlower",
     "attributes": {
+        "beeFeed": true,
+        "butterflyFeed": true,
         "handbook": {
             "groupBy": [
                 "mysticalflower-*"

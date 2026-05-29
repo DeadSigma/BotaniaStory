@@ -1,0 +1,117 @@
+[
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "terrasteel"
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [ "*-manasteel", "*-elementium", "*-terrasteel" ]
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/shapeByType/*-manasteel",
+        "value": { "base": "item/tool/pickaxe-iron" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/shapeByType/*-elementium",
+        "value": { "base": "item/tool/pickaxe-iron" }
+    },
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/shapeByType/*-terrasteel",
+        "value": { "base": "item/tool/pickaxe-iron" }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/texturesByType",
+        "value": {
+            "*-manasteel": {
+                "metal": { "base": "game:block/metal/ingot/manasteel" },
+                "string": { "base": "game:block/transparent" },
+                "handle": { "base": "game:block/transparent" }
+            },
+            "*-elementium": {
+                "metal": { "base": "game:block/metal/ingot/elementium" },
+                "string": { "base": "game:block/transparent" },
+                "handle": { "base": "game:block/transparent" }
+            },
+            "*-terrasteel": {
+                "metal": { "base": "game:block/metal/ingot/terrasteel" },
+                "string": { "base": "game:block/transparent" },
+                "handle": { "base": "game:block/transparent" }
+            }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "remove",
+        "path": "/behaviorsByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/behaviorsByType/@(.*-elementium|.*-terrasteel)",
+        "value": [
+            { "name": "Quenchable" },
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "file": "game:itemtypes/toolhead/pickaxehead.json",
+        "op": "add",
+        "path": "/behaviorsByType/*",
+        "value": [
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "Quadrants",
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.125,
+                        "z2": 1
+                    }
+                }
+            }
+        ]
+    }
+]

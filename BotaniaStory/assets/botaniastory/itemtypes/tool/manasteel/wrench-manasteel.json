@@ -1,5 +1,5 @@
 {
-    "code": "wrench-manasteel",
+    "code": "game:wrench-manasteel",
     "class": "ItemManaWrench",
     "tags": [ "tool", "tool-wrench" ],
     "storageFlags": 257,

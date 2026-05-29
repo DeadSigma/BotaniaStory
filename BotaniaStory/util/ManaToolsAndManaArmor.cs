@@ -8,14 +8,10 @@ using Vintagestory.GameContent;
 
 namespace BotaniaStory.util
 {
-    // ==========================================
-    // ИНТЕРФЕЙС И ПОМОЩНИК
-    // ==========================================
 
     // Интерфейс-маркер. Если предмет его имеет, система автопочинки будет его чинить.
     public interface IManaRepairable { }
 
-    // Выносим поглощение урона сюда, чтобы не дублировать код 20 раз
     public static class ManaHelper
     {
         public static int ProcessDamage(Entity byEntity, int amount, int manaPerDamage = 120)
@@ -66,9 +62,7 @@ namespace BotaniaStory.util
         }
     }
 
-    // ==========================================
     // КЛАССЫ ИНСТРУМЕНТОВ
-    // ==========================================
 
     // Базовый класс для лопаты, кирки, меча, копья (не требуют сложной ванильной логики)
     public class ItemManaTool : Item, IManaRepairable

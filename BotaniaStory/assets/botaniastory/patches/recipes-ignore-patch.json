@@ -1,0 +1,77 @@
+[
+    {
+        "file": "game:recipes/grid/tool/hoe.json",
+        "op": "add",
+        "path": "/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+
+    {
+        "file": "game:recipes/grid/tool/shovel.json",
+        "op": "add",
+        "path": "/0/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+
+    {
+        "file": "game:recipes/grid/tool/knife.json",
+        "op": "add",
+        "path": "/0/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+
+    {
+        "file": "game:recipes/grid/tool/axe.json",
+        "op": "add",
+        "path": "/1/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+    {
+        "file": "game:recipes/grid/tool/pickaxe.json",
+        "op": "add",
+        "path": "/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+    {
+        "file": "game:recipes/grid/tool/cleaver.json",
+        "op": "add",
+        "path": "/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+    {
+        "file": "game:recipes/grid/tool/hammer.json",
+        "op": "add",
+        "path": "/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+    {
+        "file": "game:recipes/grid/tool/saw.json",
+        "op": "add",
+        "path": "/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+    {
+        "file": "game:recipes/grid/tool/scythe.json",
+        "op": "add",
+        "path": "/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+    {
+        "file": "game:recipes/grid/prospectingpick.json",
+        "op": "add",
+        "path": "/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+    {
+        "file": "game:recipes/grid/tool/blade.json",
+        "op": "add",
+        "path": "/0/ingredients/T/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+    {
+        "file": "game:recipes/grid/tool/arrow.json",
+        "op": "add",
+        "path": "/0/ingredients/H/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
+    }
+]

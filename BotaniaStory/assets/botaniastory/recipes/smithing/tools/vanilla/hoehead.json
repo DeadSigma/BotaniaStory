@@ -1,0 +1,26 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "__#########_____",
+            "____#_#####_____",
+            "__#########_____"
+        ],
+        [
+            "____###____#____",
+            "____#_#____#____",
+            "____###____#____"
+        ]
+    ],
+    "name": "Hoe head",
+    "code": "hoehead-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:hoehead-{metal}"
+    }
+}

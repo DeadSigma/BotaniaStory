@@ -1,0 +1,30 @@
+[
+    {
+        "file": "game:itemtypes/toolhead/arrowhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/arrowhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:itemtypes/toolhead/arrowhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "terrasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/arrowhead.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [
+            "*-manasteel",
+            "*-elementium",
+            "*-terrasteel"
+        ]
+    }
+]

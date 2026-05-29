@@ -1,0 +1,21 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "________###____",
+            "_##########____",
+            "________###____"
+        ]
+    ],
+    "name": "Chisel head",
+    "code": "chisel-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:chisel-{metal}"
+    }
+}

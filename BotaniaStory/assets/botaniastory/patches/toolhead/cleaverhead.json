@@ -1,0 +1,98 @@
+[
+    {
+        "file": "game:itemtypes/toolhead/cleaverhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/cleaverhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "elementium"
+    },
+    {
+        "file": "game:itemtypes/toolhead/cleaverhead.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "terrasteel"
+    },
+    {
+        "file": "game:itemtypes/toolhead/cleaverhead.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [
+            "*-manasteel",
+            "*-elementium",
+            "*-terrasteel"
+        ]
+    },
+    {
+        "file": "game:itemtypes/toolhead/cleaverhead.json",
+        "op": "remove",
+        "path": "/behaviorsByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/cleaverhead.json",
+        "op": "add",
+        "path": "/behaviorsByType/@(.*-elementium|.*-terrasteel)",
+        "value": [
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "WallHalves",
+                    "wallOffY": 1,
+                    "ctrlKey": true,
+                    "selectionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.1,
+                        "z2": 1
+                    },
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 0,
+                        "y2": 0,
+                        "z2": 0
+                    }
+                }
+            },
+            { "name": "Quenchable" }
+        ]
+    },
+    {
+        "file": "game:itemtypes/toolhead/cleaverhead.json",
+        "op": "add",
+        "path": "/behaviorsByType/*",
+        "value": [
+            {
+                "name": "GroundStorable",
+                "properties": {
+                    "layout": "WallHalves",
+                    "wallOffY": 1,
+                    "ctrlKey": true,
+                    "selectionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 1,
+                        "y2": 0.1,
+                        "z2": 1
+                    },
+                    "collisionBox": {
+                        "x1": 0,
+                        "y1": 0,
+                        "z1": 0,
+                        "x2": 0,
+                        "y2": 0,
+                        "z2": 0
+                    }
+                }
+            }
+        ]
+    }
+]

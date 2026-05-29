@@ -1,5 +1,5 @@
 {
-	"code": "chisel-terrasteel",
+	"code": "game:chisel-terrasteel",
 	"class": "ItemTerraChisel",
 	"tags": [ "tool", "tool-chisel" ],
 	"tool": "Chisel",

@@ -1,5 +1,5 @@
 {
-	"code": "shears-manasteel",
+	"code": "game:shears-manasteel",
 	"class": "ItemManaShears",
 	"tags": [ "tool-shears", "tool-trimming", "tool" ],
 	"damagedby": [ "blockbreaking", "attacking" ],

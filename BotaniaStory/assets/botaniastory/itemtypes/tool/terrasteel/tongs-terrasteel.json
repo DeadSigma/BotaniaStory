@@ -1,5 +1,5 @@
 {
-	"code": "tongs-terrasteel",
+	"code": "game:tongs-terrasteel",
 	"class": "ItemTerraTongs",
 	"tags": [ "tool", "tool-tongs" ],
 	"behaviors": [

@@ -1,0 +1,16 @@
+[
+    {
+        "file": "game:itemtypes/resource/metallamellae.json",
+        "op": "add",
+        "path": "/variantgroups/0/states/-",
+        "value": "manasteel"
+    },
+    {
+        "file": "game:itemtypes/resource/metallamellae.json",
+        "op": "add",
+        "path": "/creativeinventory/botaniastory",
+        "value": [
+            "*-manasteel"
+        ]
+    }
+]

@@ -1,0 +1,54 @@
+[
+	{
+		"file": "game:worldproperties/block/metal.json",
+		"op": "add",
+		"path": "/variants/-",
+		"value": {
+			"code": "terrasteel",
+			"meltPoint": 1502,
+			"boilPoint": 2900,
+			"density": 7820,
+			"specificHeatCapacity": 0.49,
+			"elemental": false,
+			"tier": 4,
+			"quenchMinTemp": 815,
+			"quenchMaxTemp": 1050,
+			"temperMinTemp": 550,
+			"temperMaxTemp": 700,
+			"settledTemperature": 200
+		}
+	},
+	{
+		"file": "game:worldproperties/block/metal.json",
+		"op": "add",
+		"path": "/variants/-",
+		"value": {
+			"code": "elementium",
+			"meltPoint": 1538,
+			"boilPoint": 2862,
+			"density": 7870,
+			"specificHeatCapacity": 0.45,
+			"elemental": false,
+			"tier": 3,
+			"quenchMinTemp": 815,
+			"quenchMaxTemp": 1050,
+			"temperMinTemp": 550,
+			"temperMaxTemp": 700,
+			"settledTemperature": 200
+		}
+	},
+	{
+		"file": "game:worldproperties/block/metal.json",
+		"op": "add",
+		"path": "/variants/-",
+		"value": {
+			"code": "manasteel",
+			"meltPoint": 1084,
+			"boilPoint": 2562,
+			"density": 8960,
+			"specificHeatCapacity": 0.385,
+			"elemental": false,
+			"tier": 3
+		}
+	}
+]

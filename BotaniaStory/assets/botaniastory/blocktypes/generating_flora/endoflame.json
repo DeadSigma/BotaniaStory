@@ -3,7 +3,9 @@
     "class": "BlockEndoflame",
     "entityClass": "Generic",
     "entityBehaviors": [
-        { "name": "endoflamelogic" }
+        {
+            "name": "endoflamelogic"
+        }
     ],
     "creativeinventory": {
         "general": [
@@ -173,5 +175,9 @@
         "*": {
             "all": false
         }
+    },
+    "attributes": {
+        "beeFeed": true,
+        "butterflyFeed": true
     }
 }

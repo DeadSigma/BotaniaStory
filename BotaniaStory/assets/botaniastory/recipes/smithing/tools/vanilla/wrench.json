@@ -1,0 +1,21 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": ["manasteel", "terrasteel", "elementium"]
+    },
+    "pattern": [
+        [
+            "______###",
+            "#######__",
+            "______###"
+        ]
+    ],
+    "name": "Wrench",
+    "code": "wrench-{metal}",
+    "output": {
+        "type": "item",
+        "code": "game:wrench-{metal}"
+    }
+}
