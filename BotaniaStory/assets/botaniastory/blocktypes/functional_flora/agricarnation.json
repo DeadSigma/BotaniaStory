@@ -1,6 +1,12 @@
 {
     "code": "agricarnation",
-    "class": "BlockBotaniaFlower",
+    "class": "BlockAgricarnation",
+    "entityClass": "Generic",
+    "entityBehaviors": [
+        {
+            "name": "agricarnationlogic"
+        }
+    ],
     "creativeinventory": {
         "general": [
             "*-free"
@@ -13,8 +19,8 @@
         ]
     },
     "shape": {
-        "base": "game:block/plant/flower/1patch-3faces-24x24",
-        "scale": 0.5
+        "base": "game:block/plant/flower/lilyofthevalley",
+        "scale": 1.2
     },
     "randomDrawOffset": true,
     "renderpass": "OpaqueNoCull",
@@ -39,58 +45,49 @@
         "z2": 0.875
     },
     "textures": {
+        "stem1": {
+            "base": "botaniastory:block/functional_flora/agricarnation_stem"
+        },
+        "stem2": {
+            "base": "botaniastory:block/functional_flora/agricarnation_stem"
+        },
+        "stem3": {
+            "base": "botaniastory:block/functional_flora/agricarnation_stem"
+        },
+        "petal1": {
+            "base": "botaniastory:block/functional_flora/agricarnation_bud"
+        },
+        "petal2": {
+            "base": "botaniastory:block/functional_flora/agricarnation_bud"
+        },
+        "petal3": {
+            "base": "botaniastory:block/functional_flora/agricarnation_bud"
+        },
+        "leaves1": {
+            "base": "botaniastory:block/functional_flora/agricarnation_leaves"
+        },
         "north1": {
-            "base": "botaniastory:block/functional_flora/vinculotus_bud"
+            "base": "game:block/transparent"
         },
         "south1": {
-            "base": "botaniastory:block/functional_flora/vinculotus_bud"
-        },
-        "north2": {
-            "base": "botaniastory:block/functional_flora/vinculotus_bud"
-        },
-        "south2": {
-            "base": "botaniastory:block/functional_flora/vinculotus_bud"
-        },
-        "north3": {
-            "base": "botaniastory:block/functional_flora/vinculotus_bud"
-        },
-        "south3": {
-            "base": "botaniastory:block/functional_flora/vinculotus_bud"
-        },
-        "flower2": {
-            "base": "botaniastory:block/functional_flora/vinculotus_bud"
+            "base": "game:block/transparent"
         },
         "northTinted1": {
-            "base": "botaniastory:block/functional_flora/vinculotus_stem"
+            "base": "game:block/transparent"
         },
         "southTinted1": {
-            "base": "botaniastory:block/functional_flora/vinculotus_stem"
-        },
-        "northTinted2": {
-            "base": "botaniastory:block/functional_flora/vinculotus_stem"
-        },
-        "southTinted2": {
-            "base": "botaniastory:block/functional_flora/vinculotus_stem"
-        },
-        "northTinted3": {
-            "base": "botaniastory:block/functional_flora/vinculotus_stem"
-        },
-        "southTinted3": {
-            "base": "botaniastory:block/functional_flora/vinculotus_stem"
-        },
-        "flower2Tinted": {
-            "base": "botaniastory:block/functional_flora/vinculotus_stem"
+            "base": "game:block/transparent"
         }
     },
     "guiTransform": {
         "translation": {
-            "x": 0,
-            "y": -10.0,
+            "x": -0.49547887,
+            "y": 5.3599215,
             "z": 0
         },
         "rotation": {
-            "x": 0,
-            "y": 0,
+            "x": -8,
+            "y": -79,
             "z": 0
         },
         "origin": {
@@ -98,7 +95,11 @@
             "y": 0.6,
             "z": 0.5
         },
-        "scale": 2.0
+        "scaleXyz": {
+            "x": 1.11,
+            "y": 1.15,
+            "z": 1.11
+        }
     },
     "fpHandTransform": {
         "translation": {

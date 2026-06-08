@@ -1,0 +1,21 @@
+{
+    "ingredientPattern": "AB",
+    "shapeless": true,
+    "width": 2,
+    "height": 1,
+    "ingredients": {
+        "A": {
+            "type": "item",
+            "code": "game:compost"
+        },
+        "B": {
+            "type": "item",
+            "code": "botaniastory:mysticalpowder-*"
+        }
+    },
+    "output": {
+        "type": "item",
+        "code": "botaniastory:floralfertilizer",
+        "quantity": 1
+    }
+}

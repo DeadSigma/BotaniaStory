@@ -54,7 +54,7 @@ namespace botaniastory
                 }
             }
 
-            categories = BookDataManager.GetTemplateCategories();
+            categories = BookDataManager.GetTemplateCategories(capi);
             SetupDialog();
         }
 
@@ -99,7 +99,7 @@ namespace botaniastory
                 .Select(ch => ch.Id)
                 .ToList();
 
-            categories = BookDataManager.GetTemplateCategories();
+            categories = BookDataManager.GetTemplateCategories(capi);
 
             foreach (var chapter in categories.SelectMany(c => c.Chapters))
             {

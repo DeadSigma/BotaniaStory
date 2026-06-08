@@ -12,7 +12,7 @@
 		"*-managear": { "base": "botaniastory:item/managear" },
 		"*-manaflax": { "base": "botaniastory:item/manaflax" },
 		"*-manaquartz": { "base": "botaniastory:item/manaquartz" },
-		"*-manapowder": { "base": "botaniastory:item/manapowder" }
+		"*-manapowder": { "base": "botaniastory:item/powder" }
 	},
 	"creativeinventory": {
 		"general": [ "*" ],

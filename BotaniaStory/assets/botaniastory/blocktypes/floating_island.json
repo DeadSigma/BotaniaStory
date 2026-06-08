@@ -22,7 +22,8 @@
         "*-rosaarcana": [ { "name": "rosaarcanalogic" } ],
         "*-daybloom": [ { "name": "daybloomlogic" } ],
         "*-jadedamaranthus": [ { "name": "jadedamaranthuslogic" } ],
-        "*-witheredamaranthus": [ { "name": "witheredamaranthuslogic" } ]
+        "*-witheredamaranthus": [ { "name": "witheredamaranthuslogic" } ],
+        "*-agricarnation": [ { "name": "agricarnationlogic" } ]
 
     },
     "variantgroups": [

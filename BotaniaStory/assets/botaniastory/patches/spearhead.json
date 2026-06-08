@@ -32,26 +32,40 @@
     {
         "file": "game:itemtypes/toolhead/spearhead.json",
         "op": "add",
-        "path": "/shapeByType/spearhead-manasteel",
-        "value": { "base": "game:item/tool/spear/manasteel" }
-    },
-    {
-        "file": "game:itemtypes/toolhead/spearhead.json",
-        "op": "add",
-        "path": "/shapeByType/spearhead-elementium",
-        "value": { "base": "game:item/tool/spear/elementium" }
-    },
-    {
-        "file": "game:itemtypes/toolhead/spearhead.json",
-        "op": "add",
-        "path": "/shapeByType/spearhead-terrasteel",
-        "value": { "base": "game:item/tool/spear/terrasteel" }
+        "path": "/shapeByType/@spearhead-(manasteel|elementium|terrasteel)",
+        "value": { "base": "game:item/tool/spear/{material}" }
     },
     {
         "file": "game:itemtypes/toolhead/spearhead.json",
         "op": "add",
         "path": "/shapeByType/*",
         "value": { "base": "item/tool/spear/stone" }
+    },
+
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "remove",
+        "path": "/texturesByType/*"
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/texturesByType/@spearhead-(manasteel|elementium|terrasteel)",
+        "value": {
+            "ingot": { "base": "game:block/metal/ingot/{material}" },
+            "string": { "base": "game:block/transparent" },
+            "handle": { "base": "game:block/transparent" }
+        }
+    },
+    {
+        "file": "game:itemtypes/toolhead/spearhead.json",
+        "op": "add",
+        "path": "/texturesByType/*",
+        "value": {
+            "stone": { "base": "block/stone/rock/{material}1" },
+            "string": { "base": "block/transparent" },
+            "handle": { "base": "block/transparent" }
+        }
     },
 
     {
@@ -392,22 +406,6 @@
                 "x": 1.5,
                 "y": 90,
                 "z": 0.5
-            }
-        }
-    },
-    {
-        "file": "game:itemtypes/toolhead/spearhead.json",
-        "op": "add",
-        "path": "/texturesByType",
-        "value": {
-            "*-manasteel": {
-                "rock": { "base": "game:block/metal/ingot/manasteel" }
-            },
-            "*-elementium": {
-                "rock": { "base": "game:block/metal/ingot/elementium" }
-            },
-            "*-terrasteel": {
-                "rock": { "base": "game:block/metal/ingot/terrasteel" }
             }
         }
     }

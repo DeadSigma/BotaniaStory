@@ -24,31 +24,5 @@
             "code": "botaniastory:flower_bag",
             "quantity": 1
         }
-    },
-    {
-        "ingredientPattern": "KFL",
-        "ingredients": {
-            "K": {
-                "type": "item",
-                "tags": [ "tool-knife" ],
-                "isTool": true
-            },
-            "F": {
-                "type": "block",
-                "code": "botaniastory:mysticalflower-green-free"
-            },
-            "L": {
-                "type": "item",
-                "code": "botanicalleathers:botanicalhide-prepared-small-*"
-            }
-        },
-        "width": 3,
-        "height": 1,
-        "shapeless": true,
-        "output": {
-            "type": "item",
-            "code": "botaniastory:flower_bag",
-            "quantity": 1
-        }
     }
 ]

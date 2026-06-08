@@ -1,0 +1,50 @@
+[
+    {
+        "ingredientPattern": " S , PM, S ",
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "code": "botaniastory:livingwood_stick"
+            },
+            "P": {
+                "type": "item",
+                "code": "game:paper-parchment"
+            },
+            "M": {
+                "type": "item",
+                "code": "botaniastory:mysticalpetal-yellow"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:filterscroll-black",
+            "quantity": 1
+        }
+    },
+    {
+        "ingredientPattern": " S , PM, S ",
+        "ingredients": {
+            "S": {
+                "type": "item",
+                "code": "botaniastory:livingwood_stick"
+            },
+            "P": {
+                "type": "item",
+                "code": "game:paper-parchment"
+            },
+            "M": {
+                "type": "item",
+                "code": "botaniastory:mysticalpetal-black"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:filterscroll-white",
+            "quantity": 1
+        }
+    }
+]

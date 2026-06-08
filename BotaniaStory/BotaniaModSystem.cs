@@ -1,6 +1,7 @@
 ﻿using BotaniaStory.blockentity;
 using BotaniaStory.blocks;
 using BotaniaStory.Blocks;
+using BotaniaStory.client;
 using BotaniaStory.client.renderers;
 using BotaniaStory.client.ui;
 using BotaniaStory.entities;
@@ -29,12 +30,34 @@ namespace BotaniaStory
         public IServerNetworkChannel serverChannel;
         public IClientNetworkChannel clientChannel;
         public static LexiconConfig ClientConfig;
-
+        public static BotaniaConfig ServerConfig;
         public static ManaStreamRenderer ManaRenderer;
 
         private ICoreClientAPI capi;
         private ICoreServerAPI sapi;
 
+        public override void StartPre(ICoreAPI api)
+        {
+            base.StartPre(api);
+
+            try
+            {
+                // Загружаем конфиг механик мода
+                ServerConfig = api.LoadModConfig<BotaniaConfig>("botaniastory_server.json");
+
+                // Если файла еще нет, создаем дефолтный и сохраняем
+                if (ServerConfig == null)
+                {
+                    ServerConfig = new BotaniaConfig();
+                    api.StoreModConfig(ServerConfig, "botaniastory_server.json");
+                }
+            }
+            catch (Exception e)
+            {
+                ServerConfig = new BotaniaConfig();
+                api.Logger.Error("Failed to load botaniastory_server.json. Using default settings. Error: " + e.Message);
+            }
+        }
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
@@ -44,7 +67,8 @@ namespace BotaniaStory
                 .RegisterMessageType<PlayManaSoundPacket>()
                 .RegisterMessageType<LexiconStatePacket>()
                 .RegisterMessageType<ManaStreamPacket>()
-            .RegisterMessageType<GaiaLightningPacket>();
+                .RegisterMessageType<GaiaLightningPacket>()
+                .RegisterMessageType<FilterUpdatePacket>();
 
 
             api.RegisterItemClass("ItemLexicon", typeof(ItemLexicon));
@@ -67,6 +91,8 @@ namespace BotaniaStory
             api.RegisterBlockEntityBehaviorClass("witheredamaranthuslogic", typeof(BEBehaviorWitheredAmaranthus));
             api.RegisterBlockClass("BlockHopperhock", typeof(BlockHopperhock));
             api.RegisterBlockEntityBehaviorClass("hopperhocklogic", typeof(BEBehaviorHopperhock));
+            api.RegisterBlockClass("BlockAgricarnation", typeof(BlockAgricarnation));
+            api.RegisterBlockEntityBehaviorClass("agricarnationlogic", typeof(BEBehaviorAgricarnation));
 
 
             //Генерирующие цветы
@@ -137,10 +163,16 @@ namespace BotaniaStory
             api.RegisterBlockClass("BlockBotaniaFloatingIsland", typeof(BlockBotaniaFloatingIsland));
             api.RegisterItemClass("ItemMeadowSeed", typeof(ItemMeadowSeed));
             api.RegisterItemClass("ItemFlowerBag", typeof(ItemFlowerBag));
+            api.RegisterItemClass("ItemFilterScroll", typeof(ItemFilterScroll));
+            api.RegisterItemClass("ItemFloralFertilizer", typeof(ItemFloralFertilizer));
+            api.RegisterItemClass("ItemMysticalPowder", typeof(ItemMysticalPowder));
+
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 
-        }
+        }                      
+
+
 
         // КЛИЕНТСКАЯ ЧАСТЬ (Звуки и Искры)
         public override void StartClientSide(ICoreClientAPI api)
@@ -174,6 +206,7 @@ namespace BotaniaStory
             // Получаем канал и вешаем слушателя пакетов книги
             serverChannel = api.Network.GetChannel("botanianetwork") as IServerNetworkChannel;
             serverChannel.SetMessageHandler<LexiconStatePacket>(OnLexiconStateMessage);
+            serverChannel.SetMessageHandler<FilterUpdatePacket>(OnClientUpdateFilter);
 
             api.Event.RegisterGameTickListener(OnTalismanTick, 500);
 
@@ -328,10 +361,42 @@ namespace BotaniaStory
             }
         }
 
+        private void OnClientUpdateFilter(IServerPlayer fromPlayer, FilterUpdatePacket packet)
+        {
+            ItemSlot activeSlot = fromPlayer.InventoryManager.ActiveHotbarSlot;
+
+            // Проверяем, что игрок всё ещё держит бумагу в руке
+            if (activeSlot.Itemstack?.Item is ItemFilterScroll)
+            {
+                // Сохранение кликнутых предметов
+                if (packet.FilteredItemCodes == null || packet.FilteredItemCodes.Length == 0)
+                {
+                    activeSlot.Itemstack.Attributes.RemoveAttribute("filterList");
+                }
+                else
+                {
+                    activeSlot.Itemstack.Attributes["filterList"] = new Vintagestory.API.Datastructures.StringArrayAttribute(packet.FilteredItemCodes);
+                }
+
+                // Сохранение текстовых масок
+                if (packet.FilterPatterns == null || packet.FilterPatterns.Length == 0)
+                {
+                    activeSlot.Itemstack.Attributes.RemoveAttribute("filterPatterns");
+                }
+                else
+                {
+                    activeSlot.Itemstack.Attributes["filterPatterns"] = new Vintagestory.API.Datastructures.StringArrayAttribute(packet.FilterPatterns);
+                }
+
+                activeSlot.MarkDirty();
+            }
+        }
+
         public override void Dispose()
         {
             base.Dispose();
         }
+
     }
 
     // ПАКЕТЫ И КЛАССЫ
@@ -347,6 +412,16 @@ namespace BotaniaStory
     {
         public Vec3d Position;
         public string SoundName;
+    }
+
+    [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
+    public class FilterUpdatePacket
+    {
+        [ProtoMember(1)]
+        public string[] FilteredItemCodes;
+
+        [ProtoMember(2)]
+        public string[] FilterPatterns { get; set; }
     }
 
     public class BlockMysticalFlower : BlockBotaniaFlower

@@ -3,7 +3,7 @@
 	"class": "Item",
 	"maxstacksize": 64,
 	"shape": {
-		"base": "botaniastory:item/manapowder"
+		"base": "botaniastory:shapes/item/powder"
 	},
 	"creativeinventory": {
 		"general": [ "*" ],

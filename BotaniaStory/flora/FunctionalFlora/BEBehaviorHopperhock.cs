@@ -5,14 +5,15 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
+using System.Linq;
+using BotaniaStory.items;
 
-namespace BotaniaStory.blockentity // Или твой новый namespace
+namespace BotaniaStory.blockentity
 {
     public class BEBehaviorHopperhock : BlockEntityBehavior, ILinkableToPool
     {
         private long tickListenerId;
-
-        // Координаты привязанного бассейна маны
+        public InventoryGeneric FilterInventory;
         public BlockPos LinkedPool { get; set; } = null;
 
         public BEBehaviorHopperhock(BlockEntity blockentity) : base(blockentity)
@@ -22,6 +23,17 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
         public override void Initialize(ICoreAPI api, JsonObject properties)
         {
             base.Initialize(api, properties);
+
+            if (FilterInventory == null)
+            {
+                FilterInventory = new InventoryGeneric(2, "hopperhock-filters-" + this.Blockentity.Pos, api);
+            }
+            else
+            {
+                // Если инвентарь был загружен из сохранения, привязываем API
+                FilterInventory.Api = api;
+            }
+
             if (api.Side == EnumAppSide.Server)
             {
                 tickListenerId = this.Blockentity.RegisterGameTickListener(OnTick, 4000);
@@ -30,20 +42,18 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
 
         private void OnTick(float dt)
         {
-            int currentRadius = 3; // Радиус без маны, если ты бомж
+            int currentRadius = 3;
             BlockEntityManaPool pool = null;
 
             if (LinkedPool != null && this.Api.World.BlockAccessor.GetBlockEntity(LinkedPool) is BlockEntityManaPool p)
             {
                 pool = p;
-                if (pool.CurrentMana >= 20) currentRadius = 10; // Потребление маны // Радиус но уже с маной 
+                if (pool.CurrentMana >= 20) currentRadius = 10;
             }
 
-            // 1. Ищем инвентари
             List<IInventory> adjacentInventories = GetAdjacentInventories();
             if (adjacentInventories.Count == 0) return;
 
-            // 2. Ищем сущности-предметы
             Vec3d centerPos = this.Blockentity.Pos.ToVec3d().Add(0.5, 0.5, 0.5);
             Entity[] entities = this.Api.World.GetEntitiesAround(centerPos, currentRadius, currentRadius, (e) => e is EntityItem);
 
@@ -54,6 +64,39 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
                     ItemStack stackToMove = entityItem.Itemstack;
                     if (stackToMove == null || stackToMove.StackSize <= 0) continue;
 
+                    string itemCodeStr = stackToMove.Collectible.Code.ToString();
+                    bool isAllowed = true;
+
+                    // Проверяем Белый список (Слот 0)
+                    ItemStack whiteLeaf = FilterInventory[0].Itemstack;
+                    if (whiteLeaf != null)
+                    {
+                        isAllowed = false;
+
+                        if (whiteLeaf.Item is ItemFilterScroll whiteFilter)
+                        {
+                            if (whiteFilter.AllowsItem(whiteLeaf, itemCodeStr))
+                            {
+                                isAllowed = true;
+                            }
+                        }
+                    }
+
+                    // Проверяем Черный список (Слот 1)
+                    ItemStack blackLeaf = FilterInventory[1].Itemstack;
+                    if (blackLeaf != null && isAllowed)
+                    {
+                        if (blackLeaf.Item is ItemFilterScroll blackFilter)
+                        {
+                            if (!blackFilter.AllowsItem(blackLeaf, itemCodeStr))
+                            {
+                                isAllowed = false;
+                            }
+                        }
+                    }
+
+                    if (!isAllowed) continue;
+
                     int initialStackSize = stackToMove.StackSize;
 
                     foreach (IInventory inv in adjacentInventories)
@@ -62,20 +105,17 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
                         {
                             int itemsMoved = initialStackSize - stackToMove.StackSize;
 
-                            // Потребляем ману
                             if (pool != null && pool.CurrentMana >= 20 * itemsMoved)
                             {
                                 pool.ConsumeMana(20 * itemsMoved);
                             }
 
-                            // Если скушали весь стак с земли - удаляем сущность
                             if (stackToMove.StackSize <= 0)
                             {
                                 entityItem.Die();
                             }
 
                             this.Api.World.PlaySoundAt(new AssetLocation("game", "sounds/player/collect"), this.Blockentity.Pos.X + 0.5, this.Blockentity.Pos.Y + 0.5, this.Blockentity.Pos.Z + 0.5, null, true, 16, 0.5f);
-
                             break;
                         }
                     }
@@ -83,7 +123,6 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
             }
         }
 
-        // Автоматический поиск бассейна при установке
         public void AutoFindPool()
         {
             int searchRadius = 6;
@@ -105,7 +144,6 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
             }
         }
 
-        // Вспомогательные методы вставки и поиска инвентарей
         private List<IInventory> GetAdjacentInventories()
         {
             List<IInventory> inventories = new List<IInventory>();
@@ -125,17 +163,13 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
         private bool TryInsertItem(IInventory targetInv, ItemStack stack)
         {
             bool itemMoved = false;
-
-            // Сначала ищем уже существующие неполные стаки такого же предмета
             for (int i = 0; i < targetInv.Count; i++)
             {
                 ItemSlot slot = targetInv[i];
                 if (slot.Empty || stack.StackSize <= 0) continue;
 
-                // Сравниваем предметы
                 if (slot.Itemstack.Equals(this.Api.World, stack, "name"))
                 {
-                    // Используем Collectible! Это работает и для предметов (Item), и для блоков (Block)
                     int maxStackSize = slot.Itemstack.Collectible.MaxStackSize;
 
                     if (slot.Itemstack.StackSize < maxStackSize)
@@ -148,13 +182,11 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
                         slot.MarkDirty();
                         itemMoved = true;
 
-                        // Если весь предмет распихали по стакам — сразу выходим
                         if (stack.StackSize <= 0) return true;
                     }
                 }
             }
 
-            // Если предмет всё ещё остался (в руках у цветка), ищем для него ПУСТОЙ слот
             if (stack.StackSize > 0)
             {
                 for (int i = 0; i < targetInv.Count; i++)
@@ -166,15 +198,14 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
                         stack.StackSize = 0;
                         slot.MarkDirty();
                         itemMoved = true;
-                        break; // Предмет положен, прекращаем поиск пустых слотов
+                        break;
                     }
                 }
             }
-
             return itemMoved;
         }
 
-        // СОХРАНЕНИЕ И ЗАГРУЗКА ПРИВЯЗКИ
+        // СОХРАНЕНИЕ, ЗАГРУЗКА И ВЫПАДЕНИЕ
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
@@ -184,6 +215,11 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
                 tree.SetInt("poolY", LinkedPool.Y);
                 tree.SetInt("poolZ", LinkedPool.Z);
             }
+
+            // Создаем отдельное поддерево, чтобы избежать конфликтов с другими инвентарями
+            ITreeAttribute filterInvTree = new TreeAttribute();
+            FilterInventory?.ToTreeAttributes(filterInvTree);
+            tree["filterInv"] = filterInvTree;
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
@@ -197,12 +233,32 @@ namespace BotaniaStory.blockentity // Или твой новый namespace
             {
                 LinkedPool = null;
             }
+
+            // Инициализируем инвентарь, если он еще не создан
+            if (FilterInventory == null)
+            {
+                FilterInventory = new InventoryGeneric(2, "hopperhock-filters-" + this.Blockentity.Pos, worldForResolving.Api);
+            }
+
+            // Загружаем предметы и обязательно их "резолвим", чтобы игра узнала что это за предметы
+            ITreeAttribute filterInvTree = tree.GetTreeAttribute("filterInv");
+            if (filterInvTree != null)
+            {
+                FilterInventory.FromTreeAttributes(filterInvTree);
+                FilterInventory.ResolveBlocksOrItems();
+            }
         }
 
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
             if (tickListenerId != 0) this.Blockentity.UnregisterGameTickListener(tickListenerId);
+
+            // Выбрасываем фильтры при разрушении блока
+            if (this.Api.Side == EnumAppSide.Server && FilterInventory != null)
+            {
+                FilterInventory.DropAll(this.Blockentity.Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+            }
         }
     }
 }

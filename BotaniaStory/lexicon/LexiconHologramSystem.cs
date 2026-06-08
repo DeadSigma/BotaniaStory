@@ -1,11 +1,10 @@
-using BotaniaStory.lexicon;
 using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 
-namespace BotaniaStory.systems
+namespace BotaniaStory.lexicon
 {
     public class LexiconHologramSystem : ModSystem, IRenderer
     {
@@ -176,7 +175,7 @@ namespace BotaniaStory.systems
             }
         }
 
-        // === НОВЫЙ МЕТОД ДЛЯ ОТКЛЮЧЕНИЯ ГОЛОГРАММЫ ===
+        // ОТКЛЮЧЕНИЕ ГОЛОГРАММЫ
         public void StopVisualization()
         {
             isActive = false;
@@ -199,7 +198,7 @@ namespace BotaniaStory.systems
             hologramMeshRefs.Clear();
         }
 
-        // --- НОВАЯ ЛОГИКА ПКМ (ФИКСАЦИЯ) ---
+        // ФИКСАЦИЯ
         private void OnMouseDown(MouseEvent args)
         {
             if (!isActive || args.Button != EnumMouseButton.Right) return;
@@ -207,7 +206,6 @@ namespace BotaniaStory.systems
             ItemSlot activeSlot = capi.World.Player.InventoryManager.ActiveHotbarSlot;
             bool isEmptyHand = activeSlot.Empty;
 
-            // Убедись, что Domain ("botaniastory") совпадает с доменом  предмета книги!
             bool isBook = !isEmptyHand && activeSlot.Itemstack.Collectible.Code.Domain == "botaniastory";
 
             bool isSneaking = capi.World.Player.Entity.Controls.Sneak;
@@ -256,7 +254,7 @@ namespace BotaniaStory.systems
             }
         }
 
-        // --- ПРОВЕРКА ПОСТРОЙКИ ---
+        // ПРОВЕРКА ПОСТРОЙКИ
         private void OnCheckStructureTick(float dt)
         {
             if (!isActive || loadedSchematic == null || lockedPos == null) return;
@@ -309,21 +307,21 @@ namespace BotaniaStory.systems
                 // Крутим смещения в зависимости от того, куда смотрел игрок
                 switch (currentFacing)
                 {
-                    case 0: // Исходное положение (Север)
+                    case 0: // 0°
                         finalOffsetX = offsetX;
                         finalOffsetZ = offsetZ;
                         break;
-                    case 1: // Поворот на 90 (Восток)
-                        finalOffsetX = -offsetZ;
-                        finalOffsetZ = offsetX;
+                    case 1: // 90°
+                        finalOffsetX = offsetZ;
+                        finalOffsetZ = -offsetX;
                         break;
-                    case 2: // Поворот на 180 (Юг)
+                    case 2: // 180°
                         finalOffsetX = -offsetX;
                         finalOffsetZ = -offsetZ;
                         break;
-                    case 3: // Поворот на 270 (Запад)
-                        finalOffsetX = offsetZ;
-                        finalOffsetZ = -offsetX;
+                    case 3: // 270°
+                        finalOffsetX = -offsetZ;
+                        finalOffsetZ = offsetX;
                         break;
                 }
 
@@ -339,7 +337,7 @@ namespace BotaniaStory.systems
                 }
             }
 
-            // --- ОБНОВЛЯЕМ ИНТЕРФЕЙС ---
+            // ОБНОВЛЯЕМ ИНТЕРФЕЙС
             UpdateTrackerHud(placedBlocksCount);
 
             // Если собраны все блоки, возвращаем true

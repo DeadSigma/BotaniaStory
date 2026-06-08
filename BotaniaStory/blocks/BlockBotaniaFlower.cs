@@ -129,7 +129,18 @@ namespace BotaniaStory.Blocks
                                 isDirty = true;
                             }
                         }
+
+                        // 4. Авто-привязка Агрикарнейшена к Бассейну маны
+                        if (behavior is BEBehaviorAgricarnation agricarnation)
+                        {
+                            if (agricarnation.LinkedPool == null)
+                            {
+                                agricarnation.AutoFindPool();
+                                isDirty = true;
+                            }
+                        }
                     }
+
 
                     // Если хоть одно поведение обновило данные, сохраняем блок
                     if (isDirty)

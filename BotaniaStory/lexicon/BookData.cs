@@ -1,5 +1,6 @@
 using BotaniaStory;
 using System.Collections.Generic;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Util;
@@ -84,11 +85,11 @@ namespace BotaniaStory.lexicon
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame", "rosaarcana" } },
 
-            { "functional_flora", new[] { "puredaisy", "jadedamaranthus", "witheredamaranthus", "hopperhock" } },
+            { "functional_flora", new[] { "puredaisy", "jadedamaranthus", "witheredamaranthus",  "hopperhock", "agricarnation" } },
 
             { "natural_apparatus", new[] { "mechanical_dropper", "hourglass" } },
 
-            { "mystical_items", new[] { "wandofbinding", "flower_bag", "meadowseed", "floating_island", "rod_of_the_seas", "manaitem", "terrasteelitem", "terrashatterer" } },
+            { "mystical_items", new[] { "wandofbinding", "flower_bag", "floralfertilizer", "meadowseed", "floating_island", "rod_of_the_seas", "manaitem", "terrasteelitem", "terrashatterer", "filterscroll" } },
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
@@ -165,8 +166,10 @@ namespace BotaniaStory.lexicon
 
             return null; // Если ничего не нашли
         }
-        public static List<BookCategory> GetTemplateCategories()
+        public static List<BookCategory> GetTemplateCategories(ICoreClientAPI capi)
         {
+            bool isAlchemyLoaded = capi.ModLoader.IsModEnabled("alchemy");
+
             var categories = new List<BookCategory>();
             string[] templateItems = { "game:gear-rusty", "game:flint", "game:stick", "game:clay-blue", "game:clay-blue" };
 
@@ -290,7 +293,6 @@ namespace BotaniaStory.lexicon
                     // === НАСТРОЙКА МИСТИЧЕСКИЕ ЦВЕТЫ ===
                     else if (chapId == "mysticalflower")
                     {
-                        // Уточняем маску для иконки вкладки
                         chapter.TabItemCode = "botaniastory:mysticalflower-*-free";
 
                         chapter.Images.Add(new BookPageImage()
@@ -306,13 +308,25 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                             // Уточняем маску для рецепта в сетке
-                             "botaniastory:mysticalflower-*-free", null, null, // Верхний ряд
-                             null, null, null,                                 // Средний ряд
-                             null, null, null                                  // Нижний ряд
+
+                             "botaniastory:mysticalflower-*-free", null, null, 
+                             null, null, null,                                 
+                             null, null, null                                  
                          },
-                            // Лепестки, судя по структуре, не имеют суффикса snow/free, так что тут оставляем как есть
-                            Output = "botaniastory:mysticalpetal-*"
+                            Output = "botaniastory:mysticalpetal-*@2"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             isAlchemyLoaded ? "alchemy:mortarpestle-*" : "botaniastory:mortarpestle_alchemy_mod-*", "      botaniastory:mysticalpetal-*",     null,
+                             null, null, null,
+                             null, null, null
+                         },
+                            Output = "botaniastory:mysticalpowder-*"
                         });
                     }
                     // === НАСТРОЙКА ПОСОХ ЛЕСА ===
@@ -538,6 +552,29 @@ namespace BotaniaStory.lexicon
                             ApothecaryCenter = "botaniastory:apothecary-*",
 
                             Output = "botaniastory:hopperhock-free"
+                        });
+
+                    }
+
+                    // === НАСТРОЙКА АГРО ГВОЗДИКА ===
+                    else if (chapId == "agricarnation")
+                    {
+                        chapter.TabItemCode = "botaniastory:agricarnation-free";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                             {
+                                 "botaniastory:mysticalpetal-*",
+                                 "botaniastory:mysticalpetal-*",
+                                 "botaniastory:mysticalpetal-*",
+                                 "botaniastory:mysticalpetal-*"
+                             },
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+                            Output = "botaniastory:mysticalflower-white"
                         });
 
                     }
@@ -1563,6 +1600,25 @@ namespace BotaniaStory.lexicon
                              null, null, null
                              },
                             Output = "botaniastory:flower_bag"
+                        });
+                    }
+
+                    // === НАСТРОЙКА ЦВЕТОЧНОЕ УДОБРЕНИЕ ===
+                    else if (chapId == "floralfertilizer")
+                    {
+                        chapter.TabItemCode = "botaniastory:floralfertilizer";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                              "game:compost", "botaniastory:mysticalpowder-*", null,
+                              null, null, null,
+                              null, null, null
+                              },
+                            Output = "botaniastory:floralfertilizer"
                         });
                     }
 
@@ -3287,6 +3343,39 @@ namespace BotaniaStory.lexicon
                             AnvilInput = "game:ingot-gold",
                             AnvilBlock = "game:anvil-copper",
                             Output = "botaniastory:terrashatterer_parts"
+                        });
+
+                    }
+
+                    // === НАСТРОЙКА СВИТКИ ФИЛЬТРАЦИИ ===
+                    else if (chapId == "filterscroll")
+                    {
+                        chapter.TabItemCode = "botaniastory:filterscroll-black";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             null, "botaniastory:livingwood_stick", null,
+                             null, "game:paper-parchment", "botaniastory:mysticalpetal-black",
+                             null, "botaniastory:livingwood_stick", null
+                             },
+                            Output = "botaniastory:filterscroll-white"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                             null, "botaniastory:livingwood_stick", null,
+                             null, "game:paper-parchment", "botaniastory:mysticalpetal-yellow",
+                             null, "botaniastory:livingwood_stick", null
+                             },
+                            Output = "botaniastory:filterscroll-black"
                         });
 
                     }
