@@ -41,43 +41,56 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
             if (CurrentMana < MaxMana)
             {
-                IPlayer[] players = this.Api.World.GetPlayersAround(this.Blockentity.Pos.ToVec3d().Add(0.5, 0.5, 0.5), 3, 3);
+                // 1. Получаем центральную точку цветка
+                Vec3d flowerPos = this.Blockentity.Pos.ToVec3d().Add(0.5, 0.5, 0.5);
 
-                foreach (IPlayer player in players)
+                // 2. Обходим оптимизацию Tungsten, перебирая всех игроков напрямую
+                foreach (IPlayer player in this.Api.World.AllOnlinePlayers)
                 {
                     if (player?.Entity == null || !player.Entity.Alive) continue;
 
-                    double currentStability = player.Entity.WatchedAttributes.GetDouble("temporalStability", 1.0);
+                    // 3. Проверяем дистанцию вручную (куб 3x3x3 вокруг цветка)
+                    double dx = Math.Abs(player.Entity.Pos.X - flowerPos.X);
+                    double dy = Math.Abs(player.Entity.Pos.Y - flowerPos.Y);
+                    double dz = Math.Abs(player.Entity.Pos.Z - flowerPos.Z);
 
-                    // Цветок сосет ману, пока стабильность больше нуля
-                    if (currentStability > 0.0)
+                    // Если игрок в радиусе 3 блоков
+                    if (dx <= 3 && dy <= 3 && dz <= 3)
                     {
-                        double drainAmount = 0.02; // 2% за тик
-                        double newStability = Math.Max(0.0, currentStability - drainAmount);
+                        double currentStability = player.Entity.WatchedAttributes.GetDouble("temporalStability", 1.0);
 
-                        player.Entity.WatchedAttributes.SetDouble("temporalStability", newStability);
+                        // Цветок сосет ману, пока стабильность больше нуля
+                        if (currentStability > 0.0)
+                        {
+                            double drainAmount = 0.02; // 2% за тик
+                            double newStability = Math.Max(0.0, currentStability - drainAmount);
 
-                        CurrentMana += 60;
-                        if (CurrentMana > MaxMana) CurrentMana = MaxMana;
-                        dirty = true;
+                            // SetDouble сам помечает атрибут для сетевой синхронизации
+                            player.Entity.WatchedAttributes.SetDouble("temporalStability", newStability);
 
-                        // Проверяем наказания по стабильности
-                        if (newStability <= 0.0)
+                            CurrentMana += 60;
+                            if (CurrentMana > MaxMana) CurrentMana = MaxMana;
+                            dirty = true;
+
+                            // Проверяем наказания по стабильности
+                            if (newStability <= 0.0)
+                            {
+                                ApplyZeroStabilityPunishment(player);
+                            }
+                            else if (newStability < 0.15 && spawnCooldown <= 0)
+                            {
+                                SpawnPunishmentMob("drifter-deep");
+                                spawnCooldown = 20; // 10 секунд кулдауна
+                            }
+
+                            // Выходим из цикла, так как цветок работает только с одним игроком за тик
+                            break;
+                        }
+                        else if (currentStability <= 0.0)
                         {
                             ApplyZeroStabilityPunishment(player);
+                            break;
                         }
-                        else if (newStability < 0.15 && spawnCooldown <= 0)
-                        {
-                            SpawnPunishmentMob("drifter-deep");
-                            spawnCooldown = 20; // 10 секунд кулдауна
-                        }
-
-                        break;
-                    }
-                    else if (currentStability <= 0.0)
-                    {
-                        ApplyZeroStabilityPunishment(player);
-                        break;
                     }
                 }
             }

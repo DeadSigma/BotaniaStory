@@ -259,8 +259,10 @@ namespace BotaniaStory.blockentity
 
             foreach (Entity entity in entities)
             {
-                // ВАЖНО: Пропускаем сущности, которые уже были уничтожены в этом же тике другими рецептами
+                // Пропускаем сущности, которые уже были уничтожены в этом же тике другими рецептами
                 if (!entity.Alive) continue;
+
+                if (entity.Attributes.GetBool("bs_transmuted", false)) continue;
 
                 if (entity is EntityItem entityItem && entityItem.Itemstack != null)
                 {
@@ -554,8 +556,14 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            // Спавним результат
-            Api.World.SpawnItemEntity(outputStack, lastPos);
+                // Спавним результат и вешаем на него флаг-защиту
+              Entity spawnedEntity = Api.World.SpawnItemEntity(outputStack, lastPos);
+              if (spawnedEntity != null)
+              {
+                  spawnedEntity.Attributes.SetBool("bs_transmuted", true);
+              }
+
+
             SpawnCraftingParticles(lastPos);
 
             if (Api.Side == EnumAppSide.Server)
@@ -614,8 +622,14 @@ namespace BotaniaStory.blockentity
                 inputEntity.WatchedAttributes.MarkAllDirty();
             }
 
-            // Спавним созданный ItemStack
-            Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
+
+
+            // Ловим спавнящуюся сущность и помечаем флагом
+            Entity spawnedEntity = Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
+            if (spawnedEntity != null)
+            {
+                spawnedEntity.Attributes.SetBool("bs_transmuted", true);
+            }
 
             SpawnCraftingParticles(inputEntity.Pos.XYZ);
 
@@ -681,8 +695,13 @@ namespace BotaniaStory.blockentity
                 inputEntity.Die(EnumDespawnReason.Death);
             }
 
-            // Выдаем удвоенный результат
-            Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
+            // Выдаем удвоенный результат с флагом защиты
+            Entity spawnedEntity = Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
+            if (spawnedEntity != null)
+            {
+                spawnedEntity.Attributes.SetBool("bs_transmuted", true);
+            }
+
             SpawnCraftingParticles(inputEntity.Pos.XYZ);
 
             if (Api.Side == EnumAppSide.Server)

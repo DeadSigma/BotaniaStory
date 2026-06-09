@@ -33,7 +33,7 @@ namespace BotaniaStory.util
 
         private static void InitializeTestRecipes()
         {
-            RegisterCyclicAlchemyRecipe(10000, "game:stick", "botaniastory:root", "game:plank-veryaged", "game:suportbeam-veryaged");
+            RegisterCyclicAlchemyRecipe(10000, "game:stick", "botaniastory:root", "game:plank-veryaged", "game:supportbeam-veryaged");
 
             RegisterAlchemyRecipe("game:rot", 3, "game:compost", 1, 5000);
             RegisterAlchemyRecipe("game:hide-raw-small", 1, "game:leather-normal-plain", 1, 5000);
