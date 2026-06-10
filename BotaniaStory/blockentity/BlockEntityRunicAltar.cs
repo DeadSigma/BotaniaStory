@@ -77,6 +77,7 @@ namespace BotaniaStory.blockentity
             {
                 renderer = new RunicAltarRenderer(Pos, capi, this);
                 capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "runicaltar-render");
+                capi.Event.RegisterRenderer(renderer, EnumRenderStage.AfterOIT, "runicaltar-render-glow");
                 renderer.UpdateMeshes();
                 RegisterGameTickListener(SpawnIdleParticles, 50);
             }
