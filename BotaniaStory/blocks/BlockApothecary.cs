@@ -238,42 +238,14 @@ namespace BotaniaStory.blocks
                 }
             }
 
-            // 4. ПОЛОЖИТЬ ПРЕДМЕТ (УМНЫЙ WHITELIST)
+            // 4. ПОЛОЖИТЬ ПРЕДМЕТ (тот же белый список, что и у брошенных предметов)
             if (!slot.Empty)
             {
-                string[] allowedKeywords = new string[]
+                if (be.TryAddItem(slot, byPlayer))
                 {
-                    "petal", "flower", "gear-rusty", "berry", "fruit", "vine", "fern", "treeseed", "root", "rune"
-                };
-
-                bool isAllowed = false;
-                string itemPath = slot.Itemstack.Collectible.Code.Path;
-
-                foreach (string keyword in allowedKeywords)
-                {
-                    if (itemPath.Contains(keyword))
-                    {
-                        isAllowed = true;
-                        break;
-                    }
-                }
-
-                if (isAllowed)
-                {
-                    for (int i = 0; i < be.inventory.Count; i++)
-                    {
-                        if (be.inventory[i].Empty)
-                        {
-                            be.inventory[i].Itemstack = slot.TakeOut(1);
-                            slot.MarkDirty();
-                            be.inventory[i].MarkDirty();
-                            be.UpdateRenderer();
-
-                            // ИГРАЕМ  КАСТОМНЫЙ ЗВУК ПЛЮХА
-                            PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
-                            return true;
-                        }
-                    }
+                    // ИГРАЕМ КАСТОМНЫЙ ЗВУК ПЛЮХА
+                    PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
+                    return true;
                 }
             }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.GameContent;
@@ -41,12 +42,103 @@ namespace BotaniaStory.blockentity
                 capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "apothecary-items");
                 renderer.SetContents(inventory);
             }
+
+            // Сервер раз в 500мс собирает брошенные рядом ингредиенты 
+            if (api.Side == EnumAppSide.Server)
+            {
+                RegisterGameTickListener(ScanForDroppedItems, 500);
+            }
         }
 
         public void UpdateRenderer()
         {
             renderer?.SetContents(inventory);
             MarkDirty(true);
+        }
+
+        // ЛОГИКА ПРЕДМЕТОВ (общая для ПКМ и для брошенных предметов)
+
+        // Кладёт 1 предмет из слота в первую свободную ячейку.
+        // Вызывается и из BlockApothecary (клик рукой), и из сканера брошенных предметов.
+        public bool TryAddItem(ItemSlot slot, IPlayer player = null)
+        {
+            if (slot == null || slot.Empty) return false;
+
+            // Аптекарь принимает ингредиенты только когда в нём есть вода
+            if (!HasWater) return false;
+
+            string path = slot.Itemstack.Collectible.Code.Path;
+            if (!IsAllowedIngredient(path)) return false;
+
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                if (inventory[i].Empty)
+                {
+                    inventory[i].Itemstack = slot.TakeOut(1);
+                    slot.MarkDirty();
+                    inventory[i].MarkDirty();
+                    UpdateRenderer();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Белый список ингредиентов аптекаря 
+        private bool IsAllowedIngredient(string path)
+        {
+            if (path == null) return false;
+
+            string[] allowedKeywords = new string[]
+            {
+                "petal", "flower", "gear-rusty", "berry", "fruit", "vine", "fern", "treeseed", "root", "rune"
+            };
+
+            foreach (string keyword in allowedKeywords)
+            {
+                if (path.Contains(keyword)) return true;
+            }
+
+            return false;
+        }
+
+        // Сканер брошенных предметов: засасывает лежащие сверху ингредиенты внутрь аптекаря
+        private void ScanForDroppedItems(float dt)
+        {
+            // Без воды складывать ингредиенты некуда
+            if (!HasWater) return;
+
+            // Есть ли вообще свободное место?
+            bool hasEmptySlot = false;
+            for (int i = 0; i < inventory.Count; i++)
+            {
+                if (inventory[i].Empty) { hasEmptySlot = true; break; }
+            }
+            if (!hasEmptySlot) return;
+
+            // Семена НЕ засасываем — они остаются "катализатором" для крафта по ПКМ
+            Entity[] entities = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 0.9, 0.5), 0.9f, 0.9f,
+                e => e is EntityItem item &&
+                     item.Alive &&
+                     item.Itemstack != null &&
+                     !item.Itemstack.Collectible.Code.Path.StartsWith("treeseed") &&
+                     IsAllowedIngredient(item.Itemstack.Collectible.Code.Path));
+
+            foreach (Entity entity in entities)
+            {
+                EntityItem entityItem = (EntityItem)entity;
+                ItemStack stack = entityItem.Itemstack;
+                if (stack == null || stack.StackSize == 0) continue;
+
+                DummySlot dummySlot = new DummySlot(stack);
+
+                if (TryAddItem(dummySlot, null))
+                {
+                    if (dummySlot.Empty) entityItem.Die();
+                    else entityItem.Itemstack = dummySlot.Itemstack;
+                }
+            }
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
