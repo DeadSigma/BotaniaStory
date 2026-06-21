@@ -110,6 +110,11 @@
 						"animation": "attack"
 					},
 					{
+						"code": "gaiaspawnmobs",
+						"priority": 5.0,
+						"spawnRadius": 40
+					},
+					{
 						"code": "gaiateleport",
 						"priority": 1.5,
 						"cooldownMs": 5000,
@@ -120,21 +125,7 @@
 						"priority": 1.4,
 						"entityCodes": [ "player" ],
 						"seekingRange": 30,
-						"movespeed": 0.04,
-						"animation": "walk"
-					},
-					{
-						"code": "meleeattack",
-						"priority": 1.3,
-						"damage": 8,
-						"minDist": 1.5,
-						"maxDist": 3,
-						"animation": "attack"
-					},
-					{
-						"code": "wander",
-						"priority": 0.5,
-						"movespeed": 0.02,
+						"movespeed": 0.00,
 						"animation": "walk"
 					},
 					{

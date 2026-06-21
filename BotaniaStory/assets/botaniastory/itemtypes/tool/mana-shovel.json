@@ -1,0 +1,99 @@
+{
+	"code": "shovel",
+	"classByType": {
+		"*-terrasteel": "ItemTerraTool",
+		"*": "ItemManaTool"
+	},
+	"variantgroups": [
+		{ "code": "metal", "states": ["manasteel", "elementium", "terrasteel"] }
+	],
+	"tool": "shovel",
+	"damagedby": [ "blockbreaking", "attacking" ],
+	"tags": [ "tool", "tool-shovel" ],
+	"shape": { "base": "game:item/tool/shovel-copper" },
+	"textures": {
+		"material": { "base": "game:item/resource/plate/{metal}" }
+	},
+	"tooltierByType": {
+		"*-terrasteel": 5,
+		"*-elementium": 4,
+		"*-manasteel": 2
+	},
+	"miningspeedByType": {
+		"*-terrasteel": { "soil": 7.1, "sand": 7.1, "gravel": 4.5, "snow": 4.5 },
+		"*-elementium": { "soil": 6, "sand": 6, "gravel": 4, "snow": 4 },
+		"*-manasteel": { "soil": 4, "sand": 4, "gravel": 2.6, "snow": 2.6 }
+	},
+	"durabilityByType": {
+		"*-manasteel": 400,
+		"*": 3000
+	},
+	"attackpowerByType": {
+		"*-terrasteel": 2.5,
+		"*-elementium": 2.25,
+		"*-manasteel": 1.25
+	},
+	"attributes": {
+		"heldItemPitchFollow": 0.9,
+		"handbook": {
+			"groupBy": [ "shovel-*" ]
+		},
+		"attachableToEntity": { "categoryCode": "toolholding" },
+		"toolrackTransform": {
+			"rotation": { "y": 1, "z": -1 },
+			"translation": { "x": -0.47, "y": 0.6 },
+			"scale": 1.25
+		},
+		"groundStorageTransform": {
+			"translation": { "x": 0, "y": 0.59, "z": -0.15 },
+			"rotation": { "x": 13, "y": 88, "z": -87 },
+			"scale": 0.88
+		},
+		"antlerMountable": true,
+		"onAntlerMountTransform": {
+			"translation": { "x": -0.36, "y": 0.533, "z": 0.02 },
+			"rotation": { "x": -90, "y": 0, "z": -90 },
+			"origin": { "x": 0.5, "y": 0, "z": 0.5 }
+		}
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "WallHalves",
+				"wallOffY": 2,
+				"ctrlKey": true,
+				"selectionBox": { "x1": 0, "y1": 0, "z1": 0, "x2": 1, "y2": 0.1, "z2": 1 },
+				"collisionBox": { "x1": 0, "y1": 0, "z1": 0, "x2": 0, "y2": 0, "z2": 0 }
+			}
+		},
+		{
+			"name": "AnimationAuthoritative",
+			"properties": { "onlyOnEntity": true }
+		},
+		{ "name": "Buffable" }
+	],
+	"heldTpIdleAnimation": "shovelidle",
+	"heldRightReadyAnimation": "shovelready",
+	"heldTpHitAnimation": "shoveldig",
+	"heldTpUseAnimation": "interactStaticLong",
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"guiTransform": {
+		"rotation": { "x": -115, "y": -28, "z": 139 },
+		"origin": { "x": 0.7, "y": 0, "z": 0.55 }
+	},
+	"groundTransform": {
+		"translation": { "x": 0, "y": 0, "z": 0 },
+		"rotation": { "x": 0, "y": 0, "z": 0 },
+		"origin": { "x": 0.5, "y": 0, "z": 0.5 },
+		"scale": 3.6
+	},
+	"tpHandTransform": {
+		"translation": { "x": -1.69, "y": -0.29, "z": -0.6 },
+		"rotation": { "x": 0, "y": 0, "z": -10 },
+		"scale": 0.8
+	}
+}

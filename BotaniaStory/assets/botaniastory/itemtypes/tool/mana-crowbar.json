@@ -1,0 +1,238 @@
+{
+	"code": "crowbar",
+	"classByType": {
+		"*-terrasteel": "ItemTerraCrowbar",
+		"*": "ItemManaCrowbar"
+	},
+	"variantgroups": [
+		{
+			"code": "metal",
+			"states": [ "manasteel", "elementium", "terrasteel" ]
+		}
+	],
+	"tool": "crowbar",
+	"heldTpUseAnimation": "falx",
+	"tags": [ "tool", "tool-crowbar" ],
+	"behaviorsByType": {
+		"@(.*-elementium|.*-terrasteel)": [
+			{
+				"name": "GroundStorable",
+				"properties": {
+					"layout": "WallHalves",
+					"wallOffY": 1,
+					"ctrlKey": true,
+					"selectionBox": {
+						"x1": 0,
+						"y1": 0,
+						"z1": 0,
+						"x2": 1,
+						"y2": 0.1,
+						"z2": 1
+					},
+					"collisionBox": {
+						"x1": 0,
+						"y1": 0,
+						"z1": 0,
+						"x2": 0,
+						"y2": 0,
+						"z2": 0
+					}
+				}
+			},
+			{ "name": "Buffable" },
+			{
+				"name": "Quenchable",
+				"properties": { "metalVariantgroupCode": "metal" }
+			}
+		],
+		"*": [
+			{
+				"name": "GroundStorable",
+				"properties": {
+					"layout": "WallHalves",
+					"wallOffY": 1,
+					"ctrlKey": true,
+					"selectionBox": {
+						"x1": 0,
+						"y1": 0,
+						"z1": 0,
+						"x2": 1,
+						"y2": 0.1,
+						"z2": 1
+					},
+					"collisionBox": {
+						"x1": 0,
+						"y1": 0,
+						"z1": 0,
+						"x2": 0,
+						"y2": 0,
+						"z2": 0
+					}
+				}
+			},
+			{ "name": "Buffable" }
+		]
+	},
+	"shape": { "base": "game:item/tool/crowbar-copper" },
+	"textures": {
+		"metal": { "base": "game:item/resource/plate/{metal}" }
+	},
+	"attributes": {
+		"attachableToEntity": { "categoryCode": "toolholding" },
+		"handbook": { "groupBy": [ "crowbar-*" ] },
+		"rackable": true,
+		"forgable": true,
+		"inForgeTransform": {
+			"translation": {
+				"x": 0.05,
+				"y": -0.29,
+				"z": 0.3
+			},
+			"rotation": {
+				"x": 90,
+				"y": 0,
+				"z": -63
+			},
+			"origin": {
+				"x": 0.57,
+				"y": 0.28,
+				"z": 0.57
+			}
+		},
+		"toolrackTransform": {
+			"translation": {
+				"x": -0.2,
+				"y": 0.55,
+				"z": 0.1
+			},
+			"rotation": {
+				"x": -88,
+				"y": -3,
+				"z": -1
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 1.25
+		},
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0,
+				"y": 0.355,
+				"z": 0.3
+			},
+			"rotation": {
+				"x": 26,
+				"y": 88,
+				"z": -87
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.88
+		},
+		"onTongTransform": {
+			"translation": {
+				"x": -1.47,
+				"y": -0.2,
+				"z": -0.71
+			},
+			"rotation": {
+				"x": -8,
+				"y": -91,
+				"z": -76
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.7
+		},
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -1.48,
+				"y": -0.2,
+				"z": -0.6
+			},
+			"rotation": {
+				"x": 90,
+				"y": -90,
+				"z": -93
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.7
+		}
+	},
+	"durabilityByType": {
+		"*-terrasteel": 1800,
+		"*-elementium": 900,
+		"*-manasteel": 250
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"guiTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"x": -157,
+			"y": 0,
+			"z": -48
+		},
+		"origin": {
+			"x": 0.51,
+			"y": 0,
+			"z": 0.37
+		},
+		"scale": 1.9
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.027,
+			"z": 0
+		},
+		"rotation": {
+			"x": -90,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 3.6
+	},
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.63,
+			"y": 0.08,
+			"z": -0.52
+		},
+		"rotation": {
+			"x": 180,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0,
+			"z": 0.5
+		},
+		"scale": 0.95
+	}
+}

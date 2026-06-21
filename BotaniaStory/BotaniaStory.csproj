@@ -69,7 +69,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="assets\botaniastory\patches\recipes\smithing\" />
     <Folder Include="assets\botaniastory\shapes\entity\" />
   </ItemGroup>
 

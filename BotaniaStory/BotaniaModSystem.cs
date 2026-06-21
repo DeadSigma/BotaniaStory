@@ -32,6 +32,7 @@ namespace BotaniaStory
         public static LexiconConfig ClientConfig;
         public static BotaniaConfig ServerConfig;
         public static ManaStreamRenderer ManaRenderer;
+        public static GaiaLightningRenderer GaiaLightningVisuals;
 
         private ICoreClientAPI capi;
         private ICoreServerAPI sapi;
@@ -154,6 +155,7 @@ namespace BotaniaStory
             api.RegisterEntity("EntityGaiaGuardian", typeof(EntityGaiaGuardian));
             AiTaskRegistry.Register<AiTaskGaiaTeleport>("gaiateleport");
             AiTaskRegistry.Register<AiTaskGaiaLightning>("gaialightning");
+            AiTaskRegistry.Register<AiTaskGaiaSpawnMobs>("gaiaspawnmobs");
             api.RegisterItemClass("ItemTerraShatterer", typeof(ItemTerraShatterer));
             api.RegisterBlockClass("BlockMechanicalDropper", typeof(BlockMechanicalDropper));
             api.RegisterBlockEntityClass("BlockEntityMechanicalDropper", typeof(BlockEntityMechanicalDropper));
@@ -194,6 +196,9 @@ namespace BotaniaStory
             ManaRenderer = new ManaStreamRenderer(api);
 
             capi.Event.RegisterRenderer(new TerraShattererHud(capi), EnumRenderStage.Ortho);
+
+            clientChannel.SetMessageHandler<GaiaLightningPacket>(OnGaiaLightningPacketReceived);
+            GaiaLightningVisuals = new GaiaLightningRenderer(api);
         }
 
 
@@ -258,6 +263,14 @@ namespace BotaniaStory
                     new Vec3d(packet.StartX, packet.StartY, packet.StartZ),
                     new Vec3d(packet.EndX, packet.EndY, packet.EndZ)
                 );
+            }
+        }
+
+        private void OnGaiaLightningPacketReceived(GaiaLightningPacket packet)
+        {
+            if (GaiaLightningVisuals != null)
+            {
+                GaiaLightningVisuals.AddLightning(packet.StartPos, packet.EndPos);
             }
         }
 
@@ -435,7 +448,8 @@ namespace BotaniaStory
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     public class GaiaLightningPacket
     {
-        public Vec3d Position;
+        public Vec3d StartPos;
+        public Vec3d EndPos;
     }
 
 }
