@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BotaniaStory;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Config; // Добавлено для Lang.Get()
 using Vintagestory.API.Datastructures;
 
 namespace BotaniaStory.items
@@ -140,8 +141,8 @@ namespace BotaniaStory.items
         private void SetupDialog()
         {
             string title = isBlacklist
-                ? "Чёрный список — блокировать"
-                : "Белый список — разрешить";
+                ? Lang.Get("dialog-filter-blacklist")
+                : Lang.Get("dialog-filter-whitelist");
 
             ElementBounds searchInputBounds = ElementBounds.Fixed(0, 40, 250, 30);
 
@@ -191,18 +192,18 @@ namespace BotaniaStory.items
                 .EndClip()
                 .AddVerticalScrollbar(OnSearchScroll, searchScrollbarBounds, "searchScrollbar")
 
-                .AddRichtext("Добавленные предметы (ПКМ - удалить):", CairoFont.WhiteSmallText(), selectedTitleBounds)
+                .AddRichtext(Lang.Get("dialog-filter-added"), CairoFont.WhiteSmallText(), selectedTitleBounds)
                 .BeginClip(selectedClipBounds)
                     .AddItemSlotGrid(selectedInventory, (p) => { }, 5, selectedGridBounds, "selectedGrid")
                 .EndClip()
                 .AddVerticalScrollbar(OnSelectedScroll, selectedScrollbarBounds, "selectedScrollbar")
 
-                .AddRichtext("Фильтр по id / имени (через запятую, * — маска):", CairoFont.WhiteSmallText(), patternTitleBounds)
+                .AddRichtext(Lang.Get("dialog-filter-patterns"), CairoFont.WhiteSmallText(), patternTitleBounds)
                 .AddInset(patternInsetBounds, 3)
                 .AddTextArea(patternInputBounds, OnPatternTextChanged, CairoFont.WhiteSmallText(), "patternInput")
 
-                .AddSmallButton("Очистить", OnClickClear, clearBtnBounds)
-                .AddSmallButton("Сохранить", OnClickSave, saveBtnBounds)
+                .AddSmallButton(Lang.Get("dialog-filter-clear"), OnClickClear, clearBtnBounds)
+                .AddSmallButton(Lang.Get("dialog-filter-save"), OnClickSave, saveBtnBounds)
                 .Compose();
 
             OnSearchTextChanged("");

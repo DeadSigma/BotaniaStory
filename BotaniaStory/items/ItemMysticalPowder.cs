@@ -23,7 +23,7 @@ namespace BotaniaStory
             {
                 dsc.AppendLine();
 
-                // Берем текст из lang-файла с указанием домена твоего мода
+                // Берем текст из lang-файла
                 dsc.AppendLine(Lang.Get("botaniastory:alchemy-missing-warning"));
             }
         }
