@@ -97,7 +97,7 @@ namespace BotaniaStory.lexicon
 
             { "elfmania", new[] { "alfheimgates", "elfresources" } },
 
-            { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "flask", "root", "root_rusted" } },
+            { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "flask", "root-normal", "root-rusted" } },
 
             { "trials", new[] { "ch1" } }
         };
@@ -309,9 +309,9 @@ namespace BotaniaStory.lexicon
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
 
-                             "botaniastory:mysticalflower-*-free", null, null, 
-                             null, null, null,                                 
-                             null, null, null                                  
+                             "botaniastory:mysticalflower-*-free", null, null,
+                             null, null, null,
+                             null, null, null
                          },
                             Output = "botaniastory:mysticalpetal-*@2"
                         });
@@ -498,7 +498,7 @@ namespace BotaniaStory.lexicon
                                  "botaniastory:mysticalpetal-lime",
                                  "botaniastory:mysticalpetal-green",
                                  "botaniastory:mysticalpetal-magenta",
-                                 "botaniastory:root_rusted",
+                                 "botaniastory:root-rusted",
                                  "botaniastory:rune-spring"
                              },
                             ApothecaryCenter = "botaniastory:apothecary-*",
@@ -522,7 +522,7 @@ namespace BotaniaStory.lexicon
                                  "botaniastory:mysticalpetal-red",
                                  "botaniastory:mysticalpetal-blue",
                                  "botaniastory:mysticalpetal-magenta",
-                                 "botaniastory:root_rusted",
+                                 "botaniastory:root-rusted",
                                  "botaniastory:rune-spring"
                             },
                             ApothecaryCenter = "botaniastory:apothecary-*",
@@ -546,7 +546,7 @@ namespace BotaniaStory.lexicon
                                  "botaniastory:mysticalpetal-gray",
                                  "botaniastory:mysticalpetal-lightgray",
                                  "botaniastory:mysticalpetal-lightgray",
-                                 "botaniastory:root_rusted",
+                                 "botaniastory:root-rusted",
                                  "botaniastory:rune-air"
                              },
                             ApothecaryCenter = "botaniastory:apothecary-*",
@@ -556,7 +556,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА АГРО ГВОЗДИКА ===
+                    // === НАСТРОЙКА АГРОГВОЗДИКА ===
                     else if (chapId == "agricarnation")
                     {
                         chapter.TabItemCode = "botaniastory:agricarnation-free";
@@ -568,13 +568,15 @@ namespace BotaniaStory.lexicon
                             UiKey = "Аптекарь_Область_Правая",
                             ApothecaryIngredients = new string[]
                              {
-                                 "botaniastory:mysticalpetal-*",
-                                 "botaniastory:mysticalpetal-*",
-                                 "botaniastory:mysticalpetal-*",
-                                 "botaniastory:mysticalpetal-*"
+                                 "botaniastory:mysticalpetal-lime",
+                                 "botaniastory:mysticalpetal-lime",
+                                 "botaniastory:mysticalpetal-green",
+                                 "botaniastory:mysticalpetal-yellow",
+                                 "botaniastory:root-rusted",
+                                 "botaniastory:rune-spring"
                              },
                             ApothecaryCenter = "botaniastory:apothecary-*",
-                            Output = "botaniastory:mysticalflower-white"
+                            Output = "botaniastory:agricarnation-free"
                         });
 
                     }
@@ -897,7 +899,7 @@ namespace BotaniaStory.lexicon
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
 
-                            Output = "botaniastory:root"
+                            Output = "botaniastory:root-normal"
                         });
 
                         chapter.ManaBars.Add(new BookManaBar()
@@ -913,7 +915,7 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Бассейн_Область_Правая_Нижняя",
 
-                            PoolInput = new string[] { "botaniastory:root" },
+                            PoolInput = new string[] { "botaniastory:root-normal" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
 
@@ -1904,9 +1906,9 @@ namespace BotaniaStory.lexicon
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ КОРЕНЬ ===
-                    else if (chapId == "root")
+                    else if (chapId == "root-normal")
                     {
-                        chapter.TabItemCode = "botaniastory:root";
+                        chapter.TabItemCode = "botaniastory:root-normal";
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -1918,7 +1920,7 @@ namespace BotaniaStory.lexicon
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
 
-                            Output = "botaniastory:root"
+                            Output = "botaniastory:root-normal"
                         });
 
                         chapter.ManaBars.Add(new BookManaBar()
@@ -1930,9 +1932,9 @@ namespace BotaniaStory.lexicon
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ЗАРЖАВЕВШИЙ КОРЕНЬ ===
-                    else if (chapId == "root_rusted")
+                    else if (chapId == "root-rusted")
                     {
-                        chapter.TabItemCode = "botaniastory:root_rusted";
+                        chapter.TabItemCode = "botaniastory:root-rusted";
 
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -1943,7 +1945,7 @@ namespace BotaniaStory.lexicon
                              "botaniastory:root", null, null,
                              "game:powder-iron-oxide", null, null,
                              null, null, null},
-                            Output = "botaniastory:root_rusted"
+                            Output = "botaniastory:root-rusted"
                         });
 
                     }

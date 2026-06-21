@@ -19,15 +19,15 @@ namespace BotaniaStory.blocks
 
             { "endoflame-free", new Dictionary<string, int> { { "mysticalpetal-brown", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
 
-            { "agricarnation-free", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
-
-            { "jadedamaranthus-free", new Dictionary<string, int> { { "mysticalpetal-lime", 1 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-magenta", 1 }, { "root_rusted", 1 }, { "rune-spring", 1 } } },
+            { "jadedamaranthus-free", new Dictionary<string, int> { { "mysticalpetal-lime", 1 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-magenta", 1 }, { "root-rusted", 1 }, { "rune-spring", 1 } } },
 
             { "rosaarcana-free", new Dictionary<string, int> { { "mysticalpetal-brown", 2 }, { "mysticalpetal-pink", 2 }, { "gear-rusty", 1 } } },
 
-             { "hopperhock-free", new Dictionary<string, int> { { "mysticalpetal-lightgray", 2 }, { "mysticalpetal-gray", 2 }, { "rune-air", 1 }, { "root_rusted", 1 } } },
+             { "hopperhock-free", new Dictionary<string, int> { { "mysticalpetal-lightgray", 2 }, { "mysticalpetal-gray", 2 }, { "rune-air", 1 }, { "root-rusted", 1 } } },
 
-             { "witheredamaranthus-free", new Dictionary<string, int> { { "mysticalpetal-red", 1 }, { "mysticalpetal-blue", 1 }, { "mysticalpetal-magenta", 1 }, { "rune-spring", 1 }, { "root_rusted", 1 } } }
+             { "witheredamaranthus-free", new Dictionary<string, int> { { "mysticalpetal-red", 1 }, { "mysticalpetal-blue", 1 }, { "mysticalpetal-magenta", 1 }, { "rune-spring", 1 }, { "root-rusted", 1 } } },
+
+             { "agricarnation-free", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-yellow", 1 }, { "root-rusted", 1 }, { "rune-spring", 1 } } }
 
 
         };
@@ -68,7 +68,7 @@ namespace BotaniaStory.blocks
                         PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
 
                         itemTaken = true;
-                        break; 
+                        break;
                     }
                 }
 
@@ -81,7 +81,7 @@ namespace BotaniaStory.blocks
 
                 // --- ЛОГИКА АВТОКРАФТА ---
 
-              
+
                 if (be.HasWater && be.LastCraftedFlower != null)
                 {
                     long currentTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();

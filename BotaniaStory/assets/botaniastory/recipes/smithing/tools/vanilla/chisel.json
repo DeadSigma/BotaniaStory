@@ -16,6 +16,6 @@
     "code": "chisel-{metal}",
     "output": {
         "type": "item",
-        "code": "game:chisel-{metal}"
+        "code": "botaniastory:chisel-{metal}"
     }
 }

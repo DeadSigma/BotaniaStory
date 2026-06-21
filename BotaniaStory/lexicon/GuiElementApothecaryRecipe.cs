@@ -71,7 +71,7 @@ namespace BotaniaStory.lexicon
             // 1. Рисуем лепестки
             if (ingredients != null)
             {
-                double speed = 0.5;
+                double speed = 0.4;
                 for (int i = 0; i < ingredients.Length; i++)
                 {
                     if (ingredients[i] == null || ingredients[i].Length == 0) continue;
@@ -115,7 +115,7 @@ namespace BotaniaStory.lexicon
 
                 double outAbsX = Bounds.absX + Bounds.InnerWidth * 0.95;
                 double outAbsY = Bounds.absY + Bounds.InnerHeight * 0.05;
-                if (CheckMouse(mouseX, mouseY, outAbsX, outAbsY, slotSize * 0.55f)) hoveredStack = outStack;
+                if (CheckMouse(mouseX, mouseY, outAbsX, outAbsY, slotSize * 1.85f)) hoveredStack = outStack;
             }
 
             if (hoveredStack != null)

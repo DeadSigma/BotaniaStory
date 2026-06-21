@@ -18,6 +18,6 @@
     "code": "tongs-{metal}",
     "output": {
         "type": "item",
-        "code": "game:tongs-{metal}"
+        "code": "botaniastory:tongs-{metal}"
     }
 }

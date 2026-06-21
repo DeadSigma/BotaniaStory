@@ -16,6 +16,6 @@
     "code": "wrench-{metal}",
     "output": {
         "type": "item",
-        "code": "game:wrench-{metal}"
+        "code": "botaniastory:wrench-{metal}"
     }
 }

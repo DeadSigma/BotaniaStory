@@ -5,7 +5,7 @@
         "ingredients": {
             "R": {
                 "type": "item",
-                "code": "botaniastory:root"
+                "code": "botaniastory:root-normal"
             },
             "P": {
                 "type": "item",
@@ -16,7 +16,7 @@
         "height": 2,
         "output": {
             "type": "item",
-            "code": "botaniastory:root_rusted",
+            "code": "botaniastory:root-rusted",
             "quantity": 1
         }
     }

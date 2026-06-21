@@ -19,6 +19,6 @@
     "code": "crowbar-{metal}",
     "output": {
         "type": "item",
-        "code": "game:crowbar-{metal}"
+        "code": "botaniastory:crowbar-{metal}"
     }
 }

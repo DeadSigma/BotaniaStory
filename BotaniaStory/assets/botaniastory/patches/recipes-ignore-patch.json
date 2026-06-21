@@ -73,5 +73,11 @@
         "op": "add",
         "path": "/0/ingredients/H/skipVariants",
         "value": [ "manasteel", "elementium", "terrasteel" ]
+    },
+    {
+        "file": "game:recipes/smithing/wrench.json",
+        "op": "add",
+        "path": "/ingredient/skipVariants",
+        "value": [ "manasteel", "elementium", "terrasteel" ]
     }
 ]

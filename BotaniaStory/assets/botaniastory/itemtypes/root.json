@@ -1,16 +1,28 @@
 {
 	"code": "root",
 	"class": "Item",
+	"variantgroups": [
+		{
+			"code": "type",
+			"states": [ "normal", "rusted" ]
+		}
+	],
 	"maxstacksize": 64,
-	"shape": {
-		"base": "botaniastory:item/root"
+	"shapeByType": {
+		"*-rusted": { "base": "botaniastory:item/root_rusted" },
+		"*": { "base": "botaniastory:item/root" }
+	},
+	"texturesByType": {
+		"*-rusted": {
+			"all": { "base": "botaniastory:item/root_rusted" }
+		},
+		"*": {
+			"all": { "base": "botaniastory:item/root" }
+		}
 	},
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]
-	},
-	"textures": {
-		"all": { "base": "botaniastory:item/root" }
 	},
 	"behaviors": [
 		{
@@ -47,7 +59,6 @@
 			},
 			"scale": 1.12
 		}
-		
 	},
 	"materialDensity": 500,
 	"guiTransform": {
