@@ -169,6 +169,8 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemFloralFertilizer", typeof(ItemFloralFertilizer));
             api.RegisterItemClass("ItemMysticalPowder", typeof(ItemMysticalPowder));
 
+            api.RegisterEntityBehaviorClass("playermeditation", typeof(behaviors.EntityBehaviorPlayerMeditation));
+
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 
@@ -208,12 +210,16 @@ namespace BotaniaStory
             base.StartServerSide(api);
             this.sapi = api;
 
+            api.Event.PlayerJoin += OnPlayerJoin;
+
             // Получаем канал и вешаем слушателя пакетов книги
             serverChannel = api.Network.GetChannel("botanianetwork") as IServerNetworkChannel;
             serverChannel.SetMessageHandler<LexiconStatePacket>(OnLexiconStateMessage);
             serverChannel.SetMessageHandler<FilterUpdatePacket>(OnClientUpdateFilter);
 
             api.Event.RegisterGameTickListener(OnTalismanTick, 500);
+
+
 
             sapi.ChatCommands.GetOrCreate("b")
              .WithDescription("Botania Admin Commands")
@@ -409,7 +415,19 @@ namespace BotaniaStory
         {
             base.Dispose();
         }
+        private void OnPlayerJoin(IServerPlayer byPlayer)
+        {
+            // Используем byPlayer.Entity, так как это событие выдает именно игрока
+            if (!byPlayer.Entity.HasBehavior<BotaniaStory.behaviors.EntityBehaviorPlayerMeditation>())
+            {
+                var behavior = new BotaniaStory.behaviors.EntityBehaviorPlayerMeditation(byPlayer.Entity);
+                byPlayer.Entity.AddBehavior(behavior);
 
+                // При динамическом добавлении нужно дернуть Initialize вручную, 
+                // чтобы мы гарантированно увидели приветственный лог
+                behavior.Initialize(byPlayer.Entity.Properties, Vintagestory.API.Datastructures.JsonObject.FromJson("{}"));
+            }
+        }
     }
 
     // ПАКЕТЫ И КЛАССЫ
