@@ -1,6 +1,11 @@
 {
     "code": "hydroangeas",
-    "class": "BlockBotaniaFlower",
+    "class": "BlockHydroangeas",
+    "entityBehaviors": [
+        {
+            "name": "hydroangeaslogic"
+        }
+    ],
     "creativeinventory": {
         "general": [
             "*-free"

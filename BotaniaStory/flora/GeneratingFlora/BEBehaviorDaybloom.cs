@@ -61,7 +61,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
             // 1. СТАРЕНИЕ (Живёт 1 игровой день)
             double daysAlive = currentDays - PlantedTotalDays;
-            if (daysAlive >= 1.0)
+            if (daysAlive >= 3.0)
             {
                 // Узнаем, какой блок сейчас стоит по этим координатам
                 Block currentBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos);

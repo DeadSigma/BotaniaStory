@@ -20,6 +20,7 @@
         "*-hopperhock": [ { "name": "hopperhocklogic" } ],
         "*-endoflame": [ { "name": "endoflamelogic" } ],
         "*-rosaarcana": [ { "name": "rosaarcanalogic" } ],
+        "*-hydroangeas": [ { "name": "hydroangeaslogic" } ],
         "*-daybloom": [ { "name": "daybloomlogic" } ],
         "*-jadedamaranthus": [ { "name": "jadedamaranthuslogic" } ],
         "*-witheredamaranthus": [ { "name": "witheredamaranthuslogic" } ],

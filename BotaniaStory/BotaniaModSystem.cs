@@ -103,6 +103,9 @@ namespace BotaniaStory
             api.RegisterBlockEntityBehaviorClass("rosaarcanalogic", typeof(BEBehaviorRosaArcana));
             api.RegisterBlockClass("BlockDaybloom", typeof(BlockDaybloom));
             api.RegisterBlockEntityBehaviorClass("daybloomlogic", typeof(BEBehaviorDaybloom));
+            api.RegisterBlockClass("BlockHydroangeas", typeof(BotaniaStory.Flora.GeneratingFlora.BlockHydroangeas));
+            api.RegisterBlockEntityBehaviorClass("hydroangeaslogic", typeof(BotaniaStory.Flora.GeneratingFlora.BEBehaviorHydroangeas));
+
 
             api.RegisterItemClass("ItemWandOfBinding", typeof(ItemWandOfBinding));
             api.RegisterItemClass("ItemSpark", typeof(ItemSpark));
