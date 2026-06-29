@@ -69,9 +69,12 @@ namespace BotaniaStory
                 .RegisterMessageType<LexiconStatePacket>()
                 .RegisterMessageType<ManaStreamPacket>()
                 .RegisterMessageType<GaiaLightningPacket>()
-                .RegisterMessageType<FilterUpdatePacket>();
+                .RegisterMessageType<FilterUpdatePacket>()
+                .RegisterMessageType<HaloRecipePacket>()
+                .RegisterMessageType<HaloAnchorPacket>();
 
-
+            api.RegisterItemClass("ItemCraftingHalo", typeof(ItemCraftingHalo));
+            api.RegisterItemClass("ItemAutocraftingHalo", typeof(ItemAutocraftingHalo));
             api.RegisterItemClass("ItemLexicon", typeof(ItemLexicon));
             api.RegisterItemClass("ItemWandOfTheForest", typeof(ItemWandOfTheForest));
             api.RegisterBlockClass("BlockMysticalFlower", typeof(BlockMysticalFlower));
@@ -105,7 +108,8 @@ namespace BotaniaStory
             api.RegisterBlockEntityBehaviorClass("daybloomlogic", typeof(BEBehaviorDaybloom));
             api.RegisterBlockClass("BlockHydroangeas", typeof(BotaniaStory.Flora.GeneratingFlora.BlockHydroangeas));
             api.RegisterBlockEntityBehaviorClass("hydroangeaslogic", typeof(BotaniaStory.Flora.GeneratingFlora.BEBehaviorHydroangeas));
-
+            api.RegisterBlockClass("BlockNightshade", typeof(BlockNightshade));
+            api.RegisterBlockEntityBehaviorClass("nightshadelogic", typeof(BEBehaviorNightshade));
 
             api.RegisterItemClass("ItemWandOfBinding", typeof(ItemWandOfBinding));
             api.RegisterItemClass("ItemSpark", typeof(ItemSpark));
@@ -204,6 +208,12 @@ namespace BotaniaStory
 
             clientChannel.SetMessageHandler<GaiaLightningPacket>(OnGaiaLightningPacketReceived);
             GaiaLightningVisuals = new GaiaLightningRenderer(api);
+
+            capi.Input.RegisterHotKey("halocapture", "Гало: запомнить рецепт из сетки крафта", GlKeys.G, HotkeyType.CharacterControls);
+            capi.Input.SetHotKeyHandler("halocapture", comb => ItemCraftingHalo.OnCaptureHotkey(capi, comb));
+            capi.Event.RegisterRenderer(new CraftingHaloRenderer(capi), EnumRenderStage.Opaque);
+            api.Logger.Notification("[BotaniaStory] BUILD MARKER 001");
+
         }
 
 
@@ -222,7 +232,10 @@ namespace BotaniaStory
 
             api.Event.RegisterGameTickListener(OnTalismanTick, 500);
 
-
+            // Автокрафт
+            serverChannel.SetMessageHandler<HaloRecipePacket>((p, msg) => ItemCraftingHalo.OnHaloRecipe(api, p, msg));
+            api.Event.RegisterGameTickListener(dt => ItemCraftingHalo.RunAutocraft(api), 1000);
+            serverChannel.SetMessageHandler<HaloAnchorPacket>((p, msg) => ItemCraftingHalo.OnHaloAnchor(p, msg));
 
             sapi.ChatCommands.GetOrCreate("b")
              .WithDescription("Botania Admin Commands")

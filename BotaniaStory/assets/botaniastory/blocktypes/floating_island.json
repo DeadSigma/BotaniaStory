@@ -22,6 +22,7 @@
         "*-rosaarcana": [ { "name": "rosaarcanalogic" } ],
         "*-hydroangeas": [ { "name": "hydroangeaslogic" } ],
         "*-daybloom": [ { "name": "daybloomlogic" } ],
+        "*-nightshade": [ { "name": "nightshadelogic" } ],
         "*-jadedamaranthus": [ { "name": "jadedamaranthuslogic" } ],
         "*-witheredamaranthus": [ { "name": "witheredamaranthuslogic" } ],
         "*-agricarnation": [ { "name": "agricarnationlogic" } ]

@@ -1,6 +1,11 @@
 {
     "code": "nightshade",
-    "class": "BlockBotaniaFlower",
+    "class": "BlockNightshade",
+    "entityBehaviors": [
+        {
+            "name": "nightshadelogic"
+        }
+    ],
     "creativeinventory": {
         "general": [
             "*-free"
