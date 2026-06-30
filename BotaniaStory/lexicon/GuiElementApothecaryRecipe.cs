@@ -14,8 +14,8 @@ namespace BotaniaStory.lexicon
         private double slotSize;
         private double scale;
         private DummySlot renderSlot;
+        private readonly double rotationSpeed = 0.4;
 
-        // --- НОВЫЕ ПЕРЕМЕННЫЕ ДЛЯ ФОНА ---
         private ElementBounds bgBounds;
         private LoadedTexture bgTexture;
 
@@ -50,7 +50,7 @@ namespace BotaniaStory.lexicon
 
         public override void RenderInteractiveElements(float deltaTime)
         {
-            // --- МАСШТАБИРОВАНИЕ ФОНА ---
+            // МАСШТАБИРОВАНИЕ ФОНА
             // Рисуем текстуру вручную, заставляя её растягиваться до размеров bgBounds
             if (bgTexture != null && bgTexture.TextureId != 0)
             {
@@ -68,15 +68,15 @@ namespace BotaniaStory.lexicon
             double centerY = Bounds.renderY + Bounds.InnerHeight / 2;
             double radius = Bounds.InnerWidth * 0.35;
 
-            // 1. Рисуем лепестки
+            // Рисуем лепестки
             if (ingredients != null)
             {
-                double speed = 0.4;
                 for (int i = 0; i < ingredients.Length; i++)
                 {
                     if (ingredients[i] == null || ingredients[i].Length == 0) continue;
 
-                    double angle = (continuousTime * speed) + (i * (Math.PI * 2) / ingredients.Length);
+                    // Используем rotationSpeed
+                    double angle = (continuousTime * rotationSpeed) + (i * (Math.PI * 2) / ingredients.Length);
                     double rX = centerX + Math.Cos(angle) * radius;
                     double rY = centerY + Math.Sin(angle) * radius;
 
@@ -91,7 +91,7 @@ namespace BotaniaStory.lexicon
                 }
             }
 
-            // 2. Рисуем центральный блок
+            // Рисуем центральный блок
             if (centralStacks != null && centralStacks.Length > 0)
             {
                 ItemStack cStack = centralStacks[timeIndex % centralStacks.Length];
@@ -103,7 +103,7 @@ namespace BotaniaStory.lexicon
                 if (CheckMouse(mouseX, mouseY, cAbsX, cAbsY, slotSize * 0.5f)) hoveredStack = cStack;
             }
 
-            // 3. Рисуем результат
+            // Рисуем результат
             if (outputStacks != null && outputStacks.Length > 0)
             {
                 double outX = Bounds.renderX + Bounds.InnerWidth * 0.95;
@@ -145,7 +145,8 @@ namespace BotaniaStory.lexicon
                 for (int i = 0; i < ingredients.Length; i++)
                 {
                     if (ingredients[i] == null || ingredients[i].Length == 0) continue;
-                    double angle = (continuousTime * 0.5) + (i * (Math.PI * 2) / ingredients.Length);
+
+                    double angle = (continuousTime * rotationSpeed) + (i * (Math.PI * 2) / ingredients.Length);
                     double x = centerX + Math.Cos(angle) * radius;
                     double y = centerY + Math.Sin(angle) * radius;
 
@@ -190,7 +191,6 @@ namespace BotaniaStory.lexicon
             return distSq <= (hitRadius * hitRadius);
         }
 
-        // ОЧИЩАЕМ ПАМЯТЬ ОТ ТЕКСТУРЫ
         public override void Dispose()
         {
             if (api?.World?.Player?.InventoryManager?.CurrentHoveredSlot == renderSlot)
