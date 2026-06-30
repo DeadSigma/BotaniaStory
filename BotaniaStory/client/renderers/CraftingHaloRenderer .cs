@@ -11,12 +11,12 @@ namespace BotaniaStory.client.renderers
     public class CraftingHaloRenderer : IRenderer
     {
         readonly ICoreClientAPI capi;
-        LoadedTexture glowTex;
-        LoadedTexture glowTexAuto; // Добавлена текстура для автоматического гало
+        readonly LoadedTexture glowTex;
+        readonly LoadedTexture glowTexAuto;
         MeshRef ringRef;
-        readonly Matrixf modelMat = new Matrixf();
-        readonly Matrixf itemMat = new Matrixf();
-        readonly Dictionary<string, MeshRef> itemMeshCache = new Dictionary<string, MeshRef>();
+        readonly Matrixf modelMat = new();
+        readonly Matrixf itemMat = new();
+        readonly Dictionary<string, MeshRef> itemMeshCache = [];
         float accumSec;
         bool ringWasActive;
 
@@ -40,10 +40,10 @@ namespace BotaniaStory.client.renderers
         public CraftingHaloRenderer(ICoreClientAPI capi)
         {
             this.capi = capi;
+
             glowTex = new LoadedTexture(capi);
             capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/halo_glow.png"), ref glowTex);
 
-            // Загружаем текстуру для автоматического гало
             glowTexAuto = new LoadedTexture(capi);
             capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/gui/halo_glow_automatic.png"), ref glowTexAuto);
         }
@@ -56,7 +56,7 @@ namespace BotaniaStory.client.renderers
             ItemStack held = capi.World?.Player?.InventoryManager?.ActiveHotbarSlot?.Itemstack;
             bool holdingHalo = ply != null && held?.Collectible is ItemCraftingHalo;
 
-            // Меню только что открылось - якорим сегмент 0 (верстак) к текущему взгляду
+            // Меню только что открылось -> якорим сегмент 0 (верстак) к текущему взгляду
             if (holdingHalo && !ringWasActive)
                 ItemCraftingHalo.SetAnchorYaw(capi, ply.Pos.Yaw);
             ringWasActive = holdingHalo;
@@ -67,6 +67,7 @@ namespace BotaniaStory.client.renderers
             int selected = ItemCraftingHalo.GetLookedAtSegment(ply);
             float pulse = ((float)Math.Sin(accumSec * 4.0) * 0.5f + 0.5f) * 0.4f + 0.3f;
 
+            // Обычное или автоматическое гало -> своя текстура свечения.
             bool isAuto = held.Collectible.Code.Path.Contains("auto");
             int activeTexId = isAuto ? glowTexAuto.TextureId : glowTex.TextureId;
 
@@ -89,12 +90,12 @@ namespace BotaniaStory.client.renderers
 
             IStandardShaderProgram prog = rpi.StandardShader;
             prog.Use();
-            prog.Tex2D = activeTexId; 
-            prog.RgbaTint = new Vec4f(1, 1, 1, 1);
+            prog.Tex2D = activeTexId;
+            prog.RgbaTint = new Vec4f(1, 1, 1, 1);   // нейтральный тинт: цвет даёт текстура
             prog.NormalShaded = 0;
-            prog.ExtraGlow = 0;
+            prog.ExtraGlow = 0;                       // glow выключен
             prog.AlphaTest = 0.01f;
-            prog.RgbaAmbientIn = new Vec3f(1, 1, 1);
+            prog.RgbaAmbientIn = new Vec3f(1, 1, 1);  // умножающий fullbright: кольцо видно и ночью
             prog.RgbaFogIn = new Vec4f(1, 1, 1, 0);
             prog.FogMinIn = 0f;
             prog.FogDensityIn = 0f;
@@ -121,6 +122,7 @@ namespace BotaniaStory.client.renderers
 
             for (int s = 0; s < ItemCraftingHalo.SEGMENTS; s++)
             {
+                // слот 0 - сам halo (узел-«верстак»); слоты 1..11 - результат рецепта
                 ItemStack shown = (s == 0) ? halo : ItemCraftingHalo.GetSegmentOutput(halo, world, s);
                 if (shown?.Collectible == null) continue;
 
@@ -133,31 +135,15 @@ namespace BotaniaStory.client.renderers
             }
         }
 
+        // Отрисовать ItemStack в точке (локальные смещения от игрока)
         void DrawItem(EntityPlayer ply, Vec3d cam, ItemStack stack, double lx, double ly, double lz, float scale, float spinDeg)
         {
-            bool isBlock = stack.Class == EnumItemClass.Block;
-            string key = (isBlock ? "b-" : "i-") + stack.Id;
-
-            if (!itemMeshCache.TryGetValue(key, out MeshRef meshRef))
-            {
-                MeshData md;
-                if (isBlock) capi.Tesselator.TesselateBlock(stack.Block, out md);
-                else capi.Tesselator.TesselateItem(stack.Item, out md);
-                if (md == null) return;
-                meshRef = capi.Render.UploadMesh(md);
-                itemMeshCache[key] = meshRef;
-            }
-
             IRenderAPI rpi = capi.Render;
             double wx = ply.Pos.X + lx, wy = ply.Pos.Y + ly, wz = ply.Pos.Z + lz;
+            bool isBlock = stack.Class == EnumItemClass.Block;
 
-            IStandardShaderProgram prog = rpi.PreparedStandardShader((int)wx, (int)wy, (int)wz);
-            prog.Use();
-            prog.RgbaTint = new Vec4f(1, 1, 1, 1);
-            prog.ExtraGlow = 0;
-            prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            prog.ViewMatrix = rpi.CameraMatrixOriginf;
-            prog.ModelMatrix = itemMat
+            // Общая матрица: меш в [0..1], крутим и масштабируем вокруг центра
+            float[] model = itemMat
                 .Identity()
                 .Translate((float)(wx - cam.X), (float)(wy - cam.Y), (float)(wz - cam.Z))
                 .RotateY(spinDeg * GameMath.DEG2RAD)
@@ -165,12 +151,50 @@ namespace BotaniaStory.client.renderers
                 .Translate(-0.5f, -0.5f, -0.5f)
                 .Values;
 
-            int texId = isBlock
-                ? capi.BlockTextureAtlas.AtlasTextures[0].TextureId
-                : capi.ItemTextureAtlas.AtlasTextures[0].TextureId;
-            rpi.BindTexture2d(texId);
+            if (isBlock)
+            {
+                // Блоки - инвентарным мешем: учитывает атрибуты (полки) и инвентарную форму
+                // (полная кровать/корыто вместо мирового обрубка одной клетки)
+                ItemRenderInfo ri = rpi.GetItemStackRenderInfo(new DummySlot(stack), EnumItemRenderTarget.Ground, 0f);
+                if (ri?.ModelRef == null) return;
+
+                IStandardShaderProgram prog = rpi.PreparedStandardShader((int)wx, (int)wy, (int)wz);
+                prog.Use();
+                prog.RgbaTint = new Vec4f(1, 1, 1, 1);
+                prog.ExtraGlow = 0;
+                prog.AlphaTest = ri.AlphaTest;
+                prog.NormalShaded = ri.NormalShaded ? 1 : 0;
+                prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
+                prog.ViewMatrix = rpi.CameraMatrixOriginf;
+                prog.ModelMatrix = model;
+
+                rpi.GlDisableCullFace();
+                rpi.RenderMultiTextureMesh(ri.ModelRef, "tex");
+                rpi.GlEnableCullFace();
+                prog.Stop();
+                return;
+            }
+
+            // Предметы - прежним проверенным путём (Tesselate + BindTexture2d + RenderMesh)
+            string key = "i-" + stack.Id;
+            if (!itemMeshCache.TryGetValue(key, out MeshRef meshRef))
+            {
+                capi.Tesselator.TesselateItem(stack.Item, out MeshData md);
+                if (md == null) return;
+                meshRef = capi.Render.UploadMesh(md);
+                itemMeshCache[key] = meshRef;
+            }
+
+            IStandardShaderProgram iprog = rpi.PreparedStandardShader((int)wx, (int)wy, (int)wz);
+            iprog.Use();
+            iprog.RgbaTint = new Vec4f(1, 1, 1, 1);
+            iprog.ExtraGlow = 0;
+            iprog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
+            iprog.ViewMatrix = rpi.CameraMatrixOriginf;
+            iprog.ModelMatrix = model;
+            rpi.BindTexture2d(capi.ItemTextureAtlas.AtlasTextures[0].TextureId);
             rpi.RenderMesh(meshRef);
-            prog.Stop();
+            iprog.Stop();
         }
 
         // меш кольца
@@ -180,12 +204,14 @@ namespace BotaniaStory.client.renderers
             int vCount = quads * 4;
             int iCount = quads * 6;
 
-            MeshData mesh = new MeshData(vCount, iCount, false, true, true, true);
-            mesh.xyz = new float[vCount * 3];
-            mesh.Uv = new float[vCount * 2];
-            mesh.Rgba = new byte[vCount * 4];
-            mesh.Flags = new int[vCount];
-            mesh.Indices = new int[iCount];
+            MeshData mesh = new(vCount, iCount, false, true, true, true)
+            {
+                xyz = new float[vCount * 3],
+                Uv = new float[vCount * 2],
+                Rgba = new byte[vCount * 4],
+                Flags = new int[vCount],
+                Indices = new int[iCount]
+            };
 
             int vp = 0, ip = 0;
             float segDeg = 360f / ItemCraftingHalo.SEGMENTS;
@@ -195,6 +221,7 @@ namespace BotaniaStory.client.renderers
                 bool sel = seg == selected;
                 float yOuter = sel ? Y_OUTER_SEL : Y_OUTER;
 
+                // Цвет кольца даёт текстура halo_glow; вершины белые, чтобы её не тонировать
                 byte r = 255, g = 255, b = 255;
 
                 float a = Math.Min(1f, pulse + (sel ? 0.3f : 0f));
@@ -234,16 +261,17 @@ namespace BotaniaStory.client.renderers
             m.xyz[i * 3 + 0] = x; m.xyz[i * 3 + 1] = y; m.xyz[i * 3 + 2] = z;
             m.Uv[i * 2 + 0] = u; m.Uv[i * 2 + 1] = v;
             m.Rgba[i * 4 + 0] = r; m.Rgba[i * 4 + 1] = g; m.Rgba[i * 4 + 2] = b; m.Rgba[i * 4 + 3] = a;
-            m.Flags[i] = 0;
+            m.Flags[i] = 0; // младший байт = glow вершины; держим в нуле
         }
 
         public void Dispose()
         {
             ringRef?.Dispose();
             glowTex?.Dispose();
-            glowTexAuto?.Dispose(); 
+            glowTexAuto?.Dispose();
             foreach (MeshRef mr in itemMeshCache.Values) mr?.Dispose();
             itemMeshCache.Clear();
+            GC.SuppressFinalize(this);
         }
     }
 }

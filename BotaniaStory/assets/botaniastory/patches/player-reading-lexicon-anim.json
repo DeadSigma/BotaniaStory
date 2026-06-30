@@ -1,0 +1,16 @@
+[
+  {
+    "file": "game:entities/humanoid/player.json",
+    "op": "add",
+    "path": "/client/animations/-",
+    "value": {
+      "code": "reading_lexicon",
+      "animation": "interactstatic",
+      "blendMode": "AddAverage",
+      "weight": 10,
+      "easeInSpeed": 10,
+      "easeOutSpeed": 10,
+      "supressDefaultAnimation": true
+    }
+  }
+]

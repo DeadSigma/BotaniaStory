@@ -1,13 +1,28 @@
 {
-	"code": "autocraftinghalo",
-	"class": "ItemAutocraftingHalo",
+	"code": "halo",
 	"maxstacksize": 1,
-	"shape": {
-		"base": "botaniastory:item/blackholetalisman"
+	"variantgroups": [
+		{
+			"code": "type",
+			"states": [ "crafting", "autocrafting" ]
+		}
+	],
+	"classByType": {
+		"*-crafting": "ItemCraftingHalo",
+		"*-autocrafting": "ItemAutocraftingHalo"
 	},
-	"textures": {
-		"blackholetalisman": { "base": "botaniastory:item/blackholetalisman" }
-
+	"shape": {
+		"base": "botaniastory:item/halo"
+	},
+	"texturesByType": {
+		"*-crafting": {
+			"halo_part_1": { "base": "botaniastory:item/craftinghalo_part_1" },
+			"halo_part_2": { "base": "botaniastory:item/craftinghalo_part_2" }
+		},
+		"*-autocrafting": {
+			"halo_part_1": { "base": "botaniastory:item/autocraftinghalo_part_1" },
+			"halo_part_2": { "base": "botaniastory:item/autocraftinghalo_part_2" }
+		}
 	},
 	"attributes": {
 		"shelvable": true,
@@ -66,8 +81,8 @@
 	],
 	"guiTransform": {
 		"translation": {
-			"x": 1.49,
-			"y": 2.8,
+			"x": 2.3243132,
+			"y": -0.58135355,
 			"z": 0
 		},
 		"rotation": {
@@ -76,8 +91,8 @@
 			"z": 180
 		},
 		"origin": {
-			"x": 0.51,
-			"y": 0.43,
+			"x": 0.54,
+			"y": 0.03,
 			"z": 0.51
 		},
 		"scale": 1.16,
@@ -109,22 +124,24 @@
 		"scale": 1.8
 	},
 	"groundTransform": {
-		"translation": {
-			"x": 0,
-			"y": 0.1,
-			"z": 0
-		},
-		"rotation": {
-			"x": 0,
-			"y": 0,
-			"z": 0
-		},
-		"origin": {
-			"x": 0.5,
-			"y": 0.3,
-			"z": 0.5399
-		},
-		"scale": 1.74
+		"groundTransform": {
+			"translation": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"rotation": {
+				"x": 90,
+				"y": 0,
+				"z": 0
+			},
+			"origin": {
+				"x": 0.5,
+				"y": 0.5,
+				"z": 0.5299
+			},
+			"scale": 2.94
+		}
 	},
 	"creativeinventory": {
 		"general": [ "*" ],

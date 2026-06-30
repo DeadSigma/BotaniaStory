@@ -1,0 +1,54 @@
+[
+    {
+        "code": "halo-frame",
+        "ingredient": {
+            "type": "item",
+            "code": "game:ingot-manasteel"
+        },
+        "pattern": [
+            [
+                "###____###",
+                "#__####__#",
+                "#_######_#",
+                "_##____##_",
+                "_##____##_",
+                "_##____##_",
+                "_##____##_",
+                "#_######_#",
+                "#__####__#",
+                "###____###"
+            ]
+        ],
+        "name": "Halo Frame",
+        "output": {
+            "type": "item",
+            "code": "botaniastory:halo_frame"
+        }
+    },
+    {
+        "code": "halo-automatic-frame",
+        "ingredient": {
+            "type": "item",
+            "code": "game:ingot-terrasteel"
+        },
+        "pattern": [
+            [
+                "###____###",
+                "#__####__#",
+                "#_######_#",
+                "_##____##_",
+                "_##____##_",
+                "_##____##_",
+                "_##____##_",
+                "#_######_#",
+                "#__####__#",
+                "###____###"
+            ]
+        ],
+        "name": "Automatic Halo Frame",
+        "output": {
+            "type": "item",
+            "code": "botaniastory:automatic_halo_frame"
+        }
+    }
+]

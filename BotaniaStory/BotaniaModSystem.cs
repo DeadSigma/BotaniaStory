@@ -176,12 +176,12 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemFloralFertilizer", typeof(ItemFloralFertilizer));
             api.RegisterItemClass("ItemMysticalPowder", typeof(ItemMysticalPowder));
 
-            api.RegisterEntityBehaviorClass("playermeditation", typeof(behaviors.EntityBehaviorPlayerMeditation));
+            api.RegisterEntityBehaviorClass("playermeditation", typeof(EntityBehaviorPlayerMeditation));
 
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 
-        }                      
+        }
 
 
 
@@ -368,15 +368,7 @@ namespace BotaniaStory
             ItemSlot activeSlot = fromPlayer.InventoryManager.ActiveHotbarSlot;
             if (activeSlot.Itemstack?.Item is ItemLexicon)
             {
-                if (packet.IsOpen)
-                {
-                    fromPlayer.Entity.AnimManager.StartAnimation(ItemLexicon.ReadAnimation);
-                }
-                else
-                {
-                    fromPlayer.Entity.AnimManager.StopAnimation("reading_lexicon");
-                }
-
+             
                 string targetState = packet.IsOpen ? "open" : "closed";
                 string currentPath = activeSlot.Itemstack.Item.Code.Path;
 
@@ -433,14 +425,12 @@ namespace BotaniaStory
         }
         private void OnPlayerJoin(IServerPlayer byPlayer)
         {
-            // Используем byPlayer.Entity, так как это событие выдает именно игрока
-            if (!byPlayer.Entity.HasBehavior<BotaniaStory.behaviors.EntityBehaviorPlayerMeditation>())
+            if (!byPlayer.Entity.HasBehavior<EntityBehaviorPlayerMeditation>())
             {
-                var behavior = new BotaniaStory.behaviors.EntityBehaviorPlayerMeditation(byPlayer.Entity);
+                var behavior = new EntityBehaviorPlayerMeditation(byPlayer.Entity);
                 byPlayer.Entity.AddBehavior(behavior);
 
-                // При динамическом добавлении нужно дернуть Initialize вручную, 
-                // чтобы мы гарантированно увидели приветственный лог
+                // При динамическом добавлении нужно дернуть Initialize вручную
                 behavior.Initialize(byPlayer.Entity.Properties, Vintagestory.API.Datastructures.JsonObject.FromJson("{}"));
             }
         }

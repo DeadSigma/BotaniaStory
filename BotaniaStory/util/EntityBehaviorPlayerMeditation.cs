@@ -3,29 +3,23 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
-namespace BotaniaStory.behaviors
+namespace BotaniaStory.util
 {
-    public class EntityBehaviorPlayerMeditation : EntityBehavior
+    public class EntityBehaviorPlayerMeditation(Entity entity) : EntityBehavior(entity)
     {
         private const float MeditationThreshold = 10f; // секунд сидения до начала эффекта
         private const float EffectInterval = 10.5f;     // как часто превращаем цветок
         private const float AmbientInterval = 0.25f;   // как часто пускаем "ауру"
         private const int transformRadius = 4;
 
-        private bool wasSitting = false;
-
         private float sitDuration = 0f;
         private float effectTick = 0f;
         private float ambientTick = 0f;
 
-        private readonly string[] flowerColors = new string[] {
+        private readonly string[] flowerColors = [
             "white", "orange", "magenta", "lightblue", "yellow", "lime", "pink", "gray",
             "lightgray", "cyan", "purple", "blue", "brown", "green", "red", "black"
-        };
-
-        public EntityBehaviorPlayerMeditation(Entity entity) : base(entity)
-        {
-        }
+        ];
 
         public override string PropertyName() => "playermeditation";
 
@@ -42,14 +36,12 @@ namespace BotaniaStory.behaviors
 
             if (!isSitting)
             {
-                wasSitting = false;
                 sitDuration = 0f;
                 effectTick = 0f;
                 ambientTick = 0f;
                 return;
             }
 
-            wasSitting = true;
             sitDuration += deltaTime;
 
             // Аура частиц идёт с самого начала; после порога становится интенсивнее
@@ -96,7 +88,7 @@ namespace BotaniaStory.behaviors
                 {
                     string randomColor = flowerColors[entity.World.Rand.Next(flowerColors.Length)];
 
-                    AssetLocation mysticalLoc = new AssetLocation("botaniastory", "mysticalflower-" + randomColor + "-free");
+                    AssetLocation mysticalLoc = new("botaniastory", "mysticalflower-" + randomColor + "-free");
                     Block mysticalFlowerBlock = entity.World.GetBlock(mysticalLoc);
 
                     if (mysticalFlowerBlock != null)
@@ -105,7 +97,7 @@ namespace BotaniaStory.behaviors
                         SpawnTransformBurst(checkPos);
 
                         entity.World.PlaySoundAt(
-                            new AssetLocation("game", "sounds/block/plant"),
+                            new("game", "sounds/block/plant"),
                             checkPos.X + 0.5, checkPos.Y + 0.5, checkPos.Z + 0.5,
                             null, true, 16, 1f);
 
@@ -128,7 +120,7 @@ namespace BotaniaStory.behaviors
             int min = intense ? 2 : 1;
             int max = intense ? 5 : 2;
 
-            SimpleParticleProperties aura = new SimpleParticleProperties(
+            SimpleParticleProperties aura = new(
                 min, max,
                 ColorUtil.ToRgba(200, 200, 120, 255), // мягкий фиолетово-розовый (a, r, g, b)
                 new Vec3d(cx - r, cy + 0.1, cz - r),
@@ -139,8 +131,10 @@ namespace BotaniaStory.behaviors
                 -0.02f,   // гравитация (вверх)
                 0.1f, 0.3f,
                 EnumParticleModel.Quad
-            );
-            aura.SelfPropelled = true;
+            )
+            {
+                SelfPropelled = true
+            };
 
             entity.World.SpawnParticles(aura);
         }
@@ -148,7 +142,7 @@ namespace BotaniaStory.behaviors
         // Вспышка в момент превращения цветка
         private void SpawnTransformBurst(BlockPos pos)
         {
-            SimpleParticleProperties burst = new SimpleParticleProperties(
+            SimpleParticleProperties burst = new(
                 5, 10,
                 ColorUtil.ToRgba(255, 150, 255, 150),
                 new Vec3d(pos.X, pos.Y, pos.Z),

@@ -11,6 +11,7 @@
             "states": [ "ns", "we", "ud" ]
         }
     ],
+
     "behaviorsByType": {
         "*-normal-*": [
             {

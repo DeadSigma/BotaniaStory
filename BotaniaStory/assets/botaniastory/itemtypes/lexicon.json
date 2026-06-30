@@ -8,6 +8,7 @@
 			"states": [ "closed", "open" ]
 		}
 	],
+
 	"shapeByType": {
 		"*-closed": { "base": "botaniastory:item/lexicon_model_closed" },
 		"*-open": { "base": "botaniastory:item/lexicon_model_open" }
@@ -86,7 +87,7 @@
 				"scale": 0.46
 			}
 		}
-		},
+	},
 	"behaviors": [
 		{
 			"name": "GroundStorable",

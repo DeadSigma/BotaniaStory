@@ -4,6 +4,7 @@ using BotaniaStory.lexicon;
 using BotaniaStory.systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 
 namespace BotaniaStory.items
 {
@@ -11,16 +12,15 @@ namespace BotaniaStory.items
     {
         GuiDialogLexicon guideDialog;
 
-        // ДОБАВЛЕНО: Создаем "неубиваемую" анимацию с высоким приоритетом
-        public static AnimationMetaData ReadAnimation = new AnimationMetaData()
+        public override string GetHeldTpIdleAnimation(ItemSlot activeHotbarSlot, Entity forEntity, EnumHand hand)
         {
-            Animation = "interactstatic",
-            Code = "reading_lexicon",
-            Weight = 10f,
-            BlendMode = EnumAnimationBlendMode.Add, 
-            EaseInSpeed = 2f,
-            EaseOutSpeed = 2f
-        };
+            if (Code?.Path != null && Code.Path.EndsWith("open"))
+            {
+                return "reading_lexicon";
+            }
+
+            return base.GetHeldTpIdleAnimation(activeHotbarSlot, forEntity, hand);
+        }
 
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
@@ -36,9 +36,7 @@ namespace BotaniaStory.items
                 {
                     guideDialog = new GuiDialogLexicon(capi);
 
-                    // При закрытии книги — ОСТАНАВЛИВАЕМ по нашему уникальному Code
                     guideDialog.OnClosed += () => {
-                        byEntity.AnimManager.StopAnimation("reading_lexicon");
                         capi.Network.GetChannel("botanianetwork").SendPacket(new LexiconStatePacket() { IsOpen = false });
                     };
                 }
@@ -58,9 +56,6 @@ namespace BotaniaStory.items
                 if (!guideDialog.IsOpened())
                 {
                     guideDialog.TryOpen();
-
-                    // ЗАПУСКАЕМ неубиваемую анимацию
-                    byEntity.AnimManager.StartAnimation(ReadAnimation);
 
                     capi.Network.GetChannel("botanianetwork").SendPacket(new LexiconStatePacket() { IsOpen = true });
                 }

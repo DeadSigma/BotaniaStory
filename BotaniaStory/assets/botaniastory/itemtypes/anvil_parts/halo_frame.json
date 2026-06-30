@@ -1,0 +1,189 @@
+{
+	"code": "halo_frame",
+	"class": "Item",
+	"maxstacksize": 64,
+	"shape": {
+		"base": "botaniastory:item/workitems/halo_frame"
+	},
+	"textures": {
+		"halo_part_1": { "base": "game:item/resource/plate/manasteel" },
+		"halo_part_2": { "base": "game:item/resource/plate/manasteel" }
+	},
+	"storageFlags": 128,
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
+	"behaviors": [
+		{
+			"name": "GroundStorable",
+			"properties": {
+				"layout": "Quadrants",
+				"collisionBox": {
+					"x1": 0,
+					"y1": 0,
+					"z1": 0,
+					"x2": 1,
+					"y2": 0.1,
+					"z2": 1
+				}
+			}
+		}
+	],
+	"attributes": {
+		"shelvable": true,
+		"groundStorageTransform": {
+			"translation": {
+				"x": 0.01,
+				"y": -0.35,
+				"z": -0.3
+			},
+			"rotation": {
+				"x": -90,
+				"y": 0,
+				"z": 0
+			},
+			"scale": 0.6
+		},
+		"inForgeTransform": {
+			"translation": {
+				"x": -3.58,
+				"y": -0.47,
+				"z": -1.413
+			},
+			"rotation": {
+				"x": -4,
+				"y": 0,
+				"z": -14
+			},
+			"origin": {
+				"x": 1,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.44
+		},
+		"forgable": true,
+		"onTongTransform": {
+			"translation": {
+				"x": -2.52,
+				"y": -2.47,
+				"z": -1.25
+			},
+			"rotation": {
+				"x": -180,
+				"y": 2,
+				"z": -18
+			},
+			"origin": {
+				"x": 0.54,
+				"y": 0.59,
+				"z": 0.5
+			},
+			"scale": 0.44
+		},
+		"tongOpening": "wide",
+		"heldTpIdleAnimation": "holdbothhandslarge",
+		"heldTpHitAnimation": "breaktool",
+		"onMetalTongTransform": {
+			"translation": {
+				"x": -3.58,
+				"y": -0.47,
+				"z": -1.413
+			},
+			"rotation": {
+				"x": 6,
+				"y": 0,
+				"z": -20
+			},
+			"origin": {
+				"x": 1,
+				"y": 0,
+				"z": 0.5
+			},
+			"scale": 0.44
+		},
+		"displayable": {
+			"shelf": {
+				"size": {
+					"width": 2.5,
+					"height": 1.5,
+					"length": 8
+				},
+				"translation": {
+					"x": -0.29,
+					"y": -0.407,
+					"z": -0.12
+				},
+				"rotation": {
+					"x": -90,
+					"y": 0,
+					"z": 0
+				},
+				"origin": {
+					"x": 1,
+					"y": 0.5,
+					"z": 0.5
+				},
+				"scale": 0.42
+			}
+		}
+	},
+	"guiTransform": {
+		"translation": {
+			"x": 1.101,
+			"y": 0.1311,
+			"z": 0
+		},
+		"rotation": {
+			"x": 170.3354,
+			"y": -42.0265,
+			"z": 3.5369
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.02,
+			"z": 0.5
+		},
+		"scale": 1.09
+	},
+	"heldTpIdleAnimation": "holdbothhandslarge",
+	"heldRightReadyAnimation": "heldblockready",
+	"heldTpUseAnimation": "twohandplaceblock",
+	"tpHandTransform": {
+		"translation": {
+			"x": -1.1757879,
+			"y": -2.0733013,
+			"z": -0.40982598
+		},
+		"rotation": {
+			"x": 144.55148,
+			"y": -98.32156,
+			"z": -132.22325
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 1.5,
+			"z": 0.5
+		},
+		"scale": 0.42
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0,
+			"y": 0.05,
+			"z": 0
+		},
+		"rotation": {
+			"x": -90,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.3,
+			"z": 0.5399
+		},
+		"scale": 2.75
+	}
+}

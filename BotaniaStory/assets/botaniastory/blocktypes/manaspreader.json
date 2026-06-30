@@ -17,6 +17,22 @@
     "sideopaque": { "all": false },
     "sidesolid": { "all": false },
     "lightAbsorption": 0,
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldRightReadyAnimation": "heldblockready",
+    "heldTpUseAnimation": "twohandplaceblock",
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.23,
+            "y": -0.91,
+            "z": -0.8
+        },
+        "rotation": {
+            "x": -2,
+            "y": 25,
+            "z": -78
+        },
+        "scale": 0.4
+    },
     "collisionbox": {
         "x1": 0.125,
         "y1": 0.125,

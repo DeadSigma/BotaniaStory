@@ -96,21 +96,19 @@
         },
         "scale": 0.5
     },
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldRightReadyAnimation": "heldblockready",
+    "heldTpUseAnimation": "twohandplaceblock",
     "tpHandTransform": {
         "translation": {
-            "x": -1.11,
-            "y": -0.42,
-            "z": -1.09
+            "x": -1.63,
+            "y": -0.81,
+            "z": -0.5
         },
         "rotation": {
-            "x": -90,
-            "y": 0,
-            "z": 0
-        },
-        "origin": {
-            "x": 0.5,
-            "y": 0.0625,
-            "z": 0.5
+            "x": -2,
+            "y": 25,
+            "z": -78
         },
         "scale": 0.46
     }

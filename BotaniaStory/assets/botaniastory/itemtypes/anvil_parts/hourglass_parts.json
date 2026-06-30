@@ -57,7 +57,7 @@
             },
             "scale": 0.37
         },
-        "tongOpening": "small",
+        "tongOpening": "narrow",
         "onMetalTongTransform": {
             "translation": {
                 "x": -4.53,
@@ -168,9 +168,9 @@
     },
     "tpHandTransform": {
         "translation": {
-            "x": -1.47,
-            "y": -0.01,
-            "z": -0.56
+            "x": -3.87,
+            "y": 0.39,
+            "z": -1.56
         },
         "rotation": {
             "x": -95,
@@ -182,6 +182,6 @@
             "y": 0,
             "z": 0.5
         },
-        "scale": 0.8
+        "scale": 0.3
     }
 }

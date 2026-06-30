@@ -81,7 +81,7 @@
 			},
 			"scale": 0.25
 		},
-		"tongOpening": "large",
+		"tongOpening": "wide",
 		"onDisplayTransform": {
 			"translation": {
 				"x": 0,

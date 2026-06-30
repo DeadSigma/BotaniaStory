@@ -9,6 +9,22 @@
     "textures": {
         "all": { "base": "botaniastory:block/glimmering_livingwood" }
     },
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldRightReadyAnimation": "heldblockready",
+    "heldTpUseAnimation": "twohandplaceblock",
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.23,
+            "y": -0.91,
+            "z": -0.8
+        },
+        "rotation": {
+            "x": -2,
+            "y": 25,
+            "z": -78
+        },
+        "scale": 0.4
+    },
     "blockmaterial": "Wood",
     "lightAbsorption": 0,
     "lightHsv": [ 11, 6, 10 ],

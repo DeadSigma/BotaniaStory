@@ -104,18 +104,18 @@
 		"rotate": true
 	},
 
-	"fpHandTransform": {
+	"tpHandTransform": {
 		"translation": {
-			"x": -1.4999,
-			"y": -1.13,
-			"z": -1.09
+			"x": -1.6,
+			"y": -1.2,
+			"z": -1.2
 		},
 		"rotation": {
-			"x": -180,
-			"y": -180,
-			"z": 91
+			"x": 83,
+			"y": -20,
+			"z": -79
 		},
-		"scale": 0.47
+		"scale": 0.4
 	},
 
 	"groundTransform": {

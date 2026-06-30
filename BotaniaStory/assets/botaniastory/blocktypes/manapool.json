@@ -27,7 +27,22 @@
         "*-creative": { "isCreativePool": true },
         "*-diluted": { "isDilutedPool": true }
     },
-
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldRightReadyAnimation": "heldblockready",
+    "heldTpUseAnimation": "twohandplaceblock",
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.4799,
+            "y": -0.91,
+            "z": -0.7
+        },
+        "rotation": {
+            "x": -2,
+            "y": 25,
+            "z": -78
+        },
+        "scale": 0.4
+    },
     "blockmaterial": "Stone",
     "resistance": 4,
     "lightAbsorption": 0,

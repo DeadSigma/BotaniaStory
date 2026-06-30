@@ -78,8 +78,7 @@ namespace BotaniaStory.lexicon
     {
         private static readonly Dictionary<string, string[]> BookStructure = new Dictionary<string, string[]>
         {
-            { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "puredaisy", "wandoftheforest",
-              "runicaltar", "rune","terrasteel", "pylon"} },
+            { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "meditation", "puredaisy", "wandoftheforest", "runicaltar", "rune", "terrasteel", "pylon"} },
 
             { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment", "catalyst_alchemy", "catalyst_conjuration" } },
 
@@ -89,7 +88,7 @@ namespace BotaniaStory.lexicon
 
             { "natural_apparatus", new[] { "mechanical_dropper", "hourglass" } },
 
-            { "mystical_items", new[] { "wandofbinding", "flower_bag", "floralfertilizer", "meadowseed", "floating_island", "rod_of_the_seas", "manaitem", "terrasteelitem", "terrashatterer", "filterscroll" } },
+            { "mystical_items", new[] { "wandofbinding", "flower_bag", "floralfertilizer", "meadowseed", "floating_island", "rod_of_the_seas", "manaitem", "terrasteelitem", "terrashatterer", "filterscroll", "halo", "automatic_halo" } },
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
@@ -104,7 +103,7 @@ namespace BotaniaStory.lexicon
 
 
 
-        //Система shif + ПКМ и переход к информации
+        //Система shif + ЛКМ и переход к информации
 
         private static readonly Dictionary<string, string> ExceptionsMap = new Dictionary<string, string>
     {
@@ -113,7 +112,7 @@ namespace BotaniaStory.lexicon
         { "botaniastory:livingwood-*", "puredaisy" },
         { "botaniastory:livingwood_firewood", "puredaisy" },
         { "botaniastory:livingrock", "puredaisy" },
-        { "botaniastory:rune-*", "runicaltar" },
+        { "botaniastory:rune-*", "rune" },
         { "botaniastory:manaitem-*", "manapool" },
         { "game:ingot-manasteel*", "manapool" },
         { "game:ingot-elementium*", "elfresources" },
@@ -121,7 +120,7 @@ namespace BotaniaStory.lexicon
         { "botaniastory:elvenglass-*", "elfresources" },
         { "botaniastory:pixie-dust", "elfresources" },
         { "botaniastory:flask-rustworldair", "rustworld-air" },
-        { "botaniastory:flask-empty", "flask" },
+        { "botaniastory:flask-empty", "flask" }
     };
 
         //  Метод для поиска главы по блоку ===
@@ -329,6 +328,20 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:mysticalpowder-*"
                         });
                     }
+
+                    // === НАСТРОЙКА МЕДИТАЦИЯ ===
+                    else if (chapId == "meditation")
+                    {
+                        chapter.TabItemCode = "game:flower-croton-small-crimson-brown-green";
+
+                        chapter.Images.Add(new BookPageImage()
+                        {
+                            Path = "botaniastory:textures/gui/meditation.png",
+                            Spread = 0,
+                            UiKey = "Картинка_Правая"
+                        });
+                    }
+
                     // === НАСТРОЙКА ПОСОХ ЛЕСА ===
                     else if (chapId == "wandoftheforest")
                     {
@@ -3380,6 +3393,44 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:filterscroll-black"
                         });
 
+                    }
+
+                    // === НАСТРОЙКА - ОРЕОЛ ===
+                    else if (chapId == "halo")
+                    {
+                        chapter.TabItemCode = "botaniastory:halo-crafting";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             null, null, null,
+                             null, null, null,
+                             null, null, null
+                             },
+                            Output = "botaniastory:halo-crafting"
+                        });
+                    }
+
+                    // === НАСТРОЙКА - АВТОМАТИЧЕСКИЙ ОРЕОЛ ===
+                    else if (chapId == "automatic_halo")
+                    {
+                        chapter.TabItemCode = "botaniastory:halo-autocrafting";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             null, null, null,
+                             null, null, null,
+                             null, null, null
+                             },
+                            Output = "botaniastory:halo-autocrafting"
+                        });
                     }
 
                     // === НАСТРОЙКА ГЛАВЫ ЖЕЗЛ МОРЕЙ ===

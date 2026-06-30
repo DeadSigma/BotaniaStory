@@ -90,15 +90,16 @@
 	},
 	"tpHandTransform": {
 		"translation": {
-			"x": -2.12,
-			"y": -1.37,
-			"z": -1.62
+			"x": -1.3199,
+			"y": -0.77,
+			"z": -0.82
 		},
 		"rotation": {
 			"x": -180,
 			"y": -180,
 			"z": 103
-		}
+		},
+		"scale": 0.62
 	},
 	"fpHandTransform": {
 		"translation": {
