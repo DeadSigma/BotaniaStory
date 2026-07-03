@@ -212,7 +212,7 @@ namespace BotaniaStory.client.renderers
                         finalRotY = GameMath.PI;
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
 
-                        finalSpread = 5f; // <СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
+                        finalSpread = 5f;
                     }
 
                     // Если в словаре предмета нет, применяем стандартные правила по группам
@@ -223,7 +223,20 @@ namespace BotaniaStory.client.renderers
                         finalRotX = GameMath.PIHALF;
                     }
 
-                    // Обрабатываем семена березы отдельно, так как у тебя для них не было поворота
+                    else if (itemCode.Contains("seeds"))
+                    {
+                        finalScale = 0.40f;
+                        finalHeight += -0.35f;
+                        finalRotX = GameMath.PIHALF * 3;
+                    }
+
+                    else if (itemCode.Contains("root"))
+                    {
+                        finalHeight += -0.35f;
+                        finalRotX = GameMath.PIHALF;
+                        finalSpread = 1f;
+                    }
+
                     else if (itemCode.Contains("treeseed-birch"))
                     {
                         finalScale = 0.6f;
@@ -288,7 +301,7 @@ namespace BotaniaStory.client.renderers
                         // Лежит на боку, повёрнут на 90 градусов по X
                         finalRotX = GameMath.PIHALF;
 
-                        // ИСПРАВЛЕНИЕ СМЕЩЕНИЯ: Опускаем точку вращения в самый низ модельки!
+                        // Опускаем точку вращения в самый низ модельки!
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
                     }
                     // 

@@ -184,7 +184,7 @@ namespace BotaniaStory.blocks
                     string path = slot.Itemstack.Collectible.Code.Path;
 
                     // Ищем семена
-                    if (needSeed > 0 && path.StartsWith("treeseed")) foundSeeds += slot.StackSize;
+                    if (needSeed > 0 && (path.StartsWith("treeseed") || path.StartsWith("seeds-"))) foundSeeds += slot.StackSize;
 
                     // Ищем нужные лепестки
                     if (remainingItems.ContainsKey(path))
@@ -218,7 +218,7 @@ namespace BotaniaStory.blocks
                     if (slot.Empty) continue;
                     string path = slot.Itemstack.Collectible.Code.Path;
 
-                    if (seedsToTake > 0 && path.StartsWith("treeseed"))
+                    if (seedsToTake > 0 && (path.StartsWith("treeseed") || path.StartsWith("seeds-")))
                     {
                         int take = System.Math.Min(seedsToTake, slot.StackSize);
                         slot.TakeOut(take);

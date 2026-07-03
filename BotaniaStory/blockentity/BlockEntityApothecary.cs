@@ -1,4 +1,4 @@
-﻿using BotaniaStory.blocks; // Добавлено для PlayManaSoundPacket
+﻿using BotaniaStory.blocks; 
 using BotaniaStory.client.renderers;
 using System.Collections.Generic;
 using System.Text;
@@ -79,7 +79,7 @@ namespace BotaniaStory.blockentity
                 string code = slot.Itemstack.Collectible.Code.Path;
 
                 // Отдельно считаем семена
-                if (code.StartsWith("treeseed"))
+                if (code.StartsWith("treeseed") || code.StartsWith("seeds-"))
                 {
                     seedCount += slot.StackSize;
                 }
@@ -197,7 +197,7 @@ namespace BotaniaStory.blockentity
         {
             if (path == null) return false;
 
-            string[] allowedKeywords = ["petal", "flower", "gear-rusty", "berry", "fruit", "manaitem", "vine", "fern", "treeseed", "root", "rune"];
+            string[] allowedKeywords = ["petal", "flower", "gear-rusty", "berry", "fruit", "manaitem", "vine", "fern", "seed", "root", "rune"];
 
             foreach (string keyword in allowedKeywords)
             {
