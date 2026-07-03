@@ -38,7 +38,7 @@ namespace BotaniaStory.client.gui
 
             SingleComposer = capi.Gui.CreateCompo("halocraft", dialogBounds)
                 .AddShadedDialogBG(bgBounds)
-                .AddDialogTitleBar("Ускоряшечка", OnTitleClose)
+               .AddDialogTitleBar(Lang.Get("botaniastory:gui-halocraft-title"), OnTitleClose)
                 .BeginChildElements(bgBounds)
                     .AddStaticText("", CairoFont.WhiteSmallText(), hintBounds)
                     .AddItemSlotGrid(craftInv, SendInvPacket, 3, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8 }, inputBounds, "input")
@@ -83,10 +83,10 @@ namespace BotaniaStory.client.gui
             base.OnGuiClosed();
         }
 
-        // На любое изменение сетки: если есть результат — гало молча запоминает рецепт
+        // На любое изменение сетки: если есть результат - гало молча запоминает рецепт
         void OnGridChanged(int slotId)
         {
-            ItemCraftingHalo.CaptureFromGrid(capi, false);
+            ItemCraftingHalo.CaptureFromGrid(capi);
         }
     }
 }

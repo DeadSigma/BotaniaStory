@@ -40,25 +40,25 @@ namespace BotaniaStory.lexicon
 
             double slotSize = 48 * scale;
 
-            // --- ВХОДНОЙ ПРЕДМЕТ (Слиток слева сверху) ---
+            // ВХОДНОЙ ПРЕДМЕТ (Слиток слева сверху)
             // 20 * scale  -X (Горизонталь). Увеличение числа = сдвиг вправо
             // 30 * scale  -Y (Вертикаль). Увеличение числа = сдвиг вниз
             inputBounds = ElementBounds.Fixed(0 * scale, 55 * scale, slotSize, slotSize).WithParent(bounds);
 
 
-            // --- КАТАЛИЗАТОР (Перо слева снизу) ---
+            // КАТАЛИЗАТОР (Перо слева снизу)
             // 20 * scale  -> X (Горизонталь). Увеличение числа = сдвиг вправо
             // 120 * scale -> Y (Вертикаль). Увеличение числа = сдвиг вниз
             catalystBounds = ElementBounds.Fixed(0 * scale, 120 * scale, slotSize, slotSize).WithParent(bounds);
 
 
-            // --- БАССЕЙН МАНЫ (Центр) ---
+            // БАССЕЙН МАНЫ (Центр)
             // 100 * scale -> X (Горизонталь). Увеличение числа = сдвиг вправо
             // 75 * scale  -> Y (Вертикаль). Увеличение числа = сдвиг вниз
             poolBounds = ElementBounds.Fixed(100 * scale, 75 * scale, slotSize, slotSize).WithParent(bounds);
 
 
-            // --- РЕЗУЛЬТАТ КРАФТА (Розовый цветок справа) ---
+            // РЕЗУЛЬТАТ КРАФТА (Розовый цветок справа)
             // 180 * scale -> X (Горизонталь). Увеличение числа = сдвиг вправо
             // 75 * scale  -> Y (Вертикаль). Увеличение числа = сдвиг вниз
             outputBounds = ElementBounds.Fixed(205 * scale, 80 * scale, slotSize, slotSize).WithParent(bounds);
@@ -95,7 +95,7 @@ namespace BotaniaStory.lexicon
             hoveredStack = RenderStack(poolStacks, poolBounds, mouseX, mouseY) ?? hoveredStack;
             hoveredStack = RenderStack(outputStacks, outputBounds, mouseX, mouseY) ?? hoveredStack;
 
-            // --- МАГИЯ ТУЛТИПА ---
+            // МАГИЯ ТУЛТИПА
             if (hoveredStack != null)
             {
                 renderSlot.Itemstack = hoveredStack;

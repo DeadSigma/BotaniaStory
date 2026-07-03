@@ -56,7 +56,7 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // --- ЛОГИКА ВЗАИМОДЕЙСТВИЯ (ИНВЕНТАРЬ) ---
+        // ЛОГИКА ВЗАИМОДЕЙСТВИЯ (ИНВЕНТАРЬ)
         public bool OnInteract(IPlayer byPlayer)
         {
             CheckStructure();
@@ -143,7 +143,7 @@ namespace BotaniaStory.blockentity
             bool wasCrafting = IsCrafting;
             IsCrafting = hasQuartz && hasGear && hasSteel;
 
-            // Если игрок забрал предмет во время готовки — сбрасываем прогресс
+            // Если игрок забрал предмет во время готовки - сбрасываем прогресс
             if (wasCrafting && !IsCrafting)
             {
                 CurrentMana = 0;
@@ -223,12 +223,12 @@ namespace BotaniaStory.blockentity
             if (oldValid != IsStructureValid) MarkDirty(true);
         }
 
-        // --- ИНТЕРФЕЙС ПРИЕМА МАНЫ ---
+        // ИНТЕРФЕЙС ПРИЕМА МАНЫ
         public bool IsFull() => CurrentMana >= MaxManaRequired;
 
         public int GetAvailableSpace()
         {
-            // Если крафт не запущен — плите мана не нужна вообще!
+            // Если крафт не запущен - плите мана не нужна вообще!
             if (!IsCrafting) return 0;
 
             // Если крафт идет, просим ровно столько, сколько не хватает до завершения
@@ -244,7 +244,7 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // --- КЛИЕНТ: ЧАСТИЦЫ ---
+        // КЛИЕНТ: ЧАСТИЦЫ
         private void UpdateClientParticles(float dt)
         {
             if (particleRenderer == null) return;
@@ -257,7 +257,7 @@ namespace BotaniaStory.blockentity
             }
             else
             {
-                // Если крафт прервался, но маны было накоплено больше 95% — значит это успешное завершение!
+                // Если крафт прервался, но маны было накоплено больше 95% - значит это успешное завершение!
                 if (lastClientMana >= MaxManaRequired * 0.95f)
                 {
                     particleRenderer.TriggerExplosion(); // Вызываем кастомный взрыв

@@ -3,8 +3,8 @@
     "modid": "botaniastory",
     "name": "BotaniaStory",
     "authors": [ "El_Neuman" ],
-    "description": "BotaniaStory — nature magic, mana, and automation in Vintage Story!",
-    "version": "0.3.5",
+    "description": "BotaniaStory - nature magic, mana, and automation in Vintage Story!",
+    "version": "0.3.6",
     "side": "Universal",
     "dependencies": {
         "game": ""

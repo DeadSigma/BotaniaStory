@@ -15,7 +15,7 @@ namespace BotaniaStory.items
         ///   "botaniastory:filter-paper-black"  →  IsBlacklist = true  (чёрный список)
         ///   "botaniastory:filter-paper-white"  →  IsBlacklist = false (белый список)
         ///
-        /// Оба предмета в JSON используют "class": "ItemFilterScroll" — дополнительных классов не нужно.
+        /// Оба предмета в JSON используют "class": "ItemFilterScroll" - дополнительных классов не нужно.
         /// </summary>
         public bool IsBlacklist => Code?.Path.Contains("black") == true;
 

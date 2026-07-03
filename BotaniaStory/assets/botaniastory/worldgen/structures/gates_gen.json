@@ -1,0 +1,24 @@
+{
+    "schematicYOffsets": {
+        "botaniastory:forgotten_gates": 0
+    },
+    "structures": [
+        {
+            "code": "forgotten_gates",
+            "group": "ruins",
+            "name": "forgotten_gates",
+            "schematics": [
+                "botaniastory:forgotten_gates"
+            ],
+            "placement": "Surface",
+            "chance": 100, 
+            "generateGrass": true,
+            "ExcludeSchematicSizeProtect": true,
+            "skipGenerationCategories": {
+                "structures": 100,
+                "trees": 20,
+                "shrubs": 20
+            }
+        }
+    ]
+}

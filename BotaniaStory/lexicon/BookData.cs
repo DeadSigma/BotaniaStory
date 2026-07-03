@@ -82,7 +82,7 @@ namespace BotaniaStory.lexicon
 
             { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment", "catalyst_alchemy", "catalyst_conjuration" } },
 
-            { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "endoflame", "rosaarcana" } },
+            { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "nightshade", "endoflame", "rosaarcana", "hydroangeas" } },
 
             { "functional_flora", new[] { "puredaisy", "jadedamaranthus", "witheredamaranthus",  "hopperhock", "agricarnation" } },
 
@@ -142,7 +142,7 @@ namespace BotaniaStory.lexicon
                 }
             }
 
-            // 2. Если исключений нет и это блок из  мода — ищем автоматически!
+            // 2. Если исключений нет и это блок из  мода - ищем автоматически!
             if (blockDomain == "botaniastory")
             {
                 // Пробегаемся по всем категориям и главам в BookStructure
@@ -260,11 +260,11 @@ namespace BotaniaStory.lexicon
                             Spread = 1,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                             "game:rock-*", "botaniastory:mysticalpetal-*" , "game:rock-*",// Верхний ряд
+                             "game:rock-*", "botaniastory:mysticalpetal-*" , "game:rock-*",
 
-                             "game:hammer-*" , "game:rock-*", "game:chisel-*" ,            // Средний ряд
+                             "game:hammer-*" , "game:rock-*", "game:chisel-*" ,
 
-                             "game:rock-*", "game:rock-*", "game:rock-*" // Нижний ряд
+                             "game:rock-*", "game:rock-*", "game:rock-*"
                          },
                             Output = "botaniastory:apothecary-*"
                         });
@@ -457,7 +457,7 @@ namespace BotaniaStory.lexicon
                         {
                             RecipeType = "Grid",
                             Spread = 1, // Тот же разворот
-                            UiKey = "Сетка_Левая_Верхняя", // <--- СЛЕВА
+                            UiKey = "Сетка_Левая_Верхняя", // <СЛЕВА
                             Grid = new string[9] {
                                 "game:axe-*", "botaniastory:livingwood-*", null,
                                 null, null, null,
@@ -1523,6 +1523,27 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
+                    // === НАСТРОЙКА ГЛАВЫ НОЧНАЯ ЛИЛИЯ ===
+                    else if (chapId == "nightshade")
+                    {
+                        chapter.TabItemCode = "botaniastory:nightshade-free";
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                            {
+                                 "botaniastory:mysticalpetal-black",
+                                 "botaniastory:mysticalpetal-black",
+                                 "botaniastory:mysticalpetal-gray",
+                                 "botaniastory:mysticalpetal-magenta"
+                            },
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+                            Output = "botaniastory:nightshade-free"
+                        });
+                    }
+
                     // === НАСТРОЙКА ГЛАВЫ ЭНДОПЛАМЯ ===
                     else if (chapId == "endoflame")
                     {
@@ -1567,6 +1588,28 @@ namespace BotaniaStory.lexicon
                             ApothecaryCenter = "botaniastory:apothecary-*",
 
                             Output = "botaniastory:rosaarcana-free"
+                        });
+                    }
+
+                    // === НАСТРОЙКА ГЛАВЫ ВОДОГОРТЕНЗИЯ ===
+                    else if (chapId == "hydroangeas")
+                    {
+                        chapter.TabItemCode = "botaniastory:hydroangeas-free";
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                            {
+                                 "botaniastory:mysticalpetal-blue",
+                                 "botaniastory:mysticalpetal-blue",
+                                 "botaniastory:mysticalpetal-cyan",
+                                 "botaniastory:mysticalpetal-cyan",
+                                 "botaniastory:manaitem-manapowder"
+                            },
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+                            Output = "botaniastory:hydroangeas-free"
                         });
                     }
 
@@ -1968,9 +2011,9 @@ namespace BotaniaStory.lexicon
                     {
                         chapter.TabItemCode = "botaniastory:rune-*";
 
-                        // ==========================================
+                        // 
                         //  ТИР 1: БАЗОВЫЕ РУНЫ (Элементы)
-                        // ==========================================
+                        // 
 
                         // Руна Воды
                         chapter.Recipes.Add(new BookRecipe()
@@ -2093,9 +2136,9 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
                         });
 
-                        // ==========================================
+                        // 
                         // ТИР 2: РУНЫ СЕЗОНОВ
-                        // ==========================================
+                        // 
 
                         // Руна Весны
                         chapter.Recipes.Add(new BookRecipe()
@@ -2196,9 +2239,9 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Алтарь_Правая_Нижняя"
                         });
 
-                        // ==========================================
+                        // 
                         // ТИР 3: РУНЫ ГРЕХОВ
-                        // ==========================================
+                        // 
 
                         // Руна Похоти (Lust)
                         chapter.Recipes.Add(new BookRecipe()
@@ -2435,7 +2478,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:manasteel-armor-legs-chain"
                         });
 
-                        // --- ЛАТЫ ИЗ МАНАСТАЛИ ---
+                        // ЛАТЫ ИЗ МАНАСТАЛИ
 
                         // Латный шлем (Манасталь) - Spread 1, Правая Верхняя
                         chapter.Recipes.Add(new BookRecipe()
@@ -2476,7 +2519,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:manasteel-armor-legs-plate"
                         });
 
-                        // --- ЧЕШУЙЧАТАЯ БРОНЯ ИЗ МАНАСТАЛИ ---
+                        // ЧЕШУЙЧАТАЯ БРОНЯ ИЗ МАНАСТАЛИ
 
                         // Чешуйчатый шлем (Манасталь) - Spread 2, Левая Нижняя
                         chapter.Recipes.Add(new BookRecipe()
@@ -2517,7 +2560,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:manasteel-armor-legs-scale"
                         });
 
-                        // --- БРИГАНТИНА ИЗ МАНАСТАЛИ ---
+                        // БРИГАНТИНА ИЗ МАНАСТАЛИ
 
                         // Бригантинный шлем (Манасталь) - Spread 3, Левая Верхняя
                         chapter.Recipes.Add(new BookRecipe()
@@ -2560,7 +2603,7 @@ namespace BotaniaStory.lexicon
 
                         // ==================== ИНСТРУМЕНТЫ ====================
 
-                        // --- Spread 4: Кирка (Левая) и Топор (Правая) ---
+                        // Spread 4: Кирка (Левая) и Топор (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -2603,7 +2646,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:axe-manasteel"
                         });
 
-                        // --- Spread 5: Лопата (Левая) и Тесак (Правая) ---
+                        // Spread 5: Лопата (Левая) и Тесак (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -2646,7 +2689,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:cleaver-manasteel"
                         });
 
-                        // --- Spread 6: Фалькс (Левая) и Молот (Правая) ---
+                        // Spread 6: Фалькс (Левая) и Молот (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -2689,7 +2732,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:hammer-manasteel"
                         });
 
-                        // --- Spread 7: Мотыга (Левая) и Нож (Правая) ---
+                        // Spread 7: Мотыга (Левая) и Нож (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -2732,7 +2775,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:knife-manasteel"
                         });
 
-                        // --- Spread 8: Геолог. кирка (Левая) и Пила (Правая) ---
+                        // Spread 8: Геолог. кирка (Левая) и Пила (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -2775,7 +2818,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:saw-manasteel"
                         });
 
-                        // --- Spread 9: Коса (Левая) и Копье (Правая) ---
+                        // Spread 9: Коса (Левая) и Копье (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -2818,7 +2861,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:spear-manasteel"
                         });
 
-                        // --- Spread 10: Мелкие кузнечные инструменты (Левая) ---
+                        // Spread 10: Мелкие кузнечные инструменты (Левая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -2885,7 +2928,7 @@ namespace BotaniaStory.lexicon
                             Output = "game:metalplate-terrasteel"
                         });
 
-                        // --- КОЛЬЧУГА ИЗ ТЕРРАСТАЛИ ---
+                        // КОЛЬЧУГА ИЗ ТЕРРАСТАЛИ
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -2932,7 +2975,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:terrasteel-armor-legs-chain"
                         });
 
-                        // --- ЛАТЫ ИЗ ТЕРРАСТАЛИ ---
+                        // ЛАТЫ ИЗ ТЕРРАСТАЛИ
                         // Латный шлем (ТЕРРАСТАЛЬ) - Spread 1, Правая Верхняя
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -2972,7 +3015,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:terrasteel-armor-legs-plate"
                         });
 
-                        // --- ЧЕШУЙЧАТАЯ БРОНЯ ИЗ ТЕРРАСТАЛИ ---
+                        // ЧЕШУЙЧАТАЯ БРОНЯ ИЗ ТЕРРАСТАЛИ
                         // Чешуйчатый шлем (ТЕРРАСТАЛЬ) - Spread 2, Левая Нижняя
                         chapter.Recipes.Add(new BookRecipe()
                         {
@@ -3013,7 +3056,7 @@ namespace BotaniaStory.lexicon
                         });
 
 
-                        // --- Spread 3: Кирка (Левая) и Топор (Правая) ---
+                        // Spread 3: Кирка (Левая) и Топор (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -3056,7 +3099,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:axe-terrasteel"
                         });
 
-                        // --- Spread 4: Лопата (Левая) и Тесак (Правая) ---
+                        // Spread 4: Лопата (Левая) и Тесак (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -3099,7 +3142,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:cleaver-terrasteel"
                         });
 
-                        // --- Spread 5: Фалькс (Левая) и Молот (Правая) ---
+                        // Spread 5: Фалькс (Левая) и Молот (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -3142,7 +3185,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:hammer-terrasteel"
                         });
 
-                        // --- Spread 6: Мотыга (Левая) и Нож (Правая) ---
+                        // Spread 6: Мотыга (Левая) и Нож (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -3185,7 +3228,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:knife-terrasteel"
                         });
 
-                        // --- Spread 7: Геолог. кирка (Левая) и Пила (Правая) ---
+                        // Spread 7: Геолог. кирка (Левая) и Пила (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -3228,7 +3271,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:saw-terrasteel"
                         });
 
-                        // --- Spread 8: Коса (Левая) и Копье (Правая) ---
+                        // Spread 8: Коса (Левая) и Копье (Правая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -3271,7 +3314,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:spear-terrasteel"
                         });
 
-                        // --- Spread 9: Мелкие кузнечные инструменты (Левая) ---
+                        // Spread 9: Мелкие кузнечные инструменты (Левая)
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Anvil",
@@ -3406,9 +3449,9 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                             null, null, null,
-                             null, null, null,
-                             null, null, null
+                             null, "botaniastory:halo_frame", null,
+                             "botaniastory:manaitem-managear", "botaniastory:manaitem-manaquartz", "botaniastory:manaitem-managear",
+                             null, "botaniastory:rune-sloth", null
                              },
                             Output = "botaniastory:halo-crafting"
                         });
@@ -3425,9 +3468,9 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                             null, null, null,
-                             null, null, null,
-                             null, null, null
+                            null, "botaniastory:automatic_halo_frame", null,
+                             "botaniastory:manaitem-managear", "botaniastory:manaitem-manaquartz", "botaniastory:manaitem-managear",
+                             null, "botaniastory:rune-sloth", null
                              },
                             Output = "botaniastory:halo-autocrafting"
                         });

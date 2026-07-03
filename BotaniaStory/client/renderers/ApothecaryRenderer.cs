@@ -155,7 +155,15 @@ namespace BotaniaStory.client.renderers
                         finalRotY = GameMath.PI;
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
 
-                        finalSpread = 7f; // <---РАЗБРОС ДЛЯ ЦВЕТК
+                        finalSpread = 7f;
+                    }
+
+                    if (itemCode.Contains("manaitem-manapowder"))
+                    {
+                        finalScale = 0.35f;
+                        finalHeight += -0.3f;
+
+                        finalSpread = 7f;
                     }
 
                     if (itemCode.Contains("flower"))
@@ -192,7 +200,7 @@ namespace BotaniaStory.client.renderers
                         finalRotY = GameMath.PI;
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
 
-                        finalSpread = 3f; // <--- СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
+                        finalSpread = 3f; // <СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
                     }
 
                     //слегка смещён вовнутрь
@@ -204,7 +212,7 @@ namespace BotaniaStory.client.renderers
                         finalRotY = GameMath.PI;
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
 
-                        finalSpread = 5f; // <--- СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
+                        finalSpread = 5f; // <СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
                     }
 
                     // Если в словаре предмета нет, применяем стандартные правила по группам
@@ -283,9 +291,9 @@ namespace BotaniaStory.client.renderers
                         // ИСПРАВЛЕНИЕ СМЕЩЕНИЯ: Опускаем точку вращения в самый низ модельки!
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
                     }
-                    // ==========================================
+                    // 
                     // 3. ПРИМЕНЯЕМ ВСЕ НАСТРОЙКИ (с использованием finalCenter!)
-                    // ==========================================
+                    // 
 
                     // Масштабируем относительно  центра
                     mesh.Scale(finalCenter, finalScale, finalScale, finalScale);

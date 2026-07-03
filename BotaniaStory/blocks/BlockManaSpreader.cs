@@ -16,9 +16,9 @@ namespace BotaniaStory.blocks
                 BlockEntityManaSpreader be = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityManaSpreader;
                 if (be != null)
                 {
-                    // ==========================================
+                    // 
                     // 1. ВЫРОВНЕННЫЙ ПОВОРОТ К ИГРОКУ (6 направлений)
-                    // ==========================================
+                    // 
 
                     double blockX = blockSel.Position.X + 0.5;
                     double blockY = blockSel.Position.Y + 0.5;
@@ -67,9 +67,9 @@ namespace BotaniaStory.blocks
                     be.Pitch = (float)Math.Atan2(snappedDy, distanceXZ);
 
 
-                    // ==========================================
+                    // 
                     // 2. АВТО-ПРИВЯЗКА (Математический радар)
-                    // ==========================================
+                    // 
 
                     Vec3f viewVec = byPlayer.Entity.Pos.GetViewVector();
 

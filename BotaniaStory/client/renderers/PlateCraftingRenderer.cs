@@ -93,7 +93,7 @@ namespace BotaniaStory.client.renderers
             // Проверяем, есть ли хотя бы один предмет на плите
             bool hasItems = !plate.inventory[0].Empty || !plate.inventory[1].Empty || !plate.inventory[2].Empty;
 
-            // Если плита пустая, крафт не идет и взрыва нет — вообще не напрягаем видеокарту
+            // Если плита пустая, крафт не идет и взрыва нет - вообще не напрягаем видеокарту
             if (!hasItems && currentProgress <= 0 && explosionParticles.Count == 0) return;
 
             rotationAngle += deltaTime * 3f;
@@ -103,9 +103,9 @@ namespace BotaniaStory.client.renderers
 
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)pos.X, (int)pos.Y, (int)pos.Z);
 
-            // ==========================================================
+            // ================
             // 1. РЕНДЕР ПРЕДМЕТОВ (ВСЕГДА, ЕСЛИ ОНИ ЕСТЬ)
-            // ==========================================================
+            // ================
             if (hasItems)
             {
                 // Настройки для плотных физических предметов
@@ -179,9 +179,9 @@ namespace BotaniaStory.client.renderers
                 }
             }
 
-            // ==========================================================
+            // ================
             // 2. РЕНДЕР МАГИИ (ПУЧКИ И ВЗРЫВ)
-            // ==========================================================
+            // ================
             if (currentProgress > 0 || explosionParticles.Count > 0)
             {
                 // Настройки для светящейся, полупрозрачной маны
@@ -192,7 +192,7 @@ namespace BotaniaStory.client.renderers
                 capi.Render.GlToggleBlend(true, EnumBlendMode.Glow);
                 GL.DepthMask(false); // Отключаем глубину, чтобы шарики сливались друг с другом
 
-                // --- ОТРИСОВКА КЛАСТЕРОВ МАНЫ ---
+                // ОТРИСОВКА КЛАСТЕРОВ МАНЫ
                 if (currentProgress > 0)
                 {
                     float maxRadius = 2.2f;
@@ -239,7 +239,7 @@ namespace BotaniaStory.client.renderers
                     }
                 }
 
-                // --- ОТРИСОВКА ВЗРЫВА ---
+                // ОТРИСОВКА ВЗРЫВА
                 for (int i = explosionParticles.Count - 1; i >= 0; i--)
                 {
                     var p = explosionParticles[i];
@@ -279,9 +279,9 @@ namespace BotaniaStory.client.renderers
                 }
             }
 
-            // ==========================================================
+            // ================
             // 3. ЗАВЕРШЕНИЕ РЕНДЕРА (СБРОС НАСТРОЕК)
-            // ==========================================================
+            // ================
             prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
             prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
             prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);

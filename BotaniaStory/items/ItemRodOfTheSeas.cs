@@ -116,7 +116,7 @@ namespace BotaniaStory.items
                         if (!ingSlot.Empty && !ingSlot.Itemstack.Equals(byEntity.World, new ItemStack(waterPortion), GlobalConstants.IgnoredStackAttributes))
                             continue;
 
-                        // Если этот слот уже доверху забит нашей водой (600 порций) — просто пропускаем его!
+                        // Если этот слот уже доверху забит нашей водой (600 порций) - просто пропускаем его!
                         if (!ingSlot.Empty && ingSlot.Itemstack.StackSize >= 600)
                             continue;
 

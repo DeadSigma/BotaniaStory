@@ -210,7 +210,6 @@ namespace BotaniaStory
             GaiaLightningVisuals = new GaiaLightningRenderer(api);
 
             capi.Input.RegisterHotKey("halocapture", "Гало: запомнить рецепт из сетки крафта", GlKeys.G, HotkeyType.CharacterControls);
-            capi.Input.SetHotKeyHandler("halocapture", comb => ItemCraftingHalo.OnCaptureHotkey(capi, comb));
             capi.Event.RegisterRenderer(new CraftingHaloRenderer(capi), EnumRenderStage.Opaque);
             api.Logger.Notification("[BotaniaStory] BUILD MARKER 001");
 

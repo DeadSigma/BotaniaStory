@@ -36,6 +36,19 @@
 			},
 			"scale": 0.6
 		},
+		"onshelfTransform": {
+			"translation": {
+				"x": -0.01,
+				"y": -0.41,
+				"z": -0.15
+			},
+			"rotation": {
+				"x": -90,
+				"y": 0,
+				"z": 0
+			},
+			"scale": 0.42
+		},
 		"inForgeTransform": {
 			"translation": {
 				"x": -3.58,
@@ -122,21 +135,21 @@
 	},
 	"guiTransform": {
 		"translation": {
-			"x": 1.101,
+			"x": 3.501,
 			"y": 0.1311,
 			"z": 0
 		},
 		"rotation": {
-			"x": 170.3354,
-			"y": -42.0265,
-			"z": 3.5369
+			"x": 52,
+			"y": 1,
+			"z": -92
 		},
 		"origin": {
 			"x": 0.5,
 			"y": 0.02,
 			"z": 0.5
 		},
-		"scale": 1.09
+		"scale": 1.21
 	},
 	"heldTpIdleAnimation": "holdbothhandslarge",
 	"heldRightReadyAnimation": "heldblockready",

@@ -6,9 +6,9 @@ using Vintagestory.API.Config;
 
 namespace BotaniaStory.lexicon
 {
-    // ==========================================
+    // 
     // ГЛАВНОЕ ОКНО НАСТРОЕК
-    // ==========================================
+    // 
     public class GuiDialogLexiconSettings : GuiDialog
     {
         public override string ToggleKeyCombinationCode => null;
@@ -74,11 +74,11 @@ namespace BotaniaStory.lexicon
             SingleComposer.AddSwitch(OnRightClickBackToggled, ElementBounds.Fixed(280, y, 60, 30), "switchRightClickBack");
             y += 40;
 
-            // --- КНОПКА НАСТРОЕК ЗВУКА ---
+            // КНОПКА НАСТРОЕК ЗВУКА
             SingleComposer.AddButton(Lang.Get("botaniastory:dialog-settings-sounds"), OnOpenSoundSettings, ElementBounds.Fixed(0, y, 340, 30), font, EnumButtonStyle.Normal);
             y += 40;
 
-            // --- КНОПКА ДЕБАГГЕРА ---
+            // КНОПКА ДЕБАГГЕРА
             SingleComposer.AddButton(Lang.Get("botaniastory:dialog-settings-debuger"), OnToggleDebugger, ElementBounds.Fixed(0, y, 340, 30), font, EnumButtonStyle.Normal);
             y += 40;
 
@@ -147,9 +147,9 @@ namespace BotaniaStory.lexicon
         }
     }
 
-    // ==========================================
+    // 
     // ДОПОЛНИТЕЛЬНОЕ ОКНО "НАСТРОЙКИ ЗВУКА"
-    // ==========================================
+    // 
     public class GuiDialogLexiconSoundSettings : GuiDialog
     {
         public override double DrawOrder => 0.21;

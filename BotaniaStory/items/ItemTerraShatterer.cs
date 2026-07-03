@@ -189,7 +189,7 @@ namespace BotaniaStory.items
 
             if (rank == 0) return true;
 
-            // --- ЛОГИКА МАССОВОГО РАЗРУШЕНИЯ ---
+            // ЛОГИКА МАССОВОГО РАЗРУШЕНИЯ
             int xzRadius = 0, yUp = 0, yDown = 1;
             switch (rank)
             {

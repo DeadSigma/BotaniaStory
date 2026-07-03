@@ -89,7 +89,7 @@ namespace BotaniaStory.entities
                         Entity[] minions = World.GetEntitiesAround(Pos.XYZ, 40f, 40f,
                             e => e.Alive && e.WatchedAttributes.GetLong("spawnedByGaia", 0) == this.EntityId);
 
-                        // Если прислужников не осталось — Гайа падает вниз до истечения таймера
+                        // Если прислужников не осталось - Гайа падает вниз до истечения таймера
                         if (minions == null || minions.Length == 0)
                         {
                             WatchedAttributes.SetBool("isLevitating", false);

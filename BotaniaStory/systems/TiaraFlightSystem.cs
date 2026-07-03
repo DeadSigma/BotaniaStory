@@ -37,7 +37,7 @@ namespace BotaniaStory.systems
         private bool wasSprintPressed = false;
         private float dashActiveTimer = 0f;
 
-        // --- УСТАЛОСТЬ ---
+        // УСТАЛОСТЬ
         public const float MaxFlightTime = 60f;
         public float currentFlightTime = 60f;
         private bool isExhausted = false;
@@ -207,13 +207,13 @@ namespace BotaniaStory.systems
 
                 if (isMovingHorizontally)
                 {
-                    // Если игрок двигается по горизонтали — включаем анимацию планирования
+                    // Если игрок двигается по горизонтали - включаем анимацию планирования
                     player.Entity.AnimManager.StopAnimation("fly");
                     player.Entity.AnimManager.StartAnimation("Creativefly");
                 }
                 else
                 {
-                    // Если игрок просто висит в воздухе — оставляем анимацию обычного полета
+                    // Если игрок просто висит в воздухе - оставляем анимацию обычного полета
                     player.Entity.AnimManager.StopAnimation("Creativefly");
                     player.Entity.AnimManager.StartAnimation("fly");
                 }
@@ -222,7 +222,7 @@ namespace BotaniaStory.systems
                 else if (player.Entity.Controls.Sneak) player.Entity.Pos.Motion.Y = -0.08f;
                 else if (player.Entity.Pos.Motion.Y < 0) player.Entity.Pos.Motion.Y = 0;
 
-                // --- РЫВОК ---
+                // РЫВОК
                 bool isSprint = player.Entity.Controls.Sprint;
 
                 ItemSlot dashTabletSlot = FindManaTablet(player);

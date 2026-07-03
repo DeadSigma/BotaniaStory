@@ -37,7 +37,7 @@ namespace BotaniaStory.blockentity
                 this.Blockentity.RegisterGameTickListener(ScanForFarmland, 60000);
 
                 // 2. Быстрый тик (раз в 2 секунды) для отлова свежепосаженных семян
-                // 2 секунды — идеальный баланс: игрок едва успеет заметить паузу, а сервер не напрягается
+                // 2 секунды - идеальный баланс: игрок едва успеет заметить паузу, а сервер не напрягается
                 this.Blockentity.RegisterGameTickListener(OnTick, 10000);
             }
         }

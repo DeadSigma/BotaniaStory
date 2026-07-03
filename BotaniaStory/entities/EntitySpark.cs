@@ -50,7 +50,7 @@ namespace BotaniaStory.entities
         {
             base.OnEntityDespawn(despawn);
 
-            // Если мы на клиенте — удаляем рендерер из движка игры!
+            // Если мы на клиенте - удаляем рендерер из движка игры!
             if (Api is ICoreClientAPI capi && renderer != null)
             {
                 capi.Event.UnregisterRenderer(renderer, EnumRenderStage.Opaque);
@@ -71,7 +71,7 @@ namespace BotaniaStory.entities
                 double baseY = WatchedAttributes.GetDouble("baseY", Pos.Y);
                 double baseZ = WatchedAttributes.GetDouble("baseZ", Pos.Z);
 
-                // --- УМНАЯ СИСТЕМА ВСПЛЫТИЯ ИСКРЫ ---
+                // УМНАЯ СИСТЕМА ВСПЛЫТИЯ ИСКРЫ
                 double targetY = baseY;
                 BlockPos checkPos = new BlockPos((int)Math.Floor(baseX), (int)Math.Floor(targetY), (int)Math.Floor(baseZ));
 
@@ -211,7 +211,7 @@ namespace BotaniaStory.entities
             }
         }
 
-        // --- ИДЕАЛЬНЫЙ РУЧЕЕК BOTANIA ---
+        // ИДЕАЛЬНЫЙ РУЧЕЕК BOTANIA
         private void SpawnTransferParticles(Vec3d start, Vec3d end, int amountTransferred)
         {
             // Если мы на сервере, отправляем пакет игрокам поблизости

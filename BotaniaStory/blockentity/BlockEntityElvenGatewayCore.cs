@@ -260,9 +260,9 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ==========================================
+        // 
         // ОБМЕН ПРЕДМЕТОВ С АЛЬФХЕЙМОМ
-        // ==========================================
+        // 
 
         private void CheckForDroppedItems(float dt)
         {
@@ -302,7 +302,7 @@ namespace BotaniaStory.blockentity
             // Поглощаем по ОДНОМУ предмету за раз
             while (inputEntity.Itemstack.StackSize > 0)
             {
-                if (!TryConsumeManaForExchange(manaCost)) break; // Если маны на 1 предмет нет — останавливаемся
+                if (!TryConsumeManaForExchange(manaCost)) break; // Если маны на 1 предмет нет - останавливаемся
 
                 inputEntity.Itemstack.StackSize--;
                 absorbedAny = true;
@@ -440,7 +440,7 @@ namespace BotaniaStory.blockentity
             Api.World.SpawnParticles(particles);
         }
 
-        // --- СИНХРОНИЗАЦИЯ DAA И ОЧЕРЕДИ ПРЕДМЕТОВ ---
+        // СИНХРОНИЗАЦИЯ DAA И ОЧЕРЕДИ ПРЕДМЕТОВ
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
@@ -494,7 +494,7 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // --- ОЧИСТКА ПРИ РАЗРУШЕНИИ ---
+        // ОЧИСТКА ПРИ РАЗРУШЕНИИ
 
         public override void OnBlockRemoved()
         {

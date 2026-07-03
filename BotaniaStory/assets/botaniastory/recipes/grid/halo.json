@@ -1,0 +1,58 @@
+[
+    {
+        "ingredientPattern": " F ,GQG, R ",
+        "ingredients": {
+            "F": {
+                "type": "item",
+                "code": "botaniastory:halo_frame"
+            },
+            "G": {
+                "type": "item",
+                "code": "botaniastory:manaitem-managear"
+            },
+            "Q": {
+                "type": "item",
+                "code": "botaniastory:manaitem-manaquartz"
+            },
+            "R": {
+                "type": "item",
+                "code": "botaniastory:rune-sloth"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:halo-crafting",
+            "quantity": 1
+        }
+    },
+    {
+        "ingredientPattern": " A ,GQG, R ",
+        "ingredients": {
+            "A": {
+                "type": "item",
+                "code": "botaniastory:automatic_halo_frame"
+            },
+            "G": {
+                "type": "item",
+                "code": "botaniastory:manaitem-managear"
+            },
+            "Q": {
+                "type": "item",
+                "code": "botaniastory:manaitem-manaquartz"
+            },
+            "R": {
+                "type": "item",
+                "code": "botaniastory:rune-sloth"
+            }
+        },
+        "width": 3,
+        "height": 3,
+        "output": {
+            "type": "item",
+            "code": "botaniastory:halo-autocrafting",
+            "quantity": 1
+        }
+    }
+]

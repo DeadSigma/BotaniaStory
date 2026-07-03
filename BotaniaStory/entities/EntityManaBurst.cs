@@ -49,9 +49,9 @@ namespace BotaniaStory.entities
             double distanceTraveled = StartPos.DistanceTo(Pos.XYZ);
             float lifeRatio = Math.Max(0f, 1f - (float)(distanceTraveled / maxDistance));
 
-            // ==========================================
+            // 
             // КЛИЕНТ: Плавное движение и частицы
-            // ==========================================
+            // 
             if (Api.Side == EnumAppSide.Client)
             {
                 Pos.Motion.X = WatchedAttributes.GetDouble("motionX", 0);
@@ -98,9 +98,9 @@ namespace BotaniaStory.entities
                 Api.World.SpawnParticles(particles);
             }
 
-            // ==========================================
+            // 
             // СЕРВЕР: Честная сетевая позиция и логика
-            // ==========================================
+            // 
             if (Api.Side == EnumAppSide.Server)
             {
                 // Двигаем позицию
@@ -150,12 +150,12 @@ namespace BotaniaStory.entities
                             blockEnt.MarkDirty(true);
                         }
 
-                        // Отдали ману — исчезаем
+                        // Отдали ману - исчезаем
                         Die();
                         return;
                     }
 
-                    // Если это обычный твердый блок без интерфейса (стена, земля) — разбиваемся
+                    // Если это обычный твердый блок без интерфейса (стена, земля) - разбиваемся
                     if (block.CollisionBoxes != null && block.CollisionBoxes.Length > 0)
                     {
                         Die();

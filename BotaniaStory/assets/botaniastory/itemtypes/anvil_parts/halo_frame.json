@@ -17,18 +17,9 @@
 	"behaviors": [
 		{
 			"name": "GroundStorable",
-			"properties": {
-				"layout": "Quadrants",
-				"collisionBox": {
-					"x1": 0,
-					"y1": 0,
-					"z1": 0,
-					"x2": 1,
-					"y2": 0.1,
-					"z2": 1
-				}
-			}
+			"properties": { "layout": "SingleCenter" }
 		}
+
 	],
 	"attributes": {
 		"shelvable": true,
@@ -44,6 +35,19 @@
 				"z": 0
 			},
 			"scale": 0.6
+		},
+		"onshelfTransform": {
+			"translation": {
+				"x": -0.01,
+				"y": -0.41,
+				"z": -0.15
+			},
+			"rotation": {
+				"x": -90,
+				"y": 0,
+				"z": 0
+			},
+			"scale": 0.42
 		},
 		"inForgeTransform": {
 			"translation": {
@@ -131,21 +135,21 @@
 	},
 	"guiTransform": {
 		"translation": {
-			"x": 1.101,
+			"x": 3.501,
 			"y": 0.1311,
 			"z": 0
 		},
 		"rotation": {
-			"x": 170.3354,
-			"y": -42.0265,
-			"z": 3.5369
+			"x": 52,
+			"y": 1,
+			"z": -92
 		},
 		"origin": {
 			"x": 0.5,
 			"y": 0.02,
 			"z": 0.5
 		},
-		"scale": 1.09
+		"scale": 1.21
 	},
 	"heldTpIdleAnimation": "holdbothhandslarge",
 	"heldRightReadyAnimation": "heldblockready",

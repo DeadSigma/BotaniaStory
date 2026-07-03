@@ -99,9 +99,9 @@ namespace BotaniaStory.items
             return null;
         }
 
-        // ==========================================
+        // 
         // ИНТЕРФЕЙС IContainedMeshSource (ДЛЯ ВИТРИН И ПОЛА)
-        // ==========================================
+        // 
 
         public string GetMeshCacheKey(ItemSlot inSlot)
         {
@@ -115,7 +115,7 @@ namespace BotaniaStory.items
             if (inSlot.Empty) return null;
             string key = GetMeshCacheKey(inSlot);
 
-            // Если меш уже был сгенерирован для этого атласа и уровня маны — отдаем клон
+            // Если меш уже был сгенерирован для этого атласа и уровня маны - отдаем клон
             if (blockMeshCache.TryGetValue(key, out MeshData cached)) return cached.Clone();
 
             ICoreClientAPI capi = api as ICoreClientAPI;
@@ -139,9 +139,9 @@ namespace BotaniaStory.items
             return mesh.Clone();
         }
 
-        // ==========================================
+        // 
         // ПУБЛИЧНЫЕ МЕТОДЫ ДЛЯ РАБОТЫ С МАНОЙ
-        // ==========================================
+        // 
         public int GetMana(ItemStack stack)
         {
             if (stack == null) return 0;
@@ -162,9 +162,9 @@ namespace BotaniaStory.items
             return GameMath.Clamp(step, 0, 10);
         }
 
-        // ==========================================
+        // 
         // РЕНДЕР В РУКАХ И ИНВЕНТАРЕ
-        // ==========================================
+        // 
 
         public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo)
         {
@@ -200,9 +200,9 @@ namespace BotaniaStory.items
             dsc.AppendLine($"\nМана: {displayMana:0.##} / {displayMax:0.##}");
         }
 
-        // ==========================================
+        // 
         // ВНУТРЕННИЙ КЛАСС: УМНЫЙ АДАПТЕР ТЕКСТУР
-        // ==========================================
+        // 
         private class ContainedItemTexSource : ITexPositionSource
         {
             private ITextureAtlasAPI targetAtlas;

@@ -70,7 +70,7 @@ namespace BotaniaStory.systems
             }
         }
 
-        // --- НОВАЯ ЛОГИКА ГРУПП И КАДРОВ ---
+        // НОВАЯ ЛОГИКА ГРУПП И КАДРОВ
 
         private string GetBaseName(string name)
         {
@@ -132,7 +132,7 @@ namespace BotaniaStory.systems
         private int GCD(int a, int b) { while (b != 0) { int temp = b; b = a % b; a = temp; } return a; }
         private int LCM(int a, int b) { return (a / GCD(a, b)) * b; }
 
-        // --- УМНАЯ ФИЛЬТРАЦИЯ ---
+        // УМНАЯ ФИЛЬТРАЦИЯ
 
         private ShapeElement[] FilterElementsForFrame(ShapeElement[] elements, int targetFrame)
         {

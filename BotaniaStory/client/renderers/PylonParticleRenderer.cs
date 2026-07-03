@@ -64,9 +64,9 @@ namespace BotaniaStory.client.renderers
 
                 bool textureBound = false;
 
-                // =========================================================
+                // ===============
                 // 1. ИЗОЛИРОВАННАЯ ФИЗИКА
-                // =========================================================
+                // ===============
                 for (int i = Particles.Count - 1; i >= 0; i--)
                 {
                     var p = Particles[i];

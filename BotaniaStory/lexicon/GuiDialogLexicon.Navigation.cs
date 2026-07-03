@@ -161,7 +161,7 @@ namespace botaniastory
             return true;
         }
 
-        // --- ИСПРАВЛЕННЫЙ ПУБЛИЧНЫЙ МЕТОД ДЕБАГГЕРА ---
+        // ИСПРАВЛЕННЫЙ ПУБЛИЧНЫЙ МЕТОД ДЕБАГГЕРА
         public void ToggleDebugger()
         {
             if (debuggerDialog == null || !debuggerDialog.IsOpened())
@@ -172,7 +172,7 @@ namespace botaniastory
             else { debuggerDialog.TryClose(); }
         }
 
-        // --- НОВЫЕ МЕТОДЫ УПРАВЛЕНИЯ МЫШЬЮ ---
+        // НОВЫЕ МЕТОДЫ УПРАВЛЕНИЯ МЫШЬЮ
 
         // 1. Обработка колёсика мыши (Улучшенная и безопасная)
         public override void OnMouseWheel(MouseWheelEventArgs args)
@@ -206,7 +206,7 @@ namespace botaniastory
                 }
             }
 
-            // Если опция выключена или мы не в режиме чтения — отдаем управление движку
+            // Если опция выключена или мы не в режиме чтения - отдаем управление движку
             base.OnMouseWheel(args);
         }
 
@@ -235,7 +235,7 @@ namespace botaniastory
                     }
                 }
 
-                // Если клик пришёлся НЕ по закладке — листаем назад и забираем клик себе
+                // Если клик пришёлся НЕ по закладке - листаем назад и забираем клик себе
                 if (!clickedBookmark)
                 {
                     OnClickPrev();
@@ -244,7 +244,7 @@ namespace botaniastory
                 }
             }
 
-            // Если это левый клик или правый клик точно по закладке — отдаём обработку интерфейсу.
+            // Если это левый клик или правый клик точно по закладке - отдаём обработку интерфейсу.
             // Тогда сработает код из GuiElementClickableTab.cs, и закладка закроется!
             base.OnMouseDown(args);
         }

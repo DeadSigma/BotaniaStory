@@ -11,6 +11,10 @@
 		"*-crafting": "ItemCraftingHalo",
 		"*-autocrafting": "ItemAutocraftingHalo"
 	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	},
 	"shape": {
 		"base": "botaniastory:item/halo"
 	},
@@ -98,53 +102,54 @@
 		"scale": 1.16,
 		"rotate": true
 	},
+	"heldTpIdleAnimation": "holdbothhandslarge",
+	"heldRightReadyAnimation": "heldblockready",
+	"heldTpUseAnimation": "twohandplaceblock",
 	"tpHandTransform": {
 		"translation": {
-			"x": -1.8799,
-			"y": -1.57,
-			"z": -1.57
+			"x": -1.3791151,
+			"y": -1.0604906,
+			"z": -0.6911778
 		},
 		"rotation": {
-			"x": -180,
-			"y": -180,
-			"z": 91
-		}
-	},
-	"fpHandTransform": {
-		"translation": {
-			"x": 0.2,
-			"y": -0.2,
-			"z": 0
+			"x": 177.11168,
+			"y": -102.24881,
+			"z": -159.62357
 		},
-		"rotation": {
-			"x": 15,
-			"y": -15,
-			"z": 0
-		},
-		"scale": 1.8
-	},
-	"groundTransform": {
-		"groundTransform": {
+		"scale": 0.38,
+		"fpHandTransform": {
 			"translation": {
-				"x": 0,
-				"y": 0,
+				"x": 0.2,
+				"y": -0.2,
 				"z": 0
 			},
 			"rotation": {
-				"x": 90,
-				"y": 0,
+				"x": 15,
+				"y": -15,
 				"z": 0
 			},
-			"origin": {
-				"x": 0.5,
-				"y": 0.5,
-				"z": 0.5299
-			},
-			"scale": 2.94
+			"scale": 1.8
+		},
+		"groundTransform": {
+			"groundTransform": {
+				"translation": {
+					"x": 0,
+					"y": 0,
+					"z": 0
+				},
+				"rotation": {
+					"x": 90,
+					"y": 0,
+					"z": 0
+				},
+				"origin": {
+					"x": 0.5,
+					"y": 0.5,
+					"z": 0.5299
+				},
+				"scale": 3.01
+			}
 		}
-	},
-	"creativeinventory": {
-		"general": [ "*" ],
-		"botaniastory": [ "*" ]
+
 	}
 }

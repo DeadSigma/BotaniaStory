@@ -55,11 +55,11 @@ namespace BotaniaStory.client.ui
             IShaderProgram sh = capi.Render.CurrentActiveShader;
             if (sh == null) return;
 
-            // --- НАСТРОЙКИ РАЗМЕРА ---
+            // НАСТРОЙКИ РАЗМЕРА
             float width = 242f;  
             float height = 24f;  
 
-            // --- НАСТРОЙКИ ПОЗИЦИИ ---
+            // НАСТРОЙКИ ПОЗИЦИИ
             float x = capi.Render.FrameWidth / 2f + 93f;
 
             // Это поднимет её над полоской голода.

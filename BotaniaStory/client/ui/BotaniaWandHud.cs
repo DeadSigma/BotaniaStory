@@ -282,7 +282,7 @@ namespace BotaniaStory.client.ui
                 DrawTexture(sh, quadMesh, iconTexId, iconX, iconY, iconSize, iconSize);
             }
 
-            // 5. СЛОЙ: ИКОНКА СТАТУСА БАССЕЙНА ---
+            // 5. СЛОЙ: ИКОНКА СТАТУСА БАССЕЙНА
             if (isLookingAtPool)
             {
                 int iconTexId = poolIsAccepting ? poolAcceptingTex.TextureId : poolGivingTex.TextureId;

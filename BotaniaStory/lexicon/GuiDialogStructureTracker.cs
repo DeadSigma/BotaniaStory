@@ -7,7 +7,7 @@ using Vintagestory.API.MathTools;
 
 namespace BotaniaStory.lexicon
 {
-    // --- ДАННЫЕ СТРОКИ ---
+    // ДАННЫЕ СТРОКИ
     public class StructureTrackerItemData
     {
         public Block Block;
@@ -15,7 +15,7 @@ namespace BotaniaStory.lexicon
         public int PlacedCount;
     }
 
-    // --- КАСТОМНЫЙ ЭЛЕМЕНТ: ИКОНКА БЕЗ РАМКИ ---
+    // КАСТОМНЫЙ ЭЛЕМЕНТ: ИКОНКА БЕЗ РАМКИ
     public class GuiElementItemIcon : GuiElement
     {
         private ItemStack stack;
@@ -50,7 +50,7 @@ namespace BotaniaStory.lexicon
         }
     }
 
-    // --- РАСШИРЕНИЕ ДЛЯ GUI COMPOSER ---
+    // РАСШИРЕНИЕ ДЛЯ GUI COMPOSER
     public static class GuiComposerItemIconExtension
     {
         // Добавляем удобный метод, чтобы вызывать его как compo.AddItemIcon()
@@ -64,7 +64,7 @@ namespace BotaniaStory.lexicon
         }
     }
 
-    // --- ОСНОВНОЙ ХУД ---
+    // ОСНОВНОЙ ХУД
     public class GuiDialogStructureTracker : HudElement
     {
         public override double DrawOrder => 0.2;
@@ -88,7 +88,7 @@ namespace BotaniaStory.lexicon
 
             ElementBounds headerBounds = ElementBounds.Fixed(0, 0, 300, 30);
 
-            // --- ЛОКАЛИЗАЦИЯ ЗАГОЛОВКА ---
+            // ЛОКАЛИЗАЦИЯ ЗАГОЛОВКА
             // Пытаемся перевести и само название структуры, если оно есть в lang файле
             string translatedStructureName = Lang.GetMatching("botaniastory:structure-" + structureName);
 

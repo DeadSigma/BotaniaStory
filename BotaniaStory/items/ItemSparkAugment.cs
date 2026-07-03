@@ -65,7 +65,7 @@ namespace BotaniaStory.items
                     targetSpark.WatchedAttributes.SetString("augment", augmentType);
                     targetSpark.WatchedAttributes.MarkAllDirty();
 
-                    // --- ИСПРАВЛЕНИЕ ЗДЕСЬ ---
+                    // ИСПРАВЛЕНИЕ ЗДЕСЬ
                     // Воспроизводим звук и забираем предмет ТОЛЬКО на сервере
                     if (world.Side == EnumAppSide.Server)
                     {

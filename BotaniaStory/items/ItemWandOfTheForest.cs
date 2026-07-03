@@ -13,9 +13,9 @@ namespace BotaniaStory.items
     public class ItemWandOfTheForest : Item
     {
 
-        // ==========================================
+        // 
         // ЛКМ (Левая Кнопка Мыши) - ОТМЕНА ПРИВЯЗКИ
-        // ==========================================
+        // 
         public override void OnHeldAttackStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, ref EnumHandHandling handling)
         {
             bool hadFlower = slot.Itemstack.Attributes.HasAttribute("hasFlower");
@@ -43,9 +43,9 @@ namespace BotaniaStory.items
             base.OnHeldAttackStart(slot, byEntity, blockSel, entitySel, ref handling);
         }
 
-        // ==========================================
+        // 
         // ПКМ - ЛОГИКА ПРИВЯЗКИ, ИНФОРМАЦИИ И СНЯТИЯ ИСКР
-        // ==========================================
+        // 
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
 
@@ -68,9 +68,9 @@ namespace BotaniaStory.items
 
 
           
-            // ==========================================
+            // 
             // А. ТОЧНЫЙ  ПОИСК ИСКРЫ (Как в дополнителях)
-            // ==========================================
+            // 
             EntitySpark targetSpark = null;
 
             Vec3d eyePos = byEntity.Pos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0);
@@ -108,9 +108,9 @@ namespace BotaniaStory.items
             // Если "пронзили" искру взглядом:
             if (targetSpark != null)
             {
-                // ==========================================
+                // 
                 // 1. ЕСЛИ ЗАЖАТ SHIFT (Снятие руны или искры)
-                // ==========================================
+                // 
                 if (byPlayer.Entity.Controls.Sneak)
                 {
                     string currentAugment = targetSpark.WatchedAttributes.GetString("augment", "none");
@@ -151,9 +151,9 @@ namespace BotaniaStory.items
                         world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, wandVolume);
                     }
                 }
-                // ==========================================
+                // 
                 // 2. ЕСЛИ ПРОСТО КЛИК (Показ лучей сети)
-                // ==========================================
+                // 
                 else
                 {
                     Vec3d sparkPos = targetSpark.Pos.XYZ.AddCopy(0, 0.1, 0);
@@ -194,9 +194,9 @@ namespace BotaniaStory.items
                 return;
             }
 
-            // ==========================================
+            // 
             // Б. ЕСЛИ НЕ ПОПАЛИ ПО ИСКРЕ, ПЕРЕХОДИМ К БЛОКАМ
-            // ==========================================
+            // 
 
             if (blockSel == null) return;
 
@@ -206,9 +206,9 @@ namespace BotaniaStory.items
 
             AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
 
-            // ==========================================
+            // 
             // СМЕНА РЕЖИМА БАССЕЙНА МАНЫ (SHIFT + ПКМ)
-            // ==========================================
+            // 
             if (byPlayer.Entity.Controls.Sneak && block is BlockManaPool)
             {
                 if (be is BlockEntityManaPool poolBE)
@@ -432,9 +432,9 @@ namespace BotaniaStory.items
 
         }
 
-        // ==========================================
+        // 
         // МЕТОД ДЛЯ РИСОВАНИЯ ЛУЧЕЙ ИЗ ЧАСТИЦ (Универсальный)
-        // ==========================================
+        // 
         private void SpawnBindingParticles(IWorldAccessor world, Vec3d start, Vec3d end)
         {
             double distance = start.DistanceTo(end);

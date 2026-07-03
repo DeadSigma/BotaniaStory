@@ -123,7 +123,7 @@ namespace botaniastory
                 compo.AddInteractiveElement(nextBtnImage, "nextButton");
             }
 
-            // --- ЗАКЛАДКИ ---
+            // ЗАКЛАДКИ
             var bookmarkedChapters = categories.SelectMany(c => c.Chapters).Where(ch => ch.IsBookmarked).ToList();
 
             var tabCfg = ui["Закладки_Сбоку"];
@@ -154,7 +154,7 @@ namespace botaniastory
             double listScale = listStep[4];
             CairoFont listFont = CairoFont.WhiteSmallText().WithColor(inkColor).WithFontSize((float)(GuiStyle.SmallFontSize * bookScale * listScale));
 
-            // --- ПОИСК ---
+            // ПОИСК
             if (isSearchOpen)
             {
                 compo.AddTextInput(bounds["Строка_Поиска"], OnSearchTextChanged, bookFont, "searchBar");
@@ -183,7 +183,7 @@ namespace botaniastory
                     compo.AddDynamicText(" ", listFont, textBounds, $"search_text_{i}");
                 }
             }
-            // --- ОТРИСОВКА СОДЕРЖИМОГО ---
+            // ОТРИСОВКА СОДЕРЖИМОГО
             else
             {
                 ElementBounds titleBounds = ElementBounds.Fixed(titleCfg[0] * bookScale, titleCfg[1] * bookScale, titleCfg[2] * bookScale * titleCfg[4], titleCfg[3] * bookScale * titleCfg[4]);
@@ -623,7 +623,7 @@ namespace botaniastory
                 if (currentChapter != null && currentChapter.Id == chapterId) return;
                 OpenSpecificChapter(chapterId);
             }
-            // 3. Если менеджер вернул null (предмета нет в книге) — кидаем в ванильный справочник
+            // 3. Если менеджер вернул null (предмета нет в книге) - кидаем в ванильный справочник
             else
             {
                 OpenVanillaHandbook(clickedStack);

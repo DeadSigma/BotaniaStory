@@ -19,7 +19,7 @@ namespace BotaniaStory.util
         private readonly float range = 15f;
         private readonly int wallPenetration = 2;
 
-        // ===============================================================
+        // =====================
 
         private long lastStrikeMs;
         private int rotationIndex = 0;

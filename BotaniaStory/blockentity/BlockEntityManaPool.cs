@@ -120,7 +120,7 @@ namespace BotaniaStory.blockentity
                             Api.World.SpawnItemEntity(dropStack, spark.Pos.XYZ);
                         }
 
-                        // ИСПРАВЛЕНИЕ: Используем 'PickedUp' вместо обычной смерти. 
+                        // Используем 'PickedUp' вместо обычной смерти. 
                         // Это заставит сервер удалить искру мгновенно, как будто игрок положил ее в карман.
                         spark.Die(EnumDespawnReason.PickedUp);
                     }
@@ -274,7 +274,7 @@ namespace BotaniaStory.blockentity
                     // Игнорируем предметы, которые еще летят по воздуху
                     if (!entityItem.Collided && !entityItem.Swimming) continue;
 
-                    // --- ВЗАИМОДЕЙСТВИЕ С ПЛАНШЕТОМ МАНЫ ---
+                    // ВЗАИМОДЕЙСТВИЕ С ПЛАНШЕТОМ МАНЫ
                     if (domain == "botaniastory" && code == "manatablet")
                     {
                         int maxTabletMana = ItemManaTablet.MaxMana;
@@ -326,7 +326,7 @@ namespace BotaniaStory.blockentity
                         }
                     }
 
-                    // --- ВЗАИМОДЕЙСТВИЕ С ЗЕМЛЕКРУШИТЕЛЕМ ---
+                    // ВЗАИМОДЕЙСТВИЕ С ЗЕМЛЕКРУШИТЕЛЕМ
                     if (stack.Item is ItemTerraShatterer shatterer)
                     {
                         if (!IsAcceptingFromItems && CurrentMana > 0)
@@ -450,7 +450,7 @@ namespace BotaniaStory.blockentity
                         if (TryConjureItem(entityItem, fullItemCode, cost)) continue;
                     }
 
-                    // --- РЕЦЕПТЫ ---
+                    // РЕЦЕПТЫ
                     // 1. Любой слиток -> Манасталь 
                     if (domain == "game" && code.StartsWith("ingot-"))
                     {
@@ -610,7 +610,7 @@ namespace BotaniaStory.blockentity
             // Забираем НУЖНОЕ КОЛИЧЕСТВО элементов из стака, который бросил игрок
             inputEntity.Itemstack.StackSize -= inputAmount;
 
-            // Если в стаке больше ничего не осталось — удаляем брошенную сущность
+            // Если в стаке больше ничего не осталось - удаляем брошенную сущность
             if (inputEntity.Itemstack.StackSize <= 0)
             {
                 inputEntity.Die(EnumDespawnReason.Death);

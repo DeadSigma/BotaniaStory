@@ -64,9 +64,9 @@ namespace BotaniaStory.blockentity
                 capi.Event.RegisterRenderer(coreRenderer, EnumRenderStage.Opaque, "botaniastory");
             }
         }
-        // ==========================================
+        // 
         // ИНТЕРФЕЙС IManaReceiver (Прием маны от других)
-        // ==========================================
+        // 
         public bool IsFull()
         {
             return CurrentMana >= MaxMana;
@@ -97,9 +97,9 @@ namespace BotaniaStory.blockentity
 
         private void OnServerTick(float dt)
         {
-            // ==========================================
+            // 
             // НОВОЕ: ВТЯГИВАНИЕ МАНЫ ИЗ СОСЕДНИХ БАССЕЙНОВ
-            // ==========================================
+            // 
             // Проверяем, есть ли в распространителе место
             if (CurrentMana < MaxMana)
             {
@@ -143,16 +143,16 @@ namespace BotaniaStory.blockentity
             }
 
 
-            // ==========================================
+            // 
             // 0. ПРОВЕРКА СУЩЕСТВУЮЩЕЙ ЦЕЛИ
-            // ==========================================
+            // 
             if (TargetPos != null)
             {
                 // Проверяем, стоит ли еще на месте цели Бассейн
                 BlockEntity targetBlock = Api.World.BlockAccessor.GetBlockEntity(TargetPos);
 
 
-                // Если блок по координатам больше не является приемником маны — сбрасываем цель!
+                // Если блок по координатам больше не является приемником маны - сбрасываем цель!
                 if (!(targetBlock is IManaReceiver))
                 {
                     TargetPos = null;
@@ -160,9 +160,9 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            // ==========================================
+            // 
             // 1. УМНЫЙ РАДАР (Работает, если нет цели)
-            // ==========================================
+            // 
             if (TargetPos == null)
             {
                 // Восстанавливаем 3D-вектор направления дула
@@ -205,34 +205,34 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            // ==========================================
+            // 
             // 2. ПЕРЕДАЧА МАНЫ И ВЫСТРЕЛ
-            // ==========================================
+            // 
 
             // 1. Проверяем порог в 20% (20 000 из 100 000)
             int threshold = (int)(MaxMana * 0.20f);
 
-            // Если накопили 20% — начинаем разрядку
+            // Если накопили 20% - начинаем разрядку
             if (CurrentMana >= threshold)
             {
                 isDischarging = true;
             }
-            // Если маны не хватает даже на один маленький сгусток — прекращаем стрелять
+            // Если маны не хватает даже на один маленький сгусток - прекращаем стрелять
             if (CurrentMana < burstManaAmount)
             {
                 isDischarging = false;
             }
             
-            // Если мы не в режиме разрядки или цель потеряна — отменяем выстрел
+            // Если мы не в режиме разрядки или цель потеряна - отменяем выстрел
             if (!isDischarging || TargetPos == null) return;
 
             // 2. Проверяем задержку (кулдаун), чтобы стрелял постепенно, а не пулеметом
             long currentMs = Api.World.ElapsedMilliseconds;
             if (currentMs - lastFireMs < fireCooldownMs) return;
 
-            // ==========================================
+            // 
             // 2.5 ПРОВЕРКА ЗАПОЛНЕННОСТИ ЦЕЛИ (УМНАЯ)
-            // ==========================================
+            // 
             BlockEntity receiverBlock = Api.World.BlockAccessor.GetBlockEntity(TargetPos);
 
             // Проверяем, поддерживает ли цель универсальный прием маны
@@ -258,9 +258,9 @@ namespace BotaniaStory.blockentity
                 return;
             }
 
-            // ==========================================
+            // 
             // 3. ПРОВЕРКА ПРЕПЯТСТВИЙ (Line of Sight)
-            // ==========================================
+            // 
             Vec3d startPos = new Vec3d(Pos.X + 0.5, Pos.Y + 0.5, Pos.Z + 0.5);
             Vec3d targetCenter = new Vec3d(TargetPos.X + 0.5, TargetPos.Y + 0.5, TargetPos.Z + 0.5);
 
@@ -292,13 +292,13 @@ namespace BotaniaStory.blockentity
                         break;
                     }
 
-                    // Если на пути прозрачный для маны блок — делаем вид, что его тут нет
+                    // Если на пути прозрачный для маны блок - делаем вид, что его тут нет
                     if (EntityManaBurst.IsManaPermeable(hitBlock))
                     {
                         continue;
                     }
 
-                    // Если это любой другой твердый блок — путь заблокирован!
+                    // Если это любой другой твердый блок - путь заблокирован!
                     isBlocked = true;
                     break;
                 }
@@ -308,9 +308,9 @@ namespace BotaniaStory.blockentity
             if (isBlocked) return;
 
 
-            // ==========================================
+            // 
             // 4. СОЗДАНИЕ И ЗАПУСК СГУСТКА МАНЫ
-            // ==========================================
+            // 
             // НАХОДИМ ТИП СУЩНОСТИ "manaburst"
             EntityProperties type = Api.World.GetEntityType(new AssetLocation("botaniastory", "manaburst"));
             if (type == null) return;
@@ -352,9 +352,9 @@ namespace BotaniaStory.blockentity
 
             // ... (звук и списание маны)
 
-            // ==========================================
+            // 
             // ОТПРАВКА СЕТЕВОГО ПАКЕТА (ЗВУК ВЫСТРЕЛА)
-            // ==========================================
+            // 
             ICoreServerAPI sapi = Api as ICoreServerAPI;
             IServerNetworkChannel channel = sapi.Network.GetChannel("botanianetwork");
 
@@ -426,9 +426,9 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ==========================================
+        // 
         // МАГИЯ ДИНАМИЧЕСКОГО ВРАЩЕНИЯ 3D-МОДЕЛИ
-        // ==========================================
+        // 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
             // Загружаем 3D модель
@@ -459,9 +459,9 @@ namespace BotaniaStory.blockentity
             // Возвращаем false! Это скажет игре: "НЕ рисуй стандартный неподвижный блок из JSON, я нарисовал его сам!"
             return true;
         }
-        // ==========================================
+        // 
         // ИНТЕРФЕЙС ПРИ НАВЕДЕНИИ (HUD)
-        // ==========================================
+        // 
         public override void GetBlockInfo(IPlayer forPlayer, StringBuilder dsc)
         {
             base.GetBlockInfo(forPlayer, dsc);

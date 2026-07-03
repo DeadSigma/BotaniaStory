@@ -94,7 +94,7 @@ namespace BotaniaStory.lexicon
 
             ItemStack hoveredStack = null;
 
-            // --- ОТРИСОВКА СЕТКИ ---
+            // ОТРИСОВКА СЕТКИ
             for (int i = 0; i < 9; i++)
             {
                 if (inputStacks[i] != null && inputStacks[i].Length > 0)
@@ -141,7 +141,7 @@ namespace BotaniaStory.lexicon
                 }
             }
 
-            // --- ОТРИСОВКА РЕЗУЛЬТАТА ---
+            // ОТРИСОВКА РЕЗУЛЬТАТА
             if (outputStacks != null && outputStacks.Length > 0)
             {
                 double outRX = Bounds.renderX + 3.8 * (slotSize + padding);
@@ -177,7 +177,7 @@ namespace BotaniaStory.lexicon
                 }
             }
 
-            // --- МАГИЯ ТУЛТИПА ---
+            // МАГИЯ ТУЛТИПА
             if (hoveredStack != null)
             {
                 renderSlot.Itemstack = hoveredStack;
@@ -193,12 +193,12 @@ namespace BotaniaStory.lexicon
         // Клик будет работать СТРОГО внутри рецепта!
         public override void OnMouseDown(ICoreClientAPI api, MouseEvent args)
         {
-            // Если клик уже перехвачен кем-то другим поверх нас — игнорируем
+            // Если клик уже перехвачен кем-то другим поверх нас - игнорируем
             if (args.Handled) return;
 
             int timeIndex = (int)(api.World.ElapsedMilliseconds / 1000);
 
-            int masterIndex = timeIndex % maxVariants; // <--- ЕДИНЫЙ ИНДЕКС
+            int masterIndex = timeIndex % maxVariants; // <ЕДИНЫЙ ИНДЕКС
 
             double baseX = Bounds.absX;
             double baseY = Bounds.absY;
@@ -249,7 +249,7 @@ namespace BotaniaStory.lexicon
         }
         public override void Dispose()
         {
-            // Если при удалении интерфейса слот всё ещё висит в игре как "наведенный" — сбрасываем его!
+            // Если при удалении интерфейса слот всё ещё висит в игре как "наведенный" - сбрасываем его!
             if (api?.World?.Player?.InventoryManager?.CurrentHoveredSlot == renderSlot)
             {
                 api.World.Player.InventoryManager.CurrentHoveredSlot = null;

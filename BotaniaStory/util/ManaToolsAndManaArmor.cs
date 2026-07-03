@@ -325,9 +325,9 @@ namespace BotaniaStory.util
         }
     }
 
-    // ==========================================
+    // 
     // СИСТЕМА АВТОПОЧИНКИ (РАБОТАЕТ НА ОБЕИХ СТОРОНАХ)
-    // ==========================================
+    // 
     public class ManaAutoRepairSystem : ModSystem
     {
         private ICoreAPI api;

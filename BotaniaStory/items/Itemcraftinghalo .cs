@@ -188,9 +188,22 @@ namespace BotaniaStory.items
 
             if (!doConsume) return true;
 
+            // Обработка изъятия предметов и поломки инструментов
             foreach (KeyValuePair<ItemSlot, int> kv in reserved)
             {
-                kv.Key.TakeOut(kv.Value);
+                int maxDurability = kv.Key.Itemstack?.Collectible?.GetMaxDurability(kv.Key.Itemstack) ?? 0;
+
+                if (maxDurability > 0)
+                {
+                    // Если это инструмент (есть показатель прочности), тратим прочность
+                    kv.Key.Itemstack.Collectible.DamageItem(world, player.Entity, kv.Key, kv.Value);
+                }
+                else
+                {
+                    // Если это обычный предмет (например, бревно), забираем его
+                    kv.Key.TakeOut(kv.Value);
+                }
+
                 kv.Key.MarkDirty();
             }
 
@@ -232,15 +245,8 @@ namespace BotaniaStory.items
             return arr;
         }
 
-        // (КЛИЕНТ) запись рецепта из сетки крафта
-        // notify=true - с сообщениями (хоткей G); notify=false - молча (авто из окна крафта).
-        public static bool OnCaptureHotkey(ICoreClientAPI capi, KeyCombination comb)
-        {
-            CaptureFromGrid(capi, true);
-            return true;
-        }
-
-        public static bool CaptureFromGrid(ICoreClientAPI capi, bool notify)
+        // (КЛИЕНТ) автоматическая запись рецепта из сетки крафта
+        public static bool CaptureFromGrid(ICoreClientAPI capi)
         {
             if (capi == null) return false;
 
@@ -253,9 +259,10 @@ namespace BotaniaStory.items
 
             int outIdx = grid.Count - 1;                 // последний слот сетки = результат
             ItemStack output = grid[outIdx]?.Itemstack;
+
+            // Если результата нет — выходим без лишних сообщений об ошибке
             if (output == null)
             {
-                if (notify) capi.TriggerIngameError(capi, "halo", "В сетке крафта нет готового результата");
                 return false;
             }
 
@@ -275,7 +282,9 @@ namespace BotaniaStory.items
             (capi.Network.GetChannel("botanianetwork") as IClientNetworkChannel)
                 ?.SendPacket(new HaloRecipePacket() { Segment = -1, Data = SerializeTree(tree) });
 
-            if (notify) capi.TriggerIngameError(capi, "halo", "Рецепт записан в гало");
+            // ВЫВОДИМ УВЕДОМЛЕНИЕ ОБ УСПЕХЕ (с использованием локализации, как настраивали ранее)
+            capi.TriggerIngameError(capi, "halo", Lang.Get("botaniastory:error-halo-saved"));
+
             return true;
         }
 
@@ -299,15 +308,37 @@ namespace BotaniaStory.items
                 if (p.ConnectionState != EnumClientState.Playing) continue;
 
                 List<ItemStack> halos = new List<ItemStack>();
+
+                // Получаем слоты рук игрока для проверки
+                ItemSlot activeSlot = p.InventoryManager.ActiveHotbarSlot;
+                ItemSlot rightHandSlot = p.Entity.RightHandItemSlot;
+                ItemSlot leftHandSlot = p.Entity.LeftHandItemSlot;
+
                 p.Entity.WalkInventory(s =>
                 {
+                    // Пропускаем гало, если оно находится в правой или левой руке
+                    if (s == activeSlot || s == rightHandSlot || s == leftHandSlot) return true;
+
                     if (s?.Itemstack?.Collectible is ItemAutocraftingHalo) halos.Add(s.Itemstack);
                     return true;
                 });
 
                 foreach (ItemStack halo in halos)
+                {
                     for (int seg = 1; seg < SEGMENTS; seg++)
-                        if (HasSegment(halo, seg)) TryCraft(p, halo, seg, true);
+                    {
+                        if (HasSegment(halo, seg))
+                        {
+                            // Крафтим до 16 предметов за один серверный тик
+                            int batchCraftLimit = 16;
+
+                            while (batchCraftLimit > 0 && TryCraft(p, halo, seg, true))
+                            {
+                                batchCraftLimit--;
+                            }
+                        }
+                    }
+                }
             }
         }
 

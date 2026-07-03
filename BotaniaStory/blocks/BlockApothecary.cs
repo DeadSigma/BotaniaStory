@@ -10,36 +10,14 @@ namespace BotaniaStory.blocks
     public class BlockApothecary : Block
     {
 
-        // БАЗА ДАННЫХ РЕЦЕПТОВ ЦВЕТОВ
-        private readonly Dictionary<string, Dictionary<string, int>> flowerRecipes = new Dictionary<string, Dictionary<string, int>>
-        {
-            { "puredaisy-free", new Dictionary<string, int> { { "mysticalpetal-white", 4 } } },
-
-            { "daybloom-free", new Dictionary<string, int> { { "mysticalpetal-yellow", 2 }, { "mysticalpetal-orange", 1 }, { "mysticalpetal-lightblue", 1 } } },
-
-            { "endoflame-free", new Dictionary<string, int> { { "mysticalpetal-brown", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
-
-            { "jadedamaranthus-free", new Dictionary<string, int> { { "mysticalpetal-lime", 1 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-magenta", 1 }, { "root-rusted", 1 }, { "rune-spring", 1 } } },
-
-            { "rosaarcana-free", new Dictionary<string, int> { { "mysticalpetal-brown", 2 }, { "mysticalpetal-pink", 2 }, { "gear-rusty", 1 } } },
-
-             { "hopperhock-free", new Dictionary<string, int> { { "mysticalpetal-lightgray", 2 }, { "mysticalpetal-gray", 2 }, { "rune-air", 1 }, { "root-rusted", 1 } } },
-
-             { "witheredamaranthus-free", new Dictionary<string, int> { { "mysticalpetal-red", 1 }, { "mysticalpetal-blue", 1 }, { "mysticalpetal-magenta", 1 }, { "rune-spring", 1 }, { "root-rusted", 1 } } },
-
-             { "agricarnation-free", new Dictionary<string, int> { { "mysticalpetal-lime", 2 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-yellow", 1 }, { "root-rusted", 1 }, { "rune-spring", 1 } } }
-
-
-        };
+       
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
             ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
             BlockEntityApothecary be = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityApothecary;
             if (be == null) return base.OnBlockInteractStart(world, byPlayer, blockSel);
 
-            // ==========================================
-            // 1. ЗАБРАТЬ ПРЕДМЕТ ИЛИ АВТОКРАФТ (ПКМ пустой рукой)
-            // ==========================================
+            // ЗАБРАТЬ ПРЕДМЕТ ИЛИ АВТОКРАФТ (ПКМ пустой рукой)
             if (slot.Empty)
             {
                 bool itemTaken = false;
@@ -52,7 +30,7 @@ namespace BotaniaStory.blocks
                         // Забираем ровно 1 штучку из слота
                         ItemStack stackToTake = be.inventory[i].TakeOut(1);
 
-                        // ВАЖНО: Выдаем предмет игроку ТОЛЬКО на сервере, чтобы избежать фантомов
+                        // Выдаем предмет игроку ТОЛЬКО на сервере, чтобы избежать фантомов
                         if (world.Side == EnumAppSide.Server)
                         {
                             if (!byPlayer.InventoryManager.TryGiveItemstack(stackToTake, true))
@@ -79,7 +57,7 @@ namespace BotaniaStory.blocks
                     return true;
                 }
 
-                // --- ЛОГИКА АВТОКРАФТА ---
+                // ЛОГИКА АВТОКРАФТА
 
 
                 if (be.HasWater && be.LastCraftedFlower != null)
@@ -89,7 +67,7 @@ namespace BotaniaStory.blocks
                     // Проверяем, прошло ли меньше 20000 миллисекунд (20 секунд)
                     if (currentTime - be.LastCraftTime <= 20000)
                     {
-                        if (flowerRecipes.TryGetValue(be.LastCraftedFlower, out var recipe))
+                        if (BlockEntityApothecary.flowerRecipes.TryGetValue(be.LastCraftedFlower, out var recipe))
                         {
                             // Проверяем, есть ли всё нужное в карманах игрока (simulate: true)
                             if (CheckAndConsumePlayerItems(byPlayer, recipe, true))
@@ -120,9 +98,9 @@ namespace BotaniaStory.blocks
                 return base.OnBlockInteractStart(world, byPlayer, blockSel);
             }
 
-            // ==========================================
-            // 2. ВОДА (Налить/зачерпнуть)
-            // ==========================================
+            // 
+            // ВОДА (Налить/зачерпнуть)
+            // 
             if (!slot.Empty && slot.Itemstack.Collectible is BlockLiquidContainerBase liquidContainer)
             {
                 ItemStack liquidInside = liquidContainer.GetContent(slot.Itemstack);
@@ -152,7 +130,7 @@ namespace BotaniaStory.blocks
 
                     be.HasWater = false;
 
-                    // ИСПРАВЛЕНИЕ: ВЫБРАСЫВАЕМ ВСЕ ПРЕДМЕТЫ, ЕСЛИ ЗАБРАЛИ ВОДУ
+                    // ВЫБРАСЫВАЕМ ВСЕ ПРЕДМЕТЫ, ЕСЛИ ЗАБРАЛИ ВОДУ
                     for (int i = 0; i < be.inventory.Count; i++)
                     {
                         if (!be.inventory[i].Empty)
@@ -171,74 +149,11 @@ namespace BotaniaStory.blocks
                 }
             }
 
-            // ЕСЛИ НЕТ ВОДЫ — ПРЕДМЕТЫ КЛАСТЬ НЕЛЬЗЯ
+            // ЕСЛИ НЕТ ВОДЫ - ПРЕДМЕТЫ КЛАСТЬ НЕЛЬЗЯ
             if (!be.HasWater) return base.OnBlockInteractStart(world, byPlayer, blockSel);
 
-            // 3. УМНЫЙ КРАФТ ЦВЕТОВ
-            if (!slot.Empty && slot.Itemstack.Collectible.Code.Path.StartsWith("treeseed"))
-            {
-                //  currentPetals в currentItems для логики
-                Dictionary<string, int> currentItems = new Dictionary<string, int>();
 
-                foreach (var invSlot in be.inventory)
-                {
-                    if (invSlot.Empty) continue;
-                    string code = invSlot.Itemstack.Collectible.Code.Path;
-
-                    // Просто записываем ВСЕ предметы, которые есть в аптекаре
-                    if (currentItems.ContainsKey(code)) currentItems[code] += invSlot.StackSize;
-                    else currentItems[code] = invSlot.StackSize;
-                }
-
-                // Если в алтаре вообще есть хоть какие-то предметы
-                if (currentItems.Count > 0)
-                {
-                    string craftedFlower = null;
-
-                    foreach (var recipe in flowerRecipes)
-                    {
-                        bool match = true;
-
-                        // Быстрая проверка: совпадает ли количество уникальных предметов?
-                        if (recipe.Value.Count != currentItems.Count) continue;
-
-                        // Детальная проверка количеств каждого предмета
-                        foreach (var req in recipe.Value)
-                        {
-                            if (!currentItems.ContainsKey(req.Key) || currentItems[req.Key] != req.Value)
-                            {
-                                match = false;
-                                break;
-                            }
-                        }
-
-                        if (match)
-                        {
-                            craftedFlower = recipe.Key;
-                            break;
-                        }
-                    }
-
-                    if (craftedFlower != null)
-                    {
-                        slot.TakeOut(1);
-                        be.inventory.Clear();
-                        be.HasWater = false;
-                        be.UpdateRenderer();
-
-                        be.LastCraftedFlower = craftedFlower;
-                        be.LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-
-                        Block flowerBlock = world.GetBlock(new AssetLocation("botaniastory", craftedFlower));
-                        if (flowerBlock != null) world.SpawnItemEntity(new ItemStack(flowerBlock), blockSel.Position.ToVec3d().Add(0.5, 1.2, 0.5));
-
-                        PlayApothecarySound(world, blockSel.Position, "apothecary_craft");
-                        return true;
-                    }
-                }
-            }
-
-            // 4. ПОЛОЖИТЬ ПРЕДМЕТ (тот же белый список, что и у брошенных предметов)
+            // ПОЛОЖИТЬ ПРЕДМЕТ (тот же белый список, что и у брошенных предметов)
             if (!slot.Empty)
             {
                 if (be.TryAddItem(slot, byPlayer))
@@ -260,7 +175,7 @@ namespace BotaniaStory.blocks
             Dictionary<string, int> foundItems = new Dictionary<string, int>();
             int foundSeeds = 0;
 
-            // 1. Считаем, есть ли всё необходимое в инвентарях игрока (хотбар + рюкзаки)
+            // Считаем, есть ли всё необходимое в инвентарях игрока (хотбар + рюкзаки)
             foreach (var inv in player.InventoryManager.OpenedInventories)
             {
                 foreach (var slot in inv)
@@ -292,7 +207,7 @@ namespace BotaniaStory.blocks
             // Если мы просто проверяли (simulate), то возвращаем успех, ничего не трогая
             if (simulate) return true;
 
-            // 2. Если всё есть, реально забираем предметы
+            // Если всё есть, реально забираем предметы
             int seedsToTake = needSeed;
             Dictionary<string, int> itemsToTake = new Dictionary<string, int>(recipe);
 

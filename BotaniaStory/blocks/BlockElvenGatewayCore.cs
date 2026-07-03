@@ -22,7 +22,7 @@ namespace BotaniaStory.blocks
                 }
             }
 
-            // Если игрок кликает пустой рукой, мечом, киркой и т.д. — 
+            // Если игрок кликает пустой рукой, мечом, киркой и т.д. - 
             // игнорируем взаимодействие (портал не отреагирует)
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }

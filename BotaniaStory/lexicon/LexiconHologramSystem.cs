@@ -12,7 +12,7 @@ namespace BotaniaStory.lexicon
         public bool isActive = false;
         private string currentStructure = null;
 
-        // --- ПЕРЕМЕННЫЕ ДЛЯ 3D И ЛОГИКИ ---
+        // ПЕРЕМЕННЫЕ ДЛЯ 3D И ЛОГИКИ
         private Dictionary<int, MeshRef> hologramMeshRefs = new Dictionary<int, MeshRef>();
         private int structureSizeX, structureSizeY, structureSizeZ;
 
@@ -225,11 +225,11 @@ namespace BotaniaStory.lexicon
             {
                 // 2. ВЗАИМОДЕЙСТВИЕ (Голограмма УЖЕ стоит)
 
-                // Если в руке книга — мы просто выходим из метода (return).
+                // Если в руке книга - мы просто выходим из метода (return).
                 // args.Handled остаётся false, и движок Vintage Story САМ открывает твою книгу!
                 if (isBook) return;
 
-                // Если рука пустая — управляем голограммой
+                // Если рука пустая - управляем голограммой
                 if (isEmptyHand)
                 {
                     if (isSneaking)
@@ -425,7 +425,7 @@ namespace BotaniaStory.lexicon
                     float yaw = capi.World.Player.Entity.Pos.Yaw;
 
                     // Вычисляем направление (0, 1, 2, 3)
-                    // Добавляем +2, если врата при установке смотрят "боком" — это поправит смещение на 90 градусов
+                    // Добавляем +2, если врата при установке смотрят "боком" - это поправит смещение на 90 градусов
                     currentFacing = ((int)System.Math.Round(yaw / GameMath.PIHALF) + 1) % 4;
                     if (currentFacing < 0) currentFacing += 4;
 
@@ -440,7 +440,7 @@ namespace BotaniaStory.lexicon
                 prog.ProjectionMatrix = render.CurrentProjectionMatrix;
                 prog.RgbaTint = new Vec4f(1.0f, 1.0f, 1.0f, 0.4f);
 
-                // --- ИСПРАВЛЕНИЕ НЕВИДИМОСТИ ---
+                // ИСПРАВЛЕНИЕ НЕВИДИМОСТИ
                 // Сбрасываем порог альфа-теста, чтобы предыдущие блоки (например, листва)
                 // не заставляли видеокарту отбрасывать наши полупрозрачные пиксели.
                 prog.AlphaTest = 0.05f;
@@ -466,7 +466,7 @@ namespace BotaniaStory.lexicon
 
                 render.GlToggleBlend(true);
 
-                // --- Цикл рендера по страницам ---
+                // Цикл рендера по страницам
                 foreach (var kvp in hologramMeshRefs)
                 {
                     int atlasPage = kvp.Key;

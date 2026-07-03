@@ -154,7 +154,7 @@ namespace BotaniaStory.client.renderers
             for (int i = 1; i < seg; i++)
             {
                 double t = (double)i / seg;
-                double taper = Math.Sin(t * Math.PI); // 0 на концах, 1 в середине — концы точно сходятся
+                double taper = Math.Sin(t * Math.PI); // 0 на концах, 1 в середине - концы точно сходятся
                 double bx = sx + dx * t, by = sy + dy * t, bz = sz + dz * t;
                 double o1 = (rnd.NextDouble() * 2 - 1) * jitter * taper;
                 double o2 = (rnd.NextDouble() * 2 - 1) * jitter * taper;
@@ -172,7 +172,7 @@ namespace BotaniaStory.client.renderers
             float flicker = 0.75f + 0.25f * (float)Math.Abs(Math.Sin(age * 55f));        // мерцание
             alpha *= flicker;
 
-            // Внешнее свечение (толще, бирюзовое — цвет Гайи) + яркое белое ядро
+            // Внешнее свечение (толще, бирюзовое - цвет Гайи) + яркое белое ядро
             DrawStrands(prog, render, modelMat, cube, camPos, 0.06f, new Vec4f(0f, 0.85f, 0.80f, alpha * 0.5f), 180);
             DrawStrands(prog, render, modelMat, cube, camPos, 0.02f, new Vec4f(0.8f, 1f, 0.97f, alpha), 255);
         }

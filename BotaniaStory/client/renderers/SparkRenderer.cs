@@ -128,7 +128,7 @@ namespace BotaniaStory.client.renderers
             prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
             prog.ExtraGlow = 255;
 
-            // --- ИСПРАВЛЕНИЕ АЛЬФЫ ---
+            // ИСПРАВЛЕНИЕ АЛЬФЫ
             // Сбрасываем обрезку прозрачности до минимума, чтобы искра была мягкой
             prog.AlphaTest = 0.01f;
 
@@ -176,7 +176,7 @@ namespace BotaniaStory.client.renderers
 
                 if (texToBind != 0)
                 {
-                    // --- ИСПРАВЛЕНИЕ ТЕКСТУРЫ РУНЫ ---
+                    // ИСПРАВЛЕНИЕ ТЕКСТУРЫ РУНЫ
                     capi.Render.BindTexture2d(texToBind);
 
                     float orbitRadius = 0.2f;

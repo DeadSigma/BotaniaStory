@@ -230,7 +230,7 @@ namespace BotaniaStory.blockentity
                 // Сначала симулируем: есть ли у игрока ВСЕ нужные предметы?
                 if (CheckAndConsumePlayerItems(player, recipe.items, true))
                 {
-                    // Если есть — физически забираем предметы в алтарь
+                    // Если есть - физически забираем предметы в алтарь
                     CheckAndConsumePlayerItems(player, recipe.items, false);
 
                     // Заставляем алтарь проверить рецепт и посчитать ману
@@ -281,13 +281,13 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            // Если список требований не опустел — предметов не хватает
+            // Если список требований не опустел - предметов не хватает
             if (remainingItems.Count > 0) return false;
 
             // Если это была лишь проверка (simulate = true), останавливаемся и рапортуем об успехе
             if (simulate) return true;
 
-            // --- ФИЗИЧЕСКИЙ ПЕРЕНОС ПРЕДМЕТОВ НА АЛТАРЬ ---
+            // ФИЗИЧЕСКИЙ ПЕРЕНОС ПРЕДМЕТОВ НА АЛТАРЬ
             int altarSlotIndex = 0;
             foreach (var kvp in itemsToTake)
             {
@@ -327,9 +327,9 @@ namespace BotaniaStory.blockentity
             if (Api.Side == EnumAppSide.Client) renderer?.UpdateMeshes();
         }
 
-        // ========================================================
+        // ==============
         // ЛОГИКА КРАФТА И МАНЫ
-        // ========================================================
+        // ==============
         private void CheckRecipe()
         {
             TargetMana = 0;
@@ -450,9 +450,9 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ========================================================
+        // ==============
         // ВИЗУАЛЫ И ОЧИСТКА
-        // ========================================================
+        // ==============
         private void SpawnIdleParticles(float dt)
         {
             if (Api.Side == EnumAppSide.Server || TargetMana <= 0) return;
@@ -475,7 +475,7 @@ namespace BotaniaStory.blockentity
                     1, 2, // Количество
                     ColorUtil.ToRgba(200, 255, 255, 100), // Бирюзово-голубой
                     startPos, // MinPos (Где спавним)
-                    new Vec3d(0, 0, 0), // AddPos - КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: НУЛЕВОЙ разброс!
+                    new Vec3d(0, 0, 0), // AddPos - КРИТИЧЕСКОЕ НУЛЕВОЙ разброс!
                     new Vec3f(-0.1f, 0.2f, -0.1f), // MinVelocity
                     new Vec3f(0.2f, 0.3f, 0.2f), // AddVelocity
                     1.0f + (float)Api.World.Rand.NextDouble(), // Жизнь
@@ -543,7 +543,7 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            // Если мест нет — прерываем выполнение метода, не нагружая сервер
+            // Если мест нет - прерываем выполнение метода, не нагружая сервер
             if (!hasEmptySlot) return;
 
             // Движок игры даже не передаст нам предмет, если его нет в белом списке
