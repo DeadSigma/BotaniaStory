@@ -55,6 +55,7 @@
     "gui-halocraft-title": "光环",
     "handbook-intro-text": "欢迎来到花之魔法世界！\n\nBotania Story 是一个围绕神秘植物与魔力管理，新增了大量机制的模组。\n\n要开始你的旅程，你需要每位植物学家的核心工具--知识之书。你可以点击此链接查看它的合成配方：<a href=\"handbook://item-botaniastory:lexicon-closed\">植物学辞典</a>。\n\n制作它，拿在手中并右键使用，投身于魔法的世界吧！",
     "handbook-intro-title": "Botania Story 简介",
+    "hotkey-meditationToggle": "BotaniaStory：冥想 开/关",
     "hud-structure-title": "建筑: {0}",
     "info-mana-display": "魔力: {0} / {1}",
     "info-terrashatterer-rank": "当前等级: {0}",
@@ -522,7 +523,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "Botania 辞典是满足你一切植物学需求的知识宝库。不过你大概早已知道这一点。所有信息都记录于此。为了方便起见，如果某个方块拥有说明，你可以手持 Botania 辞典并按下 <link=nothing>Shift+右键</link> 来打开对应说明。\n\n我强烈建议你先阅读 <link=category:basics_and_mechanics>基础与机制</link> 分类中的全部条目，再前往其他章节。大多数分类都包含一个或多个条目，因此务必仔细阅读。",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Botania 辞典的制作方法。",
     "lexicon_basics_and_mechanics_meditation_title": "冥想与神秘花",
-    "lexicon_basics_and_mechanics_meditation_p1": "有些普通的花朵能够回应内心的宁静。按下<link=nothing>G</link>，在花朵旁进入冥想姿势，并保持静止一段时间，它的自然本质便会苏醒，将普通花朵转化为<link=mysticalflower>神秘花</link>。\n\n<link=mysticalflower>神秘花</link>是一种重要的自然资源，可用于制作各种魔法物品、装置以及其他植物魔法造物。",
+    "lexicon_basics_and_mechanics_meditation_p1": "-些普通花朵能够回应心灵的平静。要开始冥想，请按下 <link=nothing>N</link>（默认）。如果坐在这样的花朵旁边并保持静止-段时间，花朵的自然精华便会觉醒，将其转化为-朵<link=mysticalflower>神秘之花</link>。<link=mysticalflower>神秘之花</link>是-种重要的自然资源，可用于制作许多魔法物品、机制以及BotaniaStory中的其他造物。",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       稍微耐心等待一下也无妨。",
     "lexicon_basics_and_mechanics_mysticalflower_title": "神秘花朵",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "在世界中漫步时，你可能会遇到各种不同类型的神秘植物。\n\n\n\n\n\n\n\n\n\n\n\n      放眼望去，到处都是花……\n\n至于神秘花朵，寻找它们不会花太久时间，因为它们会发光。它们共有16种不同颜色。",
@@ -742,9 +743,9 @@
     "lexicon_mystical_items_manaitem_p20": "制作魔力钢矛尖：\n\n\n\n\n\n\n\n\n\n\n制作魔力钢长矛：",
     "lexicon_mystical_items_manaitem_p21": "制作魔力钢凿子：\n\n\n\n制作魔力钢撬棍：\n\n\n\n\n制作魔力钢扳手：\n\n\n\n\n制作魔力钢钳子\n\n\n\n\n制作魔力钢剪刀：",
     "lexicon_mystical_items_meadowseed_title": "草原种子",
-    "lexicon_mystical_items_meadowseed_p1": "将<link=game:drygrass>草</link>注入<link=mana>魔力</link>后，可以创造出<link=meadowseed>草原种子</link>。它能够让草地迅速扩散，即使是在贫瘠地区也同样有效--只需对目标方块点击<link=nothing>右键</link>即可。\n\n除了普通草地外，这种种子还能生成其他类型的植被与土壤，例如<link=game:peat-verysparse>泥炭</link>或<link=game:soil-medium-normal>中等肥沃度土壤</link>。",
+    "lexicon_mystical_items_meadowseed_p1": "用<link=mana>魔力</link>强化<link=game:drygrass>草</link>，可以制作<link=meadowseed>草甸种子</link>。它可以让草地即使在贫瘠之地也能快速扩散--只需对目标方块点击<link=nothing>鼠标右键</link>即可。\n\n除了普通的草之外，种子还可以生成其他类型的植被和土壤，例如<link=game:peat-verysparse>泥炭</link>或<link=game:soil-medium-normal>中等肥力的土壤</link>。",
     "lexicon_mystical_items_meadowseed_p2": "用于草地的草原种子：\n\n\n\n\n\n\n\n\n\n\n\n用于泥炭的草原种子：",
-    "lexicon_mystical_items_meadowseed_p3": "用于中等肥沃度土壤的草原种子：",
+    "lexicon_mystical_items_meadowseed_p3": "用于中等肥力土壤的草甸种子：",
     "lexicon_mystical_items_rod_of_the_seas_title": "海之法杖",
     "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>海之法杖</link>与其陆地对应物类似，会消耗<link=mana>魔力</link>来生成<link=game:water-still-7>水</link>。使用时，它会在目标位置放置一个水方块。\n此外，该法杖还可用于填充<link=apothecary>花瓣炼药台</link>、<link=game:barrel>桶</link>、<link=game:woodbucket>水桶</link>，甚至<link=game:claypot-black-fired>营火锅</link>",
     "lexicon_mystical_items_rod_of_the_seas_p2": "海之法杖的制作：\n\n\n\n\n\n\n\n\n\n\n保持地球清洁--这里不是天王星。",
@@ -790,5 +791,6 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑翔可以让你平稳下降，横向移动距离并避免坠落伤害。要触发滑翔，需要在下落时蹲下。即使飞行槽为空也可以滑翔，但恢复速度会更慢。\n\n\n\n\n制作头冠框架：\n\n\n\n制作翼状头冠:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "锈蚀世界空气瓶",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>锈蚀世界空气瓶</link>中封存着从通往异界的裂隙中收集到的扭曲空气。要填充该瓶，需要手持<link=flask>空瓶</link>并在裂隙附近按下<link=nothing>右键</link>。\n\n这种空气具有变异特性，但其本质仍未被研究清楚。 ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "目前只知道它可以用于制作某些神秘物品。"
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "目前只知道它可以用于制作某些神秘物品。",
+    "lexicon_elfmania_elfresources_p6": "用活木交换梦之木：\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n-种温度极高的木材，足以与煤炭相媲美。它的燃烧时间与煤炭-样长，同时释放出巨量的热量。"
 }

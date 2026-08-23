@@ -41,37 +41,20 @@ namespace BotaniaStory.Flora.GeneratingFlora
             bool dirty = false;
             double currentDays = this.Api.World.Calendar.TotalDays;
 
-            // СТАРЕНИЕ
-            double daysAlive = currentDays - PlantedTotalDays;
-            if (daysAlive >= 3.0)
-            {
-                Block currentBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos);
-                Block deadBlock = null;
-
-                if (currentBlock != null && currentBlock.Code.Path.Contains("floatingisland"))
-                {
-                    deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "floatingisland-deadflower"));
-                }
-                else
-                {
-                    deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "deadflower-free"));
-                }
-
-                if (deadBlock != null)
-                {
-                    this.Api.World.BlockAccessor.SetBlock(deadBlock.BlockId, this.Blockentity.Pos);
-                    return; // Прерываем работу тика, так как цветок умер
-                }
-            }
-
-            // БОНУС ПОЧВЫ
+            // БОНУС ПОЧВЫ И ПРОВЕРКА ЗАЧАРОВАНИЯ
             float soilMult = 1.0f;
+            bool isEnchanted = false; // Флаг бессмертия цветка
             Block downBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos.DownCopy());
 
             if (downBlock != null)
             {
                 string path = downBlock.Code.Path;
-                if (path.Contains("soil") || path.Contains("farmland"))
+                if (path.Contains("enchantedsoil"))
+                {
+                    isEnchanted = true;
+                    soilMult = 1.20f; // Можно дать максимальный бонус к мане
+                }
+                else if (path.Contains("soil") || path.Contains("farmland"))
                 {
                     if (path.Contains("medium")) soilMult = 1.04f;
                     else if (path.Contains("high")) soilMult = 1.15f;
@@ -83,7 +66,31 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 }
             }
 
-            // Оптимизированные тайминги
+            if (!isEnchanted)
+            {
+                double daysAlive = currentDays - PlantedTotalDays;
+                if (daysAlive >= 3.0)
+                {
+                    Block currentBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos);
+                    Block deadBlock = null;
+
+                    if (currentBlock != null && currentBlock.Code.Path.Contains("floatingisland"))
+                    {
+                        deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "floatingisland-deadflower"));
+                    }
+                    else
+                    {
+                        deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "deadflower-free"));
+                    }
+
+                    if (deadBlock != null)
+                    {
+                        this.Api.World.BlockAccessor.SetBlock(deadBlock.BlockId, this.Blockentity.Pos);
+                        return; // Прерываем работу тика, так как цветок умер
+                    }
+                }
+            }
+
             int manaPerCycle = 7;
             int ticksPerCycle = 6;
 

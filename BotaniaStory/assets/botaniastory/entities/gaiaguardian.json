@@ -58,11 +58,6 @@
 				"triggeredBy": { "defaultAnim": true }
 			},
 			{
-				"code": "walk",
-				"animation": "walk",
-				"blendMode": "Average"
-			},
-			{
 				"code": "attack",
 				"animation": "attack",
 				"blendMode": "Average",
@@ -71,6 +66,16 @@
 		]
 	},
 	"server": {
+		"drops": [
+			{
+				"type": "item",
+				"code": "game:gear-temporal",
+				"quantity": {
+					"avg": 1,
+					"var": 0
+				}
+			}
+		],
 		"behaviors": [
 			{ "code": "repulseagents" },
 			{
@@ -79,8 +84,8 @@
 			},
 			{
 				"code": "health",
-				"currenthealth": 500,
-				"maxhealth": 500
+				"currenthealth": 300,
+				"maxhealth": 300
 			},
 			{
 				"code": "deaddecay",
@@ -106,7 +111,7 @@
 						"code": "gaialightning",
 						"priority": 2.0,
 						"cooldownMs": 8000,
-						"damage": 15,
+						"damage": 5,
 						"animation": "attack"
 					},
 					{
@@ -125,8 +130,7 @@
 						"priority": 1.4,
 						"entityCodes": [ "player" ],
 						"seekingRange": 30,
-						"movespeed": 0.00,
-						"animation": "walk"
+						"movespeed": 0.00
 					},
 					{
 						"code": "idle",

@@ -65,7 +65,7 @@
     },
     "combustibleProps": {
         "burnTemperature": 1100,
-        "burnDuration": 1200,
+        "burnDuration": 210,
         "enabled": true
     }
 }

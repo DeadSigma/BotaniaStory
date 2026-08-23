@@ -1,0 +1,10 @@
+{
+    "abilitydesc-hopwhisperer": "Aumenta a qualidade das receitas de cerveja Ale em {0}%.",
+    "abilitydesc-meadmaster": "Aumenta a qualidade das receitas de hidromel em {0}%.",
+    "abilitydesc-summerweaver": "As roupas que você fabrica fornecem {0}% mais resfriamento.",
+    "abilitydesc-vintner": "Aumenta a qualidade das receitas de sidra e vinho em {0}%.",
+    "lexicon_basics_and_mechanics_meditation_p1": "Algumas flores comuns podem responder à tranquilidade da mente. Para começar a meditar, pressione <link=nothing>N</link> (padrão). Se você se sentar perto de uma dessas flores e permanecer imóvel por algum tempo, a essência natural da flor despertará, transformando-a em uma <link=mysticalflower>flor mística</link>. As <link=mysticalflower>flores místicas</link> são um recurso natural importante e são usadas para criar muitos itens mágicos, mecanismos e outras criações de BotaniaStory.",
+    "lexicon_mystical_items_meadowseed_p1": "Ao enriquecer a <link=game:drygrass>grama</link> com <link=mana>mana</link>, você pode criar a <link=meadowseed>semente de pradaria</link>. Ela permite espalhar grama rapidamente mesmo em locais inférteis - basta clicar com o <link=nothing>botão direito</link> no bloco desejado.\n\nAlém da grama comum, a semente também pode criar outros tipos de vegetação e solo, como <link=game:peat-verysparse>turfa</link> ou <link=game:soil-medium-normal>solo de fertilidade média</link>.",
+    "lexicon_mystical_items_meadowseed_p3": "Semente de pradaria para solo de fertilidade média:",
+    "lexicon_elfmania_elfresources_p6": "Troca de Madeira Viva por Madeira dos Sonhos:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUma madeira incrivelmente quente, capaz de rivalizar com o carvão. Ela queima por tanto tempo quanto o carvão, liberando uma enorme quantidade de calor."
+}

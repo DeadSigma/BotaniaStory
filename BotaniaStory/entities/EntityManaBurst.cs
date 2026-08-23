@@ -132,7 +132,7 @@ namespace BotaniaStory.entities
                         return;
                     }
 
-                    // ===  УНИВЕРСАЛЬНЫЙ ПРИЕМ МАНЫ ===
+                    // УНИВЕРСАЛЬНЫЙ ПРИЕМ МАНЫ
                     BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(currentPos);
 
                     // Проверяем, является ли блок приемником маны (Бассейн, Алтарь, Плита и т.д.)

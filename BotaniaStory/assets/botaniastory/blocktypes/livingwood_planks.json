@@ -91,13 +91,13 @@
         "walk": "game:walk/wood"
     },
     "combustiblePropsByType": {
-        "*-normal-*": {
-            "burnTemperature": 700,
-            "burnDuration": 30
+        "*-normal": {
+            "burnTemperature": 950,
+            "burnDuration": 53
         },
-        "*-aged-*": {
-            "burnTemperature": 600,
-            "burnDuration": 25
+        "*-aged": {
+            "burnTemperature": 954,
+            "burnDuration": 53
         }
     },
     "maxStackSize": 32,

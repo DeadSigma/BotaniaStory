@@ -1,97 +1,81 @@
 [
     {
-        "ingredientPattern": "IRS",
+        "ingredientPattern": "G",
         "ingredients": {
-            "I": {
-                "type": "item",
-                "code": "game:ingot-manasteel"
-            },
-            "R": {
-                "type": "item",
-                "code": "botaniastory:rune-water"
-            },
-            "S": {
-                "type": "item",
-                "code": "game:stick"
+            "G": {
+                "type": "block",
+                "code": "botaniastory:elvenglass-0"
             }
         },
-        "width": 3,
+        "width": 1,
         "height": 1,
         "output": {
-            "type": "item",
-            "code": "botaniastory:sparkaugment-dispersive",
+            "type": "block",
+            "code": "botaniastory:elvenglass-1",
             "quantity": 1
         }
     },
     {
-        "ingredientPattern": "IRS",
+        "ingredientPattern": "G",
         "ingredients": {
-            "I": {
-                "type": "item",
-                "code": "game:ingot-manasteel"
-            },
-            "R": {
-                "type": "item",
-                "code": "botaniastory:rune-fire"
-            },
-            "S": {
-                "type": "item",
-                "code": "game:stick"
+            "G": {
+                "type": "block",
+                "code": "botaniastory:elvenglass-1"
             }
         },
-        "width": 3,
+        "width": 1,
         "height": 1,
         "output": {
-            "type": "item",
-            "code": "botaniastory:sparkaugment-dominant",
+            "type": "block",
+            "code": "botaniastory:elvenglass-2",
             "quantity": 1
         }
     },
     {
-        "ingredientPattern": "IRS",
+        "ingredientPattern": "G",
         "ingredients": {
-            "I": {
-                "type": "item",
-                "code": "game:ingot-manasteel"
-            },
-            "R": {
-                "type": "item",
-                "code": "botaniastory:rune-air"
-            },
-            "S": {
-                "type": "item",
-                "code": "game:stick"
+            "G": {
+                "type": "block",
+                "code": "botaniastory:elvenglass-2"
             }
         },
-        "width": 3,
+        "width": 1,
         "height": 1,
         "output": {
-            "type": "item",
-            "code": "botaniastory:sparkaugment-isolated",
+            "type": "block",
+            "code": "botaniastory:elvenglass-3",
             "quantity": 1
         }
     },
     {
-        "ingredientPattern": "IRS",
+        "ingredientPattern": "G",
         "ingredients": {
-            "I": {
-                "type": "item",
-                "code": "game:ingot-manasteel"
-            },
-            "R": {
-                "type": "item",
-                "code": "botaniastory:rune-earth"
-            },
-            "S": {
-                "type": "item",
-                "code": "game:stick"
+            "G": {
+                "type": "block",
+                "code": "botaniastory:elvenglass-3"
             }
         },
-        "width": 3,
+        "width": 1,
         "height": 1,
         "output": {
-            "type": "item",
-            "code": "botaniastory:sparkaugment-recessive",
+            "type": "block",
+            "code": "botaniastory:elvenglass-4",
+            "quantity": 1
+        }
+    },
+    {
+        "ingredientPattern": "G",
+        "ingredients": {
+            "G": {
+                "type": "block",
+                "code": "botaniastory:elvenglass-4"
+            }
+        },
+        "width": 1,
+        "height": 1,
+        "output": {
+            "type": "block",
+            "code": "botaniastory:elvenglass-0",
             "quantity": 1
         }
     }

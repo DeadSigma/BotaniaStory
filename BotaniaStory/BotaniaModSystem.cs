@@ -8,6 +8,7 @@ using BotaniaStory.entities;
 using BotaniaStory.entities.ai;
 using BotaniaStory.Flora.GeneratingFlora;
 using BotaniaStory.items;
+using BotaniaStory.Items;
 using BotaniaStory.lexicon;
 using BotaniaStory.network;
 using BotaniaStory.util;
@@ -32,6 +33,7 @@ namespace BotaniaStory
         public static LexiconConfig ClientConfig;
         public static BotaniaConfig ServerConfig;
         public static ManaStreamRenderer ManaRenderer;
+        public static GaiaBarrierRenderer BarrierRenderer;
         public static GaiaLightningRenderer GaiaLightningVisuals;
 
         private ICoreClientAPI capi;
@@ -177,6 +179,8 @@ namespace BotaniaStory
             api.RegisterItemClass("ItemMysticalPowder", typeof(ItemMysticalPowder));
 
             api.RegisterEntityBehaviorClass("playermeditation", typeof(EntityBehaviorPlayerMeditation));
+            api.RegisterItemClass("ItemOvergrowthSeed", typeof(ItemOvergrowthSeed));
+            api.RegisterBlockEntityClass("EnchantedFarmland", typeof(BlockEntityEnchantedFarmland));
 
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
@@ -203,15 +207,13 @@ namespace BotaniaStory
 
             // Инициализируем рендерер частиц
             ManaRenderer = new ManaStreamRenderer(api);
+            BarrierRenderer = new GaiaBarrierRenderer(api);
 
             capi.Event.RegisterRenderer(new TerraShattererHud(capi), EnumRenderStage.Ortho);
 
             clientChannel.SetMessageHandler<GaiaLightningPacket>(OnGaiaLightningPacketReceived);
             GaiaLightningVisuals = new GaiaLightningRenderer(api);
-
-            capi.Input.RegisterHotKey("halocapture", "Гало: запомнить рецепт из сетки крафта", GlKeys.G, HotkeyType.CharacterControls);
             capi.Event.RegisterRenderer(new CraftingHaloRenderer(capi), EnumRenderStage.Opaque);
-            api.Logger.Notification("[BotaniaStory] BUILD MARKER 001");
 
         }
 
@@ -248,21 +250,19 @@ namespace BotaniaStory
         private TextCommandResult OnSpawnGaiaCommand(TextCommandCallingArgs args)
         {
             IServerPlayer player = args.Caller.Player as IServerPlayer;
-            if (player == null) return TextCommandResult.Error("Команду может использовать только игрок.");
+            if (player == null) return TextCommandResult.Error("");
 
-            // Ищем тип сущности 
             EntityProperties type = sapi.World.GetEntityType(new AssetLocation("botaniastory", "gaiaguardian"));
-            if (type == null) return TextCommandResult.Error("Сущность gaiaguardian не найдена в JSON.");
+            if (type == null) return TextCommandResult.Error("");
 
             Entity entity = sapi.World.ClassRegistry.CreateEntity(type);
 
-            // Спавним немного впереди игрока
             entity.Pos.SetPos(player.Entity.Pos.AsBlockPos.ToVec3d().Add(0, 1, 2));
             entity.Pos.SetFrom(entity.Pos);
 
             sapi.World.SpawnEntity(entity);
 
-            return TextCommandResult.Success("Страж Гайи призван! Да начнется битва!");
+            return TextCommandResult.Success("Ищу моделлера и ещё продам гараж");
         }
 
         private void OnTalismanTick(float dt)

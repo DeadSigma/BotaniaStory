@@ -36,6 +36,16 @@
         },
         "scale": 0.4
     },
+    "combustiblePropsByType": {
+        "*-normal": {
+            "burnTemperature": 950,
+            "burnDuration": 160
+        },
+        "*-aged": {
+            "burnTemperature": 954,
+            "burnDuration": 160
+        }
+    },
     "blockmaterial": "Wood",
     "sounds": {
         "hit": "game:block/planks",

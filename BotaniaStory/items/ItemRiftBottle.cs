@@ -15,7 +15,7 @@ namespace BotaniaStory.items
 
             string content = Variant["content"];
 
-            // === 1. ОПУСТОШЕНИЕ ЛЮБОГО ПУЗЫРЬКА (Ctrl + ПКМ) ===
+            //1. ОПУСТОШЕНИЕ ЛЮБОГО ПУЗЫРЬКА (Ctrl + ПКМ)
             if (content != "empty" && byEntity.Controls.CtrlKey)
             {
                 handling = EnumHandHandling.PreventDefaultAction;
@@ -38,7 +38,7 @@ namespace BotaniaStory.items
                 return;
             }
 
-            // === 2. НАПОЛНЕНИЕ ПУСТОГО ПУЗЫРЬКА ===
+            //2. НАПОЛНЕНИЕ ПУСТОГО ПУЗЫРЬКА
             if (content == "empty" && !byEntity.Controls.CtrlKey)
             {
                 // 2.1. Сначала проверяем, есть ли рядом разлом

@@ -1,4 +1,8 @@
 {
+    "abilitydesc-hopwhisperer": "Augmente de {0}% la qualité des recettes de bière blonde (ale).",
+    "abilitydesc-meadmaster": "Augmente de {0}% la qualité des recettes d'hydromel.",
+    "abilitydesc-summerweaver": "Les vêtements que vous fabriquez offrent {0}% de fraîcheur supplémentaire.",
+    "abilitydesc-vintner": "Augmente de {0}% la qualité des recettes de cidre et de vin.",
     "alchemy-missing-warning": "<font color=\"#ff9999\">Le mod <a href=\"https://mods.vintagestory.at/alchemy\">Alchemy</a> est requis pour fabriquer cet objet</font>",
     "btn-visualize": "Visualiser",
     "btn-visualize-stop": "Arrêter la visualisation",
@@ -55,6 +59,7 @@
     "gui-halocraft-title": "Halo",
     "handbook-intro-text": "Bienvenue dans le monde de la magie florale !\n\nBotania Story est un mod qui ajoute de nombreuses nouvelles mécaniques liées à la flore mystique et à la gestion du mana.\n\nPour commencer votre voyage, vous aurez besoin de l’outil principal de tout botaniste : le livre de la connaissance. Vous pouvez consulter sa recette de fabrication en cliquant sur ce lien : <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nFabriquez-le, tenez-le dans vos mains et faites un clic droit pour vous immerger dans la magie !",
     "handbook-intro-title": "Introduction à l'histoire de Botania",
+    "hotkey-meditationToggle": "BotaniaStory : Activer/Désactiver la méditation",
     "hud-structure-title": "---Structure : {0}",
     "info-mana-display": "Mana : {0} / {1}",
     "info-terrashatterer-rank": "Rang actuel : {0}",
@@ -522,7 +527,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "Le Botania Lexicon est un trésor de toutes les connaissances pour vos besoins botaniques. Mais cela, vous le saviez probablement déjà. Toutes les informations se trouvent ici. Pour plus de commodité, si un bloc a une description, vous pouvez appuyer sur <link=nothing>Shift+RMB</link> tout en maintenant le Botania Lexicon pour ouvrir cette description.\n\nJe recommande fortement de lire toutes les entrées de la section <link=category:basics_and_mechanics>Bases et mécanique</link> avant de passer aux autres. La plupart des sections contiennent une ou plusieurs entrées, alors assurez-vous de les étudier attentivement.",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Création du lexique Botania.",
     "lexicon_basics_and_mechanics_meditation_title": "Méditation et fleurs mystiques",
-    "lexicon_basics_and_mechanics_meditation_p1": "Certaines fleurs ordinaires sont capables de répondre à la sérénité de l'esprit. Si vous vous asseyez à côté de l'une d'elles en position de méditation en appuyant sur <link=nothing>G</link> et restez immobile pendant un moment, son essence naturelle s'éveillera et transformera la fleur ordinaire en une <link=mysticalflower>fleur mystique</link>.\n\nLes <link=mysticalflower>fleurs mystiques</link> constituent une ressource naturelle précieuse et sont utilisées dans la création de nombreux objets magiques, mécanismes et autres merveilles botaniques.",
+    "lexicon_basics_and_mechanics_meditation_p1": "Certaines fleurs ordinaires peuvent réagir au calme de l'esprit. Pour commencer à méditer, appuyez sur <link=nothing>N</link> (par défaut). Si vous vous asseyez près d'une telle fleur et restez immobile pendant un certain temps, l'essence naturelle de la fleur s'éveillera et la transformera en <link=mysticalflower>fleur mystique</link>. Les <link=mysticalflower>fleurs mystiques</link> sont une ressource naturelle importante et sont utilisées pour créer de nombreux objets magiques, mécanismes et autres créations de BotaniaStory.",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       Un peu de patience ne fait pas de mal.",
     "lexicon_basics_and_mechanics_mysticalflower_title": "Fleurs mystiques",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "En explorant le monde, vous rencontrerez peut-être différents types de flore mystique.\n\n\n\n\n\n\n\n\n\n\n\n      Où que vous regardiez, les fleurs sont partout...\n\nQuant aux fleurs mystiques, il ne faudra pas longtemps pour les trouver, car elles émettent de la lumière. Ils viennent en 16 couleurs différentes.",
@@ -742,9 +747,9 @@
     "lexicon_mystical_items_manaitem_p20": "Création d’une pointe de lance en manasteel :\n\n\n\n\n\n\n\n\n\n\nCréation d’une lance en manasteel :",
     "lexicon_mystical_items_manaitem_p21": "Création d’un ciseau en manasteel :\n\n\n\nCréation d’un pied-de-biche en manasteel :\n\n\n\n\nCréation d’une clé en manasteel :\n\n\n\n\nCréation de pinces en manasteel\n\n\n\n\nCréation de ciseaux en manasteel :",
     "lexicon_mystical_items_meadowseed_title": "Graine de prairie",
-    "lexicon_mystical_items_meadowseed_p1": "En enrichissant de l’<link=game:drygrass>herbe</link> avec du <link=mana>mana</link>, il est possible de créer une <link=meadowseed>graine de prairie</link>. Elle permet de répandre rapidement de l’herbe même dans les endroits stériles - il suffit de faire un <link=nothing>clic droit</link> sur le bloc souhaité.\n\nEn plus de l’herbe classique, la graine peut également créer d’autres types de végétation et de sols, comme de la <link=game:peat-verysparse>tourbe</link> ou un <link=game:soil-medium-normal>sol moyennement fertile</link>.",
+    "lexicon_mystical_items_meadowseed_p1": "Enrichir l'<link=game:drygrass>herbe</link> avec du <link=mana>mana</link> permet de créer une <link=meadowseed>graine de prairie</link>. Elle permet de propager rapidement l'herbe même dans les endroits infertiles : il suffit de faire un <link=nothing>clic droit</link> sur le bloc souhaité.\n\nEn plus de l'herbe ordinaire, la graine peut également créer d'autres types de végétation et de sols, comme la <link=game:peat-verysparse>tourbe</link> ou un <link=game:soil-medium-normal>sol de fertilité moyenne</link>.",
     "lexicon_mystical_items_meadowseed_p2": "Graine de prairie pour l’herbe :\n\n\n\n\n\n\n\n\n\n\n\nGraine de prairie pour la tourbe :",
-    "lexicon_mystical_items_meadowseed_p3": "Graine de prairie pour un sol moyennement fertile :",
+    "lexicon_mystical_items_meadowseed_p3": "Graine de prairie pour sol de fertilité moyenne :",
     "lexicon_mystical_items_rod_of_the_seas_title": "Bâton des mers",
     "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Bâton des mers</link>, comme son équivalent terrestre, consomme de la <link=mana>mana</link> pour créer de <link=game:water-still-7>l’eau</link>. Lorsqu’il est utilisé, il place un bloc d’eau à l’endroit ciblé.\nDe plus, le bâton peut être utilisé pour remplir un <link=apothecary>apothicaire floral</link>, des <link=game:barrel>barils</link>, des <link=game:woodbucket>seaux</link> et même un <link=game:claypot-black-fired>pot sur feu</link>",
     "lexicon_mystical_items_rod_of_the_seas_p2": "Fabrication du Bâton des mers :\n\n\n\n\n\n\n\n\n\n\nGardez la Terre propre - ce n’est pas Uranus.",
@@ -790,5 +795,6 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Le planeur permet de descendre en douceur, de parcourir une distance horizontale et d’éviter les dégâts de chute. Pour cela, il faut s’accroupir pendant la chute. Même avec une jauge de vol vide, il est possible de planer, mais la récupération sera plus lente.\n\n\n\n\nCréation de l’armature de la tiare :\n\n\n\nCréation de la tiare ailée :",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiole d’air du Monde Rouillé",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiole d’air du Monde Rouillé</link> contient un air altéré, collecté à partir de failles menant à un monde étranger. Pour remplir la fiole, tenez une <link=flask>fiole vide</link> dans la main et appuyez sur <link=nothing>clic droit</link> près d’une faille.\n\nCet air possède des propriétés mutagènes, mais leur nature reste encore inconnue. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "On sait seulement qu’il peut être utilisé dans la création de certains objets mystiques."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "On sait seulement qu’il peut être utilisé dans la création de certains objets mystiques.",
+    "lexicon_elfmania_elfresources_p6": "Échange de Bois vivant contre du Bois des rêves :\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUn bois incroyablement chaud, capable de rivaliser avec le charbon. Il brûle aussi longtemps que le charbon tout en dégageant une quantité énorme de chaleur."
 }

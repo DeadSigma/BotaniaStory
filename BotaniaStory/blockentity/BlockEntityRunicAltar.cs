@@ -27,7 +27,7 @@ namespace BotaniaStory.blockentity
 
         private Dictionary<string, (int mana, List<string> items)> runeRecipes = new Dictionary<string, (int, List<string>)>
 {
-    // === Базовые руны (Стихии и Мана) - 5200 маны ===
+    //Базовые руны (Стихии и Мана) - 5200 маны
      { "rune-water", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "bone", "cattailtops", "cattailroot" }) },
      { "rune-fire", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "mushroom-flyagaric-normal", "burnedbrick-*", "powder-sulfur" }) },
     
@@ -36,13 +36,13 @@ namespace BotaniaStory.blockentity
      { "rune-air", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "manaitem-manaflax", "feather", "cloth-plain" }) },
      { "rune-mana", (5200, new List<string> { "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "manaitem-manaquartz" }) },
 
-    // === Руны Сезонов - 8000 маны ===
+    //Руны Сезонов - 8000 маны
     { "rune-spring", (8000, new List<string> { "rune-water", "rune-fire", "treeseed-oak", "treeseed-oak", "treeseed-oak", "hay-normal-ud" }) },
     { "rune-summer", (8000, new List<string> { "rune-earth", "rune-air", "sand-*", "fat", "fruit-cherry" }) },
     { "rune-autumn", (8000, new List<string> { "rune-fire", "rune-air", "treeseed-oak", "treeseed-oak", "treeseed-oak", "butterfly-dead-*", "pumpkin-fruit-4" }) },
     { "rune-winter", (8000, new List<string> { "rune-water", "rune-earth", "snowblock", "cloth-plain", "dough-" }) },
 
-    // === Руны Смертных Грехов - 12000 маны ===
+    //Руны Смертных Грехов - 12000 маны
     { "rune-lust", (12000, new List<string> { "manaitem-managear", "rune-summer", "rune-spring", "clearquartz", "clearquartz" }) },
     { "rune-gluttony", (12000, new List<string> { "manaitem-managear", "rune-winter", "rune-autumn", "clearquartz", "clearquartz" }) },
     { "rune-greed", (12000, new List<string> { "manaitem-managear", "rune-spring", "rune-water", "fat", "fat" }) },
@@ -327,9 +327,7 @@ namespace BotaniaStory.blockentity
             if (Api.Side == EnumAppSide.Client) renderer?.UpdateMeshes();
         }
 
-        // ==============
         // ЛОГИКА КРАФТА И МАНЫ
-        // ==============
         private void CheckRecipe()
         {
             TargetMana = 0;
@@ -405,7 +403,7 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            // === ВОТ ЗДЕСЬ АЛТАРЬ ЗАПОМИНАЕТ УСПЕШНЫЙ КРАФТ ===
+            //ВОТ ЗДЕСЬ АЛТАРЬ ЗАПОМИНАЕТ УСПЕШНЫЙ КРАФТ
             LastCraftedRecipe = currentRecipeResult;
             LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
@@ -450,9 +448,7 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ==============
         // ВИЗУАЛЫ И ОЧИСТКА
-        // ==============
         private void SpawnIdleParticles(float dt)
         {
             if (Api.Side == EnumAppSide.Server || TargetMana <= 0) return;

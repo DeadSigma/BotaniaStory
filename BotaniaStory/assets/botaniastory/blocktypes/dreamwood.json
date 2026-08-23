@@ -43,5 +43,15 @@
         "place": "game:block/planks",
         "walk": "game:walk/wood"
     },
-    "resistance": 3
+    "resistance": 3,
+    "combustiblePropsByType": {
+        "*-normal": {
+            "burnTemperature": 1100,
+            "burnDuration": 840
+        },
+        "*-aged": {
+            "burnTemperature": 1106,
+            "burnDuration": 844
+        }
+    }
 }

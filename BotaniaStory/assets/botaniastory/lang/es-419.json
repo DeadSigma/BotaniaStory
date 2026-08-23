@@ -1,4 +1,8 @@
 {
+    "abilitydesc-hopwhisperer": "Aumenta la calidad de las recetas de cerveza ale en un {0}%.",
+    "abilitydesc-meadmaster": "Aumenta la calidad de las recetas de hidromiel en un {0}%.",
+    "abilitydesc-summerweaver": "La ropa que fabricas proporciona un {0}% más de refrigeración.",
+    "abilitydesc-vintner": "Aumenta la calidad de las recetas de sidra y vino en un {0}%.",
     "alchemy-missing-warning": "<font color=\"#ff9999\">Se requiere el mod <a href=\"https://mods.vintagestory.at/alchemy\">Alchemy</a> para fabricar este objeto</font>",
     "btn-visualize": "Visualizar",
     "btn-visualize-stop": "Detener visualización",
@@ -55,6 +59,7 @@
     "gui-halocraft-title": "Halo",
     "handbook-intro-text": "¡Bienvenidos al mundo de la magia floral!\n\nBotania Story es un mod que añade muchas mecánicas nuevas relacionadas con la flora mística y la gestión de maná.\n\nPara comenzar tu viaje, necesitarás la principal herramienta de todo botánico: el libro del conocimiento. Puede ver su receta de elaboración haciendo clic en este enlace: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\n¡Créalo, sostenlo en tus manos y haz clic derecho para sumergirte en la magia!",
     "handbook-intro-title": "Introducción a la historia de Botania",
+    "hotkey-meditationToggle": "BotaniaStory: Activar/Desactivar meditación",
     "hud-structure-title": "Estructura: {0}",
     "info-mana-display": "Maná: {0} / {1}",
     "info-terrashatterer-rank": "Rango actual: {0}",
@@ -522,7 +527,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "El Botania Lexicon es un tesoro escondido que contiene todo el conocimiento para sus necesidades botánicas. Pero probablemente ya lo sabías. Toda la información se encuentra aquí. Para mayor comodidad, si un bloque tiene una descripción, puede presionar <link=nothing>Shift+RMB</link> mientras mantiene presionado Botania Lexicon para abrir esa descripción.\n\nRecomiendo encarecidamente leer todas las entradas de la sección <link=category:basics_and_mechanics>Conceptos básicos y mecánica</link> antes de pasar a las demás. La mayoría de las secciones contienen una o más entradas, así que asegúrese de estudiarlas detenidamente.",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Elaboración del léxico de Botania.",
     "lexicon_basics_and_mechanics_meditation_title": "Meditación y flores místicas",
-    "lexicon_basics_and_mechanics_meditation_p1": "Algunas flores comunes son capaces de responder a la serenidad de la mente. Si te sientas junto a una de ellas en posición de meditación pulsando <link=nothing>G</link> y permaneces inmóvil durante un tiempo, su esencia natural despertará y transformará la flor común en una <link=mysticalflower>flor mística</link>.\n\nLas <link=mysticalflower>flores místicas</link> son un importante recurso natural y se utilizan para crear numerosos objetos mágicos, mecanismos y otras creaciones botánicas.",
+    "lexicon_basics_and_mechanics_meditation_p1": "Algunas flores comunes pueden responder a la calma de la mente. Para comenzar a meditar, pulsa <link=nothing>N</link> (por defecto). Si te sientas junto a una de estas flores y permaneces inmóvil durante un tiempo, la esencia natural de la flor despertará, transformándola en una <link=mysticalflower>flor mística</link>. Las <link=mysticalflower>flores místicas</link> son un recurso natural importante y se utilizan para crear numerosos objetos mágicos, mecanismos y otras creaciones de BotaniaStory.",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       También puedes esperar un poco.",
     "lexicon_basics_and_mechanics_mysticalflower_title": "Flores místicas",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "Mientras exploras el mundo, es posible que te encuentres con diferentes tipos de flora mística.\n\n\n\n\n\n\n\n\n\n\n\n      Mires donde mires, hay flores por todas partes...\n\nEn cuanto a las flores místicas, encontrarlas no llevará mucho tiempo, ya que emiten luz. Vienen en 16 colores diferentes.",
@@ -742,9 +747,9 @@
     "lexicon_mystical_items_manaitem_p20": "Creación de punta de lanza de manasteel:\n\n\n\n\n\n\n\n\n\n\nCreación de lanza de manasteel:",
     "lexicon_mystical_items_manaitem_p21": "Creación de cincel de manasteel:\n\n\n\nCreación de palanca de manasteel:\n\n\n\n\nCreación de llave de manasteel:\n\n\n\n\nCreación de alicates de manasteel\n\n\n\n\nCreación de tijeras de manasteel:",
     "lexicon_mystical_items_meadowseed_title": "Semilla de pradera",
-    "lexicon_mystical_items_meadowseed_p1": "Al enriquecer <link=game:drygrass>hierba</link> con <link=mana>maná</link>, se puede crear una <link=meadowseed>semilla de pradera</link>. Permite extender rápidamente la hierba incluso en lugares estériles; basta con pulsar <link=nothing>clic derecho</link> sobre el bloque deseado.\n\nAdemás de hierba normal, la semilla también puede crear otros tipos de vegetación y suelo, como <link=game:peat-verysparse>turba</link> o <link=game:soil-medium-normal>suelo de fertilidad media</link>.",
+    "lexicon_mystical_items_meadowseed_p1": "Al enriquecer la <link=game:drygrass>hierba</link> con <link=mana>mana</link>, puedes crear <link=meadowseed>semillas de pradera</link>. Permiten extender rápidamente la hierba incluso en lugares estériles; basta con hacer <link=nothing>clic derecho</link> sobre el bloque deseado.\n\nAdemás de hierba normal, las semillas también pueden crear otros tipos de vegetación y suelo, como <link=game:peat-verysparse>turba</link> o <link=game:soil-medium-normal>suelo de fertilidad media</link>.",
     "lexicon_mystical_items_meadowseed_p2": "Semilla de pradera para hierba:\n\n\n\n\n\n\n\n\n\n\n\nSemilla de pradera para turba:",
-    "lexicon_mystical_items_meadowseed_p3": "Semilla de pradera para suelo de fertilidad media:",
+    "lexicon_mystical_items_meadowseed_p3": "Semillas de pradera para suelo de fertilidad media:",
     "lexicon_mystical_items_rod_of_the_seas_title": "Vara de los Mares",
     "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Vara de los Mares</link>, al igual que su contraparte terrestre, consume <link=mana>maná</link> para crear <link=game:water-still-7>agua</link>. Al usarla, coloca un bloque de agua en el punto seleccionado.\nAdemás, la vara puede utilizarse para llenar el <link=apothecary>apotecario de pétalos</link>, <link=game:barrel>barriles</link>, <link=game:woodbucket>cubos</link> e incluso un <link=game:claypot-black-fired>caldero en la hoguera</link>",
     "lexicon_mystical_items_rod_of_the_seas_p2": "Creación de la Vara de los Mares:\n\n\n\n\n\n\n\n\n\n\nMantén la Tierra limpia - no es Urano.",
@@ -790,5 +795,6 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Planear permite descender suavemente, recorrer distancia horizontal y evitar el daño por caída. Para ello debes agacharte durante la caída. Incluso con la barra de vuelo vacía puedes planear, aunque la recuperación será más lenta.\n\n\n\n\nCreación de la estructura de la tiara:\n\n\n\nCreación de la tiara alada:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Vial con aire del Mundo Oxidado",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Vial con aire del Mundo Oxidado</link> contiene aire distorsionado recogido de grietas que conducen a un mundo extraño. Para llenar el vial, debes sostener un <link=flask>vial vacío</link> en la mano y pulsar <link=nothing>clic derecho</link> cerca de una grieta.\n\nEste aire posee propiedades mutantes, aunque su naturaleza aún no ha sido estudiada. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Solo se sabe que puede utilizarse en la creación de ciertos objetos místicos."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Solo se sabe que puede utilizarse en la creación de ciertos objetos místicos.",
+    "lexicon_elfmania_elfresources_p6": "Intercambio de Madera Viviente por Madera de Ensueño:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUna madera increíblemente caliente, capaz de competir con el carbón. Arde durante tanto tiempo como el carbón y libera una enorme cantidad de calor."
 }

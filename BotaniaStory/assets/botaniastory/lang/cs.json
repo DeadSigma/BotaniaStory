@@ -1,4 +1,8 @@
 {
+    "abilitydesc-hopwhisperer": "Zvyšuje kvalitu receptů na pivo typu ale o {0}%.",
+    "abilitydesc-meadmaster": "Zvyšuje kvalitu receptů na medovinu o {0}%.",
+    "abilitydesc-summerweaver": "Vámi vyrobené oblečení poskytuje o {0}% lepší chlazení.",
+    "abilitydesc-vintner": "Zvyšuje kvalitu receptů na cider a víno o {0}%.",
     "alchemy-missing-warning": "<font color=\"#ff9999\">Pro výrobu je vyžadován mod <a href=\"https://mods.vintagestory.at/alchemy\">Alchemy</a></font>",
     "btn-visualize": "Vizualizujte",
     "btn-visualize-stop": "Zastavit vizualizaci",
@@ -55,6 +59,7 @@
     "gui-halocraft-title": "Věnec",
     "handbook-intro-text": "Vítejte ve světě květinové magie!\n\nBotania Story je mod, který přidává mnoho nových mechanik souvisejících s mystickou flórou a správou many.\n\nK zahájení své cesty budete potřebovat hlavní nástroj každého botanika - knihu znalostí. Recept na jeho výrobu si můžete prohlédnout kliknutím na tento odkaz: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nVytvořte jej, držte jej v rukou a kliknutím pravým tlačítkem se ponořte do magie!",
     "handbook-intro-title": "Úvod do příběhu Botania",
+    "hotkey-meditationToggle": "BotaniaStory: Zapnout/Vypnout meditaci",
     "hud-structure-title": "Struktura: {0}",
     "info-mana-display": "Mana: {0} / {1}",
     "info-terrashatterer-rank": "Aktuální úroveň: {0}",
@@ -522,7 +527,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "Lexikon Botania je pokladnicí všech znalostí pro vaše botanické potřeby. Ale to už jste asi věděli. Veškeré informace naleznete zde. Pro usnadnění, pokud má blok popis, můžete tento popis otevřít stisknutím <link=nothing>Shift+RMB</link> při podržení lexikonu Botania.\n\nDůrazně doporučuji přečíst si všechny položky v sekci <link=category:basics_and_mechanics>Základy a mechanika</link>, než přejdete k ostatním. Většina sekcí obsahuje jeden nebo více záznamů, takže si je pečlivě prostudujte.",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Vytváření lexikonu Botania.",
     "lexicon_basics_and_mechanics_meditation_title": "Meditace a mystické květiny",
-    "lexicon_basics_and_mechanics_meditation_p1": "Některé obyčejné květiny dokážou reagovat na klid mysli. Pokud si sednete vedle takové květiny do meditační pozice stisknutím <link=nothing>G</link> a zůstanete chvíli v klidu, její přírodní podstata se probudí a promění obyčejnou květinu v <link=mysticalflower>mystickou</link>.\n\n<link=mysticalflower>Mystické květiny</link> jsou důležitým přírodním zdrojem a používají se při výrobě mnoha magických předmětů, zařízení a dalších botanických výtvorů.",
+    "lexicon_basics_and_mechanics_meditation_p1": "Některé obyčejné květiny dokážou reagovat na klid mysli. Meditaci zahájíte stisknutím <link=nothing>N</link> (ve výchozím nastavení). Pokud si sednete vedle takové květiny a chvíli zůstanete nehybně sedět, přírodní podstata květiny se probudí a promění ji v <link=mysticalflower>mystickou květinu</link>. <link=mysticalflower>Mystické květiny</link> jsou důležitým přírodním zdrojem a používají se k výrobě mnoha magických předmětů, mechanismů a dalších výtvorů BotaniaStory.",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       Chvíli počkat také neuškodí.",
     "lexicon_basics_and_mechanics_mysticalflower_title": "Mystické květiny",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "Při objevování světa můžete narazit na různé druhy mystické flóry.\n\n\n\n\n\n\n\n\n\n\n\n      Kam se podíváš, všude jsou květiny...\n\nPokud jde o mystické květiny, jejich nalezení nebude trvat dlouho, protože vyzařují světlo. Dodávají se v 16 různých barvách.",
@@ -742,9 +747,9 @@
     "lexicon_mystical_items_manaitem_p20": "Výroba hrotu kopí z manasteelu:\n\n\n\n\n\n\n\n\n\n\nVýroba kopí z manasteelu:",
     "lexicon_mystical_items_manaitem_p21": "Výroba dláta z manasteelu:\n\n\n\nVýroba páčidla z manasteelu:\n\n\n\n\nVýroba klíče z manasteelu:\n\n\n\n\nVýroba kleští z manasteelu\n\n\n\n\nVýroba nůžek z manasteelu:",
     "lexicon_mystical_items_meadowseed_title": "Luční semeno",
-    "lexicon_mystical_items_meadowseed_p1": "Obohacením <link=game:drygrass>trávy</link> <link=mana>manou</link> lze vytvořit <link=meadowseed>luční semeno</link>. Umožňuje rychle šířit trávu i na neúrodných místech - stačí kliknout <link=nothing>pravým tlačítkem myši</link> na požadovaný blok.\n\nKromě běžné trávy dokáže semeno vytvářet i další druhy vegetace a půdy, například <link=game:peat-verysparse>rašelinu</link> nebo <link=game:soil-medium-normal>středně úrodnou půdu</link>.",
+    "lexicon_mystical_items_meadowseed_p1": "Obohacením <link=game:drygrass>trávy</link> <link=mana>manou</link> lze vytvořit <link=meadowseed>luční semeno</link>. Umožňuje rychle šířit trávu i na neúrodných místech - stačí kliknout <link=nothing>pravým tlačítkem myši</link> na požadovaný blok.\n\nKromě běžné trávy dokáže semeno vytvářet i další druhy vegetace a půdy, například <link=game:peat-verysparse>rašelinu</link> nebo <link=game:soil-medium-normal>půdu střední úrodnosti</link>.",
     "lexicon_mystical_items_meadowseed_p2": "Luční semeno pro trávu:\n\n\n\n\n\n\n\n\n\n\n\nLuční semeno pro rašelinu:",
-    "lexicon_mystical_items_meadowseed_p3": "Luční semeno pro středně úrodnou půdu:",
+    "lexicon_mystical_items_meadowseed_p3": "Luční semeno pro půdu střední úrodnosti:",
     "lexicon_mystical_items_rod_of_the_seas_title": "Hůl moří",
     "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Hůl moří</link>, podobně jako její pozemní protějšek, spotřebovává <link=mana>manu</link> k vytvoření <link=game:water-still-7>vody</link>. Při použití umístí blok vody na zvolené místo.\nNavíc lze hůl použít k naplnění <link=apothecary>květinového apotékáře</link>, <link=game:barrel>sudů</link>, <link=game:woodbucket>věder</link> a dokonce i <link=game:claypot-black-fired>kotlíku na ohni</link>",
     "lexicon_mystical_items_rod_of_the_seas_p2": "Vytvoření hole moří:\n\n\n\n\n\n\n\n\n\n\nUdržujte Zemi čistou - není to Uran.",
@@ -790,5 +795,6 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Plachtění umožňuje plynule klesat, překonávat vzdálenost vodorovně a vyhnout se poškození pádem. Pro aktivaci je potřeba se během pádu skrčit. I při prázdném ukazateli letu lze plachtit, avšak obnova bude pomalejší.\n\n\n\n\nVytvoření kostry tiáry:\n\n\n\nVytvoření okřídlené tiáry:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Lahvička se vzduchem rezavého světa",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Lahvička se vzduchem rezavého světa</link> obsahuje zdeformovaný vzduch, shromážděný z trhlin vedoucích do cizího světa. Pro naplnění lahvičky je nutné držet <link=flask>prázdnou lahvičku</link> v ruce a stisknout <link=nothing>PKM</link> v blízkosti trhliny.\n\nTento vzduch má mutagenní vlastnosti, avšak jejich podstata zatím zůstává neprozkoumána. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Je známo pouze to, že může být použit při vytváření některých mystických předmětů."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Je známo pouze to, že může být použit při vytváření některých mystických předmětů.",
+    "lexicon_elfmania_elfresources_p6": "Výměna Životního dřeva za Dřevo snů:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNeuvěřitelně žhavé dřevo, které může soupeřit s uhlím. Hoří stejně dlouho jako uhlí a uvolňuje obrovské množství tepla."
 }

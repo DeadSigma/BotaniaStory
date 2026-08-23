@@ -101,7 +101,7 @@ namespace BotaniaStory.client.ui
                 be = capi.World.BlockAccessor.GetBlockEntity(sel.Position);
             }
 
-            // === ТЕПЕРЬ ВСЕ ПРОВЕРКИ ТОЛЬКО ЕСЛИ В РУКЕ ПОСОХ ===
+            //ТЕПЕРЬ ВСЕ ПРОВЕРКИ ТОЛЬКО ЕСЛИ В РУКЕ ПОСОХ
             if (hasWand && sel != null)
             {
                 showConnectionStatus = true;

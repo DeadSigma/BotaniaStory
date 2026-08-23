@@ -1,4 +1,8 @@
 {
+    "abilitydesc-hopwhisperer": "エールのレシピ品質が {0}% 向上します。",
+    "abilitydesc-meadmaster": "ミードのレシピ品質が {0}% 向上します。",
+    "abilitydesc-summerweaver": "作成した衣服の冷却性能が {0}% 向上します。",
+    "abilitydesc-vintner": "シードルとワインのレシピ品質が {0}% 向上します。",
     "alchemy-missing-warning": "<font color=\"#ff9999\">クラフトには <a href=\"https://mods.vintagestory.at/alchemy\">Alchemy</a> MOD が必要です</font>",
     "btn-visualize": "視覚化する",
     "btn-visualize-stop": "視覚化の停止",
@@ -55,6 +59,7 @@
     "gui-halocraft-title": "オーラ",
     "handbook-intro-text": "フラワーマジックの世界へようこそ！\n\nBotania Story は、神秘的な植物相とマナ管理に関連する多くの新しいメカニズムを追加する MOD です。\n\n旅を始めるには、すべての植物学者の主要なツールである知識の本が必要です。このリンクをクリックすると、その作成レシピを表示できます: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>。\n\n作成し、手に持って、右クリックして魔法の世界に浸ってください。",
     "handbook-intro-title": "ボタニア物語の紹介",
+    "hotkey-meditationToggle": "BotaniaStory: 瞑想 オン/オフ",
     "hud-structure-title": "構造: {0}",
     "info-mana-display": "マナ: {0} / {1}",
     "info-terrashatterer-rank": "現在のランク: {0}",
@@ -522,7 +527,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "Botania Lexicon は、植物に関するあらゆる知識の宝庫です。しかし、おそらくあなたはすでにそれを知っていたでしょう。すべての情報はここにあります。便宜上、ブロックに説明がある場合は、Botania Lexicon を押したまま <link=nothing>Shift+RMB</link> を押すとその説明が開きます。\n\n他のセクションに進む前に、<link=category:basics_and_mechanics>基本とメカニズム</link> セクションのすべてのエントリを読むことを強くお勧めします。ほとんどのセクションには 1 つ以上のエントリが含まれているため、注意深く調べてください。",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Botania Lexicon の作成。",
     "lexicon_basics_and_mechanics_meditation_title": "瞑想と神秘の花",
-    "lexicon_basics_and_mechanics_meditation_p1": "一部の普通の花は、心の静けさに応えてくれます。<link=nothing>G</link>キーを押して花のそばで瞑想し、しばらく動かずにいると、その花の自然の本質が目覚め、普通の花は<link=mysticalflower>神秘の花</link>へと姿を変えます。\n\n<link=mysticalflower>神秘の花</link>は重要な自然資源であり、多くの魔法の道具や装置、そしてさまざまな植物魔法の創造物を作るために使われます。",
+    "lexicon_basics_and_mechanics_meditation_p1": "-部の普通の花は、心の静けさに反応することがあります。瞑想を始めるには <link=nothing>N</link>（デフォルト）を押してください。そのような花のそばに座り、しばらく動かずにいると、花の自然のエッセンスが目覚め、<link=mysticalflower>神秘の花</link>へと変化します。<link=mysticalflower>神秘の花</link>は重要な天然資源であり、さまざまな魔法のアイテムや機構、その他のBotaniaStoryの創造物の作成に使用されます。",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       少し待つのも悪くありません。",
     "lexicon_basics_and_mechanics_mysticalflower_title": "神秘的な花",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "世界を探索していると、さまざまな種類の神秘的な植物に出会うかもしれません。\n\n\n\n\n\n\n\n\n\n\n\n      どこを見てもお花がいっぱい…\n\n神秘的な花は光を放つので見つけるのに時間はかかりません。 16 種類の色があります。",
@@ -742,9 +747,9 @@
     "lexicon_mystical_items_manaitem_p20": "マナスチールの槍先の作成：\n\n\n\n\n\n\n\n\n\n\nマナスチールの槍の作成：",
     "lexicon_mystical_items_manaitem_p21": "マナスチールののみの作成：\n\n\n\nマナスチールのバールの作成：\n\n\n\n\nマナスチールのレンチの作成：\n\n\n\n\nマナスチールのペンチの作成\n\n\n\n\nマナスチールのハサミの作成：",
     "lexicon_mystical_items_meadowseed_title": "牧草の種",
-    "lexicon_mystical_items_meadowseed_p1": "<link=game:drygrass>草</link>に<link=mana>マナ</link>を注ぎ込むことで、<link=meadowseed>牧草の種</link>を作り出せます。この種を使えば、不毛な土地でも素早く草を広げることができ、対象ブロックに<link=nothing>右クリック</link>するだけで使用できます。\n\n通常の草だけでなく、この種は<link=game:peat-verysparse>泥炭</link>や<link=game:soil-medium-normal>中程度の肥沃度を持つ土壌</link>など、他の植物や土壌も生成できます。",
+    "lexicon_mystical_items_meadowseed_p1": "<link=game:drygrass>草</link>に<link=mana>マナ</link>を注入することで、<link=meadowseed>草原の種</link>を作成できます。これを使えば、不毛な場所でも草を素早く広げられます。目的のブロックを<link=nothing>右クリック</link>するだけです。\n\n通常の草だけでなく、<link=game:peat-verysparse>泥炭</link>や<link=game:soil-medium-normal>中程度の肥沃度の土壌</link>など、さまざまな植物や土壌も生成できます。",
     "lexicon_mystical_items_meadowseed_p2": "草用の牧草の種:\n\n\n\n\n\n\n\n\n\n\n\n泥炭用の牧草の種:",
-    "lexicon_mystical_items_meadowseed_p3": "中程度の肥沃度を持つ土壌用の牧草の種:",
+    "lexicon_mystical_items_meadowseed_p3": "中程度の肥沃度の土壌用の草原の種：",
     "lexicon_mystical_items_rod_of_the_seas_title": "海の杖",
     "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>海の杖</link>は地上の類似品と同様に<link=mana>マナ</link>を消費して<link=game:water-still-7>水</link>を生成する。使用すると指定した場所に水ブロックを設置する。\nさらに、この杖は<link=apothecary>花びらのアポセカリー</link>、<link=game:barrel>樽</link>、<link=game:woodbucket>バケツ</link>、さらには<link=game:claypot-black-fired>焚き火の鍋</link>を満たすこともできる",
     "lexicon_mystical_items_rod_of_the_seas_p2": "海の杖の作成：\n\n\n\n\n\n\n\n\n\n\n地球を清潔に保とう - ここは天王星ではない。",
@@ -790,5 +795,6 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑空するとゆっくり下降し、水平距離を移動しつつ落下ダメージを回避できる。発動するには落下中にしゃがむ必要がある。飛行ゲージが空でも滑空は可能だが、回復は遅くなる。\n\n\n\n\nティアラのフレームの作成:\n\n\n\n翼付きティアラの作成:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "錆びた世界の空気の小瓶",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>錆びた世界の空気の小瓶</link>には、異世界へ通じる裂け目から採取された歪んだ空気が封じられている。小瓶を満たすには、<link=flask>空の小瓶</link>を手に持ち、裂け目の近くで<link=nothing>右クリック</link>する必要がある。\n\nこの空気は変異的な性質を持つが、その本質はまだ解明されていない。 ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "それがいくつかの神秘的なアイテムの作成に使用できることだけが知られている。"
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "それがいくつかの神秘的なアイテムの作成に使用できることだけが知られている。",
+    "lexicon_elfmania_elfresources_p6": "生きた木材を夢の木材と交換：\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n石炭にも匹敵するほど非常に高温になる木材です。石炭と同じくらい長く燃え、膨大な熱を放出します。"
 }

@@ -142,7 +142,7 @@ namespace BotaniaStory.client.renderers
 
                 if (isShadowPass)
                 {
-                    // === РЕНДЕР ТЕНИ ===
+                    // РЕНДЕР ТЕНИ
                     Matrixf mvpMat = new Matrixf();
 
                     // 1. Берем матрицу проекции от движка
@@ -161,7 +161,7 @@ namespace BotaniaStory.client.renderers
                 }
                 else
                 {
-                    // === ОБЫЧНЫЙ РЕНДЕР === 
+                    //ОБЫЧНЫЙ РЕНДЕР
                     if (partName == "Crystal")
                     {
                         stdProg.ModelMatrix = modelMat.Values;

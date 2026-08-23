@@ -36,7 +36,8 @@ namespace BotaniaStory
             if (block == null || block.Code == null) return null;
             if (block.Code.Domain == "botaniastory") return null;
 
-            if (block.FirstCodePart() == "log" || block is BlockLog)
+            // Добавлена проверка block.FirstCodePart() == "logsection"
+            if (block.FirstCodePart() == "log" || block.FirstCodePart() == "logsection" || block is BlockLog)
             {
                 return "botaniastory:livingwood-normal";
             }

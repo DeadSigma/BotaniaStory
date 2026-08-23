@@ -19,7 +19,7 @@
         "output": {
             "type": "item",
             "code": "botaniastory:livingwood_plank-{woodstate}",
-            "quantity": 2
+            "quantity": 12
         }
     },
     {

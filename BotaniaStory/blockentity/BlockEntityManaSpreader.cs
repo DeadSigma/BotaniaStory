@@ -320,7 +320,7 @@ namespace BotaniaStory.blockentity
             burstEntity.ManaPayload = burstManaAmount; // Передаем только 150 маны!
             burstEntity.SourcePos = Pos.Copy();
 
-            // === НАСТРОЙКА ДАЛЬНОСТИ ПОЛЕТА ===
+            //НАСТРОЙКА ДАЛЬНОСТИ ПОЛЕТА
             burstEntity.WatchedAttributes.SetDouble("maxDist", 8.0);
 
             // 1. СТАВИМ В ЦЕНТР ДУЛА (Обязательно обновляем Pos, иначе движок удалит сущность!)

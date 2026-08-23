@@ -260,9 +260,7 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // 
         // ОБМЕН ПРЕДМЕТОВ С АЛЬФХЕЙМОМ
-        // 
 
         private void CheckForDroppedItems(float dt)
         {
@@ -277,14 +275,19 @@ namespace BotaniaStory.blockentity
                     ItemStack stack = entityItem.Itemstack;
                     string fullCode = $"{stack.Collectible.Code.Domain}:{stack.Collectible.Code.Path}";
 
-                    int manaCost = 1000; // Стоимость поглощения ОДНОГО предмета
 
-                    if (fullCode == "botaniastory:managlass") TryAbsorbItem(entityItem, fullCode, "botaniastory:elvenglass-0", 1, 1, manaCost);
-                    else if (fullCode == "botaniastory:manaitem-managear") TryAbsorbItem(entityItem, fullCode, "botaniastory:dragonstone", 1, 1, manaCost);
-                    else if (fullCode == "game:ingot-manasteel") TryAbsorbItem(entityItem, fullCode, "game:ingot-elementium", 2, 1, manaCost);
-                    else if (fullCode == "botaniastory:livingwood-normal") TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood-normal", 1, 1, manaCost);
-                    else if (fullCode == "botaniastory:manaitem-manaquartz") TryAbsorbItem(entityItem, fullCode, "botaniastory:pixie-dust", 1, 1, manaCost);
-                    else if (fullCode == "botaniastory:livingwood") TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood", 1, 1, manaCost);
+                    if (fullCode == "botaniastory:managlass")
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:elvenglass-0", 1, 1, 1000);
+                    else if (fullCode == "botaniastory:manaitem-managear")
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dragonstone", 1, 1, 5000);
+                    else if (fullCode == "game:ingot-manasteel")
+                        TryAbsorbItem(entityItem, fullCode, "game:ingot-elementium", 2, 1, 5000);
+                    else if (fullCode == "botaniastory:livingwood-normal")
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood-normal", 1, 1, 10000); 
+                    else if (fullCode == "botaniastory:manaitem-manaquartz")
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:pixie-dust", 1, 1, 5000);
+                    else if (fullCode == "botaniastory:livingwood")
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood", 1, 1, 10000); 
                 }
             }
         }
@@ -352,12 +355,10 @@ namespace BotaniaStory.blockentity
 
                 Vec3d spawnPos = Pos.ToVec3d().Add(0.5, 1.5, 0.5);
 
-                // 1. ИСПРАВЛЕНИЕ ОШИБКИ: Добавлено явное приведение типа через "as EntityItem"
                 EntityItem spawnedItem = Api.World.SpawnItemEntity(stackToSpit, spawnPos) as EntityItem;
 
                 if (spawnedItem != null)
                 {
-                    // 2. ИСПРАВЛЕНИЕ ПРЕДУПРЕЖДЕНИЯ: ServerPos заменен на Pos
                     spawnedItem.Pos.Motion = new Vec3d((Api.World.Rand.NextDouble() - 0.5) * 0.05, 0.05, (Api.World.Rand.NextDouble() - 0.5) * 0.05);
                 }
 

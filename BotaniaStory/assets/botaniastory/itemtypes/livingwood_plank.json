@@ -47,13 +47,13 @@
         "botaniastory": [ "*" ]
     },
     "combustiblePropsByType": {
-        "*-aged": {
-            "burnTemperature": 600,
-            "burnDuration": 5
+        "*-normal": {
+            "burnTemperature": 950,
+            "burnDuration": 13
         },
-        "*": {
-            "burnTemperature": 700,
-            "burnDuration": 6
+        "*-aged": {
+            "burnTemperature": 954,
+            "burnDuration": 13
         }
     },
     "materialDensity": 700,

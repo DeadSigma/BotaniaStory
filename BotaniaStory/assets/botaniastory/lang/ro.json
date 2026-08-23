@@ -1,0 +1,10 @@
+{
+    "abilitydesc-hopwhisperer": "Crește calitatea rețetelor de bere Ale cu {0}%.",
+    "abilitydesc-meadmaster": "Crește calitatea rețetelor de hidromel cu {0}%.",
+    "abilitydesc-summerweaver": "Hainele create de tine oferă cu {0}% mai multă răcorire.",
+    "abilitydesc-vintner": "Crește calitatea rețetelor de cidru și vin cu {0}%.",
+    "lexicon_basics_and_mechanics_meditation_p1": "Unele flori obișnuite pot răspunde la liniștea minții. Pentru a începe meditația, apăsați <link=nothing>N</link> (implicit). Dacă vă așezați lângă o astfel de floare și rămâneți nemișcat pentru o vreme, esența naturală a florii se va trezi, transformând-o într-o <link=mysticalflower>floare mistică</link>. <link=mysticalflower>Florile mistice</link> sunt o resursă naturală importantă și sunt folosite pentru crearea multor obiecte magice, mecanisme și alte creații BotaniaStory.",
+    "lexicon_mystical_items_meadowseed_p1": "Îmbogățind <link=game:drygrass>iarba</link> cu <link=mana>mană</link>, poți crea <link=meadowseed>sămânța de pajiște</link>. Aceasta permite răspândirea rapidă a ierbii chiar și în locuri sterile - trebuie doar să dai <link=nothing>clic dreapta</link> pe blocul dorit.\n\nPe lângă iarba obișnuită, sămânța poate crea și alte tipuri de vegetație și sol, precum <link=game:peat-verysparse>turba</link> sau <link=game:soil-medium-normal>solul cu fertilitate medie</link>.",
+    "lexicon_mystical_items_meadowseed_p3": "Sămânță de pajiște pentru sol cu fertilitate medie:",
+    "lexicon_elfmania_elfresources_p6": "Schimb de Lemn Viu pentru Lemn de Vis:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nO esență de lemn incredibil de fierbinte, capabilă să rivalizeze cu cărbunele. Arde la fel de mult timp ca și cărbunele, eliberând o cantitate uriașă de căldură."
+}

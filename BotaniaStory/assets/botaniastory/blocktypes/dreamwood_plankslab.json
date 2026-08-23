@@ -166,12 +166,12 @@
     },
     "combustiblePropsByType": {
         "*-normal-*": {
-            "burnTemperature": 700,
-            "burnDuration": 15
+            "burnTemperature": 1100,
+            "burnDuration": 140
         },
         "*-aged-*": {
-            "burnTemperature": 600,
-            "burnDuration": 10
+            "burnTemperature": 1106,
+            "burnDuration": 140
         }
     },
     "materialDensityByType": {

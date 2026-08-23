@@ -1,4 +1,8 @@
 {
+    "abilitydesc-hopwhisperer": "Increases the quality of ale recipes by {0}%.",
+    "abilitydesc-meadmaster": "Increases the quality of mead recipes by {0}%.",
+    "abilitydesc-summerweaver": "Clothing you craft provides {0}% more cooling.",
+    "abilitydesc-vintner": "Increases the quality of cider and wine recipes by {0}%.",
     "alchemy-missing-warning": "<font color=\"#ff9999\">The <a href=\"https://mods.vintagestory.at/alchemy\">Alchemy</a> mod is required for crafting</font>",
     "btn-visualize": "                 Visualize",
     "btn-visualize-stop": "       Stop Visualization",
@@ -55,6 +59,7 @@
     "gui-halocraft-title": "Halo",
     "handbook-intro-text": "Welcome to the world of floral magic!\n\nBotania Story is a mod that adds many new mechanics related to mystical flora and mana management.\n\nTo begin your journey, you will need the main tool of every botanist - the book of knowledge. You can view its crafting recipe by clicking this link: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nCraft it, hold it in your hands, and right-click to immerse yourself in magic!",
     "handbook-intro-title": "Introduction to Botania Story",
+    "hotkey-meditationToggle": "BotaniaStory: Meditation On/Off",
     "hud-structure-title": "Structure: {0}",
     "info-mana-display": "Mana: {0} / {1}",
     "info-terrashatterer-rank": "Current Rank: {0}",
@@ -522,7 +527,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "The Botania Lexicon is a treasure trove of all knowledge for your botanical needs. But you probably already knew that. All information is found here. For convenience, if a block has a description, you can press <link=nothing>Shift+RMB</link> while holding the Botania Lexicon to open that description.\n\nI highly recommend reading all entries in the <link=category:basics_and_mechanics>Basics and Mechanics</link> section before moving on to the others. Most sections contain one or more entries, so be sure to study them carefully.",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Crafting the Botania Lexicon.",
     "lexicon_basics_and_mechanics_meditation_title": "Meditation and Mystical Flowers",
-    "lexicon_basics_and_mechanics_meditation_p1": "Some ordinary flowers are able to respond to a tranquil mind. If you sit beside one in a meditation pose by pressing <link=nothing>G</link> and remain perfectly still for a while, its natural essence will awaken, transforming the ordinary flower into a <link=mysticalflower>Mystical Flower</link>.\n\n<link=mysticalflower>Mystical Flowers</link> are an important natural resource used to craft numerous magical items, mechanisms, and other botanical creations.",
+    "lexicon_basics_and_mechanics_meditation_p1": "Some ordinary flowers can respond to a calm mind. To begin meditating, press <link=nothing>N</link> (default). If you sit beside such a flower and remain still for a while, the flower's natural essence will awaken, transforming it into a <link=mysticalflower>mystical flower</link>. <link=mysticalflower>Mystical flowers</link> are an important natural resource used to create many magical items, mechanisms, and other BotaniaStory creations.",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       A little patience goes a long way.",
     "lexicon_basics_and_mechanics_mysticalflower_title": "Mystical Flowers",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "While exploring the world, you may come across different kinds of Mystical Flora.\n\n\n\n\n\n\n\n\n\n\n\n      Wherever you look, flowers are everywhere...\n\nAs for mystical flowers, finding them will not take long, as they emit light. They come in 16 different colors.",
@@ -742,9 +747,9 @@
     "lexicon_mystical_items_manaitem_p20": "Crafting Manasteel spear tip:\n\n\n\n\n\n\n\n\n\n\n\nCrafting Manasteel spear:",
     "lexicon_mystical_items_manaitem_p21": "Crafting Manasteel chisel:\n\n\n\nCrafting Manasteel crowbar:\n\n\n\n\nCrafting Manasteel wrench:\n\n\n\n\nCrafting Manasteel tongs\n\n\n\n\nCrafting Manasteel shears:",
     "lexicon_mystical_items_meadowseed_title": "Meadow Seed",
-    "lexicon_mystical_items_meadowseed_p1": "By enriching <link=game:drygrass>grass</link> with <link=mana>mana</link>, a <link=meadowseed>Meadow Seed</link> can be created. It allows grass to spread quickly even in barren areas - simply use <link=nothing>RMB</link> on the desired block.\n\nIn addition to regular grass, the seed can also create other types of vegetation and soil, such as <link=game:peat-verysparse>peat</link> or <link=game:soil-medium-normal>medium fertility soil</link>.",
+    "lexicon_mystical_items_meadowseed_p1": "By enriching <link=game:drygrass>grass</link> with <link=mana>mana</link>, you can create <link=meadowseed>meadow seed</link>. It allows you to quickly spread grass even in barren places - simply <link=nothing>right-click</link> the desired block.\n\nIn addition to ordinary grass, the seed can also create other types of vegetation and soil, such as <link=game:peat-verysparse>peat</link> or <link=game:soil-medium-normal>medium-fertility soil</link>.",
     "lexicon_mystical_items_meadowseed_p2": "Meadow Seed for grass:\n\n\n\n\n\n\n\n\n\n\n\nMeadow Seed for peat:",
-    "lexicon_mystical_items_meadowseed_p3": "Meadow Seed for medium fertility soil:",
+    "lexicon_mystical_items_meadowseed_p3": "Meadow seed for medium-fertility soil:",
     "lexicon_mystical_items_rod_of_the_seas_title": "Rod of the Seas",
     "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Rod of the Seas</link>, like its earthly counterpart, consumes <link=mana>mana</link> to create <link=game:water-still-7>water</link>. When used, it places a water block at the targeted location.\nAdditionally, the rod can be used to fill a <link=apothecary>petal apothecary</link>, <link=game:barrel>barrels</link>, <link=game:woodbucket>buckets</link>, and even a <link=game:claypot-black-fired>campfire pot</link>",
     "lexicon_mystical_items_rod_of_the_seas_p2": "Crafting the Rod of the Seas:\n\n\n\n\n\n\n\n\n\n\nKeep the Earth clean - this is not Uranus.",
@@ -790,5 +795,6 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Gliding allows you to descend smoothly, travel horizontally, and avoid fall damage. To do this, crouch while falling. Even with an empty flight meter, you can glide, though regeneration will be slower.\n\n\n\n\nCrafting the tiara frame:\n\n\n\nCrafting the Winged Tiara:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Vial of Rusted World Air",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Vial of Rusted World Air</link> contains distorted air collected from rifts leading to an alien world. To fill the vial, hold an <link=flask>empty vial</link> in your hand and press <link=nothing>RMB</link> near a rift.\n\nThis air possesses mutating properties, though their nature remains unstudied. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "It is only known that it can be used in the creation of certain mystical items."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "It is only known that it can be used in the creation of certain mystical items.",
+    "lexicon_elfmania_elfresources_p6": "Exchanging Livingwood for Dreamwood:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIncredibly hot wood that can rival coal. It burns just as long as coal while producing an enormous amount of heat."
 }

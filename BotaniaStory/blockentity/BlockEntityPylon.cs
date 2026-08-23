@@ -90,104 +90,122 @@ namespace BotaniaStory.blockentity
         {
             var rand = Api.World.Rand;
 
-            // Цвета точно как в TilePylon.java Botania
             Vec4f pylonColor = new Vec4f(0.5f, 0.8f, 1.0f, 1.0f);
-            if (CurrentType == EnumPylonType.Natura) pylonColor = new Vec4f(0.5f, 1.0f, 0.5f, 1.0f); // Зеленый
-            else if (CurrentType == EnumPylonType.Gaia) pylonColor = new Vec4f(1.0f, 0.5f, 1.0f, 1.0f); // Розовый
+            if (CurrentType == EnumPylonType.Natura) pylonColor = new Vec4f(0.5f, 1.0f, 0.5f, 1.0f);
+            else if (CurrentType == EnumPylonType.Gaia) pylonColor = new Vec4f(1.0f, 0.5f, 1.0f, 1.0f);
 
-            // 1. ПАССИВНЫЕ ИСКРЫ (SparkleFX)
-            // В оригинале: rand.nextBoolean()
+            // 1. ПАССИВНЫЕ ИСКРЫ - вылетают из пилона вбок и извиваются, потом гаснут (с 70% пути).
             if (rand.NextDouble() > 0.5)
             {
+                // направление: в основном вбок + немного вверх
+                double ang = rand.NextDouble() * GameMath.TWOPI;
+                double up = 0.15 + rand.NextDouble() * 0.6;
+                double horiz = Math.Sqrt(Math.Max(0.0, 1.0 - up * up));
+                double dx = Math.Cos(ang) * horiz;
+                double dy = up;
+                double dz = Math.Sin(ang) * horiz;
+
+                float speed = 2.6f + (float)rand.NextDouble() * 1.0f;   // разлёт; distance регулируется Drag'ом
+
+                // случайная нормализованная ось закрутки
+                double ax = rand.NextDouble() * 2 - 1;
+                double ay = rand.NextDouble() * 2 - 1;
+                double az = rand.NextDouble() * 2 - 1;
+                double al = Math.Sqrt(ax * ax + ay * ay + az * az);
+                if (al < 1e-6) { ax = 0; ay = 1; az = 0; al = 1; }
+
+                float life = 0.5f + (float)rand.NextDouble() * 0.25f;
+
                 particleRenderer.Particles.Add(new PylonParticle()
                 {
-                    // В оригинале: xCoord + Math.random(), yCoord + Math.random() * 1.5, zCoord + Math.random()
-                    Position = new Vec3d(Pos.X + rand.NextDouble(), Pos.Y + rand.NextDouble() * 1.5, Pos.Z + rand.NextDouble()),
-                    Velocity = new Vec3d(0, 0.05, 0), // Чуть-чуть всплывают
+                    Position = new Vec3d(Pos.X + 0.5 + (rand.NextDouble() - 0.5) * 0.15,
+                                         Pos.Y + 0.2 + rand.NextDouble() * 1.0,   // сходят со всей высоты пилона
+                                         Pos.Z + 0.5 + (rand.NextDouble() - 0.5) * 0.15),
+                    Velocity = new Vec3d(dx * speed, dy * speed, dz * speed),
                     Color = pylonColor,
-                    Size = 0.1f + (float)rand.NextDouble() * 0.1f,
-                    Life = 1.0f,
-                    MaxLife = 1.0f,
-                    TextureIndex = rand.Next(0, 4) // Случайная текстура искры (0, 1, 2, 3)
+                    Size = 0.1f + (float)rand.NextDouble() * 0.08f,
+                    Life = life,
+                    MaxLife = life,
+                    TextureIndex = rand.Next(0, 4),
+                    ShrinkOnDeath = true,
+                    Drag = 4.0f,     // "выстрел и стоп". МЕНЬШЕ = летят ДАЛЬШЕ
+                    Gravity = 1.0f,  // слегка провисают в конце
+                    SwirlAxis = new Vec3d(ax / al, ay / al, az / al),
+                    SwirlStrength = (rand.Next(2) == 0 ? -1f : 1f) * (4f + (float)rand.NextDouble() * 5f), // сила извивания
+                    WobbleFreq = 5f + (float)rand.NextDouble() * 7f,
+                    WobblePhase = (float)(rand.NextDouble() * GameMath.TWOPI),
+                    FadeIn = 0.04f,
+                    FadeStart = 0.7f
                 });
             }
 
-            // 2. АКТИВНЫЕ ЭФФЕКТЫ (Подключение к Альфхейму/Алтарю)
+            // 2. АКТИВНЫЕ ЭФФЕКТЫ
             if (LinkedTarget != null)
             {
                 Vec3d targetCenter = new Vec3d(LinkedTarget.X + 0.5, LinkedTarget.Y + 0.75, LinkedTarget.Z + 0.5);
 
                 if (CurrentType == EnumPylonType.Natura)
                 {
-                    // === 1. ЭФФЕКТ СВЯЗИ С ПОРТАЛОМ (Медленные и виляющие) ===
+                    // 2a. ПОТОК К ЯДРУ - снова быстрый. Жизнь считается от дистанции, чтобы долетали до ядра
                     double linkTime = Api.World.ElapsedMilliseconds / 350.0;
                     float linkRadius = 0.8f;
 
-                    // Точка спавна на окружности пилона
-                    double linkStartX = Pos.X + 0.5 + Math.Cos(linkTime) * linkRadius;
-                    double linkStartY = Pos.Y + 0.4;
-                    double linkStartZ = Pos.Z + 0.5 + Math.Sin(linkTime) * linkRadius;
-
-                    Vec3d linkStartPos = new Vec3d(linkStartX, linkStartY, linkStartZ);
-
-                    // 1. ЗАМЕДЛЕНИЕ В 4 РАЗА: уменьшаем множитель с 2.5 до 0.6
-                    // 2. ХАОТИЧНОСТЬ НАПРАВЛЕНИЯ: добавляем небольшой случайный разброс к вектору цели
-                    Vec3d targetDir = targetCenter.Sub(linkStartPos).Normalize();
-                    targetDir.X += (rand.NextDouble() - 0.5) * 0.15;
-                    targetDir.Y += (rand.NextDouble() - 0.5) * 0.15;
-                    targetDir.Z += (rand.NextDouble() - 0.5) * 0.15;
-
-                    Vec3d linkMovement = targetDir.Normalize() * 0.6;
+                    Vec3d linkStartPos = new Vec3d(
+                        Pos.X + 0.5 + Math.Cos(linkTime) * linkRadius,
+                        Pos.Y + 0.4,
+                        Pos.Z + 0.5 + Math.Sin(linkTime) * linkRadius);
 
                     if (rand.NextDouble() < 0.4)
                     {
+                        Vec3d targetDir = targetCenter.Sub(linkStartPos).Normalize();
+                        targetDir.X += (rand.NextDouble() - 0.5) * 0.15;   // лёгкая хаотичность
+                        targetDir.Y += (rand.NextDouble() - 0.5) * 0.15;
+                        targetDir.Z += (rand.NextDouble() - 0.5) * 0.15;
+                        targetDir.Normalize();
+
+                        float speed = 2.5f;   //Скорость к ядру альфхейма
+                        double dist = targetCenter.DistanceTo(linkStartPos);
+                        float life = GameMath.Clamp((float)(dist / speed), 0.3f, 6f);
+
                         particleRenderer.Particles.Add(new PylonParticle()
                         {
                             Position = linkStartPos,
-                            Velocity = linkMovement,
+                            Velocity = targetDir * speed,
                             Color = new Vec4f(pylonColor.X, pylonColor.Y, pylonColor.Z, 0.9f),
-
                             Size = 0.45f + (float)rand.NextDouble() * 0.15f,
-
-                            // 3. УВЕЛИЧИВАЕМ ЖИЗНЬ В 4 РАЗА: так как скорость упала, время должно вырасти
-                            Life = 6.0f,
-                            MaxLife = 6.0f,
+                            Life = life,
+                            MaxLife = life,
                             TextureIndex = 4,
-                            ShrinkOnDeath = false // Они не сдуваются в конце, а просто исчезают
+                            ShrinkOnDeath = false,
+                            FadeStart = 0.85f
                         });
-                }
+                    }
 
-                    // === 2. ОРГАНИЧНАЯ СПИРАЛЬ ВОКРУГ ПИЛОНА ===
+                    // Ломалась ТОЛЬКО из-за Drag'а: частицы переставали подниматься. Теперь Drag=0 => винт вернулся.
+                    // Длинную жизнь НЕ трогаем - именно она даёт ~2.5 витка одновременно.
                     double spiralTime = Api.World.ElapsedMilliseconds / 600.0;
-                    double spiralRadius = 0.7f;
-                    double velY = 0.2;
+                    double spiralRadius = 0.7;
 
-                    // 1. Шанс 15% просто пропустить спавн частицы, чтобы порвать "пунктир"
-                    if (rand.NextDouble() > 0.15)
+                    if (rand.NextDouble() > 0.05)
                     {
-                        // 2. Добавляем микро-сдвиг угла (jitter), чтобы частицы слегка гуляли влево-вправо
                         double jitterAngle = (rand.NextDouble() - 0.5) * 0.15;
-
                         double spawnX = Pos.X + 0.5 + Math.Cos(spiralTime + jitterAngle) * spiralRadius;
-
-                        // 3. Небольшой разброс по стартовой высоте
                         double spawnY = Pos.Y + 0.05 + rand.NextDouble() * 0.1;
-
                         double spawnZ = Pos.Z + 0.5 + Math.Sin(spiralTime + jitterAngle) * spiralRadius;
+
+                        float life = 5.0f + (float)rand.NextDouble() * 1.5f;
 
                         particleRenderer.Particles.Add(new PylonParticle()
                         {
                             Position = new Vec3d(spawnX, spawnY, spawnZ),
-                            Velocity = new Vec3d(0, velY, 0),
+                            Velocity = new Vec3d(0, 0.2, 0),   // подъём. Винт высокий -> уменьши, или подними Drag до 0.1
                             Color = new Vec4f(pylonColor.X, pylonColor.Y, pylonColor.Z, 0.9f),
-
-                            // 4. УВЕЛИЧИЛИ РАЗМЕР: теперь от 0.45 до 0.60 (было 0.25)
                             Size = 0.45f + (float)rand.NextDouble() * 0.15f,
-
-                            // 5. Разная продолжительность жизни, чтобы они не исчезали на одной идеальной линии
-                            Life = 10.0f + (float)rand.NextDouble() * 1.5f,
-                            MaxLife = 11.5f,
-                            TextureIndex = 4
+                            Life = life,
+                            MaxLife = life,
+                            TextureIndex = 4,
+                            ShrinkOnDeath = false,
+                            FadeStart = 0.001f
                         });
                     }
                 }

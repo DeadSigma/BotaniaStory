@@ -66,9 +66,9 @@ namespace BotaniaStory.Blocks
             return placed;
         }
 
-        // ====================
+        
         // ДОБАВЛЕНО ВЗАИМОДЕЙСТВИЕ КАК У ОБЫЧНЫХ ЦВЕТОВ (ДЛЯ ФИЛЬТРОВ)
-        // ====================
+        
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
             BlockEntity be = world.BlockAccessor.GetBlockEntity(blockSel.Position);

@@ -1,4 +1,8 @@
 {
+    "abilitydesc-hopwhisperer": "Zwiększa jakość receptur piwa typu ale o {0}%.",
+    "abilitydesc-meadmaster": "Zwiększa jakość receptur miodu pitnego o {0}%.",
+    "abilitydesc-summerweaver": "Stworzona przez ciebie odzież zapewnia o {0}% lepsze chłodzenie.",
+    "abilitydesc-vintner": "Zwiększa jakość receptur cydru i wina o {0}%.",
     "alchemy-missing-warning": "<font color=\"#ff9999\">Do wytworzenia wymagany jest mod <a href=\"https://mods.vintagestory.at/alchemy\">Alchemy</a></font>",
     "btn-visualize": "Wyobrażać sobie",
     "btn-visualize-stop": "Zatrzymaj wizualizację",
@@ -55,6 +59,7 @@
     "gui-halocraft-title": "Aureola",
     "handbook-intro-text": "Witamy w świecie kwiatowej magii!\n\nBotania Story to mod, który dodaje wiele nowych mechanik związanych z mistyczną florą i zarządzaniem maną.\n\nAby rozpocząć swoją podróż, będziesz potrzebować głównego narzędzia każdego botanika – księgi wiedzy. Możesz zobaczyć przepis na jego wykonanie, klikając ten link: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Leksykon</a>.\n\nStwórz go, trzymaj w dłoniach i kliknij prawym przyciskiem myszy, aby zanurzyć się w magii!",
     "handbook-intro-title": "Wprowadzenie do historii Botanii",
+    "hotkey-meditationToggle": "BotaniaStory: Medytacja Wł./Wył.",
     "hud-structure-title": "Struktura: {0}",
     "info-mana-display": "Mana: {0} / {1}",
     "info-terrashatterer-rank": "Aktualna ranga: {0}",
@@ -522,7 +527,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "Leksykon Botanii to skarbnica wszelkiej wiedzy dla Twoich potrzeb botanicznych. Ale prawdopodobnie już to wiedziałeś. Wszystkie informacje znajdują się tutaj. Dla wygody, jeśli blok ma opis, możesz nacisnąć <link=nothing>Shift+RMB</link> trzymając Leksykon Botania, aby otworzyć ten opis.\n\nGorąco polecam przeczytanie wszystkich wpisów w sekcji <link=category:basics_and_mechanics>Podstawy i mechanika</link> przed przejściem do pozostałych. Większość sekcji zawiera jeden lub więcej wpisów, dlatego należy je dokładnie przestudiować.",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Tworzenie leksykonu Botanii.",
     "lexicon_basics_and_mechanics_meditation_title": "Medytacja i mistyczne kwiaty",
-    "lexicon_basics_and_mechanics_meditation_p1": "Niektóre zwykłe kwiaty potrafią odpowiedzieć na spokój umysłu. Jeśli usiądziesz obok takiego kwiatu w pozycji medytacyjnej, naciskając <link=nothing>G</link>, i pozostaniesz nieruchomo przez pewien czas, jego naturalna esencja przebudzi się, przemieniając zwykły kwiat w <link=mysticalflower>mistyczny</link>.\n\n<link=mysticalflower>Mistyczne kwiaty</link> są ważnym zasobem natury i służą do tworzenia wielu magicznych przedmiotów, mechanizmów oraz innych botanicznych dzieł.",
+    "lexicon_basics_and_mechanics_meditation_p1": "Niektóre zwykłe kwiaty potrafią reagować na spokój umysłu. Aby rozpocząć medytację, naciśnij <link=nothing>N</link> (domyślnie). Jeśli usiądziesz obok takiego kwiatu i przez pewien czas pozostaniesz nieruchomo, naturalna esencja kwiatu przebudzi się, przemieniając go w <link=mysticalflower>mistyczny kwiat</link>. <link=mysticalflower>Mistyczne kwiaty</link> są ważnym zasobem naturalnym i służą do tworzenia wielu magicznych przedmiotów, mechanizmów oraz innych tworów BotaniaStory.",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       Czasem warto po prostu chwilę poczekać.",
     "lexicon_basics_and_mechanics_mysticalflower_title": "Mistyczne Kwiaty",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "Eksplorując świat, możesz natknąć się na różne rodzaje Mistycznej Flory.\n\n\n\n\n\n\n\n\n\n\n\n      Gdziekolwiek spojrzysz, wszędzie są kwiaty...\n\nJeśli chodzi o mistyczne kwiaty, znalezienie ich nie zajmie dużo czasu, ponieważ emitują światło. Występują w 16 różnych kolorach.",
@@ -742,9 +747,9 @@
     "lexicon_mystical_items_manaitem_p20": "Tworzenie grotu włóczni z manasteelu:\n\n\n\n\n\n\n\n\n\n\nTworzenie włóczni z manasteelu:",
     "lexicon_mystical_items_manaitem_p21": "Tworzenie dłuta z manasteelu:\n\n\n\nTworzenie łomu z manasteelu:\n\n\n\n\nTworzenie klucza z manasteelu:\n\n\n\n\nTworzenie szczypiec z manasteelu\n\n\n\n\nTworzenie nożyc z manasteelu:",
     "lexicon_mystical_items_meadowseed_title": "Łąkowe nasienie",
-    "lexicon_mystical_items_meadowseed_p1": "Wzbogacając <link=game:drygrass>trawę</link> <link=mana>maną</link>, można stworzyć <link=meadowseed>łąkowe nasienie</link>. Pozwala ono szybko rozprzestrzeniać trawę nawet w jałowych miejscach - wystarczy nacisnąć <link=nothing>PPM</link> na wybranym bloku.\n\nOprócz zwykłej trawy nasienie potrafi tworzyć także inne rodzaje roślinności i gleby, na przykład <link=game:peat-verysparse>torf</link> lub <link=game:soil-medium-normal>glebę o średniej żyzności</link>.",
+    "lexicon_mystical_items_meadowseed_p1": "Nasycając <link=game:drygrass>trawę</link> <link=mana>maną</link>, można stworzyć <link=meadowseed>nasiono łąki</link>. Pozwala ono szybko rozprzestrzeniać trawę nawet na jałowych terenach - wystarczy kliknąć <link=nothing>prawym przyciskiem myszy</link> na wybranym bloku.\n\nOprócz zwykłej trawy nasiono może również tworzyć inne rodzaje roślinności i gleby, takie jak <link=game:peat-verysparse>torf</link> lub <link=game:soil-medium-normal>gleba o średniej żyzności</link>.",
     "lexicon_mystical_items_meadowseed_p2": "Łąkowe nasienie dla trawy:\n\n\n\n\n\n\n\n\n\n\n\nŁąkowe nasienie dla torfu:",
-    "lexicon_mystical_items_meadowseed_p3": "Łąkowe nasienie dla gleby o średniej żyzności:",
+    "lexicon_mystical_items_meadowseed_p3": "Nasiono łąki do gleby o średniej żyzności:",
     "lexicon_mystical_items_rod_of_the_seas_title": "Różdżka Mórz",
     "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Różdżka Mórz</link>, podobnie jak jej ziemski odpowiednik, zużywa <link=mana>manę</link>, aby tworzyć <link=game:water-still-7>wodę</link>. Po użyciu umieszcza blok wody w wybranym miejscu.\nDodatkowo różdżka może być używana do napełniania <link=apothecary>aptekarskiego kotła</link>, <link=game:barrel>beczek</link>, <link=game:woodbucket>wiader</link> oraz nawet <link=game:claypot-black-fired>garnka na ognisku</link>",
     "lexicon_mystical_items_rod_of_the_seas_p2": "Tworzenie Różdżki Mórz:\n\n\n\n\n\n\n\n\n\n\nUtrzymuj Ziemię w czystości - to nie Uran.",
@@ -790,5 +795,6 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Szybowanie pozwala łagodnie opadać, pokonywać dystans w poziomie i unikać obrażeń od upadku. Aby je aktywować, należy kucnąć podczas spadania. Nawet przy pustym pasku lotu można szybować, jednak regeneracja będzie wolniejsza.\n\n\n\n\nTworzenie szkieletu tiary:\n\n\n\nTworzenie skrzydlatej tiary:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiolka z powietrzem zardzewiałego świata",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiolka z powietrzem zardzewiałego świata</link> zawiera zniekształcone powietrze zebrane z rozłamów prowadzących do obcego świata. Aby napełnić fiolkę, należy trzymać <link=flask>pustą fiolkę</link> w ręce i nacisnąć <link=nothing>PPM</link> w pobliżu rozłamu.\n\nPowietrze to posiada właściwości mutagenne, jednak ich natura wciąż pozostaje niezbadana. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Wiadomo jedynie, że może być używany do tworzenia niektórych mistycznych przedmiotów."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Wiadomo jedynie, że może być używany do tworzenia niektórych mistycznych przedmiotów.",
+    "lexicon_elfmania_elfresources_p6": "Wymiana Żywego Drewna na Drewno Marzeń:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNiezwykle gorące drewno, które może konkurować z węglem. Pali się równie długo jak węgiel, wydzielając przy tym ogromną ilość ciepła."
 }

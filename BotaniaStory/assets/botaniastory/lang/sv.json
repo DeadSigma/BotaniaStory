@@ -1,4 +1,8 @@
 {
+    "abilitydesc-hopwhisperer": "Ökar kvaliteten på ale-recept med {0}%.",
+    "abilitydesc-meadmaster": "Ökar kvaliteten på mjödrecept med {0}%.",
+    "abilitydesc-summerweaver": "Kläder du tillverkar ger {0}% bättre kylning.",
+    "abilitydesc-vintner": "Ökar kvaliteten på recept för cider och vin med {0}%.",
     "alchemy-missing-warning": "<font color=\"#ff9999\">Modden <a href=\"https://mods.vintagestory.at/alchemy\">Alchemy</a> krävs för att tillverka detta föremål</font>",
     "btn-visualize": "Visualisera",
     "btn-visualize-stop": "Stoppa visualisering",
@@ -55,6 +59,7 @@
     "gui-halocraft-title": "Gloria",
     "handbook-intro-text": "Välkommen till en värld av blommig magi!\n\nBotania Story är en mod som lägger till många nya mekaniker relaterade till mystisk flora och manahantering.\n\nFör att börja din resa behöver du det viktigaste verktyget för varje botanist - kunskapens bok. Du kan se dess hantverksrecept genom att klicka på denna länk: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania Lexicon</a>.\n\nSkapa den, håll den i dina händer och högerklicka för att fördjupa dig i magi!",
     "handbook-intro-title": "Introduktion till Botania Story",
+    "hotkey-meditationToggle": "BotaniaStory: Meditation På/Av",
     "hud-structure-title": "Struktur: {0}",
     "info-mana-display": "Mana: {0} / {1}",
     "info-terrashatterer-rank": "Nuvarande rang: {0}",
@@ -522,7 +527,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "Botania Lexicon är en skattkammare av all kunskap för dina botaniska behov. Men det visste du förmodligen redan. All information finns här. För enkelhetens skull, om ett block har en beskrivning, kan du trycka på <link=nothing>Skift+RMB</link> medan du håller Botania Lexicon för att öppna den beskrivningen.\n\nJag rekommenderar starkt att du läser alla inlägg i avsnittet <link=category:basics_and_mechanics>Grundläggande och mekanik</link> innan du går vidare till de andra. De flesta avsnitt innehåller en eller flera poster, så se till att studera dem noggrant.",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Utformning av Botania Lexicon.",
     "lexicon_basics_and_mechanics_meditation_title": "Meditation och mystiska blommor",
-    "lexicon_basics_and_mechanics_meditation_p1": "Vissa vanliga blommor kan svara på ett stilla sinne. Om du sätter dig bredvid en sådan blomma i meditationsställning genom att trycka på <link=nothing>G</link> och förblir stilla en stund, kommer dess naturliga essens att vakna och förvandla den vanliga blomman till en <link=mysticalflower>mystisk blomma</link>.\n\n<link=mysticalflower>Mystiska blommor</link> är en viktig naturresurs och används för att skapa många magiska föremål, mekanismer och andra botaniska skapelser.",
+    "lexicon_basics_and_mechanics_meditation_p1": "Vissa vanliga blommor kan reagera på ett lugnt sinne. För att börja meditera, tryck på <link=nothing>N</link> (standard). Om du sätter dig bredvid en sådan blomma och förblir stilla en stund, kommer blommans naturliga essens att vakna och förvandla den till en <link=mysticalflower>mystisk blomma</link>. <link=mysticalflower>Mystiska blommor</link> är en viktig naturresurs och används för att skapa många magiska föremål, mekanismer och andra skapelser i BotaniaStory.",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       Lite tålamod skadar aldrig.",
     "lexicon_basics_and_mechanics_mysticalflower_title": "Mystiska blommor",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "När du utforskar världen kan du stöta på olika typer av mystisk flora.\n\n\n\n\n\n\n\n\n\n\n\n      Var du än tittar så finns det blommor överallt...\n\nNär det gäller mystiska blommor kommer det inte att ta lång tid att hitta dem, eftersom de avger ljus. De finns i 16 olika färger.",
@@ -742,7 +747,7 @@
     "lexicon_mystical_items_manaitem_p20": "Tillverkning av spjutspets av manasteel:\n\n\n\n\n\n\n\n\n\n\nTillverkning av spjut av manasteel:",
     "lexicon_mystical_items_manaitem_p21": "Tillverkning av mejsel av manasteel:\n\n\n\nTillverkning av brytjärn av manasteel:\n\n\n\n\nTillverkning av nyckel av manasteel:\n\n\n\n\nTillverkning av tång av manasteel\n\n\n\n\nTillverkning av sax av manasteel:",
     "lexicon_mystical_items_meadowseed_title": "Ängsfrö",
-    "lexicon_mystical_items_meadowseed_p1": "Genom att berika <link=game:drygrass>gräs</link> med <link=mana>mana</link> kan man skapa ett <link=meadowseed>ängsfrö</link>. Det gör det möjligt att snabbt sprida gräs även på sterila platser - det räcker att använda <link=nothing>högerklick</link> på det önskade blocket.\n\nFörutom vanligt gräs kan fröet även skapa andra typer av växtlighet och jord, till exempel <link=game:peat-verysparse>torv</link> eller <link=game:soil-medium-normal>jord med medelhög bördighet</link>.",
+    "lexicon_mystical_items_meadowseed_p1": "Genom att berika <link=game:drygrass>gräs</link> med <link=mana>mana</link> kan du skapa <link=meadowseed>ängsfrö</link>. Det gör det möjligt att snabbt sprida gräs även på ofruktbara platser - högerklicka bara på det önskade blocket.\n\nFörutom vanligt gräs kan fröet även skapa andra typer av vegetation och jord, såsom <link=game:peat-verysparse>torv</link> eller <link=game:soil-medium-normal>jord med medelhög bördighet</link>.",
     "lexicon_mystical_items_meadowseed_p2": "Ängsfrö för gräs:\n\n\n\n\n\n\n\n\n\n\n\nÄngsfrö för torv:",
     "lexicon_mystical_items_meadowseed_p3": "Ängsfrö för jord med medelhög bördighet:",
     "lexicon_mystical_items_rod_of_the_seas_title": "Havets stav",
@@ -790,5 +795,6 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Glidning låter dig sjunka mjukt, färdas horisontellt och undvika fallskada. För att göra detta måste du huka dig under fallet. Även med tom flygmätare kan du glida, men återhämtningen sker långsammare.\n\n\n\n\nSkapande av tiarans ram:\n\n\n\nSkapande av den bevingade tiaran:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Flaska med luft från den rostiga världen",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Flaska med luft från den rostiga världen</link> innehåller förvrängd luft insamlad från sprickor som leder till en främmande värld. För att fylla flaskan måste du hålla en <link=flask>tom flaska</link> i handen och trycka <link=nothing>högerklick</link> nära en spricka.\n\nDenna luft har muterande egenskaper, men deras natur är ännu inte utforskad. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Det är endast känt att det kan användas vid skapandet av vissa mystiska föremål."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Det är endast känt att det kan användas vid skapandet av vissa mystiska föremål.",
+    "lexicon_elfmania_elfresources_p6": "Byt ut Levande trä mot Drömträ:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEtt otroligt hett träslag som kan mäta sig med kol. Det brinner lika länge som kol och avger en enorm mängd värme."
 }

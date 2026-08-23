@@ -347,7 +347,7 @@ namespace botaniastory
                                     anvilElement.OnSlotClick = OnRecipeItemClicked;
                                     compo.AddInteractiveElement(anvilElement, $"anvilDisplay_{i}");
 
-                                    // === ОТРИСОВКА ЗНАКОВ "+" И "=" ===
+                                    //ОТРИСОВКА ЗНАКОВ "+" И "="
 
                                     double[] brownColor = new double[] { 0.45, 0.28, 0.14, 1.0 };
                                     double fontSize = 28 * rScale; // Вынесли размер шрифта в переменную

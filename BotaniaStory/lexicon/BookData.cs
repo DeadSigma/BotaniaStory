@@ -123,7 +123,7 @@ namespace BotaniaStory.lexicon
         { "botaniastory:flask-empty", "flask" }
     };
 
-        //  Метод для поиска главы по блоку ===
+        //  Метод для поиска главы по блоку
         public static string GetChapterForBlock(string blockCode)
         {
             if (string.IsNullOrEmpty(blockCode)) return null;
@@ -216,13 +216,13 @@ namespace BotaniaStory.lexicon
                     /////////////////////////////////////////////////////
 
 
-                    // === НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ОСНОВЫ МАНЫ ===
+                    //НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ОСНОВЫ МАНЫ
                     if (chapId == "basicsintroduction")
                     {
                         chapter.TabItemCode = "botaniastory:checkmark";
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ЛЕКСИКОН БОТАНИЯ ===
+                    //НАСТРОЙКА ГЛАВЫ ЛЕКСИКОН БОТАНИЯ
                     if (chapId == "botanialexicon")
                     {
                         chapter.TabItemCode = "botaniastory:lexicon-closed";
@@ -243,7 +243,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА АПТЕКАРЯ ===
+                    //НАСТРОЙКА АПТЕКАРЯ
                     else if (chapId == "apothecary")
                     {
                         chapter.TabItemCode = "botaniastory:apothecary-*";
@@ -289,7 +289,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА МИСТИЧЕСКИЕ ЦВЕТЫ ===
+                    //НАСТРОЙКА МИСТИЧЕСКИЕ ЦВЕТЫ
                     else if (chapId == "mysticalflower")
                     {
                         chapter.TabItemCode = "botaniastory:mysticalflower-*-free";
@@ -329,7 +329,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА МЕДИТАЦИЯ ===
+                    //НАСТРОЙКА МЕДИТАЦИЯ
                     else if (chapId == "meditation")
                     {
                         chapter.TabItemCode = "game:flower-croton-small-crimson-brown-green";
@@ -342,7 +342,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ПОСОХ ЛЕСА ===
+                    //НАСТРОЙКА ПОСОХ ЛЕСА
                     else if (chapId == "wandoftheforest")
                     {
                         chapter.TabItemCode = "botaniastory:wandoftheforest-*";
@@ -359,7 +359,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:wandoftheforest-*"
                         });
                     }
-                    // === НАСТРОЙКА РУНИЧЕСКИЙ АЛТАРЬ ===
+                    //НАСТРОЙКА РУНИЧЕСКИЙ АЛТАРЬ
                     else if (chapId == "runicaltar")
                     {
                         chapter.TabItemCode = "botaniastory:runicaltar";
@@ -380,7 +380,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ТЕРРАСТАЛЬ ===
+                    //НАСТРОЙКА ГЛАВЫ ТЕРРАСТАЛЬ
                     else if (chapId == "terrasteel")
                     {
                         chapter.TabItemCode = "game:ingot-terrasteel";
@@ -410,13 +410,13 @@ namespace BotaniaStory.lexicon
 
 
 
-                    // === НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В УПРАВЛЕНИЕ МАНОЙ ===
+                    //НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В УПРАВЛЕНИЕ МАНОЙ
                     else if (chapId == "manaintroduction")
                     {
                         chapter.TabItemCode = "botaniastory:checkmark";
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ РАСПРОСТРАНИТЕЛЬ МАНЫ===
+                    //НАСТРОЙКА ГЛАВЫ РАСПРОСТРАНИТЕЛЬ МАНЫ===
                     else if (chapId == "manaspreader")
                     {
                         chapter.TabItemCode = "botaniastory:manaspreader";
@@ -441,7 +441,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ЧИСТАЯ МАРГАРИТКА ===
+                    //НАСТРОЙКА ЧИСТАЯ МАРГАРИТКА
                     else if (chapId == "puredaisy")
                     {
                         chapter.TabItemCode = "botaniastory:puredaisy-free";
@@ -496,7 +496,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ИЗМУЧЕННЫЙ АМАРАНТ ===
+                    //НАСТРОЙКА ГЛАВЫ ИЗМУЧЕННЫЙ АМАРАНТ
                     else if (chapId == "jadedamaranthus")
                     {
                         chapter.TabItemCode = "botaniastory:jadedamaranthus-free";
@@ -520,7 +520,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА УВЯДШИЙ АМАРАНТ ===
+                    //НАСТРОЙКА УВЯДШИЙ АМАРАНТ
                     else if (chapId == "witheredamaranthus")
                     {
                         chapter.TabItemCode = "botaniastory:witheredamaranthus-free";
@@ -543,7 +543,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ВОРОТОК ===
+                    //НАСТРОЙКА ГЛАВЫ ВОРОТОК
                     else if (chapId == "hopperhock")
                     {
                         chapter.TabItemCode = "botaniastory:hopperhock-free";
@@ -569,7 +569,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА АГРОГВОЗДИКА ===
+                    //НАСТРОЙКА АГРОГВОЗДИКА
                     else if (chapId == "agricarnation")
                     {
                         chapter.TabItemCode = "botaniastory:agricarnation-free";
@@ -594,7 +594,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ МЕХАНИЧЕСКИЙ ВЫБРАСЫВАТЕЛЬ ===
+                    //НАСТРОЙКА ГЛАВЫ МЕХАНИЧЕСКИЙ ВЫБРАСЫВАТЕЛЬ
                     else if (chapId == "mechanical_dropper")
                     {
                         chapter.TabItemCode = "botaniastory:mechanical_dropper-north-*-*";
@@ -614,7 +614,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ПЕСОЧНЫЕ ЧАСЫ ===
+                    //НАСТРОЙКА ГЛАВЫ ПЕСОЧНЫЕ ЧАСЫ
                     else if (chapId == "hourglass")
                     {
                         chapter.TabItemCode = "botaniastory:hourglass";
@@ -634,7 +634,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА БАССЕЙН МАНЫ ===
+                    //НАСТРОЙКА БАССЕЙН МАНЫ
                     else if (chapId == "manapool")
                     {
                         chapter.TabItemCode = "botaniastory:manapool-normal";
@@ -793,7 +793,7 @@ namespace BotaniaStory.lexicon
 
 
                     }
-                    // === НАСТРОЙКА ГЛАВЫ ПЛАНШЕТ МАНЫ ===
+                    //НАСТРОЙКА ГЛАВЫ ПЛАНШЕТ МАНЫ
                     else if (chapId == "manatablet")
                     {
                         chapter.TabItemCode = "botaniastory:manatablet";
@@ -812,7 +812,7 @@ namespace BotaniaStory.lexicon
                         ////////////////////////////////
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ИСКРЫ ===
+                    //НАСТРОЙКА ГЛАВЫ ИСКРЫ
                     else if (chapId == "spark")
                     {
                         chapter.TabItemCode = "botaniastory:spark";
@@ -830,7 +830,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ДОПОЛНИТЕЛИ ИСКР ===
+                    //НАСТРОЙКА ГЛАВЫ ДОПОЛНИТЕЛИ ИСКР
                     else if (chapId == "sparkaugment")
                     {
                         chapter.TabItemCode = "botaniastory:sparkaugment-*";
@@ -885,7 +885,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ АЛХИМИЧЕСКИЙ КАТАЛИЗАТОР ===
+                    //НАСТРОЙКА ГЛАВЫ АЛХИМИЧЕСКИЙ КАТАЛИЗАТОР
                     else if (chapId == "catalyst_alchemy")
                     {
                         chapter.TabItemCode = "botaniastory:catalyst_alchemy";
@@ -982,7 +982,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
-                        // ================= РАЗВОРОТ 1, ПРАВАЯ СТРАНИЦА (p4) =================
+                        //============== РАЗВОРОТ 1, ПРАВАЯ СТРАНИЦА (p4)==============
 
                         // Рецепт: Гниль -> Компост (Верхний)
                         chapter.Recipes.Add(new BookRecipe()
@@ -1026,7 +1026,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
-                        // ================= РАЗВОРОТ 2, ЛЕВАЯ СТРАНИЦА (p5) =================
+                        //============== РАЗВОРОТ 2, ЛЕВАЯ СТРАНИЦА (p5)==============
 
                         // Рецепт: Средняя шкура -> 2 Кожи (Верхний)
                         chapter.Recipes.Add(new BookRecipe()
@@ -1070,7 +1070,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
-                        // ================= РАЗВОРОТ 2, ПРАВАЯ СТРАНИЦА (p6) =================
+                        //============== РАЗВОРОТ 2, ПРАВАЯ СТРАНИЦА (p6)==============
 
                         // Рецепт: Огромная шкура -> 5 Кожи (Верхний)
                         chapter.Recipes.Add(new BookRecipe()
@@ -1114,7 +1114,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
-                        // ================= РАЗВОРОТ 3, ЛЕВАЯ СТРАНИЦА (p7) =================
+                        //============== РАЗВОРОТ 3, ЛЕВАЯ СТРАНИЦА (p7)==============
 
                         // Рецепт: Компост -> Селитра (Верхний)
                         chapter.Recipes.Add(new BookRecipe()
@@ -1158,7 +1158,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
-                        // ================= РАЗВОРОТ 3, ПРАВАЯ СТРАНИЦА (p8) =================
+                        //============== РАЗВОРОТ 3, ПРАВАЯ СТРАНИЦА (p8)==============
 
                         // Рецепт: Лук -> Сера (Верхний)
                         chapter.Recipes.Add(new BookRecipe()
@@ -1202,7 +1202,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
-                        // ================= РАЗВОРОТ 4, ЛЕВАЯ СТРАНИЦА (p9) =================
+                        //============== РАЗВОРОТ 4, ЛЕВАЯ СТРАНИЦА (p9)==============
 
                         // Рецепт: Поташ -> Каменная соль/Галит (Верхний)
                         chapter.Recipes.Add(new BookRecipe()
@@ -1248,7 +1248,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ КОЛДОВСКОЙ КАТАЛИЗАТОР ===
+                    //НАСТРОЙКА ГЛАВЫ КОЛДОВСКОЙ КАТАЛИЗАТОР
                     else if (chapId == "catalyst_conjuration")
                     {
                         chapter.TabItemCode = "botaniastory:catalyst_conjuration";
@@ -1496,13 +1496,13 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ГЕНЕРИРУЮЩУЮ ФЛОРУ ===
+                    //НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ГЕНЕРИРУЮЩУЮ ФЛОРУ
                     else if (chapId == "generatingfloraintroduction")
                     {
                         chapter.TabItemCode = "botaniastory:checkmark";
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ДНЕВНОЦВЕТ ===
+                    //НАСТРОЙКА ГЛАВЫ ДНЕВНОЦВЕТ
                     else if (chapId == "daybloom")
                     {
                         chapter.TabItemCode = "botaniastory:daybloom-free";
@@ -1523,7 +1523,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ НОЧНАЯ ЛИЛИЯ ===
+                    //НАСТРОЙКА ГЛАВЫ НОЧНАЯ ЛИЛИЯ
                     else if (chapId == "nightshade")
                     {
                         chapter.TabItemCode = "botaniastory:nightshade-free";
@@ -1544,7 +1544,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ЭНДОПЛАМЯ ===
+                    //НАСТРОЙКА ГЛАВЫ ЭНДОПЛАМЯ
                     else if (chapId == "endoflame")
                     {
                         chapter.TabItemCode = "botaniastory:endoflame-free";
@@ -1567,7 +1567,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ТАЙНАЯ РОЗА ===
+                    //НАСТРОЙКА ГЛАВЫ ТАЙНАЯ РОЗА
                     else if (chapId == "rosaarcana")
                     {
                         chapter.TabItemCode = "botaniastory:rosaarcana-free";
@@ -1591,7 +1591,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ВОДОГОРТЕНЗИЯ ===
+                    //НАСТРОЙКА ГЛАВЫ ВОДОГОРТЕНЗИЯ
                     else if (chapId == "hydroangeas")
                     {
                         chapter.TabItemCode = "botaniastory:hydroangeas-free";
@@ -1613,7 +1613,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ПОСОХ/ЖЕЗЛ СВЯЗЫВАНИЯ ===
+                    //НАСТРОЙКА ГЛАВЫ ПОСОХ/ЖЕЗЛ СВЯЗЫВАНИЯ
                     else if (chapId == "wandofbinding")
                     {
                         chapter.TabItemCode = "botaniastory:wandofbinding";
@@ -1642,7 +1642,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА МЕШОЧЕК ДЛЯ ЦВЕТОВ ===
+                    //НАСТРОЙКА МЕШОЧЕК ДЛЯ ЦВЕТОВ
                     else if (chapId == "flower_bag")
                     {
                         chapter.TabItemCode = "botaniastory:flower_bag";
@@ -1661,7 +1661,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ЦВЕТОЧНОЕ УДОБРЕНИЕ ===
+                    //НАСТРОЙКА ЦВЕТОЧНОЕ УДОБРЕНИЕ
                     else if (chapId == "floralfertilizer")
                     {
                         chapter.TabItemCode = "botaniastory:floralfertilizer";
@@ -1680,7 +1680,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ЖИЗНЕДЕРЕВА ===
+                    //НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ЖИЗНЕДЕРЕВА
                     else if (chapId == "livingwood_stuff")
                     {
                         chapter.TabItemCode = "botaniastory:livingwood-normal";
@@ -1850,7 +1850,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ЖИЗНЕКАМНЯ ===
+                    //НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ЖИЗНЕКАМНЯ
                     else if (chapId == "livingrock_stuff")
                     {
                         chapter.TabItemCode = "botaniastory:livingrock";
@@ -1917,7 +1917,7 @@ namespace BotaniaStory.lexicon
                         /////////////Кирпичи
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ МАНАСТЕКЛО ===
+                    //НАСТРОЙКА ГЛАВЫ МАНАСТЕКЛО
                     else if (chapId == "managlass")
                     {
                         chapter.TabItemCode = "botaniastory:managlass";
@@ -1943,7 +1943,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ПУЗЫРЁК ДЛЯ РЖАВОГО ВОЗДУХА ===
+                    //НАСТРОЙКА ГЛАВЫ ПУЗЫРЁК ДЛЯ РЖАВОГО ВОЗДУХА
                     else if (chapId == "flask")
                     {
                         chapter.TabItemCode = "botaniastory:flask-empty";
@@ -1961,7 +1961,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ КОРЕНЬ ===
+                    //НАСТРОЙКА ГЛАВЫ КОРЕНЬ
                     else if (chapId == "root-normal")
                     {
                         chapter.TabItemCode = "botaniastory:root-normal";
@@ -1987,7 +1987,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ЗАРЖАВЕВШИЙ КОРЕНЬ ===
+                    //НАСТРОЙКА ГЛАВЫ ЗАРЖАВЕВШИЙ КОРЕНЬ
                     else if (chapId == "root-rusted")
                     {
                         chapter.TabItemCode = "botaniastory:root-rusted";
@@ -2006,7 +2006,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ РУНЫ ===
+                    //НАСТРОЙКА ГЛАВЫ РУНЫ
                     else if (chapId == "rune")
                     {
                         chapter.TabItemCode = "botaniastory:rune-*";
@@ -2413,7 +2413,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ МАНАСТАЛИ ===
+                    //НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ МАНАСТАЛИ
                     else if (chapId == "manaitem")
                     {
                         chapter.TabItemCode = "botaniastory:pickaxe-manasteel";
@@ -2601,7 +2601,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:manasteel-armor-legs-brigandine"
                         });
 
-                        // ==================== ИНСТРУМЕНТЫ ====================
+                         ИНСТРУМЕНТЫ=================
 
                         // Spread 4: Кирка (Левая) и Топор (Правая)
                         chapter.Recipes.Add(new BookRecipe()
@@ -2913,7 +2913,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ТЕРРАСТАЛИ ===
+                    //НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ТЕРРАСТАЛИ
                     else if (chapId == "terrasteelitem")
                     {
                         chapter.TabItemCode = "botaniastory:terrasteel-armor-head-chain";
@@ -3366,7 +3366,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ЗЕМЛЕКРУШИТЕЛЬ ===
+                    //НАСТРОЙКА ГЛАВЫ ЗЕМЛЕКРУШИТЕЛЬ
                     else if (chapId == "terrashatterer")
                     {
                         chapter.TabItemCode = "botaniastory:pickaxe-terrashatterer-0-on";
@@ -3405,7 +3405,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА СВИТКИ ФИЛЬТРАЦИИ ===
+                    //НАСТРОЙКА СВИТКИ ФИЛЬТРАЦИИ
                     else if (chapId == "filterscroll")
                     {
                         chapter.TabItemCode = "botaniastory:filterscroll-black";
@@ -3438,7 +3438,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА - ОРЕОЛ ===
+                    //НАСТРОЙКА - ОРЕОЛ
                     else if (chapId == "halo")
                     {
                         chapter.TabItemCode = "botaniastory:halo-crafting";
@@ -3457,7 +3457,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА - АВТОМАТИЧЕСКИЙ ОРЕОЛ ===
+                    //НАСТРОЙКА - АВТОМАТИЧЕСКИЙ ОРЕОЛ
                     else if (chapId == "automatic_halo")
                     {
                         chapter.TabItemCode = "botaniastory:halo-autocrafting";
@@ -3476,7 +3476,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ЖЕЗЛ МОРЕЙ ===
+                    //НАСТРОЙКА ГЛАВЫ ЖЕЗЛ МОРЕЙ
                     else if (chapId == "rod_of_the_seas")
                     {
                         chapter.TabItemCode = "botaniastory:rod_of_the_seas";
@@ -3495,7 +3495,7 @@ namespace BotaniaStory.lexicon
                     }
 
 
-                    // === НАСТРОЙКА ГЛАВЫ АКСЕССУАРЫ ===
+                    //НАСТРОЙКА ГЛАВЫ АКСЕССУАРЫ
                     else if (chapId == "trinkets")
                     {
                         chapter.TabItemCode = "botaniastory:checkmark";
@@ -3513,7 +3513,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ПИЛОНЫ ===
+                    //НАСТРОЙКА ГЛАВЫ ПИЛОНЫ
                     else if (chapId == "pylon")
                     {
                         chapter.TabItemCode = "botaniastory:pylon-mana";
@@ -3556,7 +3556,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ЛУГОВОЕ СЕМЯ ===
+                    //НАСТРОЙКА ГЛАВЫ ЛУГОВОЕ СЕМЯ
                     else if (chapId == "meadowseed")
                     {
                         chapter.TabItemCode = "botaniastory:meadowseed-normal";
@@ -3617,7 +3617,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ПАРЯЩИЙ ОСТРОВОК ===
+                    //НАСТРОЙКА ГЛАВЫ ПАРЯЩИЙ ОСТРОВОК
                     else if (chapId == "floating_island")
                     {
                         chapter.TabItemCode = "botaniastory:floatingisland-endoflame";
@@ -3649,7 +3649,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ВРАТА АЛЬФХЕЙМ ===
+                    //НАСТРОЙКА ГЛАВЫ ВРАТА АЛЬФХЕЙМ
                     else if (chapId == "alfheimgates")
                     {
                         chapter.TabItemCode = "botaniastory:pylon-natura";
@@ -3690,7 +3690,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ РЕСУРСЫ АЛЬФХЕЙМА ===
+                    //НАСТРОЙКА ГЛАВЫ РЕСУРСЫ АЛЬФХЕЙМА
                     else if (chapId == "elfresources")
                     {
                         chapter.TabItemCode = "botaniastory:elvenglass-1";
@@ -3711,7 +3711,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 1000,
+                            ManaCost = 5000,
                             UiKey = "Полоска_Маны_Правая_Альфхейм"
                         });
                         /////////////////////////1
@@ -3727,7 +3727,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 1000,
+                            ManaCost = 5000,
                             UiKey = "Полоска_Маны_Левая_Альфхейм"
                         });
                         //////////
@@ -3759,12 +3759,28 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 1000,
+                            ManaCost = 5000,
                             UiKey = "Полоска_Маны_Левая_Альфхейм"
+                        });
+                        /////////
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Alfheim",
+                            Spread = 2,
+                            UiKey = "Альфхейм_Область_Правая",
+                            AlfheimInputs = new string[] { "botaniastory:livingwood-*" },
+                            Output = "botaniastory:dreamwood-normal"
+                        });
+                        /////
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 2,
+                            ManaCost = 10000,
+                            UiKey = "Полоска_Маны_Правая_Альфхейм"
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ВОЗДУХ РЖАВОГО МИРА ===
+                    //НАСТРОЙКА ГЛАВЫ ВОЗДУХ РЖАВОГО МИРА
                     else if (chapId == "rustworld-air")
                     {
                         chapter.TabItemCode = "botaniastory:flask-rustworldair";
@@ -3777,7 +3793,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ КРЫЛАТАЯ ТИАРА ===
+                    //НАСТРОЙКА ГЛАВЫ КРЫЛАТАЯ ТИАРА
                     else if (chapId == "flight-tiara")
                     {
                         chapter.TabItemCode = "botaniastory:flight-tiara";
@@ -3807,7 +3823,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    // === НАСТРОЙКА ГЛАВЫ ТАЛИСМАН ЧЁРНОЙ ДЫРЫ ===
+                    //НАСТРОЙКА ГЛАВЫ ТАЛИСМАН ЧЁРНОЙ ДЫРЫ
                     else if (chapId == "blackholetalisman")
                     {
                         chapter.TabItemCode = "botaniastory:blackholetalisman";

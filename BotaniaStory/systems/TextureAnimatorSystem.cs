@@ -8,39 +8,30 @@ namespace BotaniaStory.systems
 {
     public class TextureAnimatorSystem : ModSystem, IRenderer
     {
+        private const bool DebugGl = false;
+
         private ICoreClientAPI capi;
 
         private int readFbo;
         private int drawFbo;
-        private bool fbosInitialized = false;
+        private bool fbosInitialized;
 
         public double RenderOrder => 0.1;
         public int RenderRange => 999;
 
         private class AnimationData
         {
-            public string AnimLoc;
-            public string BaseLoc;
+            public AssetLocation AnimLoc;
+            public AssetLocation BaseLoc;
             public int NumFrames;
             public float TimePerFrame;
 
-            public float FrameTime = 0;
-            public int CurrentFrame = 0;
-
-          
-            public TextureAtlasPosition ItemAnimPos;
-            public TextureAtlasPosition ItemBasePos;
-            public LoadedTexture ItemAnimTexture;
-            public LoadedTexture ItemBaseTexture;
-
-            // Вот они, на своем законном месте:
-            public TextureAtlasPosition BlockAnimPos;
-            public TextureAtlasPosition BlockBasePos;
-            public LoadedTexture BlockAnimTexture;
-            public LoadedTexture BlockBaseTexture;
+            public float FrameTime;
+            public int CurrentFrame;
         }
 
-        private List<AnimationData> animations = new List<AnimationData>();
+        private readonly List<AnimationData> animations = new List<AnimationData>();
+        private readonly HashSet<int> texturesToUpdate = new HashSet<int>();
 
         public override bool ShouldLoad(EnumAppSide forSide) => forSide == EnumAppSide.Client;
 
@@ -48,84 +39,100 @@ namespace BotaniaStory.systems
         {
             capi = api;
 
-            // Анимация искр
-            animations.Add(new AnimationData()
+            animations.Add(new AnimationData
             {
-           AnimLoc = "botaniastory:entity/spark_anim",
-               BaseLoc = "botaniastory:entity/spark_base",
-               NumFrames = 7,
-               TimePerFrame = 0.1f
-           });
+                AnimLoc = new AssetLocation("botaniastory:entity/spark_anim"),
+                BaseLoc = new AssetLocation("botaniastory:entity/spark_base"),
+                NumFrames = 7,
+                TimePerFrame = 0.1f
+            });
 
-            //  АНИМАЦИЯ ЯДРА АЛЬФХЕЙМА!
-            animations.Add(new AnimationData()
+            animations.Add(new AnimationData
             {
-                AnimLoc = "botaniastory:block/alfheim_core_on_anim",  
-                BaseLoc = "botaniastory:block/alfheim_core_on_target",
+                AnimLoc = new AssetLocation("botaniastory:block/alfheim_core_on_anim"),
+                BaseLoc = new AssetLocation("botaniastory:block/alfheim_core_on_target"),
                 NumFrames = 6,
-                TimePerFrame = 0.1f 
+                TimePerFrame = 0.1f
             });
 
-            // Анимация Black Hole Talisman
-            animations.Add(new AnimationData()
+            animations.Add(new AnimationData
             {
-                AnimLoc = "botaniastory:item/blackholetalisman_anim", 
-                BaseLoc = "botaniastory:item/blackholetalisman_base",
+                AnimLoc = new AssetLocation("botaniastory:item/blackholetalisman_anim"),
+                BaseLoc = new AssetLocation("botaniastory:item/blackholetalisman_base"),
                 NumFrames = 5,
-                TimePerFrame = 0.1f // Скорость смены кадров
+                TimePerFrame = 0.1f
             });
 
-            // Анимация портала
-            animations.Add(new AnimationData()
+            animations.Add(new AnimationData
             {
-                AnimLoc = "botaniastory:block/alfheim_portal_anim",   
-                BaseLoc = "botaniastory:block/alfheim_portal_target", 
+                AnimLoc = new AssetLocation("botaniastory:block/alfheim_portal_anim"),
+                BaseLoc = new AssetLocation("botaniastory:block/alfheim_portal_target"),
                 NumFrames = 16,
-                TimePerFrame = 0.05f 
+                TimePerFrame = 0.05f
             });
 
-
-            capi.Event.BlockTexturesLoaded += OnBlockTexturesLoaded;
+            capi.Event.BlockTexturesLoaded += OnAtlasesLoaded;
             capi.Event.RegisterRenderer(this, EnumRenderStage.Before, "textureanimator");
         }
-        private void OnBlockTexturesLoaded()
+
+        private void OnAtlasesLoaded()
         {
             foreach (var anim in animations)
             {
-                AssetLocation animAsset = new AssetLocation(anim.AnimLoc);
-                AssetLocation baseAsset = new AssetLocation(anim.BaseLoc);
-
-                // Загружаем в атлас сущностей
-               // capi.EntityTextureAtlas.GetOrInsertTexture(animAsset, out _, out anim.EntityAnimPos);
-               // capi.EntityTextureAtlas.GetOrInsertTexture(baseAsset, out _, out anim.EntityBasePos);
-               // anim.EntityAnimTexture = capi.EntityTextureAtlas.AtlasTextures[anim.EntityAnimPos.atlasNumber];
-               // anim.EntityBaseTexture = capi.EntityTextureAtlas.AtlasTextures[anim.EntityBasePos.atlasNumber];
-
-                // Загружаем в атлас предметов
-                capi.ItemTextureAtlas.GetOrInsertTexture(animAsset, out _, out anim.ItemAnimPos);
-                capi.ItemTextureAtlas.GetOrInsertTexture(baseAsset, out _, out anim.ItemBasePos);
-                anim.ItemAnimTexture = capi.ItemTextureAtlas.AtlasTextures[anim.ItemAnimPos.atlasNumber];
-                anim.ItemBaseTexture = capi.ItemTextureAtlas.AtlasTextures[anim.ItemBasePos.atlasNumber];
-
-                capi.BlockTextureAtlas.GetOrInsertTexture(animAsset, out _, out anim.BlockAnimPos);
-        capi.BlockTextureAtlas.GetOrInsertTexture(baseAsset, out _, out anim.BlockBasePos);
-        anim.BlockAnimTexture = capi.BlockTextureAtlas.AtlasTextures[anim.BlockAnimPos.atlasNumber];
-        anim.BlockBaseTexture = capi.BlockTextureAtlas.AtlasTextures[anim.BlockBasePos.atlasNumber];
+                InsertSafe(capi.ItemTextureAtlas, anim.AnimLoc);
+                InsertSafe(capi.ItemTextureAtlas, anim.BaseLoc);
+                InsertSafe(capi.BlockTextureAtlas, anim.AnimLoc);
+                InsertSafe(capi.BlockTextureAtlas, anim.BaseLoc);
             }
+        }
 
-            // Получаем ID текстуры атласа предметов
-            int itemAtlasId = capi.ItemTextureAtlas.AtlasTextures[0].TextureId;
-            if (itemAtlasId != 0)
+        private void InsertSafe(ITextureAtlasAPI atlas, AssetLocation loc)
+        {
+            if (atlas == null) return;
+            try { atlas.GetOrInsertTexture(loc, out _, out _); }
+            catch (Exception e) { capi.Logger.Warning("[BotaniaStory] texanim insert failed for {0}: {1}", loc, e.Message); }
+        }
+
+        /// <summary>
+        /// Резолвим позицию и страницу атласа заново каждый раз.
+        /// Если что-то не сходится - молча пропускаем кадр вместо записи в чужую текстуру.
+        /// </summary>
+        private bool TryResolve(ITextureAtlasAPI atlas, AssetLocation loc, out LoadedTexture tex, out TextureAtlasPosition pos)
+        {
+            tex = null;
+            pos = null;
+
+            if (atlas == null) return false;
+
+            List<LoadedTexture> pages = atlas.AtlasTextures;
+            if (pages == null || pages.Count == 0) return false;
+
+            if (!atlas.GetOrInsertTexture(loc, out _, out pos) || pos == null)
             {
-                GL.BindTexture(TextureTarget.Texture2D, itemAtlasId);
-                // Принудительно отключаем мипмаппинг (используем только LOD 0)
-                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
-                GL.BindTexture(TextureTarget.Texture2D, 0);
+                pos = null;
+                return false;
             }
+
+            if (pos.atlasNumber < 0 || pos.atlasNumber >= pages.Count) { pos = null; return false; }
+
+            tex = pages[pos.atlasNumber];
+            if (tex == null || tex.TextureId == 0 || tex.Width <= 0 || tex.Height <= 0)
+            {
+                tex = null; pos = null; return false;
+            }
+
+            // Ключевая защита: id страницы и id из позиции обязаны совпадать, и GL должен подтвердить, что это всё ещё живой текстурный объект.
+            if (pos.atlasTextureId != 0 && pos.atlasTextureId != tex.TextureId) { tex = null; pos = null; return false; }
+            if (!GL.IsTexture(tex.TextureId)) { tex = null; pos = null; return false; }
+
+            return true;
         }
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
+            if (stage != EnumRenderStage.Before) return;
+            if (capi?.World == null) return;
+
             if (!fbosInitialized)
             {
                 readFbo = GL.GenFramebuffer();
@@ -133,45 +140,39 @@ namespace BotaniaStory.systems
                 fbosInitialized = true;
             }
 
-            HashSet<int> texturesToUpdate = new HashSet<int>();
+            texturesToUpdate.Clear();
 
             foreach (var anim in animations)
             {
                 anim.FrameTime += deltaTime;
-                if (anim.FrameTime >= anim.TimePerFrame)
-                {
-                    anim.FrameTime -= anim.TimePerFrame;
-                    anim.CurrentFrame = (anim.CurrentFrame + 1) % anim.NumFrames;
+                if (anim.FrameTime < anim.TimePerFrame) continue;
 
-                    // Копируем кадр в атлас
-                    RenderFrameToAtlas(anim.BlockAnimTexture, anim.BlockAnimPos, anim.BlockBaseTexture, anim.BlockBasePos, anim.NumFrames, anim.CurrentFrame);
-                    RenderFrameToAtlas(anim.ItemAnimTexture, anim.ItemAnimPos, anim.ItemBaseTexture, anim.ItemBasePos, anim.NumFrames, anim.CurrentFrame);
+                anim.FrameTime -= anim.TimePerFrame;
+                if (anim.FrameTime > anim.TimePerFrame) anim.FrameTime = 0f; // защита от накопления при лагах
+                anim.CurrentFrame = (anim.CurrentFrame + 1) % anim.NumFrames;
 
-                    // Собираем ID тех текстур, куда мы только что рисовали
-                    if (anim.BlockBaseTexture != null && anim.BlockBaseTexture.TextureId != 0)
-                        texturesToUpdate.Add(anim.BlockBaseTexture.TextureId);
-                    if (anim.ItemBaseTexture != null && anim.ItemBaseTexture.TextureId != 0)
-                        texturesToUpdate.Add(anim.ItemBaseTexture.TextureId);
-                }
+                BlitInto(capi.BlockTextureAtlas, anim);
+                BlitInto(capi.ItemTextureAtlas, anim);
             }
 
-            // Точечно регенерируем мипмапы только для измененных страниц атласа!
-            // Это починит замороженную анимацию инвентаря в любых мирах.
-            if (texturesToUpdate.Count > 0)
+            RegenerateMipmaps();
+
+            if (DebugGl) capi.Render.CheckGlError("botaniastory:texanim");
+        }
+
+        private void BlitInto(ITextureAtlasAPI atlas, AnimationData anim)
+        {
+            if (!TryResolve(atlas, anim.AnimLoc, out LoadedTexture srcTex, out TextureAtlasPosition srcPos)) return;
+            if (!TryResolve(atlas, anim.BaseLoc, out LoadedTexture dstTex, out TextureAtlasPosition dstPos)) return;
+
+            if (RenderFrameToAtlas(srcTex, srcPos, dstTex, dstPos, anim.NumFrames, anim.CurrentFrame))
             {
-                foreach (int texID in texturesToUpdate)
-                {
-                    GL.BindTexture(TextureTarget.Texture2D, texID);
-                    GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-                }
-                GL.BindTexture(TextureTarget.Texture2D, 0);
+                texturesToUpdate.Add(dstTex.TextureId);
             }
         }
 
-        private void RenderFrameToAtlas(LoadedTexture srcTex, TextureAtlasPosition srcPos, LoadedTexture dstTex, TextureAtlasPosition dstPos, int numFrames, int currentFrame)
+        private bool RenderFrameToAtlas(LoadedTexture srcTex, TextureAtlasPosition srcPos, LoadedTexture dstTex, TextureAtlasPosition dstPos, int numFrames, int currentFrame)
         {
-            if (srcTex == null || dstTex == null || srcTex.TextureId == 0 || dstTex.TextureId == 0) return;
-
             float frameHeightUV = (srcPos.y2 - srcPos.y1) / numFrames;
             float frameWidthUV = srcPos.x2 - srcPos.x1;
 
@@ -182,43 +183,87 @@ namespace BotaniaStory.systems
 
             int dstX = (int)MathF.Round(dstTex.Width * dstPos.x1);
             int dstY = (int)MathF.Round(dstTex.Height * dstPos.y1);
+            int dstW = (int)MathF.Round(dstTex.Width * (dstPos.x2 - dstPos.x1));
+            int dstH = (int)MathF.Round(dstTex.Height * (dstPos.y2 - dstPos.y1));
 
-            GL.GetInteger(GetPName.FramebufferBinding, out int originBufferId);
+            if (srcW <= 0 || srcH <= 0 || dstW <= 0 || dstH <= 0) return false;
 
-            // Используем заранее созданные буферы, а не создаем новые!
+            // сохраняем состояние движка
+            GL.GetInteger(GetPName.DrawFramebufferBinding, out int prevDrawFbo);
+            GL.GetInteger(GetPName.ReadFramebufferBinding, out int prevReadFbo);
+            bool scissorWasOn = GL.IsEnabled(EnableCap.ScissorTest);
+            if (scissorWasOn) GL.Disable(EnableCap.ScissorTest);
+
+            bool blitted = false;
+
             GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, readFbo);
             GL.FramebufferTexture2D(FramebufferTarget.ReadFramebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, srcTex.TextureId, 0);
+            GL.ReadBuffer(ReadBufferMode.ColorAttachment0);
 
             GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, drawFbo);
             GL.FramebufferTexture2D(FramebufferTarget.DrawFramebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, dstTex.TextureId, 0);
+            GL.DrawBuffer(DrawBufferMode.ColorAttachment0);
 
             if (GL.CheckFramebufferStatus(FramebufferTarget.ReadFramebuffer) == FramebufferErrorCode.FramebufferComplete &&
                 GL.CheckFramebufferStatus(FramebufferTarget.DrawFramebuffer) == FramebufferErrorCode.FramebufferComplete)
             {
-                GL.BlitFramebuffer(srcX, srcY, srcX + srcW, srcY + srcH, dstX, dstY, dstX + srcW, dstY + srcH, ClearBufferMask.ColorBufferBit, BlitFramebufferFilter.Nearest);
+                GL.BlitFramebuffer(
+                    srcX, srcY, srcX + srcW, srcY + srcH,
+                    dstX, dstY, dstX + dstW, dstY + dstH,
+                    ClearBufferMask.ColorBufferBit, BlitFramebufferFilter.Nearest);
+                blitted = true;
             }
 
-            GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, 0);
-            GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
+            // Обязательно отцепляем чужие текстуры: наш FBO не должен держать ссылку на объект, который движок может удалить и переиспользовать
+            GL.FramebufferTexture2D(FramebufferTarget.ReadFramebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, 0, 0);
+            GL.FramebufferTexture2D(FramebufferTarget.DrawFramebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, 0, 0);
 
-            GL.BindFramebuffer(FramebufferTarget.Framebuffer, originBufferId);
+            // возвращаем состояние движка как было
+            GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, prevReadFbo);
+            GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, prevDrawFbo);
+            if (scissorWasOn) GL.Enable(EnableCap.ScissorTest);
+
+            return blitted;
+        }
+
+        private void RegenerateMipmaps()
+        {
+            if (texturesToUpdate.Count == 0) return;
+
+            GL.GetInteger(GetPName.ActiveTexture, out int prevUnit);
+            GL.ActiveTexture(TextureUnit.Texture0);
+            GL.GetInteger(GetPName.TextureBinding2D, out int prevTexOnUnit0);
+
+            foreach (int texId in texturesToUpdate)
+            {
+                if (texId == 0 || !GL.IsTexture(texId)) continue;
+                GL.BindTexture(TextureTarget.Texture2D, texId);
+                GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+            }
+
+            GL.BindTexture(TextureTarget.Texture2D, prevTexOnUnit0);
+            GL.ActiveTexture((TextureUnit)prevUnit);
         }
 
         public override void Dispose()
         {
             if (capi != null)
             {
+                capi.Event.BlockTexturesLoaded -= OnAtlasesLoaded;
                 capi.Event.UnregisterRenderer(this, EnumRenderStage.Before);
             }
 
-            // Удаляем  буферы только при выходе из игры
             if (fbosInitialized)
             {
                 GL.DeleteFramebuffer(readFbo);
                 GL.DeleteFramebuffer(drawFbo);
+                readFbo = 0;
+                drawFbo = 0;
+                fbosInitialized = false;
             }
 
             animations.Clear();
+            texturesToUpdate.Clear();
             base.Dispose();
         }
     }

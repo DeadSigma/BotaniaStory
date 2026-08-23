@@ -1,4 +1,8 @@
 {
+    "abilitydesc-hopwhisperer": "Erhöht die Qualität von Ale-Rezepten um {0}%.",
+    "abilitydesc-meadmaster": "Erhöht die Qualität von Met-Rezepten um {0}%.",
+    "abilitydesc-summerweaver": "Von euch hergestellte Kleidung bietet {0}% mehr Kühlung.",
+    "abilitydesc-vintner": "Erhöht die Qualität von Apfelwein- und Weinrezepten um {0}%.",
     "alchemy-missing-warning": "<font color=\"#ff9999\">Für das Herstellen wird die Mod <a href=\"https://mods.vintagestory.at/alchemy\">Alchemy</a> benötigt</font>",
     "btn-visualize": "           Visualisieren",
     "btn-visualize-stop": "Visualisierung stoppen",
@@ -55,6 +59,7 @@
     "gui-halocraft-title": "Halo",
     "handbook-intro-text": "Willkommen in der Welt der Blumenmagie!\n\nBotania Story ist ein Mod, der viele neue Mechaniken hinzufügt, die mit mystischer Flora und dem Umgang mit Mana verbunden sind.\n\nUm deine Reise zu beginnen, brauchst du das wichtigste Werkzeug jedes Botanikers - ein Wissensbuch. Du kannst das Herstellungsrezept über diesen Link ansehen: <a href=\"handbook://item-botaniastory:lexicon-closed\">Botania-Lexikon</a>.\n\nStelle es her, nimm es in die Hand und drücke RMB, um in die Magie einzutauchen!",
     "handbook-intro-title": "Einführung in BotaniaStory",
+    "hotkey-meditationToggle": "BotaniaStory: Meditation Ein/Aus",
     "hud-structure-title": "Bauwerk: {0}",
     "info-mana-display": "Mana: {0} / {1}",
     "info-terrashatterer-rank": "Aktueller Rang: {0}",
@@ -522,7 +527,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "Das Botania-Lexikon ist eine Quelle allen Wissens für deine botanischen Bedürfnisse. Aber das wusstest du vermutlich bereits. Alle Informationen befinden sich hier. Zur Bequemlichkeit kannst du, falls ein Block eine Beschreibung besitzt, <link=nothing>Umschalt+RMB</link> drücken, während du das Botania-Lexikon in der Hand hältst, um diese Beschreibung zu öffnen.\n\nIch empfehle dringend, zuerst alle Einträge aus dem Abschnitt <link=category:basics_and_mechanics>„Grundlagen und Mechaniken“</link> zu lesen, bevor du zu den übrigen Bereichen übergehst. Die meisten Kategorien enthalten einen oder mehrere Einträge, also studiere sie aufmerksam.",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Herstellung des Botania-Lexikons.",
     "lexicon_basics_and_mechanics_meditation_title": "Meditation und mystische Blumen",
-    "lexicon_basics_and_mechanics_meditation_p1": "Manche gewöhnlichen Blumen reagieren auf die Ruhe des Geistes. Wenn du dich neben eine solche Blume setzt und durch Drücken von <link=nothing>G</link> meditierst und eine Weile regungslos bleibst, erwacht ihre natürliche Essenz und verwandelt die gewöhnliche Blume in eine <link=mysticalflower>mystische Blume</link>.\n\n<link=mysticalflower>Mystische Blumen</link> sind eine wichtige natürliche Ressource und werden zur Herstellung zahlreicher magischer Gegenstände, Mechanismen und anderer botanischer Kreationen verwendet.",
+    "lexicon_basics_and_mechanics_meditation_p1": "Einige gewöhnliche Blumen können auf die Ruhe des Geistes reagieren. Um die Meditation zu beginnen, drückt <link=nothing>N</link> (Standardtaste). Wenn ihr euch neben eine solche Blume setzt und eine Weile regungslos bleibt, erwacht die natürliche Essenz der Blume und verwandelt sie in eine <link=mysticalflower>mystische Blume</link>. <link=mysticalflower>Mystische Blumen</link> sind eine wichtige natürliche Ressource und werden zur Herstellung zahlreicher magischer Gegenstände, Mechanismen und anderer Schöpfungen von BotaniaStory verwendet.",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       Ein wenig Geduld schadet nie.",
     "lexicon_basics_and_mechanics_mysticalflower_title": "Mystische Blumen",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "Beim Erkunden der Welt kannst du auf Arten mystischer Flora stoßen. \n\n\n\n\n\n\n\n\n\n\n\n      Wohin man auch blickt, überall Blumen... \n\nWas die mystischen Blumen betrifft, wird ihre Suche nicht lange dauern, da sie Licht ausstrahlen. Es gibt sie in 16 verschiedenen Farben.",
@@ -742,9 +747,9 @@
     "lexicon_mystical_items_manaitem_p20": "Herstellung einer Speerspitze aus Manasteel:\n\n\n\n\n\n\n\n\n\n\nHerstellung eines Speers aus Manasteel:",
     "lexicon_mystical_items_manaitem_p21": "Herstellung eines Meißels aus Manasteel:\n\n\n\nHerstellung eines Brecheisens aus Manasteel:\n\n\n\nHerstellung eines Schlüssels aus Manasteel:\n\n\n\nHerstellung einer Zange aus Manasteel\n\n\n\n\nHerstellung einer Schere aus Manasteel:",
     "lexicon_mystical_items_meadowseed_title": "Wiesensamen",
-    "lexicon_mystical_items_meadowseed_p1": "Durch das Anreichern von <link=game:drygrass>Gras</link> mit <link=mana>Mana</link> kann ein <link=meadowseed>Wiesensamen</link> erschaffen werden. Damit lässt sich Gras selbst an unfruchtbaren Orten schnell verbreiten - ein Klick mit <link=nothing>RMB</link> auf den gewünschten Block genügt.\n\nNeben gewöhnlichem Gras kann der Samen auch andere Arten von Vegetation und Boden erzeugen, zum Beispiel <link=game:peat-verysparse>Torf</link> oder <link=game:soil-medium-normal>mittel fruchtbaren Boden</link>.",
+    "lexicon_mystical_items_meadowseed_p1": "Indem man <link=game:drygrass>Gras</link> mit <link=mana>Mana</link> anreichert, kann man <link=meadowseed>Wiesensamen</link> herstellen. Damit lässt sich Gras selbst an unfruchtbaren Orten schnell verbreiten – man muss lediglich mit <link=nothing>Rechtsklick</link> auf den gewünschten Block klicken.\n\nNeben gewöhnlichem Gras kann der Samen auch andere Arten von Vegetation und Böden erzeugen, zum Beispiel <link=game:peat-verysparse>Torf</link> oder <link=game:soil-medium-normal>Boden mittlerer Fruchtbarkeit</link>.",
     "lexicon_mystical_items_meadowseed_p2": "Wiesensamen für Gras:\n\n\n\n\n\n\n\n\n\n\n\nWiesensamen für Torf:",
-    "lexicon_mystical_items_meadowseed_p3": "Wiesensamen für mittel fruchtbaren Boden:",
+    "lexicon_mystical_items_meadowseed_p3": "Wiesensamen für Boden mittlerer Fruchtbarkeit:",
     "lexicon_mystical_items_rod_of_the_seas_title": "Stab der Meere",
     "lexicon_mystical_items_rod_of_the_seas_p1": "<link=rod_of_the_seas>Stab der Meere</link> verbraucht, ähnlich wie sein irdisches Gegenstück, <link=mana>Mana</link>, um <link=game:water-still-7>Wasser</link> zu erzeugen. Bei Verwendung platziert er einen Wasserblock an der gewählten Stelle.\nAußerdem kann der Stab verwendet werden, um den <link=apothecary>Blütenapotheker</link>, <link=game:barrel>Fässer</link>, <link=game:woodbucket>Eimer</link> und sogar den <link=game:claypot-black-fired>Kochtopf im Feuer</link> zu füllen",
     "lexicon_mystical_items_rod_of_the_seas_p2": "Herstellung des Stabs der Meere:\n\n\n\n\n\n\n\n\n\n\nHalte die Erde sauber - sie ist nicht Uran.",
@@ -790,5 +795,6 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Gleiten ermöglicht ein sanftes Sinken, das Überwinden horizontaler Distanzen und das Vermeiden von Fallschaden. Dazu musst du dich während des Falls ducken. Selbst bei leerer Fluganzeige kannst du gleiten, allerdings regeneriert sie sich langsamer.\n\n\nHerstellung des Tiara-Rahmens:\n\n\n\nHerstellung der geflügelten Tiara:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Fläschchen mit Luft der Rostwelt",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fläschchen mit Luft der Rostwelt</link> enthält verzerrte Luft, die aus Rissen gesammelt wurde, die in eine fremde Welt führen. Um das Fläschchen zu füllen, muss man ein <link=flask>leeres Fläschchen</link> in der Hand halten und <link=nothing>Rechtsklick</link> in der Nähe eines Risses drücken.\n\nDiese Luft besitzt mutierende Eigenschaften, deren Natur jedoch noch nicht erforscht ist. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Es ist lediglich bekannt, dass es zur Herstellung einiger mystischer Gegenstände verwendet werden kann."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Es ist lediglich bekannt, dass es zur Herstellung einiger mystischer Gegenstände verwendet werden kann.",
+    "lexicon_elfmania_elfresources_p6": "Tausch von Lebensholz gegen Traumswood:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nUnglaublich heißes Holz, das mit Kohle konkurrieren kann. Es brennt genauso lange wie Kohle und setzt dabei eine enorme Menge Wärme frei."
 }
