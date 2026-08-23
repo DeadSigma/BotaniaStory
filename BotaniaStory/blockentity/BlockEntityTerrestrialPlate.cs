@@ -40,7 +40,7 @@ namespace BotaniaStory.blockentity
             {
                 ICoreClientAPI capi = (ICoreClientAPI)api;
                 particleRenderer = new PlateCraftingRenderer(capi, Pos, this);
-                capi.Event.RegisterRenderer(particleRenderer, EnumRenderStage.Opaque, "terrestrialplate");
+               capi.Event.RegisterRenderer(particleRenderer, EnumRenderStage.Opaque, "terrestrialplate");
                 RegisterGameTickListener(UpdateClientParticles, 50); // Тик для частиц
             }
         }

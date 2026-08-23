@@ -41,7 +41,7 @@ namespace BotaniaStory.entities
             {
                 // 2. СОХРАНЯЕМ ССЫЛКУ ПРИ РЕГИСТРАЦИИ
                 renderer = new SparkRenderer(capi, this);
-                capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "spark");
+               capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "spark");
             }
         }
 

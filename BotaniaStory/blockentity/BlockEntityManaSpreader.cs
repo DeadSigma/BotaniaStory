@@ -61,7 +61,7 @@ namespace BotaniaStory.blockentity
             {
                 ICoreClientAPI capi = (ICoreClientAPI)api;
                 coreRenderer = new SpreaderCoreRenderer(capi, Pos, this);
-                capi.Event.RegisterRenderer(coreRenderer, EnumRenderStage.Opaque, "botaniastory");
+              capi.Event.RegisterRenderer(coreRenderer, EnumRenderStage.Opaque, "botaniastory");
             }
         }
         // 

@@ -31,7 +31,7 @@ namespace BotaniaStory.client.renderers
             this.pos = pos;
             this.be = be;
 
-            capi.Event.RegisterRenderer(this, EnumRenderStage.Opaque, "botania_hourglass");
+           capi.Event.RegisterRenderer(this, EnumRenderStage.Opaque, "botania_hourglass");
         }
 
         private void EnsureMeshLoaded()

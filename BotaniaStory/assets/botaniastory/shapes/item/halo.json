@@ -10,8 +10,8 @@
 		"halo_part_2": [16, 16]
 	},
 	"textures": {
-		"halo_part_1": "halo_part_1",
-		"halo_part_2": "halo_part_2"
+		"halo_part_1": "botaniastory:item/autocraftinghalo_part_1",
+		"halo_part_2": "botaniastory:item/autocraftinghalo_part_2"
 	},
 	"elements": [
 		{

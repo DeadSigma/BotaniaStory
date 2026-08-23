@@ -163,45 +163,48 @@ namespace BotaniaStory.blockentity
         private bool TryInsertItem(IInventory targetInv, ItemStack stack)
         {
             bool itemMoved = false;
+            // Оборачиваем предмет в виртуальный слот для использования API движка
+            ItemSlot dummySlot = new DummySlot(stack);
+
+            // Шаг 1: Пробуем добавить предметы в уже существующие стаки
             for (int i = 0; i < targetInv.Count; i++)
             {
-                ItemSlot slot = targetInv[i];
-                if (slot.Empty || stack.StackSize <= 0) continue;
+                ItemSlot targetSlot = targetInv[i];
+                if (targetSlot.Empty) continue;
 
-                if (slot.Itemstack.Equals(this.Api.World, stack, "name"))
+                // TryPutInto автоматически проверяет совместимость предметов и лимиты стаков
+                int moved = dummySlot.TryPutInto(this.Api.World, targetSlot, dummySlot.StackSize);
+                if (moved > 0)
                 {
-                    int maxStackSize = slot.Itemstack.Collectible.MaxStackSize;
+                    targetSlot.MarkDirty();
+                    itemMoved = true;
 
-                    if (slot.Itemstack.StackSize < maxStackSize)
-                    {
-                        int spaceLeft = maxStackSize - slot.Itemstack.StackSize;
-                        int amountToMove = Math.Min(spaceLeft, stack.StackSize);
-
-                        slot.Itemstack.StackSize += amountToMove;
-                        stack.StackSize -= amountToMove;
-                        slot.MarkDirty();
-                        itemMoved = true;
-
-                        if (stack.StackSize <= 0) return true;
-                    }
+                    // Если мы раздали весь стак, можно завершать
+                    if (dummySlot.Empty) break;
                 }
             }
 
-            if (stack.StackSize > 0)
+            // Шаг 2: Если часть предметов осталась, ищем для них пустые слоты
+            if (!dummySlot.Empty)
             {
                 for (int i = 0; i < targetInv.Count; i++)
                 {
-                    ItemSlot slot = targetInv[i];
-                    if (slot.Empty)
+                    ItemSlot targetSlot = targetInv[i];
+                    if (targetSlot.Empty)
                     {
-                        slot.Itemstack = stack.Clone();
-                        stack.StackSize = 0;
-                        slot.MarkDirty();
-                        itemMoved = true;
-                        break;
+                        int moved = dummySlot.TryPutInto(this.Api.World, targetSlot, dummySlot.StackSize);
+                        if (moved > 0)
+                        {
+                            targetSlot.MarkDirty();
+                            itemMoved = true;
+                            if (dummySlot.Empty) break;
+                        }
                     }
                 }
             }
+
+            stack.StackSize = dummySlot.StackSize;
+
             return itemMoved;
         }
 

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -16,7 +15,10 @@ namespace BotaniaStory.client.renderers
         MeshRef ringRef;
         readonly Matrixf modelMat = new();
         readonly Matrixf itemMat = new();
-        readonly Dictionary<string, MeshRef> itemMeshCache = [];
+
+        // Переиспользуемый слот для GetItemStackRenderInfo (чтобы не аллоцировать каждый кадр)
+        readonly DummySlot renderSlot = new();
+
         float accumSec;
         bool ringWasActive;
 
@@ -72,7 +74,7 @@ namespace BotaniaStory.client.renderers
             int activeTexId = isAuto ? glowTexAuto.TextureId : glowTex.TextureId;
 
             RenderGlowRing(ply, selected, pulse, activeTexId, ringRotDeg);
-            RenderSlotItems(ply, held, ringRotDeg);
+            RenderSlotItems(ply, held, ringRotDeg, dt);
         }
 
         // кольцо
@@ -113,7 +115,7 @@ namespace BotaniaStory.client.renderers
         }
 
         // предметы-результаты в слотах
-        void RenderSlotItems(EntityPlayer ply, ItemStack halo, float ringRotDeg)
+        void RenderSlotItems(EntityPlayer ply, ItemStack halo, float ringRotDeg, float dt)
         {
             IWorldAccessor world = capi.World;
             Vec3d cam = ply.CameraPos;
@@ -131,16 +133,19 @@ namespace BotaniaStory.client.renderers
                 double lx = Math.Cos(ang) * ITEM_RADIUS;
                 double lz = Math.Sin(ang) * ITEM_RADIUS;
 
-                DrawItem(ply, cam, shown, lx, ITEM_Y + bob, lz, ITEM_SCALE, spin);
+                DrawItem(ply, cam, shown, lx, ITEM_Y + bob, lz, ITEM_SCALE, spin, dt);
             }
         }
 
         // Отрисовать ItemStack в точке (локальные смещения от игрока)
-        void DrawItem(EntityPlayer ply, Vec3d cam, ItemStack stack, double lx, double ly, double lz, float scale, float spinDeg)
+        void DrawItem(EntityPlayer ply, Vec3d cam, ItemStack stack, double lx, double ly, double lz, float scale, float spinDeg, float dt)
         {
             IRenderAPI rpi = capi.Render;
             double wx = ply.Pos.X + lx, wy = ply.Pos.Y + ly, wz = ply.Pos.Z + lz;
-            bool isBlock = stack.Class == EnumItemClass.Block;
+
+            renderSlot.Itemstack = stack;
+            ItemRenderInfo ri = rpi.GetItemStackRenderInfo(renderSlot, EnumItemRenderTarget.Ground, dt);
+            if (ri?.ModelRef == null) return;
 
             // Общая матрица: меш в [0..1], крутим и масштабируем вокруг центра
             float[] model = itemMat
@@ -151,50 +156,20 @@ namespace BotaniaStory.client.renderers
                 .Translate(-0.5f, -0.5f, -0.5f)
                 .Values;
 
-            if (isBlock)
-            {
-                // Блоки - инвентарным мешем: учитывает атрибуты (полки) и инвентарную форму
-                // (полная кровать/корыто вместо мирового обрубка одной клетки)
-                ItemRenderInfo ri = rpi.GetItemStackRenderInfo(new DummySlot(stack), EnumItemRenderTarget.Ground, 0f);
-                if (ri?.ModelRef == null) return;
+            IStandardShaderProgram prog = rpi.PreparedStandardShader((int)wx, (int)wy, (int)wz);
+            prog.Use();
+            prog.RgbaTint = new Vec4f(1, 1, 1, 1);
+            prog.ExtraGlow = 0;
+            prog.AlphaTest = ri.AlphaTest;
+            prog.NormalShaded = ri.NormalShaded ? 1 : 0;
+            prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
+            prog.ViewMatrix = rpi.CameraMatrixOriginf;
+            prog.ModelMatrix = model;
 
-                IStandardShaderProgram prog = rpi.PreparedStandardShader((int)wx, (int)wy, (int)wz);
-                prog.Use();
-                prog.RgbaTint = new Vec4f(1, 1, 1, 1);
-                prog.ExtraGlow = 0;
-                prog.AlphaTest = ri.AlphaTest;
-                prog.NormalShaded = ri.NormalShaded ? 1 : 0;
-                prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-                prog.ViewMatrix = rpi.CameraMatrixOriginf;
-                prog.ModelMatrix = model;
-
-                rpi.GlDisableCullFace();
-                rpi.RenderMultiTextureMesh(ri.ModelRef, "tex");
-                rpi.GlEnableCullFace();
-                prog.Stop();
-                return;
-            }
-
-            // Предметы - прежним проверенным путём (Tesselate + BindTexture2d + RenderMesh)
-            string key = "i-" + stack.Id;
-            if (!itemMeshCache.TryGetValue(key, out MeshRef meshRef))
-            {
-                capi.Tesselator.TesselateItem(stack.Item, out MeshData md);
-                if (md == null) return;
-                meshRef = capi.Render.UploadMesh(md);
-                itemMeshCache[key] = meshRef;
-            }
-
-            IStandardShaderProgram iprog = rpi.PreparedStandardShader((int)wx, (int)wy, (int)wz);
-            iprog.Use();
-            iprog.RgbaTint = new Vec4f(1, 1, 1, 1);
-            iprog.ExtraGlow = 0;
-            iprog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
-            iprog.ViewMatrix = rpi.CameraMatrixOriginf;
-            iprog.ModelMatrix = model;
-            rpi.BindTexture2d(capi.ItemTextureAtlas.AtlasTextures[0].TextureId);
-            rpi.RenderMesh(meshRef);
-            iprog.Stop();
+            rpi.GlDisableCullFace();
+            rpi.RenderMultiTextureMesh(ri.ModelRef, "tex");
+            rpi.GlEnableCullFace();
+            prog.Stop();
         }
 
         // меш кольца
@@ -269,8 +244,6 @@ namespace BotaniaStory.client.renderers
             ringRef?.Dispose();
             glowTex?.Dispose();
             glowTexAuto?.Dispose();
-            foreach (MeshRef mr in itemMeshCache.Values) mr?.Dispose();
-            itemMeshCache.Clear();
             GC.SuppressFinalize(this);
         }
     }

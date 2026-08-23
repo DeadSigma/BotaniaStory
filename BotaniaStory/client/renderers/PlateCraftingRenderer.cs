@@ -1,6 +1,6 @@
 using BotaniaStory.blockentity;
-using OpenTK.Graphics.OpenGL;
 using System;
+using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -17,8 +17,8 @@ namespace BotaniaStory.client.renderers
         private LoadedTexture particleTexture;
         public Matrixf ModelMat = new Matrixf();
 
-        private MeshRef[] itemMeshRefs = new MeshRef[3];
-        private ItemStack[] lastRenderedStacks = new ItemStack[3];
+        // Переиспользуемый слот для GetItemStackRenderInfo (без аллокаций каждый кадр)
+        private readonly DummySlot renderSlot = new DummySlot();
 
         private float currentProgress = 0f;
         private float rotationAngle = 0f;
@@ -35,7 +35,7 @@ namespace BotaniaStory.client.renderers
             public float Life;
             public float MaxLife;
         }
-        private System.Collections.Generic.List<ExplosionParticle> explosionParticles = new System.Collections.Generic.List<ExplosionParticle>();
+        private List<ExplosionParticle> explosionParticles = new List<ExplosionParticle>();
 
         // Метод генерации искр
         public void TriggerExplosion()
@@ -100,97 +100,72 @@ namespace BotaniaStory.client.renderers
 
             IClientPlayer player = capi.World.Player;
             Vec3d camPos = player.Entity.CameraPos;
+            IRenderAPI rpi = capi.Render;
 
-            IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)pos.X, (int)pos.Y, (int)pos.Z);
-
-            // ================
+            IStandardShaderProgram prog = rpi.PreparedStandardShader((int)pos.X, (int)pos.Y, (int)pos.Z);
             // 1. РЕНДЕР ПРЕДМЕТОВ (ВСЕГДА, ЕСЛИ ОНИ ЕСТЬ)
-            // ================
             if (hasItems)
             {
                 // Настройки для плотных физических предметов
-                GL.DepthMask(true);
-                capi.Render.GlToggleBlend(true, EnumBlendMode.Standard);
+                rpi.GLDepthMask(true);
+                rpi.GlToggleBlend(true, EnumBlendMode.Standard);
 
                 for (int i = 0; i < 3; i++)
                 {
                     ItemSlot slot = plate.inventory[i];
-                    if (slot.Empty)
-                    {
-                        itemMeshRefs[i]?.Dispose();
-                        itemMeshRefs[i] = null;
-                        lastRenderedStacks[i] = null;
-                        continue;
-                    }
+                    if (slot.Empty) continue;
 
-                    if (lastRenderedStacks[i] != slot.Itemstack)
-                    {
-                        itemMeshRefs[i]?.Dispose();
-                        // Тесселируем модель предмета
-                        capi.Tesselator.TesselateItem(slot.Itemstack.Item, out MeshData mesh);
-                        itemMeshRefs[i] = capi.Render.UploadMesh(mesh);
-                        lastRenderedStacks[i] = slot.Itemstack;
-                    }
+                    renderSlot.Itemstack = slot.Itemstack;
+                    ItemRenderInfo ri = rpi.GetItemStackRenderInfo(renderSlot, EnumItemRenderTarget.Ground, deltaTime);
+                    if (ri?.ModelRef == null) continue;
 
-                    if (itemMeshRefs[i] != null)
-                    {
-                        // Умный выбор атласа: если предмет это блок, берем атлас блоков. Иначе - атлас предметов.
-                        int atlasId = slot.Itemstack.Class == EnumItemClass.Block
-                            ? capi.BlockTextureAtlas.AtlasTextures[0].TextureId
-                            : capi.ItemTextureAtlas.AtlasTextures[0].TextureId;
+                    // Замедлили полет по кругу
+                    float offsetAngle = (rotationAngle * 0.15f) + (i * (float)(Math.PI * 2 / 3));
+                    float itemRadius = 0.4f;
 
-                        // ЖЕСТКО сбрасываем активный слот текстуры на 0 перед применением
-                        GL.ActiveTexture(TextureUnit.Texture0);
-                        capi.Render.BindTexture2d(atlasId);
+                    double ix = pos.X + 0.5 + Math.Sin(offsetAngle) * itemRadius;
+                    // Плавное покачивание вверх-вниз (асинхронно за счет + i * 2f)
+                    double iy = pos.Y + 0.65 + Math.Sin(rotationAngle * 0.8f + (i * 2f)) * 0.04;
+                    double iz = pos.Z + 0.5 + Math.Cos(offsetAngle) * itemRadius;
 
-                        // Замедлили полет по кругу (умножение на 0.3f)
-                        float offsetAngle = (rotationAngle * 0.15f) + (i * (float)(Math.PI * 2 / 3));
-                        float itemRadius = 0.4f;
+                    // Обычный, плотный цвет без свечения
+                    prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
+                    prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
+                    prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
+                    prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
+                    prog.ExtraGlow = 0;
+                    prog.AlphaTest = ri.AlphaTest;
+                    prog.NormalShaded = ri.NormalShaded ? 1 : 0;
 
-                        double ix = pos.X + 0.5 + Math.Sin(offsetAngle) * itemRadius;
-                        // Плавное покачивание вверх-вниз (асинхронно за счет + i * 2f)
-                        double iy = pos.Y + 0.65 + Math.Sin(rotationAngle * 0.8f + (i * 2f)) * 0.04;
-                        double iz = pos.Z + 0.5 + Math.Cos(offsetAngle) * itemRadius;
+                    ModelMat.Identity();
+                    ModelMat.Translate(ix - camPos.X, iy - camPos.Y, iz - camPos.Z);
 
-                        // Обычный, плотный цвет без свечения
-                        prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
-                        prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
-                        prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
-                        prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
-                        prog.ExtraGlow = 0;
+                    // Вращаем предмет вокруг своей оси
+                    ModelMat.RotateY(rotationAngle * 0.5f + i);
+                    ModelMat.Scale(0.75f, 0.75f, 0.75f);
 
-                        ModelMat.Identity();
-                        ModelMat.Translate(ix - camPos.X, iy - camPos.Y, iz - camPos.Z);
+                    // Сдвигаем меш предмета так, чтобы его физический центр совпадал с орбитой
+                    ModelMat.Translate(-0.5f, -0.5f, -0.5f);
 
-                        // Вращаем предмет вокруг своей оси
-                        ModelMat.RotateY(rotationAngle * 0.5f + i);
-                        ModelMat.Scale(0.75f, 0.75f, 0.75f);
+                    prog.ModelMatrix = ModelMat.Values;
+                    prog.ViewMatrix = rpi.CameraMatrixOriginf;
+                    prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
 
-                        // ВОТ ЭТА СТРОЧКА ИСПРАВЛЯЕТ ТРАЕКТОРИЮ: 
-                        // Сдвигаем меш предмета так, чтобы его физический центр совпадал с орбитой
-                        ModelMat.Translate(-0.5f, -0.5f, -0.5f);
-
-                        prog.ModelMatrix = ModelMat.Values;
-                        prog.ViewMatrix = capi.Render.CameraMatrixOriginf;
-                        prog.ProjectionMatrix = capi.Render.CurrentProjectionMatrix;
-
-                        capi.Render.RenderMesh(itemMeshRefs[i]);
-                    }
+                    rpi.GlDisableCullFace();
+                    rpi.RenderMultiTextureMesh(ri.ModelRef, "tex");
+                    rpi.GlEnableCullFace();
                 }
             }
 
-            // ================
-            // 2. РЕНДЕР МАГИИ (ПУЧКИ И ВЗРЫВ)
-            // ================
+            // 2. РЕНДЕР ПУЧКИ И ВЗРЫВ
             if (currentProgress > 0 || explosionParticles.Count > 0)
             {
-                // Настройки для светящейся, полупрозрачной маны
-                // Жестко сбрасываем слот на 0 для магических частиц
-                GL.ActiveTexture(TextureUnit.Texture0);
-                capi.Render.BindTexture2d(particleTexture.TextureId);
-                prog.Uniform("alphaTest", 0f);
-                capi.Render.GlToggleBlend(true, EnumBlendMode.Glow);
-                GL.DepthMask(false); // Отключаем глубину, чтобы шарики сливались друг с другом
+                prog.Tex2D = particleTexture.TextureId;
+                prog.AlphaTest = 0f;
+                prog.NormalShaded = 0;
+
+                rpi.GlToggleBlend(true, EnumBlendMode.Glow);
+                rpi.GLDepthMask(false); // Отключаем запись глубины, чтобы шарики сливались друг с другом
 
                 // ОТРИСОВКА КЛАСТЕРОВ МАНЫ
                 if (currentProgress > 0)
@@ -231,10 +206,10 @@ namespace BotaniaStory.client.renderers
                             ModelMat.Scale(size, size, size);
 
                             prog.ModelMatrix = ModelMat.Values;
-                            prog.ViewMatrix = capi.Render.CameraMatrixOriginf;
-                            prog.ProjectionMatrix = capi.Render.CurrentProjectionMatrix;
+                            prog.ViewMatrix = rpi.CameraMatrixOriginf;
+                            prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
 
-                            capi.Render.RenderMesh(quadMeshRef);
+                            rpi.RenderMesh(quadMeshRef);
                         }
                     }
                 }
@@ -275,27 +250,28 @@ namespace BotaniaStory.client.renderers
                     ModelMat.Scale(currentSize, currentSize, currentSize);
 
                     prog.ModelMatrix = ModelMat.Values;
-                    capi.Render.RenderMesh(quadMeshRef);
+                    prog.ViewMatrix = rpi.CameraMatrixOriginf;
+                    prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
+
+                    rpi.RenderMesh(quadMeshRef);
                 }
             }
 
-            // ================
             // 3. ЗАВЕРШЕНИЕ РЕНДЕРА (СБРОС НАСТРОЕК)
-            // ================
             prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
             prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
             prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
             prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
             prog.Stop();
 
-            GL.DepthMask(true); // Обязательно возвращаем глубину для остального мира
-            capi.Render.GlToggleBlend(false, EnumBlendMode.Standard);
+            rpi.GLDepthMask(true); // Обязательно возвращаем запись глубины для остального мира
+            rpi.GlToggleBlend(false, EnumBlendMode.Standard);
         }
 
         public void Dispose()
         {
             quadMeshRef?.Dispose();
-
+            particleTexture?.Dispose();
         }
     }
 }

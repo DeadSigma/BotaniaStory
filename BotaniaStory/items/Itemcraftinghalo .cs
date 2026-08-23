@@ -260,7 +260,7 @@ namespace BotaniaStory.items
             int outIdx = grid.Count - 1;                 // последний слот сетки = результат
             ItemStack output = grid[outIdx]?.Itemstack;
 
-            // Если результата нет — выходим без лишних сообщений об ошибке
+            // Если результата нет - выходим без лишних сообщений об ошибке
             if (output == null)
             {
                 return false;
@@ -282,7 +282,7 @@ namespace BotaniaStory.items
             (capi.Network.GetChannel("botanianetwork") as IClientNetworkChannel)
                 ?.SendPacket(new HaloRecipePacket() { Segment = -1, Data = SerializeTree(tree) });
 
-            // ВЫВОДИМ УВЕДОМЛЕНИЕ ОБ УСПЕХЕ (с использованием локализации, как настраивали ранее)
+            // Вывод уведомления об успешной записи рецепта. 
             capi.TriggerIngameError(capi, "halo", Lang.Get("botaniastory:error-halo-saved"));
 
             return true;

@@ -15,6 +15,7 @@ namespace BotaniaStory.client.renderers
         private LoadedTexture[] textures = new LoadedTexture[5];
         private Matrixf ModelMat = new Matrixf();
 
+        private static readonly float GlowContribution = 0f;
         public List<PylonParticle> Particles = new List<PylonParticle>();
 
         public double RenderOrder => 0.5;
@@ -29,13 +30,12 @@ namespace BotaniaStory.client.renderers
 
         private void LoadGraphics()
         {
-            // Загружаем 4 текстуры искр
             for (int i = 0; i < 4; i++)
             {
                 textures[i] = new LoadedTexture(capi);
                 capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", $"textures/particle/pylon_particle_{i}.png"), ref textures[i]);
             }
-            // Загружаем текстуру виспа (портала)
+
             textures[4] = new LoadedTexture(capi);
             capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/particle/mana_particle.png"), ref textures[4]);
 
@@ -44,125 +44,127 @@ namespace BotaniaStory.client.renderers
             quadMeshRef = capi.Render.UploadMesh(quad);
         }
 
+        /// <summary>
+        /// Физика - один раз за кадр. Раньше она была внутри цикла по 5 текстурам, то есть все частицы старели и разгонялись в 5 раз быстрее нужного.
+        /// </summary>
+        private void UpdateParticles(float deltaTime)
+        {
+            for (int i = Particles.Count - 1; i >= 0; i--)
+            {
+                var p = Particles[i];
+
+                p.Life -= deltaTime;
+                if (p.Life <= 0)
+                {
+                    Particles.RemoveAt(i);
+                    continue;
+                }
+
+                p.Position.X += p.Velocity.X * deltaTime;
+                p.Position.Y += p.Velocity.Y * deltaTime;
+                p.Position.Z += p.Velocity.Z * deltaTime;
+
+                // Искры (бенгальский огонь) быстро тормозят, магия (виспы) - почти нет
+                double drag = p.TextureIndex != 4 ? 1.5 : 0.1;
+                double factor = 1.0 - drag * deltaTime;
+                if (factor < 0) factor = 0;
+
+                p.Velocity.X *= factor;
+                p.Velocity.Y *= factor;
+                p.Velocity.Z *= factor;
+            }
+        }
+
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
+            if (stage != EnumRenderStage.Opaque) return;
+
+            UpdateParticles(deltaTime);
             if (Particles.Count == 0) return;
 
             IClientPlayer player = capi.World.Player;
+            if (player?.Entity == null) return;
+
             Vec3d camPos = player.Entity.CameraPos;
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
 
-            prog.Uniform("alphaTest", 0.05f);
+            prog.AlphaTest = 0.05f;
             prog.NormalShaded = 0;
-            capi.Render.GlToggleBlend(true, EnumBlendMode.Glow);
-            GL.DepthMask(false); // Отключаем глубину для светящегося эффекта
+            prog.ViewMatrix = capi.Render.CameraMatrixOriginf;
+            prog.ProjectionMatrix = capi.Render.CurrentProjectionMatrix;
 
-            // Группируем рендер по текстурам для оптимизации
+            capi.Render.GlToggleBlend(true, EnumBlendMode.Glow);
+            GL.DepthMask(false);
+
+            Vec4f glowOut = new Vec4f(0f, 0f, 0f, 0f);
+
             for (int texIndex = 0; texIndex < 5; texIndex++)
             {
-                if (textures[texIndex] == null || textures[texIndex].TextureId == 0) continue;
+                LoadedTexture tex = textures[texIndex];
+                if (tex == null || tex.TextureId == 0) continue;
 
                 bool textureBound = false;
 
-                // ===============
-                // 1. ИЗОЛИРОВАННАЯ ФИЗИКА
-                // ===============
-                for (int i = Particles.Count - 1; i >= 0; i--)
+                for (int i = 0; i < Particles.Count; i++)
                 {
                     var p = Particles[i];
-                    p.Life -= deltaTime;
+                    if (p.TextureIndex != texIndex) continue;
 
-                    if (p.Life <= 0)
+                    if (!textureBound)
                     {
-                        Particles.RemoveAt(i);
-                        continue;
+                        capi.Render.BindTexture2d(tex.TextureId);
+                        textureBound = true;
                     }
 
-                    p.Position.X += p.Velocity.X * deltaTime;
-                    p.Position.Y += p.Velocity.Y * deltaTime;
-                    p.Position.Z += p.Velocity.Z * deltaTime;
+                    float curve = (float)Math.Sin(p.LifeRatio * Math.PI);
+                    float alpha = p.Color.A * curve;
+                    Vec4f renderColor = new Vec4f(p.Color.X, p.Color.Y, p.Color.Z, alpha);
 
-                    // ВОТ ЗДЕСЬ РАЗДЕЛЯЕМ ФИЗИКУ:
-                    if (p.TextureIndex != 4)
+                    prog.RgbaAmbientIn = new Vec3f(renderColor.X, renderColor.Y, renderColor.Z);
+                    prog.RgbaLightIn = renderColor;
+                    prog.RgbaTint = renderColor;
+
+                    if (GlowContribution > 0f)
                     {
-                        // Искры (бенгальский огонь) быстро тормозят
-                        p.Velocity.X *= 1.0 - (1.5 * deltaTime);
-                        p.Velocity.Y *= 1.0 - (1.5 * deltaTime);
-                        p.Velocity.Z *= 1.0 - (1.5 * deltaTime);
+                        glowOut.Set(renderColor.X, renderColor.Y, renderColor.Z, alpha * GlowContribution);
+                    }
+                    prog.RgbaGlowIn = glowOut;
+
+                    ModelMat.Identity();
+                    ModelMat.Translate(p.Position.X - camPos.X, p.Position.Y - camPos.Y, p.Position.Z - camPos.Z);
+                    ModelMat.RotateY(player.CameraYaw);
+                    ModelMat.RotateX(player.CameraPitch);
+
+                    float currentSize;
+                    if (p.ShrinkOnDeath)
+                    {
+                        currentSize = p.Size * curve;
                     }
                     else
                     {
-                        // Магия (виспы) почти не испытывает сопротивления
-                        p.Velocity.X *= 1.0 - (0.1 * deltaTime);
-                        p.Velocity.Y *= 1.0 - (0.1 * deltaTime);
-                        p.Velocity.Z *= 1.0 - (0.1 * deltaTime);
+                        float age = 1.0f - p.LifeRatio;
+                        float growFactor = Math.Min(1.0f, age * 5.0f);
+                        currentSize = p.Size * growFactor;
                     }
 
-                if (p.Life <= 0)
-                    {
-                        if (texIndex == 0) Particles.RemoveAt(i);
-                        continue;
-                    }
+                    ModelMat.Scale(currentSize, currentSize, currentSize);
+                    prog.ModelMatrix = ModelMat.Values;
 
-                    // Отрисовываем только если индекс совпадает с текущим проходом
-                    if (p.TextureIndex == texIndex)
-                    {
-                        if (!textureBound)
-                        {
-                            GL.ActiveTexture(TextureUnit.Texture0);
-                            capi.Render.BindTexture2d(textures[texIndex].TextureId);
-                            textureBound = true;
-                        }
-
-                        // Синусоида для прозрачности (плавно появляется и плавно исчезает)
-                        float curve = (float)Math.Sin(p.LifeRatio * Math.PI);
-                        float alpha = p.Color.A * curve;
-                        Vec4f renderColor = new Vec4f(p.Color.X, p.Color.Y, p.Color.Z, alpha);
-
-                        prog.RgbaAmbientIn = new Vec3f(renderColor.X, renderColor.Y, renderColor.Z);
-                        prog.RgbaLightIn = renderColor;
-                        prog.RgbaGlowIn = renderColor;
-                        prog.RgbaTint = renderColor;
-
-                        ModelMat.Identity();
-                        ModelMat.Translate(p.Position.X - camPos.X, p.Position.Y - camPos.Y, p.Position.Z - camPos.Z);
-                        ModelMat.RotateY(player.CameraYaw);
-                        ModelMat.RotateX(player.CameraPitch);
-
-                        // === НОВАЯ ЛОГИКА РАЗМЕРА ===
-                        float currentSize;
-                        if (p.ShrinkOnDeath)
-                        {
-                            // Спираль: вырастает и сжимается
-                            currentSize = p.Size * curve;
-                        }
-                        else
-                        {
-                            // Ядро: быстро вырастает за первые 20% жизни и остается большим до исчезновения
-                            float age = 1.0f - p.LifeRatio; // от 0.0 (рождение) до 1.0 (смерть)
-                            float growFactor = Math.Min(1.0f, age * 5.0f);
-                            currentSize = p.Size * growFactor;
-                        }
-
-                        ModelMat.Scale(currentSize, currentSize, currentSize);
-
-                        prog.ModelMatrix = ModelMat.Values;
-                        prog.ViewMatrix = capi.Render.CameraMatrixOriginf;
-                        prog.ProjectionMatrix = capi.Render.CurrentProjectionMatrix;
-
-                        capi.Render.RenderMesh(quadMeshRef);
-                    }
+                    capi.Render.RenderMesh(quadMeshRef);
                 }
             }
 
-            // Моем кисточки
             prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
             prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
             prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
             prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
+            prog.ExtraGlow = 0;
+            prog.NormalShaded = 1;
+            prog.AlphaTest = 0.05f;
             prog.Stop();
 
             GL.DepthMask(true);
+            capi.Render.GlToggleBlend(true, EnumBlendMode.Standard);
             capi.Render.GlToggleBlend(false, EnumBlendMode.Standard);
         }
 
@@ -171,6 +173,7 @@ namespace BotaniaStory.client.renderers
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
             quadMeshRef?.Dispose();
             foreach (var t in textures) t?.Dispose();
+            Particles.Clear();
         }
     }
 }

@@ -76,8 +76,8 @@ namespace BotaniaStory.blockentity
             if (api is ICoreClientAPI capi)
             {
                 renderer = new RunicAltarRenderer(Pos, capi, this);
-                capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "runicaltar-render");
-                capi.Event.RegisterRenderer(renderer, EnumRenderStage.AfterOIT, "runicaltar-render-glow");
+               capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "runicaltar-render");
+               capi.Event.RegisterRenderer(renderer, EnumRenderStage.AfterOIT, "runicaltar-render-glow");
                 renderer.UpdateMeshes();
                 RegisterGameTickListener(SpawnIdleParticles, 50);
             }
@@ -506,12 +506,24 @@ namespace BotaniaStory.blockentity
             for (int i = 0; i < count; i++) renderer?.AddLightning(startPos);
         }
 
-        
+
 
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
+            DisposeRenderer();
+        }
+
+        public override void OnBlockUnloaded()  
+        {
+            base.OnBlockUnloaded();
+            DisposeRenderer();
+        }
+
+        private void DisposeRenderer()
+        {
             renderer?.Dispose();
+            renderer = null;
         }
 
         public override void OnBlockBroken(IPlayer byPlayer = null)
