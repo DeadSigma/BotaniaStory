@@ -2,48 +2,51 @@
     "code": "enchantedsoil",
     "class": "Block",
     "creativeinventory": {
-        "general": [ "*" ],
-        "botaniastory": [ "*" ]
+        "general": [ "enchantedsoil" ],
+        "flora": [ "enchantedsoil" ],
+        "terrain": [ "enchantedsoil" ]
     },
-    "shape": { "base": "game:block/basic/cube" },
-    "drawtype": "cube",
-    "renderpass": "Opaque",
+    "shape": { "base": "block/basic/cube" },
+    "drawtype": "Cube",
     "blockmaterial": "Soil",
-
     "textures": {
-        "top": { "base": "botaniastory:block/enchantedsoil-top" },
-        "bottom": { "base": "game:block/soil/fertmedium" },
-        "sides": { "base": "botaniastory:block/enchantedsoil-side" }
+        "up": { "base": "botaniastory:block/grasstop" },
+        "down": { "base": "game:block/fertmedium" },
+        "north": { "base": "botaniastory:block/grass-side" },
+        "east": { "base": "botaniastory:block/grass-side" },
+        "south": { "base": "botaniastory:block/grass-side" },
+        "west": { "base": "botaniastory:block/grass-side" }
     },
-
     "attributes": {
         "mapColorCode": "land",
+        "ignoreTintInventory": true,
+        "growthBlockLayer": "l1soilwithgrass",
+        "growthLightLevel": 7,
         "preventsDecay": true
     },
 
-    "frostable": false,
+    "climateColorMap": "climatePlantTint",
+    "seasonColorMap": "seasonalGrass",
+
     "replaceable": 400,
-    "fertility": 0,
+    "fertility": 300,
     "resistance": 1.8,
-
     "sounds": {
-        "place": "game:block/dirt",
-        "break": "game:block/dirt",
-        "hit": "game:block/dirt",
-        "walk": "game:walk/grass"
+        "place": "block/dirt",
+        "break": "block/dirt",
+        "hit": "block/dirt",
+        "walk": "walk/grass"
     },
-
     "drops": [
         {
             "type": "block",
-            "code": "botaniastory:enchantedsoil",
+            "code": "enchantedsoil",
             "quantity": {
                 "avg": 1,
                 "var": 0
             }
         }
     ],
-
     "heldTpIdleAnimation": "holdbothhandslarge",
     "heldRightReadyAnimation": "heldblockready",
     "heldTpUseAnimation": "twohandplaceblock",

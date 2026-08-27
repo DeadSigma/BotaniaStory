@@ -6,20 +6,16 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
-// IDE0130: Пространство имен приведено в соответствие с папкой "util"
 namespace BotaniaStory.util
 {
     public class AiTaskGaiaLightning : AiTaskBase
     {
-        // ===== НАСТРОЙКИ БАЛАНСА (можно задавать в JSON сущности) =====
 
-        // IDE0044: Поля сделаны readonly, так как они изменяются только в конструкторе
         private readonly int cooldownMs = 8000;
         private readonly float damage = 1f;
         private readonly float range = 15f;
         private readonly int wallPenetration = 2;
 
-        // =====================
 
         private long lastStrikeMs;
         private int rotationIndex = 0;
@@ -77,12 +73,12 @@ namespace BotaniaStory.util
             int wallBlocks = CountBlockingBlocks(startPos, endPos);
             if (wallBlocks <= wallPenetration)
             {
-                // IDE0090: Упрощенное выражение new
                 DamageSource dmgSource = new()
                 {
                     Source = EnumDamageSource.Entity,
                     SourceEntity = entity,
-                    Type = EnumDamageType.Electricity
+                    Type = EnumDamageType.BluntAttack,
+                    DamageTier = 3
                 };
                 target.ReceiveDamage(dmgSource, damage);
             }

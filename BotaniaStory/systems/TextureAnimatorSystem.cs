@@ -8,7 +8,7 @@ namespace BotaniaStory.systems
 {
     public class TextureAnimatorSystem : ModSystem, IRenderer
     {
-        private const bool DebugGl = false;
+        private readonly bool DebugGl = false;
 
         private ICoreClientAPI capi;
 

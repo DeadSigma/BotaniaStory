@@ -58,7 +58,7 @@ namespace BotaniaStory.lexicon
                 );
             }
 
-            // === СЛАЙД-ШОУ ===
+            //СЛАЙД-ШОУ
             if (iconStacks != null && iconStacks.Length > 0)
             {
                 // api.World.ElapsedMilliseconds - время игры в миллисекундах. 

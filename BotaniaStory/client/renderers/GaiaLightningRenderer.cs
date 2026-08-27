@@ -37,7 +37,7 @@ namespace BotaniaStory.client.renderers
             cubeMeshRef = capi.Render.UploadMesh(cubeData);
 
             // Свечение рисуем на стадии AfterOIT (как кубы/звезда у алтаря)
-            capi.Event.RegisterRenderer(this, EnumRenderStage.AfterOIT);
+           capi.Event.RegisterRenderer(this, EnumRenderStage.AfterOIT);
         }
 
         // Вызывается из обработчика пакета: бьём из центра Гайи (start) в центр игрока (end)

@@ -11,19 +11,17 @@ namespace BotaniaStory.blockentity
         public float TimerProgress = 0f;
         public string SandBlockCode = "";
 
-        // Новые переменные для переворота
         public bool IsFlipping = false;
         public float FlipProgress = 0f;
 
-        private long tickListenerId;
         private client.renderers.HourglassRenderer renderer;
 
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
 
-            // Тикает и на сервере, и на клиенте (для идеальной плавности)
-            tickListenerId = api.Event.RegisterGameTickListener(OnTick, 50);
+            // собственный RegisterGameTickListener блок-энтити, а НЕ api.Event.
+            RegisterGameTickListener(OnTick, 50);
 
             if (api.Side == EnumAppSide.Client)
             {
@@ -35,6 +33,8 @@ namespace BotaniaStory.blockentity
         {
             if (SandCount <= 0) return;
 
+            bool isServer = Api.Side == EnumAppSide.Server;
+
             if (IsFlipping)
             {
                 // Анимация переворота длится 0.5 секунды
@@ -44,39 +44,33 @@ namespace BotaniaStory.blockentity
                     IsFlipping = false;
                     FlipProgress = 0f;
 
-                    if (Api.Side == EnumAppSide.Server)
+                    if (isServer)
                     {
-                        // ТУТ СРАБАТЫВАЕТ СИГНАЛ (ВЫБРОС ПРЕДМЕТА И Т.Д.)
-                        TriggerAdjacentDroppers(); // Вызываем наш новый метод
-
+                        TriggerAdjacentDroppers();
                         MarkDirty(true);
                     }
                 }
             }
             else
             {
-                // Обычное пересыпание песка
                 TimerProgress += dt / SandCount;
                 if (TimerProgress >= 1.0f)
                 {
                     TimerProgress = 0f;
-                    IsFlipping = true; // Запускаем переворот
+                    IsFlipping = true;
 
-                    if (Api.Side == EnumAppSide.Server) MarkDirty(true);
+                    if (isServer) MarkDirty(true);
                 }
             }
         }
 
-        // Ищем выбрасыватели вокруг часов и дёргаем их
         private void TriggerAdjacentDroppers()
         {
             foreach (BlockFacing facing in BlockFacing.ALLFACES)
             {
                 BlockPos adjPos = Pos.AddCopy(facing);
-                // Проверяем, является ли соседний блок выбрасывателем
                 if (Api.World.BlockAccessor.GetBlockEntity(adjPos) is BlockEntityMechanicalDropper dropper)
                 {
-                    // Подаем команду на выброс (внутри выбрасывателя проверится энергия)
                     dropper.DoDropFromHourglass();
                 }
             }
@@ -85,17 +79,16 @@ namespace BotaniaStory.blockentity
         public bool TryAddSand(ItemSlot slot)
         {
             if (SandCount >= 64) return false;
+            if (slot?.Itemstack == null) return false;
 
             string incomingCode = slot.Itemstack.Collectible.Code.ToString();
-            // Проверяем, что тип песка совпадает, если внутри уже что-то есть
             if (SandCount > 0 && SandBlockCode != incomingCode) return false;
 
             SandBlockCode = incomingCode;
 
-            // Считаем, сколько песка мы можем вместить
             int spaceLeft = 64 - SandCount;
-            // Берем минимальное значение: либо сколько осталось места, либо сколько есть в стаке
             int amountToAdd = System.Math.Min(spaceLeft, slot.StackSize);
+            if (amountToAdd <= 0) return false;
 
             SandCount += amountToAdd;
             slot.TakeOut(amountToAdd);
@@ -109,26 +102,22 @@ namespace BotaniaStory.blockentity
         {
             if (SandCount <= 0) return false;
 
-            // Восстанавливаем предмет из сохраненного кода
             AssetLocation loc = new AssetLocation(SandBlockCode);
             Block sandBlock = Api.World.GetBlock(loc);
-            Item sandItem = Api.World.GetItem(loc); // На случай, если это окажется предметом, а не блоком
+            Item sandItem = Api.World.GetItem(loc);
 
             ItemStack stackToGive = null;
             if (sandBlock != null) stackToGive = new ItemStack(sandBlock, SandCount);
             else if (sandItem != null) stackToGive = new ItemStack(sandItem, SandCount);
 
-            if (stackToGive != null)
+            if (stackToGive != null && Api.Side == EnumAppSide.Server)
             {
-                // Пытаемся дать песок в инвентарь игроку
                 if (!byPlayer.InventoryManager.TryGiveItemstack(stackToGive, true))
                 {
-                    // Если инвентарь полон, выбрасываем предмет в мир (рядом с блоком)
                     Api.World.SpawnItemEntity(stackToGive, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
                 }
             }
 
-            // Обнуляем данные часов
             SandCount = 0;
             TimerProgress = 0f;
             IsFlipping = false;
@@ -159,19 +148,25 @@ namespace BotaniaStory.blockentity
             tree.SetFloat("flipProgress", FlipProgress);
         }
 
+        // base.OnBlockRemoved() / base.OnBlockUnloaded() сами снимают тик-слушатели, зарегистрированные через RegisterGameTickListener этого BE.
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
-            if (tickListenerId != 0) Api.Event.UnregisterGameTickListener(tickListenerId);
-            if (Api.Side == EnumAppSide.Client) renderer?.Dispose();
-      
-       
+            renderer?.Dispose();
+            renderer = null;
         }
+
+        // Этого метода не хватало - при выгрузке чанка утекал и слушатель, и рендерер
+        public override void OnBlockUnloaded()
+        {
+            base.OnBlockUnloaded();
+            renderer?.Dispose();
+            renderer = null;
+        }
+
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            // Возвращаем true, ибо отрисовываем сами
             return true;
         }
     }
-
 }

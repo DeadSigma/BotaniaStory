@@ -53,7 +53,7 @@ namespace BotaniaStory.lexicon
             int mouseY = api.Input.MouseY;
             ItemStack hoveredStack = null;
 
-            // === 1. ВХОДНОЙ предмет (сверху по центру левой части) ===
+            //1. ВХОДНОЙ предмет (сверху по центру левой части)
             double inX = Bounds.renderX + Bounds.InnerWidth * 0.35;
             double inY = Bounds.renderY + Bounds.InnerHeight * 0.15;
 
@@ -68,7 +68,7 @@ namespace BotaniaStory.lexicon
                 if (CheckMouse(mouseX, mouseY, inAbsX, inAbsY, slotSize * 0.6f)) hoveredStack = inStack;
             }
 
-            // === 2.  ВЫХОДНОЙ предмет (справа по центру) ===
+            //2.  ВЫХОДНОЙ предмет (справа по центру)
             double outX = Bounds.renderX + Bounds.InnerWidth * 1.0;
             double outY = Bounds.renderY + Bounds.InnerHeight * 0.74;
 

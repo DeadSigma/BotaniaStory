@@ -141,8 +141,8 @@ namespace BotaniaStory.items
         private void SetupDialog()
         {
             string title = isBlacklist
-                ? Lang.Get("dialog-filter-blacklist")
-                : Lang.Get("dialog-filter-whitelist");
+                ? Lang.Get("botaniastory:dialog-filter-blacklist")
+                : Lang.Get("botaniastory:dialog-filter-whitelist");
 
             ElementBounds searchInputBounds = ElementBounds.Fixed(0, 40, 250, 30);
 
@@ -192,18 +192,18 @@ namespace BotaniaStory.items
                 .EndClip()
                 .AddVerticalScrollbar(OnSearchScroll, searchScrollbarBounds, "searchScrollbar")
 
-                .AddRichtext(Lang.Get("dialog-filter-added"), CairoFont.WhiteSmallText(), selectedTitleBounds)
+                .AddRichtext(Lang.Get("botaniastory:dialog-filter-added"), CairoFont.WhiteSmallText(), selectedTitleBounds)
                 .BeginClip(selectedClipBounds)
                     .AddItemSlotGrid(selectedInventory, (p) => { }, 5, selectedGridBounds, "selectedGrid")
                 .EndClip()
                 .AddVerticalScrollbar(OnSelectedScroll, selectedScrollbarBounds, "selectedScrollbar")
 
-                .AddRichtext(Lang.Get("dialog-filter-patterns"), CairoFont.WhiteSmallText(), patternTitleBounds)
+                .AddRichtext(Lang.Get("botaniastory:dialog-filter-patterns"), CairoFont.WhiteSmallText(), patternTitleBounds)
                 .AddInset(patternInsetBounds, 3)
                 .AddTextArea(patternInputBounds, OnPatternTextChanged, CairoFont.WhiteSmallText(), "patternInput")
 
-                .AddSmallButton(Lang.Get("dialog-filter-clear"), OnClickClear, clearBtnBounds)
-                .AddSmallButton(Lang.Get("dialog-filter-save"), OnClickSave, saveBtnBounds)
+                .AddSmallButton(Lang.Get("botaniastory:dialog-filter-clear"), OnClickClear, clearBtnBounds)
+                .AddSmallButton(Lang.Get("botaniastory:dialog-filter-save"), OnClickSave, saveBtnBounds)
                 .Compose();
 
             OnSearchTextChanged("");

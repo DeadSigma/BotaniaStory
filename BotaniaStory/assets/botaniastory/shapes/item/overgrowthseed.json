@@ -1,0 +1,94 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 16,
+	"textureHeight": 16,
+	"textureSizes": {
+		"overgrowthseed": [16, 16]
+	},
+	"textures": {
+		"overgrowthseed": "overgrowthseed"
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [6, 0, 6],
+			"to": [10, 4, 10],
+			"rotationOrigin": [8, 1, 8],
+			"faces": {
+				"north": {
+					"texture": "#overgrowthseed",
+					"uv": [0, 0, 4, 4],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#overgrowthseed",
+					"uv": [0, 0, 4, 4],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#overgrowthseed",
+					"uv": [0, 0, 4, 4],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#overgrowthseed",
+					"uv": [4, 0, 0, 4],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#overgrowthseed",
+					"uv": [4, 8, 0, 4],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#overgrowthseed",
+					"uv": [4, 0, 0, 4],
+					"autoUv": false
+				}
+			}
+		},
+		{
+			"name": "cube",
+			"from": [6.625, 3.125, 7.425],
+			"to": [7.775, 7.3, 8.575],
+			"rotationOrigin": [7.2, 4.3, 8],
+			"faces": {
+				"north": {
+					"texture": "#overgrowthseed",
+					"uv": [4, 0, 5, 4],
+					"autoUv": false
+				},
+				"east": {
+					"texture": "#overgrowthseed",
+					"uv": [4, 0, 5, 4],
+					"autoUv": false
+				},
+				"south": {
+					"texture": "#overgrowthseed",
+					"uv": [4, 0, 5, 4],
+					"autoUv": false
+				},
+				"west": {
+					"texture": "#overgrowthseed",
+					"uv": [4, 4, 5, 8],
+					"autoUv": false
+				},
+				"up": {
+					"texture": "#overgrowthseed",
+					"uv": [6, 1, 5, 0],
+					"autoUv": false
+				},
+				"down": {
+					"texture": "#overgrowthseed",
+					"uv": [6, 1, 5, 2],
+					"autoUv": false
+				}
+			},
+			"rotationZ": 30
+		}
+	],
+	"animations": []
+}

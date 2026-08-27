@@ -45,6 +45,8 @@ namespace BotaniaStory.blockentity
 
         private SpreaderCoreRenderer coreRenderer;
 
+        private MeshData baseMesh;
+
         public override void Initialize(ICoreAPI api)
 
 
@@ -75,24 +77,38 @@ namespace BotaniaStory.blockentity
         public void ReceiveMana(int amount)
         {
             CurrentMana += amount;
-            if (CurrentMana > MaxMana) CurrentMana = MaxMana; // Защита от переполнения
-            MarkDirty(true);
+            if (CurrentMana > MaxMana) CurrentMana = MaxMana;
+
+            // false - мана на модель не влияет, ретесселяция чанка тут не нужна
+            MarkDirty(false);
         }
 
         public int GetAvailableSpace()
         {
             return MaxMana - CurrentMana;
         }
-        // ВАЖНО: Не забываем удалять рендер, когда блок ломают!
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
+            DisposeRenderer();
+        }
 
+        public override void OnBlockUnloaded()
+        {
+            base.OnBlockUnloaded();
+            DisposeRenderer();
+        }
+
+        private void DisposeRenderer()
+        {
             if (Api is ICoreClientAPI capi && coreRenderer != null)
             {
                 capi.Event.UnregisterRenderer(coreRenderer, EnumRenderStage.Opaque);
                 coreRenderer.Dispose();
+                coreRenderer = null;
             }
+
+            baseMesh = null;
         }
 
         private void OnServerTick(float dt)
@@ -308,9 +324,7 @@ namespace BotaniaStory.blockentity
             if (isBlocked) return;
 
 
-            // 
             // 4. СОЗДАНИЕ И ЗАПУСК СГУСТКА МАНЫ
-            // 
             // НАХОДИМ ТИП СУЩНОСТИ "manaburst"
             EntityProperties type = Api.World.GetEntityType(new AssetLocation("botaniastory", "manaburst"));
             if (type == null) return;
@@ -322,6 +336,7 @@ namespace BotaniaStory.blockentity
 
             //НАСТРОЙКА ДАЛЬНОСТИ ПОЛЕТА
             burstEntity.WatchedAttributes.SetDouble("maxDist", 8.0);
+            burstEntity.WatchedAttributes.SetInt("burstColor", 0x20FF20);
 
             // 1. СТАВИМ В ЦЕНТР ДУЛА (Обязательно обновляем Pos, иначе движок удалит сущность!)
             // Переменную startPos мы уже создали выше, используем её
@@ -333,10 +348,12 @@ namespace BotaniaStory.blockentity
             burstEntity.WatchedAttributes.SetDouble("startY", startPos.Y);
             burstEntity.WatchedAttributes.SetDouble("startZ", startPos.Z);
 
-            // 2. ЗАДАЕМ СКОРОСТЬ (direction тоже уже просчитан выше, экономим ресурсы)
-            double motionX = direction.X * 0.15;
-            double motionY = direction.Y * 0.15;
-            double motionZ = direction.Z * 0.15;
+            // блоки в секунду, а не за тик - иначе клиент и сервер разъезжаются на низком FPS
+            const double burstSpeed = 4.5;
+
+            double motionX = direction.X * burstSpeed;
+            double motionY = direction.Y * burstSpeed;
+            double motionZ = direction.Z * burstSpeed;
 
             // Обновляем и локальную, и серверную скорость
             burstEntity.Pos.Motion.Set(motionX, motionY, motionZ);
@@ -431,32 +448,34 @@ namespace BotaniaStory.blockentity
         // 
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            // Загружаем 3D модель
-            AssetLocation shapeLoc = new AssetLocation("botaniastory", "shapes/block/manaspreader.json");
-            Shape shape = Api.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
+            // берем локальную ссылку, поле могут обнулить из главного потока
+            MeshData source = baseMesh;
 
-            if (shape != null)
+            if (source == null)
             {
-                MeshData mesh;
-                tesselator.TesselateShape(Block, shape, out mesh);
+                AssetLocation shapeLoc = new AssetLocation("botaniastory", "shapes/block/manaspreader.json");
+                Shape shape = Api.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
 
-                // Создаем правильную матрицу вращения
-                Matrixf matrix = new Matrixf();
+                // шейп не загрузился - отдаем отрисовку игре, иначе блок станет невидимым
+                if (shape == null) return false;
 
-                // Цепочка трансформаций: сдвигаем в центр -> крутим -> возвращаем обратно
-                matrix.Translate(0.5f, 0.5f, 0.5f)
-                      .RotateY(Yaw)
-                      .RotateX(Pitch)
-                      .Translate(-0.5f, -0.5f, -0.5f);
+                tesselator.TesselateShape(Block, shape, out source);
+                if (source == null) return false;
 
-                // Применяем вращение к сетке блока (используем внутренний массив .Values)
-                mesh.MatrixTransform(matrix.Values);
-
-                // Добавляем  повернутую модель в мир
-                mesher.AddMeshData(mesh);
+                baseMesh = source;
             }
 
-            // Возвращаем false! Это скажет игре: "НЕ рисуй стандартный неподвижный блок из JSON, я нарисовал его сам!"
+            MeshData mesh = source.Clone();
+
+            Matrixf matrix = new Matrixf();
+            matrix.Translate(0.5f, 0.5f, 0.5f)
+                  .RotateY(Yaw)
+                  .RotateX(Pitch)
+                  .Translate(-0.5f, -0.5f, -0.5f);
+
+            mesh.MatrixTransform(matrix.Values);
+            mesher.AddMeshData(mesh);
+
             return true;
         }
         // 

@@ -1,36 +1,53 @@
 {
     "code": "enchantedfarmland",
     "class": "BlockFarmland",
-    "entityclass": "EnchantedFarmland",
-    "creativeinventory": {
-        "general": [ "*" ],
-        "flora": [ "*" ]
-    },
-
-    "shape": { "base": "game:block/basic/farmland" },
-    "drawtype": "cube",
-    "renderpass": "Opaque",
-    "blockmaterial": "Soil",
-
-    "textures": {
-        "top": { "base": "botaniastory:block/enchantedsoil-top" },
-        "bottom": { "base": "game:block/soil/fertmedium" },
-        "sides": { "base": "botaniastory:block/enchantedsoil-side" }
-    },
-
+    "entityClass": "EnchantedFarmland",
     "attributes": {
-        "mapColorCode": "land",
-        "preventsDecay": true
+        "mapColorCode": "settlement",
+        "debuffUnaffectedDrops": [ "seeds-*" ],
+        "liquidBarrierOnSides": [ 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 ],
+        "fertilizedSound": {
+            "sound": "block/dirt",
+            "range": 12
+        }
     },
-
-    "resistance": 1.5,
+    "variantgroups": [
+        {
+            "code": "state",
+            "states": [ "dry", "moist" ]
+        }
+    ],
+    "creativeinventory": {
+        "general": [ "enchantedfarmland-dry" ],
+        "flora": [ "enchantedfarmland-dry" ]
+    },
+    "shape": { "base": "game:block/basic/cube-lowered" },
+    "faceCullMode": "FlushExceptTop",
+    "blockmaterial": "Soil",
+    "textures": {
+        "up": { "base": "botaniastory:block/enchantedfarmland-top-{state}" },
+        "all": { "base": "botaniastory:block/enchantedfarmland_dirt" }
+    },
+    "replaceable": 900,
+    "fertilityByType": {
+        "*": 120
+    },
+    "resistance": 3.0,
     "sounds": {
-        "place": "game:block/dirt",
-        "break": "game:block/dirt",
-        "hit": "game:block/dirt",
-        "walk": "game:walk/grass"
+        "place": "block/dirt",
+        "break": "block/dirt",
+        "hit": "block/dirt",
+        "walk": "walk/grass"
     },
-
+    "sideopaque": {
+        "all": false,
+        "down": true
+    },
+    "sidesolid": {
+        "up": false,
+        "all": true
+    },
+    "drops": [],
     "collisionbox": {
         "x1": 0,
         "y1": 0,
@@ -47,15 +64,20 @@
         "y2": 0.9375,
         "z2": 1
     },
-
-    "drops": [
-        {
-            "type": "block",
-            "code": "botaniastory:enchantedsoil",
-            "quantity": {
-                "avg": 1,
-                "var": 0
-            }
-        }
-    ]
-}
+    "heldTpIdleAnimation": "holdbothhandslarge",
+    "heldRightReadyAnimation": "heldblockready",
+    "heldTpUseAnimation": "twohandplaceblock",
+    "tpHandTransform": {
+        "translation": {
+            "x": -1.23,
+            "y": -0.91,
+            "z": -0.8
+        },
+        "rotation": {
+            "x": -2,
+            "y": 25,
+            "z": -78
+        },
+        "scale": 0.4
+    }
+}   

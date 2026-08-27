@@ -1,4 +1,5 @@
 ﻿using BotaniaStory.blockentity;
+using BotaniaStory.client.renderers;
 using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -8,32 +9,51 @@ namespace BotaniaStory.entities
 {
     public class EntityManaBurst : Entity
     {
+
         public int ManaPayload = 0;
         public BlockPos SourcePos = null;
 
-        private Vec3d StartPos = null;
+        private Vec3d startPos = null;
+        private float aliveSeconds = 0f;
+
+        // позиция прошлого тика, из нее строится сплошной луч
+        private Vec3d prevTickPos = null;
+
+        // постоянная для конкретной искры добавка к толщине, в оригинале sin() от сида
+        private float burstJitter = float.NaN;
+
+        private float colorR = 0.125f, colorG = 1f, colorB = 0.125f;
+        private bool colorRead = false;
+
+        private bool impactSpawned = false;
+
+        // доля пути на которой искра держит полную толщину
+        private const float GraceFraction = 0.80f;
+
+        // потолок жизни искры, страховка от застрявших сущностей
+        private const float MaxLifeSeconds = 6f;
 
         public static bool IsManaPermeable(Block block)
         {
-            if (block == null || block.Code == null) return false;
+            if (block?.Code == null) return false;
+
             string path = block.Code.Path;
 
-            // managlass проверяем точным совпадением (если у него нет вариантов)
-            // а elvenglass проверяем по началу названия это охватит elvenglass_1, elvenglass_2 и любые другие
+            // managlass точным совпадением, elvenglass по началу названия
             return path == "managlass" || path.StartsWith("elvenglass");
         }
+
         public override void OnGameTick(float dt)
         {
             base.OnGameTick(dt);
 
-            double maxDistance = WatchedAttributes.GetDouble("maxDist", 8.0);
+            aliveSeconds += dt;
 
-            if (StartPos == null)
+            if (startPos == null)
             {
-                // Берем точные координаты старта от сервера, чтобы дистанция считалась идеально
                 if (WatchedAttributes.HasAttribute("startX"))
                 {
-                    StartPos = new Vec3d(
+                    startPos = new Vec3d(
                         WatchedAttributes.GetDouble("startX"),
                         WatchedAttributes.GetDouble("startY"),
                         WatchedAttributes.GetDouble("startZ")
@@ -41,132 +61,230 @@ namespace BotaniaStory.entities
                 }
                 else
                 {
-                    StartPos = Pos.XYZ.Clone();
+                    startPos = Pos.XYZ.Clone();
                 }
             }
 
-            // Вычисляем пройденное расстояние
-            double distanceTraveled = StartPos.DistanceTo(Pos.XYZ);
-            float lifeRatio = Math.Max(0f, 1f - (float)(distanceTraveled / maxDistance));
+            if (Api.Side == EnumAppSide.Client) TickClient(dt);
+            else TickServer(dt);
+        }
 
-            // 
-            // КЛИЕНТ: Плавное движение и частицы
-            // 
-            if (Api.Side == EnumAppSide.Client)
+        // если клиент сильно разошелся с сервером - подтягиваем, мелкий рассинхрон игнорируем
+        public override void OnReceivedServerPos(bool isTeleport)
+        {
+            if (isTeleport)
             {
-                Pos.Motion.X = WatchedAttributes.GetDouble("motionX", 0);
-                Pos.Motion.Y = WatchedAttributes.GetDouble("motionY", 0);
-                Pos.Motion.Z = WatchedAttributes.GetDouble("motionZ", 0);
-
-                // Клиент сам двигает позицию
-                Pos.X += Pos.Motion.X;
-                Pos.Y += Pos.Motion.Y;
-                Pos.Z += Pos.Motion.Z;
-
-                float currentSize = Math.Max(0.1f, 0.5f * lifeRatio);
-                int currentAlpha = (int)(255 * lifeRatio);
-
-                // Оставляем в конструкторе только самое базовое: количество, цвет, позицию и скорость
-                SimpleParticleProperties particles = new SimpleParticleProperties(
-                    1, 3,
-                    ColorUtil.ToRgba(currentAlpha, 40, 255, 150),
-                    new Vec3d(Pos.X, Pos.Y, Pos.Z),
-                    new Vec3d(Pos.X, Pos.Y, Pos.Z),
-                    new Vec3f(-0.1f, -0.1f, -0.1f),
-                    new Vec3f(0.1f, 0.1f, 0.1f)
-                );
-
-                // А теперь задаем всё остальное явно:
-                particles.ParticleModel = EnumParticleModel.Quad;
-                particles.GravityEffect = 0f;
-
-                // РАЗМЕР ЧАСТИЦ
-                particles.MinSize = 0.2f; // Твои изначальные значения
-                particles.MaxSize = 0.4f;
-
-                // ВРЕМЯ ЖИЗНИ (СКОРОСТЬ ИСЧЕЗНОВЕНИЯ ХВОСТА)
-                // Если хочешь длинный хвост, ставь больше (например, 0.5f - полсекунды)
-                // Если короткий - меньше (например, 0.15f)
-                particles.LifeLength = 2.0f;
-
-                // сдвиг частиц относительно центра
-                particles.AddPos.Set(0.1, 0.1, 0.1);
-
-                // Наше плавное растворение (убирает 255 альфы за время LifeLength)
-                particles.OpacityEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -255f);
-
-                Api.World.SpawnParticles(particles);
-            }
-
-            // 
-            // СЕРВЕР: Честная сетевая позиция и логика
-            // 
-            if (Api.Side == EnumAppSide.Server)
-            {
-                // Двигаем позицию
-                Pos.X += Pos.Motion.X;
-                Pos.Y += Pos.Motion.Y;
-                Pos.Z += Pos.Motion.Z;
-
-                // ВАЖНО: Обновляем именно Pos! Иначе чанки потеряют сущность и удалят её.
                 Pos.SetFrom(Pos);
+                prevTickPos = null;
+                return;
+            }
 
-                if (distanceTraveled >= maxDistance)
+            // prevTickPos не сбрасываем - следующий тик закрасит рывок частицами
+            if (Pos.SquareDistanceTo(Pos.XYZ) > 4.0)
+            {
+                Pos.SetFrom(Pos);
+            }
+        }
+
+        // хлопок при попадании, клиенту хватает факта деспавна
+        public override void OnEntityDespawn(EntityDespawnData despawn)
+        {
+            if (Api?.Side == EnumAppSide.Client && !impactSpawned)
+            {
+                impactSpawned = true;
+
+                double maxDistance = WatchedAttributes.GetDouble("maxDist", 8.0);
+                double traveled = startPos == null ? 0 : startPos.DistanceTo(Pos.XYZ);
+
+                // искра, которая просто выдохлась на излете, не хлопает
+                if (traveled < maxDistance * 0.97)
                 {
-                    Die();
-                    return;
+                    ReadColor();
+                    ManaBurstParticleSystem.Renderer?.SpawnImpact(Pos.XYZ, SizeRatio(traveled, maxDistance), colorR, colorG, colorB);
                 }
+            }
 
-                BlockPos currentPos = Pos.AsBlockPos;
-                if (SourcePos != null && currentPos.Equals(SourcePos)) return;
+            base.OnEntityDespawn(despawn);
+        }
 
-                Block block = Api.World.BlockAccessor.GetBlock(currentPos);
+        private void ReadColor()
+        {
+            if (colorRead) return;
+            colorRead = true;
 
-                if (block.Id != 0 && block.MatterState != EnumMatterState.Liquid)
-                {
+            int color = WatchedAttributes.GetInt("burstColor", 0x20FF20);
+            colorR = ((color >> 16) & 0xFF) / 255f;
+            colorG = ((color >> 8) & 0xFF) / 255f;
+            colorB = (color & 0xFF) / 255f;
+        }
 
-                    if (IsManaPermeable(block))
-                    {
-                        // Просто выходим из проверки коллизии в этом тике.
-                        // Искра не умрет и продолжит лететь сквозь блок.
-                        return;
-                    }
+        // толщина луча: полная до GraceFraction пути, дальше сходит на нет
+        private float SizeRatio(double traveled, double maxDistance)
+        {
+            float t = (float)(traveled / maxDistance);
+            if (t <= GraceFraction) return 1f;
 
-                    // УНИВЕРСАЛЬНЫЙ ПРИЕМ МАНЫ
-                    BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(currentPos);
+            float ratio = 1f - (t - GraceFraction) / (1f - GraceFraction);
+            return ratio < 0f ? 0f : ratio;
+        }
 
-                    // Проверяем, является ли блок приемником маны (Бассейн, Алтарь, Плита и т.д.)
-                    if (be is IManaReceiver receiver)
-                    {
-                        int finalMana = (int)(ManaPayload * lifeRatio);
-                        if (finalMana < 1) finalMana = 1;
+        // клиент сам двигает искру между серверными пакетами и рисует луч
+        private void TickClient(float dt)
+        {
+            if (!Alive) return;
+            if (aliveSeconds > MaxLifeSeconds) return;
 
-                        // Отдаем ману через универсальный метод
-                        receiver.ReceiveMana(finalMana);
+            // скорость приходит в блоках в секунду
+            double mx = WatchedAttributes.GetDouble("motionX", 0);
+            double my = WatchedAttributes.GetDouble("motionY", 0);
+            double mz = WatchedAttributes.GetDouble("motionZ", 0);
 
-                        // Сохраняем изменения в целевом блоке
-                        if (be is BlockEntity blockEnt)
-                        {
-                            blockEnt.MarkDirty(true);
-                        }
+            if (mx == 0 && my == 0 && mz == 0) return;
 
-                        // Отдали ману - исчезаем
-                        Die();
-                        return;
-                    }
+            if (float.IsNaN(burstJitter))
+            {
+                burstJitter = (float)Math.Sin(EntityId % 9001) * 0.4f;
+            }
 
-                    // Если это обычный твердый блок без интерфейса (стена, земля) - разбиваемся
-                    if (block.CollisionBoxes != null && block.CollisionBoxes.Length > 0)
-                    {
-                        Die();
-                    }
+            ReadColor();
 
-                    // Если это НЕ бассейн и НЕ алтарь, проверяем блок на коллизию (стена/земля)
-                    if (block.CollisionBoxes != null && block.CollisionBoxes.Length > 0)
-                    {
-                        Die();
-                    }
-                }
+            if (prevTickPos == null) prevTickPos = Pos.XYZ.Clone();
+            else prevTickPos.Set(Pos.X, Pos.Y, Pos.Z);
+
+            Pos.Motion.Set(mx, my, mz);
+            Pos.X += mx * dt;
+            Pos.Y += my * dt;
+            Pos.Z += mz * dt;
+
+            double maxDistance = WatchedAttributes.GetDouble("maxDist", 8.0);
+            double traveled = startPos.DistanceTo(Pos.XYZ);
+            if (traveled >= maxDistance) return;
+
+            ManaBurstParticleSystem.Renderer?.SpawnBeam(
+                prevTickPos,
+                Pos.XYZ,
+                Pos.Motion,
+                SizeRatio(traveled, maxDistance),
+                burstJitter,
+                colorR, colorG, colorB
+            );
+        }
+
+        private void TickServer(float dt)
+        {
+            double maxDistance = WatchedAttributes.GetDouble("maxDist", 8.0);
+
+            // двигаем именно Pos, иначе клиент не получит коррекцию позиции
+            Pos.Motion.Set(Pos.Motion);
+            Pos.X += Pos.Motion.X * dt;
+            Pos.Y += Pos.Motion.Y * dt;
+            Pos.Z += Pos.Motion.Z * dt;
+            Pos.SetFrom(Pos);
+
+            double traveled = startPos.DistanceTo(Pos.XYZ);
+
+            if (traveled >= maxDistance || aliveSeconds > MaxLifeSeconds)
+            {
+                Die(EnumDespawnReason.Removed);
+                return;
+            }
+
+            BlockPos currentPos = Pos.AsBlockPos;
+            if (SourcePos != null && currentPos.Equals(SourcePos)) return;
+
+            Block block = Api.World.BlockAccessor.GetBlock(currentPos);
+
+            // чанк не загружен - дальше лететь некуда
+            if (block == null)
+            {
+                Die(EnumDespawnReason.Removed);
+                return;
+            }
+
+            if (block.Id == 0 || block.MatterState == EnumMatterState.Liquid) return;
+
+            // манастекло и эльфийское стекло пропускают искру насквозь
+            if (IsManaPermeable(block)) return;
+
+            BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(currentPos);
+
+            if (be is IManaReceiver receiver)
+            {
+                float lifeRatio = Math.Max(0f, 1f - (float)(traveled / maxDistance));
+
+                int finalMana = (int)(ManaPayload * lifeRatio);
+                if (finalMana < 1) finalMana = 1;
+
+                receiver.ReceiveMana(finalMana);
+                be.MarkDirty(false);
+
+                Die(EnumDespawnReason.Removed);
+                return;
+            }
+
+            // обычный твердый блок - разбиваемся
+            if (block.CollisionBoxes != null && block.CollisionBoxes.Length > 0)
+            {
+                Die(EnumDespawnReason.Removed);
+            }
+        }
+
+        private void TickServer()
+        {
+            double maxDistance = WatchedAttributes.GetDouble("maxDist", 8.0);
+
+            // двигаем именно Pos, иначе клиент не получит коррекцию позиции
+            Pos.Motion.Set(Pos.Motion);
+            Pos.X += Pos.Motion.X;
+            Pos.Y += Pos.Motion.Y;
+            Pos.Z += Pos.Motion.Z;
+            Pos.SetFrom(Pos);
+
+            double traveled = startPos.DistanceTo(Pos.XYZ);
+
+            if (traveled >= maxDistance || aliveSeconds > MaxLifeSeconds)
+            {
+                Die(EnumDespawnReason.Removed);
+                return;
+            }
+
+            BlockPos currentPos = Pos.AsBlockPos;
+            if (SourcePos != null && currentPos.Equals(SourcePos)) return;
+
+            Block block = Api.World.BlockAccessor.GetBlock(currentPos);
+
+            // чанк не загружен - дальше лететь некуда
+            if (block == null)
+            {
+                Die(EnumDespawnReason.Removed);
+                return;
+            }
+
+            if (block.Id == 0 || block.MatterState == EnumMatterState.Liquid) return;
+
+            // манастекло и эльфийское стекло пропускают искру насквозь
+            if (IsManaPermeable(block)) return;
+
+            BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(currentPos);
+
+            if (be is IManaReceiver receiver)
+            {
+                float lifeRatio = Math.Max(0f, 1f - (float)(traveled / maxDistance));
+
+                int finalMana = (int)(ManaPayload * lifeRatio);
+                if (finalMana < 1) finalMana = 1;
+
+                receiver.ReceiveMana(finalMana);
+                be.MarkDirty(false);
+
+                Die(EnumDespawnReason.Removed);
+                return;
+            }
+
+            // обычный твердый блок - разбиваемся
+            if (block.CollisionBoxes != null && block.CollisionBoxes.Length > 0)
+            {
+                Die(EnumDespawnReason.Removed);
             }
         }
     }

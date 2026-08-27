@@ -97,7 +97,7 @@ namespace BotaniaStory.lexicon
                 if (CheckMouse(mouseX, mouseY, absX, absY, outputBounds.InnerWidth)) hoveredStack = outputs[0];
             }
 
-            // === МАГИЯ ТУЛТИПОВ ===
+            //МАГИЯ ТУЛТИПОВ
             if (hoveredStack != null)
             {
                 renderSlot.Itemstack = hoveredStack;
@@ -109,7 +109,7 @@ namespace BotaniaStory.lexicon
             }
         }
 
-        // === ТОЧНЫЕ КЛИКИ ИЗ ALFHEIM ===
+        //ТОЧНЫЕ КЛИКИ ИЗ ALFHEIM
         public override void OnMouseDown(ICoreClientAPI api, MouseEvent args)
         {
             if (args.Handled) return;

@@ -2,30 +2,12 @@
 	"code": "overgrowthseed",
 	"class": "ItemOvergrowthSeed",
 	"maxstacksize": 64,
-
-	"variantgroups": [
-		{
-			"code": "content",
-			"states": [ "empty", "rustworldair", "water" ]
-		}
-	],
-
-	"shapeByType": {
-		"*-empty": {
-			"base": "botaniastory:item/flask_empty"
-		},
-		"*": {
-			"base": "botaniastory:item/flask"
-		}
+	"shape": {
+		"base": "botaniastory:item/overgrowthseed"
 	},
+	"textures": {
+		"overgrowthseed": { "base": "botaniastory:item/overgrowthseed" }
 
-	"texturesByType": {
-		"*-rustworldair": {
-			"liquid": { "base": "botaniastory:item/flask_glass" }
-		},
-		"*-water": {
-			"liquid": { "base": "game:block/liquid/waterportion" }
-		}
 	},
 	"attributes": {
 		"shelvable": true,
@@ -33,40 +15,44 @@
 		"bookshelveable": true,
 		"onshelfTransform": {
 			"translation": {
-				"x": 0.009,
-				"y": -0.216,
-				"z": 0.02
+				"x": -0.01,
+				"y": -0.5,
+				"z": 0.17
 			},
 			"rotation": {
-				"x": 0,
-				"y": -90,
-				"z": 0
+				"x": -74,
+				"y": -2,
+				"z": -5
 			},
-			"scale": 0.57
+			"scale": 0.71
 		},
 		"onDisplayTransform": {
 			"translation": {
-				"x": 0,
-				"y": -0.055,
-				"z": 0
+				"x": 0.04,
+				"y": -0.43,
+				"z": 0.32
 			},
 			"rotation": {
-				"x": 0,
-				"y": 117,
+				"x": -86,
+				"y": 178,
 				"z": 0
 			},
-			"scale": 0.89
+			"scale": 1.15
 		},
 		"groundStorageTransform": {
 			"translation": {
-				"x": -0.04,
-				"y": -0.18,
-				"z": 0.03
+				"x": -0.057,
+				"y": -0.47,
+				"z": 0.19
 			},
-			"scale": 0.65
+			"rotation": {
+				"x": -91,
+				"y": -8,
+				"z": -10
+			},
+			"scale": 0.79
 		}
 	},
-
 	"behaviors": [
 		{
 			"name": "GroundStorable",
@@ -83,60 +69,69 @@
 			}
 		}
 	],
-
 	"guiTransform": {
 		"translation": {
 			"x": 1.49,
-			"y": 1.8,
+			"y": -3.2,
 			"z": 0
 		},
 		"rotation": {
-			"x": -21,
-			"y": -153,
+			"x": -22,
+			"y": -135,
 			"z": 180
 		},
 		"origin": {
 			"x": 0.51,
-			"y": 0.31,
+			"y": 0.77,
 			"z": 0.51
 		},
-		"scale": 2.21,
+		"scale": 3.1,
 		"rotate": true
 	},
-
 	"tpHandTransform": {
 		"translation": {
-			"x": -1.6,
-			"y": -1.2,
-			"z": -1.2
+			"x": -0.9799,
+			"y": -0.97,
+			"z": -0.97
 		},
 		"rotation": {
-			"x": 83,
-			"y": -20,
-			"z": -79
+			"x": -180,
+			"y": -180,
+			"z": 91
 		},
-		"scale": 0.4
+		"scale": 0.51
 	},
-
-	"groundTransform": {
+	"fpHandTransform": {
 		"translation": {
-			"x": 0,
-			"y": 0.181,
+			"x": 0.2,
+			"y": -0.2,
 			"z": 0
 		},
 		"rotation": {
+			"x": 15,
+			"y": -15,
+			"z": 0
+		},
+		"scale": 1.8
+	},
+	"groundTransform": {
+		"translation": {
 			"x": 0,
+			"y": 0.06,
+			"z": 0
+		},
+		"rotation": {
+			"x": -88,
 			"y": 0,
 			"z": 0
 		},
 		"origin": {
 			"x": 0.5,
-			"y": 0.3,
+			"y": 0.48,
 			"z": 0.5399
 		},
-		"scale": 3.05
+		"scale": 3.76
 	},
-
 	"creativeinventory": {
 		"general": [ "*" ],
 		"botaniastory": [ "*" ]
