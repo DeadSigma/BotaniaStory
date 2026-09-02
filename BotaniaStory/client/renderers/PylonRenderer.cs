@@ -73,8 +73,11 @@ namespace BotaniaStory.client.renderers
         {
             if (isDisposed || pylonParts.Count == 0 || loadedTexture.TextureId == 0) return;
 
+            IClientPlayer player = capi.World.Player;
+            if (player?.Entity == null) return;
+
             IRenderAPI render = capi.Render;
-            Vec3d camPos = capi.World.Player.Entity.CameraPos;
+            Vec3d camPos = player.Entity.CameraPos;
 
             // Определяем, рисуем ли мы сейчас тень
             bool isShadowPass = stage == EnumRenderStage.ShadowFar || stage == EnumRenderStage.ShadowNear;
@@ -96,6 +99,11 @@ namespace BotaniaStory.client.renderers
                 stdProg.Tex2D = loadedTexture.TextureId;
                 stdProg.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
                 stdProg.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
+
+                // задаем явно, иначе унаследуем мусор от чужого рендера
+                stdProg.NormalShaded = 1;
+                stdProg.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
+                stdProg.AlphaTest = 0.5f;
             }
 
             float t = (capi.World.ElapsedMilliseconds + animationOffset) / 50f;
@@ -199,7 +207,15 @@ namespace BotaniaStory.client.renderers
             if (!isShadowPass)
             {
                 stdProg.ExtraGlow = 0;
+                stdProg.NormalShaded = 1;
+                stdProg.AlphaTest = 0.5f;
+                stdProg.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
+                stdProg.RgbaTint = ColorUtil.WhiteArgbVec;
+                stdProg.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
+                stdProg.RgbaAmbientIn = render.AmbientColor;
+
                 stdProg.Stop();
+                render.GlToggleBlend(false, EnumBlendMode.Standard);
             }
         }
 

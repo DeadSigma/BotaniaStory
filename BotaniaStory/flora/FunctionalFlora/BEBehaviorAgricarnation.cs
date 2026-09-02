@@ -30,7 +30,7 @@ namespace BotaniaStory.blockentity
                 {
                     AutoFindPool();
                     CheckedOnPlacement = true;
-                    this.Blockentity.MarkDirty(true);
+                    this.Blockentity.MarkDirty(false);
                 }
 
                 // 1. Медленный тик (раз в 10 секунд) для обновления списка грядок вокруг
@@ -74,7 +74,7 @@ namespace BotaniaStory.blockentity
             {
                 LinkedPool = null;
                 AutoFindPool();
-                this.Blockentity.MarkDirty(true);
+                this.Blockentity.MarkDirty(false);
                 return;
             }
 
@@ -127,7 +127,7 @@ namespace BotaniaStory.blockentity
 
             if (effectTriggered)
             {
-                this.Blockentity.MarkDirty(true);
+                this.Blockentity.MarkDirty(false);
             }
         }
 
@@ -156,7 +156,7 @@ namespace BotaniaStory.blockentity
                         if (this.Api.World.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaPool)
                         {
                             LinkedPool = checkPos.Copy();
-                            this.Blockentity.MarkDirty(true);
+                            this.Blockentity.MarkDirty(false);
                             return;
                         }
                     }

@@ -19,13 +19,21 @@ namespace BotaniaStory.client.particles
         public float Age;
         public float Drag;                              // 0 = без торможения
         public float Gravity;                           // 0 = без гравитации
-        public Vec3d SwirlAxis = new Vec3d(0, 1, 0);    
+        public Vec3d SwirlAxis = new Vec3d(0, 1, 0);
         public float SwirlStrength;                     // 0 = без закрутки; рад/сек, знак = сторона
         public float WobbleFreq = 6f;
         public float WobblePhase;
 
         public float FadeIn = 0.05f;                    // доля жизни на появление
         public float FadeStart = 0.7f;                  // с какой доли ПУТИ начинать гаснуть
+
+        // Цель полета. null - свободная частица, летит пока не кончится Life
+        public Vec3d Target;
+        public double TargetRadius = 0.45;              // радиус приемника, на его поверхности частица гаснет
+        public bool ImpactOnArrive;                     // выбросить осколки при попадании
+
+        // Ось полета, считается один раз при первом обновлении
+        public Vec3d TargetDir;
 
         public float LifeRatio => MaxLife <= 0f ? 0f : Life / MaxLife;
         public float Progress => 1f - LifeRatio;        // 0 при рождении - 1 при смерти

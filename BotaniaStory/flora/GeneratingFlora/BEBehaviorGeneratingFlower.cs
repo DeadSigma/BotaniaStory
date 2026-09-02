@@ -75,7 +75,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     if (toMove > 0)
                     {
                         spreader.CurrentMana += toMove;
-                        spreader.MarkDirty(true);
+                        spreader.MarkDirty(false);
                         this.CurrentMana -= toMove;
                         dirty = true;
                     }

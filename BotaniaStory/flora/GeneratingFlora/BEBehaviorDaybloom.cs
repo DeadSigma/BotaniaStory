@@ -176,7 +176,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
             ProcessManaTransfer(ref dirty);
 
-            if (dirty) this.Blockentity.MarkDirty(true);
+            if (dirty) this.Blockentity.MarkDirty(false);
         }
 
         // СОХРАНЕНИЕ ДАННЫХ

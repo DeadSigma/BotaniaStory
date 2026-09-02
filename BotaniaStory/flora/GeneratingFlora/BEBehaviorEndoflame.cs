@@ -104,7 +104,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
             // 3. ПРОВЕРКА И ПЕРЕДАЧА МАНЫ (вызов из базового поведения)
             ProcessManaTransfer(ref dirty);
 
-            if (dirty) this.Blockentity.MarkDirty(true);
+            if (dirty) this.Blockentity.MarkDirty(false);
         }
 
         // КЛИЕНТ: ЧАСТИЦЫ ОГНЯ

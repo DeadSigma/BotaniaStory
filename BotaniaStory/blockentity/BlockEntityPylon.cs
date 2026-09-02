@@ -30,7 +30,9 @@ namespace BotaniaStory.blockentity
             if (api is ICoreClientAPI capi)
             {
                 modelRenderer = new PylonRenderer(capi, Pos, CurrentType);
-                particleRenderer = new PylonParticleRenderer(capi);
+
+                // рендер частиц один на весь мод, свой на каждый пилон течет и убивает общие текстуры
+                particleRenderer = PylonParticleSystem.Renderer;
 
                 // Клиентский тик для частиц
                 RegisterGameTickListener(SpawnParticlesTick, 110);
@@ -41,6 +43,7 @@ namespace BotaniaStory.blockentity
                 RegisterGameTickListener(ServerTick, 50);
             }
         }
+
         private void ServerTick(float dt)
         {
             // Тратят ману только природные пилоны, которые подключены к ядру
@@ -65,16 +68,21 @@ namespace BotaniaStory.blockentity
                 TurnOffGateway();
             }
         }
+
         private void TurnOffGateway()
         {
+            // деактивация портала это серверное дело
+            if (Api.Side == EnumAppSide.Client) return;
+
             if (LinkedTarget != null && Api.World.BlockAccessor.GetBlockEntity(LinkedTarget) is BlockEntityElvenGatewayCore core)
             {
                 // Ядро само позаботится об отвязке всех пилонов
                 core.Deactivate();
             }
             LinkedTarget = null;
-            MarkDirty(true);
+            MarkDirty(false);
         }
+
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
@@ -86,8 +94,11 @@ namespace BotaniaStory.blockentity
             base.FromTreeAttributes(tree, worldForResolving);
             LinkedTarget = tree.GetBlockPos("linkedTarget");
         }
+
         private void SpawnParticlesTick(float dt)
         {
+            if (particleRenderer == null) return;
+
             var rand = Api.World.Rand;
 
             Vec4f pylonColor = new Vec4f(0.5f, 0.8f, 1.0f, 1.0f);
@@ -146,7 +157,7 @@ namespace BotaniaStory.blockentity
 
                 if (CurrentType == EnumPylonType.Natura)
                 {
-                    // 2a. ПОТОК К ЯДРУ - снова быстрый. Жизнь считается от дистанции, чтобы долетали до ядра
+                    // 2a. ПОТОК К ЯДРУ - конец задает Target, а не время жизни
                     double linkTime = Api.World.ElapsedMilliseconds / 350.0;
                     float linkRadius = 0.8f;
 
@@ -155,29 +166,42 @@ namespace BotaniaStory.blockentity
                         Pos.Y + 0.4,
                         Pos.Z + 0.5 + Math.Sin(linkTime) * linkRadius);
 
-                    if (rand.NextDouble() < 0.4)
+                    // считаем направление руками: Sub и Normalize у Vec3d портят исходный объект
+                    double dirX = targetCenter.X - linkStartPos.X;
+                    double dirY = targetCenter.Y - linkStartPos.Y;
+                    double dirZ = targetCenter.Z - linkStartPos.Z;
+                    double dist = Math.Sqrt(dirX * dirX + dirY * dirY + dirZ * dirZ);
+
+                    if (dist > 0.01 && rand.NextDouble() < 0.4)
                     {
-                        Vec3d targetDir = targetCenter.Sub(linkStartPos).Normalize();
-                        targetDir.X += (rand.NextDouble() - 0.5) * 0.15;   // лёгкая хаотичность
+                        Vec3d targetDir = new Vec3d(dirX / dist, dirY / dist, dirZ / dist);
+
+                        // лёгкая хаотичность, промах по цели теперь не страшен
+                        targetDir.X += (rand.NextDouble() - 0.5) * 0.15;
                         targetDir.Y += (rand.NextDouble() - 0.5) * 0.15;
                         targetDir.Z += (rand.NextDouble() - 0.5) * 0.15;
                         targetDir.Normalize();
 
-                        float speed = 2.5f;   //Скорость к ядру альфхейма
-                        double dist = targetCenter.DistanceTo(linkStartPos);
-                        float life = GameMath.Clamp((float)(dist / speed), 0.3f, 6f);
+                        float speed = 2.5f;   // блоков в секунду, скорость к ядру альфхейма
+
+                        // жизнь только страховка на случай промаха, с запасом на разброс
+                        float life = GameMath.Clamp((float)(dist / speed) * 1.3f + 0.2f, 0.3f, 8f);
 
                         particleRenderer.Particles.Add(new PylonParticle()
                         {
-                            Position = linkStartPos,
-                            Velocity = targetDir * speed,
+                            Position = linkStartPos.Clone(),
+                            Velocity = new Vec3d(targetDir.X * speed, targetDir.Y * speed, targetDir.Z * speed),
                             Color = new Vec4f(pylonColor.X, pylonColor.Y, pylonColor.Z, 0.9f),
                             Size = 0.45f + (float)rand.NextDouble() * 0.15f,
                             Life = life,
                             MaxLife = life,
                             TextureIndex = 4,
                             ShrinkOnDeath = false,
-                            FadeStart = 0.85f
+                            FadeStart = 0.95f,
+
+                            Target = targetCenter.Clone(),
+                            TargetRadius = 0.5,
+                            ImpactOnArrive = true
                         });
                     }
 
@@ -224,13 +248,21 @@ namespace BotaniaStory.blockentity
             TurnOffGateway();
 
             base.OnBlockRemoved();
+
             modelRenderer?.Dispose();
+            modelRenderer = null;
+
+            // particleRenderer общий, его освобождает PylonParticleSystem
+            particleRenderer = null;
         }
 
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();
+
             modelRenderer?.Dispose();
+            modelRenderer = null;
+            particleRenderer = null;
         }
     }
 }

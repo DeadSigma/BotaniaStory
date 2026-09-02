@@ -136,7 +136,7 @@ namespace BotaniaStory.blockentity
                         if (this.Api.World.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaPool)
                         {
                             LinkedPool = checkPos.Copy();
-                            this.Blockentity.MarkDirty(true);
+                            this.Blockentity.MarkDirty(false);
                             return;
                         }
                     }

@@ -173,7 +173,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
             ProcessManaTransfer(ref dirty);
 
-            if (dirty) this.Blockentity.MarkDirty(true);
+            if (dirty) this.Blockentity.MarkDirty(false);
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)

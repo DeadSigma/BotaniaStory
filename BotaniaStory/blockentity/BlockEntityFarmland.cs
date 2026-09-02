@@ -25,7 +25,7 @@ namespace BotaniaStory.Blocks
         {
             base.OnCreatedFromSoil(block, existingFertilityData);
             ForceEnchanted();
-            MarkDirty(true);
+            MarkDirty(false);
         }
 
         private void ForceEnchanted()
@@ -57,7 +57,7 @@ namespace BotaniaStory.Blocks
                 changed = true;
             }
 
-            if (changed) MarkDirty(true);
+            if (changed) MarkDirty(false);
         }
     }
 }

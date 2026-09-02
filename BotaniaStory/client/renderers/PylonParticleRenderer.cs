@@ -17,9 +17,10 @@ namespace BotaniaStory.client.renderers
 
         private static readonly float GlowContribution = 0f;
         public List<PylonParticle> Particles = new List<PylonParticle>();
-
-        public double RenderOrder => 0.5;
+        private readonly List<PylonParticle> pendingImpacts = new List<PylonParticle>();
+        public double RenderOrder => 0.9;
         public int RenderRange => 64;
+        private bool graphicsLoaded = false;
 
         public PylonParticleRenderer(ICoreClientAPI api)
         {
@@ -95,6 +96,97 @@ namespace BotaniaStory.client.renderers
                 p.Position.X += p.Velocity.X * dt;
                 p.Position.Y += p.Velocity.Y * dt;
                 p.Position.Z += p.Velocity.Z * dt;
+
+                if (p.Target != null && HandleArrival(p))
+                {
+                    Particles.RemoveAt(i);
+                }
+            }
+
+            if (pendingImpacts.Count > 0)
+            {
+                Particles.AddRange(pendingImpacts);
+                pendingImpacts.Clear();
+            }
+        }
+
+        // true - частица дошла до цели и должна исчезнуть
+        private bool HandleArrival(PylonParticle p)
+        {
+            if (p.TargetDir == null)
+            {
+                Vec3d d = new Vec3d(
+                    p.Target.X - p.Position.X,
+                    p.Target.Y - p.Position.Y,
+                    p.Target.Z - p.Position.Z
+                );
+
+                double len = d.Length();
+                if (len < 1e-6) return true;
+
+                d.X /= len;
+                d.Y /= len;
+                d.Z /= len;
+                p.TargetDir = d;
+            }
+
+            double ox = p.Position.X - p.Target.X;
+            double oy = p.Position.Y - p.Target.Y;
+            double oz = p.Position.Z - p.Target.Z;
+
+            // проекция на ось полета: отрицательная пока летим, ноль в центре цели
+            double along = ox * p.TargetDir.X + oy * p.TargetDir.Y + oz * p.TargetDir.Z;
+
+            // до поверхности еще не долетели
+            if (along < -p.TargetRadius) return false;
+
+            // прижимаем ровно к поверхности, даже если за кадр перепрыгнули цель насквозь
+            double back = along + p.TargetRadius;
+            p.Position.X -= p.TargetDir.X * back;
+            p.Position.Y -= p.TargetDir.Y * back;
+            p.Position.Z -= p.TargetDir.Z * back;
+
+            if (!p.ImpactOnArrive) return true;
+
+            // боковое смещение: попали в ядро или прошли мимо него
+            double lx = ox - along * p.TargetDir.X;
+            double ly = oy - along * p.TargetDir.Y;
+            double lz = oz - along * p.TargetDir.Z;
+
+            double hitRadius = p.TargetRadius * 1.5;
+            if (lx * lx + ly * ly + lz * lz <= hitRadius * hitRadius)
+            {
+                QueueImpact(p);
+            }
+
+            return true;
+        }
+
+        private void QueueImpact(PylonParticle src)
+        {
+            int count = capi.World.Rand.Next(2, 5);
+            for (int i = 0; i < count; i++)
+            {
+                float life = 0.25f + (float)capi.World.Rand.NextDouble() * 0.3f;
+
+                pendingImpacts.Add(new PylonParticle()
+                {
+                    Position = src.Position.Clone(),
+                    Velocity = new Vec3d(
+                        (capi.World.Rand.NextDouble() - 0.5) * 2.0,
+                        (capi.World.Rand.NextDouble() - 0.5) * 2.0,
+                        (capi.World.Rand.NextDouble() - 0.5) * 2.0
+                    ),
+                    Color = new Vec4f(src.Color.X, src.Color.Y, src.Color.Z, src.Color.A),
+                    Size = src.Size * 0.7f,
+                    Life = life,
+                    MaxLife = life,
+                    TextureIndex = src.TextureIndex,
+                    ShrinkOnDeath = true,
+                    Drag = 5f,
+                    FadeIn = 0f,
+                    FadeStart = 0.35f
+                });
             }
         }
 
@@ -107,6 +199,14 @@ namespace BotaniaStory.client.renderers
 
             IClientPlayer player = capi.World.Player;
             if (player?.Entity == null) return;
+
+            if (stage != EnumRenderStage.Opaque) return;
+
+            if (!graphicsLoaded)
+            {
+                graphicsLoaded = true;
+                LoadGraphics();
+            }
 
             Vec3d camPos = player.Entity.CameraPos;
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
@@ -196,7 +296,10 @@ namespace BotaniaStory.client.renderers
         {
             capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
             quadMeshRef?.Dispose();
-            foreach (var t in textures) t?.Dispose();
+            quadMeshRef = null;
+
+            for (int i = 0; i < textures.Length; i++) textures[i] = null;
+
             Particles.Clear();
         }
     }

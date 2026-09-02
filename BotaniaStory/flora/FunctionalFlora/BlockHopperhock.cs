@@ -31,7 +31,7 @@ namespace BotaniaStory.blocks
                     behavior.FilterInventory[targetSlot].Itemstack = activeHandSlot.TakeOut(1);
                     behavior.FilterInventory[targetSlot].MarkDirty();
                     activeHandSlot.MarkDirty();
-                    behavior.Blockentity.MarkDirty(true);
+                    behavior.Blockentity.MarkDirty(false);
                     return true;
                 }
             }
@@ -50,7 +50,7 @@ namespace BotaniaStory.blocks
                             world.SpawnItemEntity(leafToReturn, blockSel.Position.ToVec3d().Add(0.5, 0.5, 0.5));
                         }
                         behavior.FilterInventory[i].MarkDirty();
-                        behavior.Blockentity.MarkDirty(true);
+                        behavior.Blockentity.MarkDirty(false);
                         return true;
                     }
                 }

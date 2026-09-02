@@ -38,7 +38,7 @@ namespace BotaniaStory.blockentity
                 {
                     AutoFindPool();
                     CheckedOnPlacement = true;
-                    this.Blockentity.MarkDirty(true);
+                    this.Blockentity.MarkDirty(false);
                 }
 
                 this.Blockentity.RegisterGameTickListener(OnTick, 1000);
@@ -55,7 +55,7 @@ namespace BotaniaStory.blockentity
             {
                 LinkedPool = null; 
                 AutoFindPool();   
-                this.Blockentity.MarkDirty(true);
+                this.Blockentity.MarkDirty(false);
                 return;
             }
 
@@ -81,7 +81,7 @@ namespace BotaniaStory.blockentity
                         if (this.Api.World.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaPool)
                         {
                             LinkedPool = checkPos.Copy();
-                            this.Blockentity.MarkDirty(true);
+                            this.Blockentity.MarkDirty(false);
                             return;
                         }
                     }

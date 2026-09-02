@@ -149,7 +149,7 @@ namespace BotaniaStory.blockentity
                 CurrentMana = 0;
             }
 
-            MarkDirty(true);
+            MarkDirty(false);
         }
 
         private void OnServerTick(float dt)
@@ -164,7 +164,7 @@ namespace BotaniaStory.blockentity
 
                 CurrentMana = 0;
                 IsCrafting = false;
-                MarkDirty(true);
+                MarkDirty(false);
 
                 // Спавним Террасталь
                 Item terrasteel = Api.World.GetItem(new AssetLocation("game", "ingot-terrasteel"));
@@ -220,7 +220,7 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            if (oldValid != IsStructureValid) MarkDirty(true);
+            if (oldValid != IsStructureValid) MarkDirty(false);
         }
 
         // ИНТЕРФЕЙС ПРИЕМА МАНЫ
@@ -240,7 +240,7 @@ namespace BotaniaStory.blockentity
             if (IsCrafting && !IsFull())
             {
                 CurrentMana += amount;
-                MarkDirty(true);
+                MarkDirty(false);
             }
         }
 

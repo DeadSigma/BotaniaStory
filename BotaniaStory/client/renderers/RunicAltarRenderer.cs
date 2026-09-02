@@ -329,9 +329,16 @@ namespace BotaniaStory.client.renderers
                     }
                 }
 
+                prog.ExtraGlow = 0;
+                prog.NormalShaded = 1;
+                prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
+                prog.RgbaTint = ColorUtil.WhiteArgbVec;
+                prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
+                prog.RgbaAmbientIn = render.AmbientColor;
+
                 prog.Stop();
                 render.GLDepthMask(true);
-                render.GlToggleBlend(false);
+                render.GlToggleBlend(false, EnumBlendMode.Standard);
             }
         }
 

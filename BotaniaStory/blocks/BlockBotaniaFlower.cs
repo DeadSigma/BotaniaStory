@@ -145,7 +145,7 @@ namespace BotaniaStory.Blocks
                     // Если хоть одно поведение обновило данные, сохраняем блок
                     if (isDirty)
                     {
-                        be.MarkDirty(true);
+                        be.MarkDirty(false);
                     }
                 }
             }

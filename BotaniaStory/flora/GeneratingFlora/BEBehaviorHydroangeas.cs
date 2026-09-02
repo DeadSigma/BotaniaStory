@@ -146,7 +146,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
             // Проверка подачи маны
             ProcessManaTransfer(ref dirty);
 
-            if (dirty) this.Blockentity.MarkDirty(true);
+            if (dirty) this.Blockentity.MarkDirty(false);
         }
 
         // Партиклы воды

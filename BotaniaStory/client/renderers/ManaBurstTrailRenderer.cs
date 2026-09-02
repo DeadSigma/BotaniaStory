@@ -252,7 +252,11 @@ namespace BotaniaStory.client.renderers
                 // яркость держится почти всю жизнь и гаснет только в конце
                 float bright = fade > 0.45f ? 1f : fade / 0.45f;
 
-                Vec4f c = new Vec4f(p.R * bright, p.G * bright, p.B * bright, bright);
+                // гасим вклад каждой частицы, иначе десять слоев складываются в чистый канал
+                const float Density = 0.45f;
+
+                float k = bright * Density;
+                Vec4f c = new Vec4f(p.R * k, p.G * k, p.B * k, bright);
 
                 prog.RgbaAmbientIn = new Vec3f(c.X, c.Y, c.Z);
                 prog.RgbaLightIn = c;
