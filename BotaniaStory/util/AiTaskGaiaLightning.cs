@@ -12,8 +12,8 @@ namespace BotaniaStory.util
     {
 
         private readonly int cooldownMs = 8000;
+        private int rageCooldownMs = 1000;
         private readonly float damage = 1f;
-        private readonly float range = 15f;
         private readonly int wallPenetration = 2;
 
 
@@ -27,26 +27,60 @@ namespace BotaniaStory.util
             if (taskConfig != null)
             {
                 cooldownMs = taskConfig["cooldownMs"].AsInt(8000);
+                rageCooldownMs = taskConfig["rageCooldownMs"].AsInt(1000);
                 damage = taskConfig["damage"].AsFloat(1f);
-                range = taskConfig["range"].AsFloat(15f);
                 wallPenetration = taskConfig["wallPenetration"].AsInt(2);
             }
         }
 
         public override bool ShouldExecute()
         {
-            if (entity.WatchedAttributes.GetBool("isLevitating", false)) return false;
+            // Во время левитации молнии не стреляют
+            if (entity.WatchedAttributes.GetBool("isLevitating", false))
+                return false;
 
             List<EntityPlayer> targets = GetValidTargets();
-            if (targets.Count == 0) return false;
 
-            int interval = cooldownMs / targets.Count;
-            if (interval < 1) interval = 1;
+            if (targets.Count == 0)
+                return false;
 
-            long now = entity.World.ElapsedMilliseconds;
-            if (now - lastStrikeMs < interval) return false;
 
-            targetEntity = targets[rotationIndex % targets.Count];
+           
+            // РЕЖИМ ЯРОСТИ
+
+            bool rage =
+                entity.WatchedAttributes.GetBool(
+                    "gaiaRageMode",
+                    false
+                );
+
+            int activeCooldown =
+                rage
+                    ? rageCooldownMs
+                    : cooldownMs;
+
+
+            // При нескольких игроках Гайа распределяет  выстрелы между ними.
+            int interval =
+                activeCooldown / targets.Count;
+
+            if (interval < 1)
+                interval = 1;
+
+
+            long now =
+                entity.World.ElapsedMilliseconds;
+
+            if (now - lastStrikeMs < interval)
+                return false;
+
+
+            targetEntity =
+                targets[
+                    rotationIndex %
+                    targets.Count
+                ];
+
             rotationIndex++;
 
             return true;
@@ -86,27 +120,43 @@ namespace BotaniaStory.util
 
         public override bool ContinueExecute(float dt) => false;
 
-        // CA1859: Возвращаем более конкретный тип List<EntityPlayer> вместо общего List<Entity>
         private List<EntityPlayer> GetValidTargets()
         {
-            // IDE0028 и IDE0090: Упрощенная инициализация коллекции
             List<EntityPlayer> result = [];
 
             foreach (IPlayer player in entity.World.AllOnlinePlayers)
             {
-                // CA1859: Используем конкретный тип EntityPlayer
                 EntityPlayer pe = player.Entity;
-                if (pe == null || !pe.Alive) continue;
 
-                EnumGameMode mode = player.WorldData != null ? player.WorldData.CurrentGameMode : EnumGameMode.Survival;
-                if (mode == EnumGameMode.Creative || mode == EnumGameMode.Spectator) continue;
+                if (pe == null || !pe.Alive)
+                    continue;
 
-                if (pe.Pos.DistanceTo(entity.Pos) > range) continue;
+                EnumGameMode mode =
+                    player.WorldData != null
+                        ? player.WorldData.CurrentGameMode
+                        : EnumGameMode.Survival;
+
+                if (mode == EnumGameMode.Creative ||
+                    mode == EnumGameMode.Spectator)
+                {
+                    continue;
+                }
+
+
+
+                if (pe.Pos.Dimension != entity.Pos.Dimension)
+                    continue;
+
 
                 result.Add(pe);
             }
 
-            result.Sort((a, b) => a.EntityId.CompareTo(b.EntityId));
+
+            // Стабильный порядок целей, чтобы rotationIndex работал предсказуемо
+            result.Sort(
+                (a, b) =>
+                    a.EntityId.CompareTo(b.EntityId)
+            );
 
             return result;
         }
@@ -125,8 +175,6 @@ namespace BotaniaStory.util
             int count = 0;
             int lastX = int.MinValue, lastY = int.MinValue, lastZ = int.MinValue;
 
-            // CS0618: Используем конструктор с Dimension. 
-            // IDE0090: Упрощенный new()
             BlockPos tmp = new(entity.Pos.Dimension);
 
             for (int i = 0; i <= steps; i++)
@@ -147,7 +195,6 @@ namespace BotaniaStory.util
             return count;
         }
 
-        // CA1822: Метод сделан статическим, так как не использует "this" (данные экземпляра)
         private static bool IsBlocking(Block block)
         {
             if (block == null || block.Id == 0) return false;

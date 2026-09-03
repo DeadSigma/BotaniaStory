@@ -6,6 +6,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
+using BotaniaStory.entities.ai;
 
 namespace BotaniaStory.entities
 {
@@ -33,6 +34,14 @@ namespace BotaniaStory.entities
         private bool confineErrorLogged = false;
         private bool aiSuppressErrorLogged = false;
         private float noPlayerTimer = 0f;
+        private bool arenaSupportErrorLogged = false;
+        private const float RageEnterDestroyedPercent = 0.40f;
+        private const float RageExitDestroyedPercent = 0.35f;
+
+        private const float RageArenaScanInterval = 1.0f;
+
+        private float rageArenaScanTimer = 0f;
+        private bool rageScanErrorLogged = false;
 
         private int PlayerCount => Math.Max(1, WatchedAttributes.GetInt("gaiaPlayerCount", 1));
 
@@ -96,11 +105,23 @@ namespace BotaniaStory.entities
             {
                 SaveSpawnCenter();
 
-                // Гайа копит силу и неуязвима
-                WatchedAttributes.SetFloat("gaiaBirthTimer", BirthDurationSeconds);
+                // Фаза рождения.
+                WatchedAttributes.SetFloat(
+                    "gaiaBirthTimer",
+                    BirthDurationSeconds
+                );
 
-                ApplyHealthScaling();  
-                ApplyDamageScaling();  
+                Controls.IsFlying = true;
+
+                Pos.Motion.X = 0;
+                Pos.Motion.Y = 0;
+                Pos.Motion.Z = 0;
+
+                // проверяем разрушенность арены сразу при спавне.
+                InitializeRageModeOnSpawn();
+
+                ApplyHealthScaling();
+                ApplyDamageScaling();
             }
         }
 
@@ -270,16 +291,80 @@ namespace BotaniaStory.entities
 
                 if (!Alive) return;
 
-                // Стоит неподвижно, копит силу, не атакует (AI глушится), бессмертна
-                float birthTimer = WatchedAttributes.GetFloat("gaiaBirthTimer", 0f);
+
+                // ФАЗА РОЖДЕНИЯ
+
+                float birthTimer =
+                    WatchedAttributes.GetFloat(
+                        "gaiaBirthTimer",
+                        0f
+                    );
+
                 if (birthTimer > 0f)
                 {
+                    // Во время рождения Гайа не падает, даже если арена уже уничтожена
+                    Controls.IsFlying = true;
+
+                    Pos.Motion.X = 0;
+                    Pos.Motion.Y = 0;
+                    Pos.Motion.Z = 0;
+
                     SuppressActiveAiTasks();
-                    WatchedAttributes.SetFloat("gaiaBirthTimer", birthTimer - dt);
+
+                    WatchedAttributes.SetFloat(
+                        "gaiaBirthTimer",
+                        Math.Max(0f, birthTimer - dt)
+                    );
+
                     return;
                 }
 
+
+               
+                // Страховка разрушенной арены
+                // Выполняется ТОЛЬКО после завершения рождения
+                // Весь поиск поверхности находится в AiTaskGaiaTeleport
+               
+
+                bool emergencyFloating = false;
+
+                try
+                {
+                    emergencyFloating =
+                        EnsureArenaSupport();
+                }
+                catch (Exception e)
+                {
+                    if (!arenaSupportErrorLogged)
+                    {
+                        arenaSupportErrorLogged = true;
+
+                        World.Logger.Warning(
+                            "[BotaniaStory] Gaia arena support check failed: {0}",
+                            e
+                        );
+                    }
+
+                    // При ошибке не позволяем Гайе упасть
+                    Controls.IsFlying = true;
+
+                    Pos.Motion.X = 0;
+                    Pos.Motion.Y = 0;
+                    Pos.Motion.Z = 0;
+
+                    emergencyFloating = true;
+                }
+
+
+
+                // Проверка режимма ярости
+                UpdateRageMode(dt);
+
+
+               
                 // ФАЗА ЛЕВИТАЦИИ
+               
+
                 if (WatchedAttributes.GetBool("isLevitating", false))
                 {
                     Pos.Motion.Y = 0;
@@ -328,8 +413,15 @@ namespace BotaniaStory.entities
                 }
                 else
                 {
-                    // На всякий случай гарантируем, что в обычной фазе гравитация работает
-                    Controls.IsFlying = false;
+                    if (emergencyFloating)
+                    {
+                        Controls.IsFlying = true;
+                        Pos.Motion.Y = 0;
+                    }
+                    else
+                    {
+                        Controls.IsFlying = false;
+                    }
                 }
 
                 // ОБЫЧНАЯ ФАЗА (поворот к игроку)
@@ -536,6 +628,289 @@ namespace BotaniaStory.entities
             }
 
             this.Die(EnumDespawnReason.Removed);
+        }
+        private bool EnsureArenaSupport()
+        {
+            // Специальная фаза левитации сама управляет положением и гравитацией Гайи
+            if (WatchedAttributes.GetBool(
+                "isLevitating",
+                false))
+            {
+                return false;
+            }
+
+
+            // Всё нормально: под Гайей есть поверхность практически прямо под ногами
+            if (AiTaskGaiaTeleport.HasImmediateArenaSupport(this))
+            {
+                WatchedAttributes.SetBool(
+                    "gaiaEmergencyFloating",
+                    false
+                );
+
+                return false;
+            }
+
+
+
+            // опоры нет Сразу блокируем падение ещё до поиска
+
+            Pos.Motion.Y = 0;
+            Controls.IsFlying = true;
+
+
+           
+            // Просим систему телепорта найти ближайшую поверхность на уровне арены
+
+            if (AiTaskGaiaTeleport.TryEmergencyTeleportToNearestSupport(
+                this,
+                out Vec3d safePos))
+            {
+                Pos.SetPos(
+                    safePos.X,
+                    safePos.Y,
+                    safePos.Z
+                );
+
+                Pos.Motion.X = 0;
+                Pos.Motion.Y = 0;
+                Pos.Motion.Z = 0;
+
+                Controls.IsFlying = false;
+
+                WatchedAttributes.SetBool(
+                    "gaiaEmergencyFloating",
+                    false
+                );
+
+                return false;
+            }
+
+
+           
+            // Вообще ни одного подходящего блока на арене нет - просто зависаем.
+           
+
+            Pos.Motion.X = 0;
+            Pos.Motion.Y = 0;
+            Pos.Motion.Z = 0;
+
+            Controls.IsFlying = true;
+
+            WatchedAttributes.SetBool(
+                "gaiaEmergencyFloating",
+                true
+            );
+
+            // На арене буквально некуда телепортироваться
+            WatchedAttributes.SetBool(
+                "gaiaTeleportBlocked",
+                true
+            );
+
+            return true;
+        }
+        private void UpdateRageMode(float dt)
+        {
+            if (WatchedAttributes.GetFloat(
+                "gaiaBirthTimer",
+                0f) > 0f)
+            {
+                return;
+            }
+
+
+            rageArenaScanTimer += dt;
+
+            if (rageArenaScanTimer <
+                RageArenaScanInterval)
+            {
+                return;
+            }
+
+            rageArenaScanTimer = 0f;
+
+
+            try
+            {
+                bool wasRaging =
+                    WatchedAttributes.GetBool(
+                        "gaiaRageMode",
+                        false
+                    );
+
+
+
+                // идеальная площать арен
+                int idealColumns =
+                    AiTaskGaiaTeleport.CountIdealArenaColumns(
+                        this
+                    );
+
+                if (idealColumns <= 0)
+                    return;
+
+
+
+                // Сколько колонн опоры осталось
+
+
+                int supportColumns =
+                    AiTaskGaiaTeleport.CountArenaSupportColumns(
+                        this
+                    );
+
+
+
+                // Процент разрушенности арены 
+
+
+                float intactPercent =
+                    (float)supportColumns /
+                    idealColumns;
+
+                float destroyedPercent =
+                    1f - intactPercent;
+
+
+                // На всякий случай ограничиваем 0..1
+                destroyedPercent =
+                    Math.Max(
+                        0f,
+                        Math.Min(
+                            1f,
+                            destroyedPercent
+                        )
+                    );
+
+
+               
+                bool shouldRage;
+
+                if (wasRaging)
+                {
+                  
+                    shouldRage =
+                        destroyedPercent >=
+                        RageExitDestroyedPercent;
+                }
+                else
+                {
+                  
+                    shouldRage =
+                        destroyedPercent >=
+                        RageEnterDestroyedPercent;
+                }
+
+
+                if (shouldRage == wasRaging)
+                    return;
+
+
+                WatchedAttributes.SetBool(
+                    "gaiaRageMode",
+                    shouldRage
+                );
+
+
+
+                // Вход в режим ярости
+                if (shouldRage)
+                {
+                    World.PlaySoundAt(
+                        new AssetLocation(
+                            "botaniastory",
+                            "sounds/gaia_scream"
+                        ),
+                        Pos.X,
+                        Pos.Y,
+                        Pos.Z
+                    );
+
+
+                }
+                else
+                {
+                }
+            }
+            catch (Exception e)
+            {
+                if (!rageScanErrorLogged)
+                {
+                    rageScanErrorLogged = true;
+
+                   
+                }
+            }
+        }
+        private void InitializeRageModeOnSpawn()
+        {
+            try
+            {
+                int idealColumns =
+                    AiTaskGaiaTeleport.CountIdealArenaColumns(
+                        this
+                    );
+
+                if (idealColumns <= 0)
+                    return;
+
+
+                int supportColumns =
+                    AiTaskGaiaTeleport.CountArenaSupportColumns(
+                        this
+                    );
+
+
+                float intactPercent =
+                    (float)supportColumns /
+                    idealColumns;
+
+                float destroyedPercent =
+                    1f - intactPercent;
+
+
+                destroyedPercent =
+                    Math.Max(
+                        0f,
+                        Math.Min(
+                            1f,
+                            destroyedPercent
+                        )
+                    );
+
+
+                bool shouldRage =
+                    destroyedPercent >=
+                    RageEnterDestroyedPercent;
+
+
+                WatchedAttributes.SetBool(
+                    "gaiaRageMode",
+                    shouldRage
+                );
+
+
+                if (shouldRage)
+                {
+                    World.PlaySoundAt(
+                        new AssetLocation(
+                            "botaniastory",
+                            "sounds/gaia_scream"
+                        ),
+                        Pos.X,
+                        Pos.Y,
+                        Pos.Z
+                    );
+                }
+            }
+            catch (Exception e)
+            {
+                if (!rageScanErrorLogged)
+                {
+                    rageScanErrorLogged = true;
+                }
+            }
         }
     }
 }

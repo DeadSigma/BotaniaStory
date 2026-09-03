@@ -10,8 +10,8 @@
 		"y": 1.8
 	},
 	"deadHitboxSize": {
-		"x": 0.6,
-		"y": 0.5
+		"x": 1.6,
+		"y": 1.5
 	},
 	"eyeHeight": 1.6,
 	"attributes": {
@@ -28,9 +28,14 @@
 				"code": "controlledphysics",
 				"stepHeight": 1.1251
 			},
+			{
+				"code": "harvestable",
+				"duration": 2.5,
+				"quantitySlots": 4
+			},
 			{ "code": "interpolateposition" },
 			{
-				"code": "bossErel",
+				"code": "bossGaia",
 				"bossHpBarRange": 60,
 				"showHealthBarBetweenDimensions": true
 			}
@@ -66,21 +71,25 @@
 		]
 	},
 	"server": {
-		"drops": [
-			{
-				"type": "item",
-				"code": "game:gear-temporal",
-				"quantity": {
-					"avg": 1,
-					"var": 0
-				}
-			}
-		],
 		"behaviors": [
 			{ "code": "repulseagents" },
 			{
 				"code": "controlledphysics",
 				"stepHeight": 1.1251
+			},
+			{
+				"code": "harvestable",
+				"duration": 2.5,
+				"drops": [
+					{
+						"type": "item",
+						"code": "game:gear-temporal",
+						"quantity": {
+							"avg": 1,
+							"var": 0
+						}
+					}
+				]
 			},
 			{
 				"code": "health",
@@ -110,7 +119,8 @@
 					{
 						"code": "gaialightning",
 						"priority": 2.0,
-						"cooldownMs": 8000,
+						"cooldownMs": 5000,
+						"rageCooldownMs": 1000,
 						"damage": 5,
 						"animation": "attack"
 					},
@@ -122,8 +132,8 @@
 					{
 						"code": "gaiateleport",
 						"priority": 1.5,
-						"cooldownMs": 5000,
-						"range": 15
+						"cooldownMs": 2500,
+						"rageCooldownMs": 1500
 					},
 					{
 						"code": "seekentity",
