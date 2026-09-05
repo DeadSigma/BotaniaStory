@@ -1,68 +1,93 @@
 [
-	{
-		"file": "game:itemtypes/resource/ingot.json",
-		"op": "add",
-		"path": "/materialDensityByType/*-manasteel",
-		"value": 8960
-	},
-	{
-		"file": "game:itemtypes/resource/ingot.json",
-		"op": "add",
-		"path": "/combustiblePropsByType/ingot-manasteel",
-		"value": {
-			"meltingPoint": 1084,
-			"meltingDuration": 30,
-			"smeltedRatio": 1,
-			"smeltedStack": {
-				"type": "item",
-				"code": "game:ingot-manasteel"
-			}
-		}
-	},
-	{
-		"file": "game:itemtypes/resource/ingot.json",
-		"op": "add",
-		"path": "/materialDensityByType/*-terrasteel",
-		"value": 9000
-	},
-	{
-		"file": "game:itemtypes/resource/ingot.json",
-		"op": "add",
-		"path": "/combustiblePropsByType/ingot-terrasteel",
-		"value": {
-			"meltingPoint": 1500,
-			"meltingDuration": 40,
-			"smeltedRatio": 1,
-			"smeltedStack": {
-				"type": "item",
-				"code": "game:ingot-terrasteel"
-			}
-		}
-	},
-	{
-		"file": "game:itemtypes/resource/ingot.json",
-		"op": "add",
-		"path": "/materialDensityByType/*-elementium",
-		"value": 8980
-	},
-	{
-		"file": "game:itemtypes/resource/ingot.json",
-		"op": "add",
-		"path": "/combustiblePropsByType/ingot-elementium",
-		"value": {
-			"meltingPoint": 1250,
-			"meltingDuration": 35,
-			"smeltedRatio": 1,
-			"smeltedStack": {
-				"type": "item",
-				"code": "game:ingot-elementium"
-			}
-		}
-	},
-	{
-		"file": "game:itemtypes/resource/ingot.json",
-		"op": "add",
-		"path": "/creativeinventory/botaniastory",
-		"value": [ "*-manasteel", "*-terrasteel", "*-elementium" ]
-	}
+  {
+    "file": "game:itemtypes/resource/ingot.json",
+    "op": "add",
+    "path": "/materialDensityByType/*-manasteel",
+    "value": 8960
+  },
+  {
+    "file": "game:itemtypes/resource/ingot.json",
+    "op": "add",
+    "path": "/combustiblePropsByType/ingot-manasteel",
+    "value": {
+      "meltingPoint": 1084,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltedStack": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+      }
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/ingot.json",
+    "op": "add",
+    "path": "/materialDensityByType/*-terrasteel",
+    "value": 9000
+  },
+  {
+    "file": "game:itemtypes/resource/ingot.json",
+    "op": "add",
+    "path": "/combustiblePropsByType/ingot-terrasteel",
+    "value": {
+      "meltingPoint": 1500,
+      "meltingDuration": 40,
+      "smeltedRatio": 1,
+      "smeltedStack": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+      }
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/ingot.json",
+    "op": "add",
+    "path": "/materialDensityByType/*-elementium",
+    "value": 8980
+  },
+  {
+    "file": "game:itemtypes/resource/ingot.json",
+    "op": "add",
+    "path": "/combustiblePropsByType/ingot-elementium",
+    "value": {
+      "meltingPoint": 1250,
+      "meltingDuration": 35,
+      "smeltedRatio": 1,
+      "smeltedStack": {
+        "type": "item",
+        "code": "game:ingot-elementium"
+      }
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/ingot.json",
+    "op": "add",
+    "path": "/materialDensityByType/*-terrasteel-empowered",
+    "value": 9000
+  },
+  {
+    "file": "game:itemtypes/resource/ingot.json",
+    "op": "add",
+    "path": "/combustiblePropsByType/ingot-terrasteel-empowered",
+    "value": {
+      "meltingPoint": 1500,
+      "meltingDuration": 40,
+      "smeltedRatio": 1,
+      "smeltedStack": {
+        "type": "item",
+        "code": "game:ingot-terrasteel-empowered"
+      }
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/ingot.json",
+    "op": "add",
+    "path": "/creativeinventory/botaniastory",
+    "value": [
+      "*-manasteel",
+      "*-terrasteel",
+      "*-elementium",
+      "*-terrasteel-empowered"
+    ]
+  }
 ]

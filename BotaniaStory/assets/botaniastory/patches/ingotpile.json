@@ -1,20 +1,34 @@
 [
-	{
-		"file": "game:blocktypes/legacy/ingotpile.json",
-		"op": "addmerge",
-		"path": "/textures/manasteel",
-		"value": { "base": "game:block/metal/ingot/manasteel" }
-	},
-	{
-		"file": "game:blocktypes/legacy/ingotpile.json",
-		"op": "addmerge",
-		"path": "/textures/terrasteel",
-		"value": { "base": "game:block/metal/ingot/terrasteel" }
-	},
-	{
-		"file": "game:blocktypes/legacy/ingotpile.json",
-		"op": "addmerge",
-		"path": "/textures/elementium",
-		"value": { "base": "game:block/metal/ingot/elementium" }
-	}
+  {
+    "file": "game:blocktypes/legacy/ingotpile.json",
+    "op": "addmerge",
+    "path": "/textures/manasteel",
+    "value": {
+      "base": "game:block/metal/ingot/manasteel"
+    }
+  },
+  {
+    "file": "game:blocktypes/legacy/ingotpile.json",
+    "op": "addmerge",
+    "path": "/textures/terrasteel",
+    "value": {
+      "base": "game:block/metal/ingot/terrasteel"
+    }
+  },
+  {
+    "file": "game:blocktypes/legacy/ingotpile.json",
+    "op": "addmerge",
+    "path": "/textures/elementium",
+    "value": {
+      "base": "game:block/metal/ingot/elementium"
+    }
+  },
+  {
+    "file": "game:blocktypes/legacy/ingotpile.json",
+    "op": "addmerge",
+    "path": "/textures/terrasteel-empowered",
+    "value": {
+      "base": "game:block/metal/ingot/terrasteel-empowered"
+    }
+  }
 ]

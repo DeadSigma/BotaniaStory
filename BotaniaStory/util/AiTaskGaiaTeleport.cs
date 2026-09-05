@@ -30,6 +30,7 @@ namespace BotaniaStory.entities.ai
 
         // Насколько близко ноги Гайи должны находиться к найденной поверхности,  чтобы считать, что она действительно стоит на ней
         private const double SupportTolerance = 0.35;
+        private const float GaiaIICooldownMultiplier = 0.70f;
 
         private long lastTeleportMs;
 
@@ -87,6 +88,20 @@ namespace BotaniaStory.entities.ai
                 rage
                     ? rageCooldownMs
                     : cooldownMs;
+
+            if (entity.WatchedAttributes.GetInt(
+        "gaiaLevel",
+        1) >= 2)
+            {
+                activeCooldown =
+                    Math.Max(
+                        1,
+                        (int)Math.Round(
+                            activeCooldown *
+                            GaiaIICooldownMultiplier
+                        )
+                    );
+            }
 
             if (entity.World.ElapsedMilliseconds -
                 lastTeleportMs <

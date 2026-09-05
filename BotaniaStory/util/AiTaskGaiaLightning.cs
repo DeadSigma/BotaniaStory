@@ -16,7 +16,7 @@ namespace BotaniaStory.util
         private readonly float damage = 1f;
         private readonly int wallPenetration = 2;
 
-
+        private const float GaiaIICooldownMultiplier = 0.60f;
         private long lastStrikeMs;
         private int rotationIndex = 0;
         private EntityPlayer targetEntity;
@@ -59,6 +59,19 @@ namespace BotaniaStory.util
                     ? rageCooldownMs
                     : cooldownMs;
 
+            if (entity.WatchedAttributes.GetInt(
+        "gaiaLevel",
+        1) >= 2)
+            {
+                activeCooldown =
+                    Math.Max(
+                        1,
+                        (int)Math.Round(
+                            activeCooldown *
+                            GaiaIICooldownMultiplier
+                        )
+                    );
+            }
 
             // При нескольких игроках Гайа распределяет  выстрелы между ними.
             int interval =

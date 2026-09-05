@@ -1,71 +1,94 @@
 [
-	{
-		"file": "game:itemtypes/resource/workitem.json",
-		"op": "add",
-		"path": "/attributesByType/workitem-manasteel",
-		"value": {
-			"workableTemperature": 300,
-			"requiresAnvilTier": 0
-		}
-	},
-	{
-		"file": "game:itemtypes/resource/workitem.json",
-		"op": "add",
-		"path": "/combustiblePropsByType/workitem-manasteel",
-		"value": {
-			"meltingPoint": 1084,
-			"meltingDuration": 30,
-			"smeltedRatio": 1,
-			"smeltedStack": {
-				"type": "item",
-				"code": "game:ingot-manasteel"
-			}
-		}
-	},
-	{
-		"file": "game:itemtypes/resource/workitem.json",
-		"op": "add",
-		"path": "/attributesByType/workitem-terrasteel",
-		"value": {
-			"workableTemperature": 800,
-			"requiresAnvilTier": 3
-		}
-	},
-	{
-		"file": "game:itemtypes/resource/workitem.json",
-		"op": "add",
-		"path": "/combustiblePropsByType/workitem-terrasteel",
-		"value": {
-			"meltingPoint": 1500,
-			"meltingDuration": 40,
-			"smeltedRatio": 1,
-			"smeltedStack": {
-				"type": "item",
-				"code": "game:ingot-terrasteel"
-			}
-		}
-	},
-	{
-		"file": "game:itemtypes/resource/workitem.json",
-		"op": "add",
-		"path": "/attributesByType/workitem-elementium",
-		"value": {
-			"workableTemperature": 550,
-			"requiresAnvilTier": 2
-		}
-	},
-	{
-		"file": "game:itemtypes/resource/workitem.json",
-		"op": "add",
-		"path": "/combustiblePropsByType/workitem-elementium",
-		"value": {
-			"meltingPoint": 1250,
-			"meltingDuration": 35,
-			"smeltedRatio": 1,
-			"smeltedStack": {
-				"type": "item",
-				"code": "game:ingot-elementium"
-			}
-		}
-	}
+  {
+    "file": "game:itemtypes/resource/workitem.json",
+    "op": "add",
+    "path": "/attributesByType/workitem-manasteel",
+    "value": {
+      "workableTemperature": 300,
+      "requiresAnvilTier": 0
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/workitem.json",
+    "op": "add",
+    "path": "/combustiblePropsByType/workitem-manasteel",
+    "value": {
+      "meltingPoint": 1084,
+      "meltingDuration": 30,
+      "smeltedRatio": 1,
+      "smeltedStack": {
+        "type": "item",
+        "code": "game:ingot-manasteel"
+      }
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/workitem.json",
+    "op": "add",
+    "path": "/attributesByType/workitem-terrasteel",
+    "value": {
+      "workableTemperature": 800,
+      "requiresAnvilTier": 3
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/workitem.json",
+    "op": "add",
+    "path": "/combustiblePropsByType/workitem-terrasteel",
+    "value": {
+      "meltingPoint": 1500,
+      "meltingDuration": 40,
+      "smeltedRatio": 1,
+      "smeltedStack": {
+        "type": "item",
+        "code": "game:ingot-terrasteel"
+      }
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/workitem.json",
+    "op": "add",
+    "path": "/attributesByType/workitem-elementium",
+    "value": {
+      "workableTemperature": 550,
+      "requiresAnvilTier": 2
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/workitem.json",
+    "op": "add",
+    "path": "/combustiblePropsByType/workitem-elementium",
+    "value": {
+      "meltingPoint": 1250,
+      "meltingDuration": 35,
+      "smeltedRatio": 1,
+      "smeltedStack": {
+        "type": "item",
+        "code": "game:ingot-elementium"
+      }
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/workitem.json",
+    "op": "add",
+    "path": "/attributesByType/workitem-terrasteel-empowered",
+    "value": {
+      "workableTemperature": 800,
+      "requiresAnvilTier": 4
+    }
+  },
+  {
+    "file": "game:itemtypes/resource/workitem.json",
+    "op": "add",
+    "path": "/combustiblePropsByType/workitem-terrasteel-empowered",
+    "value": {
+      "meltingPoint": 1500,
+      "meltingDuration": 40,
+      "smeltedRatio": 1,
+      "smeltedStack": {
+        "type": "item",
+        "code": "game:ingot-terrasteel-empowered"
+      }
+    }
+  }
 ]

@@ -181,7 +181,8 @@ namespace BotaniaStory
             api.RegisterEntityBehaviorClass("playermeditation", typeof(EntityBehaviorPlayerMeditation));
             api.RegisterItemClass("ItemOvergrowthSeed", typeof(ItemOvergrowthSeed));
             api.RegisterBlockEntityClass("EnchantedFarmland", typeof(BlockEntityEnchantedFarmland));
-
+            api.RegisterBlockClass("BlockGaiaBeacon", typeof(BlockGaiaBeacon));
+            api.RegisterBlockEntityClass("GaiaBeacon", typeof(BlockEntityGaiaBeacon));
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 

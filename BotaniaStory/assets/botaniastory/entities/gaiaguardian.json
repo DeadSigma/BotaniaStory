@@ -31,7 +31,7 @@
 			{
 				"code": "harvestable",
 				"duration": 2.5,
-				"quantitySlots": 4
+				"quantitySlots": 8
 			},
 			{ "code": "interpolateposition" },
 			{
@@ -80,16 +80,8 @@
 			{
 				"code": "harvestable",
 				"duration": 2.5,
-				"drops": [
-					{
-						"type": "item",
-						"code": "game:gear-temporal",
-						"quantity": {
-							"avg": 1,
-							"var": 0
-						}
-					}
-				]
+				"quantitySlots": 8,
+				"drops": []
 			},
 			{
 				"code": "health",

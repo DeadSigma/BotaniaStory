@@ -7,17 +7,19 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
 using BotaniaStory.entities.ai;
+using System.Collections.Generic;
 
 namespace BotaniaStory.entities
 {
-    public class EntityGaiaGuardian : EntityHumanoid
+    public class EntityGaiaGuardian : EntityHumanoid, IHarvestableDrops
     {
         // Радиус арены от точки спавна 
         public const float ArenaRadius = 12f;
-
+        public const float GaiaIIHealthMultiplier = 2.0f;
+        public const float GaiaIIDamageMultiplier = 1.5f;
+        public const int GaiaIILootMultiplier = 2;
         public const float HealthPerExtraPlayer = 1.0f;   // +100% HP за каждого доп. игрока 
         public const float DamagePerExtraPlayer = 0.35f;  // +35% урона за каждого доп. игрока
-        public const float LootSetsPerExtraPlayer = 1.0f; // +1 полный набор дропа за каждого доп. игрока
         public const float MaxDamagePerHit = 12f;         // кап урона за один удар: защита от ваншота (0 = без капа)
         public const float BirthDurationSeconds = 6f;     // фаза рождения: бессмертна, не атакует, копит силу
 
@@ -42,6 +44,17 @@ namespace BotaniaStory.entities
 
         private float rageArenaScanTimer = 0f;
         private bool rageScanErrorLogged = false;
+        private int GaiaLevel =>
+    Math.Max(
+        1,
+        WatchedAttributes.GetInt(
+            "gaiaLevel",
+            1
+        )
+    );
+
+        private bool IsGaiaII =>
+            GaiaLevel >= 2;
 
         private int PlayerCount => Math.Max(1, WatchedAttributes.GetInt("gaiaPlayerCount", 1));
 
@@ -145,6 +158,150 @@ namespace BotaniaStory.entities
             }
         }
 
+        // Лут Gaia Guardian II - копирует вероятности Botania Gaia II
+        // Результат суммируется в один инвентарь для всех игроков
+        public ItemStack[] GetHarvestableDrops(
+    IWorldAccessor world,
+    BlockPos pos,
+    IPlayer byPlayer)
+        {
+            if (world.Side != EnumAppSide.Server)
+            {
+                return Array.Empty<ItemStack>();
+            }
+
+            List<ItemStack> drops =
+                new List<ItemStack>();
+
+            int playerCount =
+                PlayerCount;
+
+            int lootMultiplier =
+                IsGaiaII
+                    ? GaiaIILootMultiplier
+                    : 1;
+
+
+            // Gaia Spirits
+            int gaiaSpirits =
+                16 +
+                Math.Max(
+                    0,
+                    playerCount - 1
+                ) * 10;
+
+            gaiaSpirits *=
+                lootMultiplier;
+
+            AddLoot(
+                drops,
+                world,
+                "botaniastory:gaiaspirit",
+                gaiaSpirits
+            );
+
+
+            int manasteelTotal = 0;
+            int manaGearTotal = 0;
+            int manaQuartzTotal = 0;
+
+
+            // Каждый игрок даёт отдельный roll лута.
+            for (int player = 0;
+                 player < playerCount;
+                 player++)
+            {
+                // Manasteel: 90%, 16-27
+                if (world.Rand.NextDouble() < 0.90)
+                {
+                    manasteelTotal +=
+                        world.Rand.Next(
+                            16,
+                            28
+                        );
+                }
+
+                // Mana Gear: 70%, 8-13
+                if (world.Rand.NextDouble() < 0.70)
+                {
+                    manaGearTotal +=
+                        world.Rand.Next(
+                            8,
+                            14
+                        );
+                }
+
+                // Mana Quartz: 50%, 4-6
+                if (world.Rand.NextDouble() < 0.50)
+                {
+                    manaQuartzTotal +=
+                        world.Rand.Next(
+                            4,
+                            7
+                        );
+                }
+            }
+
+
+            // Gaia II удваивает уже выпавшее количество.
+            manasteelTotal *=
+                lootMultiplier;
+
+            manaGearTotal *=
+                lootMultiplier;
+
+            manaQuartzTotal *=
+                lootMultiplier;
+
+
+            AddLoot(
+                drops,
+                world,
+                "game:ingot-manasteel",
+                manasteelTotal
+            );
+
+            AddLoot(
+                drops,
+                world,
+                "botaniastory:manaitem-managear",
+                manaGearTotal
+            );
+
+            AddLoot(
+                drops,
+                world,
+                "botaniastory:manaitem-manaquartz",
+                manaQuartzTotal
+            );
+
+
+            return drops.ToArray();
+        }
+
+        // Разбиваем лут на стаки, чтобы не превысить MaxStackSize
+        private static void AddLoot(List<ItemStack> drops, IWorldAccessor world, string code, int quantity)
+        {
+            if (quantity <= 0) return;
+
+            Item item = world.GetItem(new AssetLocation(code));
+
+            if (item == null)
+            {
+                world.Logger.Warning("[BotaniaStory] Gaia loot item not found: {0}", code);
+                return;
+            }
+
+            int maxStackSize = Math.Max(1, item.MaxStackSize);
+
+            while (quantity > 0)
+            {
+                int stackSize = Math.Min(quantity, maxStackSize);
+                drops.Add(new ItemStack(item, stackSize));
+                quantity -= stackSize;
+            }
+        }
+
         // Бессмертие и ка урона
         // ReceiveDamage - входная точка всего урона. В 1.22 ShouldReceiveDamage принимает damage по значению (без ref), там величину не порезать - клампим здесь, до раздачи behavior'ам
         public override bool ReceiveDamage(DamageSource damageSource, float damage)
@@ -168,7 +325,19 @@ namespace BotaniaStory.entities
         {
             if (WatchedAttributes.GetBool("gaiaHpScaled", false)) return;
 
-            float mul = 1f + (PlayerCount - 1) * HealthPerExtraPlayer;
+            float playerMul =
+     1f +
+     (PlayerCount - 1) *
+     HealthPerExtraPlayer;
+
+            float levelMul =
+                IsGaiaII
+                    ? GaiaIIHealthMultiplier
+                    : 1f;
+
+            float mul =
+                playerMul *
+                levelMul;
             ITreeAttribute ht = WatchedAttributes.GetTreeAttribute("health");
             if (ht == null) return;
 
@@ -184,8 +353,22 @@ namespace BotaniaStory.entities
 
         private void ApplyDamageScaling()
         {
-            float mul = 1f + (PlayerCount - 1) * DamagePerExtraPlayer;
-            if (mul <= 1f) return;
+            float playerMul =
+     1f +
+     (PlayerCount - 1) *
+     DamagePerExtraPlayer;
+
+            float levelMul =
+                IsGaiaII
+                    ? GaiaIIDamageMultiplier
+                    : 1f;
+
+            float mul =
+                playerMul *
+                levelMul;
+
+            if (mul <= 1f)
+                return;
 
             try
             {
@@ -219,42 +402,7 @@ namespace BotaniaStory.entities
             return null;
         }
 
-        // Лут: при честной смерти доспавниваем (игроков-1)*LootSetsPerExtraPlayer дополнительных наборов дропа
-        public override void Die(EnumDespawnReason reason = EnumDespawnReason.Death, DamageSource damageSourceForDeath = null)
-        {
-            if (World.Side == EnumAppSide.Server && reason == EnumDespawnReason.Death && Alive)
-            {
-                TrySpawnExtraLoot();
-            }
-            base.Die(reason, damageSourceForDeath);
-        }
-
-        private void TrySpawnExtraLoot()
-        {
-            int extraSets = (int)Math.Round((PlayerCount - 1) * LootSetsPerExtraPlayer);
-            if (extraSets <= 0) return;
-
-            try
-            {
-                var drops = Properties?.Drops;
-                if (drops == null) return;
-
-                for (int s = 0; s < extraSets; s++)
-                {
-                    foreach (var d in drops)
-                    {
-                        ItemStack stack = d?.GetNextItemStack();
-                        if (stack == null || stack.StackSize <= 0) continue;
-                        World.SpawnItemEntity(stack, Pos.XYZ.AddCopy(0, 0.75, 0));
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                World.Logger.Warning("[BotaniaStory] Gaia extra loot failed: {0}", e);
-            }
-        }
-
+      
         // Основной тик
 
         public override void OnGameTick(float dt)
@@ -833,7 +981,7 @@ namespace BotaniaStory.entities
                 {
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 if (!rageScanErrorLogged)
                 {
@@ -904,7 +1052,7 @@ namespace BotaniaStory.entities
                     );
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 if (!rageScanErrorLogged)
                 {
