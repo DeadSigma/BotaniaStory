@@ -9,14 +9,12 @@ using Vintagestory.API.Config;
 
 namespace BotaniaStory.util
 {
-    // Сетевой пакет для синхронизации
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     public class MeditationTogglePacket
     {
         public bool IsMeditating;
     }
 
-    //  Система для регистрации кнопки и сети
     public class MeditationModSystem : ModSystem
     {
         private ICoreClientAPI capi;
@@ -25,7 +23,7 @@ namespace BotaniaStory.util
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
-            // Регистрируем сетевой канал
+
             api.Network.RegisterChannel("botaniameditation")
                 .RegisterMessageType<MeditationTogglePacket>();
         }
@@ -36,24 +34,20 @@ namespace BotaniaStory.util
             clientChannel = api.Network.GetChannel("botaniameditation");
 
             capi.Input.RegisterHotKey(
-                 "meditationToggle",
-                 Lang.Get("botaniastory:hotkey-meditationToggle"), 
-                 GlKeys.N,
-                 HotkeyType.CharacterControls
-             );
+                "meditationToggle",
+                Lang.Get("botaniastory:hotkey-meditationToggle"),
+                GlKeys.N,
+                HotkeyType.CharacterControls
+            );
             capi.Input.SetHotKeyHandler("meditationToggle", OnMeditationKey);
         }
 
         private bool OnMeditationKey(KeyCombination t1)
         {
-            // Получаем текущее состояние из атрибутов игрока и переключаем его
             bool currentState = capi.World.Player.Entity.Attributes.GetBool("isMeditating", false);
             bool newState = !currentState;
 
-            // Устанавливаем локально
             capi.World.Player.Entity.Attributes.SetBool("isMeditating", newState);
-
-            // Тихо отправляем пакет на сервер
             clientChannel.SendPacket(new MeditationTogglePacket { IsMeditating = newState });
 
             return true;
@@ -67,21 +61,19 @@ namespace BotaniaStory.util
 
         private void OnServerMeditationToggle(IServerPlayer fromPlayer, MeditationTogglePacket packet)
         {
-            // Обновляем состояние на сервере для конкретного игрока
             fromPlayer.Entity.Attributes.SetBool("isMeditating", packet.IsMeditating);
         }
     }
 
-    // Обновленное поведение
     public class EntityBehaviorPlayerMeditation(Entity entity) : EntityBehavior(entity)
     {
-        private const float MeditationThreshold = 10f; // секунд сидения до начала эффекта
-        private const float EffectInterval = 10.5f;     // как часто превращаем цветок
-        private const float AmbientInterval = 0.25f;   // как часто пускаем "ауру"
+        private const float MeditationThreshold = 10f;
+        private const float FlowerInterval = 60f; // Цветок - раз в минуту
+        private const float AmbientInterval = 0.25f;
         private const int transformRadius = 4;
 
         private float sitDuration = 0f;
-        private float effectTick = 0f;
+        private float flowerTick = 0f;
         private float ambientTick = 0f;
 
         private readonly string[] flowerColors = [
@@ -99,47 +91,42 @@ namespace BotaniaStory.util
 
             bool isMeditating = entity.Attributes.GetBool("isMeditating", false);
 
-            // Проверяем, является ли сущность EntityAgent, и получаем доступ к Controls через переменную agent
-            if (isMeditating && entity is EntityAgent agent)
+            if (isMeditating && entity is EntityAgent agent &&
+                (agent.Controls.TriesToMove || agent.Controls.Jump))
             {
-                if (agent.Controls.TriesToMove || agent.Controls.Jump)
-                {
-                    isMeditating = false;
-                    entity.Attributes.SetBool("isMeditating", false);
-
-                    // Сброс таймеров
-                    sitDuration = 0f;
-                    effectTick = 0f;
-                    ambientTick = 0f;
-                }
+                entity.Attributes.SetBool("isMeditating", false);
+                ResetMeditationTimers();
+                return;
             }
 
             if (!isMeditating)
             {
-                sitDuration = 0f;
-                effectTick = 0f;
-                ambientTick = 0f;
+                ResetMeditationTimers();
                 return;
             }
 
             sitDuration += deltaTime;
-
+            flowerTick += deltaTime;
             ambientTick += deltaTime;
+
             if (ambientTick >= AmbientInterval)
             {
                 SpawnAuraParticles(sitDuration >= MeditationThreshold);
                 ambientTick = 0f;
             }
 
-            if (sitDuration >= MeditationThreshold)
+            if (flowerTick >= FlowerInterval)
             {
-                effectTick += deltaTime;
-                if (effectTick >= EffectInterval)
-                {
-                    TryTransformNearbyFlower();
-                    effectTick = 0f;
-                }
+                TryTransformNearbyFlower();
+                flowerTick -= FlowerInterval;
             }
+        }
+
+        private void ResetMeditationTimers()
+        {
+            sitDuration = 0f;
+            flowerTick = 0f;
+            ambientTick = 0f;
         }
 
         private void TryTransformNearbyFlower()
@@ -175,7 +162,8 @@ namespace BotaniaStory.util
                         entity.World.PlaySoundAt(
                             new("game", "sounds/block/plant"),
                             checkPos.X + 0.5, checkPos.Y + 0.5, checkPos.Z + 0.5,
-                            null, true, 16, 1f);
+                            null, true, 16, 1f
+                        );
 
                         return;
                     }
