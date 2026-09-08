@@ -1,4 +1,5 @@
 ﻿using System;
+using BotaniaStory.systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -132,6 +133,7 @@ namespace BotaniaStory.client.renderers
 
             IRenderAPI render = capi.Render;
             IStandardShaderProgram prog = render.PreparedStandardShader(pos.X, pos.Y, pos.Z);
+            ShaderSanitizer.Sanitize(prog);
 
             prog.RgbaLightIn = capi.World.BlockAccessor.GetLightRGBs(pos.X, pos.Y + 1, pos.Z);
             prog.RgbaTint = ColorUtil.WhiteArgbVec;

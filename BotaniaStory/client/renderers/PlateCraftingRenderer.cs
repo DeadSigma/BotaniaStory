@@ -1,4 +1,5 @@
 using BotaniaStory.blockentity;
+using BotaniaStory.systems;
 using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
@@ -103,7 +104,8 @@ namespace BotaniaStory.client.renderers
             IRenderAPI rpi = capi.Render;
 
             IStandardShaderProgram prog = rpi.PreparedStandardShader((int)pos.X, (int)pos.Y, (int)pos.Z);
-            // 1. РЕНДЕР ПРЕДМЕТОВ (ВСЕГДА, ЕСЛИ ОНИ ЕСТЬ)
+            ShaderSanitizer.Sanitize(prog);
+
             if (hasItems)
             {
                 // Настройки для плотных физических предметов

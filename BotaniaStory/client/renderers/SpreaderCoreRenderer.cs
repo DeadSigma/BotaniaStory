@@ -2,6 +2,7 @@
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using BotaniaStory.systems;
 
 namespace BotaniaStory.client.renderers
 {
@@ -53,6 +54,7 @@ namespace BotaniaStory.client.renderers
 
             IRenderAPI render = capi.Render;
             IStandardShaderProgram prog = render.PreparedStandardShader(pos.X, pos.Y, pos.Z);
+            ShaderSanitizer.Sanitize(prog);
 
             ModelMat.Identity();
 

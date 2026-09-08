@@ -1,5 +1,6 @@
 ﻿using BotaniaStory.util;
 using System;
+using BotaniaStory.systems;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -96,6 +97,8 @@ namespace BotaniaStory.client.renderers
             {
                 // Обычная отрисовка пилона
                 stdProg = render.PreparedStandardShader(pos.X, pos.Y, pos.Z);
+                ShaderSanitizer.Sanitize(stdProg);
+
                 stdProg.Tex2D = loadedTexture.TextureId;
                 stdProg.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
                 stdProg.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);

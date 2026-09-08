@@ -1,4 +1,5 @@
 ﻿using System;
+using BotaniaStory.systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Common;
@@ -121,6 +122,8 @@ namespace BotaniaStory.client.renderers
             orbitAngle += deltaTime * 1.5f;
 
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)spark.Pos.X, (int)spark.Pos.Y, (int)spark.Pos.Z);
+            ShaderSanitizer.Sanitize(prog);
+
 
             prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
             prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);

@@ -1,4 +1,5 @@
 using System;
+using BotaniaStory.systems;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -56,6 +57,7 @@ namespace BotaniaStory.client.renderers
 
             // Настройка шейдера один раз на кадр
             IStandardShaderProgram prog = rpi.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
+            ShaderSanitizer.Sanitize(prog);
             prog.Tex2D = effectTexture.TextureId;
             prog.NormalShaded = 0;
             prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);

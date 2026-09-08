@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using BotaniaStory.systems;
 
 namespace BotaniaStory.client.renderers
 {
@@ -80,6 +81,8 @@ namespace BotaniaStory.client.renderers
             IClientPlayer player = capi.World.Player;
             Vec3d camPos = player.Entity.CameraPos;
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
+            ShaderSanitizer.Sanitize(prog);
+
 
             prog.Uniform("alphaTest", 0.05f);
             prog.NormalShaded = 0;

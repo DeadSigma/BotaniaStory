@@ -1,4 +1,5 @@
 using Vintagestory.API.Client;
+using BotaniaStory.systems;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.GameContent;
@@ -110,7 +111,7 @@ namespace BotaniaStory.blocks
             try
             {
                 prog = render.PreparedStandardShader(pos.X, pos.Y, pos.Z);
-
+                ShaderSanitizer.Sanitize(prog);
                 prog.Tex2D = render.GetOrLoadTexture(
                     new AssetLocation("botaniastory:textures/block/mana.png")
                 );

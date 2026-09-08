@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BotaniaStory.systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -108,6 +109,7 @@ namespace BotaniaStory.client.renderers
             Vec3d camPos = player.Entity.CameraPos;
 
             IStandardShaderProgram prog = render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
+            ShaderSanitizer.Sanitize(prog);
 
             // ПРАВИЛЬНЫЙ БИНД
             capi.Render.BindTexture2d(particleTexture.TextureId);

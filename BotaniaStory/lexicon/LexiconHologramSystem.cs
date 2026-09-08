@@ -3,6 +3,7 @@ using System.Linq;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
+using BotaniaStory.systems;
 
 namespace BotaniaStory.lexicon
 {
@@ -436,6 +437,7 @@ namespace BotaniaStory.lexicon
                 Vec3d camPos = capi.World.Player.Entity.CameraPos;
 
                 IStandardShaderProgram prog = render.PreparedStandardShader(targetPos.X, targetPos.Y, targetPos.Z);
+                ShaderSanitizer.Sanitize(prog);
                 prog.ViewMatrix = render.CameraMatrixOriginf;
                 prog.ProjectionMatrix = render.CurrentProjectionMatrix;
                 prog.RgbaTint = new Vec4f(1.0f, 1.0f, 1.0f, 0.4f);

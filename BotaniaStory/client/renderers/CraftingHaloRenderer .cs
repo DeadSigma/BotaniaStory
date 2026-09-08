@@ -1,4 +1,5 @@
 ﻿using System;
+using BotaniaStory.systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -157,6 +158,7 @@ namespace BotaniaStory.client.renderers
                 .Values;
 
             IStandardShaderProgram prog = rpi.PreparedStandardShader((int)wx, (int)wy, (int)wz);
+            ShaderSanitizer.Sanitize(prog);
             prog.Use();
             prog.RgbaTint = new Vec4f(1, 1, 1, 1);
             prog.ExtraGlow = 0;

@@ -1,4 +1,5 @@
 ﻿using System;
+using BotaniaStory.systems;
 using System.Collections.Generic;
 using OpenTK.Graphics.OpenGL;
 using Vintagestory.API.Client;
@@ -227,6 +228,7 @@ namespace BotaniaStory.client.renderers
             Vec3d camPos = player.Entity.CameraPos;
 
             IStandardShaderProgram prog = render.PreparedStandardShader((int)camPos.X, (int)camPos.Y, (int)camPos.Z);
+            ShaderSanitizer.Sanitize(prog);
 
             render.BindTexture2d(particleTexture.TextureId);
 

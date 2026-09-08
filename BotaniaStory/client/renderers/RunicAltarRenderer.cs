@@ -1,6 +1,7 @@
 ﻿using BotaniaStory.blockentity;
 using BotaniaStory.client.particles;
 using System;
+using BotaniaStory.systems;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -244,6 +245,8 @@ namespace BotaniaStory.client.renderers
                 double cz = pos.Z - cameraPos.Z + 0.5;
 
                 IStandardShaderProgram prog = render.PreparedStandardShader(pos.X, pos.Y, pos.Z);
+                ShaderSanitizer.Sanitize(prog);
+
                 prog.Tex2D = effectTexture.TextureId;
                 prog.NormalShaded = 0;
                 prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);

@@ -1,4 +1,5 @@
 ﻿using System;
+using BotaniaStory.systems;
 using System.Collections.Generic;
 using System.Linq;
 using Vintagestory.API.Client;
@@ -134,6 +135,11 @@ namespace BotaniaStory
                 prog.ProjectionMatrix = rpi.CurrentProjectionMatrix;
                 prog.ExtraGlow = GlowLevel;
 
+                // плоские шейпы цветов односторонние, renderpass из json тут не работает
+                rpi.GlDisableCullFace();
+                // обе стороны листа должны светиться одинаково
+                prog.NormalShaded = 0;
+
                 float lerpK = GameMath.Clamp(deltaTime * 4f, 0f, 1f);
                 int maxDistSq = RenderRange * RenderRange;
                 int boundAtlas = -1;
@@ -187,6 +193,9 @@ namespace BotaniaStory
                     rpi.RenderMesh(mesh);
                 }
 
+                // состояние GL общее на весь кадр, вернуть обязательно
+                rpi.GlEnableCullFace();
+                prog.NormalShaded = 1;
                 prog.ExtraGlow = 0;
                 prog.Stop();
             }
