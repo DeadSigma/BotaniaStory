@@ -527,7 +527,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "Botania Lexicon は、植物に関するあらゆる知識の宝庫です。しかし、おそらくあなたはすでにそれを知っていたでしょう。すべての情報はここにあります。便宜上、ブロックに説明がある場合は、Botania Lexicon を押したまま <link=nothing>Shift+RMB</link> を押すとその説明が開きます。\n\n他のセクションに進む前に、<link=category:basics_and_mechanics>基本とメカニズム</link> セクションのすべてのエントリを読むことを強くお勧めします。ほとんどのセクションには 1 つ以上のエントリが含まれているため、注意深く調べてください。",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Botania Lexicon の作成。",
     "lexicon_basics_and_mechanics_meditation_title": "瞑想と神秘の花",
-    "lexicon_basics_and_mechanics_meditation_p1": "-部の普通の花は、心の静けさに反応することがあります。瞑想を始めるには <link=nothing>N</link>（デフォルト）を押してください。そのような花のそばに座り、しばらく動かずにいると、花の自然のエッセンスが目覚め、<link=mysticalflower>神秘の花</link>へと変化します。<link=mysticalflower>神秘の花</link>は重要な天然資源であり、さまざまな魔法のアイテムや機構、その他のBotaniaStoryの創造物の作成に使用されます。",
+    "lexicon_basics_and_mechanics_meditation_p1": "瞑想を始めるには、<link=nothing>N</link>（デフォルト）を押します。しばらく動かずにいると、心の静けさが周囲の自然に影響を与え始めます。およそ1分に1回、近くの適した土壌に<link=mysticalflower>神秘の花</link>が現れることがあります。花は草を突き抜けて生えることができないため、あらかじめ草を刈る必要があります。また、石やその他の不適切な地面では花は芽吹きません。<link=mysticalflower>神秘の花</link>は重要な天然資源であり、BotaniaStoryのさまざまな魔法のアイテム、装置、その他の創造物を作るために使用されます。",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       少し待つのも悪くありません。",
     "lexicon_basics_and_mechanics_mysticalflower_title": "神秘的な花",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "世界を探索していると、さまざまな種類の神秘的な植物に出会うかもしれません。\n\n\n\n\n\n\n\n\n\n\n\n      どこを見てもお花がいっぱい…\n\n神秘的な花は光を放つので見つけるのに時間はかかりません。 16 種類の色があります。",

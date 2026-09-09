@@ -1,4 +1,5 @@
 ﻿using ProtoBuf;
+using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -68,7 +69,7 @@ namespace BotaniaStory.util
     public class EntityBehaviorPlayerMeditation(Entity entity) : EntityBehavior(entity)
     {
         private const float MeditationThreshold = 10f;
-        private const float FlowerInterval = 60f; // Цветок - раз в минуту
+        private const float FlowerInterval = 60f;
         private const float AmbientInterval = 0.25f;
         private const int transformRadius = 4;
 
@@ -117,7 +118,7 @@ namespace BotaniaStory.util
 
             if (flowerTick >= FlowerInterval)
             {
-                TryTransformNearbyFlower();
+                TrySpawnNearbyFlower();
                 flowerTick -= FlowerInterval;
             }
         }
@@ -129,46 +130,54 @@ namespace BotaniaStory.util
             ambientTick = 0f;
         }
 
-        private void TryTransformNearbyFlower()
+        private void TrySpawnNearbyFlower()
         {
             BlockPos playerPos = entity.Pos.AsBlockPos;
             IBlockAccessor blockAccessor = entity.World.BlockAccessor;
 
-            for (int i = 0; i < 8; i++)
+            string randomColor = flowerColors[entity.World.Rand.Next(flowerColors.Length)];
+            AssetLocation flowerLoc = new("botaniastory", "mysticalflower-" + randomColor + "-free");
+            Block flowerBlock = entity.World.GetBlock(flowerLoc);
+
+            if (flowerBlock == null) return;
+
+            List<BlockPos> validPositions = [];
+
+            // Проверяем всю область - одиночная почва тоже будет найдена
+            for (int x = -transformRadius; x <= transformRadius; x++)
             {
-                int xOffset = entity.World.Rand.Next(-transformRadius, transformRadius + 1);
-                int zOffset = entity.World.Rand.Next(-transformRadius, transformRadius + 1);
-                int yOffset = entity.World.Rand.Next(-2, 3);
-
-                BlockPos checkPos = playerPos.AddCopy(xOffset, yOffset, zOffset);
-                Block targetBlock = blockAccessor.GetBlock(checkPos);
-
-                if (targetBlock?.Code == null) continue;
-
-                if (targetBlock.Code.Domain == "game" &&
-                    targetBlock.Code.Path.StartsWith("flower-") &&
-                    !targetBlock.Code.Path.Contains("mystical"))
+                for (int z = -transformRadius; z <= transformRadius; z++)
                 {
-                    string randomColor = flowerColors[entity.World.Rand.Next(flowerColors.Length)];
-
-                    AssetLocation mysticalLoc = new("botaniastory", "mysticalflower-" + randomColor + "-free");
-                    Block mysticalFlowerBlock = entity.World.GetBlock(mysticalLoc);
-
-                    if (mysticalFlowerBlock != null)
+                    for (int y = -2; y <= 2; y++)
                     {
-                        blockAccessor.SetBlock(mysticalFlowerBlock.BlockId, checkPos);
-                        SpawnTransformBurst(checkPos);
+                        BlockPos groundPos = playerPos.AddCopy(x, y, z);
+                        Block groundBlock = blockAccessor.GetBlock(groundPos);
 
-                        entity.World.PlaySoundAt(
-                            new("game", "sounds/block/plant"),
-                            checkPos.X + 0.5, checkPos.Y + 0.5, checkPos.Z + 0.5,
-                            null, true, 16, 1f
-                        );
+                        if (groundBlock.BlockMaterial != EnumBlockMaterial.Soil || groundBlock.Fertility <= 0) continue;
 
-                        return;
+                        BlockPos flowerPos = groundPos.UpCopy();
+                        Block targetBlock = blockAccessor.GetBlock(flowerPos, BlockLayersAccess.Solid);
+                        Block fluidBlock = blockAccessor.GetBlock(flowerPos, BlockLayersAccess.Fluid);
+
+                        if (fluidBlock.Id != 0) continue;
+                        if (targetBlock.Id != 0) continue;
+
+                        validPositions.Add(flowerPos);
                     }
                 }
             }
+
+            if (validPositions.Count == 0) return;
+
+            BlockPos spawnPos = validPositions[entity.World.Rand.Next(validPositions.Count)];
+            blockAccessor.SetBlock(flowerBlock.BlockId, spawnPos);
+            SpawnTransformBurst(spawnPos);
+
+            entity.World.PlaySoundAt(
+                new("game", "sounds/block/plant"),
+                spawnPos.X + 0.5, spawnPos.Y + 0.5, spawnPos.Z + 0.5,
+                null, true, 16, 1f
+            );
         }
 
         private void SpawnAuraParticles(bool intense)

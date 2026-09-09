@@ -772,7 +772,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
-                        // 6. Манастекло (В самом конце разворота)
+                        // 6. Манастекло 
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -2001,7 +2001,7 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                             "botaniastory:root", null, null,
+                             "botaniastory:root-normal", null, null,
                              "game:powder-iron-oxide", null, null,
                              null, null, null},
                             Output = "botaniastory:root-rusted"

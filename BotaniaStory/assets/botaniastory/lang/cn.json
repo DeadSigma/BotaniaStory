@@ -523,7 +523,7 @@
     "lexicon_basics_and_mechanics_botanialexicon_p1": "Botania 辞典是满足你一切植物学需求的知识宝库。不过你大概早已知道这一点。所有信息都记录于此。为了方便起见，如果某个方块拥有说明，你可以手持 Botania 辞典并按下 <link=nothing>Shift+右键</link> 来打开对应说明。\n\n我强烈建议你先阅读 <link=category:basics_and_mechanics>基础与机制</link> 分类中的全部条目，再前往其他章节。大多数分类都包含一个或多个条目，因此务必仔细阅读。",
     "lexicon_basics_and_mechanics_botanialexicon_p2": "Botania 辞典的制作方法。",
     "lexicon_basics_and_mechanics_meditation_title": "冥想与神秘花",
-    "lexicon_basics_and_mechanics_meditation_p1": "-些普通花朵能够回应心灵的平静。要开始冥想，请按下 <link=nothing>N</link>（默认）。如果坐在这样的花朵旁边并保持静止-段时间，花朵的自然精华便会觉醒，将其转化为-朵<link=mysticalflower>神秘之花</link>。<link=mysticalflower>神秘之花</link>是-种重要的自然资源，可用于制作许多魔法物品、机制以及BotaniaStory中的其他造物。",
+    "lexicon_basics_and_mechanics_meditation_p1": "要开始冥想，请按下 <link=nothing>N</link>（默认按键）。如果保持静止一段时间，内心的平静便会开始影响周围的自然。大约每分钟一次，附近合适的土壤上可能会出现一朵<link=mysticalflower>神秘花</link>。花朵无法穿过草丛生长，因此必须先将草割除；石头和其他不适合的表面同样无法让花朵萌发。<link=mysticalflower>神秘花</link>是一种重要的自然资源，可用于制作 BotaniaStory 中的许多魔法物品、装置以及其他造物。",
     "lexicon_basics_and_mechanics_meditation_p2": "\n       稍微耐心等待一下也无妨。",
     "lexicon_basics_and_mechanics_mysticalflower_title": "神秘花朵",
     "lexicon_basics_and_mechanics_mysticalflower_p1": "在世界中漫步时，你可能会遇到各种不同类型的神秘植物。\n\n\n\n\n\n\n\n\n\n\n\n      放眼望去，到处都是花……\n\n至于神秘花朵，寻找它们不会花太久时间，因为它们会发光。它们共有16种不同颜色。",
