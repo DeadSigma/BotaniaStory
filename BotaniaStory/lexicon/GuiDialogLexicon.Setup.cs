@@ -515,7 +515,7 @@ namespace botaniastory
                                     string localizedManaText = Lang.Get("botaniastory:mana-cost");
                                     compo.AddStaticText(localizedManaText, textFont, textBounds, $"manaText_{i}");
 
-                                    var manaElement = new GuiElementManaBar(capi, barBounds, manaData.ManaCost, 100000);
+                                    var manaElement = new GuiElementManaBar(capi, barBounds, manaData.ManaCost, 1000000);
                                     compo.AddInteractiveElement(manaElement, $"manaBar_{i}");
                                 }
                             }

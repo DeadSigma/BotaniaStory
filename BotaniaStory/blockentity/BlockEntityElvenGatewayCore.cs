@@ -277,17 +277,17 @@ namespace BotaniaStory.blockentity
 
 
                     if (fullCode == "botaniastory:managlass")
-                        TryAbsorbItem(entityItem, fullCode, "botaniastory:elvenglass-0", 1, 1, 1000);
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:elvenglass-0", 1, 1, 10000);
                     else if (fullCode == "botaniastory:manaitem-managear")
-                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dragonstone", 1, 1, 5000);
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dragonstone", 1, 1, 50000);
                     else if (fullCode == "game:ingot-manasteel")
-                        TryAbsorbItem(entityItem, fullCode, "game:ingot-elementium", 2, 1, 5000);
+                        TryAbsorbItem(entityItem, fullCode, "game:ingot-elementium", 2, 1, 50000);
                     else if (fullCode == "botaniastory:livingwood-normal")
-                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood-normal", 1, 1, 10000); 
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood-normal", 1, 1, 50000); 
                     else if (fullCode == "botaniastory:manaitem-manaquartz")
-                        TryAbsorbItem(entityItem, fullCode, "botaniastory:pixie-dust", 1, 1, 5000);
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:pixie-dust", 1, 1, 50000);
                     else if (fullCode == "botaniastory:livingwood")
-                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood", 1, 1, 10000); 
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood", 1, 1, 50000); 
                 }
             }
         }

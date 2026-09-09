@@ -918,7 +918,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 10000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
@@ -938,7 +938,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 10000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
@@ -958,7 +958,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 10000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
@@ -978,7 +978,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 10000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
@@ -1001,7 +1001,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 5000,
+                            ManaCost = 80000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
@@ -1022,7 +1022,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 5000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
@@ -1045,7 +1045,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 7000,
+                            ManaCost = 70000,
                             UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
@@ -1066,7 +1066,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 10000,
+                            ManaCost = 100000,
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
@@ -1089,7 +1089,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 13000,
+                            ManaCost = 130000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
@@ -1100,7 +1100,7 @@ namespace BotaniaStory.lexicon
                             Spread = 2,
                             UiKey = "Бассейн_Область_Правая_Нижняя",
 
-                            PoolInput = new string[] { "game:hide-raw-bear-" },
+                            PoolInput = new string[] { "game:hide-raw-bear-*" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_alchemy" },
 
@@ -1110,7 +1110,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 15000,
+                            ManaCost = 150000,
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
@@ -1133,7 +1133,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 3,
-                            ManaCost = 10000,
+                            ManaCost = 70000,
                             UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
@@ -1154,7 +1154,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 3,
-                            ManaCost = 10000,
+                            ManaCost = 70000,
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
@@ -1177,7 +1177,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 3,
-                            ManaCost = 10000,
+                            ManaCost = 120000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
@@ -1198,7 +1198,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 3,
-                            ManaCost = 10000,
+                            ManaCost = 120000,
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
@@ -1221,7 +1221,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 4,
-                            ManaCost = 10000,
+                            ManaCost = 70000,
                             UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
@@ -1242,13 +1242,12 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 4,
-                            ManaCost = 10000,
+                            ManaCost = 100000,
                             UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ КОЛДОВСКОЙ КАТАЛИЗАТОР
                     else if (chapId == "catalyst_conjuration")
                     {
                         chapter.TabItemCode = "botaniastory:catalyst_conjuration";
@@ -1265,7 +1264,7 @@ namespace BotaniaStory.lexicon
                             Output = "botaniastory:catalyst_conjuration"
                         });
 
-                        //  Палка 
+                        // Палка
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
@@ -1279,16 +1278,34 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 5000,
+                            ManaCost = 20000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
-                        // Сухая трава 
+                        // Корень рогоза
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
                             Spread = 0,
                             UiKey = "Бассейн_Область_Правая_Нижняя",
+                            PoolInput = new string[] { "game:cattailroot" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:cattailroot@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 0,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                        });
+
+                        // Сухая трава
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 1,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
                             PoolInput = new string[] { "game:drygrass" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
@@ -1296,17 +1313,17 @@ namespace BotaniaStory.lexicon
                         });
                         chapter.ManaBars.Add(new BookManaBar()
                         {
-                            Spread = 0,
-                            ManaCost = 5000,
-                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                            Spread = 1,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
-                        //  Чистый кварц 
+                        // Чистый кварц
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
                             Spread = 1,
-                            UiKey = "Бассейн_Область_Левая_Верхняя",
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
                             PoolInput = new string[] { "game:clearquartz" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
@@ -1315,16 +1332,16 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 20000,
-                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                            ManaCost = 30000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
-                        //  Кварцевая руда 
+                        // Кварцевая руда
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
                             Spread = 1,
-                            UiKey = "Бассейн_Область_Левая_Нижняя",
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
                             PoolInput = new string[] { "game:ore-quartz" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
@@ -1333,16 +1350,16 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 20000,
-                            UiKey = "Полоска_Маны_Левая_Нижняя"
+                            ManaCost = 30000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
-                        //  Порошок оксида железа 
+                        // Порошок оксида железа
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
                             Spread = 1,
-                            UiKey = "Бассейн_Область_Правая_Верхняя",
+                            UiKey = "Бассейн_Область_Правая_Нижняя",
                             PoolInput = new string[] { "game:powder-iron-oxide" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
@@ -1351,16 +1368,16 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 20000,
-                            UiKey = "Полоска_Маны_Правая_Верхняя"
+                            ManaCost = 40000,
+                            UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
-                        //  Снежок (Право Низ)
+                        // Снежок
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
-                            Spread = 1,
-                            UiKey = "Бассейн_Область_Правая_Нижняя",
+                            Spread = 2,
+                            UiKey = "Бассейн_Область_Левая_Верхняя",
                             PoolInput = new string[] { "game:snowball-snow" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
@@ -1368,17 +1385,17 @@ namespace BotaniaStory.lexicon
                         });
                         chapter.ManaBars.Add(new BookManaBar()
                         {
-                            Spread = 1,
-                            ManaCost = 1000,
-                            UiKey = "Полоска_Маны_Правая_Нижняя"
+                            Spread = 2,
+                            ManaCost = 5000,
+                            UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
-                        // Красная глина 
+                        // Красная глина
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
                             Spread = 2,
-                            UiKey = "Бассейн_Область_Левая_Верхняя",
+                            UiKey = "Бассейн_Область_Левая_Нижняя",
                             PoolInput = new string[] { "game:clay-red" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
@@ -1387,16 +1404,16 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 20000,
-                            UiKey = "Полоска_Маны_Левая_Верхняя"
+                            ManaCost = 30000,
+                            UiKey = "Полоска_Маны_Левая_Нижняя"
                         });
 
-                        //  Известь/Раствор 
+                        // Известь - раствор
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
                             Spread = 2,
-                            UiKey = "Бассейн_Область_Левая_Нижняя",
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
                             PoolInput = new string[] { "game:mortar" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
@@ -1405,94 +1422,80 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 20000,
-                            UiKey = "Полоска_Маны_Левая_Нижняя"
-                        });
-
-
-                        // Рецепт: Бурый уголь / Лигнит 
-                        chapter.Recipes.Add(new BookRecipe()
-                        {
-                            RecipeType = "ManaPool",
-                            Spread = 2,
-                            UiKey = "Бассейн_Область_Правая_Верхняя",
-
-                            PoolInput = new string[] { "game:ore-lignite" },
-                            PoolBlock = "botaniastory:manapool-creative",
-                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
-
-                            Output = "game:ore-lignite@2"
-                        });
-
-                        chapter.ManaBars.Add(new BookManaBar()
-                        {
-                            Spread = 2,
-                            ManaCost = 20000,
+                            ManaCost = 30000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
-                        // Рецепт: Каменный уголь / Битуминозный 
+                        // Бурый уголь - лигнит
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
                             Spread = 2,
                             UiKey = "Бассейн_Область_Правая_Нижняя",
-
-                            PoolInput = new string[] { "game:ore-bituminouscoal" },
+                            PoolInput = new string[] { "game:ore-lignite" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
-
-                            Output = "game:ore-bituminouscoal@2"
+                            Output = "game:ore-lignite@2"
                         });
-
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 20000,
+                            ManaCost = 30000,
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
-
-                        // Рецепт: Антрацит 
+                        // Каменный уголь - битуминозный
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
                             Spread = 3,
                             UiKey = "Бассейн_Область_Левая_Верхняя",
-
-                            PoolInput = new string[] { "game:ore-anthracite" },
+                            PoolInput = new string[] { "game:ore-bituminouscoal" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
-
-                            Output = "game:ore-anthracite@2"
+                            Output = "game:ore-bituminouscoal@2"
                         });
-
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 3,
-                            ManaCost = 20000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 
-                        // Рецепт: Торфяной кирпич 
+                        // Антрацит
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "ManaPool",
                             Spread = 3,
                             UiKey = "Бассейн_Область_Левая_Нижняя",
-
-                            PoolInput = new string[] { "game:peatbrick" },
+                            PoolInput = new string[] { "game:ore-anthracite" },
                             PoolBlock = "botaniastory:manapool-creative",
                             PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
-
-                            Output = "game:peatbrick@2"
+                            Output = "game:ore-anthracite@2"
                         });
-
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 3,
-                            ManaCost = 10000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Левая_Нижняя"
+                        });
+
+                        // Торфяной кирпич
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "ManaPool",
+                            Spread = 3,
+                            UiKey = "Бассейн_Область_Правая_Верхняя",
+                            PoolInput = new string[] { "game:peatbrick" },
+                            PoolBlock = "botaniastory:manapool-creative",
+                            PoolCatalyst = new string[] { "botaniastory:catalyst_conjuration" },
+                            Output = "game:peatbrick@2"
+                        });
+                        chapter.ManaBars.Add(new BookManaBar()
+                        {
+                            Spread = 3,
+                            ManaCost = 20000,
+                            UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
                     }
 
@@ -1982,7 +1985,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 10000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
                     }
@@ -3695,8 +3698,6 @@ namespace BotaniaStory.lexicon
                     {
                         chapter.TabItemCode = "botaniastory:elvenglass-1";
 
-
-
                         //////////////////////////////////////////////
                         //0
                         chapter.Recipes.Add(new BookRecipe()
@@ -3711,7 +3712,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 5000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Правая_Альфхейм"
                         });
                         /////////////////////////1
@@ -3727,7 +3728,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 5000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Левая_Альфхейм"
                         });
                         //////////
@@ -3743,7 +3744,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 1000,
+                            ManaCost = 10000,
                             UiKey = "Полоска_Маны_Правая_Альфхейм"
                         });
                         /////////
@@ -3759,7 +3760,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 5000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Левая_Альфхейм"
                         });
                         /////////
@@ -3775,7 +3776,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 2,
-                            ManaCost = 10000,
+                            ManaCost = 50000,
                             UiKey = "Полоска_Маны_Правая_Альфхейм"
                         });
                     }
