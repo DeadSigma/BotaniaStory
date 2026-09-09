@@ -98,54 +98,125 @@ namespace BotaniaStory.blocks
                 return base.OnBlockInteractStart(world, byPlayer, blockSel);
             }
 
-            // 
             // ВОДА (Налить/зачерпнуть)
-            // 
             if (!slot.Empty && slot.Itemstack.Collectible is BlockLiquidContainerBase liquidContainer)
             {
                 ItemStack liquidInside = liquidContainer.GetContent(slot.Itemstack);
 
-                // НАЛИТЬ ВОДУ В ПУСТОЙ АПТЕКАРЬ
-                if (!be.HasWater && liquidInside != null && liquidInside.Collectible.Code.Path == "waterportion")
+                // НАЛИТЬ ВОДУ
+                if (!be.HasWater && liquidInside != null && IsApothecaryWater(liquidInside))
                 {
-                    if (liquidInside.StackSize >= 1000)
+                    if (liquidContainer.GetCurrentLitres(slot.Itemstack) >= 10f)
                     {
-                        be.HasWater = true;
-                        be.MarkDirty(true);
-                        world.PlaySoundAt(new AssetLocation("game:sounds/environment/smallsplash"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
-                        liquidInside.StackSize -= 1000;
-                        if (liquidInside.StackSize <= 0) liquidContainer.SetContent(slot.Itemstack, null);
-                        else liquidContainer.SetContent(slot.Itemstack, liquidInside);
-                        slot.MarkDirty();
+                        if (world.Side == EnumAppSide.Server)
+                        {
+                            ItemStack singleContainer = slot.TakeOut(1);
+
+                            liquidContainer.TryTakeLiquid(singleContainer, 10f);
+
+                            if (!byPlayer.InventoryManager.TryGiveItemstack(singleContainer, true))
+                            {
+                                world.SpawnItemEntity(
+                                    singleContainer,
+                                    blockSel.Position.ToVec3d().Add(0.5, 1.0, 0.5)
+                                );
+                            }
+
+                            slot.MarkDirty();
+
+                            be.HasWater = true;
+                            be.MarkDirty(true);
+                        }
+
+                        world.PlaySoundAt(
+                            new AssetLocation("game:sounds/environment/smallsplash"),
+                            blockSel.Position.X,
+                            blockSel.Position.Y,
+                            blockSel.Position.Z,
+                            byPlayer
+                        );
+
                         return true;
                     }
                 }
 
-                // ЗАБРАТЬ ВОДУ ИЗ ПОЛНОГО АПТЕКАРЯ
-                if (be.HasWater && (liquidInside == null || (liquidInside.Collectible.Code.Path == "waterportion" && liquidInside.StackSize + 1000 <= liquidContainer.CapacityLitres * 100)))
+                // ЗАБРАТЬ ВОДУ
+                if (be.HasWater)
                 {
-                    if (liquidInside == null) liquidInside = new ItemStack(world.GetItem(new AssetLocation("game:waterportion")), 1000);
-                    else liquidInside.StackSize += 1000;
-                    liquidContainer.SetContent(slot.Itemstack, liquidInside);
+                    bool canFill =
+                        liquidInside == null ||
+                        (
+                            liquidInside.Collectible.Code.Domain == "game" &&
+                            liquidInside.Collectible.Code.Path == "waterportion" &&
+                            liquidContainer.GetCurrentLitres(slot.Itemstack) + 10f <= liquidContainer.CapacityLitres
+                        );
 
-                    be.HasWater = false;
-
-                    // ВЫБРАСЫВАЕМ ВСЕ ПРЕДМЕТЫ, ЕСЛИ ЗАБРАЛИ ВОДУ
-                    for (int i = 0; i < be.inventory.Count; i++)
+                    if (liquidInside == null)
                     {
-                        if (!be.inventory[i].Empty)
-                        {
-                            // Выкидываем предметы прямо над алтарем
-                            world.SpawnItemEntity(be.inventory[i].TakeOut(be.inventory[i].StackSize), blockSel.Position.ToVec3d().Add(0.5, 1.0, 0.5));
-                            be.inventory[i].MarkDirty();
-                        }
+                        canFill = liquidContainer.CapacityLitres >= 10f;
                     }
 
-                    be.UpdateRenderer(); // Очищаем рендер лепестков
-                    be.MarkDirty(true);
-                    world.PlaySoundAt(new AssetLocation("sounds/environment/smallsplash"), blockSel.Position.X, blockSel.Position.Y, blockSel.Position.Z, byPlayer);
-                    slot.MarkDirty();
-                    return true;
+                    if (canFill)
+                    {
+                        if (world.Side == EnumAppSide.Server)
+                        {
+                            ItemStack singleContainer = slot.TakeOut(1);
+                            Item waterItem = world.GetItem(new AssetLocation("game:waterportion"));
+
+                            if (singleContainer != null && waterItem != null)
+                            {
+                                ItemStack waterStack = new ItemStack(waterItem, 999999);
+
+                                int moved = liquidContainer.TryPutLiquid(singleContainer, waterStack, 10f);
+
+                                if (moved > 0)
+                                {
+                                    if (!byPlayer.InventoryManager.TryGiveItemstack(singleContainer, true))
+                                    {
+                                        world.SpawnItemEntity(
+                                            singleContainer,
+                                            blockSel.Position.ToVec3d().Add(0.5, 1.0, 0.5)
+                                        );
+                                    }
+
+                                    be.HasWater = false;
+
+                                    for (int i = 0; i < be.inventory.Count; i++)
+                                    {
+                                        if (!be.inventory[i].Empty)
+                                        {
+                                            world.SpawnItemEntity(
+                                                be.inventory[i].TakeOut(be.inventory[i].StackSize),
+                                                blockSel.Position.ToVec3d().Add(0.5, 1.0, 0.5)
+                                            );
+
+                                            be.inventory[i].MarkDirty();
+                                        }
+                                    }
+
+                                    be.UpdateRenderer();
+                                    be.MarkDirty(true);
+                                    slot.MarkDirty();
+
+                                }
+                                else
+                                {
+                                    byPlayer.InventoryManager.TryGiveItemstack(singleContainer, true);
+                                    slot.MarkDirty();
+                                }
+                            }
+                        }
+
+                        world.PlaySoundAt(
+                            new AssetLocation("game:sounds/environment/smallsplash"),
+                            blockSel.Position.X,
+                            blockSel.Position.Y,
+                            blockSel.Position.Z,
+                            byPlayer
+                        );
+
+                        return true;
+                    }
                 }
             }
 
@@ -166,7 +237,17 @@ namespace BotaniaStory.blocks
 
             return base.OnBlockInteractStart(world, byPlayer, blockSel);
         }
-        // МЕТОД ДЛЯ АВТОКРАФТА (ПОИСК И ИЗЪЯТИЕ ПРЕДМЕТОВ)
+
+        private static bool IsApothecaryWater(ItemStack stack)
+        {
+            if (stack?.Collectible?.Code == null) return false;
+
+            AssetLocation code = stack.Collectible.Code;
+
+            return
+                (code.Domain == "game" && code.Path == "waterportion") ||
+                (code.Domain == "hydrateordiedrate" && code.Path == "waterportion-fresh-well-clean");
+        }
         private bool CheckAndConsumePlayerItems(IPlayer player, Dictionary<string, int> recipe, bool simulate)
         {
             Dictionary<string, int> remainingItems = new Dictionary<string, int>(recipe);

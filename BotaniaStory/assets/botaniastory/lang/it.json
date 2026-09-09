@@ -575,7 +575,7 @@
 
   "lexicon_basics_and_mechanics_terrasteel_title": "Terraacciaio",
   "lexicon_basics_and_mechanics_terrasteel_p1": "<link=terrasteel>Terrasteel</link> è un metallo possente, colmo della forza della natura. Per crearlo è necessario posare un <link=game:ingot-steel>lingotto d'acciaio</link>, del <link=manapool>quarzo di mana</link> e un <link=manapool>ingranaggio di mana</link> sulla sommità della piattaforma completata. Inoltre, bisogna puntare uno spargitore di mana verso il centro dell'altare oppure collocare una scintilla sull'altare e alimentarlo tramite una <link=manapool>vasca di mana</link> dotata di un <link=sparkaugment>potenziamento subordinato</link> per scintille. Una volta riempiti di mana, i materiali si fonderanno in un singolo lingotto di Terrasteel.",
-  "lexicon_basics_and_mechanics_terrasteel_p2": "Creazione della piattaforma terrestre:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1. <link=livingrock>Livingrock</link>\n2. <link=game:metalblock-new-riveted-manasteel>Blocco di manasteel rivettato</link>\n3. <link=terrestrialplate>Piastra Terrestre</link>",
+  "lexicon_basics_and_mechanics_terrasteel_p2": "Creazione della piattaforma terrestre:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n1. <link=puredaisy>Livingrock</link>\n2. <link=game:metalblock-new-riveted-manasteel>Blocco di manasteel rivettato</link>\n3. <link=terrestrialplate>Piastra Terrestre</link>",
 
   "lexicon_basics_and_mechanics_wandoftheforest_title": "Bacchetta della foresta",
   "lexicon_basics_and_mechanics_wandoftheforest_p1": "La bacchetta ha diverse funzioni combinate in un'unica modalità. Mentre lo tieni, puoi vedere automaticamente la quantità di mana negli oggetti magici: basta guardare un oggetto contenente mana.\n\nLa bacchetta viene utilizzata anche per legare. Per vincolare un distributore di mana a una riserva o a un altro dispositivo, premi prima <link=nothing>RMB</link> sul distributore, quindi <link=nothing>RMB</link> sull'oggetto a cui desideri vincolarlo. Se vuoi associare un <link=category:generating_flora>fiore</link> specifico a un determinato divaricatore, premi <link=nothing>Shift+RMB</link> sul fiore, quindi <link=nothing>Shift+RMB</link> sul divaricatore desiderato.",
@@ -718,7 +718,7 @@
   "lexicon_misc_flask_p1": "Una fiala destinata alla raccolta dell’aria arrugginita e dell’acqua. Attualmente non ha altri utilizzi.",
 
   "lexicon_misc_livingrock_title": "Livingrock",
-  "lexicon_misc_livingrock_p1": "Il <link=livingrock>Livingrock</link> è uno dei materiali di base del botanico. Viene utilizzato per creare <link=manapool>Riserve di Mana</link> e vari dispositivi magici.\n\nAl di là dei suoi usi pratici, Livingrock è apprezzato per il suo aspetto ed è particolarmente adatto per costruire strutture magiche e costruzioni decorative.\n\nPuò anche essere creato in <link=livingrock_slab>Livingrock Slabs</link>, descritti nell'articolo corrispondente.",
+  "lexicon_misc_livingrock_p1": "Il <link=puredaisy>Livingrock</link> è uno dei materiali di base del botanico. Viene utilizzato per creare <link=manapool>Riserve di Mana</link> e vari dispositivi magici.\n\nAl di là dei suoi usi pratici, Livingrock è apprezzato per il suo aspetto ed è particolarmente adatto per costruire strutture magiche e costruzioni decorative.\n\nPuò anche essere creato in <link=livingrock_slab>Livingrock Slabs</link>, descritti nell'articolo corrispondente.",
   "lexicon_misc_livingrock_p2": "Ci vuole solo un po' di pazienza:",
 
   "lexicon_misc_livingrock_slab_title": "Lastra di roccia viva",
@@ -726,7 +726,7 @@
   "lexicon_misc_livingrock_slab_p2": "Realizzazione della lastra di Livingrock:\n\n\n\n\n\n\n\n\n\n\n\nCreare la riserva di mana diluito:",
 
   "lexicon_misc_livingrock_stuff_title": "Oggetti di pietraviva",
-  "lexicon_misc_livingrock_stuff_p1": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n<link=livingrock>Pietraviva</link> è un materiale resistente creato con la <link=puredaisy>Margherita Pura</link>. Serve come base per molte costruzioni botaniche e dispositivi magici.",
+  "lexicon_misc_livingrock_stuff_p1": "\n\n\n\n\n\n\n\n\n\n\n\n\n\n<link=puredaisy>Pietraviva</link> è un materiale resistente creato con la <link=puredaisy>Margherita Pura</link>. Serve come base per molte costruzioni botaniche e dispositivi magici.",
   "lexicon_misc_livingrock_stuff_p2": "Creazione di lastre di pietraviva:\n\n\n\n\n\n\n\n\n\n\n\nCreazione di mattone di pietraviva:",
   "lexicon_misc_livingrock_stuff_p3": "Creazione di blocco scolpito di pietraviva:\n\n\n\n\n\n\n\n\n\n\n\nCreazione di blocco scolpito incrinato di pietraviva:",
 
