@@ -7,11 +7,87 @@ using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Util;
+using Vintagestory.GameContent;
 
 namespace BotaniaStory.items
 {
-    public class ItemWandOfTheForest : Item
+    public class ItemWandOfTheForest : Item, IContainedMeshSource
     {
+
+        private ICoreClientAPI capi;
+
+        public override void OnLoaded(ICoreAPI api)
+        {
+            base.OnLoaded(api);
+            capi = api as ICoreClientAPI;
+        }
+
+        public MeshData GenMesh(ItemSlot slot, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos)
+        {
+            if (capi == null) return null;
+
+            Shape cachedShape = null;
+            if (Shape?.Base != null)
+            {
+                cachedShape = capi.TesselatorManager.GetCachedShape(Shape.Base);
+            }
+
+            MeshData mesh;
+            capi.Tesselator.TesselateItem(this, out mesh, new WandTexSource(targetAtlas, this, cachedShape));
+
+            // альфа тест вместо смешивания, грани не отсекаются
+            mesh.RenderPassesAndExtraBits?.Fill((short)EnumChunkRenderPass.OpaqueNoCull);
+
+            return mesh;
+        }
+
+        public string GetMeshCacheKey(ItemSlot slot)
+        {
+            return slot.Itemstack.Collectible.Code.ToString();
+        }
+
+        // повторяет логику индексатора BlockEntityDisplay - текстуры предмета, потом шейпа
+        private class WandTexSource : ITexPositionSource
+        {
+            private readonly ITextureAtlasAPI atlas;
+            private readonly Item item;
+            private readonly Shape shape;
+
+            public WandTexSource(ITextureAtlasAPI atlas, Item item, Shape shape)
+            {
+                this.atlas = atlas;
+                this.item = item;
+                this.shape = shape;
+            }
+
+            public Size2i AtlasSize => atlas.Size;
+
+            public TextureAtlasPosition this[string textureCode]
+            {
+                get
+                {
+                    AssetLocation path = null;
+                    CompositeTexture tex;
+
+                    if (item.Textures.TryGetValue(textureCode, out tex)) path = tex.Baked.BakedName;
+                    if (path == null && item.Textures.TryGetValue("all", out tex)) path = tex.Baked.BakedName;
+                    if (path == null) shape?.Textures.TryGetValue(textureCode, out path);
+                    if (path == null) path = new AssetLocation(textureCode);
+
+                    TextureAtlasPosition texPos = atlas[path];
+                    if (texPos == null)
+                    {
+                        int subId;
+                        if (!atlas.GetOrInsertTexture(path, out subId, out texPos, null, 0f))
+                        {
+                            return atlas.UnknownTexturePosition;
+                        }
+                    }
+                    return texPos;
+                }
+            }
+        }
 
         // ЛКМ (Левая Кнопка Мыши) - ОТМЕНА ПРИВЯЗКИ
         public override void OnHeldAttackStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, ref EnumHandHandling handling)
@@ -462,6 +538,19 @@ namespace BotaniaStory.items
             }
 
             return null;
+        }
+        public override void OnBeforeRender(ICoreClientAPI capi, ItemStack itemstack, EnumItemRenderTarget target, ref ItemRenderInfo renderinfo)
+        {
+            base.OnBeforeRender(capi, itemstack, target, ref renderinfo);
+
+            renderinfo.CullFaces = false;
+            renderinfo.AlphaTest = 0.4f;
+
+            // на земле нормали плоскости уводят лист почти в чёрный
+            if (target == EnumItemRenderTarget.Ground)
+            {
+                renderinfo.NormalShaded = false;
+            }
         }
     }
 }
