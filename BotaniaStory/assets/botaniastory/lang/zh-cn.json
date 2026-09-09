@@ -666,7 +666,7 @@
     "lexicon_mana_management_manatablet_p1": "<link=manatablet>魔力石板</link> 是一种便携式魔力储存装置。与 <link=manaspreader>魔力发射器</link> 不同，它允许你手动搬运魔力。部分物品可以直接使用石板中的魔力，因此它是相当重要的工具。\n\n将 <link=manatablet>魔力石板</link> 丢入 <link=manapool>魔力池</link> 中，即可在两者之间传输魔力。使用 <link=wandoftheforest>森林法杖</link> 对魔力池按下 <link=nothing>Shift+右键</link> 可切换传输方向。",
     "lexicon_mana_management_manatablet_p2": "遗憾的是，它没有 Wi-Fi。",
     "lexicon_mana_management_spark_title": "火花",
-    "lexicon_mana_management_spark_p1": "<link=spark>火花</link> 是一种相当有趣的物体，由魔力与原始能量构成。它们可以放置在某些含有或储存魔力的方块上，包括 <link=manapool>魔力池</link>。某些方块能够通过 <link=spark>火花</link> 从储存装置中提取魔力，不过在早期阶段用途还不算多。若在 <link=manapool>魔力池</link> 上放置一个火花，再在可使用魔力的方块上放置另一个，只要距离不太远，该方块就能远程访问魔力。\n\n若要移除 <link=spark>火花</link>，请使用 <link=wandoftheforest>森林法杖</link> 对其按下 <link=nothing>Shift+右键</link>。直接按下 <link=nothing>右键</link> 则可查看它能够向哪些火花传输魔力。",
+    "lexicon_mana_management_spark_p1": "<link=spark>火花</link>是由魔力与原始能量凝聚而成的能量体，可以放置在某些能够储存或使用魔力的方块上，例如<link=manapool>魔力池</link>或<link=terrasteel>泰拉凝聚板</link>。然而，<link=spark>火花</link>本身不会产生任何作用，也无法传输魔力。若要让它与其他火花进行交互，必须为其安装特殊的<link=sparkaugment>火花升级</link>。火花升级决定了火花将以何种方式在与其连接的方块之间发送、接收或分配魔力。\n\n若要移除<link=spark>火花</link>，手持<link=wandoftheforest>森林法杖</link>对其按下<link=nothing>Shift+鼠标右键</link>。直接按下<link=nothing>鼠标右键</link>则可以查看位于其作用范围内的其他火花。",
     "lexicon_mana_management_spark_p2": "       准备好干草叉：",
     "lexicon_mana_management_sparkaugment_title": "火花增强器",
     "lexicon_mana_management_sparkaugment_p1": "<link=spark>火花</link> 的能力比看起来更多。存在一些特殊增强器，可扩展其功能。它们只能安装在放置于 <link=manapool>魔力池</link> 上方的火花中，且每个火花只能安装一个增强器。<link=sparkdispersive>\n\n分散增强器</link> 可让火花使用池中的魔力，为附近玩家背包中的物品充能。\n\n<link=sparkdominant>主导增强器</link> 可从邻近未安装增强器的池中抽取魔力，并传输到自身池中直到填满。",
