@@ -16,5 +16,10 @@
     "lexicon_generating_flora_nightshade_p2": "Mătrăgună:",
     "lexicon_generating_flora_hydroangeas_p2": "Avem nevoie de mai multă apă, Milord:",
     "lexicon_functional_flora_hopperhock_p2": "Îl ia fără să-ți dai seama:",
-    "lexicon_functional_flora_agricarnation_p2": "Crește, mare și mic:"
+    "lexicon_functional_flora_agricarnation_p2": "Crește, mare și mic:",
+    "btn-visualize": "Vizualizează",
+    "dialog-filter-whitelist": "Lista albă de filtrare",
+    "item-filterscroll-black": "Pergament negru de filtrare",
+    "item-filterscroll-white": "Pergament alb de filtrare",
+    "dialog-filter-blacklist": "Lista neagră de filtrare"
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BotaniaStory;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
-using Vintagestory.API.Config; // Добавлено для Lang.Get()
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 
 namespace BotaniaStory.items
@@ -21,15 +21,13 @@ namespace BotaniaStory.items
         private ElementBounds searchClipBounds;
         private ElementBounds selectedClipBounds;
 
-        // Текущее значение прокрутки (нескейленные единицы скроллбара)
         private float searchScrollValue;
         private float selectedScrollValue;
 
-        // Источник истины для выбранных предметов.
         private readonly List<ItemStack> selectedStacks = new List<ItemStack>();
 
-        // Текст масок, загруженный из бумаги (для префилла поля при открытии).
         private string initialPatternsText = "";
+        private string initialPlayersText = "";
 
         private struct SearchEntry
         {
@@ -38,7 +36,6 @@ namespace BotaniaStory.items
             public string CodeCache;
         }
 
-        // Статический кэш с привязкой к миру: собирается один раз за загрузку мира.
         private static SearchEntry[] cachedEntries;
         private static object cachedWorld;
 
@@ -46,7 +43,7 @@ namespace BotaniaStory.items
 
         public GuiDialogFilterScroll(ICoreClientAPI capi, ItemSlot slot, bool isBlacklist) : base(capi)
         {
-            this.paperSlot = slot;
+            paperSlot = slot;
             this.isBlacklist = isBlacklist;
 
             searchInventory = new InventoryGeneric(200, "searchInv-0", capi, null);
@@ -104,7 +101,6 @@ namespace BotaniaStory.items
             var attr = paperSlot?.Itemstack?.Attributes;
             if (attr == null) return;
 
-            // Точные предметы (клик мышью)
             if (attr.HasAttribute("filterList"))
             {
                 var arr = (attr["filterList"] as StringArrayAttribute)?.value;
@@ -129,13 +125,29 @@ namespace BotaniaStory.items
                 }
             }
 
-            // Маски по id / имени (текстовое поле)
-            if (attr.HasAttribute("filterPatterns"))
+            var patterns = (attr["filterPatterns"] as StringArrayAttribute)?.value;
+            if (patterns == null || patterns.Length == 0) return;
+
+            var itemPatterns = new List<string>();
+            var playerNames = new List<string>();
+
+            foreach (var raw in patterns)
             {
-                var patterns = (attr["filterPatterns"] as StringArrayAttribute)?.value;
-                if (patterns != null && patterns.Length > 0)
-                    initialPatternsText = string.Join(", ", patterns);
+                if (string.IsNullOrWhiteSpace(raw)) continue;
+
+                if (raw.StartsWith(ItemFilterScroll.PlayerPatternPrefix, StringComparison.OrdinalIgnoreCase))
+                {
+                    string name = raw.Substring(ItemFilterScroll.PlayerPatternPrefix.Length).Trim();
+                    if (name.Length > 0) playerNames.Add(name);
+                }
+                else
+                {
+                    itemPatterns.Add(raw);
+                }
             }
+
+            initialPatternsText = string.Join(", ", itemPatterns);
+            initialPlayersText = string.Join(", ", playerNames);
         }
 
         private void SetupDialog()
@@ -162,10 +174,13 @@ namespace BotaniaStory.items
 
             ElementBounds selectedScrollbarBounds = selectedOuterBounds.RightCopy(5).WithFixedSize(20, 300);
 
-            // текстовое поле для масок
-            ElementBounds patternTitleBounds = ElementBounds.Fixed(580, 35, 290, 45);
-            ElementBounds patternInsetBounds = ElementBounds.Fixed(580, 80, 290, 300);
-            ElementBounds patternInputBounds = ElementBounds.Fixed(585, 85, 280, 290);
+            ElementBounds patternTitleBounds = ElementBounds.Fixed(580, 35, 290, 30);
+            ElementBounds patternInsetBounds = ElementBounds.Fixed(580, 70, 290, 145);
+            ElementBounds patternInputBounds = ElementBounds.Fixed(585, 75, 280, 135);
+
+            ElementBounds playerTitleBounds = ElementBounds.Fixed(580, 230, 290, 30);
+            ElementBounds playerInsetBounds = ElementBounds.Fixed(580, 265, 290, 115);
+            ElementBounds playerInputBounds = ElementBounds.Fixed(585, 270, 280, 105);
 
             ElementBounds clearBtnBounds = ElementBounds.Fixed(0, 400, 100, 30);
             ElementBounds saveBtnBounds = ElementBounds.Fixed(770, 400, 100, 30);
@@ -176,11 +191,12 @@ namespace BotaniaStory.items
                 searchInputBounds, searchClipBounds, searchScrollbarBounds,
                 selectedTitleBounds, selectedClipBounds, selectedScrollbarBounds,
                 patternTitleBounds, patternInsetBounds, patternInputBounds,
+                playerTitleBounds, playerInsetBounds, playerInputBounds,
                 clearBtnBounds, saveBtnBounds
             );
 
             ElementBounds dialogBounds = ElementStdBounds.AutosizedMainDialog
-                                             .WithAlignment(EnumDialogArea.CenterMiddle);
+                .WithAlignment(EnumDialogArea.CenterMiddle);
 
             SingleComposer = capi.Gui
                 .CreateCompo("filterscrolldialog", dialogBounds)
@@ -188,20 +204,20 @@ namespace BotaniaStory.items
                 .AddDialogTitleBar(title, () => TryClose())
                 .AddTextInput(searchInputBounds, OnSearchTextChanged, CairoFont.TextInput(), "searchInput")
                 .BeginClip(searchClipBounds)
-                    .AddItemSlotGrid(searchInventory, (p) => { }, 5, searchGridBounds, "searchGrid")
+                    .AddItemSlotGrid(searchInventory, p => { }, 5, searchGridBounds, "searchGrid")
                 .EndClip()
                 .AddVerticalScrollbar(OnSearchScroll, searchScrollbarBounds, "searchScrollbar")
-
                 .AddRichtext(Lang.Get("botaniastory:dialog-filter-added"), CairoFont.WhiteSmallText(), selectedTitleBounds)
                 .BeginClip(selectedClipBounds)
-                    .AddItemSlotGrid(selectedInventory, (p) => { }, 5, selectedGridBounds, "selectedGrid")
+                    .AddItemSlotGrid(selectedInventory, p => { }, 5, selectedGridBounds, "selectedGrid")
                 .EndClip()
                 .AddVerticalScrollbar(OnSelectedScroll, selectedScrollbarBounds, "selectedScrollbar")
-
                 .AddRichtext(Lang.Get("botaniastory:dialog-filter-patterns"), CairoFont.WhiteSmallText(), patternTitleBounds)
                 .AddInset(patternInsetBounds, 3)
                 .AddTextArea(patternInputBounds, OnPatternTextChanged, CairoFont.WhiteSmallText(), "patternInput")
-
+                .AddRichtext(Lang.Get("botaniastory:dialog-filter-players"), CairoFont.WhiteSmallText(), playerTitleBounds)
+                .AddInset(playerInsetBounds, 3)
+                .AddTextArea(playerInputBounds, OnPlayerTextChanged, CairoFont.WhiteSmallText(), "playerInput")
                 .AddSmallButton(Lang.Get("botaniastory:dialog-filter-clear"), OnClickClear, clearBtnBounds)
                 .AddSmallButton(Lang.Get("botaniastory:dialog-filter-save"), OnClickSave, saveBtnBounds)
                 .Compose();
@@ -209,17 +225,20 @@ namespace BotaniaStory.items
             OnSearchTextChanged("");
             RefreshSelectedGrid();
 
-            // Префилл текстового поля сохранёнными масками
-            var ta = SingleComposer.GetTextArea("patternInput");
-            if (ta != null && !string.IsNullOrEmpty(initialPatternsText))
-                ta.SetValue(initialPatternsText);
+            var patternArea = SingleComposer.GetTextArea("patternInput");
+            if (patternArea != null && initialPatternsText.Length > 0)
+                patternArea.SetValue(initialPatternsText);
+
+            var playerArea = SingleComposer.GetTextArea("playerInput");
+            if (playerArea != null && initialPlayersText.Length > 0)
+                playerArea.SetValue(initialPlayersText);
         }
 
         private void OnSearchScroll(float value)
         {
             searchScrollValue = value;
             ElementBounds bounds = SingleComposer.GetSlotGrid("searchGrid").Bounds;
-            bounds.fixedY = 0 - value;
+            bounds.fixedY = -value;
             bounds.CalcWorldBounds();
         }
 
@@ -227,40 +246,40 @@ namespace BotaniaStory.items
         {
             selectedScrollValue = value;
             ElementBounds bounds = SingleComposer.GetSlotGrid("selectedGrid").Bounds;
-            bounds.fixedY = 0 - value;
+            bounds.fixedY = -value;
             bounds.CalcWorldBounds();
         }
 
         private void OnPatternTextChanged(string text)
         {
-            // Значение читаем напрямую при сохранении
+        }
+
+        private void OnPlayerTextChanged(string text)
+        {
         }
 
         private void UpdateSearchScrollbar()
         {
             int active = 0;
-            foreach (var slot in searchInventory) if (!slot.Empty) active++;
+            foreach (var slot in searchInventory)
+            {
+                if (!slot.Empty) active++;
+            }
 
             var scrollbar = SingleComposer.GetScrollbar("searchScrollbar");
-            if (scrollbar != null)
-            {
-                int rows = Math.Max(1, (int)Math.Ceiling(active / 5.0));
-                float totalHeight = rows * 50f;
-                scrollbar.SetHeights((float)searchClipBounds.fixedHeight, totalHeight);
-            }
+            if (scrollbar == null) return;
+
+            int rows = Math.Max(1, (int)Math.Ceiling(active / 5.0));
+            scrollbar.SetHeights((float)searchClipBounds.fixedHeight, rows * 50f);
         }
 
         private void UpdateSelectedScrollbar()
         {
-            int active = selectedStacks.Count;
-
             var scrollbar = SingleComposer.GetScrollbar("selectedScrollbar");
-            if (scrollbar != null)
-            {
-                int rows = Math.Max(1, (int)Math.Ceiling(active / 5.0));
-                float totalHeight = rows * 50f;
-                scrollbar.SetHeights((float)selectedClipBounds.fixedHeight, totalHeight);
-            }
+            if (scrollbar == null) return;
+
+            int rows = Math.Max(1, (int)Math.Ceiling(selectedStacks.Count / 5.0));
+            scrollbar.SetHeights((float)selectedClipBounds.fixedHeight, rows * 50f);
         }
 
         public override void OnMouseDown(MouseEvent args)
@@ -279,6 +298,7 @@ namespace BotaniaStory.items
                             capi.Gui.PlaySound("tick");
                         }
                     }
+
                     args.Handled = true;
                     return;
                 }
@@ -295,6 +315,7 @@ namespace BotaniaStory.items
                             capi.Gui.PlaySound("tick");
                         }
                     }
+
                     args.Handled = true;
                     return;
                 }
@@ -307,14 +328,19 @@ namespace BotaniaStory.items
             }
         }
 
-        private int CalculateSlotIndex(GuiElementItemSlotGrid grid, ElementBounds clipBounds,
-                                       float scrollValue, int mouseX, int mouseY, int columns)
+        private int CalculateSlotIndex(
+            GuiElementItemSlotGrid grid,
+            ElementBounds clipBounds,
+            float scrollValue,
+            int mouseX,
+            int mouseY,
+            int columns)
         {
             double pitch = grid.Bounds.InnerWidth / columns;
             if (pitch < 10) pitch = GuiElement.scaled(50.0);
 
             double dx = mouseX - clipBounds.absX;
-            double dy = (mouseY - clipBounds.absY) + GuiElement.scaled(scrollValue);
+            double dy = mouseY - clipBounds.absY + GuiElement.scaled(scrollValue);
 
             if (dx < 0 || dy < 0) return -1;
 
@@ -349,14 +375,13 @@ namespace BotaniaStory.items
                 bool matchName = entry.NameCache.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0;
                 bool matchCode = entry.CodeCache.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0;
 
-                if (matchName || matchCode)
-                {
-                    searchInventory[slotIdx].Itemstack = entry.Stack.Clone();
-                    searchInventory[slotIdx].MarkDirty();
-                    slotIdx++;
+                if (!matchName && !matchCode) continue;
 
-                    if (slotIdx >= searchInventory.Count) break;
-                }
+                searchInventory[slotIdx].Itemstack = entry.Stack.Clone();
+                searchInventory[slotIdx].MarkDirty();
+                slotIdx++;
+
+                if (slotIdx >= searchInventory.Count) break;
             }
 
             UpdateSearchScrollbar();
@@ -366,9 +391,9 @@ namespace BotaniaStory.items
         {
             if (stackToAdd?.Collectible == null) return;
 
-            foreach (var s in selectedStacks)
+            foreach (var stack in selectedStacks)
             {
-                if (s?.Collectible != null && s.Collectible.Code.Equals(stackToAdd.Collectible.Code))
+                if (stack?.Collectible != null && stack.Collectible.Code.Equals(stackToAdd.Collectible.Code))
                     return;
             }
 
@@ -405,8 +430,8 @@ namespace BotaniaStory.items
             selectedStacks.Clear();
             RefreshSelectedGrid();
 
-            var ta = SingleComposer.GetTextArea("patternInput");
-            ta?.SetValue("");
+            SingleComposer.GetTextArea("patternInput")?.SetValue("");
+            SingleComposer.GetTextArea("playerInput")?.SetValue("");
 
             return true;
         }
@@ -420,32 +445,42 @@ namespace BotaniaStory.items
                     codesToSave.Add(stack.Collectible.Code.ToString());
             }
 
-            var patternsToSave = ParsePatterns(SingleComposer.GetTextArea("patternInput")?.GetText());
+            var patternsToSave = new List<string>(ParseEntries(
+                SingleComposer.GetTextArea("patternInput")?.GetText()));
+
+            foreach (var playerName in ParseEntries(SingleComposer.GetTextArea("playerInput")?.GetText()))
+            {
+                patternsToSave.Add(ItemFilterScroll.PlayerPatternPrefix + playerName);
+            }
 
             capi.Network
                 .GetChannel("botanianetwork")
                 .SendPacket(new FilterUpdatePacket
                 {
                     FilteredItemCodes = codesToSave.ToArray(),
-                    FilterPatterns = patternsToSave   // не забыть добавить в FilterUpdatePacket
+                    FilterPatterns = patternsToSave.ToArray()
                 });
 
             TryClose();
             return true;
         }
 
-        // "brick, game:plank-*" -> ["brick", "game:plank-*"]
-        private static string[] ParsePatterns(string raw)
+        private static string[] ParseEntries(string raw)
         {
             var result = new List<string>();
-            if (!string.IsNullOrWhiteSpace(raw))
+            if (string.IsNullOrWhiteSpace(raw)) return result.ToArray();
+
+            string normalized = raw
+                .Replace('\r', ',')
+                .Replace('\n', ',')
+                .Replace(';', ',');
+
+            foreach (var part in normalized.Split(','))
             {
-                foreach (var part in raw.Split(','))
-                {
-                    var p = part.Trim();
-                    if (p.Length > 0) result.Add(p);
-                }
+                string value = part.Trim();
+                if (value.Length > 0) result.Add(value);
             }
+
             return result.ToArray();
         }
     }

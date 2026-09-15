@@ -7,7 +7,7 @@
                 "type": "item",
                 "code": "game:metalchain-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+              "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "quantity": 1
             }
         },
@@ -31,14 +31,14 @@
                 "type": "item",
                 "code": "game:metalchain-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "quantity": 1
             },
             "C": {
                 "type": "item",
                 "code": "game:metalchain-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "quantity": 2
             }
         },
@@ -62,14 +62,14 @@
                 "type": "item",
                 "code": "game:metalchain-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "quantity": 1
             },
             "C": {
                 "type": "item",
                 "code": "game:metalchain-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "quantity": 2
             }
         },
@@ -89,13 +89,13 @@
                 "type": "item",
                 "code": "game:metalplate-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ]
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ]
             },
             "C": {
                 "type": "item",
                 "code": "botaniastory:{metal}-armor-head-chain",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "recipeAttributes": {
                     "repairMat": {
                         "type": "item",
@@ -124,13 +124,13 @@
                 "type": "item",
                 "code": "game:metalplate-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ]
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ]
             },
             "C": {
                 "type": "item",
                 "code": "botaniastory:{metal}-armor-body-chain",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "recipeAttributes": {
                     "repairMat": {
                         "type": "item",
@@ -155,13 +155,13 @@
                 "type": "item",
                 "code": "game:metalplate-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ]
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ]
             },
             "C": {
                 "type": "item",
                 "code": "botaniastory:{metal}-armor-legs-chain",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "recipeAttributes": {
                     "repairMat": {
                         "type": "item",
@@ -187,13 +187,13 @@
                 "type": "item",
                 "code": "botaniastory:metalscale-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ]
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ]
             },
             "C": {
                 "type": "item",
                 "code": "botaniastory:{metal}-armor-head-chain",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "recipeAttributes": {
                     "repairMat": {
                         "type": "item",
@@ -222,13 +222,13 @@
                 "type": "item",
                 "code": "botaniastory:metalscale-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ]
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ]
             },
             "C": {
                 "type": "item",
                 "code": "botaniastory:{metal}-armor-body-chain",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "recipeAttributes": {
                     "repairMat": {
                         "type": "item",
@@ -253,13 +253,13 @@
                 "type": "item",
                 "code": "botaniastory:metalscale-*",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ]
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ]
             },
             "C": {
                 "type": "item",
                 "code": "botaniastory:{metal}-armor-legs-chain",
                 "name": "metal",
-                "allowedVariants": [ "manasteel", "terrasteel" ],
+                "allowedVariants": [ "manasteel", "elementium", "terrasteel" ],
                 "recipeAttributes": {
                     "repairMat": {
                         "type": "item",

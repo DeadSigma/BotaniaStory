@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -10,16 +11,24 @@ namespace BotaniaStory.entities.ai
 {
     public class AiTaskGaiaTeleport : AiTaskBase
     {
-        private int cooldownMs = 3333;
-        private int rageCooldownMs = 1500;
+        private int cooldownMs = 3500;
+        private int rageCooldownMs = 2000;
         private float range = 15f;
 
         // Минимальное расстояние между старой и новой позицией
-        private float minTeleportDistance = 6f;
+        private float minTeleportDistance = 7f;
+        private float minRecentTeleportDistance = 5f;
+        private int rememberedTeleportPositions = 4;
+        private float cooldownJitter = 0.15f;
+        private int damageTeleportDelayMinMs = 80;
+        private int damageTeleportDelayMaxMs = 180;
+        private int dotTeleportCooldownMinMs = 320;
+        private int dotTeleportCooldownMaxMs = 650;
+        private int dotTeleportBurstDurationMs = 2200;
 
         private float maxDistanceFromSpawn = EntityGaiaGuardian.ArenaRadius;
 
-        private const int TeleportPositionAttempts = 20;
+        private const int TeleportPositionAttempts = 40;
 
         // Поверхности ищем только около исходного уровня арены
         // Поэтому земля далеко под летающей ареной не будет считаться
@@ -30,9 +39,11 @@ namespace BotaniaStory.entities.ai
 
         // Насколько близко ноги Гайи должны находиться к найденной поверхности,  чтобы считать, что она действительно стоит на ней
         private const double SupportTolerance = 0.35;
-        private const float GaiaIICooldownMultiplier = 0.70f;
+        private const float GaiaIICooldownMultiplier = 0.50f;
 
-        private long lastTeleportMs;
+        private long nextTeleportMs;
+        private long damageTeleportBurstUntilMs;
+        private readonly Queue<Vec3d> recentTeleportPositions = new Queue<Vec3d>();
 
         public AiTaskGaiaTeleport(
             EntityAgent entity,
@@ -43,7 +54,7 @@ namespace BotaniaStory.entities.ai
             if (taskConfig != null)
             {
                 cooldownMs =
-                    taskConfig["cooldownMs"].AsInt(3333);
+                    taskConfig["cooldownMs"].AsInt(3500);
                 rageCooldownMs =
                      taskConfig["rageCooldownMs"]
                          .AsInt(2000);
@@ -51,7 +62,31 @@ namespace BotaniaStory.entities.ai
                     taskConfig["range"].AsFloat(15f);
 
                 minTeleportDistance =
-                    taskConfig["minTeleportDistance"].AsFloat(6f);
+                    taskConfig["minTeleportDistance"].AsFloat(7f);
+
+                minRecentTeleportDistance =
+                    taskConfig["minRecentTeleportDistance"].AsFloat(5f);
+
+                rememberedTeleportPositions = Math.Max(
+                    1,
+                    taskConfig["rememberedTeleportPositions"].AsInt(4)
+                );
+
+                cooldownJitter = Math.Max(
+                    0f,
+                    Math.Min(0.45f, taskConfig["cooldownJitter"].AsFloat(0.15f))
+                );
+
+                damageTeleportDelayMinMs = Math.Max(0,
+                    taskConfig["damageTeleportDelayMinMs"].AsInt(80));
+                damageTeleportDelayMaxMs = Math.Max(damageTeleportDelayMinMs,
+                    taskConfig["damageTeleportDelayMaxMs"].AsInt(180));
+                dotTeleportCooldownMinMs = Math.Max(120,
+                    taskConfig["dotTeleportCooldownMinMs"].AsInt(320));
+                dotTeleportCooldownMaxMs = Math.Max(dotTeleportCooldownMinMs,
+                    taskConfig["dotTeleportCooldownMaxMs"].AsInt(650));
+                dotTeleportBurstDurationMs = Math.Max(500,
+                    taskConfig["dotTeleportBurstDurationMs"].AsInt(2200));
 
                 maxDistanceFromSpawn = Math.Min(
                     taskConfig["maxDistanceFromSpawn"]
@@ -78,49 +113,27 @@ namespace BotaniaStory.entities.ai
                 return false;
             }
 
-            bool rage =
-              entity.WatchedAttributes.GetBool(
-                  "gaiaRageMode",
-                  false
-              );
+            long now = entity.World.ElapsedMilliseconds;
 
-            int activeCooldown =
-                rage
-                    ? rageCooldownMs
-                    : cooldownMs;
-
-            if (entity.WatchedAttributes.GetInt(
-        "gaiaLevel",
-        1) >= 2)
+            // Первый обычный телепорт ждёт свой интервал. Получение урона
+            // может независимо ускорить nextTeleportMs через NotifyDamaged().
+            if (nextTeleportMs <= 0)
             {
-                activeCooldown =
-                    Math.Max(
-                        1,
-                        (int)Math.Round(
-                            activeCooldown *
-                            GaiaIICooldownMultiplier
-                        )
-                    );
-            }
-
-            if (entity.World.ElapsedMilliseconds -
-                lastTeleportMs <
-                activeCooldown)
-            {
+                ScheduleNextTeleport(now);
                 return false;
             }
 
-            IPlayer targetPlayer =
-                entity.World.NearestPlayer(
-                    entity.Pos.X,
-                    entity.Pos.Y,
-                    entity.Pos.Z
-                );
-
-            if (targetPlayer?.Entity == null)
+            if (now < nextTeleportMs)
                 return false;
 
-            if (targetPlayer.Entity.Pos.HorDistanceTo(entity.Pos) > 20)
+            EntityPlayer target = GetNearestParticipant();
+            if (target == null)
+            {
+                ScheduleNextTeleport(now);
+                return false;
+            }
+
+            if (target.Pos.HorDistanceTo(entity.Pos) > 20)
                 return false;
 
             return true;
@@ -129,25 +142,22 @@ namespace BotaniaStory.entities.ai
 
         public override void StartExecute()
         {
-            lastTeleportMs =
-                entity.World.ElapsedMilliseconds;
+            long now = entity.World.ElapsedMilliseconds;
 
-            IPlayer targetPlayer =
-                entity.World.NearestPlayer(
-                    entity.Pos.X,
-                    entity.Pos.Y,
-                    entity.Pos.Z
-                );
+            // Во время DoT-серии назначаем следующий быстрый случайный прыжок.
+            // В обычном состоянии возвращаемся к штатному боевому cooldown.
+            ScheduleNextTeleport(now);
 
-            if (targetPlayer?.Entity == null)
+            EntityPlayer target = GetNearestParticipant();
+            if (target == null)
                 return;
 
             Vec3d spawn = GetSpawnPos();
 
-            // 1. Сначала пытаемся выбрать обычную случайную точку около игрока
-
+            // 1. Сначала пытаемся выбрать действительно случайную точку около игрока.
+            // Точки за кругом отбрасываются, а не прижимаются к противоположной кромке.
             if (TryFindRandomTeleportPosition(
-                targetPlayer.Entity,
+                target,
                 spawn,
                 out Vec3d destination))
             {
@@ -161,8 +171,7 @@ namespace BotaniaStory.entities.ai
             }
 
 
-            // 2. Случайные точки не подошли
-
+            // 2. Случайные точки не подошли. Фолбэк нужен для частично разрушенной арены.
             if (TryFindNearestArenaSupport(
                   entity,
                   entity.Pos.X,
@@ -170,10 +179,8 @@ namespace BotaniaStory.entities.ai
                   minTeleportDistance,
                   maxDistanceFromSpawn,
                   out destination,
-
                   true,
-
-                  targetPlayer.Entity.Pos.Y))
+                  target.Pos.Y))
             {
                 entity.WatchedAttributes.SetBool(
                     "gaiaTeleportBlocked",
@@ -189,6 +196,133 @@ namespace BotaniaStory.entities.ai
                 "gaiaTeleportBlocked",
                 true
             );
+        }
+
+
+        private EntityPlayer GetNearestParticipant()
+        {
+            if (entity is EntityGaiaGuardian gaia)
+            {
+                return gaia.GetNearestRitualParticipant();
+            }
+
+            return entity.World.NearestPlayer(
+                entity.Pos.X,
+                entity.Pos.Y,
+                entity.Pos.Z
+            )?.Entity;
+        }
+
+
+        private int GetActiveCooldown()
+        {
+            bool rage =
+                entity.WatchedAttributes.GetBool(
+                    "gaiaRageMode",
+                    false
+                );
+
+            int activeCooldown =
+                rage
+                    ? rageCooldownMs
+                    : cooldownMs;
+
+            if (entity.WatchedAttributes.GetInt(
+                    "gaiaLevel",
+                    1) >= 2)
+            {
+                activeCooldown =
+                    Math.Max(
+                        1,
+                        (int)Math.Round(
+                            activeCooldown *
+                            GaiaIICooldownMultiplier
+                        )
+                    );
+            }
+
+            return activeCooldown;
+        }
+
+
+        private void ScheduleNextTeleport(long now)
+        {
+            if (now < damageTeleportBurstUntilMs)
+            {
+                nextTeleportMs = now + RandomDelay(
+                    ScaleDelayForGaiaLevel(dotTeleportCooldownMinMs),
+                    ScaleDelayForGaiaLevel(dotTeleportCooldownMaxMs)
+                );
+                return;
+            }
+
+            int activeCooldown = GetActiveCooldown();
+
+            double jitter =
+                1.0 +
+                ((entity.World.Rand.NextDouble() * 2.0) - 1.0) *
+                cooldownJitter;
+
+            nextTeleportMs =
+                now +
+                Math.Max(250, (int)Math.Round(activeCooldown * jitter));
+        }
+
+
+        private int ScaleDelayForGaiaLevel(int delayMs)
+        {
+            if (entity.WatchedAttributes.GetInt("gaiaLevel", 1) < 2)
+                return delayMs;
+
+            return Math.Max(1, (int)Math.Round(delayMs * GaiaIICooldownMultiplier));
+        }
+
+
+        private int RandomDelay(int minMs, int maxMs)
+        {
+            if (maxMs <= minMs) return minMs;
+            return minMs + entity.World.Rand.Next(maxMs - minMs + 1);
+        }
+
+
+        /// <summary>
+        /// Вызывается EntityGaiaGuardian после фактически полученного урона.
+        /// Обычный удар ускоряет один следующий телепорт. Fire/DoT дополнительно
+        /// включает короткое окно быстрых хаотичных телепортов.
+        /// </summary>
+        public void NotifyDamaged(DamageSource damageSource)
+        {
+            if (entity.World.Side != EnumAppSide.Server) return;
+            if (damageSource == null || damageSource.Type == EnumDamageType.Heal) return;
+            if (entity.WatchedAttributes.GetFloat("gaiaBirthTimer", 0f) > 0f) return;
+            if (entity.WatchedAttributes.GetBool("isLevitating", false)) return;
+
+            long now = entity.World.ElapsedMilliseconds;
+
+            bool continuousDamage =
+                damageSource.Type == EnumDamageType.Fire ||
+                damageSource.Duration > TimeSpan.Zero ||
+                damageSource.DamageOverTimeType != 0;
+
+            if (continuousDamage)
+            {
+                damageTeleportBurstUntilMs = Math.Max(
+                    damageTeleportBurstUntilMs,
+                    now + dotTeleportBurstDurationMs
+                );
+            }
+
+            long requestedTeleportMs = now + RandomDelay(
+                ScaleDelayForGaiaLevel(damageTeleportDelayMinMs),
+                ScaleDelayForGaiaLevel(damageTeleportDelayMaxMs)
+            );
+
+            // Урон может только приблизить телепорт, но никогда не отложить уже
+            // запланированный более ранний прыжок.
+            if (nextTeleportMs <= 0 || requestedTeleportMs < nextTeleportMs)
+            {
+                nextTeleportMs = requestedTeleportMs;
+            }
         }
 
 
@@ -247,38 +381,18 @@ namespace BotaniaStory.entities.ai
                     distance;
 
 
-                // Не позволяем точке выйти за арену
+                // Не прижимаем точку к краю арены: это создавало заметные
+                // повторяющиеся телепорты по окружности. Просто пробуем другую точку.
+                double fromSpawnX = candidateX - spawn.X;
+                double fromSpawnZ = candidateZ - spawn.Z;
 
-                double fromSpawnX =
-                    candidateX - spawn.X;
-
-                double fromSpawnZ =
-                    candidateZ - spawn.Z;
-
-                double fromSpawnDistance =
-                    Math.Sqrt(
-                        fromSpawnX * fromSpawnX +
-                        fromSpawnZ * fromSpawnZ
-                    );
-
-                if (fromSpawnDistance > arenaRadius &&
-                    fromSpawnDistance > 0.0001)
+                if (fromSpawnX * fromSpawnX +
+                    fromSpawnZ * fromSpawnZ >
+                    arenaRadius * arenaRadius)
                 {
-                    double k =
-                        arenaRadius /
-                        fromSpawnDistance;
-
-                    candidateX =
-                        spawn.X +
-                        fromSpawnX * k;
-
-                    candidateZ =
-                        spawn.Z +
-                        fromSpawnZ * k;
+                    continue;
                 }
 
-
-                
                 double dx =
                     candidateX - currentX;
 
@@ -287,6 +401,11 @@ namespace BotaniaStory.entities.ai
 
                 if (dx * dx + dz * dz <
                     minDistanceSq)
+                {
+                    continue;
+                }
+
+                if (IsNearRecentTeleport(candidateX, candidateZ))
                 {
                     continue;
                 }
@@ -362,14 +481,23 @@ namespace BotaniaStory.entities.ai
                 z - blockZ;
 
 
-            
+
             int maxY;
 
             if (unlimitedUp)
             {
-                // Боевой телепорт может искать поверхность до самой верхней границы мира
-                maxY =
-                    blockAccessor.MapSizeY - 2;
+                // Не сканируем всю высоту мира для каждой случайной X/Z-точки.
+                // Для боевого телепорта достаточно области около уровня арены
+                // и текущей высоты цели (если игрок построил платформу выше).
+                double referenceY =
+                    double.IsNaN(preferredY)
+                        ? spawn.Y
+                        : Math.Max(spawn.Y, preferredY);
+
+                maxY = Math.Min(
+                    blockAccessor.MapSizeY - 2,
+                    (int)Math.Ceiling(referenceY + SurfaceSearchAbove)
+                );
             }
             else
             {
@@ -387,23 +515,19 @@ namespace BotaniaStory.entities.ai
                 );
 
 
-            
+
             // Если игрок построил платформу над ареной, сначала найдём платформу, а не блок под ней
-            
+
             Vec3d bestPosition = null;
             double bestVerticalDistance = double.MaxValue;
+
+            BlockPos blockPos = new BlockPos(entity.Pos.Dimension);
 
             for (int y = maxY;
                  y >= minY;
                  y--)
             {
-                BlockPos blockPos =
-                    new BlockPos(
-                        blockX,
-                        y,
-                        blockZ,
-                        entity.Pos.Dimension
-                    );
+                blockPos.Set(blockX, y, blockZ);
 
                 Block block =
                     blockAccessor.GetBlock(
@@ -481,9 +605,9 @@ namespace BotaniaStory.entities.ai
                     );
 
 
-                
+
                 // Проверяем, помещается ли Гайа целиком
-                
+
 
                 if (entity.World.CollisionTester.IsColliding(
                     blockAccessor,
@@ -750,9 +874,9 @@ namespace BotaniaStory.entities.ai
         }
 
 
-       
+
         // МЕТОДЫ ДЛЯ EntityGaiaGuardian
-       
+
         public static bool HasImmediateArenaSupport(
             EntityAgent entity)
         {
@@ -796,11 +920,44 @@ namespace BotaniaStory.entities.ai
         }
 
 
-       
+
+        private bool IsNearRecentTeleport(double x, double z)
+        {
+            double minDistanceSq =
+                minRecentTeleportDistance *
+                minRecentTeleportDistance;
+
+            foreach (Vec3d pos in recentTeleportPositions)
+            {
+                double dx = x - pos.X;
+                double dz = z - pos.Z;
+
+                if (dx * dx + dz * dz < minDistanceSq)
+                    return true;
+            }
+
+            return false;
+        }
+
+
+        private void RememberTeleport(Vec3d destination)
+        {
+            recentTeleportPositions.Enqueue(
+                new Vec3d(destination.X, destination.Y, destination.Z)
+            );
+
+            while (recentTeleportPositions.Count > rememberedTeleportPositions)
+            {
+                recentTeleportPositions.Dequeue();
+            }
+        }
+
+
         // Перемещение
         private void TeleportTo(
             Vec3d destination)
         {
+            RememberTeleport(destination);
             entity.Pos.SetPos(
                 destination.X,
                 destination.Y,
@@ -824,9 +981,9 @@ namespace BotaniaStory.entities.ai
         }
 
 
-       
+
         // Позиция спавна
-       
+
 
         private Vec3d GetSpawnPos()
         {

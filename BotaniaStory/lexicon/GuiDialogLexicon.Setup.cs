@@ -16,9 +16,9 @@ namespace botaniastory
             if (string.IsNullOrEmpty(rawCode)) return null;
 
             string codesString = rawCode;
-            int count = 1; // По умолчанию всегда 1 предмет
+            int count = 1;
 
-            // Если в строке есть символ '@', разбиваем её на код и количество
+            // Строка разделяется на код и количество
             if (rawCode.Contains("@"))
             {
                 var parts = rawCode.Split('@');
@@ -28,55 +28,82 @@ namespace botaniastory
 
             var stacks = new List<ItemStack>();
 
-            // Разбиваем строку по запятой, чтобы поддержать перечисление конкретных предметов (аналог allowedVariants)
+            // Коды предметов разделяются по запятой
             string[] individualCodes = codesString.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (string rawSingleCode in individualCodes)
             {
-                string code = rawSingleCode.Trim(); // Убираем лишние пробелы по краям
+                string code = rawSingleCode.Trim();
                 AssetLocation loc = new AssetLocation(code);
 
-                // Если код всё ещё содержит звёздочку (например "botaniastory:mysticalpetal-*"), обрабатываем как маску
                 if (code.Contains("*"))
                 {
                     foreach (var item in capi.World.Items)
                     {
                         if (item.Code != null && WildcardUtil.Match(loc, item.Code))
                         {
-                            var stack = new ItemStack(item) { StackSize = count };
-                            stacks.Add(stack);
+                            AddHandbookStacks(stacks, new ItemStack(item), loc, count);
                         }
                     }
+
                     foreach (var block in capi.World.Blocks)
                     {
                         if (block.Code != null && WildcardUtil.Match(loc, block.Code))
                         {
-                            var stack = new ItemStack(block) { StackSize = count };
-                            stacks.Add(stack);
+                            AddHandbookStacks(stacks, new ItemStack(block), loc, count);
                         }
                     }
                 }
-
-                // Иначе ищем конкретный предмет или блок
                 else
                 {
                     Item item = capi.World.GetItem(loc);
                     if (item != null)
                     {
-                        var stack = new ItemStack(item) { StackSize = count };
-                        stacks.Add(stack);
+                        AddHandbookStacks(stacks, new ItemStack(item), loc, count);
                     }
 
                     Block block = capi.World.GetBlock(loc);
                     if (block != null)
                     {
-                        var stack = new ItemStack(block) { StackSize = count };
-                        stacks.Add(stack);
+                        AddHandbookStacks(stacks, new ItemStack(block), loc, count);
                     }
                 }
             }
 
             return stacks.Count > 0 ? stacks.ToArray() : null;
+        }
+
+        private void AddHandbookStacks(List<ItemStack> stacks, ItemStack fallbackStack, AssetLocation requestedCode, int count)
+        {
+            var handbookStacks = fallbackStack.Collectible.GetHandBookStacks(capi);
+            bool added = false;
+
+            if (handbookStacks != null)
+            {
+                foreach (var handbookStack in handbookStacks)
+                {
+                    if (handbookStack?.Collectible?.Code == null) continue;
+                    if (!WildcardUtil.Match(requestedCode, handbookStack.Collectible.Code)) continue;
+
+                    var stack = handbookStack.Clone();
+                    stack.StackSize = count;
+
+                    if (!stacks.Any(existing => existing.Equals(capi.World, stack)))
+                    {
+                        stacks.Add(stack);
+                    }
+
+                    added = true;
+                }
+            }
+
+            if (added) return;
+
+            fallbackStack.StackSize = count;
+            if (!stacks.Any(existing => existing.Equals(capi.World, fallbackStack)))
+            {
+                stacks.Add(fallbackStack);
+            }
         }
 
         private void SetupDialog()
@@ -107,7 +134,7 @@ namespace botaniastory
             var compo = capi.Gui.CreateCompo("lexiconDialog", dialogBounds)
                 .AddInteractiveElement(bookBg, "bookBackground")
                 .AddInteractiveElement(gearImage, "btnSettingsIcon")
-                // Кнопка [D] удалена отсюда!
+
                 .AddInteractiveElement(tabGreen, "tabHome")
                 .AddInteractiveElement(tabPurple, "tabSearch");
 
@@ -123,7 +150,7 @@ namespace botaniastory
                 compo.AddInteractiveElement(nextBtnImage, "nextButton");
             }
 
-            // ЗАКЛАДКИ
+            // Закладки добавляются сбоку книги
             var bookmarkedChapters = categories.SelectMany(c => c.Chapters).Where(ch => ch.IsBookmarked).ToList();
 
             var tabCfg = ui["Закладки_Сбоку"];
@@ -154,7 +181,7 @@ namespace botaniastory
             double listScale = listStep[4];
             CairoFont listFont = CairoFont.WhiteSmallText().WithColor(inkColor).WithFontSize((float)(GuiStyle.SmallFontSize * bookScale * listScale));
 
-            // ПОИСК
+            // Поиск отображается вместо содержимого
             if (isSearchOpen)
             {
                 compo.AddTextInput(bounds["Строка_Поиска"], OnSearchTextChanged, bookFont, "searchBar");
@@ -183,7 +210,7 @@ namespace botaniastory
                     compo.AddDynamicText(" ", listFont, textBounds, $"search_text_{i}");
                 }
             }
-            // ОТРИСОВКА СОДЕРЖИМОГО
+            // Содержимое книги отображается при закрытом поиске
             else
             {
                 ElementBounds titleBounds = ElementBounds.Fixed(titleCfg[0] * bookScale, titleCfg[1] * bookScale, titleCfg[2] * bookScale * titleCfg[4], titleCfg[3] * bookScale * titleCfg[4]);
@@ -230,7 +257,7 @@ namespace botaniastory
                         double textY = y + textOffset[1];
                         ElementBounds textBounds = ElementBounds.Fixed(textX * bookScale, textY * bookScale, textOffset[2] * bookScale * textScale, textOffset[3] * bookScale * textScale);
 
-                        // Генерируем путь для цветной версии иконки (например: category_icon_0_hover.png)
+                        // Путь hover-иконки создаётся из основной
                         string hoverIconPath = cat.IconPath.Replace(".png", "_hover.png");
 
                         var catImg = new GuiElementCategoryIcon(
@@ -347,10 +374,10 @@ namespace botaniastory
                                     anvilElement.OnSlotClick = OnRecipeItemClicked;
                                     compo.AddInteractiveElement(anvilElement, $"anvilDisplay_{i}");
 
-                                    //ОТРИСОВКА ЗНАКОВ "+" И "="
+                                    // Знаки размещаются между слотами
 
                                     double[] brownColor = new double[] { 0.45, 0.28, 0.14, 1.0 };
-                                    double fontSize = 28 * rScale; // Вынесли размер шрифта в переменную
+                                    double fontSize = 28 * rScale;
 
                                     CairoFont signFont = CairoFont.WhiteMediumText()
                                         .WithColor(brownColor)
@@ -358,18 +385,17 @@ namespace botaniastory
                                         .WithWeight(Cairo.FontWeight.Bold)
                                         .WithOrientation(EnumTextOrientation.Center);
 
-                                    // Эти значения должны быть ТОЧНО ТАКИМИ ЖЕ, как в GuiElementAnvilRecipe
+                                    // Размеры синхронизированы с GuiElementAnvilRecipe
                                     double iconSize = 25 * rScale;
                                     double padding = 24 * rScale;
 
                                     double anvilStartX = anvilCfg[0] * bookScale;
                                     double anvilStartY = anvilCfg[1] * bookScale;
 
-                                    // Идеальное центрирование по вертикали:
-                                    // Мы берем половину высоты иконки и вычитаем половину высоты шрифта
+                                    // Текст центрируется по высоте иконки
                                     double yOffset = (iconSize / 2.0) - (fontSize / 2.0);
 
-                                    // Координаты по X тоже строятся автоматически на основе  iconSize и padding
+                                    // Позиции рассчитываются по размеру и отступу
                                     ElementBounds plusBounds = ElementBounds.Fixed(anvilStartX + iconSize, anvilStartY + yOffset, padding, fontSize);
                                     compo.AddStaticText("+", signFont, plusBounds, $"anvilPlus_{i}");
 
@@ -536,12 +562,12 @@ namespace botaniastory
 
                         if (!string.IsNullOrEmpty(currentChapter.VisualizeStructure) && currentSpread == currentChapter.VisualizeSpread)
                         {
-                            // Если ключ для конкретной главы не указан, используем стандартный
+                            // Стандартный ключ используется при отсутствии собственного
                             string targetUiKey = string.IsNullOrEmpty(currentChapter.VisualizeUiKey)
                                 ? "Кнопка_Визуализации"
                                 : currentChapter.VisualizeUiKey;
 
-                            // Защита от краша
+                            // Некорректный ключ заменяется стандартным
                             if (!ui.ContainsKey(targetUiKey)) targetUiKey = "Кнопка_Визуализации";
 
                             var btnCfg = ui[targetUiKey];
@@ -551,11 +577,13 @@ namespace botaniastory
 
                             var hologramSystem = capi.ModLoader.GetModSystem<LexiconHologramSystem>();
 
-                            // 1. Используем Lang.Get для локализации. 
-                            // Не забудь добавить ключи в en.json и ru.json
+                            // Текст кнопки берётся из локализации
                             string buttonText = hologramSystem.isActive
                                 ? Lang.Get("botaniastory:btn-visualize-stop")
                                 : Lang.Get("botaniastory:btn-visualize");
+
+                            CairoFont buttonFont = CairoFont.WhiteSmallText()
+                                .WithOrientation(EnumTextOrientation.Center);
 
                             compo.AddButton(buttonText, () =>
                             {
@@ -568,12 +596,11 @@ namespace botaniastory
                                     hologramSystem.StartVisualization(currentChapter.VisualizeStructure);
                                 }
 
-                                // 2. Вызываем пересборку диалога. Это гарантированно и мгновенно
-                                // обновит текст на кнопке и избавит нас от необходимости искать кнопку по ключу.
+                                // Текст кнопки обновляется после пересборки
                                 RecomposeDialog();
 
                                 return true;
-                            }, btnBounds, CairoFont.WhiteSmallText(), EnumButtonStyle.Normal, "btnVisualize");
+                            }, btnBounds, buttonFont, EnumButtonStyle.Normal, "btnVisualize");
                         }
                     }
                 }
@@ -581,14 +608,14 @@ namespace botaniastory
 
             SingleComposer = compo.Compose();
 
-                if (isSearchOpen)
-                {
-                    SingleComposer.GetTextInput("searchBar")?.SetPlaceHolderText(Lang.Get("botaniastory:search-placeholder"));
-                    UpdateSearchResults();
-                }
+            if (isSearchOpen)
+            {
+                SingleComposer.GetTextInput("searchBar")?.SetPlaceHolderText(Lang.Get("botaniastory:search-placeholder"));
+                UpdateSearchResults();
+            }
 
-                UpdatePageContent();
-            
+            UpdatePageContent();
+
         }
 
         private void UpdatePageContent()
@@ -604,7 +631,7 @@ namespace botaniastory
 
         private void SendClick(object data)
         {
-            // Ничего не делаем, рецепт только для чтения
+            // Клик игнорируется для рецепта только для чтения
         }
 
         private void OnRecipeItemClicked(ItemStack clickedStack)
@@ -613,17 +640,16 @@ namespace botaniastory
 
             string itemCode = clickedStack.Collectible.Code.ToString();
 
-            // 1. Просто отдаем предмет  менеджеру. 
-            // Он сам проверит и ExceptionsMap (ванильные предметы со звездочками), и предметы мода!
+            // Глава определяется менеджером книги
             string chapterId = BookDataManager.GetChapterForBlock(itemCode);
 
-            // 2. Если менеджер нашел главу (хоть по исключению, хоть по моду)
+            // Найденная глава открывается в книге
             if (chapterId != null)
             {
                 if (currentChapter != null && currentChapter.Id == chapterId) return;
                 OpenSpecificChapter(chapterId);
             }
-            // 3. Если менеджер вернул null (предмета нет в книге) - кидаем в ванильный справочник
+            // Предмет вне книги открывается в ванильном справочнике
             else
             {
                 OpenVanillaHandbook(clickedStack);

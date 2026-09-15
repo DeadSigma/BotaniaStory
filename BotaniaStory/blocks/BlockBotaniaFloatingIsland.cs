@@ -7,7 +7,11 @@ namespace BotaniaStory.Blocks
 {
     public class BlockBotaniaFloatingIsland : Block
     {
-        public override bool DoPlaceBlock(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ItemStack byItemStack)
+        public override bool DoPlaceBlock(
+            IWorldAccessor world,
+            IPlayer byPlayer,
+            BlockSelection blockSel,
+            ItemStack byItemStack)
         {
             bool placed = base.DoPlaceBlock(world, byPlayer, blockSel, byItemStack);
 
@@ -29,7 +33,9 @@ namespace BotaniaStory.Blocks
                                 isDirty = true;
                             }
 
-                            if (behavior is BEBehaviorDaybloom daybloom && byPlayer != null && world.Side == EnumAppSide.Server)
+                            if (behavior is BEBehaviorDaybloom daybloom &&
+                                byPlayer != null &&
+                                world.Side == EnumAppSide.Server)
                             {
                                 daybloom.OwnerUID = byPlayer.PlayerUID;
                                 BEBehaviorDaybloom.PlayerBloomsCount[daybloom.OwnerUID] =
@@ -38,22 +44,25 @@ namespace BotaniaStory.Blocks
                             }
                         }
 
-                        if (behavior is BEBehaviorJadedAmaranthus jaded)
+                        if (behavior is BEBehaviorJadedAmaranthus jaded &&
+                            jaded.LinkedPool == null)
                         {
-                            if (jaded.LinkedPool == null)
-                            {
-                                jaded.AutoFindPool();
-                                isDirty = true;
-                            }
+                            jaded.AutoFindPool();
+                            isDirty = true;
                         }
 
-                        if (behavior is BEBehaviorHopperhock hopperhock)
+                        if (behavior is BEBehaviorHopperhock hopperhock &&
+                            hopperhock.LinkedPool == null)
                         {
-                            if (hopperhock.LinkedPool == null)
-                            {
-                                hopperhock.AutoFindPool();
-                                isDirty = true;
-                            }
+                            hopperhock.AutoFindPool();
+                            isDirty = true;
+                        }
+
+                        if (behavior is BEBehaviorWardbloom wardbloom &&
+                            wardbloom.LinkedPool == null)
+                        {
+                            wardbloom.AutoFindPool();
+                            isDirty = true;
                         }
                     }
 
@@ -63,28 +72,34 @@ namespace BotaniaStory.Blocks
                     }
                 }
             }
+
             return placed;
         }
 
-        
-        // ДОБАВЛЕНО ВЗАИМОДЕЙСТВИЕ КАК У ОБЫЧНЫХ ЦВЕТОВ (ДЛЯ ФИЛЬТРОВ)
-        
-        public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
+        public override bool OnBlockInteractStart(
+            IWorldAccessor world,
+            IPlayer byPlayer,
+            BlockSelection blockSel)
         {
             BlockEntity be = world.BlockAccessor.GetBlockEntity(blockSel.Position);
 
-            // Пробуем получить поведение воротка, если этот остров им является
+            BEBehaviorWardbloom wardbloom = be?.GetBehavior<BEBehaviorWardbloom>();
+            if (wardbloom?.HandleInteract(byPlayer) == true)
+            {
+                return true;
+            }
+
             BEBehaviorHopperhock hopperhock = be?.GetBehavior<BEBehaviorHopperhock>();
 
             if (hopperhock != null)
             {
                 ItemSlot activeHandSlot = byPlayer.InventoryManager.ActiveHotbarSlot;
 
-                // 1. Попытка положить листок в вороток (ПКМ с листком в руке)
-                if (!activeHandSlot.Empty && activeHandSlot.Itemstack.Collectible.Code.Path.Contains("filterscroll"))
+                if (!activeHandSlot.Empty &&
+                    activeHandSlot.Itemstack.Collectible.Code.Path.Contains("filterscroll"))
                 {
                     bool isBlacklist = activeHandSlot.Itemstack.Collectible.Code.Path.Contains("black");
-                    int targetSlot = isBlacklist ? 1 : 0; // 0 для белого, 1 для черного
+                    int targetSlot = isBlacklist ? 1 : 0;
 
                     if (hopperhock.FilterInventory[targetSlot].Empty)
                     {
@@ -96,7 +111,6 @@ namespace BotaniaStory.Blocks
                     }
                 }
 
-                // 2. Попытка забрать листки из цветка пустой рукой (просто ПКМ)
                 if (activeHandSlot.Empty)
                 {
                     for (int i = 1; i >= 0; i--)
@@ -104,10 +118,14 @@ namespace BotaniaStory.Blocks
                         if (!hopperhock.FilterInventory[i].Empty)
                         {
                             ItemStack leafToReturn = hopperhock.FilterInventory[i].TakeOut(1);
+
                             if (!byPlayer.InventoryManager.TryGiveItemstack(leafToReturn))
                             {
-                                world.SpawnItemEntity(leafToReturn, blockSel.Position.ToVec3d().Add(0.5, 0.5, 0.5));
+                                world.SpawnItemEntity(
+                                    leafToReturn,
+                                    blockSel.Position.ToVec3d().Add(0.5, 0.5, 0.5));
                             }
+
                             hopperhock.FilterInventory[i].MarkDirty();
                             hopperhock.Blockentity.MarkDirty(true);
                             return true;

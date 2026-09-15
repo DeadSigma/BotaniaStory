@@ -98,7 +98,7 @@ namespace BotaniaStory.entities.ai
             if (stage == 1)
             {
                 // Стадия 1
-                mobsToSpawn = new[] { "drifter-normal", "drifter-surface", "locust-bronze" };
+                mobsToSpawn = new[] { "drifter-normal", "drifter-deep", "locust-bronze" };
             }
             else
             {

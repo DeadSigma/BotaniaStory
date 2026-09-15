@@ -10,12 +10,12 @@
     "drawtype": "Cube",
     "blockmaterial": "Soil",
     "textures": {
-        "up": { "base": "botaniastory:block/grasstop" },
+      "up": { "base": "botaniastory:block/enchantedsoil-top " },
         "down": { "base": "game:block/fertmedium" },
-        "north": { "base": "botaniastory:block/grass-side" },
-        "east": { "base": "botaniastory:block/grass-side" },
-        "south": { "base": "botaniastory:block/grass-side" },
-        "west": { "base": "botaniastory:block/grass-side" }
+        "north": { "base": "botaniastory:block/enchantedsoil-side" },
+        "east": { "base": "botaniastory:block/enchantedsoil-side" },
+        "south": { "base": "botaniastory:block/enchantedsoil-side" },
+        "west": { "base": "botaniastory:block/enchantedsoil-side" }
     },
     "attributes": {
         "mapColorCode": "land",

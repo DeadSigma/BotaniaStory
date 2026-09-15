@@ -67,12 +67,12 @@
 		"*": 2.5
 	},
 	"tooltierByType": {
-		"*-terrasteel": 5,
+		"*-terrasteel": 6,
 		"*-elementium": 4,
 		"*-manasteel": 2
 	},
 	"attackpowerByType": {
-		"*-terrasteel": 100.26,
+		"*-terrasteel": 6.16,
 		"*-elementium": 5.25,
 		"*-manasteel": 3.75
 	},

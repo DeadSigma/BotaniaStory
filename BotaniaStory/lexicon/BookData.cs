@@ -86,7 +86,7 @@ namespace BotaniaStory.lexicon
 
             { "functional_flora", new[] { "puredaisy", "jadedamaranthus", "witheredamaranthus",  "hopperhock", "agricarnation" } },
 
-            { "natural_apparatus", new[] { "mechanical_dropper", "hourglass" } },
+            { "natural_apparatus", new[] { "mechanical_dropper", "hourglass", "beacon" } },
 
             { "mystical_items", new[] { "wandofbinding", "flower_bag", "floralfertilizer", "meadowseed", "floating_island", "rod_of_the_seas", "manaitem", "terrasteelitem", "terrashatterer", "filterscroll", "halo", "automatic_halo" } },
 
@@ -94,7 +94,7 @@ namespace BotaniaStory.lexicon
 
             { "rusted_world_artifacts", new[] { "rustworld-air", "blackholetalisman", "flight-tiara" } },
 
-            { "elfmania", new[] { "alfheimgates", "elfresources" } },
+            { "elfmania", new[] { "alfheimgates", "elfresources", "gaiaritual", "elementiumitem"  } },
 
             { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "flask", "root-normal", "root-rusted" } },
 
@@ -216,13 +216,13 @@ namespace BotaniaStory.lexicon
                     /////////////////////////////////////////////////////
 
 
-                    //НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ОСНОВЫ МАНЫ
+                    // ВВЕДЕНИЕ В ОСНОВЫ МАНЫ
                     if (chapId == "basicsintroduction")
                     {
                         chapter.TabItemCode = "botaniastory:checkmark";
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ЛЕКСИКОН БОТАНИЯ
+                    // ЛЕКСИКОН БОТАНИЯ
                     if (chapId == "botanialexicon")
                     {
                         chapter.TabItemCode = "botaniastory:lexicon-closed";
@@ -380,7 +380,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ТЕРРАСТАЛЬ
+                    // ТЕРРАСТАЛЬ
                     else if (chapId == "terrasteel")
                     {
                         chapter.TabItemCode = "game:ingot-terrasteel";
@@ -410,13 +410,13 @@ namespace BotaniaStory.lexicon
 
 
 
-                    //НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В УПРАВЛЕНИЕ МАНОЙ
+                    // ВВЕДЕНИЕ В УПРАВЛЕНИЕ МАНОЙ
                     else if (chapId == "manaintroduction")
                     {
                         chapter.TabItemCode = "botaniastory:checkmark";
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ РАСПРОСТРАНИТЕЛЬ МАНЫ===
+                    // РАСПРОСТРАНИТЕЛЬ МАНЫ===
                     else if (chapId == "manaspreader")
                     {
                         chapter.TabItemCode = "botaniastory:manaspreader";
@@ -496,7 +496,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ИЗМУЧЕННЫЙ АМАРАНТ
+                    // ИЗМУЧЕННЫЙ АМАРАНТ
                     else if (chapId == "jadedamaranthus")
                     {
                         chapter.TabItemCode = "botaniastory:jadedamaranthus-free";
@@ -543,7 +543,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ВОРОТОК
+                    // ВОРОТОК
                     else if (chapId == "hopperhock")
                     {
                         chapter.TabItemCode = "botaniastory:hopperhock-free";
@@ -594,7 +594,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ МЕХАНИЧЕСКИЙ ВЫБРАСЫВАТЕЛЬ
+                    // МЕХАНИЧЕСКИЙ ВЫБРАСЫВАТЕЛЬ
                     else if (chapId == "mechanical_dropper")
                     {
                         chapter.TabItemCode = "botaniastory:mechanical_dropper-north-*-*";
@@ -614,7 +614,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ПЕСОЧНЫЕ ЧАСЫ
+                    // ПЕСОЧНЫЕ ЧАСЫ
                     else if (chapId == "hourglass")
                     {
                         chapter.TabItemCode = "botaniastory:hourglass";
@@ -630,6 +630,26 @@ namespace BotaniaStory.lexicon
                           null, "botaniastory:managlass", null
                         },
                             Output = "botaniastory:hourglass"
+                        });
+
+                    }
+
+                    // МАЯК
+                    else if (chapId == "beacon")
+                    {
+                        chapter.TabItemCode = "botaniastory:beacon";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                             "game:glass-plain", "game:glass-plain", "game:glass-plain",
+                             "game:glass-plain", "game:lantern-large-up", "game:glass-plain",
+                             "game:chisel-*", "game:rock-obsidian", "game:hammer-*"
+                         },
+                            Output = "botaniastory:beacon"
                         });
 
                     }
@@ -793,7 +813,7 @@ namespace BotaniaStory.lexicon
 
 
                     }
-                    //НАСТРОЙКА ГЛАВЫ ПЛАНШЕТ МАНЫ
+                    // ПЛАНШЕТ МАНЫ
                     else if (chapId == "manatablet")
                     {
                         chapter.TabItemCode = "botaniastory:manatablet";
@@ -812,7 +832,7 @@ namespace BotaniaStory.lexicon
                         ////////////////////////////////
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ИСКРЫ
+                    // ИСКРЫ
                     else if (chapId == "spark")
                     {
                         chapter.TabItemCode = "botaniastory:spark";
@@ -830,7 +850,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ДОПОЛНИТЕЛИ ИСКР
+                    // ДОПОЛНИТЕЛИ ИСКР
                     else if (chapId == "sparkaugment")
                     {
                         chapter.TabItemCode = "botaniastory:sparkaugment-*";
@@ -885,7 +905,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ АЛХИМИЧЕСКИЙ КАТАЛИЗАТОР
+                    // АЛХИМИЧЕСКИЙ КАТАЛИЗАТОР
                     else if (chapId == "catalyst_alchemy")
                     {
                         chapter.TabItemCode = "botaniastory:catalyst_alchemy";
@@ -1499,13 +1519,13 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ВВЕДЕНИЕ В ГЕНЕРИРУЮЩУЮ ФЛОРУ
+                    // ВВЕДЕНИЕ В ГЕНЕРИРУЮЩУЮ ФЛОРУ
                     else if (chapId == "generatingfloraintroduction")
                     {
                         chapter.TabItemCode = "botaniastory:checkmark";
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ДНЕВНОЦВЕТ
+                    // ДНЕВНОЦВЕТ
                     else if (chapId == "daybloom")
                     {
                         chapter.TabItemCode = "botaniastory:daybloom-free";
@@ -1526,7 +1546,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ НОЧНАЯ ЛИЛИЯ
+                    // НОЧНАЯ ЛИЛИЯ
                     else if (chapId == "nightshade")
                     {
                         chapter.TabItemCode = "botaniastory:nightshade-free";
@@ -1547,7 +1567,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ЭНДОПЛАМЯ
+                    // ЭНДОПЛАМЯ
                     else if (chapId == "endoflame")
                     {
                         chapter.TabItemCode = "botaniastory:endoflame-free";
@@ -1570,7 +1590,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ТАЙНАЯ РОЗА
+                    // ТАЙНАЯ РОЗА
                     else if (chapId == "rosaarcana")
                     {
                         chapter.TabItemCode = "botaniastory:rosaarcana-free";
@@ -1594,7 +1614,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ВОДОГОРТЕНЗИЯ
+                    // ВОДОГОРТЕНЗИЯ
                     else if (chapId == "hydroangeas")
                     {
                         chapter.TabItemCode = "botaniastory:hydroangeas-free";
@@ -1616,7 +1636,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ПОСОХ/ЖЕЗЛ СВЯЗЫВАНИЯ
+                    // ПОСОХ/ЖЕЗЛ СВЯЗЫВАНИЯ
                     else if (chapId == "wandofbinding")
                     {
                         chapter.TabItemCode = "botaniastory:wandofbinding";
@@ -1683,7 +1703,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ЖИЗНЕДЕРЕВА
+                    // ПРЕДМЕТЫ ИЗ ЖИЗНЕДЕРЕВА
                     else if (chapId == "livingwood_stuff")
                     {
                         chapter.TabItemCode = "botaniastory:livingwood-normal";
@@ -1853,7 +1873,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ЖИЗНЕКАМНЯ
+                    // ПРЕДМЕТЫ ИЗ ЖИЗНЕКАМНЯ
                     else if (chapId == "livingrock_stuff")
                     {
                         chapter.TabItemCode = "botaniastory:livingrock";
@@ -1920,7 +1940,7 @@ namespace BotaniaStory.lexicon
                         /////////////Кирпичи
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ МАНАСТЕКЛО
+                    // МАНАСТЕКЛО
                     else if (chapId == "managlass")
                     {
                         chapter.TabItemCode = "botaniastory:managlass";
@@ -1946,7 +1966,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ПУЗЫРЁК ДЛЯ РЖАВОГО ВОЗДУХА
+                    // ПУЗЫРЁК (флакон) ДЛЯ РЖАВОГО ВОЗДУХА
                     else if (chapId == "flask")
                     {
                         chapter.TabItemCode = "botaniastory:flask-empty";
@@ -1957,14 +1977,14 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                            null, null, null,
                             null, "game:glass-plain", null,
-                            null, "game:glass-plain", null},
+                            null, "game:glass-plain", null,
+                            null, null, null},
                             Output = "botaniastory:flask-empty"
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ КОРЕНЬ
+                    // КОРЕНЬ
                     else if (chapId == "root-normal")
                     {
                         chapter.TabItemCode = "botaniastory:root-normal";
@@ -1990,7 +2010,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ЗАРЖАВЕВШИЙ КОРЕНЬ
+                    // ЗАРЖАВЕВШИЙ КОРЕНЬ
                     else if (chapId == "root-rusted")
                     {
                         chapter.TabItemCode = "botaniastory:root-rusted";
@@ -2009,14 +2029,13 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ РУНЫ
+                    // РУНЫ
                     else if (chapId == "rune")
                     {
                         chapter.TabItemCode = "botaniastory:rune-*";
 
-                        // 
+                        
                         //  ТИР 1: БАЗОВЫЕ РУНЫ (Элементы)
-                        // 
 
                         // Руна Воды
                         chapter.Recipes.Add(new BookRecipe()
@@ -2416,7 +2435,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ МАНАСТАЛИ
+                    // ПРЕДМЕТЫ ИЗ МАНАСТАЛИ
                     else if (chapId == "manaitem")
                     {
                         chapter.TabItemCode = "botaniastory:pickaxe-manasteel";
@@ -2622,9 +2641,9 @@ namespace BotaniaStory.lexicon
                             Spread = 4,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "game:pickaxehead-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                              "game:pickaxehead-manasteel", null, null,
+                              "game:stick", null, null,
+                              null, null, null},
                             Output = "botaniastory:pickaxe-manasteel"
                         });
 
@@ -2643,9 +2662,9 @@ namespace BotaniaStory.lexicon
                             Spread = 4,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "game:axehead-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                             "game:axehead-manasteel", null, null,
+                             "game:stick", null, null,
+                             null, null, null},
                             Output = "botaniastory:axe-manasteel"
                         });
 
@@ -2665,9 +2684,9 @@ namespace BotaniaStory.lexicon
                             Spread = 5,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "game:shovelhead-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                              "game:shovelhead-manasteel", null, null,
+                              "game:stick", null, null,
+                              null, null, null},
                             Output = "botaniastory:shovel-manasteel"
                         });
 
@@ -2686,9 +2705,9 @@ namespace BotaniaStory.lexicon
                             Spread = 5,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "game:cleaverhead-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                              "game:cleaverhead-manasteel", null, null,
+                              "game:stick", null, null,
+                              null, null, null},
                             Output = "botaniastory:cleaver-manasteel"
                         });
 
@@ -2708,9 +2727,9 @@ namespace BotaniaStory.lexicon
                             Spread = 6,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "game:bladehead-falx-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                              "game:bladehead-falx-manasteel", null, null,
+                              "game:stick", null, null,
+                              null, null, null},
                             Output = "botaniastory:falx-manasteel"
                         });
 
@@ -2729,9 +2748,9 @@ namespace BotaniaStory.lexicon
                             Spread = 6,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "game:hammerhead-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                               "game:hammerhead-manasteel", null, null,
+                               "game:stick", null, null,
+                               null, null, null},
                             Output = "botaniastory:hammer-manasteel"
                         });
 
@@ -2751,9 +2770,9 @@ namespace BotaniaStory.lexicon
                             Spread = 7,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "game:hoehead-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                             "game:hoehead-manasteel", null, null,
+                             "game:stick", null, null,
+                             null, null, null},
                             Output = "botaniastory:hoe-manasteel"
                         });
 
@@ -2772,9 +2791,9 @@ namespace BotaniaStory.lexicon
                             Spread = 7,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "game:knifeblade-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                              "game:knifeblade-manasteel", null, null,
+                              "game:stick", null, null,
+                              null, null, null},
                             Output = "botaniastory:knife-manasteel"
                         });
 
@@ -2794,9 +2813,9 @@ namespace BotaniaStory.lexicon
                             Spread = 8,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "game:prospectingpickhead-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                             "game:prospectingpickhead-manasteel", null, null,
+                             "game:stick", null, null,
+                             null, null, null},
                             Output = "botaniastory:prospectingpick-manasteel"
                         });
 
@@ -2815,9 +2834,9 @@ namespace BotaniaStory.lexicon
                             Spread = 8,
                             UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
-        "game:sawblade-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                             "game:sawblade-manasteel", null, null,
+                             "game:stick", null, null,
+                             null, null, null},
                             Output = "botaniastory:saw-manasteel"
                         });
 
@@ -2837,9 +2856,9 @@ namespace BotaniaStory.lexicon
                             Spread = 9,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-        "game:scythehead-manasteel", null, null,
-        "game:stick", null, null,
-        null, null, null},
+                             "game:scythehead-manasteel", null, null,
+                             "game:stick", null, null,
+                             null, null, null},
                             Output = "botaniastory:scythe-manasteel"
                         });
 
@@ -2872,7 +2891,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Зубило",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:chisel-manasteel"
+                            Output = "botaniastory:chisel-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -2882,7 +2901,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Ключ",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:wrench-manasteel"
+                            Output = "botaniastory:wrench-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -2892,7 +2911,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Клещи",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:tongs-manasteel"
+                            Output = "botaniastory:tongs-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -2902,7 +2921,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Монтировка",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:crowbar-manasteel"
+                            Output = "botaniastory:crowbar-manasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -2912,11 +2931,11 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Ножницы",
                             AnvilInput = "game:ingot-manasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:shears-manasteel"
+                            Output = "botaniastory:shears-manasteel"
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ПРЕДМЕТЫ ИЗ ТЕРРАСТАЛИ
+                    // ПРЕДМЕТЫ ИЗ ТЕРРАСТАЛИ
                     else if (chapId == "terrasteelitem")
                     {
                         chapter.TabItemCode = "botaniastory:terrasteel-armor-head-chain";
@@ -3325,7 +3344,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Зубило",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:chisel-terrasteel"
+                            Output = "botaniastory:chisel-terrasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -3335,7 +3354,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Ключ",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:wrench-terrasteel"
+                            Output = "botaniastory:wrench-terrasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -3345,7 +3364,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Клещи",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:tongs-terrasteel"
+                            Output = "botaniastory:tongs-terrasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -3355,7 +3374,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Монтировка",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:crowbar-terrasteel"
+                            Output = "botaniastory:crowbar-terrasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -3365,11 +3384,464 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Ножницы",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-*",
-                            Output = "game:shears-terrasteel"
+                            Output = "botaniastory:shears-terrasteel"
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ЗЕМЛЕКРУШИТЕЛЬ
+                    // ПРЕДМЕТЫ ИЗ Элементия
+                    else if (chapId == "elementiumitem")
+                    {
+                        chapter.TabItemCode = "botaniastory:elementium-armor-head-chain";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 0,
+                            UiKey = "Кузня_Плита",
+                            AnvilInput = "game:ingot-elementium@2",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:metalplate-elementium"
+                        });
+
+                        // КОЛЬЧУГА ИЗ Элементия
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 0,
+                            UiKey = "Кузня_Элементий",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:metalchain-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Манашлем",
+                            Grid = new string[9] {
+  null, "game:metalchain-elementium", null,
+  "game:metalchain-elementium", null, "game:metalchain-elementium",
+  null, null, null},
+                            Output = "botaniastory:elementium-armor-head-chain"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+  "game:metalchain-elementium", "game:armor-body-jerkin-leather", "game:metalchain-elementium",
+  "game:metalchain-elementium@2", "game:metalchain-elementium@2", "game:metalchain-elementium@2",
+  "game:metalchain-elementium", "game:metalchain-elementium", "game:metalchain-elementium"},
+                            Output = "botaniastory:elementium-armor-body-chain"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+  "game:metalchain-elementium", "game:metalchain-elementium@2", "game:metalchain-elementium",
+  "game:metalchain-elementium", "game:armor-legs-jerkin-leather", "game:metalchain-elementium",
+  null, null, null},
+                            Output = "botaniastory:elementium-armor-legs-chain"
+                        });
+
+                        // ЛАТЫ ИЗ Элементия
+                        // Латный шлем (Элементий) - Spread 1, Правая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+   "game:leather-normal-plain", "game:metalplate-elementium", "game:leather-normal-plain",
+   "game:metalplate-elementium", "botaniastory:elementium-armor-head-chain", "game:metalplate-elementium",
+   null, null, null},
+                            Output = "botaniastory:elementium-armor-head-plate"
+                        });
+
+                        // Латный нагрудник (Элементий) - Spread 1, Правая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+  "game:metalplate-elementium", "botaniastory:elementium-armor-body-chain", "game:metalplate-elementium",
+  "game:metalplate-elementium", "game:metalplate-elementium", "game:metalplate-elementium",
+  "game:metalplate-elementium", "game:metalplate-elementium", "game:metalplate-elementium"},
+                            Output = "botaniastory:elementium-armor-body-plate"
+                        });
+
+                        // Латные поножи (Элементий) - Spread 2, Левая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Левая_Верхняя",
+                            Grid = new string[9] {
+ "game:metalplate-elementium", "game:metalplate-elementium", "game:metalplate-elementium",
+ "game:metalplate-elementium", "botaniastory:elementium-armor-legs-chain", "game:metalplate-elementium",
+ null, null, null},
+                            Output = "botaniastory:elementium-armor-legs-plate"
+                        });
+
+                        // ЧЕШУЙЧАТАЯ БРОНЯ ИЗ Элементия
+                        // Чешуйчатый шлем (Элементий) - Spread 2, Левая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+  "botaniastory:metalscale-elementium", "botaniastory:elementium-armor-head-chain", "botaniastory:metalscale-elementium",
+  "game:leather-normal-plain", null, "game:leather-normal-plain",
+  null, null, null},
+                            Output = "botaniastory:elementium-armor-head-scale"
+                        });
+
+                        // Чешуйчатый нагрудник (Элементий) - Spread 2, Правая Верхняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+ "botaniastory:metalscale-elementium", "botaniastory:elementium-armor-body-chain", "botaniastory:metalscale-elementium",
+ "botaniastory:metalscale-elementium", "botaniastory:metalscale-elementium", "botaniastory:metalscale-elementium",
+ null, "botaniastory:metalscale-elementium", null},
+                            Output = "botaniastory:elementium-armor-body-scale"
+                        });
+
+                        // Чешуйчатые поножи (Элементий) - Spread 2, Правая Нижняя
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 2,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+  "botaniastory:metalscale-elementium", "botaniastory:elementium-armor-legs-chain", "botaniastory:metalscale-elementium",
+  "botaniastory:metalscale-elementium", null, "botaniastory:metalscale-elementium",
+  null, null, null},
+                            Output = "botaniastory:elementium-armor-legs-scale"
+                        });
+
+
+                        // Spread 3: Кирка (Левая) и Топор (Правая)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 3,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:pickaxehead-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+            "game:pickaxehead-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:pickaxe-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 3,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:axehead-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 3,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+            "game:axehead-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:axe-elementium"
+                        });
+
+                        // Spread 4: Лопата (Левая) и Тесак (Правая)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 4,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:shovelhead-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 4,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+            "game:shovelhead-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:shovel-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 4,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:cleaverhead-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 4,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+            "game:cleaverhead-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:cleaver-elementium"
+                        });
+
+                        // Spread 5: Фалькс (Левая) и Молот (Правая)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 5,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:bladehead-falx-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 5,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+            "game:bladehead-falx-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:falx-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 5,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:hammerhead-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 5,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+            "game:hammerhead-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:hammer-elementium"
+                        });
+
+                        // Spread 6: Мотыга (Левая) и Нож (Правая)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 6,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:hoehead-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 6,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+            "game:hoehead-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:hoe-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 6,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:knifeblade-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 6,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+            "game:knifeblade-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:knife-elementium"
+                        });
+
+                        // Spread 7: Геолог. кирка (Левая) и Пила (Правая)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 7,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:prospectingpickhead-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 7,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+            "game:prospectingpickhead-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:prospectingpick-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 7,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:sawblade-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 7,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+            "game:sawblade-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:saw-elementium"
+                        });
+
+                        // Spread 8: Коса (Левая) и Копье (Правая)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 8,
+                            UiKey = "Кузня_Левая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:scythehead-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 8,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+            "game:scythehead-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:scythe-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 8,
+                            UiKey = "Кузня_Правая_Верхняя",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "game:spearhead-elementium"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 8,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+            "game:spearhead-elementium", null, null,
+            "game:stick", null, null,
+            null, null, null},
+                            Output = "botaniastory:spear-elementium"
+                        });
+
+                        // Spread 9: Мелкие кузнечные инструменты (Левая)
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Зубило",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:chisel-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Ключ",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:wrench-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Клещи",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:tongs-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Монтировка",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:crowbar-elementium"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 9,
+                            UiKey = "Кузня_Левая_Ножницы",
+                            AnvilInput = "game:ingot-elementium",
+                            AnvilBlock = "game:anvil-*",
+                            Output = "botaniastory:shears-elementium"
+                        });
+                    }
+
+                    // ЗЕМЛЕКРУШИТЕЛЬ
                     else if (chapId == "terrashatterer")
                     {
                         chapter.TabItemCode = "botaniastory:pickaxe-terrashatterer-0-on";
@@ -3479,7 +3951,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ЖЕЗЛ МОРЕЙ
+                    // ЖЕЗЛ МОРЕЙ
                     else if (chapId == "rod_of_the_seas")
                     {
                         chapter.TabItemCode = "botaniastory:rod_of_the_seas";
@@ -3498,7 +3970,7 @@ namespace BotaniaStory.lexicon
                     }
 
 
-                    //НАСТРОЙКА ГЛАВЫ АКСЕССУАРЫ
+                    // АКСЕССУАРЫ
                     else if (chapId == "trinkets")
                     {
                         chapter.TabItemCode = "botaniastory:checkmark";
@@ -3516,7 +3988,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ПИЛОНЫ
+                    // ПИЛОНЫ
                     else if (chapId == "pylon")
                     {
                         chapter.TabItemCode = "botaniastory:pylon-mana";
@@ -3559,7 +4031,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ЛУГОВОЕ СЕМЯ
+                    // ЛУГОВОЕ СЕМЯ
                     else if (chapId == "meadowseed")
                     {
                         chapter.TabItemCode = "botaniastory:meadowseed-normal";
@@ -3620,7 +4092,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ПАРЯЩИЙ ОСТРОВОК
+                    // ПАРЯЩИЙ ОСТРОВОК
                     else if (chapId == "floating_island")
                     {
                         chapter.TabItemCode = "botaniastory:floatingisland-endoflame";
@@ -3631,7 +4103,7 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                             "botaniastory:mysticalflower-*-free", null, null,
+                             "botaniastory:mysticalflower-*-free", "botaniastory:manaitem-manapowder", "botaniastory:manaitem-manapowder",
                              "game:soil-*-none", null, null,
                              "botaniastory:meadowseed-normal", null, null
                              },
@@ -3652,7 +4124,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ВРАТА АЛЬФХЕЙМ
+                    // ВРАТА АЛЬФХЕЙМ
                     else if (chapId == "alfheimgates")
                     {
                         chapter.TabItemCode = "botaniastory:pylon-natura";
@@ -3693,7 +4165,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ РЕСУРСЫ АЛЬФХЕЙМА
+                    // РЕСУРСЫ АЛЬФХЕЙМА
                     else if (chapId == "elfresources")
                     {
                         chapter.TabItemCode = "botaniastory:elvenglass-1";
@@ -3781,7 +4253,62 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ВОЗДУХ РЖАВОГО МИРА
+                    // РИТУАЛ ПРИЗЫВА ГАЙИ 
+                    else if (chapId == "gaiaritual")
+                    {
+                        chapter.TabItemCode = "botaniastory:pylon-gaia";
+
+                        chapter.VisualizeStructure = "gaiaritual";
+                        chapter.VisualizeSpread = 1;
+                        chapter.VisualizeUiKey = "Кнопка_Визуализации_Ритуала_Гайа";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Левая_Нижняя",
+                            Grid = new string[9] {
+                             "game:glass-plain", "game:glass-plain", "game:glass-plain",
+                             "game:glass-plain", "game:lantern-large-up", "game:glass-plain",
+                             "game:chisel-*", "game:rock-obsidian", "game:hammer-*"
+                         },
+                            Output = "botaniastory:beacon"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                                 null, "game:ingot-terrasteel", null,
+                                 "game:metalbit-terrasteel", "botaniastory:pylon-mana", "game:metalbit-terrasteel",
+                                 null, "game:gear-temporal", null },
+                            Output = "botaniastory:pylon-gaia"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Нижняя",
+                            Grid = new string[9] {
+                                 "game:metalplate-elementium@9", "game:metalplate-elementium@9", "game:metalplate-elementium@9",
+                                "game:metalplate-elementium@9", "game:metalplate-elementium@9", "game:metalplate-elementium@9",
+                                 null, null, null },
+                            Output = "game:metalblock-new-riveted-elementium@9"
+                        });
+
+                        chapter.Images.Add(new BookPageImage()
+                        {
+                            Path = "botaniastory:textures/gui/gaiaritual.png",
+                            Spread = 1,
+                            UiKey = "Картинка_Левая_Ритуала_Гайа"
+                        });
+
+                    }
+
+                    // ВОЗДУХ РЖАВОГО МИРА
                     else if (chapId == "rustworld-air")
                     {
                         chapter.TabItemCode = "botaniastory:flask-rustworldair";
@@ -3794,7 +4321,7 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ КРЫЛАТАЯ ТИАРА
+                    // КРЫЛАТАЯ ТИАРА
                     else if (chapId == "flight-tiara")
                     {
                         chapter.TabItemCode = "botaniastory:flight-tiara";
@@ -3824,7 +4351,7 @@ namespace BotaniaStory.lexicon
 
                     }
 
-                    //НАСТРОЙКА ГЛАВЫ ТАЛИСМАН ЧЁРНОЙ ДЫРЫ
+                    // ТАЛИСМАН ЧЁРНОЙ ДЫРЫ
                     else if (chapId == "blackholetalisman")
                     {
                         chapter.TabItemCode = "botaniastory:blackholetalisman";

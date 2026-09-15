@@ -33,7 +33,7 @@ namespace BotaniaStory.util
                 if (inv == null) continue;
                 foreach (var slot in inv)
                 {
-                    if (slot.Empty) continue;
+                    if (slot == null || slot.Empty) continue;
                     if (slot.Itemstack.Item is ItemManaTablet tablet)
                     {
                         int currentMana = tablet.GetMana(slot.Itemstack);
@@ -176,7 +176,7 @@ namespace BotaniaStory.util
         }
     }
 
-   
+
 
     public class ItemManaProspectingPick : ItemProspectingPick, IManaRepairable
     {
@@ -332,11 +332,10 @@ namespace BotaniaStory.util
     {
         private ICoreAPI api;
 
-        // Заменяем StartServerSide на Start, чтобы система запускалась и у клиентов
+        // Start, а не StartServerSide - клиент тоже предсказывает починку
         public override void Start(ICoreAPI api)
         {
             this.api = api;
-            // Таймер теперь работает везде
             api.Event.RegisterGameTickListener(OnRepairTick, 250);
         }
 
@@ -344,7 +343,7 @@ namespace BotaniaStory.util
         {
             if (api.Side == EnumAppSide.Server)
             {
-                // Серверная логика: перебираем всех игроков на сервере
+                // сервер - все игроки
                 ICoreServerAPI sapi = api as ICoreServerAPI;
                 foreach (IServerPlayer player in sapi.Server.Players)
                 {
@@ -354,7 +353,7 @@ namespace BotaniaStory.util
             }
             else
             {
-                // Клиентская логика: предсказываем починку только для СВОЕГО персонажа
+                // клиент - только свой персонаж
                 ICoreClientAPI capi = api as ICoreClientAPI;
                 if (capi.World.Player?.Entity != null)
                 {
@@ -363,11 +362,11 @@ namespace BotaniaStory.util
             }
         }
 
-        // Этот метод остаётся абсолютно без изменений, так как IPlayer 
-        // отлично работает и с серверным, и с клиентским игроком.
         private void RepairItemsForPlayer(IPlayer player)
         {
-            int manaPerRepair = 120; // Твоя новая цена за 1 ед. прочности
+            if (player?.InventoryManager == null) return;
+
+            int manaPerRepair = 120; // мана за 1 ед. прочности
 
             IInventory gearInv = player.InventoryManager.GetOwnInventory("character");
             IInventory hotbarInv = player.InventoryManager.GetOwnInventory("hotbar");
@@ -379,7 +378,8 @@ namespace BotaniaStory.util
                 if (inv == null) continue;
                 foreach (var slot in inv)
                 {
-                    if (!slot.Empty && slot.Itemstack.Item is ItemManaTablet)
+                    // в рюкзаке бывают null-слоты
+                    if (slot != null && !slot.Empty && slot.Itemstack.Item is ItemManaTablet)
                     {
                         tabletSlot = slot;
                         break;
@@ -413,7 +413,7 @@ namespace BotaniaStory.util
 
             foreach (var slot in inv)
             {
-                if (slot.Empty) continue;
+                if (slot == null || slot.Empty) continue;
 
                 if (slot.Itemstack.Item is IManaRepairable)
                 {
@@ -475,6 +475,8 @@ namespace BotaniaStory.util
 
         private void CheckAndGenerateMana(IPlayer player)
         {
+            if (player?.InventoryManager == null) return;
+
             IInventory gearInv = player.InventoryManager.GetOwnInventory("character");
             if (gearInv == null) return;
 
@@ -482,9 +484,9 @@ namespace BotaniaStory.util
 
             foreach (var slot in gearInv)
             {
-                if (slot.Empty) continue;
+                if (slot == null || slot.Empty) continue;
 
-                if (slot.Itemstack.Item.Code.Path.StartsWith("terrasteel-armor"))
+                if (slot.Itemstack.Item?.Code?.Path?.StartsWith("terrasteel-armor") == true)
                 {
                     terrasteelPieces++;
                 }
@@ -508,7 +510,7 @@ namespace BotaniaStory.util
                 if (inv == null) continue;
                 foreach (var slot in inv)
                 {
-                    if (!slot.Empty && slot.Itemstack.Item is ItemManaTablet tablet)
+                    if (slot != null && !slot.Empty && slot.Itemstack.Item is ItemManaTablet tablet)
                     {
                         int currentMana = tablet.GetMana(slot.Itemstack);
 
@@ -526,5 +528,5 @@ namespace BotaniaStory.util
     }
 
 
-    
+
 }

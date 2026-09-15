@@ -1,16 +1,17 @@
-﻿using System;
+﻿using BotaniaStory.entities;
 using BotaniaStory.systems;
+using OpenTK.Graphics.OpenGL;
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 using Vintagestory.API.MathTools;
-using OpenTK.Graphics.OpenGL;
-using BotaniaStory.entities;
 
 namespace BotaniaStory.client.renderers
 {
-   
+
     public class GaiaBarrierRenderer : IRenderer
     {
         private const float Radius = EntityGaiaGuardian.ArenaRadius;
@@ -21,10 +22,6 @@ namespace BotaniaStory.client.renderers
 
         //БАРЬЕР
         private const int BaseSpawnPerSec = 640;
-        private const float BaseLifeMin = 0.35f;
-        private const float BaseLifeMax = 0.7f;
-        private const float BaseRiseMin = 0.15f;
-        private const float BaseRiseMax = 0.6f;
         private const float BaseSizeMin = 0.25f;
         private const float BaseSizeMax = 0.5f;
 
@@ -32,18 +29,9 @@ namespace BotaniaStory.client.renderers
         private const int TongueSpawnPerSec = 180;
         private const float TongueLifeMin = 0.8f;
         private const float TongueLifeMax = 1.5f;
-        private const float TongueRiseMin = 1.8f;
-        private const float TongueRiseMax = 3.2f;
-        private const float TongueRiseDecel = 1.1f;
         private const float TongueSizeMin = 0.35f;
         private const float TongueSizeMax = 0.7f;
         private const float ShrinkAmount = 0.65f;
-
-        //Турбулентность барьера
-        private const float WobbleAmpMin = 0.15f;
-        private const float WobbleAmpMax = 0.5f;
-        private const float WobbleFreqMin = 2.5f;
-        private const float WobbleFreqMax = 6f;
 
         //ЦЕПИ ИЗ ПИЛОНОВ (рождение + левитация)
         private const float PylonOffsetXZ = 4f;        // пилоны на (±4, ±4) от центра (синхронно с GaiaRitualSystem)
@@ -80,7 +68,7 @@ namespace BotaniaStory.client.renderers
         private const float StreaksPerSecNormal = 5f;
         private const float StreaksPerSecCharged = 20f;
         private const float HazeBaseSize = 3.4f;
-        private const float HazeBaseAlpha = 0.15f;     
+        private const float HazeBaseAlpha = 0.15f;
 
         //Отталкивание собственного игрока (клиент-сайд)
         private const float PushStrength = 0.22f;
@@ -111,8 +99,7 @@ namespace BotaniaStory.client.renderers
             public float SizeY;              // вертикальная растяжка (штрихи, лучи)
             public float P0, P1, P2, P3;
             public float A0, A1;
-            public float RiseDecel;
-            public float TangX, TangZ, RadX, RadZ;
+            public float TangX, TangZ;
         }
 
         private List<Fx> particles = new List<Fx>();
@@ -126,6 +113,13 @@ namespace BotaniaStory.client.renderers
 
         private float baseSpawnAccum, tongueSpawnAccum, wispAccum, beamAccum, orbitAccum, streakAccum, rayAccum, gatherAccum;
         private float scanAccum;
+
+        // Кэш участия локального игрока в текущем ритуале.
+        // Список участников приходит через WatchedAttributes от EntityGaiaGuardian.
+        private const string RitualParticipantsAttribute = "gaiaRitualParticipants";
+        private string cachedParticipantRaw;
+        private string cachedLocalPlayerUid;
+        private bool cachedLocalPlayerIsParticipant;
 
         public double RenderOrder => 0.5;
         public int RenderRange => 128;
@@ -188,6 +182,10 @@ namespace BotaniaStory.client.renderers
             else
             {
                 playerCountHud.Hide();
+
+                cachedParticipantRaw = null;
+                cachedLocalPlayerUid = null;
+                cachedLocalPlayerIsParticipant = false;
             }
         }
 
@@ -199,7 +197,11 @@ namespace BotaniaStory.client.renderers
             if (pe == null || !pe.Alive) return;
 
             EnumGameMode mode = plr.WorldData?.CurrentGameMode ?? EnumGameMode.Survival;
-            if (mode == EnumGameMode.Creative || mode == EnumGameMode.Spectator) return;
+            if (mode == EnumGameMode.Spectator ||
+                (!EntityGaiaGuardian.AllowCreativeParticipants && mode == EnumGameMode.Creative)) return;
+
+            // Зритель, который не был внутри арены при старте ритуала, не должен захватываться барьером даже если подошёл вплотную снаружи.
+            if (!IsOwnPlayerRitualParticipant(plr)) return;
 
             double dx = pe.Pos.X - centerX;
             double dz = pe.Pos.Z - centerZ;
@@ -210,63 +212,115 @@ namespace BotaniaStory.client.renderers
             if (distSq > outer * outer) return;
 
             double dist = Math.Sqrt(distSq);
+            if (dist < 0.0001) return;
 
             pe.Pos.Motion.X = -dx / dist * PushStrength;
             pe.Pos.Motion.Z = -dz / dist * PushStrength;
             if (pe.Pos.Motion.Y < PushUp) pe.Pos.Motion.Y = PushUp;
         }
 
+        private bool IsOwnPlayerRitualParticipant(IClientPlayer player)
+        {
+            if (bossEntity == null || player == null || string.IsNullOrEmpty(player.PlayerUID))
+                return false;
+
+            string raw = bossEntity.WatchedAttributes.GetString(
+                RitualParticipantsAttribute,
+                string.Empty
+            );
+
+            // Пересчитываем только когда сервер прислал новый список участников или сменился локальный игрок.
+            if (raw == cachedParticipantRaw &&
+                player.PlayerUID == cachedLocalPlayerUid)
+            {
+                return cachedLocalPlayerIsParticipant;
+            }
+
+            cachedParticipantRaw = raw;
+            cachedLocalPlayerUid = player.PlayerUID;
+            cachedLocalPlayerIsParticipant = false;
+
+            if (string.IsNullOrEmpty(raw))
+                return false;
+
+            string[] uids = raw.Split(
+                new[] { '\n' },
+                StringSplitOptions.RemoveEmptyEntries
+            );
+
+            foreach (string uid in uids)
+            {
+                if (string.Equals(uid, player.PlayerUID, StringComparison.Ordinal))
+                {
+                    cachedLocalPlayerIsParticipant = true;
+                    break;
+                }
+            }
+
+            return cachedLocalPlayerIsParticipant;
+        }
+
         // СПАВН
 
         private void SpawnBarrierParticle(Random rnd, bool tongue)
         {
-            float ang = (float)(rnd.NextDouble() * GameMath.TWOPI);
-            float cos = GameMath.Cos(ang);
-            float sin = GameMath.Sin(ang);
-            float r = Radius + (float)(rnd.NextDouble() - 0.5) * RingThickness;
+            if (particles.Count >= MaxParticles) return;
 
             var p = new Fx
             {
                 Kind = tongue ? FxKind.BarrierTongue : FxKind.BarrierBase,
                 Age = 0f,
-                RadX = cos,
-                RadZ = sin,
-                TangX = -sin,
-                TangZ = cos,
                 P0 = (float)(rnd.NextDouble() * GameMath.TWOPI),
-                P1 = (float)(rnd.NextDouble() * GameMath.TWOPI),
-                P2 = WobbleFreqMin + (float)rnd.NextDouble() * (WobbleFreqMax - WobbleFreqMin),
-                P3 = WobbleFreqMin + (float)rnd.NextDouble() * (WobbleFreqMax - WobbleFreqMin),
-                A0 = WobbleAmpMin + (float)rnd.NextDouble() * (WobbleAmpMax - WobbleAmpMin),
-                A1 = (WobbleAmpMin + (float)rnd.NextDouble() * (WobbleAmpMax - WobbleAmpMin)) * 0.5f
+                P1 = 0.015f + (float)rnd.NextDouble() * 0.97f,
+                P2 = ((float)rnd.NextDouble() * 0.28f + 0.05f) * (rnd.Next(2) == 0 ? -1f : 1f),
+                P3 = (float)(rnd.NextDouble() * GameMath.TWOPI),
+                A0 = tongue ? 0.018f + (float)rnd.NextDouble() * 0.025f : 0.004f + (float)rnd.NextDouble() * 0.012f,
+                A1 = 0.08f + (float)rnd.NextDouble() * 0.16f
             };
-            p.Pos.Set(centerX + cos * r, centerY + FloorOffset, centerZ + sin * r);
 
             if (tongue)
             {
                 p.MaxAge = TongueLifeMin + (float)rnd.NextDouble() * (TongueLifeMax - TongueLifeMin);
-                p.Vy = TongueRiseMin + (float)rnd.NextDouble() * (TongueRiseMax - TongueRiseMin);
-                p.RiseDecel = TongueRiseDecel;
                 p.Size = TongueSizeMin + (float)rnd.NextDouble() * (TongueSizeMax - TongueSizeMin);
             }
             else
             {
-                p.MaxAge = BaseLifeMin + (float)rnd.NextDouble() * (BaseLifeMax - BaseLifeMin);
-                p.Vy = BaseRiseMin + (float)rnd.NextDouble() * (BaseRiseMax - BaseRiseMin);
-                p.RiseDecel = 0f;
+                p.MaxAge = 0.75f + (float)rnd.NextDouble() * 0.65f;
                 p.Size = BaseSizeMin + (float)rnd.NextDouble() * (BaseSizeMax - BaseSizeMin);
             }
 
+            UpdateBarrierParticlePosition(p);
             particles.Add(p);
+        }
+
+        private void UpdateBarrierParticlePosition(Fx p)
+        {
+            float height = p.P1 + p.A0 * p.Age;
+            height += GameMath.Sin(p.P3 + p.Age * 3.2f) * 0.01f;
+            height = Math.Max(0.01f, Math.Min(0.995f, height));
+
+            float azimuth = p.P0 + p.P2 * p.Age;
+            float horizontal = (float)Math.Sqrt(Math.Max(0f, 1f - height * height));
+            float wobble = GameMath.Sin(p.P3 + p.Age * 5.5f) * p.A1;
+            float radius = Radius + wobble;
+
+            p.Pos.Set(
+                centerX + GameMath.Cos(azimuth) * radius * horizontal,
+                centerY + FloorOffset + radius * height,
+                centerZ + GameMath.Sin(azimuth) * radius * horizontal);
         }
 
         // Цепь: частица идёт по провисающей дуге от верхушки пилона к Гайе
         private void SpawnBeamParticles(Random rnd)
         {
+            if (particles.Count >= MaxParticles) return;
+
             for (int sx = -1; sx <= 1; sx += 2)
             {
                 for (int sz = -1; sz <= 1; sz += 2)
                 {
+                    if (particles.Count >= MaxParticles) return;
+
                     var p = new Fx
                     {
                         Kind = FxKind.Beam,
@@ -291,7 +345,7 @@ namespace BotaniaStory.client.renderers
         // Луч рождения: вылетает из тела наружу, растянутый росчерк
         private void SpawnRay(Random rnd)
         {
-            if (bossEntity == null) return;
+            if (bossEntity == null || particles.Count >= MaxParticles) return;
 
             // случайное 3D-направление со смещением вверх
             double theta = rnd.NextDouble() * GameMath.TWOPI;
@@ -317,6 +371,8 @@ namespace BotaniaStory.client.renderers
         // Стягивание энергии: частица рождается вокруг и ускоряясь втягивается в тело
         private void SpawnGather(Random rnd)
         {
+            if (particles.Count >= MaxParticles) return;
+
             float ang = (float)(rnd.NextDouble() * GameMath.TWOPI);
             float r = GatherRadius * (0.6f + (float)rnd.NextDouble() * 0.7f);
 
@@ -340,7 +396,7 @@ namespace BotaniaStory.client.renderers
 
         private void SpawnWisp(Random rnd)
         {
-            if (bossEntity == null) return;
+            if (bossEntity == null || particles.Count >= MaxParticles) return;
             float ang = (float)(rnd.NextDouble() * GameMath.TWOPI);
             float r = 0.2f + (float)rnd.NextDouble() * 0.35f;
 
@@ -363,6 +419,8 @@ namespace BotaniaStory.client.renderers
 
         private void SpawnOrbiter(Random rnd)
         {
+            if (particles.Count >= MaxParticles) return;
+
             var p = new Fx
             {
                 Kind = FxKind.Orbit,
@@ -380,7 +438,7 @@ namespace BotaniaStory.client.renderers
 
         private void SpawnStreak(Random rnd)
         {
-            if (bossEntity == null) return;
+            if (bossEntity == null || particles.Count >= MaxParticles) return;
             var p = new Fx
             {
                 Kind = FxKind.Streak,
@@ -400,6 +458,8 @@ namespace BotaniaStory.client.renderers
         {
             for (int i = 0; i < 2; i++)
             {
+                if (particles.Count >= MaxParticles) return;
+
                 var p = new Fx
                 {
                     Kind = FxKind.Flash,
@@ -494,16 +554,7 @@ namespace BotaniaStory.client.renderers
                 {
                     case FxKind.BarrierBase:
                     case FxKind.BarrierTongue:
-                        if (p.RiseDecel > 0f)
-                        {
-                            p.Vy -= p.RiseDecel * deltaTime;
-                            if (p.Vy < 0.25f) p.Vy = 0.25f;
-                        }
-                        p.Pos.Y += p.Vy * deltaTime;
-                        float wobT = GameMath.Cos(p.P0 + p.Age * p.P2) * p.A0;
-                        float wobR = GameMath.Cos(p.P1 + p.Age * p.P3) * p.A1;
-                        p.Pos.X += (p.TangX * wobT + p.RadX * wobR) * deltaTime;
-                        p.Pos.Z += (p.TangZ * wobT + p.RadZ * wobR) * deltaTime;
+                        UpdateBarrierParticlePosition(p);
                         break;
 
                     case FxKind.Beam:
@@ -739,9 +790,12 @@ namespace BotaniaStory.client.renderers
         }
     }
 
-    // HUD-значок справа: число игроков, присутствовавших при призыве Гайи
+    // HUD под полоской босса: число игроков, присутствовавших при призыве Гайи
     public class GaiaPlayerCountHud : HudElement
     {
+        // ВРЕМЕННО для настройки позиции HUD. Верни true, когда закончишь настройку.
+        private const bool HideSinglePlayerCount = false;
+
         private int lastCount = -1;
 
         public GaiaPlayerCountHud(ICoreClientAPI capi) : base(capi) { }
@@ -751,11 +805,19 @@ namespace BotaniaStory.client.renderers
 
         public void Show(int count)
         {
+            // Для одиночного ритуала отдельная надпись только засоряет HUD.
+            if (HideSinglePlayerCount && count <= 1)
+            {
+                Hide();
+                return;
+            }
+
             if (count != lastCount)
             {
                 lastCount = count;
                 Compose(count);
             }
+
             if (!IsOpened()) TryOpen();
         }
 
@@ -767,17 +829,29 @@ namespace BotaniaStory.client.renderers
 
         private void Compose(int count)
         {
-            ElementBounds textBounds = ElementBounds.Fixed(0, 0, 260, 30);
-            ElementBounds dialogBounds = ElementStdBounds.AutosizedMainDialog
-                .WithAlignment(EnumDialogArea.RightTop)
-                .WithFixedAlignmentOffset(-12, 180);
+            // Стандартная полоска босса находится по центру сверху.
+            // Ставим счётчик сразу под ней, сохраняя привязку к центру экрана
+            // при любом разрешении и GUI scale.
+            const double BossBarUnderOffsetY = 72;
+
+            ElementBounds textBounds = ElementBounds.Fixed(0, 0, 360, 26);
+            ElementBounds dialogBounds = ElementBounds.Fixed(0, 0, 360, 26)
+                .WithAlignment(EnumDialogArea.CenterTop)
+                .WithFixedAlignmentOffset(0, BossBarUnderOffsetY);
 
             SingleComposer?.Dispose();
             SingleComposer = capi.Gui.CreateCompo("gaiaplayercounthud", dialogBounds)
-                .AddDynamicText("", CairoFont.WhiteSmallishText().WithOrientation(EnumTextOrientation.Right), textBounds, "cnt")
+                .AddDynamicText(
+                    "",
+                    CairoFont.WhiteSmallishText().WithOrientation(EnumTextOrientation.Center),
+                    textBounds,
+                    "cnt"
+                )
                 .Compose();
 
-            SingleComposer.GetDynamicText("cnt").SetNewText("Гайа · игроков при призыве: " + count);
+            SingleComposer.GetDynamicText("cnt").SetNewText(
+                Lang.Get("botaniastory:gaia-hud-player-count", count)
+            );
         }
     }
 }

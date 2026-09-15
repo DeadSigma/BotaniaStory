@@ -13,17 +13,16 @@ namespace BotaniaStory.lexicon
         public bool isActive = false;
         private string currentStructure = null;
 
-        // ПЕРЕМЕННЫЕ ДЛЯ 3D И ЛОГИКИ
         private Dictionary<int, MeshRef> hologramMeshRefs = new Dictionary<int, MeshRef>();
         private int structureSizeX, structureSizeY, structureSizeZ;
 
-        private int offsetY = 0; // ПЕРЕМЕННАЯ СМЕЩЕНИЯ
-        private float renderOffsetY = 0f; // Для отрисовки (можно дробные)
-        private int currentFacing = 0; // 0, 1, 2, 3 (направления)
-        private float renderRotationY = 0f; // Угол в радианах для отрисовки
-        private BlockSchematic loadedSchematic = null; // Храним саму схему для проверки блоков
-        private BlockPos lockedPos = null;             // Зафиксированная позиция голограммы
-        private long tickListenerId;                   // ID таймера проверки
+        private int offsetY = 0;
+        private float renderOffsetY = 0f;
+        private int currentFacing = 0;
+        private float renderRotationY = 0f;
+        private BlockSchematic loadedSchematic = null;
+        private BlockPos lockedPos = null;
+        private long tickListenerId;
         private GuiDialogStructureTracker trackerHud;
         private Dictionary<AssetLocation, int> requiredBlocksCount = new Dictionary<AssetLocation, int>();
         public double RenderOrder => 0.5;
@@ -37,7 +36,7 @@ namespace BotaniaStory.lexicon
             api.Event.RegisterRenderer(this, EnumRenderStage.Opaque, "lexiconHologram");
             api.Event.MouseDown += OnMouseDown;
 
-            // Запускаем проверку структуры раз в 1 секунду (1000 мс)
+            // Проверка структуры раз в секунду
             tickListenerId = api.Event.RegisterGameTickListener(OnCheckStructureTick, 1000);
         }
 
@@ -45,35 +44,31 @@ namespace BotaniaStory.lexicon
         {
             currentStructure = structureCode;
             isActive = true;
-            lockedPos = null; // Сбрасываем фиксацию при запуске новой
+            lockedPos = null;
             loadedSchematic = null;
 
             if (structureCode == "terraaltar")
-
             {
-                offsetY = -1; // Опускаем алтарь на 1 блок в землю
+                // Алтарь уходит на один блок вниз
+                offsetY = -1;
                 renderOffsetY = -0.9f;
             }
-            else if (structureCode == "alfheimgates")
+            else if (structureCode == "alfheimgates" || structureCode == "gaiarutial")
             {
-                
-                // Настройка высоты установки врат
                 offsetY = 0;
                 renderOffsetY = 0f;
             }
             else
             {
-                offsetY = 0;  // Остальные структуры ставим как обычно
+                offsetY = 0;
                 renderOffsetY = 0f;
             }
 
             BuildHologramMesh(structureCode);
-
         }
 
         private void BuildHologramMesh(string structureCode)
         {
-            // Очищаем старые меши из словаря
             foreach (var mesh in hologramMeshRefs.Values) mesh.Dispose();
             hologramMeshRefs.Clear();
 
@@ -141,8 +136,6 @@ namespace BotaniaStory.lexicon
                     if (cachedMesh == null) continue;
 
                     MeshData blockMesh = cachedMesh.Clone();
-                   // blockMesh.CustomInts = null;
-                    // blockMesh.CustomFloats = null;
 
                     int x = index & 0x3FF;
                     int z = (index >> 10) & 0x3FF;
@@ -176,7 +169,6 @@ namespace BotaniaStory.lexicon
             }
         }
 
-        // ОТКЛЮЧЕНИЕ ГОЛОГРАММЫ
         public void StopVisualization()
         {
             isActive = false;
@@ -191,7 +183,6 @@ namespace BotaniaStory.lexicon
                 trackerHud = null;
             }
 
-            // Очищаем словарь мешей
             foreach (var mesh in hologramMeshRefs.Values)
             {
                 mesh.Dispose();
@@ -199,43 +190,33 @@ namespace BotaniaStory.lexicon
             hologramMeshRefs.Clear();
         }
 
-        // ФИКСАЦИЯ
         private void OnMouseDown(MouseEvent args)
         {
             if (!isActive || args.Button != EnumMouseButton.Right) return;
 
             ItemSlot activeSlot = capi.World.Player.InventoryManager.ActiveHotbarSlot;
             bool isEmptyHand = activeSlot.Empty;
-
             bool isBook = !isEmptyHand && activeSlot.Itemstack.Collectible.Code.Domain == "botaniastory";
-
             bool isSneaking = capi.World.Player.Entity.Controls.Sneak;
 
             if (lockedPos == null)
             {
                 if ((activeSlot.Empty || isBook) && capi.World.Player.CurrentBlockSelection != null)
                 {
-                    // Просто фиксируем позицию. Угол поворота УЖЕ вычислен в OnRenderFrame
+                    // Фиксируем позицию с текущим поворотом
                     lockedPos = capi.World.Player.CurrentBlockSelection.Position.AddCopy(capi.World.Player.CurrentBlockSelection.Face);
                     args.Handled = true;
                 }
             }
-
-
             else
             {
-                // 2. ВЗАИМОДЕЙСТВИЕ (Голограмма УЖЕ стоит)
-
-                // Если в руке книга - мы просто выходим из метода (return).
-                // args.Handled остаётся false, и движок Vintage Story САМ открывает твою книгу!
                 if (isBook) return;
 
-                // Если рука пустая - управляем голограммой
                 if (isEmptyHand)
                 {
                     if (isSneaking)
                     {
-                        // ПОЛНАЯ ОТМЕНА (Shift + ПКМ пустой рукой)
+                        // Shift + ПКМ - закрыть голограмму
                         isActive = false;
                         currentStructure = null;
                         lockedPos = null;
@@ -243,28 +224,27 @@ namespace BotaniaStory.lexicon
                     }
                     else
                     {
-                        // ПРОСТО ПЕРЕНОС (Обычный ПКМ пустой рукой)
+                        // ПКМ - выбрать новое место
                         lockedPos = null;
                     }
 
                     if (capi.World.Player.CurrentBlockSelection != null)
                     {
-                        args.Handled = true; // Блокируем клик пустой рукой, чтобы не ломать/не взаимодействовать с блоками
+                        args.Handled = true;
                     }
                 }
             }
         }
 
-        // ПРОВЕРКА ПОСТРОЙКИ
         private void OnCheckStructureTick(float dt)
         {
             if (!isActive || loadedSchematic == null || lockedPos == null) return;
-            // Считаем прогресс
+
             bool isComplete = CheckAndUpdateProgress(lockedPos);
 
             if (isComplete)
             {
-                StopVisualization(); // Вызываем метод очистки
+                StopVisualization();
             }
         }
 
@@ -274,7 +254,6 @@ namespace BotaniaStory.lexicon
             int startY = basePos.Y + offsetY;
             int startZ = basePos.Z - (structureSizeZ / 2);
 
-            // Словарь для подсчета правильно установленных блоков
             Dictionary<AssetLocation, int> placedBlocksCount = new Dictionary<AssetLocation, int>();
             foreach (var key in requiredBlocksCount.Keys) placedBlocksCount[key] = 0;
 
@@ -286,7 +265,7 @@ namespace BotaniaStory.lexicon
                 int index = (int)loadedSchematic.Indices[i];
                 int rawExpectedId = loadedSchematic.BlockIds[i];
 
-                if (rawExpectedId == 0) continue; // Воздух
+                if (rawExpectedId == 0) continue;
 
                 totalRequired++;
 
@@ -298,39 +277,36 @@ namespace BotaniaStory.lexicon
                 int z = (index >> 10) & 0x3FF;
                 int y = (index >> 20) & 0x3FF;
 
-                // Находим смещение блока относительно центра схемы
                 int offsetX = x - (structureSizeX / 2);
                 int offsetZ = z - (structureSizeZ / 2);
 
                 int finalOffsetX = offsetX;
                 int finalOffsetZ = offsetZ;
 
-                // Крутим смещения в зависимости от того, куда смотрел игрок
+                // Поворот координат вокруг центра
                 switch (currentFacing)
                 {
-                    case 0: // 0°
+                    case 0:
                         finalOffsetX = offsetX;
                         finalOffsetZ = offsetZ;
                         break;
-                    case 1: // 90°
+                    case 1:
                         finalOffsetX = offsetZ;
                         finalOffsetZ = -offsetX;
                         break;
-                    case 2: // 180°
+                    case 2:
                         finalOffsetX = -offsetX;
                         finalOffsetZ = -offsetZ;
                         break;
-                    case 3: // 270°
+                    case 3:
                         finalOffsetX = -offsetZ;
                         finalOffsetZ = offsetX;
                         break;
                 }
 
-                // Применяем новые смещения к зафиксированной позиции
                 BlockPos worldPos = new BlockPos(basePos.X + finalOffsetX, startY + y, basePos.Z + finalOffsetZ);
                 Block worldBlock = capi.World.BlockAccessor.GetBlock(worldPos);
 
-                // Если блок в мире совпадает с ожидаемым
                 if (worldBlock.BlockId == expectedBlock.BlockId)
                 {
                     placedBlocksCount[blockLoc]++;
@@ -338,12 +314,10 @@ namespace BotaniaStory.lexicon
                 }
             }
 
-            // ОБНОВЛЯЕМ ИНТЕРФЕЙС
             UpdateTrackerHud(placedBlocksCount);
-
-            // Если собраны все блоки, возвращаем true
             return totalPlaced == totalRequired;
         }
+
         private void UpdateTrackerHud(Dictionary<AssetLocation, int> placed)
         {
             if (trackerHud == null)
@@ -352,7 +326,6 @@ namespace BotaniaStory.lexicon
                 trackerHud.TryOpen();
             }
 
-            // Создаём список данных для перестроения интерфейса
             List<StructureTrackerItemData> itemsData = new List<StructureTrackerItemData>();
 
             foreach (var kvp in requiredBlocksCount)
@@ -361,9 +334,8 @@ namespace BotaniaStory.lexicon
                 int reqCount = kvp.Value;
                 int placedCount = placed[loc];
 
-                // Достаем блок, чтобы получить его иконку и имя
                 Block block = capi.World.GetBlock(loc);
-                if (block == null || block.BlockId == 0) continue; // Пропускаем неизвестные
+                if (block == null || block.BlockId == 0) continue;
 
                 itemsData.Add(new StructureTrackerItemData
                 {
@@ -373,9 +345,9 @@ namespace BotaniaStory.lexicon
                 });
             }
 
-            // Вызываем метод полного перестроения ХУДа, передавая список
             trackerHud.Rebuild(itemsData, currentStructure);
         }
+
         private bool IsStructureBuilt(BlockPos basePos)
         {
             int startX = basePos.X - (structureSizeX / 2);
@@ -387,9 +359,8 @@ namespace BotaniaStory.lexicon
                 int index = (int)loadedSchematic.Indices[i];
                 int rawExpectedId = loadedSchematic.BlockIds[i];
 
-                if (rawExpectedId == 0) continue; // Воздух пропускаем
+                if (rawExpectedId == 0) continue;
 
-                // Находим ожидаемый блок в реестре клиента по его AssetLocation
                 if (!loadedSchematic.BlockCodes.TryGetValue(rawExpectedId, out AssetLocation blockLoc)) continue;
                 Block expectedBlock = capi.World.GetBlock(blockLoc);
 
@@ -402,7 +373,6 @@ namespace BotaniaStory.lexicon
                 BlockPos worldPos = new BlockPos(startX + x, startY + y, startZ + z);
                 Block worldBlock = capi.World.BlockAccessor.GetBlock(worldPos);
 
-                // Сравниваем реальные ID блоков в мире клиента
                 if (worldBlock.BlockId != expectedBlock.BlockId)
                 {
                     return false;
@@ -422,11 +392,9 @@ namespace BotaniaStory.lexicon
             {
                 if (lockedPos == null)
                 {
-                    // Получаем Yaw игрока (куда он смотрит)
                     float yaw = capi.World.Player.Entity.Pos.Yaw;
 
-                    // Вычисляем направление (0, 1, 2, 3)
-                    // Добавляем +2, если врата при установке смотрят "боком" - это поправит смещение на 90 градусов
+                    // Направление голограммы по взгляду игрока
                     currentFacing = ((int)System.Math.Round(yaw / GameMath.PIHALF) + 1) % 4;
                     if (currentFacing < 0) currentFacing += 4;
 
@@ -442,33 +410,27 @@ namespace BotaniaStory.lexicon
                 prog.ProjectionMatrix = render.CurrentProjectionMatrix;
                 prog.RgbaTint = new Vec4f(1.0f, 1.0f, 1.0f, 0.4f);
 
-                // ИСПРАВЛЕНИЕ НЕВИДИМОСТИ
-                // Сбрасываем порог альфа-теста, чтобы предыдущие блоки (например, листва)
-                // не заставляли видеокарту отбрасывать наши полупрозрачные пиксели.
+                // Низкий порог нужен для полупрозрачных текстур
                 prog.AlphaTest = 0.05f;
-                prog.ExtraGlow = 1; // Делает голограмму чуть ярче, чтобы она выделялась
+                prog.ExtraGlow = 1;
 
                 float[] modelMatrix = Mat4f.Create();
                 Mat4f.Identity(modelMatrix);
 
-                // 1. Переносим матрицу в ЦЕНТР блока, на который ставим голограмму (+0.5f)
                 Mat4f.Translate(modelMatrix, modelMatrix,
                     (float)(targetPos.X - camPos.X) + 0.5f,
                     (float)(targetPos.Y + renderOffsetY - camPos.Y),
                     (float)(targetPos.Z - camPos.Z) + 0.5f);
 
-                // 2. ВРАЩАЕМ вокруг оси Y (вертикальной)
                 Mat4f.RotateY(modelMatrix, modelMatrix, renderRotationY);
 
-                // 3. Смещаем сетку на половину размера постройки, чтобы она строилась от центра.
-                // Важно: мы не используем +0.5f здесь, так как уже сдвинули центр выше!
+                // Центруем схему перед поворотом
                 Mat4f.Translate(modelMatrix, modelMatrix, -structureSizeX / 2f, 0, -structureSizeZ / 2f);
 
                 prog.ModelMatrix = modelMatrix;
 
                 render.GlToggleBlend(true);
 
-                // Цикл рендера по страницам
                 foreach (var kvp in hologramMeshRefs)
                 {
                     int atlasPage = kvp.Key;
@@ -487,8 +449,7 @@ namespace BotaniaStory.lexicon
         {
             base.Dispose();
             capi?.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
-            capi?.Event.UnregisterGameTickListener(tickListenerId); // Обязательно убиваем таймер при выходе
-           
+            capi?.Event.UnregisterGameTickListener(tickListenerId);
         }
     }
 }

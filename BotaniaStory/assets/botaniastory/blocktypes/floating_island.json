@@ -1,365 +1,371 @@
 {
-    "code": "floatingisland",
-    "class": "BlockBotaniaFloatingIsland",
-    "entityClass": "BotaniaFloatingIsland",
-    "creativeinventory": {
-        "general": [ "*" ],
-        "botaniastory": [ "*" ]
+  "code": "floatingisland",
+  "class": "BlockBotaniaFloatingIsland",
+  "entityClass": "FloatingIslandEntity",
+  "creativeinventory": {
+    "general": [ "*" ],
+    "botaniastory": [ "*" ]
+  },
+  "renderpass": "OpaqueNoCull",
+  "faceCullMode": "NeverCull",
+  "sideopaque": { "all": false },
+  "ambientocclusion": false,
+  "lightAbsorption": 0,
+  "resistance": 0.5,
+  "lightHsvByType": {
+    "*": [ 0, 0, 10 ]
+  },
+  "heldTpIdleAnimation": "holdbothhandslarge",
+  "heldRightReadyAnimation": "heldblockready",
+  "heldTpUseAnimation": "twohandplaceblock",
+  "tpHandTransform": {
+    "translation": {
+      "x": -1.13,
+      "y": -0.81,
+      "z": -0.5
     },
-    "renderpass": "OpaqueNoCull",
-    "faceCullMode": "NeverCull",
-    "sideopaque": { "all": false },
-    "ambientocclusion": false,
-    "lightAbsorption": 0,
-    "resistance": 0,
-    "lightHsvByType": {
-        "*": [ 0, 0, 10 ]
+    "rotation": {
+      "x": -2,
+      "y": 25,
+      "z": -78
     },
-    "heldTpIdleAnimation": "holdbothhandslarge",
-    "heldRightReadyAnimation": "heldblockready",
-    "heldTpUseAnimation": "twohandplaceblock",
-    "tpHandTransform": {
-        "translation": {
-            "x": -1.13,
-            "y": -0.81,
-            "z": -0.5
-        },
-        "rotation": {
-            "x": -2,
-            "y": 25,
-            "z": -78
-        },
-        "scale": 0.54
-    },
-    "entityBehaviorsByType": {
-        "*-puredaisy": [ { "name": "puredaisylogic" } ],
-        "*-hopperhock": [ { "name": "hopperhocklogic" } ],
-        "*-endoflame": [ { "name": "endoflamelogic" } ],
-        "*-rosaarcana": [ { "name": "rosaarcanalogic" } ],
-        "*-hydroangeas": [ { "name": "hydroangeaslogic" } ],
-        "*-daybloom": [ { "name": "daybloomlogic" } ],
-        "*-nightshade": [ { "name": "nightshadelogic" } ],
-        "*-jadedamaranthus": [ { "name": "jadedamaranthuslogic" } ],
-        "*-witheredamaranthus": [ { "name": "witheredamaranthuslogic" } ],
-        "*-agricarnation": [ { "name": "agricarnationlogic" } ]
+    "scale": 0.54
+  },
+  "entityBehaviorsByType": {
+    "*-puredaisy": [ { "name": "puredaisylogic" } ],
+    "*-hopperhock": [ { "name": "hopperhocklogic" } ],
+    "*-endoflame": [ { "name": "endoflamelogic" } ],
+    "*-rosaarcana": [ { "name": "rosaarcanalogic" } ],
+    "*-hydroangeas": [ { "name": "hydroangeaslogic" } ],
+    "*-daybloom": [ { "name": "daybloomlogic" } ],
+    "*-nightshade": [ { "name": "nightshadelogic" } ],
+    "*-jadedamaranthus": [ { "name": "jadedamaranthuslogic" } ],
+    "*-witheredamaranthus": [ { "name": "witheredamaranthuslogic" } ],
+    "*-agricarnation": [ { "name": "agricarnationlogic" } ],
+    "*-wardbloom": [ { "name": "wardbloomlogic" } ]
 
-    },
-    "variantgroups": [
-        {
-            "code": "flower",
-            "states": [
-                "white",
-                "orange",
-                "magenta",
-                "lightblue",
-                "yellow",
-                "lime",
-                "pink",
-                "gray",
-                "lightgray",
-                "cyan",
-                "purple",
-                "blue",
-                "brown",
-                "green",
-                "red",
-                "black",
-                "vinculotus",
-                "agricarnation",
-                "bellethorne",
-                "bubbell",
-                "clayconia",
-                "daffomill",
-                "dreadthorne",
-                "exoflame",
-                "fallenkanade",
-                "heiseidream",
-                "hopperhock",
-                "hyacidus",
-                "jadedamaranthus",
-                "witheredamaranthus",
-                "jiyuulia",
-                "loonium",
-                "marimorphosis",
-                "medumone",
-                "orechid",
-                "pollidisiac",
-                "puredaisy",
-                "rannuncarpus",
-                "solegnolia",
-                "spectranthemum",
-                "tangleberrie",
-                "tigerseye",
-                "dandelifeon",
-                "daybloom",
-                "deadflower",
-                "endoflame",
-                "entropinnyum",
-                "gourmaryllis",
-                "hydroangeas",
-                "kekimurus",
-                "munchdew",
-                "narslimmus",
-                "nightshade",
-                "rafflowsia",
-                "rosaarcana",
-                "spectrolus",
-                "thermalily"
-            ]
-        }
-    ],
-    "shape": { "base": "botaniastory:block/floating_island" },
-    "textures": {
-        "grass-side": { "base": "botaniastory:block/grass-side" },
-        "grasstop": { "base": "botaniastory:block/grasstop" }
-    },
-    "texturesByType": {
-        "*-white": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-orange": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-magenta": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-lightblue": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-yellow": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-lime": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-pink": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-gray": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-lightgray": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-cyan": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-purple": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-blue": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-brown": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-green": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-red": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-black": {
-            "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
-            "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
-        },
-        "*-vinculotus": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-agricarnation": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-bellethorne": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-bubbell": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-clayconia": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-daffomill": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-dreadthorne": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-exoflame": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-fallenkanade": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-heiseidream": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-hopperhock": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-hyacidus": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-jadedamaranthus": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-witheredamaranthus": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-jiyuulia": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-loonium": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-marimorphosis": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-medumone": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-orechid": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-pollidisiac": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-puredaisy": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-rannuncarpus": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-solegnolia": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-spectranthemum": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-tangleberrie": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-tigerseye": {
-            "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
-        },
-        "*-dandelifeon": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-daybloom": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-deadflower": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem" }
-        },
-        "*-endoflame": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-entropinnyum": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-gourmaryllis": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-hydroangeas": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-kekimurus": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-munchdew": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-narslimmus": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-nightshade": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-rafflowsia": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-rosaarcana": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-spectrolus": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        },
-        "*-thermalily": {
-            "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
-            "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
-        }
-    },
-    "guiTransform": {
-        "scale": 1.7
-    },
-    "collisionbox": {
-        "x1": 0.1094,
-        "y1": -0.0438,
-        "z1": 0.1094,
-        "x2": 0.8906,
-        "y2": 0.9656,
-        "z2": 0.8906
-    },
-    "selectionbox": {
-        "x1": 0.1094,
-        "y1": -0.0438,
-        "z1": 0.1094,
-        "x2": 0.8906,
-        "y2": 0.9656,
-        "z2": 0.8906
+  },
+  "variantgroups": [
+    {
+      "code": "flower",
+      "states": [
+        "white",
+        "orange",
+        "magenta",
+        "lightblue",
+        "yellow",
+        "lime",
+        "pink",
+        "gray",
+        "lightgray",
+        "cyan",
+        "purple",
+        "blue",
+        "brown",
+        "green",
+        "red",
+        "black",
+        "vinculotus",
+        "agricarnation",
+        "bellethorne",
+        "bubbell",
+        "clayconia",
+        "daffomill",
+        "dreadthorne",
+        "exoflame",
+        "fallenkanade",
+        "heiseidream",
+        "hopperhock",
+        "hyacidus",
+        "jadedamaranthus",
+        "witheredamaranthus",
+        "jiyuulia",
+        "loonium",
+        "marimorphosis",
+        "medumone",
+        "orechid",
+        "pollidisiac",
+        "puredaisy",
+        "rannuncarpus",
+        "solegnolia",
+        "spectranthemum",
+        "tangleberrie",
+        "tigerseye",
+        "dandelifeon",
+        "daybloom",
+        "deadflower",
+        "endoflame",
+        "entropinnyum",
+        "gourmaryllis",
+        "hydroangeas",
+        "kekimurus",
+        "munchdew",
+        "narslimmus",
+        "nightshade",
+        "rafflowsia",
+        "rosaarcana",
+        "spectrolus",
+        "thermalily",
+        "wardbloom"
+      ]
     }
+  ],
+  "shape": { "base": "botaniastory:block/floating_island" },
+  "textures": {
+    "grass-side": { "base": "botaniastory:block/grass-side" },
+    "grasstop": { "base": "botaniastory:block/grasstop" }
+  },
+  "texturesByType": {
+    "*-white": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-orange": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-magenta": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-lightblue": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-yellow": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-lime": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-pink": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-gray": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-lightgray": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-cyan": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-purple": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-blue": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-brown": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-green": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-red": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-black": {
+      "plant": { "base": "botaniastory:block/mysticalflower/mystical_flowers/{flower}" },
+      "stem": { "base": "botaniastory:block/mysticalflower/stem/{flower}_color" }
+    },
+    "*-vinculotus": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-agricarnation": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-bellethorne": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-bubbell": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-clayconia": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-daffomill": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-dreadthorne": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-exoflame": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-fallenkanade": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-heiseidream": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-hopperhock": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-hyacidus": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-jadedamaranthus": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-witheredamaranthus": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-jiyuulia": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-loonium": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-marimorphosis": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-medumone": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-orechid": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-pollidisiac": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-puredaisy": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-rannuncarpus": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-solegnolia": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-spectranthemum": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-tangleberrie": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-tigerseye": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    },
+    "*-dandelifeon": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-daybloom": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-deadflower": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem" }
+    },
+    "*-endoflame": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-entropinnyum": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-gourmaryllis": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-hydroangeas": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-kekimurus": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-munchdew": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-narslimmus": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-nightshade": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-rafflowsia": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-rosaarcana": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-spectrolus": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-thermalily": {
+      "plant": { "base": "botaniastory:block/generating_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/generating_flora/{flower}_stem_color" }
+    },
+    "*-wardbloom": {
+      "plant": { "base": "botaniastory:block/functional_flora/{flower}_bud" },
+      "stem": { "base": "botaniastory:block/functional_flora/{flower}_stem_color" }
+    }
+  },
+  "guiTransform": {
+    "scale": 1.7
+  },
+  "collisionbox": {
+    "x1": 0.1094,
+    "y1": -0.0438,
+    "z1": 0.1094,
+    "x2": 0.8906,
+    "y2": 0.9656,
+    "z2": 0.8906
+  },
+  "selectionbox": {
+    "x1": 0.1094,
+    "y1": -0.0438,
+    "z1": 0.1094,
+    "x2": 0.8906,
+    "y2": 0.9656,
+    "z2": 0.8906
+  }
 }

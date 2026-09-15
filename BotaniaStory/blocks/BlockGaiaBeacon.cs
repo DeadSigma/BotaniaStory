@@ -4,7 +4,7 @@ using Vintagestory.API.Server;
 
 namespace BotaniaStory.blocks
 {
-    public class BlockGaiaBeacon : Block
+    public class BlockBeacon : Block
     {
         private const string TerrasteelIngotCode =
             "game:ingot-terrasteel";
@@ -17,7 +17,7 @@ namespace BotaniaStory.blocks
             ItemSlot slot = byPlayer?.InventoryManager?.ActiveHotbarSlot;
 
             // получаем энтити блока маяка
-            if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityGaiaBeacon be)
+            if (world.BlockAccessor.GetBlockEntity(blockSel.Position) is BlockEntityBeacon be)
             {
                 // кладем шестерню внутрь - если маяк пуст
                 if (slot?.Itemstack?.Collectible?.Code?.Path == "gear-temporal" && be.Inventory[0].Empty)
@@ -46,7 +46,7 @@ namespace BotaniaStory.blocks
                 slot?.Itemstack?.Collectible?.Code?.ToString();
 
             world.Logger.Notification(
-                "[BotaniaStory][GaiaBeacon] Interact. Side={0}, item={1}, pos={2}",
+                "[BotaniaStory][Beacon] Interact. Side={0}, item={1}, pos={2}",
                 world.Side,
                 itemCode ?? "null",
                 blockSel?.Position
@@ -78,7 +78,7 @@ namespace BotaniaStory.blocks
             if (byPlayer is not IServerPlayer serverPlayer)
             {
                 world.Logger.Error(
-                    "[BotaniaStory][GaiaBeacon] Player is not IServerPlayer"
+                    "[BotaniaStory][Beacon] Player is not IServerPlayer"
                 );
 
                 return true;
@@ -90,7 +90,7 @@ namespace BotaniaStory.blocks
             if (ritual == null)
             {
                 world.Logger.Error(
-                    "[BotaniaStory][GaiaBeacon] GaiaRitualSystem.ServerInstance is null"
+                    "[BotaniaStory][Beacon] GaiaRitualSystem.ServerInstance is null"
                 );
 
                 return true;

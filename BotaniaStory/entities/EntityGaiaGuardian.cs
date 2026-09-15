@@ -16,11 +16,11 @@ namespace BotaniaStory.entities
         // Радиус арены от точки спавна 
         public const float ArenaRadius = 12f;
         public const float GaiaIIHealthMultiplier = 2.0f;
-        public const float GaiaIIDamageMultiplier = 1.5f;
-        public const int GaiaIILootMultiplier = 2;
+        public const float GaiaIIDamageMultiplier = 2.0f;
         public const float HealthPerExtraPlayer = 1.0f;   // +100% HP за каждого доп. игрока 
         public const float DamagePerExtraPlayer = 0.35f;  // +35% урона за каждого доп. игрока
-        public const float MaxDamagePerHit = 12f;         // кап урона за один удар: защита от ваншота (0 = без капа)
+        public const float MaxDamagePerHit = 0f;          // 0 = без капа урона за удар (удобно для тестирования)
+        public const bool AllowCreativeParticipants = true;   // Creative может участвовать в ритуале и тестировать бой
         public const float BirthDurationSeconds = 6f;     // фаза рождения: бессмертна, не атакует, копит силу
 
         private const float PlayerHardClampBuffer = 1.0f;   // с какого выхода за кромку жёстко возвращать
@@ -33,6 +33,40 @@ namespace BotaniaStory.entities
         private const float RitualAbandonSeconds = 1f;
 
         private float minionScanTimer = 0f;
+        private float playerConfineScanTimer = 0f;
+        private float minionConfineScanTimer = 0f;
+        private float ritualCheckTimer = 0f;
+
+        private const float PlayerConfineScanInterval = 0.10f;
+        private const float MinionConfineScanInterval = 0.25f;
+        private const float RitualCheckInterval = 0.25f;
+
+        private const string RitualParticipantsAttribute = "gaiaRitualParticipants";
+        private const string LootAttackersAttribute = "gaiaLootAttackers";
+        private const string TrueKillerAttribute = "gaiaTrueKillerUid";
+        private static readonly string[] GaiaRuneTypes =
+        {
+            "water",
+            "fire",
+            "earth",
+            "air",
+            "mana",
+            "spring",
+            "summer",
+            "autumn",
+            "winter",
+            "envy",
+            "gluttony",
+            "greed",
+            "lust",
+            "pride",
+            "sloth",
+            "wrath"
+        };
+        private HashSet<string> ritualParticipantUids;
+        private HashSet<string> lootAttackerUids;
+        private int cachedIdealArenaColumns = -1;
+
         private bool confineErrorLogged = false;
         private bool aiSuppressErrorLogged = false;
         private float noPlayerTimer = 0f;
@@ -44,6 +78,7 @@ namespace BotaniaStory.entities
 
         private float rageArenaScanTimer = 0f;
         private bool rageScanErrorLogged = false;
+        private AiTaskGaiaTeleport gaiaTeleportTask;
         private int GaiaLevel =>
     Math.Max(
         1,
@@ -117,6 +152,9 @@ namespace BotaniaStory.entities
             if (World.Side == EnumAppSide.Server)
             {
                 SaveSpawnCenter();
+                CaptureRitualParticipants(force: true);
+                cachedIdealArenaColumns =
+                    AiTaskGaiaTeleport.CountIdealArenaColumns(this);
 
                 // Фаза рождения.
                 WatchedAttributes.SetFloat(
@@ -144,7 +182,10 @@ namespace BotaniaStory.entities
             if (World.Side == EnumAppSide.Server)
             {
                 SaveSpawnCenter();
-                ApplyDamageScaling(); 
+                CaptureRitualParticipants(force: false);
+                cachedIdealArenaColumns =
+                    AiTaskGaiaTeleport.CountIdealArenaColumns(this);
+                ApplyDamageScaling();
             }
         }
 
@@ -158,40 +199,204 @@ namespace BotaniaStory.entities
             }
         }
 
-        // Лут Gaia Guardian II - копирует вероятности Botania Gaia II
-        // Результат суммируется в один инвентарь для всех игроков
+        // Участники фиксируются один раз в момент появления Гайи.
+        // Игрок, который пришёл смотреть бой уже после старта, участником не становится.
+        private void CaptureRitualParticipants(bool force)
+        {
+            if (!force && WatchedAttributes.HasAttribute(RitualParticipantsAttribute))
+            {
+                EnsureRitualParticipantCache();
+                return;
+            }
+
+            HashSet<string> participants =
+                new HashSet<string>(StringComparer.Ordinal);
+
+            double cx = WatchedAttributes.GetDouble("gaiaSpawnPosX", Pos.X);
+            double cz = WatchedAttributes.GetDouble("gaiaSpawnPosZ", Pos.Z);
+            double radiusSq = ArenaRadius * ArenaRadius;
+
+            IPlayer[] all = World.AllOnlinePlayers;
+            if (all != null)
+            {
+                foreach (IPlayer player in all)
+                {
+                    EntityPlayer pe = player?.Entity;
+                    if (pe == null || !pe.Alive)
+                        continue;
+
+                    EnumGameMode mode =
+                        player.WorldData?.CurrentGameMode ?? EnumGameMode.Survival;
+
+                    if (mode == EnumGameMode.Spectator ||
+                        (!AllowCreativeParticipants && mode == EnumGameMode.Creative))
+                    {
+                        continue;
+                    }
+
+                    if (pe.Pos.Dimension != Pos.Dimension)
+                        continue;
+
+                    double dx = pe.Pos.X - cx;
+                    double dz = pe.Pos.Z - cz;
+
+                    if (dx * dx + dz * dz > radiusSq)
+                        continue;
+
+                    if (!string.IsNullOrEmpty(player.PlayerUID))
+                    {
+                        participants.Add(player.PlayerUID);
+                    }
+                }
+            }
+
+            ritualParticipantUids = participants;
+
+            string[] ordered = new string[participants.Count];
+            participants.CopyTo(ordered);
+            Array.Sort(ordered, StringComparer.Ordinal);
+
+            WatchedAttributes.SetString(
+                RitualParticipantsAttribute,
+                string.Join("\n", ordered)
+            );
+
+            WatchedAttributes.SetInt(
+                "gaiaPlayerCount",
+                Math.Max(1, participants.Count)
+            );
+        }
+
+        private void EnsureRitualParticipantCache()
+        {
+            if (ritualParticipantUids != null)
+                return;
+
+            ritualParticipantUids =
+                new HashSet<string>(StringComparer.Ordinal);
+
+            string raw = WatchedAttributes.GetString(
+                RitualParticipantsAttribute,
+                string.Empty
+            );
+
+            if (string.IsNullOrEmpty(raw))
+                return;
+
+            string[] uids = raw.Split(
+                new[] { '\n' },
+                StringSplitOptions.RemoveEmptyEntries
+            );
+
+            foreach (string uid in uids)
+            {
+                ritualParticipantUids.Add(uid);
+            }
+        }
+
+        public bool IsRitualParticipant(IPlayer player)
+        {
+            if (player == null || string.IsNullOrEmpty(player.PlayerUID))
+                return false;
+
+            EnsureRitualParticipantCache();
+            return ritualParticipantUids.Contains(player.PlayerUID);
+        }
+
+        public bool IsInsideRitualArena(EntityPlayer player, float margin = 0f)
+        {
+            if (player == null || player.Pos.Dimension != Pos.Dimension)
+                return false;
+
+            double cx = WatchedAttributes.GetDouble("gaiaSpawnPosX", Pos.X);
+            double cz = WatchedAttributes.GetDouble("gaiaSpawnPosZ", Pos.Z);
+            double radius = ArenaRadius + Math.Max(0f, margin);
+
+            double dx = player.Pos.X - cx;
+            double dz = player.Pos.Z - cz;
+
+            return dx * dx + dz * dz <= radius * radius;
+        }
+
+        public EntityPlayer GetNearestRitualParticipant()
+        {
+            IPlayer[] all = World.AllOnlinePlayers;
+            if (all == null)
+                return null;
+
+            EntityPlayer best = null;
+            double bestDistanceSq = double.MaxValue;
+
+            foreach (IPlayer player in all)
+            {
+                if (!IsRitualParticipant(player))
+                    continue;
+
+                EntityPlayer pe = player.Entity;
+                if (pe == null || !pe.Alive)
+                    continue;
+
+                EnumGameMode mode =
+                    player.WorldData?.CurrentGameMode ?? EnumGameMode.Survival;
+
+                if (mode == EnumGameMode.Spectator ||
+                    (!AllowCreativeParticipants && mode == EnumGameMode.Creative))
+                {
+                    continue;
+                }
+
+                if (!IsInsideRitualArena(pe, 0.75f))
+                    continue;
+
+                double dx = pe.Pos.X - Pos.X;
+                double dz = pe.Pos.Z - Pos.Z;
+                double distanceSq = dx * dx + dz * dz;
+
+                if (distanceSq >= bestDistanceSq)
+                    continue;
+
+                bestDistanceSq = distanceSq;
+                best = pe;
+            }
+
+            return best;
+        }
+
+        // Лут повторяет количество из оригинальной Botania.
+        // В Botania таблица генерируется отдельно для каждого игрока, который атаковал Гайю,
+        // а игрок, нанёсший последний удар, получает увеличенное количество Gaia Spirits.
+        // Здесь всё суммируется в общий harvestable-инвентарь трупа.
         public ItemStack[] GetHarvestableDrops(
-    IWorldAccessor world,
-    BlockPos pos,
-    IPlayer byPlayer)
+            IWorldAccessor world,
+            BlockPos pos,
+            IPlayer byPlayer)
         {
             if (world.Side != EnumAppSide.Server)
             {
                 return Array.Empty<ItemStack>();
             }
 
-            List<ItemStack> drops =
-                new List<ItemStack>();
+            EnsureLootAttackerCache();
 
-            int playerCount =
-                PlayerCount;
+            int lootPlayerCount = lootAttackerUids.Count;
+            if (lootPlayerCount <= 0)
+            {
+                return Array.Empty<ItemStack>();
+            }
 
-            int lootMultiplier =
-                IsGaiaII
-                    ? GaiaIILootMultiplier
-                    : 1;
+            List<ItemStack> drops = new List<ItemStack>();
 
+            string trueKillerUid = WatchedAttributes.GetString(TrueKillerAttribute, null);
+            bool hasTrueKiller =
+                !string.IsNullOrEmpty(trueKillerUid) &&
+                lootAttackerUids.Contains(trueKillerUid);
 
-            // Gaia Spirits
+            int spiritBasePerPlayer = IsGaiaII ? 10 : 6;
+            int trueKillerBonus = IsGaiaII ? 6 : 2;
+
             int gaiaSpirits =
-                16 +
-                Math.Max(
-                    0,
-                    playerCount - 1
-                ) * 10;
-
-            gaiaSpirits *=
-                lootMultiplier;
+                spiritBasePerPlayer * lootPlayerCount +
+                (hasTrueKiller ? trueKillerBonus : 0);
 
             AddLoot(
                 drops,
@@ -200,59 +405,35 @@ namespace BotaniaStory.entities
                 gaiaSpirits
             );
 
+            if (!IsGaiaII)
+            {
+                return drops.ToArray();
+            }
 
             int manasteelTotal = 0;
             int manaGearTotal = 0;
             int manaQuartzTotal = 0;
 
-
-            // Каждый игрок даёт отдельный roll лута.
-            for (int player = 0;
-                 player < playerCount;
-                 player++)
+            for (int player = 0; player < lootPlayerCount; player++)
             {
                 // Manasteel: 90%, 16-27
                 if (world.Rand.NextDouble() < 0.90)
                 {
-                    manasteelTotal +=
-                        world.Rand.Next(
-                            16,
-                            28
-                        );
+                    manasteelTotal += world.Rand.Next(8, 16);
                 }
 
-                // Mana Gear: 70%, 8-13
+                // Mana Pearl-аналог (Mana Gear): 70%, 8-13
                 if (world.Rand.NextDouble() < 0.70)
                 {
-                    manaGearTotal +=
-                        world.Rand.Next(
-                            8,
-                            14
-                        );
+                    manaGearTotal += world.Rand.Next(8, 14);
                 }
 
-                // Mana Quartz: 50%, 4-6
+                // Mana Diamond-аналог (Mana Quartz): 50%, 4-6
                 if (world.Rand.NextDouble() < 0.50)
                 {
-                    manaQuartzTotal +=
-                        world.Rand.Next(
-                            4,
-                            7
-                        );
+                    manaQuartzTotal += world.Rand.Next(4, 7);
                 }
             }
-
-
-            // Gaia II удваивает уже выпавшее количество.
-            manasteelTotal *=
-                lootMultiplier;
-
-            manaGearTotal *=
-                lootMultiplier;
-
-            manaQuartzTotal *=
-                lootMultiplier;
-
 
             AddLoot(
                 drops,
@@ -275,8 +456,122 @@ namespace BotaniaStory.entities
                 manaQuartzTotal
             );
 
+            Dictionary<string, int> runeTotals =
+                new Dictionary<string, int>(StringComparer.Ordinal);
+
+            int overgrowthSeedTotal = 0;
+
+            for (int player = 0; player < lootPlayerCount; player++)
+            {
+                int runeRolls = world.Rand.Next(1, 7); // 1..6 включительно
+
+                for (int roll = 0; roll < runeRolls; roll++)
+                {
+                    if (world.Rand.NextDouble() >= 0.30)
+                        continue;
+
+                    string runeType =
+                        GaiaRuneTypes[world.Rand.Next(GaiaRuneTypes.Length)];
+
+                    int runeCount = world.Rand.Next(2, 5); // 2..4 включительно
+
+                    if (runeTotals.TryGetValue(runeType, out int current))
+                    {
+                        runeTotals[runeType] = current + runeCount;
+                    }
+                    else
+                    {
+                        runeTotals[runeType] = runeCount;
+                    }
+                }
+
+                // Overgrowth Seed: 25%, 1-3 штуки на каждого атакующего игрока.
+                if (world.Rand.NextDouble() < 0.25)
+                {
+                    overgrowthSeedTotal += world.Rand.Next(1, 4);
+                }
+            }
+
+            foreach (string runeType in GaiaRuneTypes)
+            {
+                if (!runeTotals.TryGetValue(runeType, out int quantity))
+                    continue;
+
+                AddLoot(
+                    drops,
+                    world,
+                    "botaniastory:rune-" + runeType,
+                    quantity
+                );
+            }
+
+            AddLoot(
+                drops,
+                world,
+                "botaniastory:overgrowthseed",
+                overgrowthSeedTotal
+            );
 
             return drops.ToArray();
+        }
+
+        private void EnsureLootAttackerCache()
+        {
+            if (lootAttackerUids != null)
+                return;
+
+            lootAttackerUids = new HashSet<string>(StringComparer.Ordinal);
+
+            string raw = WatchedAttributes.GetString(
+                LootAttackersAttribute,
+                null
+            );
+
+            if (string.IsNullOrEmpty(raw))
+                return;
+
+            string[] uids = raw.Split(
+                new[] { '\n' },
+                StringSplitOptions.RemoveEmptyEntries
+            );
+
+            foreach (string uid in uids)
+            {
+                lootAttackerUids.Add(uid);
+            }
+        }
+
+        private void RecordLootAttacker(DamageSource damageSource, bool killingBlow)
+        {
+            EntityPlayer attacker = damageSource?.GetCauseEntity() as EntityPlayer;
+            if (attacker == null || string.IsNullOrEmpty(attacker.PlayerUID))
+                return;
+
+            IPlayer player = attacker.Player;
+            if (player == null || !IsRitualParticipant(player))
+                return;
+
+            EnsureLootAttackerCache();
+
+            if (lootAttackerUids.Add(attacker.PlayerUID))
+            {
+                string[] ordered = new string[lootAttackerUids.Count];
+                lootAttackerUids.CopyTo(ordered);
+                Array.Sort(ordered, StringComparer.Ordinal);
+
+                WatchedAttributes.SetString(
+                    LootAttackersAttribute,
+                    string.Join("\n", ordered)
+                );
+            }
+
+            if (killingBlow)
+            {
+                WatchedAttributes.SetString(
+                    TrueKillerAttribute,
+                    attacker.PlayerUID
+                );
+            }
         }
 
         // Разбиваем лут на стаки, чтобы не превысить MaxStackSize
@@ -306,7 +601,13 @@ namespace BotaniaStory.entities
         // ReceiveDamage - входная точка всего урона. В 1.22 ShouldReceiveDamage принимает damage по значению (без ref), там величину не порезать - клампим здесь, до раздачи behavior'ам
         public override bool ReceiveDamage(DamageSource damageSource, float damage)
         {
-            if (World.Side == EnumAppSide.Server && damageSource?.Type != EnumDamageType.Heal)
+            bool damagingHit =
+                World.Side == EnumAppSide.Server &&
+                damageSource != null &&
+                damageSource.Type != EnumDamageType.Heal &&
+                damage > 0f;
+
+            if (damagingHit)
             {
                 // Бессмертна: пока рождается и пока левитирует (спавн волн мобов)
                 if (WatchedAttributes.GetFloat("gaiaBirthTimer", 0f) > 0f) return false;
@@ -316,7 +617,41 @@ namespace BotaniaStory.entities
                 if (MaxDamagePerHit > 0f && damage > MaxDamagePerHit) damage = MaxDamagePerHit;
             }
 
-            return base.ReceiveDamage(damageSource, damage);
+            bool received = base.ReceiveDamage(damageSource, damage);
+
+            if (received && damagingHit)
+            {
+                RecordLootAttacker(damageSource, !Alive);
+
+                if (Alive)
+                {
+                    NotifyTeleportTaskAboutDamage(damageSource);
+                }
+            }
+
+            return received;
+        }
+
+        private void NotifyTeleportTaskAboutDamage(DamageSource damageSource)
+        {
+            if (gaiaTeleportTask != null)
+            {
+                gaiaTeleportTask.NotifyDamaged(damageSource);
+                return;
+            }
+
+            var tasks = GetBehavior<EntityBehaviorTaskAI>()?.TaskManager?.AllTasks;
+            if (tasks == null) return;
+
+            foreach (var task in tasks)
+            {
+                if (task is AiTaskGaiaTeleport teleportTask)
+                {
+                    gaiaTeleportTask = teleportTask;
+                    gaiaTeleportTask.NotifyDamaged(damageSource);
+                    return;
+                }
+            }
         }
 
         // Масштабирование
@@ -402,7 +737,7 @@ namespace BotaniaStory.entities
             return null;
         }
 
-      
+
         // Основной тик
 
         public override void OnGameTick(float dt)
@@ -421,12 +756,29 @@ namespace BotaniaStory.entities
                 // Жёсткая граница
                 ConstrainToArena();
 
-                // Удержание игроков (бэкстоп) и мобов + проверка сброса ритуала
                 try
                 {
-                    ConfinePlayersBackstop();
-                    ConfineMinions();
-                    CheckRitualEnd(dt);
+                    playerConfineScanTimer += dt;
+                    if (playerConfineScanTimer >= PlayerConfineScanInterval)
+                    {
+                        playerConfineScanTimer = 0f;
+                        ConfinePlayersBackstop();
+                    }
+
+                    minionConfineScanTimer += dt;
+                    if (minionConfineScanTimer >= MinionConfineScanInterval)
+                    {
+                        minionConfineScanTimer = 0f;
+                        ConfineMinions();
+                    }
+
+                    ritualCheckTimer += dt;
+                    if (ritualCheckTimer >= RitualCheckInterval)
+                    {
+                        float elapsed = ritualCheckTimer;
+                        ritualCheckTimer = 0f;
+                        CheckRitualEnd(elapsed);
+                    }
                 }
                 catch (Exception e)
                 {
@@ -468,11 +820,11 @@ namespace BotaniaStory.entities
                 }
 
 
-               
+
                 // Страховка разрушенной арены
                 // Выполняется ТОЛЬКО после завершения рождения
                 // Весь поиск поверхности находится в AiTaskGaiaTeleport
-               
+
 
                 bool emergencyFloating = false;
 
@@ -509,9 +861,9 @@ namespace BotaniaStory.entities
                 UpdateRageMode(dt);
 
 
-               
+
                 // ФАЗА ЛЕВИТАЦИИ
-               
+
 
                 if (WatchedAttributes.GetBool("isLevitating", false))
                 {
@@ -572,12 +924,11 @@ namespace BotaniaStory.entities
                     }
                 }
 
-                // ОБЫЧНАЯ ФАЗА (поворот к игроку)
-                IPlayer nearestPlayer = World.NearestPlayer(Pos.X, Pos.Y, Pos.Z);
-                if (nearestPlayer?.Entity != null)
+                EntityPlayer nearestPlayer = GetNearestRitualParticipant();
+                if (nearestPlayer != null)
                 {
-                    double dx = nearestPlayer.Entity.Pos.X - Pos.X;
-                    double dz = nearestPlayer.Entity.Pos.Z - Pos.Z;
+                    double dx = nearestPlayer.Pos.X - Pos.X;
+                    double dz = nearestPlayer.Pos.Z - Pos.Z;
                     float targetYaw = (float)Math.Atan2(dx, dz);
                     Pos.Yaw = targetYaw;
                 }
@@ -677,9 +1028,11 @@ namespace BotaniaStory.entities
             {
                 EntityPlayer pe = plr.Entity;
                 if (pe == null || !pe.Alive) continue;
+                if (!IsRitualParticipant(plr)) continue;
 
                 EnumGameMode mode = plr.WorldData?.CurrentGameMode ?? EnumGameMode.Survival;
-                if (mode == EnumGameMode.Creative || mode == EnumGameMode.Spectator) continue;
+                if (mode == EnumGameMode.Spectator ||
+                    (!AllowCreativeParticipants && mode == EnumGameMode.Creative)) continue;
 
                 double dx = pe.Pos.X - cx;
                 double dz = pe.Pos.Z - cz;
@@ -731,23 +1084,34 @@ namespace BotaniaStory.entities
         // Обходим AllOnlinePlayers (надежнее GetPlayersAround). В 1.22 Pos - единственная актуальная позиция
         private void CheckRitualEnd(float dt)
         {
-            double cx = WatchedAttributes.GetDouble("gaiaSpawnPosX", Pos.X);
-            double cz = WatchedAttributes.GetDouble("gaiaSpawnPosZ", Pos.Z);
-
-            double reachSq = (ArenaRadius + 3f) * (ArenaRadius + 3f);
-
             bool anyAlive = false;
             IPlayer[] all = World.AllOnlinePlayers;
+
             if (all != null)
             {
-                foreach (IPlayer p in all)
+                foreach (IPlayer player in all)
                 {
-                    EntityPlayer pe = p.Entity;
-                    if (pe == null || !pe.Alive) continue;
+                    if (!IsRitualParticipant(player))
+                        continue;
 
-                    double dx = pe.Pos.X - cx;
-                    double dz = pe.Pos.Z - cz;
-                    if (dx * dx + dz * dz <= reachSq) { anyAlive = true; break; }
+                    EntityPlayer pe = player.Entity;
+                    if (pe == null || !pe.Alive)
+                        continue;
+
+                    EnumGameMode mode =
+                        player.WorldData?.CurrentGameMode ?? EnumGameMode.Survival;
+
+                    if (mode == EnumGameMode.Spectator ||
+                        (!AllowCreativeParticipants && mode == EnumGameMode.Creative))
+                    {
+                        continue;
+                    }
+
+                    if (IsInsideRitualArena(pe, PlayerHardClampBuffer + 0.5f))
+                    {
+                        anyAlive = true;
+                        break;
+                    }
                 }
             }
 
@@ -807,7 +1171,7 @@ namespace BotaniaStory.entities
             Controls.IsFlying = true;
 
 
-           
+
             // Просим систему телепорта найти ближайшую поверхность на уровне арены
 
             if (AiTaskGaiaTeleport.TryEmergencyTeleportToNearestSupport(
@@ -835,9 +1199,9 @@ namespace BotaniaStory.entities
             }
 
 
-           
+
             // Вообще ни одного подходящего блока на арене нет - просто зависаем.
-           
+
 
             Pos.Motion.X = 0;
             Pos.Motion.Y = 0;
@@ -890,10 +1254,13 @@ namespace BotaniaStory.entities
 
 
                 // идеальная площать арен
-                int idealColumns =
-                    AiTaskGaiaTeleport.CountIdealArenaColumns(
-                        this
-                    );
+                int idealColumns = cachedIdealArenaColumns;
+                if (idealColumns <= 0)
+                {
+                    idealColumns =
+                        AiTaskGaiaTeleport.CountIdealArenaColumns(this);
+                    cachedIdealArenaColumns = idealColumns;
+                }
 
                 if (idealColumns <= 0)
                     return;
@@ -932,19 +1299,19 @@ namespace BotaniaStory.entities
                     );
 
 
-               
+
                 bool shouldRage;
 
                 if (wasRaging)
                 {
-                  
+
                     shouldRage =
                         destroyedPercent >=
                         RageExitDestroyedPercent;
                 }
                 else
                 {
-                  
+
                     shouldRage =
                         destroyedPercent >=
                         RageEnterDestroyedPercent;
@@ -987,7 +1354,7 @@ namespace BotaniaStory.entities
                 {
                     rageScanErrorLogged = true;
 
-                   
+
                 }
             }
         }
@@ -995,10 +1362,13 @@ namespace BotaniaStory.entities
         {
             try
             {
-                int idealColumns =
-                    AiTaskGaiaTeleport.CountIdealArenaColumns(
-                        this
-                    );
+                int idealColumns = cachedIdealArenaColumns;
+                if (idealColumns <= 0)
+                {
+                    idealColumns =
+                        AiTaskGaiaTeleport.CountIdealArenaColumns(this);
+                    cachedIdealArenaColumns = idealColumns;
+                }
 
                 if (idealColumns <= 0)
                     return;

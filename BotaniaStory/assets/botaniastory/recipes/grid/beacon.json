@@ -1,0 +1,78 @@
+[
+  {
+    "name": "botaniastory:beacon-left",
+    "ingredientPattern": "GGG,GLG,CRH",
+    "ingredients": {
+      "G": {
+        "type": "block",
+        "code": "game:glass-plain"
+      },
+      "L": {
+        "type": "block",
+        "code": "game:lantern-large-up"
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true
+      },
+      "R": {
+        "type": "block",
+        "code": "game:rock-obsidian"
+      },
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true
+      }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+      "type": "block",
+      "code": "botaniastory:beacon",
+      "quantity": 1
+    }
+  },
+  {
+    "name": "botaniastory:beacon-right",
+    "ingredientPattern": "GGG,GLG,HRC",
+    "ingredients": {
+      "G": {
+        "type": "block",
+        "code": "game:glass-plain"
+      },
+      "L": {
+        "type": "block",
+        "code": "game:lantern-large-*",
+        "allowedVariants": [ "up" ],
+        "recipeAttributes": {
+          "botaniastory": {
+            "filterLanternPreview": true
+          }
+        }
+      },
+      "C": {
+        "type": "item",
+        "code": "game:chisel-*",
+        "isTool": true
+      },
+      "R": {
+        "type": "block",
+        "code": "game:rock-obsidian"
+      },
+      "H": {
+        "type": "item",
+        "code": "game:hammer-*",
+        "isTool": true
+      }
+    },
+    "width": 3,
+    "height": 3,
+    "output": {
+      "type": "block",
+      "code": "botaniastory:beacon",
+      "quantity": 1
+    }
+  }
+]

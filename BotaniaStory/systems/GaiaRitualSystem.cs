@@ -1,3 +1,4 @@
+using BotaniaStory.blocks;
 using BotaniaStory.entities;
 using System;
 using Vintagestory.API.Common;
@@ -15,8 +16,8 @@ namespace BotaniaStory.ritual
         private const string TerrasteelIngotCode = "game:ingot-terrasteel";
         private const string EmpoweredTerrasteelIngotCode = "botaniastory:ingot-terrasteel-empowered";
 
-        private const string PlatformCode = "game:metalblock-new-riveted-copper";
-        private const string BeaconCode = "botaniastory:beacon-gaia";
+        private const string PlatformCode = "game:metalblock-new-riveted-elementium";
+        private const string BeaconCode = "botaniastory:beacon";
         private const string PylonCode = "botaniastory:pylon-gaia";
 
         private static readonly (int dx, int dz)[] PylonOffsets =
@@ -119,6 +120,12 @@ namespace BotaniaStory.ritual
             return true;
         }
 
+        private bool IsBeaconActive(BlockPos beacon)
+        {
+            return sapi.World.BlockAccessor.GetBlockEntity(beacon)
+                is BlockEntityBeacon blockEntity && blockEntity.IsActive;
+        }
+
         private bool HasActiveGaia(BlockPos beacon)
         {
             Vec3d center = new(
@@ -178,7 +185,7 @@ namespace BotaniaStory.ritual
         {
             double cx = beacon.X + 0.5;
             double cz = beacon.Z + 0.5;
-            const float countRadius = EntityGaiaGuardian.ArenaRadius + 3f;
+            const float countRadius = EntityGaiaGuardian.ArenaRadius;
 
             int count = 0;
 
@@ -190,7 +197,11 @@ namespace BotaniaStory.ritual
                 EnumGameMode mode =
                     p.WorldData?.CurrentGameMode ?? EnumGameMode.Survival;
 
-                if (mode == EnumGameMode.Spectator) continue;
+                if (mode == EnumGameMode.Spectator ||
+                    (!EntityGaiaGuardian.AllowCreativeParticipants && mode == EnumGameMode.Creative))
+                {
+                    continue;
+                }
 
                 double dx = pe.Pos.X - cx;
                 double dz = pe.Pos.Z - cz;
@@ -202,10 +213,20 @@ namespace BotaniaStory.ritual
             return Math.Max(1, count);
         }
         public bool TryStartRitual(
-    IServerPlayer player,
-    BlockPos beacon,
-    int gaiaLevel)
+            IServerPlayer player,
+            BlockPos beacon,
+            int gaiaLevel)
         {
+            if (!IsBeaconActive(beacon))
+            {
+                SendRitualMessage(
+                    player,
+                    "botaniastory:gaia-ritual-beacon-inactive"
+                );
+
+                return false;
+            }
+
             if (!IsStructureValid(beacon))
             {
                 SendRitualMessage(

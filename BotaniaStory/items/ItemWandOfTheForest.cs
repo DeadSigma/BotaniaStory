@@ -5,8 +5,10 @@ using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
+using Vintagestory.API.Server;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
 
@@ -92,15 +94,35 @@ namespace BotaniaStory.items
         // ЛКМ (Левая Кнопка Мыши) - ОТМЕНА ПРИВЯЗКИ
         public override void OnHeldAttackStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, ref EnumHandHandling handling)
         {
+            // ЛКМ по Wardbloom - режим частиц
+            if (blockSel != null)
+            {
+                BlockEntity targetBe = byEntity.World.BlockAccessor.GetBlockEntity(blockSel.Position);
+                BEBehaviorWardbloom wardbloom = targetBe?.GetBehavior<BEBehaviorWardbloom>();
+
+                if (wardbloom != null)
+                {
+                    if (byEntity.World.Side == EnumAppSide.Server)
+                    {
+                        wardbloom.CycleParticleMode();
+                    }
+
+                    handling = EnumHandHandling.PreventDefault;
+                    return;
+                }
+            }
+
             bool hadFlower = slot.Itemstack.Attributes.HasAttribute("hasFlower");
             bool hadSpreader = slot.Itemstack.Attributes.HasAttribute("hasSpreader");
             bool hadAmaranthus = slot.Itemstack.Attributes.HasAttribute("hasAmaranthus");
+            bool hadFunctionalFlower = slot.Itemstack.Attributes.HasAttribute("hasFunctionalFlower");
 
-            if (hadFlower || hadSpreader)
+            if (hadFlower || hadSpreader || hadAmaranthus || hadFunctionalFlower)
             {
                 slot.Itemstack.Attributes.RemoveAttribute("hasFlower");
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");
                 slot.Itemstack.Attributes.RemoveAttribute("hasAmaranthus");
+                slot.Itemstack.Attributes.RemoveAttribute("hasFunctionalFlower");
                 slot.MarkDirty();
 
                 /* if (byEntity.World.Side == EnumAppSide.Client)
@@ -139,8 +161,8 @@ namespace BotaniaStory.items
             }
 
 
-          
-            
+
+
             // А. ТОЧНЫЙ  ПОИСК ИСКРЫ (Как в дополнителях)
             EntitySpark targetSpark = null;
 
@@ -416,6 +438,48 @@ namespace BotaniaStory.items
                 slot.Itemstack.Attributes.RemoveAttribute("hasSpreader");
                 slot.MarkDirty();
 
+                handling = EnumHandHandling.Handled;
+                return;
+            }
+
+            // Wardbloom - размер барьера
+            BEBehaviorWardbloom wardbloom = be?.GetBehavior<BEBehaviorWardbloom>();
+            if (wardbloom != null)
+            {
+                bool forceRelink = byPlayer.Entity.Controls.CtrlKey;
+
+                // Первый клик или Ctrl+ПКМ - привязка к бассейну
+                if (wardbloom.LinkedPool == null || forceRelink)
+                {
+                    slot.Itemstack.Attributes.SetInt("functionalFlowerX", pos.X);
+                    slot.Itemstack.Attributes.SetInt("functionalFlowerY", pos.Y);
+                    slot.Itemstack.Attributes.SetInt("functionalFlowerZ", pos.Z);
+                    slot.Itemstack.Attributes.SetBool("hasFunctionalFlower", true);
+                    slot.MarkDirty();
+                }
+                else
+                {
+                    // ПКМ увеличивает, Shift+ПКМ уменьшает
+                    if (world.Side == EnumAppSide.Server)
+                    {
+                        int direction = byPlayer.Entity.Controls.Sneak ? -1 : 1;
+
+                        if (wardbloom.StepRadius(direction) && byPlayer is IServerPlayer serverPlayer)
+                        {
+                            string message = Lang.Get(
+                                 "botaniastory:wardbloom-radius",
+                                 (int)wardbloom.BarrierRadius
+                             );
+
+                            serverPlayer.SendIngameError(
+                                "wardbloom-radius",
+                                message
+                            );
+                        }
+                    }
+                }
+
+                world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 handling = EnumHandHandling.Handled;
                 return;
             }

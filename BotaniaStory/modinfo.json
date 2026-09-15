@@ -1,12 +1,12 @@
 {
-    "type": "code",
-    "modid": "botaniastory",
-    "name": "BotaniaStory",
-    "authors": [ "El_Neuman" ],
-    "description": "BotaniaStory - nature magic, mana, and automation in Vintage Story!",
-    "version": "0.3.8-pre.8",
-    "side": "Universal",
-    "dependencies": {
-        "game": ""
-    }
+  "type": "code",
+  "modid": "botaniastory",
+  "name": "BotaniaStory",
+  "authors": [ "El_Neuman" ],
+  "description": " sorry, you can't play right now, login later, or write me in Discord: deadsigma",
+  "version": "0.3.8-pre.10",
+  "side": "Universal",
+  "dependencies": {
+    "game": ""
+  }
 }

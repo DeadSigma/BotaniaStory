@@ -99,7 +99,8 @@ namespace BotaniaStory
             api.RegisterBlockEntityBehaviorClass("hopperhocklogic", typeof(BEBehaviorHopperhock));
             api.RegisterBlockClass("BlockAgricarnation", typeof(BlockAgricarnation));
             api.RegisterBlockEntityBehaviorClass("agricarnationlogic", typeof(BEBehaviorAgricarnation));
-
+            api.RegisterBlockClass("BlockWardbloom", typeof(BotaniaStory.blocks.BlockWardbloom));
+            api.RegisterBlockEntityBehaviorClass("wardbloomlogic", typeof(BotaniaStory.blockentity.BEBehaviorWardbloom));
 
             //Генерирующие цветы
             api.RegisterBlockEntityBehaviorClass("endoflamelogic", typeof(BEBehaviorEndoflame));
@@ -181,8 +182,8 @@ namespace BotaniaStory
             api.RegisterEntityBehaviorClass("playermeditation", typeof(EntityBehaviorPlayerMeditation));
             api.RegisterItemClass("ItemOvergrowthSeed", typeof(ItemOvergrowthSeed));
             api.RegisterBlockEntityClass("EnchantedFarmland", typeof(BlockEntityEnchantedFarmland));
-            api.RegisterBlockClass("BlockGaiaBeacon", typeof(BlockGaiaBeacon));
-            api.RegisterBlockEntityClass("GaiaBeacon", typeof(BlockEntityGaiaBeacon));
+            api.RegisterBlockClass("BlockBeacon", typeof(BlockBeacon));
+            api.RegisterBlockEntityClass("Beacon", typeof(BlockEntityBeacon));
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 

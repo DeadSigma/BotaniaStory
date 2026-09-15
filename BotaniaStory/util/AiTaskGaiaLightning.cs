@@ -5,6 +5,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using BotaniaStory.entities;
 
 namespace BotaniaStory.util
 {
@@ -16,7 +17,7 @@ namespace BotaniaStory.util
         private readonly float damage = 1f;
         private readonly int wallPenetration = 2;
 
-        private const float GaiaIICooldownMultiplier = 0.60f;
+        private const float GaiaIICooldownMultiplier = 0.50f;
         private long lastStrikeMs;
         private int rotationIndex = 0;
         private EntityPlayer targetEntity;
@@ -45,8 +46,8 @@ namespace BotaniaStory.util
                 return false;
 
 
-           
-            // РЕЖИМ ЯРОСТИ
+
+            // Режим ярости
 
             bool rage =
                 entity.WatchedAttributes.GetBool(
@@ -73,7 +74,7 @@ namespace BotaniaStory.util
                     );
             }
 
-            // При нескольких игроках Гайа распределяет  выстрелы между ними.
+            // При нескольких игроках Гайа распределяет  выстрелы между ними
             int interval =
                 activeCooldown / targets.Count;
 
@@ -136,6 +137,7 @@ namespace BotaniaStory.util
         private List<EntityPlayer> GetValidTargets()
         {
             List<EntityPlayer> result = [];
+            EntityGaiaGuardian gaia = entity as EntityGaiaGuardian;
 
             foreach (IPlayer player in entity.World.AllOnlinePlayers)
             {
@@ -149,21 +151,24 @@ namespace BotaniaStory.util
                         ? player.WorldData.CurrentGameMode
                         : EnumGameMode.Survival;
 
-                if (mode == EnumGameMode.Creative ||
-                    mode == EnumGameMode.Spectator)
+                if (mode == EnumGameMode.Spectator ||
+                    (!EntityGaiaGuardian.AllowCreativeParticipants && mode == EnumGameMode.Creative))
                 {
                     continue;
                 }
 
-
-
                 if (pe.Pos.Dimension != entity.Pos.Dimension)
                     continue;
 
+                // Гайа атакует только тех, кто находился внутри круга  в момент старта ритуала. Наблюдатели снаружи игнорируются
+                if (gaia != null && !gaia.IsRitualParticipant(player))
+                    continue;
+
+                if (gaia != null && !gaia.IsInsideRitualArena(pe, 0.75f))
+                    continue;
 
                 result.Add(pe);
             }
-
 
             // Стабильный порядок целей, чтобы rotationIndex работал предсказуемо
             result.Sort(

@@ -1,0 +1,58 @@
+{
+  "code": "beacon",
+  "class": "BlockBeacon",
+  "entityclass": "Beacon",
+  "blockmaterial": "Metal",
+  "resistance": 1,
+  "lightAbsorption": 0,
+  "collisionSelectionBoxes": [
+    {
+      "x1": 0.0,
+      "y1": 0.0,
+      "z1": 0.0,
+      "x2": 1.0,
+      "y2": 0.125,
+      "z2": 1.0
+    },
+    {
+      "x1": 0.0625,
+      "y1": 0.0985,
+      "z1": 0.0625,
+      "x2": 0.9375,
+      "y2": 0.911,
+      "z2": 0.9375
+    }
+  ],
+  "lightHsv": [ 34, 5, 15 ],
+  "creativeinventory": {
+    "general": [
+      "*"
+    ],
+    "botaniastory": [
+      "*"
+    ]
+  },
+  "shape": {
+    "base": "botaniastory:block/beacon"
+  },
+  "textures": {
+    "obsidian1": {
+      "base": "game:block/stone/rock/obsidian1"
+    },
+    "frame": {
+      "base": "game:block/glass/frame"
+    },
+    "mint": {
+      "base": "game:block/christmas/bauble/mint"
+    },
+    "steel": {
+      "base": "game:block/metal/plate/steel"
+    }
+  },
+  "sounds": {
+    "place": "game:player/buildhigh",
+    "break": "game:player/buildhigh",
+    "hit": "game:player/buildhigh",
+    "walk": "game:player/buildhigh"
+  }
+}

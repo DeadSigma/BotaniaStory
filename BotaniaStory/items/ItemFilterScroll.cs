@@ -1,37 +1,30 @@
+using System;
+using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
-using Vintagestory.GameContent;
-using System.Collections.Generic;
 using Vintagestory.API.MathTools;
+using Vintagestory.GameContent;
 
 namespace BotaniaStory.items
 {
     public class ItemFilterScroll : ItemRollable, IContainedMeshSource
     {
-        /// <summary>
-        /// Тип листка определяется автоматически по коду предмета в JSON.
-        ///
-        ///   "botaniastory:filter-paper-black"  →  IsBlacklist = true  (чёрный список)
-        ///   "botaniastory:filter-paper-white"  →  IsBlacklist = false (белый список)
-        ///
-        /// Оба предмета в JSON используют "class": "ItemFilterScroll" - дополнительных классов не нужно.
-        /// </summary>
+        public const string PlayerPatternPrefix = "@player:";
+
         public bool IsBlacklist => Code?.Path.Contains("black") == true;
 
         public override void OnHeldInteractStart(
-    ItemSlot slot,
-    EntityAgent byEntity,
-    BlockSelection blockSel,
-    EntitySelection entitySel,
-    bool firstEvent,
-    ref EnumHandHandling handling)
+            ItemSlot slot,
+            EntityAgent byEntity,
+            BlockSelection blockSel,
+            EntitySelection entitySel,
+            bool firstEvent,
+            ref EnumHandHandling handling)
         {
             bool isSneak = byEntity.Controls.Sneak;
             bool isCtrl = byEntity.Controls.CtrlKey;
 
-            // Перехватываем кастомное поведение (только Shift)
-            // Если зажат только Shift + ПКМ: Открываем GUI и блокируем стандартное действие.
             if (isSneak && !isCtrl)
             {
                 handling = EnumHandHandling.PreventDefault;
@@ -47,32 +40,23 @@ namespace BotaniaStory.items
             base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
         }
 
-
-        /// <summary>
-        /// Проверяет, разрешает ли данный листок принять предмет с кодом <paramref name="fullItemCode"/>.
-        ///
-        /// Белый список: разрешает ТОЛЬКО коды/маски из списка.  Пустые списки = ничего не пропускает.
-        /// Чёрный список: блокирует ТОЛЬКО коды/маски из списка. Пустые списки = всё пропускает.
-        /// </summary>
         public bool AllowsItem(ItemStack filterStack, string fullItemCode)
         {
             if (filterStack?.Attributes == null || string.IsNullOrEmpty(fullItemCode))
                 return false;
 
             var attr = filterStack.Attributes;
-            string fullCodeLower = fullItemCode.ToLowerInvariant(); // например, "game:soil-medium"
-
-            // Отрезаем домен (всё, что до двоеточия), чтобы получить только путь для текстового поиска
+            string fullCodeLower = fullItemCode.ToLowerInvariant();
             string pathOnly = fullCodeLower;
+
             int colonIndex = fullCodeLower.IndexOf(':');
             if (colonIndex >= 0)
             {
-                pathOnly = fullCodeLower.Substring(colonIndex + 1); // получаем "soil-medium"
+                pathOnly = fullCodeLower.Substring(colonIndex + 1);
             }
 
             bool matchFound = false;
 
-            // Точная проверка по кликнутым предметам в сетке (filterList)
             if (attr.HasAttribute("filterList"))
             {
                 var exactCodes = (attr["filterList"] as StringArrayAttribute)?.value;
@@ -89,7 +73,8 @@ namespace BotaniaStory.items
                 }
             }
 
-            // Проверка по умным текстовым маскам (filterPatterns), если точное совпадение ещё не найдено
+            bool hasItemPatterns = false;
+
             if (!matchFound && attr.HasAttribute("filterPatterns"))
             {
                 var patterns = (attr["filterPatterns"] as StringArrayAttribute)?.value;
@@ -97,11 +82,14 @@ namespace BotaniaStory.items
                 {
                     foreach (var rawPattern in patterns)
                     {
-                        // Убираем звёздочки и пробелы (" *soil* " -> "soil")
-                        string pattern = rawPattern.Replace("*", "").Trim().ToLowerInvariant();
-                        if (string.IsNullOrEmpty(pattern)) continue;
+                        if (string.IsNullOrWhiteSpace(rawPattern)) continue;
+                        if (rawPattern.StartsWith(PlayerPatternPrefix, StringComparison.OrdinalIgnoreCase)) continue;
 
-                        // Ищем подстроку ТОЛЬКО в пути (без "game:")
+                        hasItemPatterns = true;
+
+                        string pattern = rawPattern.Replace("*", "").Trim().ToLowerInvariant();
+                        if (pattern.Length == 0) continue;
+
                         if (pathOnly.Contains(pattern))
                         {
                             matchFound = true;
@@ -111,22 +99,54 @@ namespace BotaniaStory.items
                 }
             }
 
-            // Проверяем, заданы ли вообще какие-то фильтры
-            bool hasList = attr.HasAttribute("filterList") && (attr["filterList"] as StringArrayAttribute)?.value?.Length > 0;
-            bool hasPatterns = attr.HasAttribute("filterPatterns") && (attr["filterPatterns"] as StringArrayAttribute)?.value?.Length > 0;
+            bool hasList = attr.HasAttribute("filterList")
+                && (attr["filterList"] as StringArrayAttribute)?.value?.Length > 0;
 
-            // Если фильтр абсолютно пустой, то:
-            // - Чёрный список (пустой) пропускает всё.
-            // - Белый список (пустой) не пропускает ничего.
-            if (!hasList && !hasPatterns)
+            if (!hasList && !hasItemPatterns)
             {
                 return IsBlacklist;
             }
 
-            // Для белого списка возвращаем true.
-            // Для чёрного списка возвращаем false 
             return IsBlacklist ? !matchFound : matchFound;
         }
+
+        public bool AllowsPlayer(ItemStack filterStack, string playerName)
+        {
+            if (filterStack?.Attributes == null || string.IsNullOrWhiteSpace(playerName))
+                return false;
+
+            var patterns = (filterStack.Attributes["filterPatterns"] as StringArrayAttribute)?.value;
+            bool hasPlayerNames = false;
+            bool matchFound = false;
+
+            if (patterns != null)
+            {
+                foreach (var rawPattern in patterns)
+                {
+                    if (string.IsNullOrWhiteSpace(rawPattern)) continue;
+                    if (!rawPattern.StartsWith(PlayerPatternPrefix, StringComparison.OrdinalIgnoreCase)) continue;
+
+                    string savedName = rawPattern.Substring(PlayerPatternPrefix.Length).Trim();
+                    if (savedName.Length == 0) continue;
+
+                    hasPlayerNames = true;
+
+                    if (string.Equals(savedName, playerName.Trim(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        matchFound = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!hasPlayerNames)
+            {
+                return IsBlacklist;
+            }
+
+            return IsBlacklist ? !matchFound : matchFound;
+        }
+
         public new MeshData GenMesh(ItemSlot slot, ITextureAtlasAPI targetAtlas, BlockPos atBlockPos = null)
         {
             if (!Attributes.KeyExists("rolledShape")) return null;
@@ -136,8 +156,8 @@ namespace BotaniaStory.items
                 var ba = api.World.BlockAccessor;
 
                 bool unrolledHere =
-                    ba.GetBlock(atBlockPos) is BlockGroundStorage              // пол / стол
-                    || ba.GetBlockEntity(atBlockPos) is BlockEntityDisplayCase; // витрина
+                    ba.GetBlock(atBlockPos) is BlockGroundStorage
+                    || ba.GetBlockEntity(atBlockPos) is BlockEntityDisplayCase;
 
                 if (unrolledHere) return null;
             }
@@ -151,9 +171,14 @@ namespace BotaniaStory.items
 
             var textures = new Dictionary<string, AssetLocation>();
             if (shape.Textures != null)
+            {
                 foreach (var p in shape.Textures) textures[p.Key] = p.Value;
-            if (this.Textures != null)
-                foreach (var p in this.Textures) textures[p.Key] = p.Value.Base;
+            }
+
+            if (Textures != null)
+            {
+                foreach (var p in Textures) textures[p.Key] = p.Value.Base;
+            }
 
             var cnts = new ContainedTextureSource(capi, targetAtlas, textures, $"Displayed item {Code}");
 
@@ -161,5 +186,4 @@ namespace BotaniaStory.items
             return mesh;
         }
     }
-
 }

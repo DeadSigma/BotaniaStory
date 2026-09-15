@@ -1,7 +1,11 @@
 {
 	"code": "gaiaguardian",
 	"class": "EntityGaiaGuardian",
-	"tags": [ "magical", "boss", "humanoid" ],
+	"tags": [
+		"magical",
+		"boss",
+		"humanoid"
+	],
 	"weight": 100,
 	"fallDamageMultiplier": 0.0,
 	"habitat": "Land",
@@ -19,11 +23,15 @@
 	},
 	"client": {
 		"renderer": "Shape",
-		"shape": { "base": "game:entity/humanoid/seraph" },
+		"shape": {
+			"base": "game:entity/humanoid/seraph"
+		},
 		"glowLevel": 64,
 		"size": 1.1,
 		"behaviors": [
-			{ "code": "repulseagents" },
+			{
+				"code": "repulseagents"
+			},
 			{
 				"code": "controlledphysics",
 				"stepHeight": 1.1251
@@ -33,7 +41,13 @@
 				"duration": 2.5,
 				"quantitySlots": 8
 			},
-			{ "code": "interpolateposition" },
+			{
+				"code": "interpolateposition"
+			},
+			{
+				"code": "boss",
+				"bossHpBarRange": 60
+			},
 			{
 				"code": "bossGaia",
 				"bossHpBarRange": 60,
@@ -54,13 +68,19 @@
 				"animationSpeed": 1.25,
 				"weight": 10,
 				"blendMode": "Average",
-				"triggeredBy": { "onControls": [ "dead" ] }
+				"triggeredBy": {
+					"onControls": [
+						"dead"
+					]
+				}
 			},
 			{
 				"code": "idle",
 				"animation": "idle",
 				"blendMode": "Average",
-				"triggeredBy": { "defaultAnim": true }
+				"triggeredBy": {
+					"defaultAnim": true
+				}
 			},
 			{
 				"code": "attack",
@@ -72,7 +92,9 @@
 	},
 	"server": {
 		"behaviors": [
-			{ "code": "repulseagents" },
+			{
+				"code": "repulseagents"
+			},
 			{
 				"code": "controlledphysics",
 				"stepHeight": 1.1251
@@ -124,15 +146,26 @@
 					{
 						"code": "gaiateleport",
 						"priority": 1.5,
-						"cooldownMs": 2500,
-						"rageCooldownMs": 1500
+						"cooldownMs": 3500,
+						"rageCooldownMs": 2000,
+						"minTeleportDistance": 7,
+						"minRecentTeleportDistance": 5,
+						"rememberedTeleportPositions": 4,
+						"cooldownJitter": 0.15,
+						"damageTeleportDelayMinMs": 80,
+						"damageTeleportDelayMaxMs": 180,
+						"dotTeleportCooldownMinMs": 320,
+						"dotTeleportCooldownMaxMs": 650,
+						"dotTeleportBurstDurationMs": 2200
 					},
 					{
 						"code": "seekentity",
 						"priority": 1.4,
-						"entityCodes": [ "player" ],
+						"entityCodes": [
+							"player"
+						],
 						"seekingRange": 30,
-						"movespeed": 0.00
+						"movespeed": 0.0
 					},
 					{
 						"code": "idle",

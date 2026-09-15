@@ -32,56 +32,56 @@
         "y2": 1.295,
         "z2": 0.8125
     },
-    "guiTransform": {
-        "translation": {
-            "x": -1,
-            "y": -1.43,
-            "z": 0
-        },
-        "rotation": {
-            "x": -17,
-            "y": -128,
-            "z": 1
-        },
-        "origin": {
-            "x": 0.5,
-            "y": 1.2499,
-            "z": 0.5
-        },
-        "scale": 1.09
+  "guiTransform": {
+    "translation": {
+      "x": -0.982155,
+      "y": -1.3246819,
+      "z": 0
     },
-    "groundTransform": {
-        "translation": {
-            "x": 0,
-            "y": -0.01,
-            "z": 0
-        },
-        "rotation": {
-            "x": -63,
-            "y": -45,
-            "z": 0
-        },
-        "origin": {
-            "x": 0.5,
-            "y": 0,
-            "z": 0.5
-        },
-        "scale": 3.18
+    "rotation": {
+      "x": -17,
+      "y": -128,
+      "z": 1
     },
+    "origin": {
+      "x": 0.5,
+      "y": 0.7999,
+      "z": 0.5
+    },
+    "scale": 1.49
+  },
+  "groundTransform": {
+    "translation": {
+      "x": -0.0678903,
+      "y": 0.19684714,
+      "z": 0.030821553
+    },
+    "rotation": {
+      "x": -63,
+      "y": -45,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.8,
+      "z": 0.5
+    },
+    "scale": 3.18
+  },
     "heldTpIdleAnimation": "holdbothhandslarge",
     "heldRightReadyAnimation": "heldblockready",
     "heldTpUseAnimation": "twohandplaceblock",
-    "tpHandTransform": {
-        "translation": {
-            "x": -0.43,
-            "y": -0.91,
-            "z": -0.8
-        },
-        "rotation": {
-            "x": -2,
-            "y": 25,
-            "z": -78
-        },
-        "scale": 0.48
-    }
+  "tpHandTransform": {
+    "translation": {
+      "x": -0.6756788,
+      "y": -0.67246723,
+      "z": -0.58102757
+    },
+    "rotation": {
+      "x": -94.36334,
+      "y": -167.86055,
+      "z": 114.935936
+    },
+    "scale": 0.59
+  }
 }

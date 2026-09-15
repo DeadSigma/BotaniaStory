@@ -16,5 +16,10 @@
     "lexicon_generating_flora_nightshade_p2": "Beladona:",
     "lexicon_generating_flora_hydroangeas_p2": "Precisamos de mais água, Milorde:",
     "lexicon_functional_flora_hopperhock_p2": "Leva embora sem você nem perceber:",
-    "lexicon_functional_flora_agricarnation_p2": "Cresça, grande e pequeno:"
+    "lexicon_functional_flora_agricarnation_p2": "Cresça, grande e pequeno:",
+    "btn-visualize": "Visualizar",
+    "dialog-filter-whitelist": "Lista branca de filtragem",
+    "item-filterscroll-black": "Pergaminho preto de filtragem",
+    "item-filterscroll-white": "Pergaminho branco de filtragem",
+    "dialog-filter-blacklist": "Lista negra de filtragem"
 }
