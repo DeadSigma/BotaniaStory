@@ -55,6 +55,7 @@ namespace botaniastory
             }
 
             categories = BookDataManager.GetTemplateCategories(capi);
+            BuildSearchIndex();
             SetupDialog();
         }
 
@@ -107,6 +108,13 @@ namespace botaniastory
                 {
                     chapter.IsBookmarked = true;
                 }
+            }
+
+            BuildSearchIndex();
+
+            if (currentCategory != null)
+            {
+                currentCategory = categories.FirstOrDefault(c => c.Id == currentCategory.Id);
             }
 
             if (currentCategory != null) currentCategory = categories.FirstOrDefault(c => c.Id == currentCategory.Id);
