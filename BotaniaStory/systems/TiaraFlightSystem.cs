@@ -1,6 +1,7 @@
 using BotaniaStory.client.renderers;
 using BotaniaStory.client.ui;
 using BotaniaStory.items;
+using BotaniaStory.util;
 using ProtoBuf;
 using System;
 using Vintagestory.API.Client;
@@ -14,7 +15,7 @@ namespace BotaniaStory.systems
     {
         public bool IsFlying;
         public bool ForceStop;
-        public bool IsDashing; 
+        public bool IsDashing;
     }
 
     public class TiaraFlightSystem : ModSystem
@@ -70,25 +71,14 @@ namespace BotaniaStory.systems
                         });
                     }
 
-                    // Вычитаем ману за рывок
-                    ItemSlot tabletSlot = FindManaTablet(p);
-                    ItemManaTablet tablet = tabletSlot?.Itemstack?.Item as ItemManaTablet;
-                    if (tablet != null)
+                    // за рывок списывается мана
+                    // манаброня: скидка учитывается внутри TryConsumeMana
+                    if (!ManaHelper.TryConsumeMana(p.Entity, DashManaCost))
                     {
-                        int currentMana = tablet.GetMana(tabletSlot.Itemstack);
-                        if (currentMana >= DashManaCost)
-                        {
-                            tablet.SetMana(tabletSlot.Itemstack, currentMana - DashManaCost);
-                            tabletSlot.MarkDirty();
-                        }
-                        else
-                        {
-                            // Если игрок как-то обошел клиентскую проверку, отключаем полет
-                            tablet.SetMana(tabletSlot.Itemstack, 0);
-                            tabletSlot.MarkDirty();
-                            p.Entity.WatchedAttributes.SetBool("tiaraIsFlying", false);
-                            sapi.Network.GetChannel("tiaranetwork").SendPacket(new TiaraStatePacket { ForceStop = true }, p);
-                        }
+                        // клиентская проверка обойдена - остаток маны обнуляется, полет выключается
+                        ManaHelper.TryConsumeMana(p.Entity, ManaHelper.GetTotalMana(p.Entity), false);
+                        p.Entity.WatchedAttributes.SetBool("tiaraIsFlying", false);
+                        sapi.Network.GetChannel("tiaranetwork").SendPacket(new TiaraStatePacket { ForceStop = true }, p);
                     }
                 }
             });
@@ -101,15 +91,10 @@ namespace BotaniaStory.systems
             {
                 if (player.Entity?.WatchedAttributes.GetBool("tiaraIsFlying", false) == true)
                 {
-                    ItemSlot tabletSlot = FindManaTablet(player);
-                    ItemManaTablet tablet = tabletSlot?.Itemstack?.Item as ItemManaTablet;
-                    if (tablet != null && tablet.GetMana(tabletSlot.Itemstack) >= ManaCostPerTick)
+                    // манаброня: скидка учитывается внутри TryConsumeMana
+                    if (!ManaHelper.TryConsumeMana(player.Entity, ManaCostPerTick))
                     {
-                        tablet.SetMana(tabletSlot.Itemstack, tablet.GetMana(tabletSlot.Itemstack) - ManaCostPerTick);
-                        tabletSlot.MarkDirty();
-                    }
-                    else
-                    {
+                        // мана закончилась - полет выключается
                         player.Entity.WatchedAttributes.SetBool("tiaraIsFlying", false);
                         sapi.Network.GetChannel("tiaranetwork").SendPacket(new TiaraStatePacket { ForceStop = true }, player);
                     }
@@ -173,18 +158,16 @@ namespace BotaniaStory.systems
                     }
                     else
                     {
-                        // Пытаемся включить полет. Проверяем планшет и ману прямо на клиенте!
-                        ItemSlot tabletSlot = FindManaTablet(player);
-                        ItemManaTablet tablet = tabletSlot?.Itemstack?.Item as ItemManaTablet;
-
-                        if (tablet != null && tablet.GetMana(tabletSlot.Itemstack) >= ManaCostPerTick)
+                        // полет включается только при наличии маны
+                        // манаброня: скидка учитывается внутри HasMana
+                        if (ManaHelper.HasMana(player.Entity, ManaCostPerTick))
                         {
                             clientTiaraFlying = true;
                             SendStateToServer(true);
                         }
                     }
                 }
-                lastJumpTime = capi.World.ElapsedMilliseconds; 
+                lastJumpTime = capi.World.ElapsedMilliseconds;
             }
             wasJumpPressed = isJump;
 
@@ -225,9 +208,8 @@ namespace BotaniaStory.systems
                 // РЫВОК
                 bool isSprint = player.Entity.Controls.Sprint;
 
-                ItemSlot dashTabletSlot = FindManaTablet(player);
-                ItemManaTablet dashTablet = dashTabletSlot?.Itemstack?.Item as ItemManaTablet;
-                bool hasEnoughDashMana = dashTablet != null && dashTablet.GetMana(dashTabletSlot.Itemstack) >= DashManaCost;
+                // манаброня: скидка учитывается внутри HasMana
+                bool hasEnoughDashMana = ManaHelper.HasMana(player.Entity, DashManaCost);
 
                 if (isSprint && !wasSprintPressed && dashCooldown <= 0 && currentFlightTime >= DashCost && hasEnoughDashMana)
                 {
@@ -353,16 +335,6 @@ namespace BotaniaStory.systems
             }
 
             return false;
-        }
-
-        private ItemSlot FindManaTablet(IPlayer player)
-        {
-            foreach (var inv in player.InventoryManager.Inventories.Values)
-            {
-                if (inv == null || inv.ClassName == "creative") continue;
-                foreach (var slot in inv) if (slot.Itemstack?.Item is ItemManaTablet) return slot;
-            }
-            return null;
         }
     }
 }

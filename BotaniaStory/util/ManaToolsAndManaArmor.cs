@@ -1,5 +1,6 @@
 ﻿using BotaniaStory.items;
 using System;
+using System.Collections.Generic;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -14,10 +15,162 @@ namespace BotaniaStory.util
 
     public static class ManaHelper
     {
+        // манаброня: процент скидки за полный сет 
+        public static readonly Dictionary<string, int> ArmorSetDiscounts = new Dictionary<string, int>
+        {
+            { "manasteel", 10 },
+            { "elementium", 15 },
+            { "terrasteel", 20 }
+        };
+
+        private static readonly int[] ArmorSlotIds =
+        {
+            (int)EnumCharacterDressType.ArmorHead,
+            (int)EnumCharacterDressType.ArmorBody,
+            (int)EnumCharacterDressType.ArmorLegs
+        };
+
+        // манаброня: возвращается материал надетого сета, null - сет не собран
+        // chain/scale/plate смешиваются, разные материалы - нет
+        public static string GetArmorSet(Entity entity)
+        {
+            if (!(entity is EntityPlayer entityPlayer) || entityPlayer.Player?.InventoryManager == null) return null;
+
+            IInventory gearInv = entityPlayer.Player.InventoryManager.GetOwnInventory("character");
+            if (gearInv == null) return null;
+
+            string setName = null;
+            foreach (int id in ArmorSlotIds)
+            {
+                if (id >= gearInv.Count) return null;
+
+                ItemSlot slot = gearInv[id];
+                if (slot == null || slot.Empty || !(slot.Itemstack.Item is ItemManaArmor armor)) return null;
+
+                string material = armor.FirstCodePart();
+                if (setName == null) setName = material;
+                else if (setName != material) return null;
+            }
+            return setName;
+        }
+
+        // процент скидки, 0 - сета нет
+        public static int GetManaDiscount(Entity entity)
+        {
+            string setName = GetArmorSet(entity);
+            if (setName != null && ArmorSetDiscounts.TryGetValue(setName, out int percent)) return percent;
+            return 0;
+        }
+
+        // цена со скидкой, округляется - для HUD и проверок
+        public static int GetDiscountedCost(Entity entity, int baseCost)
+        {
+            if (baseCost <= 0) return 0;
+
+            int percent = GetManaDiscount(entity);
+            if (percent <= 0) return baseCost;
+
+            long scaled = (long)baseCost * (100 - percent);
+            return Math.Max(1, (int)((scaled + 50) / 100));
+        }
+
+        private static int RollDiscountedCost(Entity entity, int baseCost)
+        {
+            if (baseCost <= 0) return 0;
+
+            int percent = GetManaDiscount(entity);
+            if (percent <= 0) return baseCost;
+
+            long scaled = (long)baseCost * (100 - percent);
+            int cost = (int)(scaled / 100);
+            long rest = scaled % 100;
+            if (rest > 0 && entity.World.Rand.Next(100) < rest) cost++;
+
+            return Math.Max(1, cost);
+        }
+
+        // сумма маны во всех планшетах игрока
+        public static int GetTotalMana(Entity entity)
+        {
+            int total = 0;
+            foreach (ItemSlot slot in GetTabletSlots(entity))
+            {
+                total += ((ItemManaTablet)slot.Itemstack.Item).GetMana(slot.Itemstack);
+            }
+            return total;
+        }
+
+        // манаброня: скидка учитывается и при проверке
+        public static bool HasMana(Entity entity, int baseCost, bool applyDiscount = true)
+        {
+            int cost = applyDiscount ? GetDiscountedCost(entity, baseCost) : baseCost;
+            return GetTotalMana(entity) >= cost;
+        }
+
+        // Списание маны для всех инструментов
+        // applyDiscount = false - для перекачки маны, иначе скидка создает ману из ничего
+        public static bool TryConsumeMana(Entity entity, int baseCost, bool applyDiscount = true)
+        {
+            int cost = applyDiscount ? RollDiscountedCost(entity, baseCost) : baseCost;
+            if (cost <= 0) return true;
+
+            List<ItemSlot> tablets = GetTabletSlots(entity);
+
+            int total = 0;
+            foreach (ItemSlot slot in tablets)
+            {
+                total += ((ItemManaTablet)slot.Itemstack.Item).GetMana(slot.Itemstack);
+            }
+            if (total < cost) return false;
+
+            // мана добирается из нескольких планшетов по очереди
+            foreach (ItemSlot slot in tablets)
+            {
+                ItemManaTablet tablet = (ItemManaTablet)slot.Itemstack.Item;
+                int mana = tablet.GetMana(slot.Itemstack);
+                if (mana <= 0) continue;
+
+                int take = Math.Min(mana, cost);
+                tablet.SetMana(slot.Itemstack, mana - take);
+                slot.MarkDirty();
+
+                cost -= take;
+                if (cost <= 0) break;
+            }
+            return true;
+        }
+
+        // планшеты ищутся в экипировке, хотбаре и рюкзаке
+        private static List<ItemSlot> GetTabletSlots(Entity entity)
+        {
+            var result = new List<ItemSlot>();
+            if (!(entity is EntityPlayer entityPlayer) || entityPlayer.Player?.InventoryManager == null) return result;
+
+            var invMan = entityPlayer.Player.InventoryManager;
+            IInventory[] invs = {
+                invMan.GetOwnInventory("character"),
+                invMan.GetOwnInventory("hotbar"),
+                invMan.GetOwnInventory("backpack")
+            };
+
+            foreach (var inv in invs)
+            {
+                if (inv == null) continue;
+                foreach (var slot in inv)
+                {
+                    if (slot != null && !slot.Empty && slot.Itemstack.Item is ItemManaTablet) result.Add(slot);
+                }
+            }
+            return result;
+        }
+
         public static int ProcessDamage(Entity byEntity, int amount, int manaPerDamage = 120)
         {
             if (amount <= 0 || !(byEntity is EntityPlayer entityPlayer) || entityPlayer.Player == null)
                 return amount;
+
+            // манаброня: скидка на ману вместо прочности
+            manaPerDamage = RollDiscountedCost(byEntity, manaPerDamage);
 
             IPlayer player = entityPlayer.Player;
             int remainingDamage = amount;
@@ -63,6 +216,7 @@ namespace BotaniaStory.util
     }
 
     // КЛАССЫ ИНСТРУМЕНТОВ
+    // манаброня: у всех классов ниже скидка учитывается внутри ProcessDamage
 
     // Базовый класс для лопаты, кирки, меча, копья (не требуют сложной ванильной логики)
     public class ItemManaTool : Item, IManaRepairable
@@ -366,7 +520,8 @@ namespace BotaniaStory.util
         {
             if (player?.InventoryManager == null) return;
 
-            int manaPerRepair = 120; // мана за 1 ед. прочности
+            // манаброня: скидка на починку
+            int manaPerRepair = ManaHelper.GetDiscountedCost(player.Entity, 120); // мана за 1 ед. прочности
 
             IInventory gearInv = player.InventoryManager.GetOwnInventory("character");
             IInventory hotbarInv = player.InventoryManager.GetOwnInventory("hotbar");

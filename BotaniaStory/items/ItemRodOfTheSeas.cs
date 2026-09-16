@@ -7,6 +7,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 using BotaniaStory.blockentity;
+using BotaniaStory.util;
 
 namespace BotaniaStory.items
 {
@@ -104,9 +105,9 @@ namespace BotaniaStory.items
             int mode = GetToolMode(slot, player, blockSel);
             int manaCost = mode == ModeRapidWater ? RapidManaCost : ManaCost;
 
-            // Ищем планшет с нужным количеством маны. Если такого нет - прерываем действие
-            ItemSlot tabletSlot = GetValidManaTablet(player, manaCost);
-            if (tabletSlot == null) return;
+            // при нехватке маны действие прерывается
+            // манаброня: скидка учитывается внутри HasMana
+            if (!ManaHelper.HasMana(byEntity, manaCost)) return;
 
             // РЕЖИМ 1: БУРНАЯ ВОДА (только установка блока, в тару её налить нельзя)
             if (mode == ModeRapidWater)
@@ -121,7 +122,7 @@ namespace BotaniaStory.items
 
                 if (TryPlaceLiquid(world, blockSel, rapid, out BlockPos rapidPos))
                 {
-                    ConsumeMana(tabletSlot, manaCost);
+                    ConsumeMana(byEntity, manaCost);
                     world.PlaySoundAt(new AssetLocation("game", "sounds/environment/smallsplash"), rapidPos.X, rapidPos.Y, rapidPos.Z, player);
                     handling = EnumHandHandling.PreventDefault;
                     return;
@@ -151,7 +152,7 @@ namespace BotaniaStory.items
                         apothecary.MarkDirty(true);
                     }
 
-                    ConsumeMana(tabletSlot, manaCost);
+                    ConsumeMana(byEntity, manaCost);
                     world.PlaySoundAt(new AssetLocation("game", "sounds/environment/smallsplash"), pos.X, pos.Y, pos.Z, player);
                     handling = EnumHandHandling.PreventDefault;
                     return;
@@ -188,7 +189,7 @@ namespace BotaniaStory.items
                                         beContainer.MarkDirty(true);
                                     }
 
-                                    ConsumeMana(tabletSlot, manaCost);
+                                    ConsumeMana(byEntity, manaCost);
                                     world.PlaySoundAt(new AssetLocation("game", "sounds/environment/smallsplash"), pos.X, pos.Y, pos.Z, player);
                                     handling = EnumHandHandling.PreventDefault;
                                     return;
@@ -241,7 +242,7 @@ namespace BotaniaStory.items
                                 firepit.MarkDirty(true);
                             }
 
-                            ConsumeMana(tabletSlot, manaCost);
+                            ConsumeMana(byEntity, manaCost);
                             world.PlaySoundAt(new AssetLocation("game", "sounds/environment/smallsplash"), pos.X, pos.Y, pos.Z, player);
                             handling = EnumHandHandling.PreventDefault;
                             return;
@@ -257,7 +258,7 @@ namespace BotaniaStory.items
             Block water = GetWaterSourceBlock(world);
             if (water != null && TryPlaceLiquid(world, blockSel, water, out BlockPos waterPos))
             {
-                ConsumeMana(tabletSlot, manaCost);
+                ConsumeMana(byEntity, manaCost);
                 world.PlaySoundAt(new AssetLocation("game", "sounds/environment/smallsplash"), waterPos.X, waterPos.Y, waterPos.Z, player);
                 handling = EnumHandHandling.PreventDefault;
                 return;
@@ -346,38 +347,11 @@ namespace BotaniaStory.items
 
         // Вспомогательные методы для работы с маной
 
-        // Ищет в инвентаре игрока первый попавшийся планшет маны, в котором есть необходимое количество маны
-        private ItemSlot GetValidManaTablet(IPlayer player, int requiredMana)
+        // мана списывается из всех планшетов игрока по очереди
+        // манаброня: скидка учитывается внутри TryConsumeMana
+        private void ConsumeMana(EntityAgent byEntity, int amount)
         {
-            if (player == null) return null;
-
-            foreach (var inv in player.InventoryManager.OpenedInventories)
-            {
-                foreach (var slot in inv)
-                {
-                    if (slot.Empty) continue;
-
-                    if (slot.Itemstack.Item is ItemManaTablet tablet)
-                    {
-                        if (tablet.GetMana(slot.Itemstack) >= requiredMana)
-                        {
-                            return slot;
-                        }
-                    }
-                }
-            }
-            return null;
-        }
-
-        // Списывает ману из найденного слота с планшетом
-        private void ConsumeMana(ItemSlot tabletSlot, int amount)
-        {
-            if (tabletSlot?.Itemstack?.Item is ItemManaTablet tablet)
-            {
-                int currentMana = tablet.GetMana(tabletSlot.Itemstack);
-                tablet.SetMana(tabletSlot.Itemstack, currentMana - amount);
-                tabletSlot.MarkDirty();
-            }
+            ManaHelper.TryConsumeMana(byEntity, amount);
         }
     }
 }

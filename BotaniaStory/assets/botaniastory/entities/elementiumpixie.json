@@ -1,0 +1,63 @@
+{
+  "code": "elementiumpixie",
+  "class": "ElementiumPixie",
+  "habitat": "air",
+  "hitboxSize": {
+    "x": 0.25,
+    "y": 0.35
+  },
+  "deadHitboxSize": {
+    "x": 0.25,
+    "y": 0.35
+  },
+  "eyeHeight": 0.2,
+  "weight": 0.1,
+  "fallDamage": false,
+  "canClimb": false,
+  "sounds": {
+    "attack": "botaniastory:entity/pixie-attack",
+    "heal": "botaniastory:entity/pixie-heal"
+  },
+  "client": {
+    "renderer": "Shape",
+    "shape": {
+      "base": "botaniastory:entity/pixie"
+    },
+    "texture": {
+      "base": "botaniastory:entity/pixie"
+    },
+    "glowLevel": 128,
+    "size": 0.65,
+    "animations": [
+      {
+        "code": "flutter",
+        "animation": "flutter",
+        "animationSpeed": 2.35,
+        "weight": 1,
+        "blendMode": "Average",
+        "easeInSpeed": 20,
+        "easeOutSpeed": 20,
+        "triggeredBy": {
+          "defaultAnim": true
+        }
+      },
+      {
+        "code": "attack",
+        "animation": "attack",
+        "animationSpeed": 1.8,
+        "weight": 4,
+        "blendMode": "Average",
+        "easeInSpeed": 25,
+        "easeOutSpeed": 20
+      }
+    ],
+    "behaviors": [
+      {
+        "code": "interpolateposition"
+      }
+    ]
+  },
+  "server": {
+    "behaviors": []
+  }
+}

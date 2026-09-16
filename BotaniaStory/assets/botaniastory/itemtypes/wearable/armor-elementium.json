@@ -6,11 +6,19 @@
 	"variantgroups": [
 		{
 			"code": "bodypart",
-			"states": [ "head", "body", "legs" ]
+			"states": [
+				"head",
+				"body",
+				"legs"
+			]
 		},
 		{
 			"code": "construction",
-			"states": [ "chain", "scale", "plate" ]
+			"states": [
+				"chain",
+				"scale",
+				"plate"
+			]
 		}
 	],
 	"allowedVariants": [
@@ -19,17 +27,25 @@
 		"elementium-armor-*-plate"
 	],
 	"shapeByType": {
-		"*": { "base": "botaniastory:entity/wearable/armor/{construction}/{bodypart}-elementium" }
+		"*": {
+			"base": "botaniastory:entity/wearable/armor/{construction}/{bodypart}-elementium"
+		}
 	},
 	"texturesByType": {
 		"*": {
-			"seraph": { "base": "game:block/transparent" },
-			"material": { "base": "botaniastory:entity/wearable/armor/{construction}/elementium" }
+			"seraph": {
+				"base": "game:block/transparent"
+			},
+			"material": {
+				"base": "botaniastory:entity/wearable/armor/{construction}/elementium"
+			}
 		}
 	},
 	"storageFlags": 128,
 	"behaviors": [
-		{ "name": "Wearable" }
+		{
+			"name": "Wearable"
+		}
 	],
 	"attributes": {
 		"visibleDamageEffect": true,
@@ -46,20 +62,81 @@
 				"*-legs-*": "armorlegs"
 			},
 			"disableElementsByType": {
-				"*-head-chain": [ "hidehat", "Hair tile upper part", "ponytailhigh", "ponytaillow", "hair-uncovered", "sidehigh", "sidelow", "bangs" ],
-				"*-head-scale": [ "hidehat", "Hair tile upper part", "ponytailhigh", "ponytaillow", "hair-uncovered", "sidehigh", "sidelow", "bangs" ],
-				"*-head-plate": [ "hidehat", "hoodshoulder", "hoodupperover", "Hair tile upper part", "ponytailhigh", "ponytaillow", "Hair", "hair-uncovered", "sidehigh", "sidelow", "bangs", "hidebeardfront" ],
-				"*-body-*": [ "Waist", "hideupperarm", "hidelowerarm", "mittenfrill-l", "mittenfrill-r", "glovefrill-l", "glovefrill-r", "ShirtFrontTile", "ShirtBackTile", "coatFrontTile", "coatBackTile", "shouldertextureFrontTile", "shouldertextureBackTile" ],
-				"*-legs-plate": [ "shoeL", "shoeR" ],
-				"*-legs-*": [ "hideshoeL", "hideshoeR", "shoefluffL", "shoefluffR" ]
+				"*-head-chain": [
+					"hidehat",
+					"Hair tile upper part",
+					"ponytailhigh",
+					"ponytaillow",
+					"hair-uncovered",
+					"sidehigh",
+					"sidelow",
+					"bangs"
+				],
+				"*-head-scale": [
+					"hidehat",
+					"Hair tile upper part",
+					"ponytailhigh",
+					"ponytaillow",
+					"hair-uncovered",
+					"sidehigh",
+					"sidelow",
+					"bangs"
+				],
+				"*-head-plate": [
+					"hidehat",
+					"hoodshoulder",
+					"hoodupperover",
+					"Hair tile upper part",
+					"ponytailhigh",
+					"ponytaillow",
+					"Hair",
+					"hair-uncovered",
+					"sidehigh",
+					"sidelow",
+					"bangs",
+					"hidebeardfront"
+				],
+				"*-body-*": [
+					"Waist",
+					"hideupperarm",
+					"hidelowerarm",
+					"mittenfrill-l",
+					"mittenfrill-r",
+					"glovefrill-l",
+					"glovefrill-r",
+					"ShirtFrontTile",
+					"ShirtBackTile",
+					"coatFrontTile",
+					"coatBackTile",
+					"shouldertextureFrontTile",
+					"shouldertextureBackTile"
+				],
+				"*-legs-plate": [
+					"shoeL",
+					"shoeR"
+				],
+				"*-legs-*": [
+					"hideshoeL",
+					"hideshoeR",
+					"shoefluffL",
+					"shoefluffR"
+				]
 			},
 			"keepElementsByType": {
-				"*-head-*": [ "hair-covered" ]
+				"*-head-*": [
+					"hair-covered"
+				]
 			}
 		},
 		"defaultProtLoss": {
-			"perTierRelativeProtectionLoss": [ 0.03, 0.15 ],
-			"perTierFlatDamageReductionLoss": [ 0.1, 0.2 ]
+			"perTierRelativeProtectionLoss": [
+				0.03,
+				0.15
+			],
+			"perTierFlatDamageReductionLoss": [
+				0.1,
+				0.2
+			]
 		},
 		"footStepSoundByType": {
 			"*-body-chain": "game:wearable/chain*",
@@ -68,20 +145,20 @@
 		},
 		"protectionModifiersByType": {
 			"*-chain": {
-				"relativeProtection": 0.87,
-				"flatDamageReduction": 1.41,
-				"protectionTier": 4
+				"relativeProtection": 0.81,
+				"flatDamageReduction": 1.13,
+				"protectionTier": 1
 			},
 			"*-scale": {
-				"relativeProtection": 0.91,
-				"flatDamageReduction": 1.61,
-				"protectionTier": 4
+				"relativeProtection": 0.85,
+				"flatDamageReduction": 1.33,
+				"protectionTier": 1
 			},
 			"*-plate": {
-				"relativeProtection": 0.98,
-				"flatDamageReduction": 1.81,
+				"relativeProtection": 0.91,
+				"flatDamageReduction": 1.53,
 				"highDamageTierResistant": true,
-				"protectionTier": 4
+				"protectionTier": 1
 			}
 		},
 		"statModifiersByType": {
@@ -109,14 +186,18 @@
 		}
 	},
 	"creativeinventory": {
-		"general": [ "*" ],
-		"botaniastory": [ "*" ]
+		"general": [
+			"*"
+		],
+		"botaniastory": [
+			"*"
+		]
 	},
 	"renderAlphaTest": 0.25,
 	"durabilityByType": {
-		"*-chain": 2000,
-		"*-scale": 3500,
-		"*-plate": 5500
+		"*-chain": 650,
+		"*-scale": 850,
+		"*-plate": 1050
 	},
 	"fpHandTransformByType": {
 		"*-head-*": {

@@ -94,7 +94,7 @@ namespace BotaniaStory.lexicon
 
             { "rusted_world_artifacts", new[] { "rustworld-air", "blackholetalisman", "flight-tiara" } },
 
-            { "elfmania", new[] { "alfheimgates", "elfresources", "gaiaritual", "elementiumitem"  } },
+            { "elfmania", new[] { "alfheimgates", "elfresources", "gaiaritual", "elementiumitem", "overgrowthseed" , "gaiaspirit" } },
 
             { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "flask", "root-normal", "root-rusted" } },
 
@@ -2464,7 +2464,7 @@ namespace BotaniaStory.lexicon
                         {
                             RecipeType = "Grid",
                             Spread = 0,
-                            UiKey = "Сетка_Правая_Манашлем",
+                            UiKey = "Сетка_Правая_Нижняя",
                             Grid = new string[9] {
                               null, "game:metalchain-manasteel", null,
                               "game:metalchain-manasteel", null, "game:metalchain-manasteel",
@@ -2965,11 +2965,11 @@ namespace BotaniaStory.lexicon
                         {
                             RecipeType = "Grid",
                             Spread = 0,
-                            UiKey = "Сетка_Правая_Манашлем",
+                            UiKey = "Сетка_Правая_Террашлем",
                             Grid = new string[9] {
-                      null, "game:metalchain-terrasteel", null,
-                      "game:metalchain-terrasteel", null, "game:metalchain-terrasteel",
-                      null, null, null},
+                              null, "game:metalchain-terrasteel", null,
+                              "game:metalchain-terrasteel", null, "game:metalchain-terrasteel",
+                              null, null, null},
                             Output = "botaniastory:terrasteel-armor-head-chain"
                         });
 
@@ -3839,6 +3839,20 @@ namespace BotaniaStory.lexicon
                             AnvilBlock = "game:anvil-*",
                             Output = "botaniastory:shears-elementium"
                         });
+                    }
+
+                    // РИТУАЛ СЕМЯ РАЗРАСТАНИЯ
+                    else if (chapId == "overgrowthseed")
+                    {
+                        chapter.TabItemCode = "botaniastory:overgrowthseed";
+
+                    }
+
+                    // РИТУАЛ ДУХ ГАЙИ
+                    else if (chapId == "gaiaspirit")
+                    {
+                        chapter.TabItemCode = "botaniastory:gaiaspirit";
+
                     }
 
                     // ЗЕМЛЕКРУШИТЕЛЬ

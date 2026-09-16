@@ -258,37 +258,14 @@ namespace BotaniaStory.items
         {
             if (player != null)
             {
-                foreach (var inv in player.InventoryManager.Inventories.Values)
-                {
-                    if (inv.ClassName != "hotbar" && inv.ClassName != "backpack") continue;
+                // манаброня: скидка учитывается внутри TryConsumeMana
+                if (ManaHelper.TryConsumeMana(player.Entity, amount)) return true;
 
-                    foreach (ItemSlot slot in inv)
-                    {
-                        if (slot.Empty) continue;
-
-                        if (slot.Itemstack.Item is ItemManaTablet tablet)
-                        {
-                            int tabletMana = tablet.GetMana(slot.Itemstack);
-
-                            if (tabletMana >= amount)
-                            {
-                                tablet.SetMana(slot.Itemstack, tabletMana - amount);
-                                slot.MarkDirty();
-                                return true;
-                            }
-                        }
-                    }
-                }
+                // манаброня: скидка действует и на запас самой кирки
+                amount = ManaHelper.GetDiscountedCost(player.Entity, amount);
             }
 
-            int current = GetCurrentMana(stack);
-            if (current >= amount)
-            {
-                stack.Attributes.SetInt("currentMana", current - amount);
-                return true;
-            }
-
-            return false;
+            return ConsumeMana(stack, amount);
         }
 
         public bool ConsumeMana(ItemStack stack, int amount)
@@ -303,6 +280,7 @@ namespace BotaniaStory.items
         }
 
         //  тратим ману вместо прочности
+        // манаброня: скидка учитывается внутри ProcessDamage
         public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
         {
             amount = ManaHelper.ProcessDamage(byEntity, amount);

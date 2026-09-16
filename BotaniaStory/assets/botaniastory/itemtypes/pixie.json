@@ -1,0 +1,17 @@
+{
+  "code": "pixie",
+  "class": "Item",
+  "shape": {
+    "base": "botaniastory:item/pixie"
+  },
+  "textures": {
+    "all": {
+      "base": "botaniastory:item/pixie"
+    }
+  },
+  "creativeinventory": {
+    "botaniastory": [
+      "*"
+    ]
+  }
+}

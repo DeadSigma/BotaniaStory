@@ -1,0 +1,10 @@
+[
+  {
+    "op": "add",
+    "path": "/server/behaviors/-",
+    "value": {
+      "code": "elementiumpixies"
+    },
+    "file": "game:entities/humanoid/player.json"
+  }
+]
