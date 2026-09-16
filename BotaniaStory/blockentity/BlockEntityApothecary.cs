@@ -65,7 +65,7 @@ namespace BotaniaStory.blockentity
             { "agricarnation-free", new() { { "mysticalpetal-lime", 2 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-yellow", 1 }, { "root-rusted", 1 }, { "rune-spring", 1 } } },
             { "hydroangeas-free", new() { { "mysticalpetal-blue", 2 }, { "mysticalpetal-cyan", 2 }, { "manaitem-manapowder", 1 } } },
             { "nightshade-free", new() { { "mysticalpetal-black", 2 }, { "mysticalpetal-gray", 1 }, { "mysticalpetal-magenta", 1 } } },
-            { "wardbloom-free", new() { { "mysticalpetal-white", 2 }, { "mysticalpetal-lightblue", 2 }, { "mysticalpetal-black", 1 }, { "rune-earth", 1 }, { "rune-mana", 2 }, { "rune-winter", 1 }, { "rune-wrath", 1 }, { "overgrowthseed", 1 } } }
+            { "wardbloom-free", new() { { "mysticalpetal-white", 1 }, { "mysticalpetal-lightblue", 1 }, { "mysticalpetal-black", 1 }, { "rune-earth", 1 }, { "rune-mana", 2 }, { "rune-winter", 1 }, { "rune-wrath", 1 }, { "overgrowthseed", 1 } } }
         };
 
         public void CheckCrafting()

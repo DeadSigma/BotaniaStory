@@ -23,7 +23,7 @@
 	"variantgroups": [
 		{
 			"code": "metal",
-			"states": [ "manasteel", "terrasteel" ]
+			"states": [ "manasteel", "terrasteel", "elementium" ]
 		}
 	],
 	"shape": { "base": "game:item/scales" },

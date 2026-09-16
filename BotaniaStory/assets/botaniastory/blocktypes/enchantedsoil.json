@@ -6,12 +6,12 @@
         "flora": [ "enchantedsoil" ],
         "terrain": [ "enchantedsoil" ]
     },
-    "shape": { "base": "block/basic/cube" },
+    "shape": { "base": "game:block/basic/cube" },
     "drawtype": "Cube",
     "blockmaterial": "Soil",
     "textures": {
       "up": { "base": "botaniastory:block/enchantedsoil-top " },
-        "down": { "base": "game:block/fertmedium" },
+      "down": { "base": "botaniastory:block/enchantedsoil-side" },
         "north": { "base": "botaniastory:block/enchantedsoil-side" },
         "east": { "base": "botaniastory:block/enchantedsoil-side" },
         "south": { "base": "botaniastory:block/enchantedsoil-side" },

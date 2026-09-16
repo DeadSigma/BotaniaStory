@@ -4,7 +4,7 @@
         "type": "item",
         "code": "game:ingot-*",
         "name": "metal",
-        "allowedVariants": [ "manasteel", "terrasteel" ]
+        "allowedVariants": [ "manasteel", "terrasteel", "elementium" ]
     },
     "name": "plate",
     "pattern": [

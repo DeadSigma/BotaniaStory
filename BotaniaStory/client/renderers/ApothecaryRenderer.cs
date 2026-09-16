@@ -147,11 +147,18 @@ namespace BotaniaStory.client.renderers
                         finalSpread = 5f; 
                     }
 
+                    if (itemCode.Contains("botaniastory:overgrowthseed"))
+                    {
+                        finalScale = 0.55f;
+                        finalHeight += -0.45f;
+                        finalSpread = 5f;
+                        finalRotX = GameMath.PIHALF;
+                    }
+
                     if (itemCode.Contains("mysticalflower"))
                     {
                         finalScale = 0.35f;
                         finalHeight += 0.08f;
-                        finalRotX = GameMath.PIHALF;
                         finalRotY = GameMath.PI;
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
 

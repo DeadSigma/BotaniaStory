@@ -9,7 +9,7 @@
 		"overgrowthseed": [16, 16]
 	},
 	"textures": {
-		"overgrowthseed": "overgrowthseed"
+		"overgrowthseed": "botaniastory:item/overgrowthseed"
 	},
 	"elements": [
 		{

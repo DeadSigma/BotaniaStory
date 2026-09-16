@@ -602,12 +602,12 @@ namespace BotaniaStory.lexicon
                         chapter.Recipes.Add(new BookRecipe()
                         {
                             RecipeType = "Apothecary",
-                            Spread = 0,
-                            UiKey = "Аптекарь_Область_Правая",
+                            Spread = 1,
+                            UiKey = "Аптекарь_Область_Левая",
                             ApothecaryIngredients = new string[]
                             {
-                                "botaniastory:mysticalpetal-white@2",
-                                "botaniastory:mysticalpetal-lightblue@2",
+                                "botaniastory:mysticalpetal-white",
+                                "botaniastory:mysticalpetal-lightblue",
                                 "botaniastory:mysticalpetal-black",
                                 "botaniastory:rune-earth",
                                 "botaniastory:rune-mana@2",

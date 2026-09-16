@@ -10,7 +10,7 @@
 		"pylon_pink.png": [64, 64]
 	},
 	"textures": {
-		"pylon_blue": "pylon_blue",
+		"pylon_blue": "block/pylon_blue",
 		"pylon_pink.png": "block/pylon_pink"
 	},
 	"elements": [
