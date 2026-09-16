@@ -759,7 +759,7 @@
     "lexicon_mystical_items_terrashatterer_p2": "クラスは採掘速度には影響せず、<link=nothing>アクティブ能力</link>を強化します。この能力は<link=nothing>右クリック</link>で発動します。発動中、ツールは範囲内のブロックを破壊するようになります。クラス2では小さな縦列、クラス3では3x3範囲となり、その後も範囲は拡大し続けます。クラス0のツールには能力が存在しません。能力が有効な間は、ツルハシを使用していなくても徐々にマナを消費します。\n\n<link=manaitem>マナスチール</link>製アイテムと同様に、テラシャッターラーは通常の耐久値の代わりにマナを消費します。クラスが高いほど、維持に必要なマナ量も増加します。",
     "lexicon_mystical_items_terrashatterer_p3": "テラシャッターラーのヘッド作成:\n\n\n\n金色パーツの作成:\n\n\n\nテラシャッターラーの作成:",
     "lexicon_mystical_items_terrasteelitem_title": "テラースチール製アイテム",
-    "lexicon_mystical_items_terrasteelitem_p1": "<link=manapool>テラースチール</link>は、頑丈で信頼性の高いツールや防具の作成に使用されます。性能は鉄に匹敵し、戦闘や日常作業に適しています。\n\n最大の特徴はマナの利用です。ダメージを受けると、装備は<link=manatablet>マナタブレット</link>などの利用可能な源からマナを消費し、耐久値の減少を防ぎます。マナがある限り、装備は劣化しません。\n\nテラースチール板の作成:",
+    "lexicon_mystical_items_terrasteelitem_p1": "<link=manapool>テラスチール</link>は、丈夫で信頼性の高い道具や防具の作成に使用されます。性能は鋼より少し優れており、戦闘や日常の作業に適しています。\n\n最大の特徴はマナとの連携です。ダメージを受けると、アイテムは<link=manatablet>マナタブレット</link>などの利用可能な供給源からマナを消費し、耐久値の減少を防ぎます。マナがある限り、装備は消耗しません。\n\nテラスチールのプレートの作成：",
     "lexicon_mystical_items_terrasteelitem_p2": "フルセットの防具は徐々にマナを生成し、毎秒安定したパッシブ増加を提供します。\n\nテラースチールのチェインアーマーの作成：\n\n\n\n\n\nテラースチールのチェインヘルメットの作成：\n\n\n\n\n\n",
     "lexicon_mystical_items_terrasteelitem_p3": "テラースチールのチェインチェストプレートの作成：\n\n\n\n\n\n\n\n\n\n\nテラースチールのチェイングリーブの作成：",
     "lexicon_mystical_items_terrasteelitem_p4": "テラースチールのプレートヘルメットの作成：\n\n\n\n\n\n\n\n\n\n\nテラースチールのプレートチェストプレートの作成：",

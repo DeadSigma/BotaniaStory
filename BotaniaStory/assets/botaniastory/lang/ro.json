@@ -21,5 +21,6 @@
     "dialog-filter-whitelist": "Lista albă de filtrare",
     "item-filterscroll-black": "Pergament negru de filtrare",
     "item-filterscroll-white": "Pergament alb de filtrare",
-    "dialog-filter-blacklist": "Lista neagră de filtrare"
+    "dialog-filter-blacklist": "Lista neagră de filtrare",
+    "lexicon_mystical_items_terrasteelitem_p1": "<link=manapool>Terrațelul</link> este folosit pentru a crea unelte și armuri rezistente și fiabile. Caracteristicile sale sunt puțin mai bune decât cele ale oțelului, fiind potrivit pentru luptă și sarcini de zi cu zi.\n\nPrincipala sa caracteristică este lucrul cu mana. Atunci când primesc daune, obiectele consumă mana din sursele disponibile, de exemplu din <link=manatablet>tableta de mana</link>, prevenind pierderea durabilității. Echipamentul nu se uzează cât timp există mana disponibilă.\n\nCrearea unei plăci de terrațel:"
 }

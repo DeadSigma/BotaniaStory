@@ -755,7 +755,7 @@
     "lexicon_mystical_items_terrashatterer_p2": "阶级不会影响挖掘速度，而是会强化<link=nothing>主动能力</link>，该能力通过<link=nothing>右键</link>激活。激活后，工具会范围破坏方块：2阶时为一小列，3阶时为3x3区域，之后范围还会继续扩大。0阶工具没有该能力。只要能力处于激活状态，即使镐子没有被使用，也会持续消耗魔力。\n\n和<link=manaitem>魔力钢</link>物品一样，大地粉碎者消耗的是魔力而非普通耐久。阶级越高，维持运作所需的魔力也越多。",
     "lexicon_mystical_items_terrashatterer_p3": "大地粉碎者镐头的制作：\n\n\n\n金色部件的制作：\n\n\n\n大地粉碎者的制作：",
     "lexicon_mystical_items_terrasteelitem_title": "泰拉钢物品",
-    "lexicon_mystical_items_terrasteelitem_p1": "<link=manapool>泰拉钢</link>用于制作坚固可靠的工具和护甲。其性能与铁相当，适合战斗和日常使用。\n\n其主要特点是使用魔力。受到伤害时，物品会从可用来源（例如<link=manatablet>魔力平板</link>）消耗魔力，从而防止耐久损失。只要有魔力，装备就不会损坏。\n\n泰拉钢板的制作：",
+    "lexicon_mystical_items_terrasteelitem_p1": "<link=manapool>泰拉钢</link>用于制作坚固可靠的工具和盔甲。其性能略优于钢，适合战斗和日常工作。\n\n其主要特点是与魔力协同。当受到伤害时，物品会消耗可用来源中的魔力，例如<link=manatablet>魔力平板</link>中的魔力，从而防止耐久度损失。只要有魔力，装备就不会损耗。\n\n制作泰拉钢板：",
     "lexicon_mystical_items_terrasteelitem_p2": "整套护甲会逐渐生成魔力，每秒提供稳定的被动增长。\n\n制作泰拉钢锁子甲：\n\n\n\n\n\n制作泰拉钢锁子甲头盔：\n\n\n\n\n\n",
     "lexicon_mystical_items_terrasteelitem_p3": "制作泰拉钢锁子甲胸甲：\n\n\n\n\n\n\n\n\n\n\n制作泰拉钢锁子甲护腿：",
     "lexicon_mystical_items_terrasteelitem_p4": "制作泰拉钢板甲头盔：\n\n\n\n\n\n\n\n\n\n\n制作泰拉钢板甲胸甲：",

@@ -21,5 +21,6 @@
     "dialog-filter-whitelist": "Lista branca de filtragem",
     "item-filterscroll-black": "Pergaminho preto de filtragem",
     "item-filterscroll-white": "Pergaminho branco de filtragem",
-    "dialog-filter-blacklist": "Lista negra de filtragem"
+    "dialog-filter-blacklist": "Lista negra de filtragem",
+    "lexicon_mystical_items_terrasteelitem_p1": "<link=manapool>Terrasteel</link> é usado para criar ferramentas e armaduras resistentes e confiáveis. Seus atributos são ligeiramente melhores que os do aço, sendo adequado para combate e tarefas do dia a dia.\n\nSua principal característica é trabalhar com mana. Ao receber dano, os itens consomem mana das fontes disponíveis, como o <link=manatablet>tablete de mana</link>, evitando a perda de durabilidade. O equipamento não se desgasta enquanto houver mana disponível.\n\nCriação de uma placa de terrasteel:"
 }
