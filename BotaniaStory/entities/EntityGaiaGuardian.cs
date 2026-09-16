@@ -27,8 +27,10 @@ namespace BotaniaStory.entities
         private const float PlayerConfineMargin = 5.0f;     // дальше этого игрока не трогает
         private const float PlayerClampReturnDepth = 0.5f;  // насколько внутрь от кромки ставить игрока
 
-        private ILoadedSound bossMusic;
-        private bool isMusicStarted = false;
+        private const float BossMusicRange = 60f;
+        private MusicTrack bossMusicTrack;
+        private long bossMusicStartLoadingMs;
+        private long bossMusicHandlerId;
         // Ритуал сбрасывается, если в арене нет живых игроков дольше этого времени (смерть/уход)
         private const float RitualAbandonSeconds = 1f;
 
@@ -108,31 +110,173 @@ namespace BotaniaStory.entities
                     tm.OnShouldExecuteTask += task => WatchedAttributes.GetFloat("gaiaBirthTimer", 0f) <= 0f;
                 }
             }
-            else if (api.Side == EnumAppSide.Client)
-            {
-                ICoreClientAPI capi = (ICoreClientAPI)api;
-
-                // Загружаем как музыку, но без сложной регистрации
-                bossMusic = capi.World.LoadSound(new SoundParams()
-                {
-                    Location = new AssetLocation("botaniastory", "sounds/gaia_music"),
-                    ShouldLoop = true,
-                    DisposeOnFinish = false,
-                    Volume = 1.0f,
-                    SoundType = EnumSoundType.Music // Трек реагирует на ползунок "Музыка" в настройках!
-                });
-            }
         }
+
         public override void OnEntityDespawn(EntityDespawnData despawn)
         {
             base.OnEntityDespawn(despawn);
 
-            if (World.Side == EnumAppSide.Client && bossMusic != null)
+            if (World.Side == EnumAppSide.Client)
             {
-                bossMusic.Stop();
-                bossMusic.Dispose();
-                bossMusic = null;
+                DisposeBossMusic();
             }
+        }
+
+        private ICoreClientAPI ClientApi => Api as ICoreClientAPI;
+
+        private void StartBossMusic()
+        {
+            ICoreClientAPI capi = ClientApi;
+            if (capi == null) return;
+            if (bossMusicTrack != null) return;
+
+            bossMusicStartLoadingMs = capi.World.ElapsedMilliseconds;
+
+            bossMusicTrack = capi.StartTrack(
+                new AssetLocation("botaniastory", "sounds/gaia_music"),
+                99f,
+                EnumSoundType.MusicGlitchunaffected,
+                OnBossMusicLoaded
+            );
+
+            if (bossMusicTrack != null)
+            {
+                bossMusicTrack.Priority = 5f;
+            }
+        }
+
+        private void OnBossMusicLoaded(ILoadedSound sound)
+        {
+            ICoreClientAPI capi = ClientApi;
+            MusicTrack loadingTrack = bossMusicTrack;
+
+            if (capi == null || loadingTrack == null)
+            {
+                sound?.Dispose();
+                return;
+            }
+
+            if (sound == null) return;
+
+            sound.SetLooping(true);
+            loadingTrack.Sound = sound;
+            loadingTrack.ManualDispose = true;
+
+            long passedMs =
+                capi.World.ElapsedMilliseconds -
+                bossMusicStartLoadingMs;
+
+            bossMusicHandlerId = capi.Event.RegisterCallback(_ =>
+            {
+                if (sound.IsDisposed) return;
+
+                if (bossMusicTrack != loadingTrack)
+                {
+                    sound.Dispose();
+                    return;
+                }
+
+                EntityPlayer player = capi.World.Player?.Entity;
+                if (player != null)
+                {
+                    float distance =
+                        (float)Pos.DistanceTo(player.Pos);
+
+                    sound.SetVolume(
+                        Math.Max(
+                            0f,
+                            1f - distance / BossMusicRange
+                        )
+                    );
+                }
+
+                sound.Start();
+                loadingTrack.loading = false;
+            }, (int)Math.Max(0, 500 - passedMs));
+        }
+
+        private void StopBossMusic()
+        {
+            ICoreClientAPI capi = ClientApi;
+            if (capi == null || bossMusicTrack == null) return;
+
+            if (bossMusicHandlerId != 0)
+            {
+                capi.Event.UnregisterCallback(bossMusicHandlerId);
+                bossMusicHandlerId = 0;
+            }
+
+            MusicTrack track = bossMusicTrack;
+            ILoadedSound sound = track.Sound;
+            bossMusicTrack = null;
+
+            if (sound == null || sound.IsDisposed)
+            {
+                track.Stop();
+                return;
+            }
+
+            track.FadeOut(2f);
+
+            capi.Event.RegisterCallback(_ =>
+            {
+                if (!sound.IsDisposed)
+                {
+                    sound.Dispose();
+                }
+            }, 2100);
+        }
+
+        private void DisposeBossMusic()
+        {
+            ICoreClientAPI capi = ClientApi;
+
+            if (capi != null && bossMusicHandlerId != 0)
+            {
+                capi.Event.UnregisterCallback(bossMusicHandlerId);
+                bossMusicHandlerId = 0;
+            }
+
+            bossMusicTrack?.Stop();
+            bossMusicTrack?.Sound?.Dispose();
+            bossMusicTrack = null;
+        }
+
+        private void UpdateBossMusic()
+        {
+            ICoreClientAPI capi = ClientApi;
+            EntityPlayer player = capi?.World.Player?.Entity;
+
+            if (player == null || !Alive)
+            {
+                StopBossMusic();
+                return;
+            }
+
+            float distance =
+                (float)Pos.DistanceTo(player.Pos);
+
+            if (distance > BossMusicRange)
+            {
+                StopBossMusic();
+                return;
+            }
+
+            StartBossMusic();
+
+            ILoadedSound sound =
+                bossMusicTrack?.Sound;
+
+            if (sound == null || sound.IsDisposed)
+                return;
+
+            float volume =
+                Math.Max(
+                    0f,
+                    1f - distance / BossMusicRange
+                );
+
+            sound.SetVolume(volume);
         }
 
         private void RemoveDespawnBehavior()
@@ -935,32 +1079,7 @@ namespace BotaniaStory.entities
             }
             else if (World.Side == EnumAppSide.Client)
             {
-                if (bossMusic != null)
-                {
-                    // Стартуем один раз
-                    if (!isMusicStarted && Pos.X != 0)
-                    {
-                        bossMusic.Start();
-                        isMusicStarted = true;
-                    }
-
-                    // Ручное управление затуханием (имитация 3D-звука)
-                    ICoreClientAPI capi = (ICoreClientAPI)Api; // Получаем доступ к клиенту
-                    if (capi.World.Player?.Entity != null)
-                    {
-                        float dist = (float)Pos.DistanceTo(capi.World.Player.Entity.Pos);
-                        float maxDist = 60f; // Радиус арены + запас
-
-                        if (dist > maxDist)
-                        {
-                            bossMusic.SetVolume(0f); // Полная тишина за ареной
-                        }
-                        else
-                        {
-                            bossMusic.SetVolume(1f - (dist / maxDist)); // Плавное затухание
-                        }
-                    }
-                }
+                UpdateBossMusic();
             }
         }
 
