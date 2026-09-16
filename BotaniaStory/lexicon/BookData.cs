@@ -84,7 +84,7 @@ namespace BotaniaStory.lexicon
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "nightshade", "endoflame", "rosaarcana", "hydroangeas" } },
 
-            { "functional_flora", new[] { "puredaisy", "jadedamaranthus", "witheredamaranthus",  "hopperhock", "agricarnation" } },
+            { "functional_flora", new[] { "puredaisy", "jadedamaranthus", "witheredamaranthus",  "hopperhock", "agricarnation", "wardbloom" } },
 
             { "natural_apparatus", new[] { "mechanical_dropper", "hourglass", "beacon" } },
 
@@ -590,6 +590,33 @@ namespace BotaniaStory.lexicon
                              },
                             ApothecaryCenter = "botaniastory:apothecary-*",
                             Output = "botaniastory:agricarnation-free"
+                        });
+
+                    }
+
+                    //НАСТРОЙКА ВАРДБЛУМА (wardbloom)
+                    else if (chapId == "wardbloom")
+                    {
+                        chapter.TabItemCode = "botaniastory:wardbloom-free";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Apothecary",
+                            Spread = 0,
+                            UiKey = "Аптекарь_Область_Правая",
+                            ApothecaryIngredients = new string[]
+                            {
+                                "botaniastory:mysticalpetal-white@2",
+                                "botaniastory:mysticalpetal-lightblue@2",
+                                "botaniastory:mysticalpetal-black",
+                                "botaniastory:rune-earth",
+                                "botaniastory:rune-mana@2",
+                                "botaniastory:rune-winter",
+                                "botaniastory:rune-wrath",
+                                "botaniastory:overgrowthseed"
+                            },
+                            ApothecaryCenter = "botaniastory:apothecary-*",
+                            Output = "botaniastory:wardbloom-free"
                         });
 
                     }
