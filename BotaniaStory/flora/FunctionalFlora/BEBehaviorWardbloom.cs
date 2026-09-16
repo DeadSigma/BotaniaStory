@@ -8,6 +8,7 @@ using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.GameContent;
 
 namespace BotaniaStory.blockentity
 {
@@ -32,6 +33,7 @@ namespace BotaniaStory.blockentity
 
         private static readonly HashSet<BEBehaviorWardbloom> ActiveServerBarriers = new HashSet<BEBehaviorWardbloom>();
         private static ICoreServerAPI hookedServerApi;
+        private static ModSystemRifts hookedRiftSystem;
 
         public InventoryGeneric FilterInventory;
         public BlockPos LinkedPool { get; set; }
@@ -276,12 +278,25 @@ namespace BotaniaStory.blockentity
             {
                 hookedServerApi.Event.OnEntityLoaded -= OnServerEntityAvailable;
                 hookedServerApi.Event.OnEntitySpawn -= OnServerEntityAvailable;
+                hookedServerApi.Event.OnTrySpawnEntity -= OnServerTrySpawnEntity;
+            }
+
+            if (hookedRiftSystem != null)
+            {
+                hookedRiftSystem.OnTrySpawnRift -= OnServerTrySpawnRift;
             }
 
             ActiveServerBarriers.Clear();
             hookedServerApi = sapi;
             hookedServerApi.Event.OnEntityLoaded += OnServerEntityAvailable;
             hookedServerApi.Event.OnEntitySpawn += OnServerEntityAvailable;
+            hookedServerApi.Event.OnTrySpawnEntity += OnServerTrySpawnEntity;
+
+            hookedRiftSystem = sapi.ModLoader.GetModSystem<ModSystemRifts>();
+            if (hookedRiftSystem != null)
+            {
+                hookedRiftSystem.OnTrySpawnRift += OnServerTrySpawnRift;
+            }
 
             foreach (Entity entity in hookedServerApi.World.LoadedEntities.Values)
             {
@@ -289,9 +304,99 @@ namespace BotaniaStory.blockentity
             }
         }
 
+        private static bool OnServerTrySpawnEntity(
+            IBlockAccessor blockAccessor,
+            ref EntityProperties properties,
+            Vec3d spawnPosition,
+            long herdId)
+        {
+            if (!IsHostileEntity(properties)) return true;
+            if (spawnPosition == null) return true;
+
+            return !IsInsideAnyActiveBarrier(
+                spawnPosition.X,
+                spawnPosition.Y,
+                spawnPosition.Z);
+        }
+
+        private static void OnServerTrySpawnRift(BlockPos pos, ref EnumHandling handling)
+        {
+            if (pos == null) return;
+
+            if (IsInsideAnyActiveBarrier(
+                pos.X + 0.5,
+                pos.Y + 0.5,
+                pos.Z + 0.5))
+            {
+                handling = EnumHandling.PreventDefault;
+            }
+        }
+
         private static void OnServerEntityAvailable(Entity entity)
         {
+            if (ShouldRejectSpawnedHostile(entity))
+            {
+                entity.Die(EnumDespawnReason.Removed);
+                return;
+            }
+
             AttachEntityProtection(entity);
+        }
+
+        private static bool ShouldRejectSpawnedHostile(Entity entity)
+        {
+            if (entity == null || !entity.Alive) return false;
+            if (!IsHostileEntity(entity.Properties)) return false;
+
+            Vec3d center = GetEntityCenter(entity);
+            return IsInsideAnyActiveBarrier(center.X, center.Y, center.Z);
+        }
+
+        private static bool IsHostileEntity(EntityProperties properties)
+        {
+            SpawnConditions spawnConditions = properties?.Server?.SpawnConditions;
+            if (spawnConditions == null) return false;
+
+            return string.Equals(
+                       spawnConditions.Runtime?.Group,
+                       "hostile",
+                       StringComparison.OrdinalIgnoreCase) ||
+                   string.Equals(
+                       spawnConditions.Worldgen?.Group,
+                       "hostile",
+                       StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static bool IsInsideAnyActiveBarrier(double x, double y, double z)
+        {
+            if (ActiveServerBarriers.Count == 0) return false;
+
+            foreach (BEBehaviorWardbloom barrier in ActiveServerBarriers)
+            {
+                if (barrier.ContainsProtectedPoint(x, y, z)) return true;
+            }
+
+            return false;
+        }
+
+        private bool ContainsProtectedPoint(double x, double y, double z)
+        {
+            if (!Active || y < BarrierBottomY) return false;
+
+            double centerX = Pos.X + 0.5;
+            double centerY = Pos.Y + 0.15;
+            double centerZ = Pos.Z + 0.5;
+            double dx = x - centerX;
+            double dz = z - centerZ;
+            double radiusSq = BarrierRadius * BarrierRadius;
+
+            if (y < centerY)
+            {
+                return dx * dx + dz * dz < radiusSq;
+            }
+
+            double dy = y - centerY;
+            return dx * dx + dy * dy + dz * dz < radiusSq;
         }
 
         private static void AttachEntityProtection(Entity entity)
