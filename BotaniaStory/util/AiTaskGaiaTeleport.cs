@@ -665,8 +665,8 @@ namespace BotaniaStory.entities.ai
         }
 
         public static int CountArenaSupportColumns(
-    EntityAgent entity,
-    int stopAfter = int.MaxValue)
+     EntityAgent entity,
+     int stopAfter = int.MaxValue)
         {
             Vec3d spawn = GetSpawnPos(entity);
 
@@ -688,6 +688,19 @@ namespace BotaniaStory.entities.ai
             int maxZ =
                 (int)Math.Ceiling(spawn.Z + arenaRadius);
 
+            // Проверяется несущий слой на блок ниже поверхности арены
+            int arenaSurfaceY =
+                (int)Math.Floor(spawn.Y - SurfaceEpsilon);
+
+            int supportY =
+                arenaSurfaceY - 2;
+
+            IBlockAccessor blockAccessor =
+                entity.World.BlockAccessor;
+
+            BlockPos blockPos =
+                new BlockPos(entity.Pos.Dimension);
+
             int count = 0;
 
             for (int bx = minX; bx <= maxX; bx++)
@@ -703,13 +716,32 @@ namespace BotaniaStory.entities.ai
                     if (dx * dx + dz * dz > arenaRadiusSq)
                         continue;
 
-                    if (!TryFindStandingPosition(
-                        entity,
-                        px,
-                        pz,
-                        spawn,
-                        arenaRadius,
-                        out _))
+                    blockPos.Set(
+                        bx,
+                        supportY,
+                        bz
+                    );
+
+                    Block block =
+                        blockAccessor.GetBlock(
+                            blockPos,
+                            BlockLayersAccess.MostSolid
+                        );
+
+                    if (block == null ||
+                        block.Id == 0)
+                    {
+                        continue;
+                    }
+
+                    Cuboidf[] boxes =
+                        block.GetCollisionBoxes(
+                            blockAccessor,
+                            blockPos
+                        );
+
+                    if (boxes == null ||
+                        boxes.Length == 0)
                     {
                         continue;
                     }

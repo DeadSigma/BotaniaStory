@@ -1,4 +1,5 @@
 using System;
+using BotaniaStory.blockentity;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Datastructures;
@@ -140,7 +141,7 @@ namespace BotaniaStory.entities.ai
             mob.Attributes.SetString("origin", "gaiaguardian");
             mob.WatchedAttributes.SetLong("spawnedByGaia", entity.EntityId);
 
-            entity.World.SpawnEntity(mob);
+            BEBehaviorWardbloom.SpawnEntityIgnoringSpawnProtection(entity.World, mob);
 
             entity.World.PlaySoundAt(new AssetLocation("botaniastory", "sounds/gaia_teleport"), mob.Pos.X, mob.Pos.Y, mob.Pos.Z);
         }

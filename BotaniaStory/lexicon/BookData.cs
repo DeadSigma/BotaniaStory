@@ -3435,7 +3435,7 @@ namespace BotaniaStory.lexicon
                         {
                             RecipeType = "Anvil",
                             Spread = 0,
-                            UiKey = "Кузня_Элементий",
+                            UiKey = "Кузня_Кольчуга_Элементий",
                             AnvilInput = "game:ingot-elementium",
                             AnvilBlock = "game:anvil-*",
                             Output = "game:metalchain-elementium"
@@ -3445,11 +3445,11 @@ namespace BotaniaStory.lexicon
                         {
                             RecipeType = "Grid",
                             Spread = 0,
-                            UiKey = "Сетка_Правая_Манашлем",
+                            UiKey = "Сетка_Правая_Элементий",
                             Grid = new string[9] {
-  null, "game:metalchain-elementium", null,
-  "game:metalchain-elementium", null, "game:metalchain-elementium",
-  null, null, null},
+                             null, "game:metalchain-elementium", null,
+                             "game:metalchain-elementium", null, "game:metalchain-elementium",
+                             null, null, null},
                             Output = "botaniastory:elementium-armor-head-chain"
                         });
 
@@ -3868,14 +3868,14 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
-                    // РИТУАЛ СЕМЯ РАЗРАСТАНИЯ
+                    // СЕМЯ РАЗРАСТАНИЯ
                     else if (chapId == "overgrowthseed")
                     {
                         chapter.TabItemCode = "botaniastory:overgrowthseed";
 
                     }
 
-                    // РИТУАЛ ДУХ ГАЙИ
+                    // ДУХ ГАЙИ
                     else if (chapId == "gaiaspirit")
                     {
                         chapter.TabItemCode = "botaniastory:gaiaspirit";
@@ -4322,10 +4322,10 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Правая_Верхняя",
                             Grid = new string[9] {
-                                 null, "game:ingot-terrasteel", null,
-                                 "game:metalbit-terrasteel", "botaniastory:pylon-mana", "game:metalbit-terrasteel",
-                                 null, "game:gear-temporal", null },
-                            Output = "botaniastory:pylon-gaia"
+                                 null, "game:ingot-terrasteel@4", null,
+                                 "game:metalbit-terrasteel@4", "botaniastory:pylon-mana@4", "game:metalbit-terrasteel@4",
+                                 null, "game:gear-temporal@4", null },
+                            Output = "botaniastory:pylon-gaia@4"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()

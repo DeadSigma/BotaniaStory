@@ -1,0 +1,20 @@
+{
+  "ingredientPattern": "_G_,GTG,_G_",
+  "width": 3,
+  "height": 3,
+  "ingredients": {
+    "G": {
+      "type": "item",
+      "code": "botaniastory:gaiaspirit"
+    },
+    "T": {
+      "type": "item",
+      "code": "game:ingot-terrasteel"
+    }
+  },
+  "output": {
+    "type": "item",
+    "code": "game:ingot-terrasteel-empowered",
+    "quantity": 1
+  }
+}

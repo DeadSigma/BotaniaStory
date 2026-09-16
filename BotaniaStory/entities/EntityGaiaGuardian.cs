@@ -1268,8 +1268,6 @@ namespace BotaniaStory.entities
 
 
                 // Сколько колонн опоры осталось
-
-
                 int supportColumns =
                     AiTaskGaiaTeleport.CountArenaSupportColumns(
                         this
@@ -1278,8 +1276,6 @@ namespace BotaniaStory.entities
 
 
                 // Процент разрушенности арены 
-
-
                 float intactPercent =
                     (float)supportColumns /
                     idealColumns;

@@ -23,7 +23,7 @@ namespace BotaniaStory.blockentity
         public const int TickIntervalMs = 150;
 
         // Расход маны рассчитывается для радиуса 250 за игровые сутки
-        public const int MaxManaPerDay = 1000000;
+        public const int MaxManaPerDay = 2000000;
 
         private static readonly float[] RadiusSteps =
         {
@@ -31,9 +31,12 @@ namespace BotaniaStory.blockentity
             64f, 96f, 128f, 160f, 200f, 250f
         };
 
+        private const string SpawnBypassAttribute = "botaniastory:wardbloomSpawnBypass";
+
         private static readonly HashSet<BEBehaviorWardbloom> ActiveServerBarriers = new HashSet<BEBehaviorWardbloom>();
         private static ICoreServerAPI hookedServerApi;
         private static ModSystemRifts hookedRiftSystem;
+        private static int spawnBypassDepth;
 
         public InventoryGeneric FilterInventory;
         public BlockPos LinkedPool { get; set; }
@@ -310,6 +313,7 @@ namespace BotaniaStory.blockentity
             Vec3d spawnPosition,
             long herdId)
         {
+            if (spawnBypassDepth > 0) return true;
             if (!IsHostileEntity(properties)) return true;
             if (spawnPosition == null) return true;
 
@@ -343,9 +347,29 @@ namespace BotaniaStory.blockentity
             AttachEntityProtection(entity);
         }
 
+        internal static void SpawnEntityIgnoringSpawnProtection(IWorldAccessor world, Entity entity)
+        {
+            if (world == null || entity == null) return;
+
+            // Сущность помечается как разрешённая для спавна внутри барьера
+            entity.WatchedAttributes.SetBool(SpawnBypassAttribute, true);
+
+            spawnBypassDepth++;
+            try
+            {
+                world.SpawnEntity(entity);
+            }
+            finally
+            {
+                spawnBypassDepth--;
+            }
+        }
+
         private static bool ShouldRejectSpawnedHostile(Entity entity)
         {
             if (entity == null || !entity.Alive) return false;
+            if (entity.WatchedAttributes.GetBool(SpawnBypassAttribute, false)) return false;
+            if (entity.WatchedAttributes.GetLong("spawnedByGaia", 0) != 0) return false;
             if (!IsHostileEntity(entity.Properties)) return false;
 
             Vec3d center = GetEntityCenter(entity);
