@@ -88,7 +88,7 @@ namespace BotaniaStory.lexicon
 
             { "natural_apparatus", new[] { "mechanical_dropper", "hourglass", "beacon" } },
 
-            { "mystical_items", new[] { "wandofbinding", "flower_bag", "floralfertilizer", "meadowseed", "floating_island", "rod_of_the_seas", "manaitem", "terrasteelitem", "terrashatterer", "filterscroll", "halo", "automatic_halo" } },
+            { "mystical_items", new[] { "wandofbinding", "flower_bag", "floralfertilizer", "meadowseed", "floating_island", "rod_of_the_seas", "manaitem", "terrasteelitem", "terrashatterer", "filterscroll", "halo", "automatic_halo", "ringmagnetism" } },
 
             { "trinkets_and_accessories", new[] { "trinkets" } },
 
@@ -1609,7 +1609,8 @@ namespace BotaniaStory.lexicon
                                  "botaniastory:mysticalpetal-brown",
                                  "botaniastory:mysticalpetal-red",
                                  "botaniastory:mysticalpetal-lightgray",
-                                 "botaniastory:mysticalpetal-brown"
+                                 "botaniastory:mysticalpetal-brown",
+                                 "game:charcoal"
                             },
                             ApothecaryCenter = "botaniastory:apothecary-*",
 
@@ -3992,6 +3993,14 @@ namespace BotaniaStory.lexicon
                         });
                     }
 
+                    // Кольца магнетизма
+                    else if (chapId == "ringmagnetism")
+                    {
+                        chapter.TabItemCode = "botaniastory:ringmagnetism-terrasteel";
+
+                       
+                    }
+
                     // ЖЕЗЛ МОРЕЙ
                     else if (chapId == "rod_of_the_seas")
                     {
@@ -4091,7 +4100,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 1000,
+                            ManaCost = 10000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
                         });
 
@@ -4109,7 +4118,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 0,
-                            ManaCost = 5000,
+                            ManaCost = 15000,
                             UiKey = "Полоска_Маны_Правая_Нижняя"
                         });
 
@@ -4127,7 +4136,7 @@ namespace BotaniaStory.lexicon
                         chapter.ManaBars.Add(new BookManaBar()
                         {
                             Spread = 1,
-                            ManaCost = 10000,
+                            ManaCost = 20000,
                             UiKey = "Полоска_Маны_Левая_Верхняя"
                         });
 

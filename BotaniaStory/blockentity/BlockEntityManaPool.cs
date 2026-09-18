@@ -490,19 +490,19 @@ namespace BotaniaStory.blockentity
                     // 7. Трава  -> луговое семя
                     if (domain == "game" && code.StartsWith("drygrass"))
                     {
-                        if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-normal", 1, 1, 1000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-normal", 1, 1, 10000)) continue;
                     }
 
                     // 8. Луговое семя  -> Торфяное семя
                     if (domain == "botaniastory" && code.StartsWith("meadowseed-normal"))
                     {
-                        if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-peat", 1, 1, 5000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-peat", 1, 1, 15000)) continue;
                     }
 
                     // 9. Торфяное семя  -> Плодородное семя
                     if (domain == "botaniastory" && code.StartsWith("meadowseed-peat"))
                     {
-                        if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-medium", 1, 1, 10000)) continue;
+                        if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-medium", 1, 1, 20000)) continue;
                     }
                 }
             }

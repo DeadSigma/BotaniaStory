@@ -1,0 +1,123 @@
+{
+	"code": "ringmagnetism",
+	"class": "ItemMagnetismRing",
+	"maxstacksize": 1,
+	"variantgroups": [
+		{
+			"code": "type",
+			"states": [ "manasteel", "terrasteel", "looting" ]
+		}
+	],
+	"shape": {
+		"base": "botaniastory:entity/wearable/arm/magnetismring"
+	},
+	"texturesByType": {
+		"*-manasteel": {
+			"seraph": {
+				"base": "game:block/transparent"
+			},
+			"magnetismring": {
+				"base": "botaniastory:entity/wearable/arm/ringmagnetism_manasteel"
+			}
+		},
+		"*-terrasteel": {
+			"seraph": {
+				"base": "game:block/transparent"
+			},
+			"magnetismring": {
+				"base": "botaniastory:entity/wearable/arm/ringmagnetism_terrasteel"
+			}
+		},
+		"*-looting": {
+			"seraph": {
+				"base": "game:block/transparent"
+			},
+			"magnetismring": {
+				"base": "botaniastory:entity/wearable/arm/ringmagnetism_looting"
+			}
+		}
+	},
+	"storageFlags": 128,
+	"behaviors": [
+		{
+			"name": "Wearable"
+		}
+	],
+	"attributes": {
+		"clothescategory": "arm",
+		"wearableAttachment": true,
+		"warmth": 0,
+		"shelvable": true,
+		"displaycaseable": true
+	},
+	"attributesByType": {
+		"*-manasteel": {
+			"magnetismRadius": 7,
+			"magnetismSpeed": 0.28,
+			"lootCorpses": false,
+			"corpseLootRadius": 0
+		},
+		"*-terrasteel": {
+			"magnetismRadius": 16,
+			"magnetismSpeed": 0.28,
+			"lootCorpses": false,
+			"corpseLootRadius": 0
+		},
+		"*-looting": {
+			"defaultLootMode": 1,
+			"magnetismRadius": 16,
+			"magnetismSpeed": 0.28,
+			"lootCorpses": true,
+			"corpseLootRadius": 16
+		}
+	},
+	"renderAlphaTest": 0.25,
+	"tpHandTransform": {
+		"translation": {
+			"x": -0.9,
+			"y": -0.8,
+			"z": -0.55
+		},
+		"rotation": {
+			"x": -13,
+			"y": -64,
+			"z": 49
+		},
+		"scale": 0.87
+	},
+	"guiTransform": {
+		"rotation": {
+			"x": 0,
+			"y": 54,
+			"z": -8
+		},
+		"origin": {
+			"x": 0.75,
+			"y": 0.75,
+			"z": 0.6
+		},
+		"scale": 4.61
+	},
+	"groundTransform": {
+		"translation": {
+			"x": 0.05,
+			"y": -0.16,
+			"z": 0
+		},
+		"rotation": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"origin": {
+			"x": 0.5,
+			"y": 0.5,
+			"z": 0.5
+		},
+		"scale": 4
+	},
+	"creativeinventory": {
+		"general": [ "*" ],
+		"botaniastory": [ "*" ]
+	}
+}

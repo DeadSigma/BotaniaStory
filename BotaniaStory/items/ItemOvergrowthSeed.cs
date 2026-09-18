@@ -14,7 +14,7 @@ namespace BotaniaStory.Items
 
             Block targetBlock = null;
 
-            // Если кликнули по грядке (включая компостную и терра прету)
+            // Если кликнули по грядке
             if (path.StartsWith("farmland"))
             {
                 targetBlock = api.World.GetBlock(new AssetLocation("botaniastory", "enchantedfarmland"));
@@ -25,13 +25,20 @@ namespace BotaniaStory.Items
                 targetBlock = api.World.GetBlock(new AssetLocation("botaniastory", "enchantedsoil"));
             }
 
-            // Если нашли во что превратить
             if (targetBlock != null)
             {
-                // Заменяем блок. Движок игры сам создаст BlockEntityEnchantedFarmland, 
                 api.World.BlockAccessor.SetBlock(targetBlock.BlockId, blockSel.Position);
 
-                // Тратим семечко, если игрок в режиме выживания
+                api.World.PlaySoundAt(
+                    new AssetLocation("game", "sounds/block/dirt"),
+                    blockSel.Position,
+                    0,
+                    byEntity is EntityPlayer soundPlayer ? soundPlayer.Player : null,
+                    true,
+                    16f,
+                    1f
+                );
+
                 if (byEntity is EntityPlayer player && player.Player.WorldData.CurrentGameMode != EnumGameMode.Creative)
                 {
                     slot.TakeOut(1);

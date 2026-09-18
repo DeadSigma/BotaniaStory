@@ -90,6 +90,10 @@ namespace botaniastory
                     Score = GetSearchScore(entry, normalizedQuery)
                 })
                 .Where(x => x.Score > 0)
+                .GroupBy(x => x.Chapter.Id)
+                .Select(group => group
+                    .OrderByDescending(x => x.Score)
+                    .First())
                 .OrderByDescending(x => x.Score)
                 .Select(x => x.Chapter)
                 .ToList();

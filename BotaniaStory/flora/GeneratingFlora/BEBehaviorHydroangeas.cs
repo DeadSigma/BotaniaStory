@@ -38,6 +38,17 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
         private void OnServerTick(float dt)
         {
+            Block fluid = this.Api.World.BlockAccessor.GetBlock(
+                this.Blockentity.Pos,
+                BlockLayersAccess.Fluid
+            );
+
+            if (fluid.IsLiquid() && fluid.LiquidCode == "water")
+            {
+                this.Api.World.BlockAccessor.BreakBlock(this.Blockentity.Pos, null);
+                return;
+            }
+
             bool dirty = false;
             double currentDays = this.Api.World.Calendar.TotalDays;
 
@@ -117,8 +128,15 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 BlockPos myPos = this.Blockentity.Pos;
 
                 BlockPos[] offsets = {
-                    myPos.AddCopy(1, 0, 0), myPos.AddCopy(-1, 0, 0),
-                    myPos.AddCopy(0, 0, 1), myPos.AddCopy(0, 0, -1)
+                    myPos.AddCopy(1, 0, 0),
+                    myPos.AddCopy(-1, 0, 0),
+                    myPos.AddCopy(0, 0, 1),
+                    myPos.AddCopy(0, 0, -1),
+                
+                    myPos.AddCopy(1, 0, 1),
+                    myPos.AddCopy(1, 0, -1),
+                    myPos.AddCopy(-1, 0, 1),
+                    myPos.AddCopy(-1, 0, -1)
                 };
 
                 foreach (BlockPos checkPos in offsets)

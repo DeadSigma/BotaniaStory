@@ -55,15 +55,15 @@
 		"groundStorageTransform": {
 			"translation": {
 				"x": -0.02,
-				"y": -0.5,
-				"z": 0.34
+				"y": -0.37,
+				"z": 0.12
 			},
 			"rotation": {
-				"x": 90,
+				"x": 74,
 				"y": 0,
-				"z": 0
+				"z": -1
 			},
-			"scale": 1.13
+			"scale": 0.81
 		}
 	},
 	"behaviors": [
@@ -112,19 +112,6 @@
 			"y": -180,
 			"z": 103
 		}
-	},
-	"fpHandTransform": {
-		"translation": {
-			"x": 0.2,
-			"y": -0.2,
-			"z": 0
-		},
-		"rotation": {
-			"x": 15,
-			"y": -15,
-			"z": 0
-		},
-		"scale": 1.8
 	},
 	"groundTransform": {
 		"translation": {

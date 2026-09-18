@@ -429,13 +429,6 @@ namespace BotaniaStory.blockentity
             // чек посоха и шифта
             bool holdsWand = activeItem is ItemWandOfTheForest;
             bool isSneaking = forPlayer.Entity.Controls.Sneak;
-
-            if (holdsWand && isSneaking)
-            {
-                string linkStatus = TargetPos != null ? "Привязан" : "Не привязан";
-
-                dsc.AppendLine($"{CurrentMana} / {MaxMana} [{linkStatus}]");
-            }
         }
     }
 }

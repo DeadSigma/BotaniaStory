@@ -35,7 +35,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
         {
             bool dirty = false;
 
-            int manaPerCycle = 7;
+            int manaPerCycle = 4;
             int ticksPerCycle = 2;
 
             // 1. ГЕНЕРАЦИЯ МАНЫ И ГОРЕНИЕ

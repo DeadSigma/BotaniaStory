@@ -185,6 +185,8 @@ namespace BotaniaStory
             api.RegisterBlockClass("BlockBeacon", typeof(BlockBeacon));
             api.RegisterBlockEntityClass("Beacon", typeof(BlockEntityBeacon));
 
+            api.RegisterItemClass("ItemMagnetismRing", typeof(ItemMagnetismRing));
+
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 
         }
