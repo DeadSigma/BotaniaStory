@@ -196,7 +196,7 @@ namespace BotaniaStory.entities
                             receiver.ReceiveMana(amountToTransfer); // Отдаем ману блоку
 
                             myPoolChanged = true;
-                            otherBE.MarkDirty(true);
+                            otherBE.MarkDirty(false);
 
                             // Визуальный эффект потока от одной искры к другой
                             SpawnTransferParticles(Pos.XYZ, otherSpark.Pos.XYZ, amountToTransfer);
@@ -207,7 +207,7 @@ namespace BotaniaStory.entities
 
             if (myPoolChanged)
             {
-                myPool.MarkDirty(true);
+                myPool.MarkDirty(false);
             }
         }
 

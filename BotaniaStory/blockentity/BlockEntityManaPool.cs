@@ -15,11 +15,10 @@ namespace BotaniaStory.blockentity
 {
     public class BlockEntityManaPool : BlockEntity, IManaReceiver
     {
-        // Приватное хранилище маны
         private int _currentMana = 0;
-        public bool IsAcceptingFromItems = false;
+        public bool IsAcceptingFromItems = true;
 
-        // Свойство: если бассейн творческий, всегда отдаем MaxMana и игнорируем изменения!
+        // Творческий бассейн всегда хранит MaxMana
         public int CurrentMana
         {
             get { return isCreativePool ? MaxMana : _currentMana; }
@@ -29,7 +28,13 @@ namespace BotaniaStory.blockentity
         public int MaxMana = 1000000;
 
         private bool isDilutedPool = false;
-        private bool isCreativePool = false; // Флаг для творческого бассейна
+        private bool isCreativePool = false;
+
+        // Последний отрисованный уровень заполнения
+        private int lastRenderedStep = -1;
+
+        // Форма жидкости кэшируется для бассейна
+        private Shape cachedLiquidShape;
 
         public bool IsFull() => CurrentMana >= MaxMana;
 
@@ -37,25 +42,23 @@ namespace BotaniaStory.blockentity
 
         public bool ConsumeMana(int amount)
         {
-            // Творческий бассейн всегда отдает ману и никогда не пустеет
             if (isCreativePool) return true;
 
             if (CurrentMana >= amount)
             {
                 CurrentMana -= amount;
-                MarkDirty(true);
+                MarkDirty(false);
                 return true;
             }
 
-            return false; // Маны не хватило
+            return false;
         }
         public void ReceiveMana(int amount)
         {
             CurrentMana = Math.Clamp(CurrentMana + amount, 0, MaxMana);
-            MarkDirty(true);
+            MarkDirty(false);
         }
 
-        // ИНИЦИАЛИЗАЦИЯ
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
@@ -66,7 +69,6 @@ namespace BotaniaStory.blockentity
                 isCreativePool = Block.Attributes["isCreativePool"].AsBool(false);
             }
 
-            // Устанавливаем лимиты
             MaxMana = isDilutedPool ? 10000 : 1000000;
 
             if (api.Side == EnumAppSide.Client)
@@ -75,7 +77,7 @@ namespace BotaniaStory.blockentity
             }
             else if (api.Side == EnumAppSide.Server)
             {
-                // Запускаем проверку брошенных предметов каждые 500 мс (полсекунды)
+                // Брошенные предметы проверяются каждые 500 мс
                 RegisterGameTickListener(CheckForDroppedItems, 500);
             }
         }
@@ -84,29 +86,41 @@ namespace BotaniaStory.blockentity
         {
             base.ToTreeAttributes(tree);
             tree.SetInt("mana", _currentMana);
-            tree.SetBool("isAcceptingFromItems", IsAcceptingFromItems); // Сохраняем состояние
+            tree.SetBool("isAcceptingFromItems", IsAcceptingFromItems);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
             _currentMana = tree.GetInt("mana", 0);
-            IsAcceptingFromItems = tree.GetBool("isAcceptingFromItems", false); // Загружаем состояние
+            IsAcceptingFromItems = tree.GetBool("isAcceptingFromItems", true);
 
             if (Api?.Side == EnumAppSide.Client)
             {
-                MarkDirty(true);
+                // Ретесселяция выполняется только при смене видимого уровня
+                int step = GetFillStep();
+                if (step != lastRenderedStep)
+                {
+                    lastRenderedStep = step;
+                    MarkDirty(true);
+                }
             }
         }
 
-        // УДАЛЕНИЕ БАССЕЙНА (ДРОП ИСКРЫ)
+        // Шаг заполнения задаётся в сотых долях
+        private int GetFillStep()
+        {
+            if (MaxMana <= 0) return 0;
+            return (int)((CurrentMana / (float)MaxMana) * 100f);
+        }
+
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
 
             if (Api.Side == EnumAppSide.Server)
             {
-                // Слегка увеличил радиус поиска (с 1.0 до 2.0), чтобы гарантированно зацепить хитбокс
+                // Искра ищется рядом с верхней частью бассейна
                 Entity[] sparks = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 1.2, 0.5), 0.2f, 0.5f, e => e is EntitySpark);
 
                 foreach (Entity entity in sparks)
@@ -120,23 +134,20 @@ namespace BotaniaStory.blockentity
                             Api.World.SpawnItemEntity(dropStack, spark.Pos.XYZ);
                         }
 
-                        // Используем 'PickedUp' вместо обычной смерти. 
-                        // Это заставит сервер удалить искру мгновенно, как будто игрок положил ее в карман.
+                        // PickedUp удаляет искру без обычной смерти
                         spark.Die(EnumDespawnReason.PickedUp);
                     }
                 }
             }
         }
 
-        //  ОТРИСОВКА ЖИДКОСТИ, УБРАТЬ!
+        // Отрисовка жидкости
         public override bool OnTesselation(ITerrainMeshPool mesher, ITesselatorAPI tesselator)
         {
-            // 1. СНАЧАЛА ГЕНЕРИРУЕМ И РИСУЕМ САМ БАССЕЙН
             MeshData baseMesh;
             tesselator.TesselateBlock(Block, out baseMesh);
             mesher.AddMeshData(baseMesh);
 
-            // 2. ЕСЛИ ЕСТЬ МАНА, РИСУЕМ ЕЁ ПОВЕРХ
             if (CurrentMana > 0)
             {
                 float fillRatio = (float)CurrentMana / MaxMana;
@@ -147,9 +158,14 @@ namespace BotaniaStory.blockentity
                 float heightPixels = baseY + (fillRatio * maxRise);
                 float height = heightPixels / 16f;
 
-                string shapeName = isDilutedPool ? "manapool_diluted_liquid.json" : "manapool_liquid.json";
-                AssetLocation shapeLoc = new AssetLocation("botaniastory", $"shapes/block/{shapeName}");
-                Shape shape = Api.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
+                if (cachedLiquidShape == null)
+                {
+                    string shapeName = isDilutedPool ? "manapool_diluted_liquid.json" : "manapool_liquid.json";
+                    AssetLocation shapeLoc = new AssetLocation("botaniastory", $"shapes/block/{shapeName}");
+                    cachedLiquidShape = Api.Assets.TryGet(shapeLoc)?.ToObject<Shape>();
+                }
+
+                Shape shape = cachedLiquidShape;
 
                 if (shape != null)
                 {
@@ -157,18 +173,16 @@ namespace BotaniaStory.blockentity
                     tesselator.TesselateShape(Block, shape, out liquidMesh);
                     liquidMesh.Translate(0, height, 0);
 
-                    // Создаем массив, если его нет
                     if (liquidMesh.CustomInts == null)
                     {
                         liquidMesh.CustomInts = new CustomMeshDataPartInt(liquidMesh.VerticesCount);
                         liquidMesh.CustomInts.Count = liquidMesh.VerticesCount;
                     }
 
-                    // Задаем правильный проход рендера (Liquid)
+                    // Жидкость переводится в проход Liquid
                     int[] customInts = liquidMesh.CustomInts.Values;
                     for (int i = 0; i < liquidMesh.VerticesCount; i++)
                     {
-                        // Используем ТОЛЬКО это число
                         customInts[i] |= 805306368;
                     }
 
@@ -179,7 +193,6 @@ namespace BotaniaStory.blockentity
             return true;
         }
 
-        // ГЕНЕРАЦИЯ ИСКР
         private void SpawnManaParticles(float dt)
         {
             if (CurrentMana <= 0) return;
@@ -192,56 +205,43 @@ namespace BotaniaStory.blockentity
             float heightPixels = baseY + (fillRatio * maxRise);
             float height = heightPixels / 16f;
 
-            // Считаем разброс частиц от центра бассейна (0.5)
             float posVariance = isDilutedPool ? 0.45f : 0.35f;
 
-            // ПРОВЕРЯЕМ БЛОК СВЕРХУ (Код из предыдущего шага)
             Block blockAbove = Api.World.BlockAccessor.GetBlock(Pos.UpCopy());
             bool isPylonAbove = blockAbove is BlockPylon || (blockAbove.Code != null && blockAbove.Code.Path.Contains("pylon"));
             float particleLife = isPylonAbove ? 0.35f : 1.5f;
 
-            // ИСПОЛЬЗУЕМ ADVANCED ПАРТИКЛЫ ДЛЯ ЭФФЕКТОВ ЗАТУХАНИЯ
             AdvancedParticleProperties particles = new AdvancedParticleProperties()
             {
-                // Позиция: Центр бассейна
                 basePos = new Vec3d(Pos.X + 0.5, Pos.Y + height, Pos.Z + 0.5),
 
-                // Разброс вокруг центра
                 PosOffset = new NatFloat[] {
             NatFloat.createUniform(0, posVariance),
             NatFloat.createUniform(0, 0.05f),
             NatFloat.createUniform(0, posVariance)
         },
 
-                // Скорость: среднее значение + разброс (аналог min/max Velocity)
                 Velocity = new NatFloat[] {
-            NatFloat.createUniform(0.025f, 0.075f), // X: слегка в стороны
-            NatFloat.createUniform(0.15f, 0.05f),   // Y: летят вверх
-            NatFloat.createUniform(0.025f, 0.075f)  // Z: слегка в стороны
+            NatFloat.createUniform(0.025f, 0.075f),
+            NatFloat.createUniform(0.15f, 0.05f),
+            NatFloat.createUniform(0.025f, 0.075f)
         },
 
-                // Цвет в формате HSVA (Шкала 0-255 для всех параметров)
                 HsvaColor = new NatFloat[] {
-                NatFloat.createUniform(128, 10), // Оттенок: 212 (Тот самый розово-пурпурный цвет маны)
-                NatFloat.createUniform(155, 20), // Насыщенность
-                NatFloat.createUniform(255, 0),  // Яркость
-                NatFloat.createUniform(255, 0)   // Прозрачность
+                NatFloat.createUniform(128, 10),
+                NatFloat.createUniform(155, 20),
+                NatFloat.createUniform(255, 0),
+                NatFloat.createUniform(255, 0)
                 },
 
-                // 1. ПЛАВНОЕ ЗАТУХАНИЕ ПРОЗРАЧНОСТИ
-                // Линейно отнимаем 255 от Альфа-канала к концу жизни
                 OpacityEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -255f),
 
-                // 2. ПЛАВНОЕ СЖАТИЕ
-                // Частицы будут слегка "сдуваться" перед исчезновением
                 SizeEvolve = new EvolvingNatFloat(EnumTransformFunction.LINEAR, -0.15f),
 
-                // Количество, Жизнь и Гравитация
-                Quantity = NatFloat.createUniform(1.5f, 0.5f), // От 1 до 2 штук
+                Quantity = NatFloat.createUniform(1.5f, 0.5f),
                 LifeLength = NatFloat.createUniform(particleLife, 0.1f),
                 GravityEffect = NatFloat.createUniform(-0.02f, 0f),
 
-                // Размер
                 Size = NatFloat.createUniform(0.225f, 0.125f),
 
                 ParticleModel = EnumParticleModel.Quad
@@ -255,11 +255,12 @@ namespace BotaniaStory.blockentity
             bool hasAlchemyCatalyst = blockBelow?.Code?.Path.Contains("catalyst_alchemy") == true;
             bool hasConjurationCatalyst = blockBelow?.Code?.Path.Contains("catalyst_conjuration") == true;
 
-            Entity[] entities = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 1.0, 0.5), 1.0f, 1.0f, e => e is EntityItem);
+            // Узкий радиус не даёт соседнему бассейну захватить тот же предмет
+            Entity[] entities = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 1.0, 0.5), 0.75f, 1.0f, e => e is EntityItem);
 
             foreach (Entity entity in entities)
             {
-                // Пропускаем сущности, которые уже были уничтожены в этом же тике другими рецептами
+                // Уже удалённые сущности пропускаются
                 if (!entity.Alive) continue;
 
                 if (entity.Attributes.GetBool("bs_transmuted", false)) continue;
@@ -271,10 +272,10 @@ namespace BotaniaStory.blockentity
                     string domain = stack.Collectible.Code.Domain;
                     string fullItemCode = $"{domain}:{code}";
 
-                    // Игнорируем предметы, которые еще летят по воздуху
+                    // Предметы в полёте пропускаются
                     if (!entityItem.Collided && !entityItem.Swimming) continue;
 
-                    // ВЗАИМОДЕЙСТВИЕ С ПЛАНШЕТОМ МАНЫ
+                    // Обмен маной с планшетом
                     if (domain == "botaniastory" && code == "manatablet")
                     {
                         int maxTabletMana = ItemManaTablet.MaxMana;
@@ -282,7 +283,6 @@ namespace BotaniaStory.blockentity
 
                         if (IsAcceptingFromItems)
                         {
-                            // РЕЖИМ 1: БАССЕЙН ЗАБИРАЕТ МАНУ У ПЛАНШЕТА
                             if (currentTabletMana > 0 && CurrentMana < MaxMana)
                             {
                                 int transferAmount = Math.Min(currentTabletMana, MaxMana - CurrentMana);
@@ -294,7 +294,6 @@ namespace BotaniaStory.blockentity
 
                                 entityItem.Itemstack = stack;
 
-                                //  СИНХРОНИЗАЦИЯ ПРЕДМЕТА С КЛИЕНТОМ
                                 entityItem.WatchedAttributes.SetItemstack("itemstack", stack);
                                 entityItem.WatchedAttributes.MarkAllDirty();
 
@@ -304,7 +303,6 @@ namespace BotaniaStory.blockentity
                         }
                         else
                         {
-                            // РЕЖИМ 2: БАССЕЙН ОТДАЕТ МАНУ ПЛАНШЕТУ
                             if (currentTabletMana < maxTabletMana && CurrentMana > 0)
                             {
                                 int transferAmount = Math.Min(CurrentMana, maxTabletMana - currentTabletMana);
@@ -316,7 +314,6 @@ namespace BotaniaStory.blockentity
 
                                 entityItem.Itemstack = stack;
 
-                                // СИНХРОНИЗАЦИЯ ПРЕДМЕТА С КЛИЕНТОМ
                                 entityItem.WatchedAttributes.SetItemstack("itemstack", stack);
                                 entityItem.WatchedAttributes.MarkAllDirty();
 
@@ -326,7 +323,7 @@ namespace BotaniaStory.blockentity
                         }
                     }
 
-                    // ВЗАИМОДЕЙСТВИЕ С ЗЕМЛЕКРУШИТЕЛЕМ
+                    // Зарядка Землекрушителя
                     if (stack.Item is ItemTerraShatterer shatterer)
                     {
                         if (!IsAcceptingFromItems && CurrentMana > 0)
@@ -342,16 +339,12 @@ namespace BotaniaStory.blockentity
                                 CurrentMana -= transferAmount;
                                 MarkDirty(true);
 
-                                // 1. ЗАПОМИНАЕМ СТАРУЮ КИРКУ
                                 Item oldItem = entityItem.Slot.Itemstack.Item;
 
-                                // 2. ВЛИВАЕМ МАНУ
                                 shatterer.ReceiveMana(entityItem.Slot, transferAmount, Api.World);
 
-                                // 3. ПРОВЕРЯЕМ ЭВОЛЮЦИЮ И ИГРАЕМ ЗВУКИ
                                 if (entityItem.Slot.Itemstack.Item != oldItem)
                                 {
-                                    // Эволюция произошла
                                     Api.World.SpawnItemEntity(entityItem.Slot.Itemstack, entityItem.Pos.XYZ);
                                     entityItem.Die(EnumDespawnReason.Death);
 
@@ -367,7 +360,6 @@ namespace BotaniaStory.blockentity
                                 }
                                 else
                                 {
-                                    // Обычное накопление маны
                                     entityItem.WatchedAttributes.SetItemstack("itemstack", entityItem.Itemstack);
                                     entityItem.WatchedAttributes.MarkAllDirty();
 
@@ -388,37 +380,35 @@ namespace BotaniaStory.blockentity
                         }
                     }
 
-                    //РЕЦЕПТЫ КАТАЛИЗАТОРОВ НАХОДЯТСЯ В CatalystRegistry.cs
+                    // Рецепты катализаторов хранятся в CatalystRegistry
                     if (hasAlchemyCatalyst)
                     {
                         AlchemyRecipe recipe = null;
 
-                        // 1. Сначала ищем точное совпадение (работает быстрее)
+                        // Сначала ищется точное совпадение
                         if (CatalystRegistry.AlchemyRecipes.ContainsKey(fullItemCode))
                         {
                             recipe = CatalystRegistry.AlchemyRecipes[fullItemCode];
                         }
                         else
                         {
-                            // 2. Если точного совпадения нет, перебираем рецепты со звездочкой (wildcard)
+                            // Затем проверяются wildcard-рецепты
                             foreach (var kvp in CatalystRegistry.AlchemyRecipes)
                             {
                                 if (kvp.Key.EndsWith("-"))
                                 {
-                                    string prefix = kvp.Key.TrimEnd('-'); // Отрезаем звездочку (получаем "game:hide-raw-bear-")
-                                    if (fullItemCode.StartsWith(prefix))  // Проверяем, начинается ли брошенный предмет с этого префикса
+                                    string prefix = kvp.Key.TrimEnd('-');
+                                    if (fullItemCode.StartsWith(prefix))
                                     {
                                         recipe = kvp.Value;
-                                        break; // Рецепт найден, прерываем цикл
+                                        break;
                                     }
                                 }
                             }
                         }
 
-                        // Если рецепт в итоге был найден
                         if (recipe != null)
                         {
-                            // Собираем все такие же предметы вокруг
                             int totalAvailable = 0;
                             List<EntityItem> matchingItems = new List<EntityItem>();
 
@@ -434,7 +424,6 @@ namespace BotaniaStory.blockentity
                                 }
                             }
 
-                            // Проверяем общую сумму
                             if (totalAvailable >= recipe.InputAmount)
                             {
                                 if (TryTransmuteMultiple(matchingItems, recipe.OutputCode, recipe.OutputAmount, recipe.InputAmount, recipe.ManaCost))
@@ -443,63 +432,62 @@ namespace BotaniaStory.blockentity
                         }
                     }
 
-                    // Колдовство (оставляем как есть, если там только 1 к 2)
                     if (hasConjurationCatalyst && CatalystRegistry.ConjurationRecipes.ContainsKey(fullItemCode))
                     {
                         int cost = CatalystRegistry.ConjurationRecipes[fullItemCode];
                         if (TryConjureItem(entityItem, fullItemCode, cost)) continue;
                     }
 
-                    // РЕЦЕПТЫ
-                    // 1. Любой слиток -> Манасталь 
+                    // Базовые преобразования
+                    // Любой слиток -> манасталь
                     if (domain == "game" && code.StartsWith("ingot-"))
                     {
                         if (TryTransmuteItem(entityItem, "game:ingot-manasteel", 1, 1, 25000)) continue;
                     }
 
-                    // 2. Ржавая шестеренка -> Манашестерня 
+                    // Ржавая шестерёнка -> манашестерня
                     if (domain == "game" && code == "gear-rusty")
                     {
                         if (TryTransmuteItem(entityItem, "botaniastory:manaitem-managear", 1, 1, 30000)) continue;
                     }
 
-                    // 3. Волокно -> Мана-нить
+                    // Волокно -> мана-нить
                     if (domain == "game" && code == "flaxfibers")
                     {
                         if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaflax", 1, 1, 10000)) continue;
                     }
 
-                    // 4. Смола -> Манакварц 
+                    // Чистый кварц -> манакварц
                     if (domain == "game" && code == "clearquartz")
                     {
                         if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manaquartz", 1, 1, 25000)) continue;
                     }
 
-                    // 5. Стекло -> Манастекло
+                    // Стекло -> манастекло
                     if (domain == "game" && code.StartsWith("glass-"))
                     {
                         if (TryTransmuteItem(entityItem, "botaniastory:managlass", 1, 1, 5000)) continue;
                     }
 
-                    // 6. Измельчённое что-то  -> манапорошок
+                    // Порошок -> манапорошок
                     if (domain == "game" && code.StartsWith("powder-"))
                     {
                         if (TryTransmuteItem(entityItem, "botaniastory:manaitem-manapowder", 1, 1, 10000)) continue;
                     }
 
-                    // 7. Трава  -> луговое семя
+                    // Сухая трава -> луговое семя
                     if (domain == "game" && code.StartsWith("drygrass"))
                     {
                         if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-normal", 1, 1, 10000)) continue;
                     }
 
-                    // 8. Луговое семя  -> Торфяное семя
+                    // Луговое семя -> торфяное семя
                     if (domain == "botaniastory" && code.StartsWith("meadowseed-normal"))
                     {
                         if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-peat", 1, 1, 15000)) continue;
                     }
 
-                    // 9. Торфяное семя  -> Плодородное семя
+                    // Торфяное семя -> плодородное семя
                     if (domain == "botaniastory" && code.StartsWith("meadowseed-peat"))
                     {
                         if (TryTransmuteItem(entityItem, "botaniastory:meadowseed-medium", 1, 1, 20000)) continue;
@@ -507,10 +495,8 @@ namespace BotaniaStory.blockentity
                 }
             }
         }
-        // Добавляем параметры outputAmount и inputAmount
         private bool TryTransmuteMultiple(List<EntityItem> inputs, string outputItemCode, int outputAmount, int inputAmount, int manaCost)
         {
-            // Проверяем, хватает ли маны
             if (CurrentMana < manaCost) return false;
 
             AssetLocation loc = new AssetLocation(outputItemCode);
@@ -526,14 +512,12 @@ namespace BotaniaStory.blockentity
 
             if (outputStack == null) return false;
 
-            // Списываем ману
             CurrentMana -= manaCost;
             MarkDirty(true);
 
             int remainingToConsume = inputAmount;
             Vec3d lastPos = inputs[0].Pos.XYZ;
 
-            // Проходимся по списку сущностей и "откусываем" нужное количество
             foreach (EntityItem entityItem in inputs)
             {
                 if (remainingToConsume <= 0) break;
@@ -542,7 +526,6 @@ namespace BotaniaStory.blockentity
                 entityItem.Itemstack.StackSize -= take;
                 remainingToConsume -= take;
 
-                // Обновляем позицию для спавна результата и частиц
                 lastPos = entityItem.Pos.XYZ;
 
                 if (entityItem.Itemstack.StackSize <= 0)
@@ -556,12 +539,12 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-                // Спавним результат и вешаем на него флаг-защиту
-              Entity spawnedEntity = Api.World.SpawnItemEntity(outputStack, lastPos);
-              if (spawnedEntity != null)
-              {
-                  spawnedEntity.Attributes.SetBool("bs_transmuted", true);
-              }
+            // Результат помечается от повторной трансмутации
+            Entity spawnedEntity = Api.World.SpawnItemEntity(outputStack, lastPos);
+            if (spawnedEntity != null)
+            {
+                spawnedEntity.Attributes.SetBool("bs_transmuted", true);
+            }
 
 
             SpawnCraftingParticles(lastPos);
@@ -581,7 +564,6 @@ namespace BotaniaStory.blockentity
 
         private bool TryTransmuteItem(EntityItem inputEntity, string outputItemCode, int outputAmount, int inputAmount, int manaCost)
         {
-            // Проверяем, хватает ли маны
             if (CurrentMana < manaCost) return false;
 
             AssetLocation loc = new AssetLocation(outputItemCode);
@@ -603,28 +585,25 @@ namespace BotaniaStory.blockentity
 
             if (outputStack == null) return false;
 
-            // Списываем ману и сохраняем бассейн
             CurrentMana -= manaCost;
             MarkDirty(true);
 
-            // Забираем НУЖНОЕ КОЛИЧЕСТВО элементов из стака, который бросил игрок
             inputEntity.Itemstack.StackSize -= inputAmount;
 
-            // Если в стаке больше ничего не осталось - удаляем брошенную сущность
             if (inputEntity.Itemstack.StackSize <= 0)
             {
                 inputEntity.Die(EnumDespawnReason.Death);
             }
             else
             {
-                // Обязательно помечаем оставшийся стак как измененный, чтобы клиент увидел
+                // Остаток стака синхронизируется с клиентом
                 inputEntity.WatchedAttributes.SetItemstack("itemstack", inputEntity.Itemstack);
                 inputEntity.WatchedAttributes.MarkAllDirty();
             }
 
 
 
-            // Ловим спавнящуюся сущность и помечаем флагом
+            // Результат помечается от повторной трансмутации
             Entity spawnedEntity = Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
             if (spawnedEntity != null)
             {
@@ -684,18 +663,16 @@ namespace BotaniaStory.blockentity
 
             if (outputStack == null) return false;
 
-            // Списываем ману
             CurrentMana -= manaCost;
             MarkDirty(true);
 
-            // Расходуем оригинал
             inputEntity.Itemstack.StackSize--;
             if (inputEntity.Itemstack.StackSize <= 0)
             {
                 inputEntity.Die(EnumDespawnReason.Death);
             }
 
-            // Выдаем удвоенный результат с флагом защиты
+            // Результат помечается от повторного колдовства
             Entity spawnedEntity = Api.World.SpawnItemEntity(outputStack, inputEntity.Pos.XYZ);
             if (spawnedEntity != null)
             {

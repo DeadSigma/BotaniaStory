@@ -38,7 +38,7 @@ namespace BotaniaStory.items
             MeshData mesh;
             capi.Tesselator.TesselateItem(this, out mesh, new WandTexSource(targetAtlas, this, cachedShape));
 
-            // альфа тест вместо смешивания, грани не отсекаются
+            // Альфа-тест используется без отсечения граней
             mesh.RenderPassesAndExtraBits?.Fill((short)EnumChunkRenderPass.OpaqueNoCull);
 
             return mesh;
@@ -49,7 +49,7 @@ namespace BotaniaStory.items
             return slot.Itemstack.Collectible.Code.ToString();
         }
 
-        // повторяет логику индексатора BlockEntityDisplay - текстуры предмета, потом шейпа
+        // Текстура берётся у предмета, затем у шейпа
         private class WandTexSource : ITexPositionSource
         {
             private readonly ITextureAtlasAPI atlas;
@@ -91,10 +91,10 @@ namespace BotaniaStory.items
             }
         }
 
-        // ЛКМ (Левая Кнопка Мыши) - ОТМЕНА ПРИВЯЗКИ
+        // ЛКМ - отмена привязки
         public override void OnHeldAttackStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, ref EnumHandHandling handling)
         {
-            // ЛКМ по Wardbloom - режим частиц
+            // ЛКМ по Wardbloom - смена режима частиц
             if (blockSel != null)
             {
                 BlockEntity targetBe = byEntity.World.BlockAccessor.GetBlockEntity(blockSel.Position);
@@ -124,14 +124,6 @@ namespace BotaniaStory.items
                 slot.Itemstack.Attributes.RemoveAttribute("hasAmaranthus");
                 slot.Itemstack.Attributes.RemoveAttribute("hasFunctionalFlower");
                 slot.MarkDirty();
-
-                /* if (byEntity.World.Side == EnumAppSide.Client)
-                 {
-                     var clientApi = byEntity.World.Api as ICoreClientAPI;
-                     clientApi?.ShowChatMessage("Действие отменено. Память посоха очищена.");
-                 } 
-                 */
-
                 handling = EnumHandHandling.PreventDefault;
                 return;
             }
@@ -139,7 +131,7 @@ namespace BotaniaStory.items
             base.OnHeldAttackStart(slot, byEntity, blockSel, entitySel, ref handling);
         }
 
-        // ПКМ - ЛОГИКА ПРИВЯЗКИ, ИНФОРМАЦИИ И СНЯТИЯ ИСКР
+        // ПКМ - привязка и работа с искрами
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
 
@@ -150,20 +142,17 @@ namespace BotaniaStory.items
             if (byPlayer == null) return;
 
             IWorldAccessor world = byEntity.World;
-            // По умолчанию громкость 1.0 (максимум)
             float wandVolume = 1f;
 
-            // Если мы на клиенте, берем громкость из общего конфига
             if (world.Api is ICoreClientAPI)
             {
-                // Берем WandVolume и делим на 100
                 wandVolume = (BotaniaStoryModSystem.ClientConfig?.WandVolume ?? 50) / 100f;
             }
 
 
 
 
-            // А. ТОЧНЫЙ  ПОИСК ИСКРЫ (Как в дополнителях)
+            // Искра ищется лучом от камеры
             EntitySpark targetSpark = null;
 
             Vec3d eyePos = byEntity.Pos.XYZ.Add(0, byEntity.LocalEyePos.Y, 0);
@@ -171,13 +160,12 @@ namespace BotaniaStory.items
             Vec3d lookDir = new Vec3d(viewVec.X, viewVec.Y, viewVec.Z);
 
             Entity[] nearbySparks = world.GetEntitiesAround(byEntity.Pos.XYZ, 5, 5, e => e is EntitySpark);
-            double closestDistance = 5.0; // Максимальная дальность луча
+            double closestDistance = 5.0; // Дальность луча
 
             foreach (Entity entity in nearbySparks)
             {
                 if (entity is EntitySpark spark)
                 {
-                    // Целимся в центр искры
                     Vec3d sparkCenter = new Vec3d(spark.Pos.X, spark.Pos.Y + 0.3, spark.Pos.Z);
                     Vec3d V = new Vec3d(sparkCenter.X - eyePos.X, sparkCenter.Y - eyePos.Y, sparkCenter.Z - eyePos.Z);
 
@@ -188,7 +176,7 @@ namespace BotaniaStory.items
                         Vec3d projection = new Vec3d(lookDir.X * t, lookDir.Y * t, lookDir.Z * t);
                         Vec3d perpendicular = new Vec3d(V.X - projection.X, V.Y - projection.Y, V.Z - projection.Z);
 
-                        // Хитбокс луча 0.4 блока
+                        // Допуск луча - 0.4 блока
                         if (perpendicular.Length() < 0.4)
                         {
                             closestDistance = t;
@@ -198,15 +186,13 @@ namespace BotaniaStory.items
                 }
             }
 
-            // Если "пронзили" искру взглядом:
             if (targetSpark != null)
             {
-                // 1. ЕСЛИ ЗАЖАТ SHIFT (Снятие руны или искры)
+                // Shift снимает руну или саму искру
                 if (byPlayer.Entity.Controls.Sneak)
                 {
                     string currentAugment = targetSpark.WatchedAttributes.GetString("augment", "none");
 
-                    // Если есть руна - снимаем ТОЛЬКО руну
                     if (currentAugment != "none")
                     {
                         targetSpark.WatchedAttributes.SetString("augment", "none");
@@ -221,11 +207,9 @@ namespace BotaniaStory.items
                                 world.SpawnItemEntity(new ItemStack(augmentItem), targetSpark.Pos.XYZ);
                             }
 
-                            // Звук теперь только на сервере (он сам долетит до клиента 1 раз)
                             world.PlaySoundAt(new AssetLocation("game", "sounds/player/throw"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, null, true, 16, 1f);
                         }
                     }
-                    // Если руны нет - снимаем саму искру
                     else
                     {
                         if (world.Side == EnumAppSide.Server)
@@ -238,11 +222,10 @@ namespace BotaniaStory.items
                             targetSpark.Die(EnumDespawnReason.PickedUp);
                         }
 
-                        // Звук вынесли наружу и применили byPlayer и wandVolume!
                         world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, wandVolume);
                     }
                 }
-                // 2. ЕСЛИ ПРОСТО КЛИК (Показ лучей сети)
+                // Обычный клик показывает связи искры
                 else
                 {
                     Vec3d sparkPos = targetSpark.Pos.XYZ.AddCopy(0, 0.1, 0);
@@ -260,7 +243,6 @@ namespace BotaniaStory.items
                         }
                     }
 
-                    // Играем звук везде, Клиент использует свой ползунок, Сервер играет для остальных
                     if (foundSparks > 0)
                     {
                         world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/effect/translocate"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, wandVolume);
@@ -269,21 +251,12 @@ namespace BotaniaStory.items
                     {
                         world.PlaySoundAt(new AssetLocation("botaniastory", "sounds/wand_bind"), targetSpark.Pos.X, targetSpark.Pos.Y, targetSpark.Pos.Z, byPlayer, true, 16, wandVolume);
                     }
-
-                    /*
-                      if (world.Side == EnumAppSide.Client)
-                      {
-                          var clientApi = world.Api as ICoreClientAPI;
-                          clientApi?.ShowChatMessage($"Эта искра связана с другими искрами: {foundSparks} шт.");
-                      }
-                      */
                 }
 
                 handling = EnumHandHandling.Handled;
                 return;
             }
 
-            // Б. ЕСЛИ НЕ ПОПАЛИ ПО ИСКРЕ, ПЕРЕХОДИМ К БЛОКАМ
 
             if (blockSel == null) return;
 
@@ -293,27 +266,21 @@ namespace BotaniaStory.items
 
             AssetLocation wandSound = new AssetLocation("botaniastory", "sounds/wand_bind");
 
-            // СМЕНА РЕЖИМА БАССЕЙНА МАНЫ (SHIFT + ПКМ)
+            // Shift+ПКМ меняет режим бассейна
             if (byPlayer.Entity.Controls.Sneak && block is BlockManaPool)
             {
                 if (be is BlockEntityManaPool poolBE)
                 {
-                    // Инвертируем состояние
-                    poolBE.IsAcceptingFromItems = !poolBE.IsAcceptingFromItems;
-                    poolBE.MarkDirty(true);
-
-                    /*
-                    if (world.Side == EnumAppSide.Client)
+                    // Режим меняется только на сервере - Sneak на клиенте приходит
+                    // с задержкой и может рассинхронизироваться
+                    if (world.Side == EnumAppSide.Server)
                     {
-                        string mode = poolBE.IsAcceptingFromItems ? "ПРИНИМАЕТ ману ИЗ предметов" : "ОТДАЕТ ману В предметы";
-                        (world.Api as ICoreClientAPI)?.ShowChatMessage($"Режим бассейна изменен: теперь он {mode}.");
+                        poolBE.IsAcceptingFromItems = !poolBE.IsAcceptingFromItems;
+                        poolBE.MarkDirty(true);
                     }
-                    */
-
                     world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 }
 
-                // Прерываем дальнейшее выполнение, чтобы посох не пытался начать привязку
                 handling = EnumHandHandling.Handled;
                 return;
             }
@@ -322,7 +289,7 @@ namespace BotaniaStory.items
             bool hasSpreaderInMemory = slot.Itemstack.Attributes.GetBool("hasSpreader");
             bool hasFunctionalFlowerInMemory = slot.Itemstack.Attributes.GetBool("hasFunctionalFlower");
 
-            // ЗАВЕРШЕНИЕ ПРИВЯЗКИ ЦВЕТКА К БАССЕЙНУ
+            // Завершение привязки цветка к бассейну
             if (hasFunctionalFlowerInMemory)
             {
                 if (block is BlockManaPool || be is BlockEntityManaPool)
@@ -334,7 +301,6 @@ namespace BotaniaStory.items
 
                     BlockEntity flowerBe = world.BlockAccessor.GetBlockEntity(flowerPos);
 
-                    // Больше не нужны if / else для каждого цветка
                     ILinkableToPool targetFlower = GetInterface<ILinkableToPool>(flowerBe);
                     if (targetFlower != null)
                     {
@@ -350,7 +316,7 @@ namespace BotaniaStory.items
                 return;
             }
 
-            // ЗАВЕРШЕНИЕ ПРИВЯЗКИ ЦВЕТКА -> К РАСПРОСТРАНИТЕЛЮ
+            // Завершение привязки цветка к распространителю
             if (hasFlowerInMemory)
             {
                 if (block is ManaSpreader)
@@ -371,31 +337,17 @@ namespace BotaniaStory.items
 
                     slot.Itemstack.Attributes.RemoveAttribute("hasFlower");
                     slot.MarkDirty();
-
-                    /*
-                     if (world.Side == EnumAppSide.Client)
-                     {
-                         (world.Api as ICoreClientAPI)?.ShowChatMessage("Цветок успешно привязан к Распространителю!");
-                     }
-                     */
-
                     world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 }
                 else
                 {
-                    /*
-                    if (world.Side == EnumAppSide.Client)
-                    {
-                        (world.Api as ICoreClientAPI)?.ShowChatMessage("Вы выбрали цветок. Кликните ПКМ по Распространителю маны или нажмите ЛКМ для отмены.");
-                    }
-                    */
                 }
 
                 handling = EnumHandHandling.Handled;
                 return;
             }
 
-            // ЗАВЕРШЕНИЕ ПРИВЯЗКИ РАСПРОСТРАНИТЕЛЯ -> К ЦЕЛИ
+            // Завершение привязки распространителя к цели
             if (hasSpreaderInMemory)
             {
                 int sx = slot.Itemstack.Attributes.GetInt("spreaderX");
@@ -416,22 +368,6 @@ namespace BotaniaStory.items
 
                     spreaderBE.TargetPos = pos.Copy();
                     spreaderBE.MarkDirty(true);
-
-                    /*
-                     if (world.Side == EnumAppSide.Client)
-                     {
-                         var clientApi = world.Api as ICoreClientAPI;
-                         if (block is BlockManaPool)
-                         {
-                             clientApi?.ShowChatMessage("Связь установлена! Распространитель привязан к Бассейну.");
-                         }
-                         else
-                         {
-                             clientApi?.ShowChatMessage("Распространитель маны повернут к новым координатам!");
-                         }
-                     }
-                     */
-
                     world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 }
 
@@ -442,13 +378,13 @@ namespace BotaniaStory.items
                 return;
             }
 
-            // Wardbloom - размер барьера
+            // Wardbloom - настройка барьера
             BEBehaviorWardbloom wardbloom = be?.GetBehavior<BEBehaviorWardbloom>();
             if (wardbloom != null)
             {
                 bool forceRelink = byPlayer.Entity.Controls.CtrlKey;
 
-                // Первый клик или Ctrl+ПКМ - привязка к бассейну
+                // Первый клик или Ctrl+ПКМ запускает перепривязку
                 if (wardbloom.LinkedPool == null || forceRelink)
                 {
                     slot.Itemstack.Attributes.SetInt("functionalFlowerX", pos.X);
@@ -459,7 +395,7 @@ namespace BotaniaStory.items
                 }
                 else
                 {
-                    // ПКМ увеличивает, Shift+ПКМ уменьшает
+                    // ПКМ увеличивает радиус, Shift+ПКМ уменьшает
                     if (world.Side == EnumAppSide.Server)
                     {
                         int direction = byPlayer.Entity.Controls.Sneak ? -1 : 1;
@@ -505,14 +441,6 @@ namespace BotaniaStory.items
                 slot.Itemstack.Attributes.SetInt("flowerZ", pos.Z);
                 slot.Itemstack.Attributes.SetBool("hasFlower", true);
                 slot.MarkDirty();
-
-                /*
-                if (world.Side == EnumAppSide.Client)
-                {
-                    (world.Api as ICoreClientAPI)?.ShowChatMessage("Цветок выбран. Теперь нажмите ПКМ по Распространителю маны.");
-                }
-                */
-
                 world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 handling = EnumHandHandling.Handled;
                 return;
@@ -525,14 +453,6 @@ namespace BotaniaStory.items
                 slot.Itemstack.Attributes.SetInt("spreaderZ", pos.Z);
                 slot.Itemstack.Attributes.SetBool("hasSpreader", true);
                 slot.MarkDirty();
-
-                /*
-                  if (world.Side == EnumAppSide.Client)
-                  {
-                      (world.Api as ICoreClientAPI)?.ShowChatMessage("Распространитель выбран. Кликните ПКМ по Бассейну (или блоку) для привязки.");
-                  }
-                  */
-
                 world.PlaySoundAt(wandSound, pos.X + 0.5, pos.Y + 0.5, pos.Z + 0.5, byPlayer, true, 16, wandVolume);
                 handling = EnumHandHandling.Handled;
                 return;
@@ -540,16 +460,12 @@ namespace BotaniaStory.items
 
             if (be is BlockEntityRunicAltar altar)
             {
-                // Заставляем алтарь попробовать завершить крафт
                 if (altar.TryCompleteCrafting(byPlayer))
                 {
-                    // Если крафт удался, говорим игре, что клик обработан
                     handling = EnumHandHandling.Handled;
                 }
                 else
                 {
-                    // Если крафт не удался (нет маны или рецепта), 
-                    // мы все равно прерываем клик, чтобы не было конфликтов
                     handling = EnumHandHandling.PreventDefault;
                 }
                 return;
@@ -559,7 +475,7 @@ namespace BotaniaStory.items
 
         }
 
-        // МЕТОД ДЛЯ РИСОВАНИЯ ЛУЧЕЙ ИЗ ЧАСТИЦ (Универсальный)
+        // Луч между связанными искрами
         private void SpawnBindingParticles(IWorldAccessor world, Vec3d start, Vec3d end)
         {
             double distance = start.DistanceTo(end);
@@ -587,15 +503,13 @@ namespace BotaniaStory.items
                 world.SpawnParticles(beamParticles);
             }
         }
-        // Универсальный искатель интерфейсов в блоке и всех его поведениях
+        // Интерфейс ищется у сущности и её поведений
         private T GetInterface<T>(BlockEntity be) where T : class
         {
             if (be == null) return null;
 
-            // Сначала ищем в самой сущности
             if (be is T entityInterface) return entityInterface;
 
-            // Затем перебираем поведения
             foreach (var behavior in be.Behaviors)
             {
                 if (behavior is T behaviorInterface) return behaviorInterface;
@@ -610,7 +524,7 @@ namespace BotaniaStory.items
             renderinfo.CullFaces = false;
             renderinfo.AlphaTest = 0.4f;
 
-            // на земле нормали плоскости уводят лист почти в чёрный
+            // На земле нормали затемняют плоскую геометрию
             if (target == EnumItemRenderTarget.Ground)
             {
                 renderinfo.NormalShaded = false;

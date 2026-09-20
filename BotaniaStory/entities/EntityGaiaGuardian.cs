@@ -607,7 +607,7 @@ namespace BotaniaStory.entities
 
             for (int player = 0; player < lootPlayerCount; player++)
             {
-                int runeRolls = world.Rand.Next(1, 7); // 1..6 включительно
+                int runeRolls = world.Rand.Next(1, 7);
 
                 for (int roll = 0; roll < runeRolls; roll++)
                 {
@@ -617,7 +617,7 @@ namespace BotaniaStory.entities
                     string runeType =
                         GaiaRuneTypes[world.Rand.Next(GaiaRuneTypes.Length)];
 
-                    int runeCount = world.Rand.Next(2, 5); // 2..4 включительно
+                    int runeCount = world.Rand.Next(2, 5);
 
                     if (runeTotals.TryGetValue(runeType, out int current))
                     {
@@ -629,10 +629,14 @@ namespace BotaniaStory.entities
                     }
                 }
 
-                // Overgrowth Seed: 25%, 1-3 штуки на каждого атакующего игрока.
-                if (world.Rand.NextDouble() < 0.25)
+                // Overgrowth Seed: 75% — 1 штука, 25% — 2-5 штук на каждого атакующего игрока
+                if (world.Rand.NextDouble() < 0.75)
                 {
-                    overgrowthSeedTotal += world.Rand.Next(1, 4);
+                    overgrowthSeedTotal += 1;
+                }
+                else
+                {
+                    overgrowthSeedTotal += world.Rand.Next(2, 6);
                 }
             }
 
