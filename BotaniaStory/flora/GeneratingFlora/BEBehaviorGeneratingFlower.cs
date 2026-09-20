@@ -1,4 +1,4 @@
-﻿using BotaniaStory.blockentity;
+using BotaniaStory.blockentity;
 using System;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -6,41 +6,75 @@ using Vintagestory.API.MathTools;
 
 namespace BotaniaStory.Flora.GeneratingFlora
 {
-    // Абстрактный класс поведения для всех генерирующих цветов
     public abstract class BEBehaviorGeneratingFlower : BlockEntityBehavior, ILinkableToSpreader
     {
-        // Общие переменные
         public int CurrentMana = 0;
         public int MaxMana = 10000;
 
-        // ВАЖНО: Это теперь свойство (Property), чтобы соответствовать интерфейсу ILinkableToSpreader
+        protected delegate void FlowerWork(ref bool dirty);
+
+        protected virtual bool IsPassiveFlower => false;
+        protected virtual bool IsAffectedByEnchantedSoil => true;
+        protected virtual int EnchantedSoilWorkMultiplier => 2;
+
         public BlockPos LinkedSpreader { get; set; } = null;
 
-        public BEBehaviorGeneratingFlower(BlockEntity blockentity) : base(blockentity) { }
+        public BEBehaviorGeneratingFlower(BlockEntity blockentity) : base(blockentity)
+        {
+        }
 
-        // Добавляем обязательный метод Initialize для поведения
         public override void Initialize(ICoreAPI api, JsonObject properties)
         {
             base.Initialize(api, properties);
         }
 
-        // Общий поиск распространителя (при установке)
+        protected bool IsOnEnchantedSoil()
+        {
+            if (!IsAffectedByEnchantedSoil || this.Api?.World == null) return false;
+
+            Block block = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos.DownCopy());
+            if (block?.Code == null || block.Code.Domain != "botaniastory") return false;
+
+            string path = block.Code.Path;
+            return path.StartsWith("enchantedsoil") || path.StartsWith("enchantedfarmland");
+        }
+
+        protected int GetWorkIterations()
+        {
+            return IsOnEnchantedSoil() ? EnchantedSoilWorkMultiplier : 1;
+        }
+
+        // Рабочий цикл повторяется на зачарованной почве
+        protected void RunFlowerWork(FlowerWork work, ref bool dirty)
+        {
+            int iterations = GetWorkIterations();
+
+            for (int i = 0; i < iterations; i++)
+            {
+                work(ref dirty);
+            }
+        }
+
+        protected bool IsPassiveDecayPrevented()
+        {
+            return IsPassiveFlower && IsOnEnchantedSoil();
+        }
+
         public void FindSpreader()
         {
             int radius = 6;
+
             for (int x = -radius; x <= radius; x++)
             {
                 for (int y = -radius; y <= radius; y++)
                 {
                     for (int z = -radius; z <= radius; z++)
                     {
-                        // ВАЖНО: Используем this.Blockentity.Pos
                         BlockPos checkPos = this.Blockentity.Pos.AddCopy(x, y, z);
 
-                        // ВАЖНО: Используем this.Api
                         if (this.Api.World.BlockAccessor.GetBlockEntity(checkPos) is BlockEntityManaSpreader)
                         {
-                            LinkedSpreader = checkPos.Copy(); // Копируем позицию для безопасности
+                            LinkedSpreader = checkPos.Copy();
                             return;
                         }
                     }
@@ -48,13 +82,10 @@ namespace BotaniaStory.Flora.GeneratingFlora
             }
         }
 
-        // Общая функция для проверки связи и передачи маны!
         protected void ProcessManaTransfer(ref bool dirty)
         {
-            // 1. ПРОВЕРКА СВЯЗИ
             if (LinkedSpreader != null)
             {
-                // ВАЖНО: Используем this.Api
                 BlockEntity be = this.Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
                 if (!(be is BlockEntityManaSpreader))
                 {
@@ -63,7 +94,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 }
             }
 
-            // 2. ПЕРЕДАЧА МАНЫ
             if (LinkedSpreader != null && CurrentMana > 0)
             {
                 BlockEntity be = this.Api.World.BlockAccessor.GetBlockEntity(LinkedSpreader);
@@ -76,14 +106,13 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     {
                         spreader.CurrentMana += toMove;
                         spreader.MarkDirty(false);
-                        this.CurrentMana -= toMove;
+                        CurrentMana -= toMove;
                         dirty = true;
                     }
                 }
             }
         }
 
-        // Общее сохранение
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
@@ -102,7 +131,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
             }
         }
 
-        // Общая загрузка
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             base.FromTreeAttributes(tree, worldForResolving);
@@ -110,7 +138,11 @@ namespace BotaniaStory.Flora.GeneratingFlora
 
             if (tree.GetBool("hasSpreader"))
             {
-                LinkedSpreader = new BlockPos(tree.GetInt("lx"), tree.GetInt("ly"), tree.GetInt("lz"));
+                LinkedSpreader = new BlockPos(
+                    tree.GetInt("lx"),
+                    tree.GetInt("ly"),
+                    tree.GetInt("lz")
+                );
             }
             else
             {

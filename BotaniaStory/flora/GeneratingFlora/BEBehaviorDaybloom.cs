@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -8,15 +8,15 @@ namespace BotaniaStory.Flora.GeneratingFlora
 {
     public class BEBehaviorDaybloom : BEBehaviorGeneratingFlower
     {
-        // СТАТИЧНЫЙ СЛОВАРЬ: Считает все Дневноцветы игроков на сервере (для Soft Cap)
+        protected override bool IsPassiveFlower => true;
+
         public static Dictionary<string, int> PlayerBloomsCount = new Dictionary<string, int>();
 
-        public string OwnerUID = null; // Кто посадил цветок
-        public double PlantedTotalDays = 0; // День посадки
+        public string OwnerUID = null;
+        public double PlantedTotalDays = 0;
 
-        private float fractionalMana = 0f; // Копилка для дробной маны
+        private float fractionalMana = 0f;
 
-        // Обязательный конструктор
         public BEBehaviorDaybloom(BlockEntity blockentity) : base(blockentity)
         {
         }
@@ -39,7 +39,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     PlantedTotalDays = this.Api.World.Calendar.TotalDays;
                 }
 
-                // Тик ровно раз в секунду
                 this.Blockentity.RegisterGameTickListener(OnServerTick, 1000);
             }
         }
@@ -47,6 +46,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
+
             if (this.Api?.Side == EnumAppSide.Server && OwnerUID != null && PlayerBloomsCount.ContainsKey(OwnerUID))
             {
                 PlayerBloomsCount[OwnerUID]--;
@@ -57,41 +57,47 @@ namespace BotaniaStory.Flora.GeneratingFlora
         private void OnServerTick(float dt)
         {
             bool dirty = false;
-            double currentDays = this.Api.World.Calendar.TotalDays;
 
-            // 1. СТАРЕНИЕ (Живёт 3 игровых дня)
-            double daysAlive = currentDays - PlantedTotalDays;
-            if (daysAlive >= 3.0)
+            if (!IsPassiveDecayPrevented())
             {
-                // Узнаем, какой блок сейчас стоит по этим координатам
-                Block currentBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos);
-                Block deadBlock = null;
+                double daysAlive = this.Api.World.Calendar.TotalDays - PlantedTotalDays;
+                if (daysAlive >= 3.0)
+                {
+                    Block currentBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos);
+                    Block deadBlock;
 
-                // Проверяем, является ли текущий блок парящим островом
-                if (currentBlock != null && currentBlock.Code.Path.Contains("floatingisland"))
-                {
-                    deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "floatingisland-deadflower"));
-                }
-                else
-                {
-                    deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "deadflower-free"));
-                }
+                    if (currentBlock != null && currentBlock.Code.Path.Contains("floatingisland"))
+                    {
+                        deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "floatingisland-deadflower"));
+                    }
+                    else
+                    {
+                        deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "deadflower-free"));
+                    }
 
-                // Если нужный мертвый блок найден, устанавливаем его
-                if (deadBlock != null)
-                {
-                    this.Api.World.BlockAccessor.SetBlock(deadBlock.BlockId, this.Blockentity.Pos);
-                    return;
+                    if (deadBlock != null)
+                    {
+                        this.Api.World.BlockAccessor.SetBlock(deadBlock.BlockId, this.Blockentity.Pos);
+                        return;
+                    }
                 }
             }
 
-            // 2. БОНУС ПОЧВЫ (Мгновенный множитель)
+            RunFlowerWork(ProcessFlowerWork, ref dirty);
+            ProcessManaTransfer(ref dirty);
+
+            if (dirty) this.Blockentity.MarkDirty(false);
+        }
+
+        private void ProcessFlowerWork(ref bool dirty)
+        {
             float soilMult = 1.0f;
             Block downBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos.DownCopy());
 
             if (downBlock != null)
             {
                 string path = downBlock.Code.Path;
+
                 if (path.Contains("soil") || path.Contains("farmland"))
                 {
                     if (path.Contains("medium")) soilMult = 1.04f;
@@ -104,23 +110,34 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 }
             }
 
-            // 3. ПРОВЕРКА СОЛНЦА, ПОГОДЫ И НОЧИ
             int rainY = this.Api.World.BlockAccessor.GetRainMapHeightAt(this.Blockentity.Pos.X, this.Blockentity.Pos.Z);
             if (this.Blockentity.Pos.Y < rainY) return;
 
-            float rainfall = this.Api.World.BlockAccessor.GetClimateAt(this.Blockentity.Pos, EnumGetClimateMode.NowValues).Rainfall;
+            float rainfall = this.Api.World.BlockAccessor.GetClimateAt(
+                this.Blockentity.Pos,
+                EnumGetClimateMode.NowValues
+            ).Rainfall;
+
             if (rainfall > 0.05f) return;
 
-            float daylightStrength = this.Api.World.Calendar.GetDayLightStrength(this.Blockentity.Pos.X, this.Blockentity.Pos.Z);
+            float daylightStrength = this.Api.World.Calendar.GetDayLightStrength(
+                this.Blockentity.Pos.X,
+                this.Blockentity.Pos.Z
+            );
+
             if (daylightStrength < 0.4f) return;
 
-            int sunLight = this.Api.World.BlockAccessor.GetLightLevel(this.Blockentity.Pos, EnumLightLevelType.OnlySunLight);
+            int sunLight = this.Api.World.BlockAccessor.GetLightLevel(
+                this.Blockentity.Pos,
+                EnumLightLevelType.OnlySunLight
+            );
+
             if (sunLight < 15) return;
 
             float sunlightMult = (sunLight / 22f) * daylightStrength;
 
-            // 4. ШТРАФ ЗА КОЛИЧЕСТВО (Радиус 6 блоков)
             int nearbyFlowers = 0;
+
             for (int dx = -6; dx <= 6; dx++)
             {
                 for (int dy = -6; dy <= 6; dy++)
@@ -128,8 +145,8 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     for (int dz = -6; dz <= 6; dz++)
                     {
                         if (dx == 0 && dy == 0 && dz == 0) continue;
+
                         BlockPos checkPos = this.Blockentity.Pos.AddCopy(dx, dy, dz);
-                        // Проверяем, есть ли на этом блоке поведение Дневноцвета!
                         if (this.Api.World.BlockAccessor.GetBlockEntity(checkPos)?.GetBehavior<BEBehaviorDaybloom>() != null)
                         {
                             nearbyFlowers++;
@@ -137,17 +154,18 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     }
                 }
             }
+
             float efficiency = 1f / (1f + nearbyFlowers * 0.4f);
 
-            // 5. СЕЗОНЫ
             float seasonMult = 1f;
             int month = this.Api.World.Calendar.Month;
+
             if (month == 12 || month == 1 || month == 2) seasonMult = 0.15f;
             else if (month >= 3 && month <= 5) seasonMult = 0.8f;
             else if (month >= 9 && month <= 11) seasonMult = 0.6f;
 
-            // 6. SOFT CAP
             float globalMult = 1f;
+
             if (OwnerUID != null && PlayerBloomsCount.ContainsKey(OwnerUID))
             {
                 int totalFlowers = PlayerBloomsCount[OwnerUID];
@@ -158,7 +176,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 }
             }
 
-            // ФИНАЛЬНЫЙ РАСЧЕТ И ВЫДАЧА МАНЫ
             float baseManaPerSec = 4f;
             float generatedThisSec = baseManaPerSec * sunlightMult * efficiency * seasonMult * globalMult * soilMult;
 
@@ -173,16 +190,12 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 if (CurrentMana > MaxMana) CurrentMana = MaxMana;
                 dirty = true;
             }
-
-            ProcessManaTransfer(ref dirty);
-
-            if (dirty) this.Blockentity.MarkDirty(false);
         }
 
-        // СОХРАНЕНИЕ ДАННЫХ
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
+
             if (OwnerUID != null) tree.SetString("ownerUID", OwnerUID);
             tree.SetDouble("plantedDays", PlantedTotalDays);
             tree.SetFloat("fracMana", fractionalMana);

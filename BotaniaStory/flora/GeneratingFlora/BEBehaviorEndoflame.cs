@@ -1,5 +1,4 @@
-﻿using BotaniaStory;
-using System;
+using BotaniaStory;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
@@ -9,12 +8,10 @@ using Vintagestory.API.Server;
 
 namespace BotaniaStory.Flora.GeneratingFlora
 {
-    // Наследуемся от нашего обновленного базового поведения
     public class BEBehaviorEndoflame : BEBehaviorGeneratingFlower
     {
         public int BurnTicksLeft = 0;
 
-        // Обязательный конструктор
         public BEBehaviorEndoflame(BlockEntity blockentity) : base(blockentity)
         {
         }
@@ -24,7 +21,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
             base.Initialize(api, properties);
             MaxMana = 300;
 
-            // Регистрируем тики через this.Blockentity
             if (api.Side == EnumAppSide.Server)
                 this.Blockentity.RegisterGameTickListener(OnServerTick, 100);
             else
@@ -35,10 +31,17 @@ namespace BotaniaStory.Flora.GeneratingFlora
         {
             bool dirty = false;
 
+            RunFlowerWork(ProcessFlowerWork, ref dirty);
+            ProcessManaTransfer(ref dirty);
+
+            if (dirty) this.Blockentity.MarkDirty(false);
+        }
+
+        private void ProcessFlowerWork(ref bool dirty)
+        {
             int manaPerCycle = 4;
             int ticksPerCycle = 2;
 
-            // 1. ГЕНЕРАЦИЯ МАНЫ И ГОРЕНИЕ
             if (BurnTicksLeft > 0)
             {
                 BurnTicksLeft--;
@@ -54,10 +57,15 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     if (CurrentMana > MaxMana) CurrentMana = MaxMana;
                 }
             }
-            // 2. ПОИСК ТОПЛИВА 
             else if (CurrentMana <= MaxMana / 2)
             {
-                Entity[] entities = this.Api.World.GetEntitiesAround(this.Blockentity.Pos.ToVec3d().Add(0.5, 0.5, 0.5), 3, 3, (e) => e is EntityItem);
+                Entity[] entities = this.Api.World.GetEntitiesAround(
+                    this.Blockentity.Pos.ToVec3d().Add(0.5, 0.5, 0.5),
+                    3,
+                    3,
+                    (e) => e is EntityItem
+                );
+
                 foreach (Entity entity in entities)
                 {
                     EntityItem entityItem = (EntityItem)entity;
@@ -84,13 +92,16 @@ namespace BotaniaStory.Flora.GeneratingFlora
                             entityItem.WatchedAttributes.MarkAllDirty();
                         }
 
-                        ICoreServerAPI sapi = this.Api as ICoreServerAPI;
-                        if (sapi != null)
+                        if (this.Api is ICoreServerAPI sapi)
                         {
                             var channel = sapi.Network.GetChannel("botanianetwork");
                             channel.BroadcastPacket(new PlayManaSoundPacket()
                             {
-                                Position = new Vec3d(this.Blockentity.Pos.X + 0.5, this.Blockentity.Pos.Y + 0.5, this.Blockentity.Pos.Z + 0.5),
+                                Position = new Vec3d(
+                                    this.Blockentity.Pos.X + 0.5,
+                                    this.Blockentity.Pos.Y + 0.5,
+                                    this.Blockentity.Pos.Z + 0.5
+                                ),
                                 SoundName = "ignite"
                             });
                         }
@@ -100,14 +111,8 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     }
                 }
             }
-
-            // 3. ПРОВЕРКА И ПЕРЕДАЧА МАНЫ (вызов из базового поведения)
-            ProcessManaTransfer(ref dirty);
-
-            if (dirty) this.Blockentity.MarkDirty(false);
         }
 
-        // КЛИЕНТ: ЧАСТИЦЫ ОГНЯ
         private void OnClientTick(float dt)
         {
             if (BurnTicksLeft > 0 && this.Api.World.Rand.NextDouble() < 0.05)

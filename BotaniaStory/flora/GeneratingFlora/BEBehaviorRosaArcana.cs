@@ -1,11 +1,10 @@
-﻿using botaniastory;
+using botaniastory;
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
-using Vintagestory.API.MathTools;
-using Vintagestory.API.Server;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.MathTools;
 
 namespace BotaniaStory.Flora.GeneratingFlora
 {
@@ -13,7 +12,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
     {
         private int spawnCooldown = 0;
 
-        // Обязательный конструктор
         public BEBehaviorRosaArcana(BlockEntity blockentity) : base(blockentity)
         {
         }
@@ -37,66 +35,58 @@ namespace BotaniaStory.Flora.GeneratingFlora
         {
             bool dirty = false;
 
-            if (spawnCooldown > 0) spawnCooldown--;
-
-            if (CurrentMana < MaxMana)
-            {
-                // 1. Получаем центральную точку цветка
-                Vec3d flowerPos = this.Blockentity.Pos.ToVec3d().Add(0.5, 0.5, 0.5);
-
-                // 2. Обходим оптимизацию Tungsten, перебирая всех игроков напрямую
-                foreach (IPlayer player in this.Api.World.AllOnlinePlayers)
-                {
-                    if (player?.Entity == null || !player.Entity.Alive) continue;
-
-                    // 3. Проверяем дистанцию вручную (куб 3x3x3 вокруг цветка)
-                    double dx = Math.Abs(player.Entity.Pos.X - flowerPos.X);
-                    double dy = Math.Abs(player.Entity.Pos.Y - flowerPos.Y);
-                    double dz = Math.Abs(player.Entity.Pos.Z - flowerPos.Z);
-
-                    // Если игрок в радиусе 3 блоков
-                    if (dx <= 3 && dy <= 3 && dz <= 3)
-                    {
-                        double currentStability = player.Entity.WatchedAttributes.GetDouble("temporalStability", 1.0);
-
-                        // Цветок сосет ману, пока стабильность больше нуля
-                        if (currentStability > 0.0)
-                        {
-                            double drainAmount = 0.02; // 2% за тик
-                            double newStability = Math.Max(0.0, currentStability - drainAmount);
-
-                            // SetDouble сам помечает атрибут для сетевой синхронизации
-                            player.Entity.WatchedAttributes.SetDouble("temporalStability", newStability);
-
-                            CurrentMana += 60;
-                            if (CurrentMana > MaxMana) CurrentMana = MaxMana;
-                            dirty = true;
-
-                            // Проверяем наказания по стабильности
-                            if (newStability <= 0.0)
-                            {
-                                ApplyZeroStabilityPunishment(player);
-                            }
-                            else if (newStability < 0.15 && spawnCooldown <= 0)
-                            {
-                                SpawnPunishmentMob("drifter-deep");
-                                spawnCooldown = 20; // 10 секунд кулдауна
-                            }
-
-                            // Выходим из цикла, так как цветок работает только с одним игроком за тик
-                            break;
-                        }
-                        else if (currentStability <= 0.0)
-                        {
-                            ApplyZeroStabilityPunishment(player);
-                            break;
-                        }
-                    }
-                }
-            }
-
+            RunFlowerWork(ProcessFlowerWork, ref dirty);
             ProcessManaTransfer(ref dirty);
+
             if (dirty) this.Blockentity.MarkDirty(false);
+        }
+
+        private void ProcessFlowerWork(ref bool dirty)
+        {
+            if (spawnCooldown > 0) spawnCooldown--;
+            if (CurrentMana >= MaxMana) return;
+
+            Vec3d flowerPos = this.Blockentity.Pos.ToVec3d().Add(0.5, 0.5, 0.5);
+
+            foreach (IPlayer player in this.Api.World.AllOnlinePlayers)
+            {
+                if (player?.Entity == null || !player.Entity.Alive) continue;
+
+                double dx = Math.Abs(player.Entity.Pos.X - flowerPos.X);
+                double dy = Math.Abs(player.Entity.Pos.Y - flowerPos.Y);
+                double dz = Math.Abs(player.Entity.Pos.Z - flowerPos.Z);
+
+                if (dx > 3 || dy > 3 || dz > 3) continue;
+
+                double currentStability = player.Entity.WatchedAttributes.GetDouble("temporalStability", 1.0);
+
+                if (currentStability > 0.0)
+                {
+                    double drainAmount = 0.02;
+                    double newStability = Math.Max(0.0, currentStability - drainAmount);
+
+                    player.Entity.WatchedAttributes.SetDouble("temporalStability", newStability);
+
+                    CurrentMana += 60;
+                    if (CurrentMana > MaxMana) CurrentMana = MaxMana;
+                    dirty = true;
+
+                    if (newStability <= 0.0)
+                    {
+                        ApplyZeroStabilityPunishment(player);
+                    }
+                    else if (newStability < 0.15 && spawnCooldown <= 0)
+                    {
+                        SpawnPunishmentMob("drifter-deep");
+                        spawnCooldown = 20;
+                    }
+
+                    break;
+                }
+
+                ApplyZeroStabilityPunishment(player);
+                break;
+            }
         }
 
         private void ApplyZeroStabilityPunishment(IPlayer player)

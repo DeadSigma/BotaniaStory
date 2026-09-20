@@ -24,25 +24,27 @@ namespace BotaniaStory.blockentity
         public string LastCraftedRecipe = null;
         public long LastCraftTime = 0;
         private RunicAltarRenderer renderer;
+        private const string PickupDelayAttribute = "botaniastory:runicaltar-pickup-after";
+        private const int CraftDropPickupDelayMs = 5000;
 
         private Dictionary<string, (int mana, List<string> items)> runeRecipes = new Dictionary<string, (int, List<string>)>
 {
-    //Базовые руны (Стихии и Мана) - 5200 маны
+    // Базовые руны используют 5200 маны
      { "rune-water", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "bone", "cattailtops", "cattailroot" }) },
      { "rune-fire", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "mushroom-flyagaric-normal", "burnedbrick-*", "powder-sulfur" }) },
-    
+
      { "rune-earth", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "rock-granite", "ore-bituminouscoal", "mushroom-almondmushroom-normal" }) },
-    
+
      { "rune-air", (5200, new List<string> { "manaitem-manapowder", "ingot-manasteel", "manaitem-manaflax", "feather", "cloth-plain" }) },
      { "rune-mana", (5200, new List<string> { "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "ingot-manasteel", "manaitem-manaquartz" }) },
 
-    //Руны Сезонов - 8000 маны
+    // Руны сезонов используют 8000 маны
     { "rune-spring", (8000, new List<string> { "rune-water", "rune-fire", "treeseed-oak", "treeseed-oak", "treeseed-oak", "hay-normal-ud" }) },
     { "rune-summer", (8000, new List<string> { "rune-earth", "rune-air", "sand-*", "fat", "fruit-cherry" }) },
     { "rune-autumn", (8000, new List<string> { "rune-fire", "rune-air", "treeseed-oak", "treeseed-oak", "treeseed-oak", "butterfly-dead-*", "pumpkin-fruit-4" }) },
     { "rune-winter", (8000, new List<string> { "rune-water", "rune-earth", "snowblock", "cloth-plain", "dough-" }) },
 
-    //Руны Смертных Грехов - 12000 маны
+    // Руны смертных грехов используют 12000 маны
     { "rune-lust", (12000, new List<string> { "manaitem-managear", "rune-summer", "rune-spring", "clearquartz", "clearquartz" }) },
     { "rune-gluttony", (12000, new List<string> { "manaitem-managear", "rune-winter", "rune-autumn", "clearquartz", "clearquartz" }) },
     { "rune-greed", (12000, new List<string> { "manaitem-managear", "rune-spring", "rune-water", "fat", "fat" }) },
@@ -54,7 +56,6 @@ namespace BotaniaStory.blockentity
 
         public BlockEntityRunicAltar()
         {
-            // Стандартная инициализация
             inventory = new InventoryGeneric(16, "runicaltar-inv", null);
 
 
@@ -76,8 +77,8 @@ namespace BotaniaStory.blockentity
             if (api is ICoreClientAPI capi)
             {
                 renderer = new RunicAltarRenderer(Pos, capi, this);
-               capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "runicaltar-render");
-               capi.Event.RegisterRenderer(renderer, EnumRenderStage.AfterOIT, "runicaltar-render-glow");
+                capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "runicaltar-render");
+                capi.Event.RegisterRenderer(renderer, EnumRenderStage.AfterOIT, "runicaltar-render-glow");
                 renderer.UpdateMeshes();
                 RegisterGameTickListener(SpawnIdleParticles, 50);
             }
@@ -105,8 +106,6 @@ namespace BotaniaStory.blockentity
             }
         }
 
-       
-        // БЕЗОПАСНОЕ СОХРАНЕНИЕ И ЗАГРУЗКА 
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
@@ -116,7 +115,6 @@ namespace BotaniaStory.blockentity
             tree.SetBool("hasLivingrock", HasLivingrock);
             if (currentRecipeResult != null) tree.SetString("recipe", currentRecipeResult);
 
-            // Сохраняем инвентарь стандартным методом
             inventory.ToTreeAttributes(tree);
         }
 
@@ -131,7 +129,6 @@ namespace BotaniaStory.blockentity
                 HasLivingrock = tree.GetBool("hasLivingrock");
                 currentRecipeResult = tree.GetString("recipe", null);
 
-                // Пытаемся загрузить предметы
                 inventory.FromTreeAttributes(tree);
                 if (worldForResolving != null)
                 {
@@ -149,18 +146,15 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ЛОГИКА ПРЕДМЕТОВ
         public bool TryAddItem(ItemSlot slot, IPlayer player)
         {
             string path = slot.Itemstack.Collectible.Code.Path;
 
-            // Сначала проверяем, не мусор ли это, опираясь на наш новый метод
             if (!IsValidAltarItem(path))
             {
                 return false;
             }
 
-            // Если это живой камень - особая логика
             if (path.Contains("livingrock"))
             {
                 if (HasLivingrock) return false;
@@ -171,7 +165,6 @@ namespace BotaniaStory.blockentity
                 return true;
             }
 
-            // Если это обычный предмет из белого списка - кладем в слот
             for (int i = 0; i < inventory.Count; i++)
             {
                 if (inventory[i].Empty)
@@ -213,31 +206,27 @@ namespace BotaniaStory.blockentity
 
         public bool TryAutoCraft(IPlayer player)
         {
-            // 1. Проверяем базовые условия: был ли рецепт и прошло ли меньше 20 секунд (20000 мс)
+            // Автокрафт доступен 20 секунд после успешного крафта
             if (LastCraftedRecipe == null) return false;
             long currentTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             if (currentTime - LastCraftTime > 20000) return false;
 
-            // 2. Автокрафт работает ТОЛЬКО если алтарь полностью пуст
+            // Автокрафт разрешён только для пустого алтаря
             for (int i = 0; i < inventory.Count; i++)
             {
                 if (!inventory[i].Empty) return false;
             }
 
-            // 3. Достаем рецепт и пытаемся выложить предметы
             if (runeRecipes.TryGetValue(LastCraftedRecipe, out var recipe))
             {
-                // Сначала симулируем: есть ли у игрока ВСЕ нужные предметы?
+                // Наличие всех компонентов проверяется до их изъятия
                 if (CheckAndConsumePlayerItems(player, recipe.items, true))
                 {
-                    // Если есть - физически забираем предметы в алтарь
                     CheckAndConsumePlayerItems(player, recipe.items, false);
 
-                    // Заставляем алтарь проверить рецепт и посчитать ману
                     CheckRecipe();
                     UpdateState(player);
 
-                    // Обновляем таймер, чтобы игрок мог "спамить" автокрафт несколько раз подряд
                     LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                     return true;
                 }
@@ -250,7 +239,6 @@ namespace BotaniaStory.blockentity
             List<string> remainingItems = new List<string>(requirements);
             Dictionary<ItemSlot, int> itemsToTake = new Dictionary<ItemSlot, int>();
 
-            // Ищем предметы по всем открытым инвентарям игрока (хотбар + рюкзаки)
             foreach (var inv in player.InventoryManager.OpenedInventories)
             {
                 foreach (var slot in inv)
@@ -259,14 +247,13 @@ namespace BotaniaStory.blockentity
                     string path = slot.Itemstack.Collectible.Code.Path;
                     int available = slot.StackSize;
 
-                    // Пытаемся применить этот стак к оставшимся требованиям рецепта
                     for (int i = remainingItems.Count - 1; i >= 0; i--)
                     {
                         if (available <= 0) break;
 
                         string req = remainingItems[i];
 
-                        // Умная проверка: если требование заканчивается на "*", проверяем начало строки. Иначе обычный Contains.
+                        // Шаблон со * сверяется по началу пути
                         bool isMatch = req.EndsWith("*") ? path.StartsWith(req.TrimEnd('*')) : path.Contains(req);
 
                         if (isMatch)
@@ -281,13 +268,10 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            // Если список требований не опустел - предметов не хватает
             if (remainingItems.Count > 0) return false;
 
-            // Если это была лишь проверка (simulate = true), останавливаемся и рапортуем об успехе
             if (simulate) return true;
 
-            // ФИЗИЧЕСКИЙ ПЕРЕНОС ПРЕДМЕТОВ НА АЛТАРЬ
             int altarSlotIndex = 0;
             foreach (var kvp in itemsToTake)
             {
@@ -321,13 +305,11 @@ namespace BotaniaStory.blockentity
         {
             MarkDirty(true);
 
-            // Убрали проверку if (player != null), теперь звук проиграется в любом случае
             Api.World.PlaySoundAt(new AssetLocation("game:sounds/player/throw"), Pos.X, Pos.Y, Pos.Z, player);
 
             if (Api.Side == EnumAppSide.Client) renderer?.UpdateMeshes();
         }
 
-        // ЛОГИКА КРАФТА И МАНЫ
         private void CheckRecipe()
         {
             TargetMana = 0;
@@ -351,7 +333,7 @@ namespace BotaniaStory.blockentity
 
                     foreach (string item in currentItems)
                     {
-                        // ИСПРАВЛЕННАЯ СТРОКА: Умная проверка с учетом окончания на "*"
+                        // Шаблон со * сверяется по началу пути
                         string found = checklist.Find(req => req.EndsWith("*") ? item.StartsWith(req.TrimEnd('*')) : item.Contains(req));
 
                         if (found != null) checklist.Remove(found);
@@ -365,9 +347,8 @@ namespace BotaniaStory.blockentity
 
                         if (Api.Side == EnumAppSide.Server)
                         {
-                            soundFullPlayed = false; // Обязательно сбрасываем флаг для нового рецепта
+                            soundFullPlayed = false;
 
-                            // Если маны УЖЕ достаточно для этого рецепта в момент его выкладывания
                             if (CurrentMana >= TargetMana)
                             {
                                 PlayAltarSound("runic_altar_full");
@@ -387,7 +368,10 @@ namespace BotaniaStory.blockentity
             if (Api.Side == EnumAppSide.Server)
             {
                 Item runeItem = Api.World.GetItem(new AssetLocation("botaniastory", currentRecipeResult));
-                if (runeItem != null) Api.World.SpawnItemEntity(new ItemStack(runeItem), Pos.ToVec3d().Add(0.5, 1.2, 0.5));
+                if (runeItem != null)
+                {
+                    SpawnCraftDrop(new ItemStack(runeItem), 1.05);
+                }
 
                 for (int i = 0; i < inventory.Count; i++)
                 {
@@ -395,7 +379,7 @@ namespace BotaniaStory.blockentity
                     {
                         if (inventory[i].Itemstack.Collectible.Code.Path.StartsWith("rune-"))
                         {
-                            Api.World.SpawnItemEntity(inventory[i].Itemstack, Pos.ToVec3d().Add(0.5, 1.0, 0.5));
+                            SpawnCraftDrop(inventory[i].Itemstack, 1.05);
                         }
                         inventory[i].Itemstack = null;
                         inventory[i].MarkDirty();
@@ -403,11 +387,10 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            //ВОТ ЗДЕСЬ АЛТАРЬ ЗАПОМИНАЕТ УСПЕШНЫЙ КРАФТ
+            // Успешный рецепт запоминается для автокрафта
             LastCraftedRecipe = currentRecipeResult;
             LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-            // А теперь сбрасываем состояние алтаря
             CurrentMana = Math.Max(0, CurrentMana - TargetMana);
             TargetMana = 0;
             HasLivingrock = false;
@@ -427,14 +410,28 @@ namespace BotaniaStory.blockentity
             return true;
         }
 
+        // Выброшенная руна временно защищается от подбора
+        private void SpawnCraftDrop(ItemStack stack, double yOffset)
+        {
+            Entity entity = Api.World.SpawnItemEntity(
+                stack,
+                Pos.ToVec3d().Add(0.5, yOffset, 0.5),
+                new Vec3d(0, 0, 0)
+            );
+
+            entity?.WatchedAttributes.SetLong(
+                PickupDelayAttribute,
+                DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() + CraftDropPickupDelayMs
+            );
+        }
+
         public void ReceiveMana(int amount)
         {
-            // Алтарь принимает ману всегда, пока не заполнит свой глобальный буфер
             if (CurrentMana < MaxBufferMana)
             {
                 if (Api.Side == EnumAppSide.Server)
                 {
-                    // Проверяем, пересекаем ли мы порог нужной маны ИМЕННО СЕЙЧАС
+                    // Звук срабатывает при достижении нужной маны
                     if (TargetMana > 0 && CurrentMana < TargetMana && (CurrentMana + amount) >= TargetMana && !soundFullPlayed)
                     {
                         PlayAltarSound("runic_altar_full");
@@ -442,18 +439,15 @@ namespace BotaniaStory.blockentity
                     }
                 }
 
-                // Физическое начисление маны
                 CurrentMana = Math.Min(MaxBufferMana, CurrentMana + amount);
                 MarkDirty(true);
             }
         }
 
-        // ВИЗУАЛЫ И ОЧИСТКА
         private void SpawnIdleParticles(float dt)
         {
             if (Api.Side == EnumAppSide.Server || TargetMana <= 0) return;
 
-            // Считаем прогресс. Если CurrentMana больше TargetMana, он будет > 1.0f
             float progress = (float)CurrentMana / TargetMana;
 
             if (Api.World.Rand.NextDouble() > 0.3)
@@ -464,26 +458,24 @@ namespace BotaniaStory.blockentity
                     (Api.World.Rand.NextDouble() - 0.5) * 1.2
                 );
 
-                // Базовая позиция для частицы
                 Vec3d startPos = Pos.ToVec3d().Add(0.5, 1.0, 0.5).Add(offset);
 
                 SimpleParticleProperties idleSpark = new SimpleParticleProperties(
-                    1, 2, // Количество
-                    ColorUtil.ToRgba(200, 255, 255, 100), // Бирюзово-голубой
-                    startPos, // MinPos (Где спавним)
-                    new Vec3d(0, 0, 0), // AddPos - КРИТИЧЕСКОЕ НУЛЕВОЙ разброс!
-                    new Vec3f(-0.1f, 0.2f, -0.1f), // MinVelocity
-                    new Vec3f(0.2f, 0.3f, 0.2f), // AddVelocity
-                    1.0f + (float)Api.World.Rand.NextDouble(), // Жизнь
-                    -0.02f, // Гравитация (взлетают вверх)
-                    0.05f, 0.1f, // Мелкий размер
+                    1, 2,
+                    ColorUtil.ToRgba(200, 255, 255, 100),
+                    startPos,
+                    new Vec3d(0, 0, 0),
+                    new Vec3f(-0.1f, 0.2f, -0.1f),
+                    new Vec3f(0.2f, 0.3f, 0.2f),
+                    1.0f + (float)Api.World.Rand.NextDouble(),
+                    -0.02f,
+                    0.05f, 0.1f,
                     EnumParticleModel.Quad
                 );
-                idleSpark.VertexFlags = 128; // Свечение
+                idleSpark.VertexFlags = 128;
                 Api.World.SpawnParticles(idleSpark);
             }
 
-            // Молнии при полной мане
             if (progress >= 1.0f)
             {
                 lightningTimer += dt;
@@ -510,7 +502,7 @@ namespace BotaniaStory.blockentity
             DisposeRenderer();
         }
 
-        public override void OnBlockUnloaded()  
+        public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();
             DisposeRenderer();
@@ -537,10 +529,9 @@ namespace BotaniaStory.blockentity
         }
         private void ScanForDroppedItems(float dt)
         {
-            //  Если алтарь уже ждет клика посохом (есть камень), предметы ему не нужны
+            // Предметы не подбираются после установки живого камня
             if (HasLivingrock) return;
 
-            //  Проверяем, есть ли вообще свободное место в инвентаре
             bool hasEmptySlot = false;
             for (int i = 0; i < inventory.Count; i++)
             {
@@ -551,14 +542,15 @@ namespace BotaniaStory.blockentity
                 }
             }
 
-            // Если мест нет - прерываем выполнение метода, не нагружая сервер
             if (!hasEmptySlot) return;
 
-            // Движок игры даже не передаст нам предмет, если его нет в белом списке
+            // Руны после крафта игнорируются 5 секунд
+            long now = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
             Entity[] entities = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 0.75, 0.5), 0.8f, 0.8f,
                 e => e is EntityItem item &&
                      item.Alive &&
                      item.Itemstack != null &&
+                     item.WatchedAttributes.GetLong(PickupDelayAttribute, 0) <= now &&
                      IsValidAltarItem(item.Itemstack.Collectible.Code.Path));
 
             foreach (Entity entity in entities)
@@ -585,7 +577,6 @@ namespace BotaniaStory.blockentity
         }
         private bool IsValidAltarItem(string path)
         {
-            // Живой камень нужен для завершения крафта, так что он тоже валиден
             if (path.Contains("livingrock")) return true;
 
             return path.StartsWith("rune-") ||

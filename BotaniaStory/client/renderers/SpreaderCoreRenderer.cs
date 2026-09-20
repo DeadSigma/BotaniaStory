@@ -16,6 +16,8 @@ namespace BotaniaStory.client.renderers
 
         private int coreTextureId;
         private float spinAngle = 0f;
+        private bool cleanupQueued;
+        private bool disposed;
 
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
@@ -42,10 +44,14 @@ namespace BotaniaStory.client.renderers
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
-            if (coreMeshRef == null || coreMeshRef.Disposed) return;
+            if (disposed || coreMeshRef == null || coreMeshRef.Disposed) return;
 
-            // Распространитель мог быть выгружен, но рендер еще жив один кадр
-            if (spreader == null || spreader.Block == null) return;
+            // Рендер удаляется, если распространителя на позиции больше нет
+            if (spreader == null || !object.ReferenceEquals(capi.World.BlockAccessor.GetBlockEntity(pos), spreader))
+            {
+                QueueCleanup();
+                return;
+            }
 
             IClientPlayer player = capi.World.Player;
             if (player?.Entity == null) return;
@@ -77,8 +83,26 @@ namespace BotaniaStory.client.renderers
             prog.Stop();
         }
 
+        private void QueueCleanup()
+        {
+            if (cleanupQueued || disposed) return;
+
+            cleanupQueued = true;
+
+            capi.Event.EnqueueMainThreadTask(() =>
+            {
+                if (disposed) return;
+
+                capi.Event.UnregisterRenderer(this, EnumRenderStage.Opaque);
+                Dispose();
+            }, "botaniastory-spreader-core-cleanup");
+        }
+
         public void Dispose()
         {
+            if (disposed) return;
+
+            disposed = true;
             coreMeshRef?.Dispose();
             coreMeshRef = null;
             spreader = null;

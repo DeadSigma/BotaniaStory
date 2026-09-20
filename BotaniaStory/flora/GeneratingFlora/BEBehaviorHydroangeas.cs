@@ -1,4 +1,4 @@
-﻿using BotaniaStory;
+using BotaniaStory;
 using System;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
@@ -10,9 +10,9 @@ namespace BotaniaStory.Flora.GeneratingFlora
 {
     public class BEBehaviorHydroangeas : BEBehaviorGeneratingFlower
     {
-        public int DigestTicksLeft = 0;
+        protected override bool IsPassiveFlower => true;
 
-        // Время посадки цветка 
+        public int DigestTicksLeft = 0;
         public double PlantedTotalDays = -1;
 
         public BEBehaviorHydroangeas(BlockEntity blockentity) : base(blockentity)
@@ -24,7 +24,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
             base.Initialize(api, properties);
             MaxMana = 150;
 
-            // Если время посадки еще не задано, берем текущее время календаря
             if (PlantedTotalDays < 0 && api.World != null)
             {
                 PlantedTotalDays = api.World.Calendar.TotalDays;
@@ -50,40 +49,14 @@ namespace BotaniaStory.Flora.GeneratingFlora
             }
 
             bool dirty = false;
-            double currentDays = this.Api.World.Calendar.TotalDays;
 
-            // БОНУС ПОЧВЫ И ПРОВЕРКА ЗАЧАРОВАНИЯ
-            float soilMult = 1.0f;
-            bool isEnchanted = false; // Флаг бессмертия цветка
-            Block downBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos.DownCopy());
-
-            if (downBlock != null)
+            if (!IsPassiveDecayPrevented())
             {
-                string path = downBlock.Code.Path;
-                if (path.Contains("enchantedsoil"))
-                {
-                    isEnchanted = true;
-                    soilMult = 1.20f; // Можно дать максимальный бонус к мане
-                }
-                else if (path.Contains("soil") || path.Contains("farmland"))
-                {
-                    if (path.Contains("medium")) soilMult = 1.04f;
-                    else if (path.Contains("high")) soilMult = 1.15f;
-                    else if (path.Contains("terrapreta") || path.Contains("compost")) soilMult = 1.07f;
-                }
-                else
-                {
-                    soilMult = 0.5f;
-                }
-            }
-
-            if (!isEnchanted)
-            {
-                double daysAlive = currentDays - PlantedTotalDays;
+                double daysAlive = this.Api.World.Calendar.TotalDays - PlantedTotalDays;
                 if (daysAlive >= 3.0)
                 {
                     Block currentBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos);
-                    Block deadBlock = null;
+                    Block deadBlock;
 
                     if (currentBlock != null && currentBlock.Code.Path.Contains("floatingisland"))
                     {
@@ -97,15 +70,41 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     if (deadBlock != null)
                     {
                         this.Api.World.BlockAccessor.SetBlock(deadBlock.BlockId, this.Blockentity.Pos);
-                        return; // Прерываем работу тика, так как цветок умер
+                        return;
                     }
+                }
+            }
+
+            RunFlowerWork(ProcessFlowerWork, ref dirty);
+            ProcessManaTransfer(ref dirty);
+
+            if (dirty) this.Blockentity.MarkDirty(false);
+        }
+
+        private void ProcessFlowerWork(ref bool dirty)
+        {
+            float soilMult = 1.0f;
+            Block downBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos.DownCopy());
+
+            if (downBlock != null)
+            {
+                string path = downBlock.Code.Path;
+
+                if (path.Contains("soil") || path.Contains("farmland"))
+                {
+                    if (path.Contains("medium")) soilMult = 1.04f;
+                    else if (path.Contains("high")) soilMult = 1.15f;
+                    else if (path.Contains("terrapreta") || path.Contains("compost")) soilMult = 1.07f;
+                }
+                else
+                {
+                    soilMult = 0.5f;
                 }
             }
 
             int manaPerCycle = 7;
             int ticksPerCycle = 6;
 
-            // Генерация маны
             if (DigestTicksLeft > 0)
             {
                 DigestTicksLeft--;
@@ -115,14 +114,12 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 {
                     if (DigestTicksLeft % ticksPerCycle == 0)
                     {
-                        // Применяем множитель и округляем до ближайшего целого ( 7 * 1.15 = 8.05 -> 8 маны)
                         CurrentMana += (int)Math.Round(manaPerCycle * soilMult);
                     }
 
                     if (CurrentMana > MaxMana) CurrentMana = MaxMana;
                 }
             }
-            // Поиск воды
             else if (CurrentMana <= MaxMana - 40)
             {
                 BlockPos myPos = this.Blockentity.Pos;
@@ -132,7 +129,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     myPos.AddCopy(-1, 0, 0),
                     myPos.AddCopy(0, 0, 1),
                     myPos.AddCopy(0, 0, -1),
-                
                     myPos.AddCopy(1, 0, 1),
                     myPos.AddCopy(1, 0, -1),
                     myPos.AddCopy(-1, 0, 1),
@@ -148,11 +144,18 @@ namespace BotaniaStory.Flora.GeneratingFlora
                         this.Api.World.BlockAccessor.SetBlock(0, checkPos);
                         DigestTicksLeft = 80;
 
-                        ICoreServerAPI sapi = this.Api as ICoreServerAPI;
-                        if (sapi != null)
+                        if (this.Api is ICoreServerAPI sapi)
                         {
-                            sapi.World.PlaySoundAt(new AssetLocation("botaniastory:sounds/hydroangeas"), myPos.X + 0.5, myPos.Y + 0.5, myPos.Z + 0.5, null, true, 32, 1f);
-
+                            sapi.World.PlaySoundAt(
+                                new AssetLocation("botaniastory:sounds/hydroangeas"),
+                                myPos.X + 0.5,
+                                myPos.Y + 0.5,
+                                myPos.Z + 0.5,
+                                null,
+                                true,
+                                32,
+                                1f
+                            );
                         }
 
                         dirty = true;
@@ -160,14 +163,8 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     }
                 }
             }
-
-            // Проверка подачи маны
-            ProcessManaTransfer(ref dirty);
-
-            if (dirty) this.Blockentity.MarkDirty(false);
         }
 
-        // Партиклы воды
         private void OnClientTick(float dt)
         {
             if (DigestTicksLeft > 0 && this.Api.World.Rand.NextDouble() < 0.1)
@@ -185,13 +182,11 @@ namespace BotaniaStory.Flora.GeneratingFlora
             }
         }
 
-        // Сохранение и загрузка данных
-
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
             tree.SetInt("digest", DigestTicksLeft);
-            tree.SetDouble("plantedDays", PlantedTotalDays); // Сохраняем возраст
+            tree.SetDouble("plantedDays", PlantedTotalDays);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
@@ -199,14 +194,12 @@ namespace BotaniaStory.Flora.GeneratingFlora
             base.FromTreeAttributes(tree, worldForResolving);
             DigestTicksLeft = tree.GetInt("digest");
 
-            // Если атрибут существует (не старый блок), загружаем его
             if (tree.HasAttribute("plantedDays"))
             {
                 PlantedTotalDays = tree.GetDouble("plantedDays");
             }
             else
             {
-                // Заглушка для обратной совместимости, если водогортензия была поставлена до этого обновления
                 PlantedTotalDays = worldForResolving.Calendar.TotalDays;
             }
         }

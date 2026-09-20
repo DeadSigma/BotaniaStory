@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Vintagestory.API.Common;
 using Vintagestory.API.Datastructures;
@@ -8,7 +8,8 @@ namespace BotaniaStory.Flora.GeneratingFlora
 {
     public class BEBehaviorNightshade : BEBehaviorGeneratingFlower
     {
-        // СТАТИЧНЫЙ СЛОВАРЬ: Считает все Пасклены игроков на сервере (для Soft Cap отдельно от Дневноцветов)
+        protected override bool IsPassiveFlower => true;
+
         public static Dictionary<string, int> PlayerShadesCount = new Dictionary<string, int>();
 
         public string OwnerUID = null;
@@ -45,6 +46,7 @@ namespace BotaniaStory.Flora.GeneratingFlora
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
+
             if (this.Api?.Side == EnumAppSide.Server && OwnerUID != null && PlayerShadesCount.ContainsKey(OwnerUID))
             {
                 PlayerShadesCount[OwnerUID]--;
@@ -55,38 +57,47 @@ namespace BotaniaStory.Flora.GeneratingFlora
         private void OnServerTick(float dt)
         {
             bool dirty = false;
-            double currentDays = this.Api.World.Calendar.TotalDays;
 
-            // Старение (Живёт 3 игровых дня)
-            double daysAlive = currentDays - PlantedTotalDays;
-            if (daysAlive >= 3.0)
+            if (!IsPassiveDecayPrevented())
             {
-                Block currentBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos);
-                Block deadBlock = null;
+                double daysAlive = this.Api.World.Calendar.TotalDays - PlantedTotalDays;
+                if (daysAlive >= 3.0)
+                {
+                    Block currentBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos);
+                    Block deadBlock;
 
-                if (currentBlock != null && currentBlock.Code.Path.Contains("floatingisland"))
-                {
-                    deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "floatingisland-deadflower"));
-                }
-                else
-                {
-                    deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "deadflower-free"));
-                }
+                    if (currentBlock != null && currentBlock.Code.Path.Contains("floatingisland"))
+                    {
+                        deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "floatingisland-deadflower"));
+                    }
+                    else
+                    {
+                        deadBlock = this.Api.World.GetBlock(new AssetLocation("botaniastory", "deadflower-free"));
+                    }
 
-                if (deadBlock != null)
-                {
-                    this.Api.World.BlockAccessor.SetBlock(deadBlock.BlockId, this.Blockentity.Pos);
-                    return;
+                    if (deadBlock != null)
+                    {
+                        this.Api.World.BlockAccessor.SetBlock(deadBlock.BlockId, this.Blockentity.Pos);
+                        return;
+                    }
                 }
             }
 
-            // БОНУС ПОЧВЫ
+            RunFlowerWork(ProcessFlowerWork, ref dirty);
+            ProcessManaTransfer(ref dirty);
+
+            if (dirty) this.Blockentity.MarkDirty(false);
+        }
+
+        private void ProcessFlowerWork(ref bool dirty)
+        {
             float soilMult = 1.0f;
             Block downBlock = this.Api.World.BlockAccessor.GetBlock(this.Blockentity.Pos.DownCopy());
 
             if (downBlock != null)
             {
                 string path = downBlock.Code.Path;
+
                 if (path.Contains("soil") || path.Contains("farmland"))
                 {
                     if (path.Contains("medium")) soilMult = 1.04f;
@@ -99,20 +110,20 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 }
             }
 
-            // ПРОВЕРКА НОЧИ И ОТКРЫТОГО НЕБА
             int rainY = this.Api.World.BlockAccessor.GetRainMapHeightAt(this.Blockentity.Pos.X, this.Blockentity.Pos.Z);
             if (this.Blockentity.Pos.Y < rainY) return;
 
-            float daylightStrength = this.Api.World.Calendar.GetDayLightStrength(this.Blockentity.Pos.X, this.Blockentity.Pos.Z);
+            float daylightStrength = this.Api.World.Calendar.GetDayLightStrength(
+                this.Blockentity.Pos.X,
+                this.Blockentity.Pos.Z
+            );
 
-            // Если слишком светло (день), не работаем
             if (daylightStrength > 0.4f) return;
 
-            // Убрал плавное нарастание сумерек. Наступила ночь? Жарим на 100%!
             float darknessMult = 1f;
 
-            // ШТРАФ ЗА КОЛИЧЕСТВО (Проверяем только другие Пасклены в радиусе 6 блоков)
             int nearbyFlowers = 0;
+
             for (int dx = -6; dx <= 6; dx++)
             {
                 for (int dy = -6; dy <= 6; dy++)
@@ -120,8 +131,8 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     for (int dz = -6; dz <= 6; dz++)
                     {
                         if (dx == 0 && dy == 0 && dz == 0) continue;
-                        BlockPos checkPos = this.Blockentity.Pos.AddCopy(dx, dy, dz);
 
+                        BlockPos checkPos = this.Blockentity.Pos.AddCopy(dx, dy, dz);
                         if (this.Api.World.BlockAccessor.GetBlockEntity(checkPos)?.GetBehavior<BEBehaviorNightshade>() != null)
                         {
                             nearbyFlowers++;
@@ -129,22 +140,19 @@ namespace BotaniaStory.Flora.GeneratingFlora
                     }
                 }
             }
+
             float efficiency = 1f / (1f + nearbyFlowers * 0.4f);
 
-            // СЕЗОНЫ (Справедливые)
             float seasonMult = 1f;
             int month = this.Api.World.Calendar.Month;
 
-            // Зимой ночи долгие, цветок в своей стихии (бонус 20%)
             if (month == 12 || month == 1 || month == 2) seasonMult = 1.2f;
-            // Весна/Осень: норма (100%)
             else if (month >= 3 && month <= 5) seasonMult = 1.0f;
             else if (month >= 9 && month <= 11) seasonMult = 1.0f;
-            // Лето: небольшой штраф за теплые светлые ночи (80%)
             else seasonMult = 0.8f;
 
-            // SOFT CAP
             float globalMult = 1f;
+
             if (OwnerUID != null && PlayerShadesCount.ContainsKey(OwnerUID))
             {
                 int totalFlowers = PlayerShadesCount[OwnerUID];
@@ -155,7 +163,6 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 }
             }
 
-            // ФИНАЛЬНЫЙ РАСЧЕТ И ВЫДАЧА МАНЫ
             float baseManaPerSec = 4f;
             float generatedThisSec = baseManaPerSec * darknessMult * efficiency * seasonMult * globalMult * soilMult;
 
@@ -170,15 +177,12 @@ namespace BotaniaStory.Flora.GeneratingFlora
                 if (CurrentMana > MaxMana) CurrentMana = MaxMana;
                 dirty = true;
             }
-
-            ProcessManaTransfer(ref dirty);
-
-            if (dirty) this.Blockentity.MarkDirty(false);
         }
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
             base.ToTreeAttributes(tree);
+
             if (OwnerUID != null) tree.SetString("ownerUID", OwnerUID);
             tree.SetDouble("plantedDays", PlantedTotalDays);
             tree.SetFloat("fracMana", fractionalMana);

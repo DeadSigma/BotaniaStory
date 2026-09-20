@@ -76,6 +76,9 @@ namespace BotaniaStory.blockentity
             if (api.Side == EnumAppSide.Client)
             {
                 ICoreClientAPI capi = (ICoreClientAPI)api;
+
+                DisposeRenderer();
+
                 coreRenderer = new SpreaderCoreRenderer(capi, Pos, this);
                 capi.Event.RegisterRenderer(coreRenderer, EnumRenderStage.Opaque, "botaniastory");
             }
@@ -349,14 +352,14 @@ namespace BotaniaStory.blockentity
 
         public override void OnBlockRemoved()
         {
-            base.OnBlockRemoved();
             DisposeRenderer();
+            base.OnBlockRemoved();
         }
 
         public override void OnBlockUnloaded()
         {
-            base.OnBlockUnloaded();
             DisposeRenderer();
+            base.OnBlockUnloaded();
         }
 
         private void DisposeRenderer()
