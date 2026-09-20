@@ -4,7 +4,7 @@
         "ingredients": {
             "H": {
                 "type": "item",
-                "code": "botaniastory:terrashatterer_head"
+                "code": "botaniastory:terrashatterer_head-terrasteel"
             },
             "P": {
                 "type": "item",

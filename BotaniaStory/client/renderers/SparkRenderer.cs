@@ -3,7 +3,6 @@ using BotaniaStory.systems;
 using Vintagestory.API.Client;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Common;
-using OpenTK.Graphics.OpenGL;
 using BotaniaStory.entities;
 
 namespace BotaniaStory.client.renderers
@@ -13,14 +12,12 @@ namespace BotaniaStory.client.renderers
         private ICoreClientAPI capi;
         private EntitySpark spark;
 
-        // Массив из 7 моделей для каждого кадра анимации
         private MeshRef[] frameMeshes = new MeshRef[7];
         private int currentFrame = 0;
         private float frameTimer = 0f;
 
         private MeshRef runeMeshRef;
 
-        // Отдельные независимые текстуры
         private LoadedTexture animTex;
         private LoadedTexture recessiveTex;
         private LoadedTexture dominantTex;
@@ -33,9 +30,10 @@ namespace BotaniaStory.client.renderers
         public double RenderOrder => 0.5;
         public int RenderRange => 64;
 
-        public Size2i AtlasSize => new Size2i(128, 128); // Фейковый размер, больше не влияет
+        // размер ни на что не влияет - текстуры грузятся мимо атласа
+        public Size2i AtlasSize => new Size2i(128, 128);
 
-        // Обманываем движок: говорим, что текстура всегда занимает всё пространство (от 0.0 до 1.0)
+        // тесселятору отдаётся вся текстура целиком, от 0 до 1
         public TextureAtlasPosition this[string textureCode]
         {
             get { return new TextureAtlasPosition { x1 = 0, y1 = 0, x2 = 1, y2 = 1, atlasTextureId = 0 }; }
@@ -49,7 +47,7 @@ namespace BotaniaStory.client.renderers
 
         private void InitializeGraphics()
         {
-            // 1. Грузим спрайт-лист как НЕЗАВИСИМУЮ текстуру, минуя атлас
+            // спрайт-лист грузится отдельной текстурой, минуя атлас
             animTex = new LoadedTexture(capi);
             capi.Render.GetOrLoadTexture(new AssetLocation("botaniastory", "textures/entity/spark_anim.png"), ref animTex);
 
@@ -59,35 +57,34 @@ namespace BotaniaStory.client.renderers
                 capi.Tesselator.TesselateShape("spark", shape, out MeshData baseMesh, this);
                 if (baseMesh != null)
                 {
-                    // 2. Нарезаем базовую модель на 7 кадров!
+                    // базовая модель режется на 7 кадров сдвигом uv по оси v
                     for (int i = 0; i < 7; i++)
                     {
                         MeshData frameMesh = baseMesh.Clone();
 
-                        // Сдвигаем UV-координаты по вертикали (ось V) для текущего кадра
                         for (int j = 1; j < frameMesh.Uv.Length; j += 2)
                         {
-                            float v = frameMesh.Uv[j]; // Изначально от 0.0 до 1.0
-                            frameMesh.Uv[j] = (v / 7f) + (i / 7f); // Сжимаем до 1/7 и сдвигаем вниз
+                            float v = frameMesh.Uv[j];
+                            frameMesh.Uv[j] = (v / 7f) + (i / 7f);
                         }
                         frameMeshes[i] = capi.Render.UploadMesh(frameMesh);
                     }
-
-                    // 3. Создаем плоскую модель для рун
-                    MeshData runeMesh = baseMesh.Clone();
-                    runeMesh.VerticesCount = 4;
-                    runeMesh.IndicesCount = 6;
-                    runeMesh.xyz = new float[] { -0.5f, -0.5f, 0, 0.5f, -0.5f, 0, 0.5f, 0.5f, 0, -0.5f, 0.5f, 0 };
-                    runeMesh.Uv = new float[] { 0, 1, 1, 1, 1, 0, 0, 0 };
-                    runeMesh.Indices = new int[] { 0, 1, 2, 0, 2, 3 };
-
-                    if (runeMesh.Rgba != null)
-                    {
-                        for (int i = 0; i < 16 && i < runeMesh.Rgba.Length; i++) runeMesh.Rgba[i] = 255;
-                    }
-                    runeMeshRef = capi.Render.UploadMesh(runeMesh);
                 }
             }
+
+            // руна собирается с нуля - у клона остаются побочные массивы на все вершины искры
+            MeshData runeMesh = new MeshData(4, 6, false, true, true, true);
+
+            runeMesh.xyz = new float[] { -0.5f, -0.5f, 0, 0.5f, -0.5f, 0, 0.5f, 0.5f, 0, -0.5f, 0.5f, 0 };
+            runeMesh.Uv = new float[] { 0, 1, 1, 1, 1, 0, 0, 0 };
+            runeMesh.Rgba = new byte[16];
+            for (int i = 0; i < 16; i++) runeMesh.Rgba[i] = 255;
+            runeMesh.Flags = new int[4];
+            runeMesh.Indices = new int[] { 0, 1, 2, 0, 2, 3 };
+            runeMesh.VerticesCount = 4;
+            runeMesh.IndicesCount = 6;
+
+            runeMeshRef = capi.Render.UploadMesh(runeMesh);
 
             recessiveTex = new LoadedTexture(capi);
             dominantTex = new LoadedTexture(capi);
@@ -124,19 +121,17 @@ namespace BotaniaStory.client.renderers
             IStandardShaderProgram prog = capi.Render.PreparedStandardShader((int)spark.Pos.X, (int)spark.Pos.Y, (int)spark.Pos.Z);
             ShaderSanitizer.Sanitize(prog);
 
-
             prog.RgbaAmbientIn = new Vec3f(1f, 1f, 1f);
             prog.RgbaLightIn = new Vec4f(1f, 1f, 1f, 1f);
             prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
             prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
             prog.ExtraGlow = 255;
 
-            // ИСПРАВЛЕНИЕ АЛЬФЫ
-            // Сбрасываем обрезку прозрачности до минимума, чтобы искра была мягкой
+            // порог прозрачности снижается, иначе края искры срезаются
             prog.AlphaTest = 0.01f;
 
             capi.Render.GlToggleBlend(true, EnumBlendMode.Standard);
-            GL.DepthMask(false);
+            capi.Render.GLDepthMask(false);
 
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
             float dx = (float)(spark.Pos.X - camPos.X);
@@ -146,10 +141,10 @@ namespace BotaniaStory.client.renderers
             float[] view = capi.Render.CameraMatrixOriginf;
             float[] billboardMatrix = new float[]
             {
-        view[0], view[4], view[8],  0,
-        view[1], view[5], view[9],  0,
-        view[2], view[6], view[10], 0,
-        0,       0,       0,        1
+                view[0], view[4], view[8],  0,
+                view[1], view[5], view[9],  0,
+                view[2], view[6], view[10], 0,
+                0,       0,       0,        1
             };
 
             capi.Render.BindTexture2d(animTex.TextureId);
@@ -179,7 +174,6 @@ namespace BotaniaStory.client.renderers
 
                 if (texToBind != 0)
                 {
-                    // ИСПРАВЛЕНИЕ ТЕКСТУРЫ РУНЫ
                     capi.Render.BindTexture2d(texToBind);
 
                     float orbitRadius = 0.2f;
@@ -194,18 +188,25 @@ namespace BotaniaStory.client.renderers
 
                     prog.ModelMatrix = modelMat.Values;
                     capi.Render.RenderMesh(runeMeshRef);
+
+                    // бинд возвращается на искру, чтобы не оставлять чужую текстуру
+                    capi.Render.BindTexture2d(animTex.TextureId);
                 }
             }
 
+            // юниформы сбрасываются - standard-программа общая на весь движок
             prog.ExtraGlow = 0;
+            prog.AlphaTest = 0.001f;
+            prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
+            prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
             prog.Stop();
-            GL.DepthMask(true);
+
+            capi.Render.GLDepthMask(true);
             capi.Render.GlToggleBlend(false, EnumBlendMode.Standard);
         }
 
         public void Dispose()
         {
-            // Очищаем все 7 моделей
             for (int i = 0; i < 7; i++)
             {
                 frameMeshes[i]?.Dispose();
@@ -214,7 +215,7 @@ namespace BotaniaStory.client.renderers
             runeMeshRef?.Dispose();
             runeMeshRef = null;
 
-            // Текстуры мы не диспоузим, так как они кэшируются движком.
+            // текстуры не диспоузятся, они кэшируются движком
         }
     }
 }

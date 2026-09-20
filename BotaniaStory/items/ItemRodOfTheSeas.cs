@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using HarmonyLib;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
@@ -90,6 +91,65 @@ namespace BotaniaStory.items
             int mode = inSlot.Itemstack.Attributes.GetInt("toolMode", ModeWater);
             string modeName = Lang.Get(mode == ModeRapidWater ? "botaniastory:rodmode-rapidwater" : "botaniastory:rodmode-water");
             dsc.AppendLine(Lang.Get("botaniastory:rodmode-current", modeName));
+        }
+
+        // Обработка жидкостных слотов
+
+        internal static bool HandleInventorySlotClick(ItemSlot targetSlot, ItemSlot sourceSlot, ref ItemStackMoveOperation op)
+        {
+            if (targetSlot == null || !(sourceSlot?.Itemstack?.Collectible is ItemRodOfTheSeas)) return true;
+            if (op == null || (op.MouseButton != EnumMouseButton.Left && op.MouseButton != EnumMouseButton.Right)) return true;
+
+            // Вход бочки перенаправляется в жидкостный слот
+            if (targetSlot is ItemSlotBarrelInput) targetSlot = targetSlot.Inventory?[1] as ItemSlotLiquidOnly;
+
+            float capacityLitres;
+            if (targetSlot is ItemSlotLiquidOnly liquidOnly) capacityLitres = liquidOnly.CapacityLitres;
+            else if (targetSlot is ItemSlotWatertight watertight) capacityLitres = watertight.capacityLitres;
+            else return true;
+
+            // Бурная вода в таре блокируется
+            if (sourceSlot.Itemstack.Attributes.GetInt("toolMode", ModeWater) != ModeWater) return false;
+
+            IWorldAccessor world = op.World;
+            Item waterPortion = world?.GetItem(new AssetLocation("game", "waterportion"));
+            if (waterPortion == null) return false;
+
+            ItemStack waterStack = new ItemStack(waterPortion, 1);
+            WaterTightContainableProps props = BlockLiquidContainerBase.GetContainableProps(waterStack);
+            int itemsPerLitre = Math.Max(1, (int)Math.Round(props?.ItemsPerLitre ?? 100f));
+
+            if (!targetSlot.Empty && !targetSlot.Itemstack.Equals(world, waterStack, GlobalConstants.IgnoredStackAttributes)) return false;
+
+            EntityAgent byEntity = op.ActingPlayer?.Entity as EntityAgent;
+            if (byEntity == null || !ManaHelper.HasMana(byEntity, ManaCost)) return false;
+
+            int moved;
+            if (op.MouseButton == EnumMouseButton.Left)
+            {
+                int freeAmount = (int)(capacityLitres * itemsPerLitre) - targetSlot.StackSize;
+                if (freeAmount <= 0) return false;
+
+                moved = op.CtrlDown ? Math.Min(itemsPerLitre, freeAmount) : freeAmount;
+
+                if (targetSlot.Empty) targetSlot.Itemstack = new ItemStack(waterPortion, moved);
+                else targetSlot.Itemstack.StackSize += moved;
+            }
+            else
+            {
+                if (targetSlot.Empty) return false;
+
+                moved = op.CtrlDown ? Math.Min(itemsPerLitre, targetSlot.StackSize) : targetSlot.StackSize;
+                targetSlot.TakeOut(moved);
+            }
+
+            targetSlot.MarkDirty();
+            op.MovedQuantity = moved;
+            ManaHelper.TryConsumeMana(byEntity, ManaCost);
+
+            var pos = byEntity.Pos;
+            world.PlaySoundAt(new AssetLocation("game", "sounds/environment/smallsplash"), pos.X, pos.InternalY, pos.Z, op.ActingPlayer);
+            return false;
         }
 
         // Основное взаимодействие
@@ -352,6 +412,70 @@ namespace BotaniaStory.items
         private void ConsumeMana(EntityAgent byEntity, int amount)
         {
             ManaHelper.TryConsumeMana(byEntity, amount);
+        }
+    }
+
+    public class RodOfTheSeasInventoryPatchSystem : ModSystem
+    {
+        private const string HarmonyId = "botaniastory.rodoftheseas.inventory";
+        private static readonly object PatchLock = new object();
+        private static Harmony harmony;
+        private static int users;
+
+        public override void Start(ICoreAPI api)
+        {
+            base.Start(api);
+
+            lock (PatchLock)
+            {
+                users++;
+                if (harmony != null) return;
+
+                harmony = new Harmony(HarmonyId);
+                HarmonyMethod prefix = new HarmonyMethod(typeof(RodOfTheSeasInventoryPatchSystem), nameof(ActivateSlotPrefix));
+                Type[] signature = { typeof(ItemSlot), typeof(ItemStackMoveOperation).MakeByRefType() };
+
+                var baseMethod = AccessTools.DeclaredMethod(typeof(ItemSlot), nameof(ItemSlot.ActivateSlot), signature);
+                var liquidOnlyMethod = AccessTools.DeclaredMethod(typeof(ItemSlotLiquidOnly), nameof(ItemSlot.ActivateSlot), signature);
+
+                if (baseMethod != null)
+                {
+                    harmony.Patch(baseMethod, prefix: prefix);
+                }
+                else
+                {
+                    api.Logger.Error("[BotaniaStory] RodOfTheSeas: ItemSlot.ActivateSlot не найден");
+                }
+
+                if (liquidOnlyMethod != null)
+                {
+                    harmony.Patch(liquidOnlyMethod, prefix: prefix);
+                }
+                else
+                {
+                    api.Logger.Error("[BotaniaStory] RodOfTheSeas: ItemSlotLiquidOnly.ActivateSlot не найден");
+                }
+            }
+        }
+
+        public override void Dispose()
+        {
+            lock (PatchLock)
+            {
+                users = Math.Max(0, users - 1);
+                if (users == 0 && harmony != null)
+                {
+                    harmony.UnpatchAll(HarmonyId);
+                    harmony = null;
+                }
+            }
+
+            base.Dispose();
+        }
+
+        public static bool ActivateSlotPrefix(ItemSlot __instance, ItemSlot sourceSlot, ref ItemStackMoveOperation op)
+        {
+            return ItemRodOfTheSeas.HandleInventorySlotClick(__instance, sourceSlot, ref op);
         }
     }
 }

@@ -9,6 +9,7 @@ using BotaniaStory.entities.ai;
 using BotaniaStory.Flora.GeneratingFlora;
 using BotaniaStory.items;
 using BotaniaStory.Items;
+using BotaniaStory.items.lenses;
 using BotaniaStory.lexicon;
 using BotaniaStory.network;
 using BotaniaStory.util;
@@ -186,6 +187,7 @@ namespace BotaniaStory
             api.RegisterBlockEntityClass("Beacon", typeof(BlockEntityBeacon));
 
             api.RegisterItemClass("ItemMagnetismRing", typeof(ItemMagnetismRing));
+            api.RegisterItemClass("MagnetismLens", typeof(ItemMagnetismLens));
 
             api.Logger.Notification("Mod BotaniaStory wurde erfolgreich geladen! Die Magie beginnt...");
 

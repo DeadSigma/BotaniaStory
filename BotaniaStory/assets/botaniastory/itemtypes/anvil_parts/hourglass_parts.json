@@ -1,7 +1,7 @@
 {
     "code": "hourglass_parts",
     "class": "Item",
-    "maxstacksize": 8,
+    "maxstacksize": 64,
     "shape": {
         "base": "botaniastory:item/workitems/hourglass_parts"
     },

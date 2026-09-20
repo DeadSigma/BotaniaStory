@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using BotaniaStory.systems;
-using OpenTK.Graphics.OpenGL;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
@@ -162,7 +161,7 @@ namespace BotaniaStory.client.renderers
             prog.NormalShaded = 0;
 
             render.GlToggleBlend(true, EnumBlendMode.Glow);
-            GL.DepthMask(false);
+            render.GLDepthMask(false);
 
             float partialTick = (float)(tickAccumulator / TickLength);
 
@@ -210,9 +209,16 @@ namespace BotaniaStory.client.renderers
             prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
             prog.RgbaTint = new Vec4f(1f, 1f, 1f, 1f);
 
+            // отсечение прозрачности и нормали возвращаются - standard-программа общая на весь движок
+            prog.Uniform("alphaTest", 0.001f);
+            prog.NormalShaded = 1;
+
             prog.Stop();
 
-            GL.DepthMask(true);
+            render.GLDepthMask(true);
+
+            // режим смешивания применяется только при включении, поэтому сбрасывается отдельно
+            render.GlToggleBlend(true, EnumBlendMode.Standard);
             render.GlToggleBlend(false, EnumBlendMode.Standard);
         }
 

@@ -1,0 +1,26 @@
+{
+  "code": "magnetism_ring_frame",
+  "ingredient": {
+    "type": "item",
+    "code": "game:ingot-*",
+    "name": "type",
+    "allowedVariants": [
+      "manasteel",
+      "terrasteel"
+    ]
+  },
+  "pattern": [
+    [
+      "#####",
+      "#___#",
+      "#___#",
+      "#___#",
+      "#####"
+    ]
+  ],
+  "name": "Magnetism Ring Frame",
+  "output": {
+    "type": "item",
+    "code": "botaniastory:magnetism_ring_frame-{type}"
+  }
+}

@@ -80,7 +80,7 @@ namespace BotaniaStory.lexicon
         {
             { "basics_and_mechanics", new[] { "basicsintroduction", "botanialexicon", "apothecary", "mysticalflower", "meditation", "puredaisy", "wandoftheforest", "runicaltar", "rune", "terrasteel", "pylon"} },
 
-            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment", "catalyst_alchemy", "catalyst_conjuration" } },
+            { "mana_management", new[] { "manaintroduction", "manaspreader", "manapool", "manatablet", "spark", "sparkaugment", "catalyst_alchemy", "catalyst_conjuration", "lenses" } },
 
             { "generating_flora", new[] {"generatingfloraintroduction", "daybloom", "nightshade", "endoflame", "rosaarcana", "hydroangeas" } },
 
@@ -1295,6 +1295,8 @@ namespace BotaniaStory.lexicon
 
                     }
 
+
+                    // Колдовский катализатор
                     else if (chapId == "catalyst_conjuration")
                     {
                         chapter.TabItemCode = "botaniastory:catalyst_conjuration";
@@ -1543,6 +1545,25 @@ namespace BotaniaStory.lexicon
                             Spread = 3,
                             ManaCost = 20000,
                             UiKey = "Полоска_Маны_Правая_Верхняя"
+                        });
+                    }
+
+                    // Линзы
+                    else if (chapId == "lenses")
+                    {
+                        chapter.TabItemCode = "botaniastory:magnetism_lens";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                              "botaniastory:managlass", "game:metalbit-copper", "botaniastory:managlass",
+                              "game:nugget-magnetite", "botaniastory:magnetism_lens_frame", "game:nugget-magnetite",
+                              "botaniastory:managlass", "game:metalbit-copper", "botaniastory:managlass"
+                              },
+                            Output = "botaniastory:magnetism_lens"
                         });
                     }
 
@@ -3894,7 +3915,7 @@ namespace BotaniaStory.lexicon
                             Spread = 1,
                             UiKey = "Сетка_Левая_Землекрушитель",
                             Grid = new string[9] {
-                              null, "botaniastory:terrashatterer_head", null,
+                              null, "botaniastory:terrashatterer_head-terrasteel", null,
                               "botaniastory:terrashatterer_parts", "botaniastory:livingwood_stick", "botaniastory:manatablet",
                               null, "botaniastory:livingwood_stick", null},
                             Output = "botaniastory:pickaxe-terrashatterer-0-off"
@@ -3907,7 +3928,7 @@ namespace BotaniaStory.lexicon
                             UiKey = "Кузня_Левая_Талисман",
                             AnvilInput = "game:ingot-terrasteel",
                             AnvilBlock = "game:anvil-tinbronze",
-                            Output = "botaniastory:terrashatterer_head"
+                            Output = "botaniastory:terrashatterer_head-terrasteel"
                         });
 
                         chapter.Recipes.Add(new BookRecipe()
@@ -3997,6 +4018,73 @@ namespace BotaniaStory.lexicon
                     else if (chapId == "ringmagnetism")
                     {
                         chapter.TabItemCode = "botaniastory:ringmagnetism-terrasteel";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 0,
+                            UiKey = "Кузня_КольцоМагнетизмаМанасталь",
+                            AnvilInput = "game:ingot-manasteel",
+                            AnvilBlock = "game:anvil-bismuthbronze",
+                            Output = "botaniastory:magnetism_ring_frame-manasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_КольцоМагнетизмаМанасталь",
+                            Grid = new string[9] {
+                             null, "botaniastory:magnetism_lens", null,
+                             null, "botaniastory:magnetism_ring_frame-manasteel", null,
+                             null, "botaniastory:rune-air", null
+                             },
+                            Output = "botaniastory:ringmagnetism-manasteel"
+                        });
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 1,
+                            UiKey = "Кузня_КольцоМагнетизмаТеррасталь",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-bismuthbronze",
+                            Output = "botaniastory:magnetism_ring_frame-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_КольцоМагнетизмаТеррасталь",
+                            Grid = new string[9] {
+                             null, "botaniastory:magnetism_lens", null,
+                             null, "botaniastory:magnetism_ring_frame-terrasteel", null,
+                             null, "botaniastory:rune-greed", null
+                             },
+                            Output = "botaniastory:ringmagnetism-terrasteel"
+                        });
+
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Anvil",
+                            Spread = 1,
+                            UiKey = "Кузня_КольцоМагнетизмаПожинателя",
+                            AnvilInput = "game:ingot-terrasteel",
+                            AnvilBlock = "game:anvil-bismuthbronze",
+                            Output = "botaniastory:magnetism_ring_frame-terrasteel"
+                        });
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 1,
+                            UiKey = "Сетка_КольцоМагнетизмаПожинателя",
+                            Grid = new string[9] {
+                             null, "botaniastory:magnetism_lens", null,
+                             "botaniastory:rune-sloth", "botaniastory:magnetism_ring_frame-terrasteel", "botaniastory:rune-pride",
+                             null, "botaniastory:rune-greed", null
+                             },
+                            Output = "botaniastory:ringmagnetism-looting"
+                        });
 
                        
                     }

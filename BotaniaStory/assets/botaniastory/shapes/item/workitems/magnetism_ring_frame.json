@@ -1,0 +1,101 @@
+{
+	"editor": {
+		"allAngles": false,
+		"entityTextureMode": false
+	},
+	"textureWidth": 32,
+	"textureHeight": 32,
+	"textureSizes": {
+		"ring": [32, 32]
+	},
+	"textures": {
+		"ring": "game:item/resource/plate/gold"
+	},
+	"elements": [
+		{
+			"name": "cube",
+			"from": [11.1, 0, 3.1],
+			"to": [12.9, 4, 12.9],
+			"rotationOrigin": [8, 0, 8],
+			"uv": [0, 0],
+			"shade": true,
+			"faces": {
+				"north": {"texture": "#ring", "uv": [15, 6, 12, 11], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#ring", "uv": [12, 0, 15, 5], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#ring", "uv": [0, 0, 3, 10], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#ring", "uv": [0, 0, 3, 10], "autoUv": false, "snapUv": false}
+			},
+			"stepParentName": "",
+			"climateColorMap": "",
+			"gradientShade": false,
+			"renderPass": 0,
+			"seasonColorMap": ""
+		},
+		{
+			"name": "cube",
+			"from": [3.1, 0, 3.1],
+			"to": [4.9, 4, 12.9],
+			"rotationOrigin": [0, 0, 8],
+			"uv": [0, 0],
+			"shade": true,
+			"faces": {
+				"north": {"texture": "#ring", "uv": [12, 0, 15, 5], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#ring", "uv": [15, 6, 12, 11], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#ring", "uv": [0, 0, 3, 10], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#ring", "uv": [0, 0, 3, 10], "autoUv": false, "snapUv": false}
+			},
+			"stepParentName": "",
+			"climateColorMap": "",
+			"gradientShade": false,
+			"renderPass": 0,
+			"seasonColorMap": ""
+		},
+		{
+			"name": "cube",
+			"from": [4.9, 0, 3.1],
+			"to": [11.1, 4, 4.9],
+			"rotationOrigin": [2, 0, 8],
+			"uv": [0, 0],
+			"shade": true,
+			"faces": {
+				"north": {"texture": "#ring", "uv": [15, 6, 22, 11], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#ring", "uv": [10, 6, 17, 9], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#ring", "uv": [7, 4, 14, 9], "autoUv": false, "snapUv": false}
+			},
+			"stepParentName": "",
+			"climateColorMap": "",
+			"gradientShade": false,
+			"renderPass": 0,
+			"seasonColorMap": ""
+		},
+		{
+			"name": "cube",
+			"from": [4.9, 0, 11.1],
+			"to": [11.1, 4, 12.9],
+			"rotationOrigin": [2, 0, 16],
+			"uv": [0, 0],
+			"shade": true,
+			"faces": {
+				"north": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"east": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"south": {"texture": "#ring", "uv": [15, 6, 22, 11], "autoUv": false, "snapUv": false},
+				"west": {"texture": "#ring", "uv": [0, 0, 7, 5], "autoUv": false, "snapUv": false},
+				"up": {"texture": "#ring", "uv": [0, 0, 7, 3], "autoUv": false, "snapUv": false},
+				"down": {"texture": "#ring", "uv": [7, 4, 14, 9], "autoUv": false, "snapUv": false}
+			},
+			"stepParentName": "",
+			"climateColorMap": "",
+			"gradientShade": false,
+			"renderPass": 0,
+			"seasonColorMap": ""
+		}
+	],
+	"animations": []
+}

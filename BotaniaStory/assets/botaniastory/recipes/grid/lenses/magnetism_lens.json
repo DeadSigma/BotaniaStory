@@ -1,0 +1,30 @@
+[
+	{
+		"ingredientPattern": "ABA,CDC,ABA",
+		"ingredients": {
+			"A": {
+				"type": "block",
+				"code": "botaniastory:managlass"
+			},
+			"B": {
+				"type": "item",
+				"code": "game:metalbit-copper"
+			},
+			"C": {
+				"type": "item",
+				"code": "game:nugget-magnetite"
+			},
+			"D": {
+				"type": "item",
+				"code": "botaniastory:magnetism_lens_frame"
+			}
+		},
+		"width": 3,
+		"height": 3,
+		"output": {
+			"type": "item",
+			"code": "botaniastory:magnetism_lens",
+			"quantity": 1
+		}
+	}
+]

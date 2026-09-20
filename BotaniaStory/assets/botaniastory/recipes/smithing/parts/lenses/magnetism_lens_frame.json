@@ -1,0 +1,23 @@
+{
+  "code": "magnetism_lens_frame",
+  "ingredient": {
+    "type": "item",
+    "code": "game:ingot-gold"
+  },
+  "pattern": [
+    [
+      "__###__",
+      "_#___#_",
+      "#_____#",
+      "#_____#",
+      "#_____#",
+      "_#___#_",
+      "__###__"
+    ]
+  ],
+  "name": "Magnetism Lens Frame",
+  "output": {
+    "type": "item",
+    "code": "botaniastory:magnetism_Lens_frame"
+  }
+}
