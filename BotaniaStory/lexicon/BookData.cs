@@ -94,7 +94,7 @@ namespace BotaniaStory.lexicon
 
             { "rusted_world_artifacts", new[] { "rustworld-air", "blackholetalisman", "flight-tiara" } },
 
-            { "elfmania", new[] { "alfheimgates", "elfresources", "gaiaritual", "elementiumitem", "overgrowthseed" , "gaiaspirit" } },
+            { "elfmania", new[] { "alfheimgates", "elfresources", "gaiaritual", "gaiaritualhardmode", "elementiumitem", "overgrowthseed" , "gaiaspirit" } },
 
             { "misc", new[] { "livingwood_stuff",  "livingrock_stuff", "managlass", "flask", "root-normal", "root-rusted" } },
 
@@ -4444,6 +4444,25 @@ namespace BotaniaStory.lexicon
                             UiKey = "Картинка_Левая_Ритуала_Гайа"
                         });
 
+                    }
+
+                    // РИТУАЛ ПРИЗЫВА ГАЙИ 2
+                    else if (chapId == "gaiaritualhardmode")
+                    {
+                        chapter.TabItemCode = "game:ingot-terrasteel-empowered";
+
+                        chapter.Recipes.Add(new BookRecipe()
+                        {
+                            RecipeType = "Grid",
+                            Spread = 0,
+                            UiKey = "Сетка_Правая_Верхняя",
+                            Grid = new string[9] {
+                            null, "botaniastory:gaiaspirit", null,
+                             "botaniastory:gaiaspirit", "game:ingot-terrasteel", "botaniastory:gaiaspirit",
+                             null, "botaniastory:gaiaspirit", null
+                         },
+                            Output = "game:ingot-terrasteel-empowered"
+                        });
                     }
 
                     // ВОЗДУХ РЖАВОГО МИРА

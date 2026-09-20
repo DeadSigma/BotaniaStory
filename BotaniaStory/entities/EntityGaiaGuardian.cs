@@ -629,14 +629,24 @@ namespace BotaniaStory.entities
                     }
                 }
 
-                // Overgrowth Seed: 75% — 1 штука, 25% — 2-5 штук на каждого атакующего игрока
-                if (world.Rand.NextDouble() < 0.75)
+                // Семя разрастания - минимум 3 на каждого атакующего игрока
+                double seedRoll = world.Rand.NextDouble();
+
+                if (seedRoll < 0.40)
                 {
-                    overgrowthSeedTotal += 1;
+                    overgrowthSeedTotal += 3;
+                }
+                else if (seedRoll < 0.75)
+                {
+                    overgrowthSeedTotal += 4;
+                }
+                else if (seedRoll < 0.92)
+                {
+                    overgrowthSeedTotal += 5;
                 }
                 else
                 {
-                    overgrowthSeedTotal += world.Rand.Next(2, 6);
+                    overgrowthSeedTotal += 6;
                 }
             }
 

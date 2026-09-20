@@ -15,7 +15,7 @@ namespace BotaniaStory.entities.ai
         private int rageCooldownMs = 2000;
         private float range = 15f;
 
-        // Минимальное расстояние между старой и новой позицией
+        // Между телепортами сохраняется минимальная дистанция
         private float minTeleportDistance = 7f;
         private float minRecentTeleportDistance = 5f;
         private int rememberedTeleportPositions = 4;
@@ -30,14 +30,13 @@ namespace BotaniaStory.entities.ai
 
         private const int TeleportPositionAttempts = 40;
 
-        // Поверхности ищем только около исходного уровня арены
-        // Поэтому земля далеко под летающей ареной не будет считаться
+        // Поверхность ищется только рядом с уровнем арены
         private const int SurfaceSearchAbove = 12;
-        private const int SurfaceSearchBelow = 2;
+        private const int SurfaceSearchBelow = 3;
 
         private const double SurfaceEpsilon = 0.002;
 
-        // Насколько близко ноги Гайи должны находиться к найденной поверхности,  чтобы считать, что она действительно стоит на ней
+        // Опора учитывается только рядом с ногами Гайи
         private const double SupportTolerance = 0.35;
         private const float GaiaIICooldownMultiplier = 0.50f;
 
@@ -96,7 +95,6 @@ namespace BotaniaStory.entities.ai
             }
         }
 
-        // AI
         public override bool ShouldExecute()
         {
             if (entity.WatchedAttributes.GetFloat(
@@ -115,8 +113,7 @@ namespace BotaniaStory.entities.ai
 
             long now = entity.World.ElapsedMilliseconds;
 
-            // Первый обычный телепорт ждёт свой интервал. Получение урона
-            // может независимо ускорить nextTeleportMs через NotifyDamaged().
+            // Первый обычный телепорт откладывается до следующего интервала
             if (nextTeleportMs <= 0)
             {
                 ScheduleNextTeleport(now);
@@ -144,8 +141,7 @@ namespace BotaniaStory.entities.ai
         {
             long now = entity.World.ElapsedMilliseconds;
 
-            // Во время DoT-серии назначаем следующий быстрый случайный прыжок.
-            // В обычном состоянии возвращаемся к штатному боевому cooldown.
+            // Во время DoT назначаются быстрые случайные телепорты
             ScheduleNextTeleport(now);
 
             EntityPlayer target = GetNearestParticipant();
@@ -154,8 +150,7 @@ namespace BotaniaStory.entities.ai
 
             Vec3d spawn = GetSpawnPos();
 
-            // 1. Сначала пытаемся выбрать действительно случайную точку около игрока.
-            // Точки за кругом отбрасываются, а не прижимаются к противоположной кромке.
+            // Случайная точка выбирается рядом с игроком и внутри арены
             if (TryFindRandomTeleportPosition(
                 target,
                 spawn,
@@ -171,7 +166,7 @@ namespace BotaniaStory.entities.ai
             }
 
 
-            // 2. Случайные точки не подошли. Фолбэк нужен для частично разрушенной арены.
+            // При неудаче выбирается ближайшая доступная опора
             if (TryFindNearestArenaSupport(
                   entity,
                   entity.Pos.X,
@@ -286,9 +281,7 @@ namespace BotaniaStory.entities.ai
 
 
         /// <summary>
-        /// Вызывается EntityGaiaGuardian после фактически полученного урона.
-        /// Обычный удар ускоряет один следующий телепорт. Fire/DoT дополнительно
-        /// включает короткое окно быстрых хаотичных телепортов.
+        /// Телепорт ускоряется после полученного урона
         /// </summary>
         public void NotifyDamaged(DamageSource damageSource)
         {
@@ -317,8 +310,7 @@ namespace BotaniaStory.entities.ai
                 ScaleDelayForGaiaLevel(damageTeleportDelayMaxMs)
             );
 
-            // Урон может только приблизить телепорт, но никогда не отложить уже
-            // запланированный более ранний прыжок.
+            // Уже назначенный более ранний телепорт сохраняется
             if (nextTeleportMs <= 0 || requestedTeleportMs < nextTeleportMs)
             {
                 nextTeleportMs = requestedTeleportMs;
@@ -332,7 +324,6 @@ namespace BotaniaStory.entities.ai
         }
 
 
-        // ОБЫЧНЫЙ ТЕЛЕПОРТ
         private bool TryFindRandomTeleportPosition(
             Entity target,
             Vec3d spawn,
@@ -381,8 +372,7 @@ namespace BotaniaStory.entities.ai
                     distance;
 
 
-                // Не прижимаем точку к краю арены: это создавало заметные
-                // повторяющиеся телепорты по окружности. Просто пробуем другую точку.
+                // Точка за границей арены отбрасывается
                 double fromSpawnX = candidateX - spawn.X;
                 double fromSpawnZ = candidateZ - spawn.Z;
 
@@ -419,12 +409,10 @@ namespace BotaniaStory.entities.ai
                      maxDistanceFromSpawn,
                      out destination,
 
-                     // Боевой телепорт:
-                     // верхнего Y-предела нет.
+                     // Для боевого телепорта верхний предел не задаётся
                      true,
 
-                     // Предпочитаем поверхность примерно
-                     // на высоте текущей цели.
+                     // Поверхность выбирается ближе к высоте цели
                      target.Pos.Y))
                 {
                     continue;
@@ -450,7 +438,7 @@ namespace BotaniaStory.entities.ai
         {
             destination = null;
 
-            // Координата должна находиться внутри арены
+            // Точка проверяется внутри арены
             double arenaDx =
                 x - spawn.X;
 
@@ -486,9 +474,7 @@ namespace BotaniaStory.entities.ai
 
             if (unlimitedUp)
             {
-                // Не сканируем всю высоту мира для каждой случайной X/Z-точки.
-                // Для боевого телепорта достаточно области около уровня арены
-                // и текущей высоты цели (если игрок построил платформу выше).
+                // Высота поиска ограничивается уровнем арены и цели
                 double referenceY =
                     double.IsNaN(preferredY)
                         ? spawn.Y
@@ -516,7 +502,6 @@ namespace BotaniaStory.entities.ai
 
 
 
-            // Если игрок построил платформу над ареной, сначала найдём платформу, а не блок под ней
 
             Vec3d bestPosition = null;
             double bestVerticalDistance = double.MaxValue;
@@ -564,7 +549,7 @@ namespace BotaniaStory.entities.ai
                     if (box == null)
                         continue;
 
-                    // Collision box должен реально  находиться под выбранной точкой X/Z
+                    // Коллизия опоры проверяется под выбранной точкой X/Z
                     if (localX < box.X1 ||
                         localX > box.X2 ||
                         localZ < box.Z1 ||
@@ -606,7 +591,7 @@ namespace BotaniaStory.entities.ai
 
 
 
-                // Проверяем, помещается ли Гайа целиком
+                // Свободное место проверяется по коллизии Гайи
 
 
                 if (entity.World.CollisionTester.IsColliding(
@@ -688,7 +673,7 @@ namespace BotaniaStory.entities.ai
             int maxZ =
                 (int)Math.Ceiling(spawn.Z + arenaRadius);
 
-            // Проверяется несущий слой на блок ниже поверхности арены
+            // Опора допускается на один блок ниже пола арены
             int arenaSurfaceY =
                 (int)Math.Floor(spawn.Y - SurfaceEpsilon);
 
@@ -756,7 +741,6 @@ namespace BotaniaStory.entities.ai
             return count;
         }
 
-        // Поиск опоры на арене
 
         public static bool TryFindNearestArenaSupport(
              EntityAgent entity,
@@ -832,7 +816,7 @@ namespace BotaniaStory.entities.ai
                         bz + 0.5;
 
 
-                    // Внутри арены?
+                    // Точка проверяется внутри арены
 
                     double arenaDx =
                         px - spawn.X;
@@ -848,7 +832,7 @@ namespace BotaniaStory.entities.ai
                     }
 
 
-                    // Достаточно далеко от текущей позиции?
+                    // Слишком близкая точка отбрасывается
 
                     double dx =
                         px - fromX;
@@ -867,7 +851,7 @@ namespace BotaniaStory.entities.ai
                     }
 
 
-                    // Уже есть более близкая точка
+                    // Более дальняя точка отбрасывается
                     if (distSq >=
                         bestDistanceSq)
                     {
@@ -876,7 +860,6 @@ namespace BotaniaStory.entities.ai
 
 
 
-                    // Есть ли здесь поверхность?
 
 
                     if (!TryFindStandingPosition(
@@ -907,7 +890,6 @@ namespace BotaniaStory.entities.ai
 
 
 
-        // МЕТОДЫ ДЛЯ EntityGaiaGuardian
 
         public static bool HasImmediateArenaSupport(
             EntityAgent entity)
@@ -927,7 +909,7 @@ namespace BotaniaStory.entities.ai
             }
 
 
-            // Ноги должны находиться практически непосредственно над поверхностью
+            // Опора учитывается только рядом с ногами
             double difference =
                 entity.Pos.Y -
                 standingPos.Y;
@@ -985,7 +967,6 @@ namespace BotaniaStory.entities.ai
         }
 
 
-        // Перемещение
         private void TeleportTo(
             Vec3d destination)
         {
@@ -1014,7 +995,6 @@ namespace BotaniaStory.entities.ai
 
 
 
-        // Позиция спавна
 
 
         private Vec3d GetSpawnPos()
