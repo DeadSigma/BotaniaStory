@@ -699,6 +699,10 @@
   "lexicon_elfmania_gaiaritual_p3": "1. <link=pylon>ガイアのパイロン</link>\n2. <link=elementium>リベット留めされたエレメンティウムブロック</link>\n3. <link=beacon>ビーコン</link>",
   "lexicon_elfmania_gaiaritual_p4": "儀式を開始するには、<link=terrasteel>テラスチールインゴット</link>を手に持った状態で<link=beacon>ビーコン</link>を<link=nothing>右クリック</link>してください。その後、一歩下がって命を懸けた戦いに備えましょう。<link=gaiaguardian>ガイアの守護者</link>を倒すには、持てるすべての技術が必要です。この戦いは<link=nothing>あなたが知るどのボス</link>との戦いよりも困難かもしれません。勝利すれば、報酬として複数の<link=gaiaspirit>ガイアの魂</link>を手に入れられます。",
 
+  "lexicon_elfmania_gaiaritualhardmode_title": "ガイアの儀式 II",
+  "lexicon_elfmania_gaiaritualhardmode_p1": "強大な二つの資源、<link=terrasteel>テラスチール</link>と<link=gaiaspirit>ガイアの魂</link>を組み合わせれば、途方もなく頑丈な素材が生まれると思うかもしれません。しかし実際には、両者の力はほぼ完全に打ち消し合い、出来上がった合金はほとんど役に立たない金属となります。\n\nそれでも、その内部に封じ込められたエネルギーは、より危険な<link=gaiaritual>ガイアの儀式</link>を行い、はるかに強力な<link=gaiaguardian>ガイアガーディアン</link>を召喚するには十分です。\n\n強化された<link=gaiaguardian>ガイアガーディアン</link>は耐久力、攻撃力、速度が増しており、通常よりもはるかに危険な戦いとなります。勝利すれば、より多くの<link=gaiaspirit>ガイアの魂</link>に加え、追加の希少な宝物を得られます。",
+  "lexicon_elfmania_gaiaritualhardmode_p2": "<link=gaiaspiritingot>ガイアの魂のインゴット</link>の作成：",
+
   "lexicon_elfmania_gaiaspirit_title": "ガイアの魂",
   "lexicon_elfmania_gaiaspirit_p1": "<link=gaiaspirit>ガイアの魂</link>は、女神ガイアそのものの一部を宿す希少な存在です。通常の方法では入手できません。知られている唯一の方法は、古代の<link=gaiaritual>ガイアの儀式</link>を行い、召喚された<link=gaiaguardian>ガイアの守護者</link>を倒すことです。勝利すれば複数のガイアの魂を入手できます。それらは非常に高い魔法的価値を持ち、極めて強力なアイテムやその他の創造物の作成に使用されます。",
 

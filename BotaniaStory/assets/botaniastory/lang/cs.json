@@ -699,6 +699,10 @@
   "lexicon_elfmania_gaiaritual_p3": "1. <link=pylon>Pylony Gaii</link>\n2. <link=elementium>Nýtované bloky elementia</link>\n3. <link=beacon>Maják</link>",
   "lexicon_elfmania_gaiaritual_p4": "Chcete-li zahájit rituál, klikněte <link=nothing>pravým tlačítkem</link> na <link=beacon>maják</link> s <link=terrasteel>ingotem terraceli</link> v ruce. Poté ustupte a připravte se bojovat o život. Budete potřebovat všechny své schopnosti, abyste porazili <link=gaiaguardian>Strážce Gaii</link> – tento boj může být těžší než souboj s <link=nothing>jakýmkoli bossem, kterého znáte</link>. Po vítězství si budete moci vyzvednout odměnu – několik <link=gaiaspirit>Duchů Gaii</link>.",
 
+  "lexicon_elfmania_gaiaritualhardmode_title": "Rituál Gaie II",
+  "lexicon_elfmania_gaiaritualhardmode_p1": "Dalo by se předpokládat, že spojením dvou mocných zdrojů, <link=terrasteel>terraceli</link> a <link=gaiaspirit>Duchů Gaie</link>, vznikne neuvěřitelně odolný materiál. Ve skutečnosti se však jejich síly téměř úplně navzájem potlačí a výsledná slitina se promění v téměř nepoužitelný kov.\n\nEnergie, která je v něm uzavřena, však stačí k provedení nebezpečnější verze <link=gaiaritual>Rituálu Gaie</link> a přivolání výrazně silnějšího <link=gaiaguardian>Strážce Gaie</link>.\n\nPosílený <link=gaiaguardian>Strážce Gaie</link> má větší odolnost, sílu a rychlost, takže boj s ním je výrazně nebezpečnější než obvykle. Za vítězství lze získat více <link=gaiaspirit>Duchů Gaie</link> a také další vzácné poklady.",
+  "lexicon_elfmania_gaiaritualhardmode_p2": "Výroba <link=gaiaspiritingot>ingotu Ducha Gaie</link>:",
+
   "lexicon_elfmania_gaiaspirit_title": "Duch Gaii",
   "lexicon_elfmania_gaiaspirit_p1": "<link=gaiaspirit>Duch Gaii</link> je vzácná esence, která je částicí samotné bohyně Gaii. Běžnými způsoby ji nelze získat. Jediná známá cesta je provést starověký <link=gaiaritual>Rituál Gaii</link> a porazit přivolaného <link=gaiaguardian>Strážce Gaii</link>. Po vítězství lze získat několik Duchů Gaii. Mají obrovskou magickou hodnotu a používají se k výrobě mimořádně mocných předmětů a dalších výtvorů.",
 

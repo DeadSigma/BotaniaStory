@@ -699,6 +699,10 @@
   "lexicon_elfmania_gaiaritual_p3": "1. <link=pylon>盖亚水晶柱</link>\n2. <link=elementium>铆接元素钢块</link>\n3. <link=beacon>信标</link>",
   "lexicon_elfmania_gaiaritual_p4": "要开始仪式，请手持<link=terrasteel>泰拉钢锭</link>对<link=beacon>信标</link>按下<link=nothing>右键</link>。随后后退一步，准备为自己的生命而战。你必须使出浑身解数才能击败<link=gaiaguardian>盖亚守护者</link>--这场战斗可能比你所知道的<link=nothing>任何首领战</link>都更加艰难。取得胜利后，你便可以领取奖励--数个<link=gaiaspirit>盖亚之魂</link>。",
 
+  "lexicon_elfmania_gaiaritualhardmode_title": "盖亚仪式 II",
+  "lexicon_elfmania_gaiaritualhardmode_p1": "人们或许会认为，将两种强大的资源——<link=terrasteel>泰拉钢</link>与<link=gaiaspirit>盖亚之魂</link>——结合起来，会创造出一种无比坚固的材料。但实际上，它们的力量几乎完全相互抵消，使最终形成的合金变成一种几乎毫无用处的金属。\n\n不过，其中蕴含的能量仍然足以举行更危险的<link=gaiaritual>盖亚仪式</link>，并召唤出远比普通形态更强大的<link=gaiaguardian>盖亚守护者</link>。\n\n强化后的<link=gaiaguardian>盖亚守护者</link>拥有更高的耐久、力量和速度，因此战斗也会比通常危险得多。击败它后，可以获得更多<link=gaiaspirit>盖亚之魂</link>，以及额外的稀有宝藏。",
+  "lexicon_elfmania_gaiaritualhardmode_p2": "制作<link=gaiaspiritingot>盖亚之魂锭</link>：",
+
   "lexicon_elfmania_gaiaspirit_title": "盖亚之魂",
   "lexicon_elfmania_gaiaspirit_p1": "<link=gaiaspirit>盖亚之魂</link>是一种稀有的存在，其中蕴含着女神盖亚自身的一部分。它无法通过普通方式获得。唯一已知的方法是举行古老的<link=gaiaritual>盖亚仪式</link>并击败被召唤出来的<link=gaiaguardian>盖亚守护者</link>。胜利后可以获得数个盖亚之魂。它们具有极高的魔法价值，可用于制作极其强大的物品以及其他造物。",
 

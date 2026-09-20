@@ -4,7 +4,7 @@
   "name": "BotaniaStory",
   "authors": [ "El_Neuman" ],
   "description": " sorry, you can't play right now, login later, or write me in Discord: deadsigma",
-  "version": "0.4.9",
+  "version": "0.4.1",
   "side": "Universal",
   "dependencies": {
     "game": ""
