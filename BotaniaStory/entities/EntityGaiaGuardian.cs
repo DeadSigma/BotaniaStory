@@ -133,7 +133,7 @@ namespace BotaniaStory.entities
             bossMusicStartLoadingMs = capi.World.ElapsedMilliseconds;
 
             bossMusicTrack = capi.StartTrack(
-                new AssetLocation("botaniastory", "sounds/gaia_music"),
+                new AssetLocation("game", "music/theresonancearchives-eidolon"),
                 99f,
                 EnumSoundType.MusicGlitchunaffected,
                 OnBossMusicLoaded

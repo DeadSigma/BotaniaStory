@@ -10,7 +10,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
-namespace BotaniaStory
+namespace BotaniaStory.systems.lenses
 {
     [ProtoContract]
     public class MagnetLootModePacket

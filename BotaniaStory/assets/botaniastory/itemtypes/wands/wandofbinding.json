@@ -89,36 +89,41 @@
         },
         "scale": 1.2
     },
-    "tpHandTransform": {
-        "translation": {
-            "x": -0.74,
-            "y": 0.02,
-            "z": -0.532
-        },
-        "rotation": {
-            "x": 164,
-            "y": -4,
-            "z": -91
-        },
-        "origin": {
-            "x": 0.5,
-            "y": 0.1,
-            "z": 0.5
-        },
-        "scale": 0.9
+  "tpHandTransform": {
+    "translation": {
+      "x": -0.58,
+      "y": -0.11,
+      "z": -0.412
     },
-    "groundTransform": {
-        "translation": {
-            "x": 0,
-            "y": 0.1,
-            "z": 0
-        },
-        "rotation": {
-            "x": 90,
-            "y": 45,
-            "z": 0
-        },
-        "scale": 4.62
-    }
+    "rotation": {
+      "x": 164,
+      "y": -4,
+      "z": -91
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.1,
+      "z": 0.5
+    },
+    "scale": 1.24
+  },
+  "groundTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0.1,
+      "z": 0
+    },
+    "rotation": {
+      "x": 90,
+      "y": 45,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0.02,
+      "z": 0.5299
+    },
+    "scale": 7
+  }
 	
 }

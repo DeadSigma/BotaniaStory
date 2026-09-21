@@ -20,7 +20,7 @@ namespace BotaniaStory.blockentity
         {
             base.Initialize(api);
 
-            // собственный RegisterGameTickListener блок-энтити, а НЕ api.Event.
+            // Тик регистрируется на самом блок-энтити
             RegisterGameTickListener(OnTick, 50);
 
             if (api.Side == EnumAppSide.Client)
@@ -37,7 +37,7 @@ namespace BotaniaStory.blockentity
 
             if (IsFlipping)
             {
-                // Анимация переворота длится 0.5 секунды
+                // Переворот длится 0.5 секунды
                 FlipProgress += dt / 0.5f;
                 if (FlipProgress >= 1.0f)
                 {
@@ -102,13 +102,7 @@ namespace BotaniaStory.blockentity
         {
             if (SandCount <= 0) return false;
 
-            AssetLocation loc = new AssetLocation(SandBlockCode);
-            Block sandBlock = Api.World.GetBlock(loc);
-            Item sandItem = Api.World.GetItem(loc);
-
-            ItemStack stackToGive = null;
-            if (sandBlock != null) stackToGive = new ItemStack(sandBlock, SandCount);
-            else if (sandItem != null) stackToGive = new ItemStack(sandItem, SandCount);
+            ItemStack stackToGive = CreateSandStack();
 
             if (stackToGive != null && Api.Side == EnumAppSide.Server)
             {
@@ -118,14 +112,31 @@ namespace BotaniaStory.blockentity
                 }
             }
 
+            ClearSand();
+
+            if (Api.Side == EnumAppSide.Server) MarkDirty(true);
+            return true;
+        }
+
+        private ItemStack CreateSandStack()
+        {
+            if (SandCount <= 0 || string.IsNullOrEmpty(SandBlockCode)) return null;
+
+            AssetLocation loc = new AssetLocation(SandBlockCode);
+            Block sandBlock = Api.World.GetBlock(loc);
+            if (sandBlock != null) return new ItemStack(sandBlock, SandCount);
+
+            Item sandItem = Api.World.GetItem(loc);
+            return sandItem != null ? new ItemStack(sandItem, SandCount) : null;
+        }
+
+        private void ClearSand()
+        {
             SandCount = 0;
             TimerProgress = 0f;
             IsFlipping = false;
             FlipProgress = 0f;
             SandBlockCode = "";
-
-            if (Api.Side == EnumAppSide.Server) MarkDirty(true);
-            return true;
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
@@ -148,7 +159,22 @@ namespace BotaniaStory.blockentity
             tree.SetFloat("flipProgress", FlipProgress);
         }
 
-        // base.OnBlockRemoved() / base.OnBlockUnloaded() сами снимают тик-слушатели, зарегистрированные через RegisterGameTickListener этого BE.
+        // Песок выбрасывается при разрушении часов
+        public override void OnBlockBroken(IPlayer byPlayer = null)
+        {
+            if (Api.Side == EnumAppSide.Server)
+            {
+                ItemStack sandStack = CreateSandStack();
+                if (sandStack != null)
+                {
+                    Api.World.SpawnItemEntity(sandStack, Pos.ToVec3d().Add(0.5, 0.5, 0.5));
+                    ClearSand();
+                }
+            }
+
+            base.OnBlockBroken(byPlayer);
+        }
+
         public override void OnBlockRemoved()
         {
             base.OnBlockRemoved();
@@ -156,7 +182,7 @@ namespace BotaniaStory.blockentity
             renderer = null;
         }
 
-        // Этого метода не хватало - при выгрузке чанка утекал и слушатель, и рендерер
+        // Рендерер освобождается при выгрузке чанка
         public override void OnBlockUnloaded()
         {
             base.OnBlockUnloaded();

@@ -19,7 +19,7 @@
     ],
     "creativeinventory": {
         "general": [ "enchantedfarmland-dry" ],
-        "flora": [ "enchantedfarmland-dry" ]
+        "botaniastory": [ "enchantedfarmland-dry" ]
     },
     "shape": { "base": "game:block/basic/cube-lowered" },
     "faceCullMode": "FlushExceptTop",

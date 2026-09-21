@@ -50,8 +50,8 @@ namespace BotaniaStory.blockentity
         private int fireCooldownMs = 500;
         private int burstManaAmount = 190;
         private long lastLensTickMs = 0;
-        private static readonly AssetLocation LensAttachSound = new AssetLocation("botaniastory", "sounds/lensattach");
-        private static readonly AssetLocation LensRemoveSound = new AssetLocation("botaniastory", "sounds/lensremove");
+        private static readonly AssetLocation LensAttachSound = new AssetLocation("game", "sounds/block/pumpkin");
+        private static readonly AssetLocation LensRemoveSound = new AssetLocation("game", "sounds/block/pumpkin");
 
         public ItemStack LensStack { get; private set; }
         public IWorldAccessor LensWorld => Api?.World;

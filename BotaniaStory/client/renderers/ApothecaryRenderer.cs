@@ -8,11 +8,11 @@ namespace BotaniaStory.client.renderers
 {
     public class ApothecaryRenderer : IRenderer, IDisposable
     {
-        // Вспомогательный класс для настроек рендера
+        // Параметры рендера задаются отдельно для нужных предметов
         public class ItemRenderTransform
         {
             public float Scale;
-            public float RotX; // В радианах! (GameMath.PIHALF = 90 градусов)
+            public float RotX;
             public float RotY;
             public float RotZ;
 
@@ -25,13 +25,11 @@ namespace BotaniaStory.client.renderers
             }
         }
 
-
-        // ПОЛЯ КЛАССА (Переменные)
         private Dictionary<string, ItemRenderTransform> customTransforms = new Dictionary<string, ItemRenderTransform>();
 
-        private float spreadLevel = 7f;      // Разброс лепестков по воде
-        private float itemScale = 1f;      // Базовый размер айтемов
-        private float heightOffset = 0.70f;  // Точная высота уровня воды!
+        private float spreadLevel = 7f;
+        private float itemScale = 1f;
+        private float heightOffset = 0.70f;
 
         private ICoreClientAPI capi;
         private BlockPos pos;
@@ -46,51 +44,48 @@ namespace BotaniaStory.client.renderers
         public double RenderOrder => 0.5;
         public int RenderRange => 24;
 
-        // ТОЧНЫЙ КОНСТРУКТОР
         public ApothecaryRenderer(BlockPos pos, ICoreClientAPI capi)
         {
             this.pos = pos;
             this.capi = capi;
 
+            // Разброс закрепляется за позицией блока
             Random rand = new Random(pos.GetHashCode());
 
             for (int i = 0; i < 16; i++)
             {
-                // Сохраняем просто случайный вектор от -1 до 1
                 xDir[i] = (float)(rand.NextDouble() * 2 - 1);
                 zDir[i] = (float)(rand.NextDouble() * 2 - 1);
                 yRots[i] = (float)(rand.NextDouble() * GameMath.TWOPI);
             }
 
             customTransforms["шаблон"] = new ItemRenderTransform(
-                0.2f,             // Масштаб (Scale): 0.4f делает предмет чуть больше базового (0.3f). Буква 'f' означает тип float.
-                GameMath.PIHALF,  // Поворот по оси X (RotX): Наклоняем на 90 градусов (PI / 2), чтобы лепесток лежал плашмя на воде.
-                0f,               // Поворот по оси Y (RotY): Не крутим вокруг вертикальной оси (оставляем 0).
-                0f                // Поворот по оси Z (RotZ): Не наклоняем вбок (оставляем 0).
+                0.2f,
+                GameMath.PIHALF,
+                0f,
+                0f
             );
 
             customTransforms["точное_имя_айтема"] = new ItemRenderTransform(
-                2.15f,            // Масштаб: 
-                GameMath.PIHALF,  // Поворот по оси X:
-                0f,               // Поворот по Y: 0
-                0f                // Поворот по Z: 0
+                2.15f,
+                GameMath.PIHALF,
+                0f,
+                0f
             );
 
-            // 3. Настройка для какого-то нестандартного предмета, у которого оси перепутаны
             customTransforms["точное_имя_айтема"] = new ItemRenderTransform(
-                0.3f,             // Масштаб: Оставляем стандартный (0.3f).
-                0f,               // Поворот по оси X: Здесь мы НЕ наклоняем его по X (0 градусов)...
-                0f,               // Поворот по оси Y: 0
-                GameMath.PIHALF   // Поворот по оси Z: ...зато наклоняем на 90 градусов по оси Z! Это нужно, если в Blockbench моделька была сделана иначе, и её нужно "повалить" на другой бок.
+                0.3f,
+                0f,
+                0f,
+                GameMath.PIHALF
             );
         }
 
-        // МЕТОДЫ
+        // Меши пересобираются при изменении содержимого
         public void SetContents(InventoryBase inv)
         {
             for (int i = 0; i < 16; i++)
             {
-                // Очищаем старый меш
                 meshRefs[i]?.Dispose();
                 meshRefs[i] = null;
 
@@ -101,7 +96,6 @@ namespace BotaniaStory.client.renderers
                 isItem[i] = stack.Class == EnumItemClass.Item;
                 MeshData mesh;
 
-                // Получаем модельку
                 if (stack.Class == EnumItemClass.Block)
                 {
                     mesh = capi.TesselatorManager.GetDefaultBlockMesh(stack.Block)?.Clone();
@@ -115,7 +109,6 @@ namespace BotaniaStory.client.renderers
                 {
                     string itemCode = stack.Collectible.Code.Domain + ":" + stack.Collectible.Code.Path;
 
-                    // 1. БАЗА (Для всех предметов)
                     float finalScale = this.itemScale;
                     float finalRotX = 0f;
                     float finalRotY = 0f;
@@ -123,12 +116,9 @@ namespace BotaniaStory.client.renderers
                     float finalHeight = this.heightOffset;
                     float finalSpread = this.spreadLevel;
 
-                    // БАЗОВЫЙ ЦЕНТР: Ровно посередине блока
                     Vec3f finalCenter = new Vec3f(0.5f, 0.5f, 0.5f);
 
-                    // 2. ФИЛЬТРЫ 
-
-                    // СНАЧАЛА проверяем словарь кастомных настроек!
+                    // Индивидуальные параметры применяются раньше общих правил
                     if (customTransforms.TryGetValue(itemCode, out ItemRenderTransform transform))
                     {
                         finalScale = transform.Scale;
@@ -136,15 +126,13 @@ namespace BotaniaStory.client.renderers
                         finalRotY = transform.RotY;
                         finalRotZ = transform.RotZ;
 
-                        // Если для кастомных предметов тоже нужно смещать центр вниз
-                        // finalCenter = new Vec3f(0.5f, 0.05f, 0.5f); 
                     }
 
                     if (itemCode.Contains("game:gear-rusty"))
                     {
                         finalScale = 0.55f;
                         finalHeight += -0.2f;
-                        finalSpread = 5f; 
+                        finalSpread = 5f;
                     }
 
                     if (itemCode.Contains("botaniastory:overgrowthseed"))
@@ -181,9 +169,8 @@ namespace BotaniaStory.client.renderers
                         finalRotY = GameMath.PI;
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
 
-                        finalSpread = 7f; 
+                        finalSpread = 7f;
                     }
-                    //РУНЫ
                     if (itemCode.Contains("rune"))
                     {
                         finalScale = 0.25f;
@@ -195,10 +182,9 @@ namespace BotaniaStory.client.renderers
                         finalSpread = 5f;
                     }
 
-
-                    if (itemCode.Contains("gray-free") || itemCode.Contains("blue-free") 
-                        || itemCode.Contains("lightgray-free") || itemCode.Contains("red-free") 
-                        || itemCode.Contains("wilddaisy") || itemCode.Contains("redtopgrass") || itemCode.Contains("mugwort") 
+                    if (itemCode.Contains("gray-free") || itemCode.Contains("blue-free")
+                        || itemCode.Contains("lightgray-free") || itemCode.Contains("red-free")
+                        || itemCode.Contains("wilddaisy") || itemCode.Contains("redtopgrass") || itemCode.Contains("mugwort")
                         || itemCode.Contains("cowparsley") || itemCode.Contains("orangemallow") || itemCode.Contains("catmint"))
                     {
                         finalScale = 0.3f;
@@ -207,10 +193,9 @@ namespace BotaniaStory.client.renderers
                         finalRotY = GameMath.PI;
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
 
-                        finalSpread = 3f; // <СТАВИМ СВОЙ РАЗБРОС ДЛЯ ЦВЕТКА (например, 2f - ближе к центру)
+                        finalSpread = 3f;
                     }
 
-                    //слегка смещён вовнутрь
                     if (itemCode.Contains("magenta-free") || itemCode.Contains("brown-free") || itemCode.Contains("lime-free") || itemCode.Contains("orange-free") || itemCode.Contains("black-free") || itemCode.Contains("green-free") || itemCode.Contains("yellow-free"))
                     {
                         finalScale = 0.3f;
@@ -222,12 +207,16 @@ namespace BotaniaStory.client.renderers
                         finalSpread = 5f;
                     }
 
-                    // Если в словаре предмета нет, применяем стандартные правила по группам
                     else if (itemCode.Contains("petal"))
                     {
                         finalScale = 0.10f;
                         finalHeight += -0.35f;
                         finalRotX = GameMath.PIHALF;
+                    }
+
+                    else if (itemCode.Contains("charcoal"))
+                    {
+                        finalScale = 0.85f;
                     }
 
                     else if (itemCode.Contains("seeds"))
@@ -248,89 +237,69 @@ namespace BotaniaStory.client.renderers
                     {
                         finalScale = 0.6f;
                         finalHeight += -0.09f;
-                        // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-greenspirecypress"))
                     {
                         finalScale = 0.6f;
                         finalHeight += -0.09f;
-                        // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-baldcypress"))
                     {
                         finalScale = 0.6f;
                         finalHeight += -0.09f;
-                        // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-acacia"))
                     {
                         finalScale = 0.6f;
                         finalHeight += -0.09f;
-                        // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-ebony"))
                     {
                         finalScale = 0.6f;
                         finalHeight += -0.09f;
-                        // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-purpleheart"))
                     {
                         finalScale = 0.6f;
                         finalHeight += -0.09f;
-                        // Стоит прямо, без RotX
                     }
                     else if (itemCode.Contains("treeseed-maple"))
                     {
                         finalScale = 0.6f;
                         finalHeight += 0.02f;
                         finalRotX = GameMath.PIHALF;
-                        // Лежит на боку, повёрнут на 90 градусов по X
 
-                        // ИСПРАВЛЕНИЕ СМЕЩЕНИЯ: Опускаем точку вращения в самый низ модельки!
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
                     }
                     else if (itemCode.Contains("treeseed-crimsonkingmaple"))
                     {
                         finalScale = 0.6f;
                         finalHeight += 0.02f;
-                        // Лежит на боку, повёрнут на 90 градусов по X
                         finalRotX = GameMath.PIHALF;
 
-                        // ИСПРАВЛЕНИЕ СМЕЩЕНИЯ: Опускаем точку вращения в самый низ модельки!
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
                     }
-                    // Это условие поймает ВСЕ остальные семена деревьев (pine, maple, kapok и т.д.)
+                    // Остальные семена деревьев обрабатываются общим правилом
                     else if (itemCode.Contains("treeseed"))
                     {
                         finalScale = 0.6f;
                         finalHeight += 0.02f;
-                        // Лежит на боку, повёрнут на 90 градусов по X
                         finalRotX = GameMath.PIHALF;
 
-                        // Опускаем точку вращения в самый низ модельки!
                         finalCenter = new Vec3f(0.5f, 0.05f, 0.5f);
                     }
-                    // 
-                    // 3. ПРИМЕНЯЕМ ВСЕ НАСТРОЙКИ (с использованием finalCenter!)
-                    // 
 
-                    // Масштабируем относительно  центра
+                    // Масштаб и поворот применяются относительно центра предмета
                     mesh.Scale(finalCenter, finalScale, finalScale, finalScale);
 
-                    // Поворачиваем относительно  центра ВСЕ объекты (и предметы, и блоки)
                     mesh.Rotate(finalCenter, finalRotX, finalRotY, finalRotZ);
 
-                    // Случайный разброс по оси Y
                     mesh.Rotate(finalCenter, 0, yRots[i], 0);
 
-                    // Итоговое смещение (используем finalHeight)
-                    // Рассчитываем итоговое смещение с учетом индивидуального spread предмета
                     float currentMaxOffset = (finalSpread / 10f) * 0.45f;
                     float finalX = xDir[i] * currentMaxOffset;
                     float finalZ = zDir[i] * currentMaxOffset;
 
-                    // Сдвигаем модель
                     mesh.Translate(finalX, finalHeight + (i * 0.001f), finalZ);
 
                     meshRefs[i] = capi.Render.UploadMultiTextureMesh(mesh);
@@ -354,12 +323,10 @@ namespace BotaniaStory.client.renderers
             prog.DontWarpVertices = 1;
             prog.AddRenderFlags = 0;
 
-            // 1. ОТКЛЮЧАЕМ ЗАТЕНЕНИЕ ОТ НОРМАЛЕЙ
-            // Теперь повернутые лепестки не будут казаться "теневой стороной"
+            // Затенение по нормалям отключается для лежащих предметов
             prog.NormalShaded = 0;
 
-            // 2. БЕРЕМ РЕАЛЬНЫЙ СВЕТ ИЗ МИРА
-            // Вместо new Vec4f(1f, 1f, 1f, 1f) получаем освещение самого блока аптекаря
+            // Освещение берётся из блока аптекаря
             Vec4f lightrgbs = capi.World.BlockAccessor.GetLightRGBs(pos.X, pos.Y, pos.Z);
             prog.RgbaLightIn = lightrgbs;
 

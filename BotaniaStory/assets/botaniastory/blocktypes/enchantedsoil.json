@@ -3,8 +3,7 @@
     "class": "Block",
     "creativeinventory": {
         "general": [ "enchantedsoil" ],
-        "flora": [ "enchantedsoil" ],
-        "terrain": [ "enchantedsoil" ]
+        "botaniastory": [ "enchantedsoil" ]
     },
     "shape": { "base": "game:block/basic/cube" },
     "drawtype": "Cube",

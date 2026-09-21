@@ -1,4 +1,4 @@
-﻿using BotaniaStory.blocks; 
+﻿using BotaniaStory.blocks;
 using BotaniaStory.client.renderers;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +13,6 @@ using static OpenTK.Graphics.OpenGL.GL;
 
 namespace BotaniaStory.blockentity
 {
-    // НАСЛЕДУЕМСЯ ОТ BlockEntityContainer
     public class BlockEntityApothecary : BlockEntityContainer
     {
         public bool HasWater = false;
@@ -24,7 +23,6 @@ namespace BotaniaStory.blockentity
         public string LastCraftedFlower = null;
         public long LastCraftTime = 0;
 
-        // ОБЯЗАТЕЛЬНЫЕ СВОЙСТВА ДЛЯ КОНТЕЙНЕРА
         public override InventoryBase Inventory => inventory;
         public override string InventoryClassName => "apothecary-inv";
 
@@ -36,7 +34,6 @@ namespace BotaniaStory.blockentity
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
-            // base.Initialize автоматически вызывает inventory.LateInitialize!
 
             if (api is ICoreClientAPI capi)
             {
@@ -45,14 +42,14 @@ namespace BotaniaStory.blockentity
                 renderer.SetContents(inventory);
             }
 
-            // Сервер раз в 500мс собирает брошенные рядом ингредиенты 
+            // Брошенные ингредиенты проверяются сервером раз в 500 мс
             if (api.Side == EnumAppSide.Server)
             {
                 RegisterGameTickListener(ScanForDroppedItems, 500);
             }
         }
 
-        // БАЗА ДАННЫХ РЕЦЕПТОВ ЦВЕТОВ
+        // Рецепты цветов
         public static readonly Dictionary<string, Dictionary<string, int>> flowerRecipes = new()
         {
             { "puredaisy-free", new() { { "mysticalpetal-white", 4 } } },
@@ -73,31 +70,28 @@ namespace BotaniaStory.blockentity
             Dictionary<string, int> currentItems = new();
             int seedCount = 0;
 
-            // Считаем все предметы внутри алтаря
             foreach (var slot in inventory)
             {
                 if (slot.Empty) continue;
                 string code = slot.Itemstack.Collectible.Code.Path;
 
-                // Отдельно считаем семена
+                // Семена учитываются отдельно
                 if (code.StartsWith("treeseed") || code.StartsWith("seeds-"))
                 {
                     seedCount += slot.StackSize;
                 }
                 else
                 {
-                    // Быстрое получение или добавление нового
                     currentItems.TryGetValue(code, out int count);
                     currentItems[code] = count + slot.StackSize;
                 }
             }
 
-            // Если внутри есть хотя бы 1 семечко и какие-то ингредиенты
             if (seedCount > 0 && currentItems.Count > 0)
             {
                 string craftedFlower = null;
 
-                // Сравниваем ингредиенты с базой рецептов
+                // Содержимое сравнивается с точным составом рецепта
                 foreach (var recipe in flowerRecipes)
                 {
                     bool match = true;
@@ -119,7 +113,6 @@ namespace BotaniaStory.blockentity
                     }
                 }
 
-                // Если рецепт совпал - крафтим!
                 if (craftedFlower != null)
                 {
                     inventory.Clear();
@@ -162,15 +155,11 @@ namespace BotaniaStory.blockentity
             MarkDirty(true);
         }
 
-        // ЛОГИКА ПРЕДМЕТОВ (общая для ПКМ и для брошенных предметов)
-
-        // Кладёт 1 предмет из слота в первую свободную ячейку.
-        // Вызывается и из BlockApothecary (клик рукой), и из сканера брошенных предметов.
+        // Один предмет помещается в первую свободную ячейку
         public bool TryAddItem(ItemSlot slot, IPlayer player = null)
         {
             if (slot == null || slot.Empty) return false;
 
-            // Аптекарь принимает ингредиенты только когда в нём есть вода
             if (!HasWater) return false;
 
             string path = slot.Itemstack.Collectible.Code.Path;
@@ -193,12 +182,12 @@ namespace BotaniaStory.blockentity
             return false;
         }
 
-        // Белый список ингредиентов аптекаря 
+        // Разрешённые типы ингредиентов
         private static bool IsAllowedIngredient(string path)
         {
             if (path == null) return false;
 
-            string[] allowedKeywords = ["petal", "flower", "gear-rusty", "berry", "fruit", "manaitem", "vine", "fern", "seed", "root", "rune"];
+            string[] allowedKeywords = ["petal", "flower", "gear-rusty", "berry", "fruit", "manaitem", "vine", "fern", "seed", "root", "rune", "charcoal"];
 
             foreach (string keyword in allowedKeywords)
             {
@@ -208,13 +197,11 @@ namespace BotaniaStory.blockentity
             return false;
         }
 
-        // Сканер брошенных предметов: засасывает лежащие сверху ингредиенты внутрь аптекаря
+        // Брошенные сверху ингредиенты затягиваются в свободные слоты
         private void ScanForDroppedItems(float dt)
         {
-            // Без воды складывать ингредиенты некуда
             if (!HasWater) return;
 
-            // Есть ли вообще свободное место?
             bool hasEmptySlot = false;
             for (int i = 0; i < inventory.Count; i++)
             {
@@ -247,14 +234,14 @@ namespace BotaniaStory.blockentity
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
-            base.ToTreeAttributes(tree); // Автоматически безопасно сохраняет инвентарь и маппинг
+            base.ToTreeAttributes(tree);
             tree.SetBool("hasWater", HasWater);
         }
 
         public override void FromTreeAttributes(ITreeAttribute tree, IWorldAccessor worldForResolving)
         {
             bool prevWater = HasWater;
-            base.FromTreeAttributes(tree, worldForResolving); // Автоматически загружает инвентарь с нужными проверками
+            base.FromTreeAttributes(tree, worldForResolving);
             HasWater = tree.GetBool("hasWater");
 
             if (Api is ICoreClientAPI)

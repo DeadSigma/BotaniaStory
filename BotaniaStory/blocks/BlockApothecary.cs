@@ -10,27 +10,25 @@ namespace BotaniaStory.blocks
     public class BlockApothecary : Block
     {
 
-       
+
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel)
         {
             ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
             BlockEntityApothecary be = world.BlockAccessor.GetBlockEntity(blockSel.Position) as BlockEntityApothecary;
             if (be == null) return base.OnBlockInteractStart(world, byPlayer, blockSel);
 
-            // ЗАБРАТЬ ПРЕДМЕТ ИЛИ АВТОКРАФТ (ПКМ пустой рукой)
+            // Пустой рукой забирается последний предмет или повторяется последний крафт
             if (slot.Empty)
             {
                 bool itemTaken = false;
 
-                // Попытка забрать предметы (начиная с последнего добавленного)
                 for (int i = be.inventory.Count - 1; i >= 0; i--)
                 {
                     if (!be.inventory[i].Empty)
                     {
-                        // Забираем ровно 1 штучку из слота
                         ItemStack stackToTake = be.inventory[i].TakeOut(1);
 
-                        // Выдаем предмет игроку ТОЛЬКО на сервере, чтобы избежать фантомов
+                        // Предмет выдаётся только на сервере
                         if (world.Side == EnumAppSide.Server)
                         {
                             if (!byPlayer.InventoryManager.TryGiveItemstack(stackToTake, true))
@@ -40,7 +38,7 @@ namespace BotaniaStory.blocks
                         }
 
                         be.inventory[i].MarkDirty();
-                        be.MarkDirty(true); // Сообщаем серверу, что инвентарь блока нужно сохранить
+                        be.MarkDirty(true);
                         be.UpdateRenderer();
 
                         PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
@@ -50,32 +48,28 @@ namespace BotaniaStory.blocks
                     }
                 }
 
-                // Если предмет успешно забран, прерываем выполнение.
-                // Возвращаем true, говоря игре "Мы успешно обработали клик, всё идет по плану!"
                 if (itemTaken)
                 {
                     return true;
                 }
 
-                // ЛОГИКА АВТОКРАФТА
+                // Последний рецепт повторяется в течение 20 секунд
 
 
                 if (be.HasWater && be.LastCraftedFlower != null)
                 {
                     long currentTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-                    // Проверяем, прошло ли меньше 20000 миллисекунд (20 секунд)
                     if (currentTime - be.LastCraftTime <= 20000)
                     {
                         if (BlockEntityApothecary.flowerRecipes.TryGetValue(be.LastCraftedFlower, out var recipe))
                         {
-                            // Проверяем, есть ли всё нужное в карманах игрока (simulate: true)
+                            // Состав рецепта проверяется без расхода предметов
                             if (CheckAndConsumePlayerItems(byPlayer, recipe, true))
                             {
-                                // Забираем лепестки и семечко (simulate: false)
+                                // Ингредиенты списываются после успешной проверки
                                 CheckAndConsumePlayerItems(byPlayer, recipe, false);
 
-                                // Завершаем крафт
                                 be.HasWater = false;
                                 be.UpdateRenderer();
 
@@ -87,7 +81,7 @@ namespace BotaniaStory.blocks
 
                                 PlayApothecarySound(world, blockSel.Position, "apothecary_craft");
 
-                                // Обновляем таймер, чтобы можно было продолжать спамить ПКМ!
+                                // Время последнего крафта обновляется для повторного создания
                                 be.LastCraftTime = System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                                 return true;
                             }
@@ -98,12 +92,11 @@ namespace BotaniaStory.blocks
                 return base.OnBlockInteractStart(world, byPlayer, blockSel);
             }
 
-            // ВОДА (Налить/зачерпнуть)
+            // Вода переносится порциями по 10 литров
             if (!slot.Empty && slot.Itemstack.Collectible is BlockLiquidContainerBase liquidContainer)
             {
                 ItemStack liquidInside = liquidContainer.GetContent(slot.Itemstack);
 
-                // НАЛИТЬ ВОДУ
                 if (!be.HasWater && liquidInside != null && IsApothecaryWater(liquidInside))
                 {
                     if (liquidContainer.GetCurrentLitres(slot.Itemstack) >= 10f)
@@ -140,7 +133,6 @@ namespace BotaniaStory.blocks
                     }
                 }
 
-                // ЗАБРАТЬ ВОДУ
                 if (be.HasWater)
                 {
                     bool canFill =
@@ -220,16 +212,14 @@ namespace BotaniaStory.blocks
                 }
             }
 
-            // ЕСЛИ НЕТ ВОДЫ - ПРЕДМЕТЫ КЛАСТЬ НЕЛЬЗЯ
+            // Без воды ингредиенты не принимаются
             if (!be.HasWater) return base.OnBlockInteractStart(world, byPlayer, blockSel);
 
 
-            // ПОЛОЖИТЬ ПРЕДМЕТ (тот же белый список, что и у брошенных предметов)
             if (!slot.Empty)
             {
                 if (be.TryAddItem(slot, byPlayer))
                 {
-                    // ИГРАЕМ КАСТОМНЫЙ ЗВУК ПЛЮХА
                     PlayApothecarySound(world, blockSel.Position, "apothecary_splash");
                     return true;
                 }
@@ -256,7 +246,7 @@ namespace BotaniaStory.blocks
             Dictionary<string, int> foundItems = new Dictionary<string, int>();
             int foundSeeds = 0;
 
-            // Считаем, есть ли всё необходимое в инвентарях игрока (хотбар + рюкзаки)
+            // Ингредиенты ищутся во всех открытых инвентарях игрока
             foreach (var inv in player.InventoryManager.OpenedInventories)
             {
                 foreach (var slot in inv)
@@ -264,10 +254,8 @@ namespace BotaniaStory.blocks
                     if (slot.Empty) continue;
                     string path = slot.Itemstack.Collectible.Code.Path;
 
-                    // Ищем семена
                     if (needSeed > 0 && (path.StartsWith("treeseed") || path.StartsWith("seeds-"))) foundSeeds += slot.StackSize;
 
-                    // Ищем нужные лепестки
                     if (remainingItems.ContainsKey(path))
                     {
                         if (foundItems.ContainsKey(path)) foundItems[path] += slot.StackSize;
@@ -276,19 +264,16 @@ namespace BotaniaStory.blocks
                 }
             }
 
-            // Хватает ли семечка?
             if (foundSeeds < needSeed) return false;
 
-            // Хватает ли всех лепестков?
             foreach (var req in remainingItems)
             {
                 if (!foundItems.ContainsKey(req.Key) || foundItems[req.Key] < req.Value) return false;
             }
 
-            // Если мы просто проверяли (simulate), то возвращаем успех, ничего не трогая
+            // При проверке предметы не расходуются
             if (simulate) return true;
 
-            // Если всё есть, реально забираем предметы
             int seedsToTake = needSeed;
             Dictionary<string, int> itemsToTake = new Dictionary<string, int>(recipe);
 
@@ -318,7 +303,7 @@ namespace BotaniaStory.blocks
             }
             return true;
         }
-        // ОТПРАВКА СЕТЕВОГО ПАКЕТА ЗВУКА ИЗ БЛОКА
+        // Звук рассылается игрокам через сетевой канал
         private void PlayApothecarySound(IWorldAccessor world, BlockPos pos, string soundName)
         {
             if (world.Side == EnumAppSide.Server)

@@ -1,95 +1,96 @@
 {
-    "code": "hourglass",
-    "class": "BlockHourglass",
-    "entityClass": "BlockEntityHourglass",
-    "creativeinventory": {
-        "general": [ "*" ],
-        "botaniastory": [ "*" ]
+  "code": "hourglass",
+  "class": "BlockHourglass",
+  "entityClass": "BlockEntityHourglass",
+  "creativeinventory": {
+    "general": [ "*" ],
+    "botaniastory": [ "*" ]
+  },
+  "behaviors": [
+    { "name": "HorizontalOrientable" }
+  ],
+  "shape": { "base": "botaniastory:block/hourglass" },
+  "drawtype": "json",
+  "blockmaterial": "Glass",
+  "faceCullMode": "NeverCull",
+  "lightAbsorption": 0,
+  "renderpass": "blendNoCull",
+  "sidesolid": { "all": false },
+  "sideopaque": { "all": false },
+  "collisionbox": {
+    "x1": 0.348,
+    "y1": 0.218,
+    "z1": 0.348,
+    "x2": 0.652,
+    "y2": 0.782,
+    "z2": 0.652
+  },
+
+  "selectionbox": {
+    "x1": 0.348,
+    "y1": 0.218,
+    "z1": 0.348,
+    "x2": 0.652,
+    "y2": 0.782,
+    "z2": 0.652
+  },
+  "heldTpIdleAnimation": "holdbothhandslarge",
+  "heldRightReadyAnimation": "heldblockready",
+  "heldTpUseAnimation": "twohandplaceblock",
+  "tpHandTransform": {
+    "translation": {
+      "x": -1.03,
+      "y": -0.71,
+      "z": -0.3
     },
-    "behaviors": [
-        { "name": "HorizontalOrientable" }
-    ],
-    "shape": { "base": "botaniastory:block/hourglass" },
-    "drawtype": "json",
-    "blockmaterial": "Glass",
-    "faceCullMode": "NeverCull",
-    "lightAbsorption": 0,
-    "renderpass": "blendNoCull",
-    "sidesolid": { "all": false },
-    "sideopaque": { "all": false },
-    "collisionbox": {
-        "x1": 0.424,
-        "y1": 0.359,
-        "z1": 0.424,
-        "x2": 0.576,
-        "y2": 0.641,
-        "z2": 0.576
+    "rotation": {
+      "x": -2,
+      "y": 25,
+      "z": -78
     },
-    "heldTpIdleAnimation": "holdbothhandslarge",
-    "heldRightReadyAnimation": "heldblockready",
-    "heldTpUseAnimation": "twohandplaceblock",
-    "tpHandTransform": {
-        "translation": {
-            "x": -1.03,
-            "y": -0.71,
-            "z": -0.3
-        },
-        "rotation": {
-            "x": -2,
-            "y": 25,
-            "z": -78
-        },
-        "scale": 0.7
+    "scale": 0.7
+  },
+  "resistance": 0,
+  "textures": {
+    "gold": { "base": "game:block/metal/ingot/gold" },
+    "glass": { "base": "game:block/glass/plain" },
+    "transparent": { "base": "game:block/transparent" }
+  },
+  "guiTransform": {
+    "translation": {
+      "x": 1.02,
+      "y": -2,
+      "z": 0
     },
-    "selectionbox": {
-        "x1": 0.424,
-        "y1": 0.359,
-        "z1": 0.424,
-        "x2": 0.576,
-        "y2": 0.641,
-        "z2": 0.576
+    "rotation": {
+      "x": -22.5,
+      "y": 45,
+      "z": 0
     },
-    "resistance": 0,
-    "textures": {
-        "gold": { "base": "game:block/metal/ingot/gold" },
-        "glass": { "base": "game:block/glass/plain" },
-        "transparent": { "base": "game:block/transparent" }
+    "origin": {
+      "x": 0.51,
+      "y": 0.32,
+      "z": 0.5
     },
-    "guiTransform": {
-        "translation": {
-            "x": 1.02,
-            "y": -2,
-            "z": 0
-        },
-        "rotation": {
-            "x": -22.5,
-            "y": 45,
-            "z": 0
-        },
-        "origin": {
-            "x": 0.51,
-            "y": 0.32,
-            "z": 0.5
-        },
-        "scale": 2.18
+    "scale": 2.18
+  },
+  "groundTransform": {
+    "translation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
     },
-    "groundTransform": {
-        "translation": {
-            "x": 0,
-            "y": 0,
-            "z": 0
-        },
-        "rotation": {
-            "x": 0,
-            "y": -45,
-            "z": 0
-        },
-        "origin": {
-            "x": 0.5,
-            "y": 0,
-            "z": 0.5
-        },
-        "scale": 2.47
-    }
-   
+    "rotation": {
+      "x": 0,
+      "y": -45,
+      "z": 0
+    },
+    "origin": {
+      "x": 0.5,
+      "y": 0,
+      "z": 0.5
+    },
+    "scale": 2.47
+  }
+
 }
