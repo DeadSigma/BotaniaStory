@@ -54,7 +54,7 @@ namespace BotaniaStory.blockentity
         {
             { "puredaisy-free", new() { { "mysticalpetal-white", 4 } } },
             { "daybloom-free", new() { { "mysticalpetal-yellow", 2 }, { "mysticalpetal-orange", 1 }, { "mysticalpetal-lightblue", 1 } } },
-            { "endoflame-free", new() { { "charcoal", 2 }, { "mysticalpetal-brown", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
+            { "endoflame-free", new() { { "charcoal", 1 }, { "mysticalpetal-brown", 2 }, { "mysticalpetal-lightgray", 1 }, { "mysticalpetal-red", 1 } } },
             { "jadedamaranthus-free", new() { { "mysticalpetal-lime", 1 }, { "mysticalpetal-green", 1 }, { "mysticalpetal-magenta", 1 }, { "root-rusted", 1 }, { "rune-spring", 1 } } },
             { "rosaarcana-free", new() { { "mysticalpetal-brown", 2 }, { "mysticalpetal-pink", 2 }, { "gear-rusty", 1 } } },
             { "hopperhock-free", new() { { "mysticalpetal-lightgray", 2 }, { "mysticalpetal-gray", 2 }, { "rune-air", 1 }, { "root-rusted", 1 } } },

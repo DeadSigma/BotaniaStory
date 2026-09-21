@@ -13,44 +13,40 @@ namespace BotaniaStory.entities
     public class EntitySpark : Entity
     {
         public override bool IsInteractable => false;
-        //Дальность искры до искры
+
         private const int SPARK_RANGE = 12;
         private const int TRANSFER_RATE = 14000;
+
         private float transferAccumulator = 0f;
         private bool isDespawning = false;
-
-        // 1. ДОБАВЛЯЕМ ПОЛЕ ДЛЯ РЕНДЕРЕРА
         private SparkRenderer renderer;
 
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
             base.Initialize(properties, api, InChunkIndex3d);
 
-            if (api is ICoreServerAPI sapi)
+            if (api is ICoreServerAPI)
             {
-                // Проверяем, была ли искра поставлена baotaniastory:spark
+                // Искра без опорных координат удаляется
                 if (!WatchedAttributes.HasAttribute("baseX"))
                 {
-                    // Если её заспавнили консолью или как-то иначе - убиваем её
-                    this.Die();
+                    Die();
                     return;
                 }
             }
 
             if (api is ICoreClientAPI capi)
             {
-                // 2. СОХРАНЯЕМ ССЫЛКУ ПРИ РЕГИСТРАЦИИ
                 renderer = new SparkRenderer(capi, this);
-               capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "spark");
+                capi.Event.RegisterRenderer(renderer, EnumRenderStage.Opaque, "spark");
             }
         }
 
-        // 3. ДОБАВЛЯЕМ МЕТОД ОЧИСТКИ (Вызывается, когда сервер убивает сущность)
         public override void OnEntityDespawn(EntityDespawnData despawn)
         {
             base.OnEntityDespawn(despawn);
 
-            // Если мы на клиенте - удаляем рендерер из движка игры!
+            // Рендерер удаляется вместе с искрой
             if (Api is ICoreClientAPI capi && renderer != null)
             {
                 capi.Event.UnregisterRenderer(renderer, EnumRenderStage.Opaque);
@@ -59,150 +55,210 @@ namespace BotaniaStory.entities
             }
         }
 
-
-
         public override void OnGameTick(float dt)
         {
             base.OnGameTick(dt);
 
-            if (Api.Side == EnumAppSide.Server)
+            if (Api.Side != EnumAppSide.Server) return;
+
+            double baseX = WatchedAttributes.GetDouble("baseX", Pos.X);
+            double baseY = WatchedAttributes.GetDouble("baseY", Pos.Y);
+            double baseZ = WatchedAttributes.GetDouble("baseZ", Pos.Z);
+
+            double targetY = baseY;
+
+            BlockPos checkPos = new BlockPos(
+                (int)Math.Floor(baseX),
+                (int)Math.Floor(targetY),
+                (int)Math.Floor(baseZ)
+            );
+
+            // Искра поднимается над перекрывающими блоками
+            for (int i = 0; i < 10; i++)
             {
-                double baseX = WatchedAttributes.GetDouble("baseX", Pos.X);
-                double baseY = WatchedAttributes.GetDouble("baseY", Pos.Y);
-                double baseZ = WatchedAttributes.GetDouble("baseZ", Pos.Z);
+                Block blockHere = Api.World.BlockAccessor.GetBlock(checkPos);
+                BlockEntity beHere = Api.World.BlockAccessor.GetBlockEntity(checkPos);
 
-                // УМНАЯ СИСТЕМА ВСПЛЫТИЯ ИСКРЫ
-                double targetY = baseY;
-                BlockPos checkPos = new BlockPos((int)Math.Floor(baseX), (int)Math.Floor(targetY), (int)Math.Floor(baseZ));
+                bool isSolid =
+                    blockHere.CollisionBoxes != null &&
+                    blockHere.CollisionBoxes.Length > 0;
 
-                // Ищем свободное место (ограничим поиск 10 блоками вверх, чтобы не грузить сервер)
-                for (int i = 0; i < 10; i++)
+                if (!isSolid || beHere is BlockEntityManaPool)
                 {
-                    Block blockHere = Api.World.BlockAccessor.GetBlock(checkPos);
-                    BlockEntity beHere = Api.World.BlockAccessor.GetBlockEntity(checkPos);
-
-                    // Как понять, что блоком можно пренебречь (воздух, вода, высокая трава)?
-                    // Если у блока НЕТ коллизии, искра может в нем находиться.
-                    bool isSolid = blockHere.CollisionBoxes != null && blockHere.CollisionBoxes.Length > 0;
-
-                    // Если блок не твердый ИЛИ это бассейн маны (разрешаем строить столбы из бассейнов)
-                    if (!isSolid || beHere is BlockEntityManaPool)
-                    {
-                        break; // Нашли идеальное место!
-                    }
-
-                    // Место занято! Поднимаем цель на 1 блок вверх
-                    targetY += 1.0;
-                    checkPos.Y += 1;
+                    break;
                 }
 
-                // Плавно (с анимацией) перемещаем искру к целевой высоте
-                if (Math.Abs(Pos.Y - targetY) > 0.01)
-                {
-                    // Умножаем на dt для независимости от ТПС сервера (плавное скольжение)
-                    Pos.Y += (targetY - Pos.Y) * (dt * 5f);
-                    Pos.SetFrom(Pos); // Обновляем позицию для синхронизации с клиентом
-                }
-
-                transferAccumulator += dt;
-                if (transferAccumulator >= 0.05f)
-                {
-                    transferAccumulator = 0f;
-
-                    // ДОБАВЛЯЕМ ВАЛИДАЦИЮ ОПОРНОГО БЛОКА
-                    BlockPos anchorPos = new BlockPos((int)Math.Floor(baseX), (int)Math.Floor(baseY) - 1, (int)Math.Floor(baseZ));
-                    BlockEntity anchorBE = Api.World.BlockAccessor.GetBlockEntity(anchorPos);
-
-                    // Если под искрой больше нет ни бассейна, ни плиты
-                    if (!(anchorBE is BlockEntityManaPool) && !(anchorBE is BlockEntityTerrestrialPlate))
-                    {
-                        // Проверяем, что искра жива и еще не начала процесс удаления
-                        if (this.Alive && !isDespawning)
-                        {
-                            isDespawning = true; // Блокируем повторный вызов
-
-                            // Спавним предмет искры
-                            Item itemSpark = Api.World.GetItem(new AssetLocation("botaniastory", "spark"));
-                            if (itemSpark != null)
-                            {
-                                Api.World.SpawnItemEntity(new ItemStack(itemSpark), Pos.XYZ);
-                            }
-
-                            // Удаляем сущность искры из мира
-                            this.Die();
-                        }
-
-                        return; // Прерываем тик в любом случае
-                    }
-
-                    DoManaTransfer(baseX, baseY, baseZ);
-                }
+                targetY += 1.0;
+                checkPos.Y += 1;
             }
+
+            if (Math.Abs(Pos.Y - targetY) > 0.01)
+            {
+                Pos.Y += (targetY - Pos.Y) * (dt * 5f);
+                Pos.SetFrom(Pos);
+            }
+
+            transferAccumulator += dt;
+
+            if (transferAccumulator < 0.05f) return;
+
+            transferAccumulator = 0f;
+
+            BlockPos anchorPos = new BlockPos(
+                (int)Math.Floor(baseX),
+                (int)Math.Floor(baseY) - 1,
+                (int)Math.Floor(baseZ)
+            );
+
+            BlockEntity anchorBE =
+                Api.World.BlockAccessor.GetBlockEntity(anchorPos);
+
+            // Искра удаляется после потери опоры
+            if (!(anchorBE is BlockEntityManaPool) &&
+                !(anchorBE is BlockEntityTerrestrialPlate))
+            {
+                if (Alive && !isDespawning)
+                {
+                    isDespawning = true;
+
+                    Item itemSpark =
+                        Api.World.GetItem(
+                            new AssetLocation("botaniastory", "spark")
+                        );
+
+                    if (itemSpark != null)
+                    {
+                        Api.World.SpawnItemEntity(
+                            new ItemStack(itemSpark),
+                            Pos.XYZ
+                        );
+                    }
+
+                    Die();
+                }
+
+                return;
+            }
+
+            DoManaTransfer(baseX, baseY, baseZ);
         }
 
         private void DoManaTransfer(double baseX, double baseY, double baseZ)
         {
-            BlockPos myPoolPos = new BlockPos((int)Math.Floor(baseX), (int)Math.Floor(baseY) - 1, (int)Math.Floor(baseZ));
-            BlockEntityManaPool myPool = Api.World.BlockAccessor.GetBlockEntity(myPoolPos) as BlockEntityManaPool;
+            BlockPos myPoolPos = new BlockPos(
+                (int)Math.Floor(baseX),
+                (int)Math.Floor(baseY) - 1,
+                (int)Math.Floor(baseZ)
+            );
+
+            BlockEntityManaPool myPool =
+                Api.World.BlockAccessor.GetBlockEntity(myPoolPos)
+                as BlockEntityManaPool;
 
             if (myPool == null || myPool.CurrentMana <= 0) return;
 
-            // Читаем, какой дополнитель стоит на НАШЕЙ искре
-            string myAugment = WatchedAttributes.GetString("augment", "none");
+            string myAugment =
+                WatchedAttributes.GetString("augment", "none");
 
-            Entity[] nearbySparks = Api.World.GetEntitiesAround(Pos.XYZ, SPARK_RANGE, SPARK_RANGE, e => e is EntitySpark && e.EntityId != this.EntityId);
+            Entity[] nearbySparks =
+                Api.World.GetEntitiesAround(
+                    Pos.XYZ,
+                    SPARK_RANGE,
+                    SPARK_RANGE,
+                    e => e is EntitySpark &&
+                         e.EntityId != EntityId
+                );
+
             bool myPoolChanged = false;
 
             foreach (Entity entity in nearbySparks)
             {
-                EntitySpark otherSpark = entity as EntitySpark;
-                if (otherSpark == null) continue;
+                if (!(entity is EntitySpark otherSpark)) continue;
 
-                // Читаем, какой дополнитель стоит на ЧУЖОЙ искре
-                string otherAugment = otherSpark.WatchedAttributes.GetString("augment", "none");
+                string otherAugment =
+                    otherSpark.WatchedAttributes.GetString(
+                        "augment",
+                        "none"
+                    );
 
-                // 1. Изолированные искры не участвуют в обмене маной между бассейнами
-                if (myAugment == "isolated" || otherAugment == "isolated") continue;
-
-                // 2. Логика передачи: 
-                // Мана течет от нас к ним ТОЛЬКО если у нас Подчиненная руна ИЛИ у них Доминантная руна.
-                bool shouldSendMana = (myAugment == "recessive") || (otherAugment == "dominant");
-
-                if (!shouldSendMana) continue; // Если условий нет - пропускаем (обычные искры ничего не делают)
-
-                // ... внутри цикла перебора соседних искр ...
-                double otherX = otherSpark.WatchedAttributes.GetDouble("baseX");
-                double otherY = otherSpark.WatchedAttributes.GetDouble("baseY");
-                double otherZ = otherSpark.WatchedAttributes.GetDouble("baseZ");
-
-                // Находим координаты блока ПОД соседней искрой
-                BlockPos otherReceiverPos = new BlockPos((int)Math.Floor(otherX), (int)Math.Floor(otherY) - 1, (int)Math.Floor(otherZ));
-                BlockEntity otherBE = Api.World.BlockAccessor.GetBlockEntity(otherReceiverPos);
-
-                // Проверяем: умеет ли блок под той искрой принимать ману?
-                if (otherBE is IManaReceiver receiver)
+                // Изолированные искры исключаются из передачи
+                if (myAugment == "isolated" ||
+                    otherAugment == "isolated")
                 {
-                    int spaceInOther = receiver.GetAvailableSpace();
-
-                    if (spaceInOther > 0 && myPool.CurrentMana > 0)
-                    {
-                        // Вычисляем порцию (10 000 за раз)
-                        int amountToTransfer = Math.Min(TRANSFER_RATE / 10, spaceInOther);
-                        amountToTransfer = Math.Min(amountToTransfer, myPool.CurrentMana);
-
-                        if (amountToTransfer > 0)
-                        {
-                            myPool.CurrentMana -= amountToTransfer;
-                            receiver.ReceiveMana(amountToTransfer); // Отдаем ману блоку
-
-                            myPoolChanged = true;
-                            otherBE.MarkDirty(false);
-
-                            // Визуальный эффект потока от одной искры к другой
-                            SpawnTransferParticles(Pos.XYZ, otherSpark.Pos.XYZ, amountToTransfer);
-                        }
-                    }
+                    continue;
                 }
+
+                // Одинаковые управляющие дополнители между собой не работают
+                if (
+                    (myAugment == "recessive" &&
+                     otherAugment == "recessive") ||
+                    (myAugment == "dominant" &&
+                     otherAugment == "dominant")
+                )
+                {
+                    continue;
+                }
+
+                bool shouldSendMana =
+                    myAugment == "recessive" ||
+                    otherAugment == "dominant";
+
+                if (!shouldSendMana) continue;
+
+                double otherX =
+                    otherSpark.WatchedAttributes.GetDouble("baseX");
+
+                double otherY =
+                    otherSpark.WatchedAttributes.GetDouble("baseY");
+
+                double otherZ =
+                    otherSpark.WatchedAttributes.GetDouble("baseZ");
+
+                BlockPos otherReceiverPos = new BlockPos(
+                    (int)Math.Floor(otherX),
+                    (int)Math.Floor(otherY) - 1,
+                    (int)Math.Floor(otherZ)
+                );
+
+                BlockEntity otherBE =
+                    Api.World.BlockAccessor.GetBlockEntity(
+                        otherReceiverPos
+                    );
+
+                if (!(otherBE is IManaReceiver receiver)) continue;
+
+                int spaceInOther = receiver.GetAvailableSpace();
+
+                if (spaceInOther <= 0 || myPool.CurrentMana <= 0)
+                {
+                    continue;
+                }
+
+                int amountToTransfer =
+                    Math.Min(
+                        TRANSFER_RATE / 10,
+                        spaceInOther
+                    );
+
+                amountToTransfer =
+                    Math.Min(
+                        amountToTransfer,
+                        myPool.CurrentMana
+                    );
+
+                if (amountToTransfer <= 0) continue;
+
+                myPool.CurrentMana -= amountToTransfer;
+                receiver.ReceiveMana(amountToTransfer);
+
+                myPoolChanged = true;
+                otherBE.MarkDirty(false);
+
+                SpawnTransferParticles(
+                    Pos.XYZ,
+                    otherSpark.Pos.XYZ,
+                    amountToTransfer
+                );
             }
 
             if (myPoolChanged)
@@ -211,37 +267,39 @@ namespace BotaniaStory.entities
             }
         }
 
-        // ИДЕАЛЬНЫЙ РУЧЕЕК BOTANIA
-        private void SpawnTransferParticles(Vec3d start, Vec3d end, int amountTransferred)
+        private void SpawnTransferParticles(
+            Vec3d start,
+            Vec3d end,
+            int amountTransferred
+        )
         {
-            // Если мы на сервере, отправляем пакет игрокам поблизости
-            if (Api is ICoreServerAPI sapi)
+            if (!(Api is ICoreServerAPI sapi)) return;
+
+            Vec3d trueStart = start.AddCopy(0, 0.2, 0);
+            Vec3d trueEnd = end.AddCopy(0, 0.2, 0);
+
+            ManaStreamPacket packet = new ManaStreamPacket
             {
-                Vec3d trueStart = start.AddCopy(0, 0.2, 0);
-                Vec3d trueEnd = end.AddCopy(0, 0.2, 0);
+                StartX = trueStart.X,
+                StartY = trueStart.Y,
+                StartZ = trueStart.Z,
 
-                ManaStreamPacket packet = new ManaStreamPacket
-                {
-                    StartX = trueStart.X,
-                    StartY = trueStart.Y,
-                    StartZ = trueStart.Z,
-                    EndX = trueEnd.X,
-                    EndY = trueEnd.Y,
-                    EndZ = trueEnd.Z
-                };
+                EndX = trueEnd.X,
+                EndY = trueEnd.Y,
+                EndZ = trueEnd.Z
+            };
 
-                // ОПТИМИЗАЦИЯ: Отправляем пакет только тем игрокам, которые находятся ближе 64 блоков
-                var channel = sapi.Network.GetChannel("botanianetwork");
-                foreach (var player in sapi.World.AllOnlinePlayers)
+            var channel =
+                sapi.Network.GetChannel("botanianetwork");
+
+            // Поток отправляется только ближайшим игрокам
+            foreach (var player in sapi.World.AllOnlinePlayers)
+            {
+                if (!(player is IServerPlayer serverPlayer)) continue;
+
+                if (serverPlayer.Entity.Pos.DistanceTo(Pos.XYZ) < 64)
                 {
-                    if (player is IServerPlayer serverPlayer)
-                    {
-                        // Проверяем расстояние от искры до игрока
-                        if (serverPlayer.Entity.Pos.DistanceTo(Pos.XYZ) < 64)
-                        {
-                            channel.SendPacket(packet, serverPlayer);
-                        }
-                    }
+                    channel.SendPacket(packet, serverPlayer);
                 }
             }
         }
