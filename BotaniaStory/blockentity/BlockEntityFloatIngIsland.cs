@@ -71,7 +71,7 @@ namespace BotaniaStory
         readonly Matrixf modelMat = new Matrixf();
         readonly Vec4f fixedLight = new Vec4f(1, 1, 1, 1);
 
-        public double RenderOrder => 0.5;
+        public double RenderOrder => 0.49;
         public int RenderRange => 48;
 
         public FloatingIslandRenderer(ICoreClientAPI capi)

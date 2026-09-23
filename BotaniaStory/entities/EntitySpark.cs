@@ -117,30 +117,47 @@ namespace BotaniaStory.entities
             if (!(anchorBE is BlockEntityManaPool) &&
                 !(anchorBE is BlockEntityTerrestrialPlate))
             {
-                if (Alive && !isDespawning)
-                {
-                    isDespawning = true;
-
-                    Item itemSpark =
-                        Api.World.GetItem(
-                            new AssetLocation("botaniastory", "spark")
-                        );
-
-                    if (itemSpark != null)
-                    {
-                        Api.World.SpawnItemEntity(
-                            new ItemStack(itemSpark),
-                            Pos.XYZ
-                        );
-                    }
-
-                    Die();
-                }
-
+                DropItemsAndDespawn();
                 return;
             }
 
             DoManaTransfer(baseX, baseY, baseZ);
+        }
+
+        public bool IsAttachedTo(BlockPos blockPos)
+        {
+            double baseX = WatchedAttributes.GetDouble("baseX", Pos.X);
+            double baseY = WatchedAttributes.GetDouble("baseY", Pos.Y);
+            double baseZ = WatchedAttributes.GetDouble("baseZ", Pos.Z);
+
+            return (int)Math.Floor(baseX) == blockPos.X &&
+                   (int)Math.Floor(baseY) - 1 == blockPos.Y &&
+                   (int)Math.Floor(baseZ) == blockPos.Z;
+        }
+
+        public void DropItemsAndDespawn()
+        {
+            if (Api?.Side != EnumAppSide.Server || !Alive || isDespawning) return;
+
+            isDespawning = true;
+
+            DropItem("spark");
+
+            string augment = WatchedAttributes.GetString("augment", "none");
+            if (!string.IsNullOrEmpty(augment) && augment != "none")
+            {
+                DropItem($"sparkaugment-{augment}");
+            }
+
+            Die(EnumDespawnReason.PickedUp);
+        }
+
+        private void DropItem(string itemCode)
+        {
+            Item item = Api.World.GetItem(new AssetLocation("botaniastory", itemCode));
+            if (item == null) return;
+
+            Api.World.SpawnItemEntity(new ItemStack(item), Pos.XYZ);
         }
 
         private void DoManaTransfer(double baseX, double baseY, double baseZ)

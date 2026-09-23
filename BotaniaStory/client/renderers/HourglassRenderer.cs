@@ -23,7 +23,7 @@ namespace BotaniaStory.client.renderers
 
         private string loadedSandCode = "";
 
-        public double RenderOrder => 0.5;
+        public double RenderOrder => 0.49;
         public int RenderRange => 24;
 
         public HourglassRenderer(ICoreClientAPI capi, BlockPos pos, blockentity.BlockEntityHourglass be)

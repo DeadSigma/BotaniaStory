@@ -132,6 +132,7 @@ namespace BotaniaStory.client.renderers
 
             capi.Render.GlToggleBlend(true, EnumBlendMode.Standard);
             capi.Render.GLDepthMask(false);
+            capi.Render.GlDisableCullFace();
 
             Vec3d camPos = capi.World.Player.Entity.CameraPos;
             float dx = (float)(spark.Pos.X - camPos.X);
@@ -201,6 +202,7 @@ namespace BotaniaStory.client.renderers
             prog.RgbaGlowIn = new Vec4f(0f, 0f, 0f, 0f);
             prog.Stop();
 
+            capi.Render.GlEnableCullFace();
             capi.Render.GLDepthMask(true);
             capi.Render.GlToggleBlend(false, EnumBlendMode.Standard);
         }

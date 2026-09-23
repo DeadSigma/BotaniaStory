@@ -30,7 +30,7 @@ namespace BotaniaStory.client.renderers
         // Переменная для хранения типа текущего пилона
         private EnumPylonType pylonType;
 
-        public double RenderOrder => 0.5;
+        public double RenderOrder => 0.49;
         public int RenderRange => 24;
 
         // В конструктор добавили параметр type (по умолчанию Mana)

@@ -120,22 +120,18 @@ namespace BotaniaStory.blockentity
 
             if (Api.Side == EnumAppSide.Server)
             {
-                // Искра ищется рядом с верхней частью бассейна
-                Entity[] sparks = Api.World.GetEntitiesAround(Pos.ToVec3d().Add(0.5, 1.2, 0.5), 0.2f, 0.5f, e => e is EntitySpark);
+                Entity[] sparks = Api.World.GetEntitiesAround(
+                    Pos.ToVec3d().Add(0.5, 1.7, 0.5),
+                    1f,
+                    12f,
+                    e => e is EntitySpark
+                );
 
                 foreach (Entity entity in sparks)
                 {
-                    if (entity is EntitySpark spark)
+                    if (entity is EntitySpark spark && spark.IsAttachedTo(Pos))
                     {
-                        Item itemSpark = Api.World.GetItem(new AssetLocation("botaniastory", "spark"));
-                        if (itemSpark != null)
-                        {
-                            ItemStack dropStack = new ItemStack(itemSpark);
-                            Api.World.SpawnItemEntity(dropStack, spark.Pos.XYZ);
-                        }
-
-                        // PickedUp удаляет искру без обычной смерти
-                        spark.Die(EnumDespawnReason.PickedUp);
+                        spark.DropItemsAndDespawn();
                     }
                 }
             }
