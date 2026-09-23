@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Planarea permite coborârea lină, parcurgând distanță pe orizontală și evitând daunele de cădere. Pentru asta trebuie să te ghemuiești în timpul căderii. Poți plana chiar și cu bara de zbor goală, însă recuperarea va fi mai lentă.\n\nCrearea cadrului tiarei:\n\n\nCrearea Tiarei Înaripate:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Flacon cu aer din Lumea Ruginită",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Flaconul cu aer din Lumea Ruginită</link> conține aer distorsionat colectat lângă fisurile care duc într-o lume străină. Pentru a umple flaconul, ține în mână un <link=flask>flacon gol</link> și folosește <link=nothing>clic dreapta</link> lângă o fisură.\n\nAcest aer are proprietăți schimbătoare, a căror natură rămâne încă nestudiată.",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Se știe doar că poate fi folosit la crearea unor obiecte mistice."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Se știe doar că poate fi folosit la crearea unor obiecte mistice.",
+    "game:material-manasteel": "manasteel",
+    "game:material-terrasteel": "terrasteel",
+    "game:material-elementium": "elementium"
 }

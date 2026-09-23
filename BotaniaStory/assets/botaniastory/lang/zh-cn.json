@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑翔可以让你平稳下降，横向移动距离并避免坠落伤害。要触发滑翔，需要在下落时蹲下。即使飞行槽为空也可以滑翔，但恢复速度会更慢。\n\n\n\n\n制作头冠框架：\n\n\n\n制作翼状头冠:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "锈蚀世界空气瓶",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>锈蚀世界空气瓶</link>中封存着从通往异界的裂隙中收集到的扭曲空气。要填充该瓶，需要手持<link=flask>空瓶</link>并在裂隙附近按下<link=nothing>右键</link>。\n\n这种空气具有变异特性，但其本质仍未被研究清楚。 ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "目前只知道它可以用于制作某些神秘物品。"
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "目前只知道它可以用于制作某些神秘物品。",
+    "game:material-manasteel": "魔力钢",
+    "game:material-terrasteel": "泰拉钢",
+    "game:material-elementium": "元素钢"
 }

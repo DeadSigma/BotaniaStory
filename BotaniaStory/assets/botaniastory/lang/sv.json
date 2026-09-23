@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Glidning låter dig sjunka mjukt, färdas horisontellt och undvika fallskada. För att göra detta måste du huka dig under fallet. Även med tom flygmätare kan du glida, men återhämtningen sker långsammare.\n\n\n\n\nSkapande av tiarans ram:\n\n\n\nSkapande av den bevingade tiaran:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Flaska med luft från den rostiga världen",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Flaska med luft från den rostiga världen</link> innehåller förvrängd luft insamlad från sprickor som leder till en främmande värld. För att fylla flaskan måste du hålla en <link=flask>tom flaska</link> i handen och trycka <link=nothing>högerklick</link> nära en spricka.\n\nDenna luft har muterande egenskaper, men deras natur är ännu inte utforskad. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Det är endast känt att det kan användas vid skapandet av vissa mystiska föremål."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Det är endast känt att det kan användas vid skapandet av vissa mystiska föremål.",
+    "game:material-manasteel": "manastål",
+    "game:material-terrasteel": "terrastål",
+    "game:material-elementium": "elementium"
 }

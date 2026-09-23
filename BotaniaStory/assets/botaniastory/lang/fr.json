@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Le planeur permet de descendre en douceur, de parcourir une distance horizontale et d’éviter les dégâts de chute. Pour cela, il faut s’accroupir pendant la chute. Même avec une jauge de vol vide, il est possible de planer, mais la récupération sera plus lente.\n\n\n\n\nCréation de l’armature de la tiare :\n\n\n\nCréation de la tiare ailée :",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiole d’air du Monde Rouillé",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiole d’air du Monde Rouillé</link> contient un air altéré, collecté à partir de failles menant à un monde étranger. Pour remplir la fiole, tenez une <link=flask>fiole vide</link> dans la main et appuyez sur <link=nothing>clic droit</link> près d’une faille.\n\nCet air possède des propriétés mutagènes, mais leur nature reste encore inconnue. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "On sait seulement qu’il peut être utilisé dans la création de certains objets mystiques."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "On sait seulement qu’il peut être utilisé dans la création de certains objets mystiques.",
+    "game:material-manasteel": "manacier",
+    "game:material-terrasteel": "terracier",
+    "game:material-elementium": "élémentium"
 }

@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Plachtění umožňuje plynule klesat, překonávat vzdálenost vodorovně a vyhnout se poškození pádem. Pro aktivaci je potřeba se během pádu skrčit. I při prázdném ukazateli letu lze plachtit, avšak obnova bude pomalejší.\n\n\n\n\nVytvoření kostry tiáry:\n\n\n\nVytvoření okřídlené tiáry:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Lahvička se vzduchem rezavého světa",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Lahvička se vzduchem rezavého světa</link> obsahuje zdeformovaný vzduch, shromážděný z trhlin vedoucích do cizího světa. Pro naplnění lahvičky je nutné držet <link=flask>prázdnou lahvičku</link> v ruce a stisknout <link=nothing>PKM</link> v blízkosti trhliny.\n\nTento vzduch má mutagenní vlastnosti, avšak jejich podstata zatím zůstává neprozkoumána. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Je známo pouze to, že může být použit při vytváření některých mystických předmětů."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Je známo pouze to, že může být použit při vytváření některých mystických předmětů.",
+    "game:material-manasteel": "manocel",
+    "game:material-terrasteel": "terracel",
+    "game:material-elementium": "elementium"
 }

@@ -16,10 +16,10 @@ namespace BotaniaStory.entities
         private Vec3d startPos = null;
         private float aliveSeconds = 0f;
 
-        // позиция прошлого тика, из нее строится сплошной луч
+        // Позиция прошлого тика сохраняется для непрерывного луча
         private Vec3d prevTickPos = null;
 
-        // постоянная для конкретной искры добавка к толщине, в оригинале sin() от сида
+        // Добавка к толщине задаётся один раз для искры
         private float burstJitter = float.NaN;
 
         private float colorR = 0.125f, colorG = 1f, colorB = 0.125f;
@@ -27,10 +27,10 @@ namespace BotaniaStory.entities
 
         private bool impactSpawned = false;
 
-        // доля пути на которой искра держит полную толщину
+        // Полная толщина сохраняется до конца основной части пути
         private const float GraceFraction = 0.80f;
 
-        // потолок жизни искры, страховка от застрявших сущностей
+        // Время жизни искры ограничивается от зависания
         private const float MaxLifeSeconds = 6f;
 
         public static bool IsManaPermeable(Block block)
@@ -39,8 +39,10 @@ namespace BotaniaStory.entities
 
             string path = block.Code.Path;
 
-            // managlass точным совпадением, elvenglass по началу названия
-            return path == "managlass" || path.StartsWith("elvenglass");
+            // Манастекло, эльфийское стекло и слои снега пропускаются
+            if (path == "managlass" || path.StartsWith("elvenglass")) return true;
+
+            return block.Code.Domain == "game" && path.StartsWith("snowlayer-");
         }
 
         public override void OnGameTick(float dt)
@@ -69,7 +71,7 @@ namespace BotaniaStory.entities
             else TickServer(dt);
         }
 
-        // если клиент сильно разошелся с сервером - подтягиваем, мелкий рассинхрон игнорируем
+        // Сильный рассинхрон корректируется серверной позицией
         public override void OnReceivedServerPos(bool isTeleport)
         {
             if (isTeleport)
@@ -79,14 +81,14 @@ namespace BotaniaStory.entities
                 return;
             }
 
-            // prevTickPos не сбрасываем - следующий тик закрасит рывок частицами
+            // Прошлая позиция сохраняется для непрерывного следа
             if (Pos.SquareDistanceTo(Pos.XYZ) > 4.0)
             {
                 Pos.SetFrom(Pos);
             }
         }
 
-        // хлопок при попадании, клиенту хватает факта деспавна
+        // Эффект попадания создаётся при раннем исчезновении
         public override void OnEntityDespawn(EntityDespawnData despawn)
         {
             if (Api?.Side == EnumAppSide.Client && !impactSpawned)
@@ -96,7 +98,7 @@ namespace BotaniaStory.entities
                 double maxDistance = WatchedAttributes.GetDouble("maxDist", 8.0);
                 double traveled = startPos == null ? 0 : startPos.DistanceTo(Pos.XYZ);
 
-                // искра, которая просто выдохлась на излете, не хлопает
+                // Эффект не создаётся при полном истечении дальности
                 if (traveled < maxDistance * 0.97)
                 {
                     ReadColor();
@@ -118,7 +120,7 @@ namespace BotaniaStory.entities
             colorB = (color & 0xFF) / 255f;
         }
 
-        // толщина луча: полная до GraceFraction пути, дальше сходит на нет
+        // Толщина луча уменьшается в конце пути
         private float SizeRatio(double traveled, double maxDistance)
         {
             float t = (float)(traveled / maxDistance);
@@ -128,13 +130,13 @@ namespace BotaniaStory.entities
             return ratio < 0f ? 0f : ratio;
         }
 
-        // клиент сам двигает искру между серверными пакетами и рисует луч
+        // Искра перемещается на клиенте между серверными пакетами
         private void TickClient(float dt)
         {
             if (!Alive) return;
             if (aliveSeconds > MaxLifeSeconds) return;
 
-            // скорость приходит в блоках в секунду
+            // Скорость хранится в блоках в секунду
             double mx = WatchedAttributes.GetDouble("motionX", 0);
             double my = WatchedAttributes.GetDouble("motionY", 0);
             double mz = WatchedAttributes.GetDouble("motionZ", 0);
@@ -174,7 +176,7 @@ namespace BotaniaStory.entities
         {
             double maxDistance = WatchedAttributes.GetDouble("maxDist", 8.0);
 
-            // двигаем именно Pos, иначе клиент не получит коррекцию позиции
+            // Позиция обновляется на сервере для синхронизации
             Pos.Motion.Set(Pos.Motion);
             Pos.X += Pos.Motion.X * dt;
             Pos.Y += Pos.Motion.Y * dt;
@@ -194,7 +196,7 @@ namespace BotaniaStory.entities
 
             Block block = Api.World.BlockAccessor.GetBlock(currentPos);
 
-            // чанк не загружен - дальше лететь некуда
+            // Сгусток удаляется при выгруженном чанке
             if (block == null)
             {
                 Die(EnumDespawnReason.Removed);
@@ -203,7 +205,7 @@ namespace BotaniaStory.entities
 
             if (block.Id == 0 || block.MatterState == EnumMatterState.Liquid) return;
 
-            // манастекло и эльфийское стекло пропускают искру насквозь
+            // Проницаемые блоки пропускаются
             if (IsManaPermeable(block)) return;
 
             BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(currentPos);
@@ -222,7 +224,7 @@ namespace BotaniaStory.entities
                 return;
             }
 
-            // обычный твердый блок - разбиваемся
+            // Сгусток разбивается о твёрдый блок
             if (block.CollisionBoxes != null && block.CollisionBoxes.Length > 0)
             {
                 Die(EnumDespawnReason.Removed);
@@ -233,7 +235,7 @@ namespace BotaniaStory.entities
         {
             double maxDistance = WatchedAttributes.GetDouble("maxDist", 8.0);
 
-            // двигаем именно Pos, иначе клиент не получит коррекцию позиции
+            // Позиция обновляется на сервере для синхронизации
             Pos.Motion.Set(Pos.Motion);
             Pos.X += Pos.Motion.X;
             Pos.Y += Pos.Motion.Y;
@@ -253,7 +255,7 @@ namespace BotaniaStory.entities
 
             Block block = Api.World.BlockAccessor.GetBlock(currentPos);
 
-            // чанк не загружен - дальше лететь некуда
+            // Сгусток удаляется при выгруженном чанке
             if (block == null)
             {
                 Die(EnumDespawnReason.Removed);
@@ -262,7 +264,7 @@ namespace BotaniaStory.entities
 
             if (block.Id == 0 || block.MatterState == EnumMatterState.Liquid) return;
 
-            // манастекло и эльфийское стекло пропускают искру насквозь
+            // Проницаемые блоки пропускаются
             if (IsManaPermeable(block)) return;
 
             BlockEntity be = Api.World.BlockAccessor.GetBlockEntity(currentPos);
@@ -281,7 +283,7 @@ namespace BotaniaStory.entities
                 return;
             }
 
-            // обычный твердый блок - разбиваемся
+            // Сгусток разбивается о твёрдый блок
             if (block.CollisionBoxes != null && block.CollisionBoxes.Length > 0)
             {
                 Die(EnumDespawnReason.Removed);

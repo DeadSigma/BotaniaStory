@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Gleiten ermöglicht ein sanftes Sinken, das Überwinden horizontaler Distanzen und das Vermeiden von Fallschaden. Dazu musst du dich während des Falls ducken. Selbst bei leerer Fluganzeige kannst du gleiten, allerdings regeneriert sie sich langsamer.\n\n\nHerstellung des Tiara-Rahmens:\n\n\n\nHerstellung der geflügelten Tiara:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Fläschchen mit Luft der Rostwelt",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fläschchen mit Luft der Rostwelt</link> enthält verzerrte Luft, die aus Rissen gesammelt wurde, die in eine fremde Welt führen. Um das Fläschchen zu füllen, muss man ein <link=flask>leeres Fläschchen</link> in der Hand halten und <link=nothing>Rechtsklick</link> in der Nähe eines Risses drücken.\n\nDiese Luft besitzt mutierende Eigenschaften, deren Natur jedoch noch nicht erforscht ist. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Es ist lediglich bekannt, dass es zur Herstellung einiger mystischer Gegenstände verwendet werden kann."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Es ist lediglich bekannt, dass es zur Herstellung einiger mystischer Gegenstände verwendet werden kann.",
+    "game:material-manasteel": "Manastahl",
+    "game:material-terrasteel": "Terrastahl",
+    "game:material-elementium": "Elementium"
 }

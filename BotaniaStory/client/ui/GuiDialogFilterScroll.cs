@@ -1,16 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using BotaniaStory;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
+using Vintagestory.API.Util;
+using Vintagestory.GameContent;
 
 namespace BotaniaStory.items
 {
     public class GuiDialogFilterScroll : GuiDialog
     {
         public override string ToggleKeyCombinationCode => null;
+
+        // диалог создаётся при каждом открытии, поэтому после закрытия снимается с регистрации
+        public override bool UnregisterOnClose => true;
+
+        private const string SearchCacheKey = "botaniastory-filterscroll-search";
+
+        // поля справочника не публичные - достаются через рефлексию
+        private const BindingFlags AnyInstance = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+        private static readonly FieldInfo HandbookDialogField = typeof(ModSystemSurvivalHandbook).GetField("dialog", AnyInstance);
+        private static readonly FieldInfo HandbookPagesField = typeof(GuiDialogHandbook).GetField("allHandbookPages", AnyInstance);
+        private static readonly FieldInfo HandbookLoadingField = typeof(GuiDialogHandbook).GetField("loadingPagesAsync", AnyInstance);
 
         private readonly ItemSlot paperSlot;
         private readonly bool isBlacklist;
@@ -36,10 +50,10 @@ namespace BotaniaStory.items
             public string CodeCache;
         }
 
-        private static SearchEntry[] cachedEntries;
-        private static object cachedWorld;
+        private SearchEntry[] searchCache = Array.Empty<SearchEntry>();
 
-        private SearchEntry[] searchCache;
+        private bool waitingForHandbook;
+        private float handbookWaitTime;
 
         public GuiDialogFilterScroll(ICoreClientAPI capi, ItemSlot slot, bool isBlacklist) : base(capi)
         {
@@ -49,51 +63,79 @@ namespace BotaniaStory.items
             searchInventory = new InventoryGeneric(200, "searchInv-0", capi, null);
             selectedInventory = new InventoryGeneric(100, "selectedInv-0", capi, null);
 
-            BuildSearchCacheIfNeeded();
+            waitingForHandbook = !TryLoadSearchCache();
             LoadSavedFilters();
             SetupDialog();
         }
 
-        private void BuildSearchCacheIfNeeded()
+        private bool TryLoadSearchCache()
         {
-            if (cachedEntries != null && cachedWorld == capi.World)
+            var cached = ObjectCacheUtil.TryGet<SearchEntry[]>(capi, SearchCacheKey);
+            if (cached == null)
             {
-                searchCache = cachedEntries;
-                return;
+                cached = BuildSearchEntries();
+                if (cached == null) return false;
+
+                // список хранится в кэше мира и собирается один раз за заход
+                capi.ObjectCache[SearchCacheKey] = cached;
             }
 
-            int estimatedCapacity = capi.World.Items.Count + capi.World.Blocks.Count;
-            var tempList = new List<SearchEntry>(estimatedCapacity);
+            searchCache = cached;
+            return true;
+        }
 
-            foreach (var item in capi.World.Items)
+        private SearchEntry[] BuildSearchEntries()
+        {
+            var handbook = capi.ModLoader.GetModSystem<ModSystemSurvivalHandbook>();
+
+            if (handbook != null && HandbookDialogField != null && HandbookPagesField != null && HandbookLoadingField != null)
             {
-                if (item?.Code == null || item.Id == 0 || item.IsMissing) continue;
+                var handbookDialog = HandbookDialogField.GetValue(handbook) as GuiDialogHandbook;
 
-                var stack = new ItemStack(item);
-                tempList.Add(new SearchEntry
+                // страницы собираются справочником в фоне после входа в мир, до конца сборки список не строится
+                if (handbookDialog == null || HandbookLoadingField.GetValue(handbookDialog) is true) return null;
+
+                var pages = HandbookPagesField.GetValue(handbookDialog) as List<GuiHandbookPage>;
+                if (pages != null)
                 {
-                    Stack = stack,
-                    NameCache = stack.GetName(),
-                    CodeCache = item.Code.Path
-                });
+                    var fromPages = new List<SearchEntry>(pages.Count);
+                    for (int i = 0; i < pages.Count; i++)
+                    {
+                        var page = pages[i] as GuiHandbookItemStackPage;
+                        if (page?.Stack?.Collectible?.Code == null) continue;
+
+                        // имя берётся готовым из страницы, GetName повторно не вызывается
+                        fromPages.Add(CreateEntry(page.Stack, page.TextCacheTitle));
+                    }
+
+                    if (fromPages.Count > 0) return fromPages.ToArray();
+                }
             }
 
-            foreach (var block in capi.World.Blocks)
+            // запасной путь, если поля справочника поменяются - стаки те же, имена считаются вручную
+            var stacks = ObjectCacheUtil.TryGet<ItemStack[]>(capi, "handbookallstacks");
+            if (stacks == null) return null;
+
+            capi.Logger.Warning("[FilterScroll] Handbook pages unavailable, item names are built manually");
+
+            var fromStacks = new List<SearchEntry>(stacks.Length);
+            foreach (var stack in stacks)
             {
-                if (block?.Code == null || block.Id == 0 || block.IsMissing) continue;
-
-                var stack = new ItemStack(block);
-                tempList.Add(new SearchEntry
-                {
-                    Stack = stack,
-                    NameCache = stack.GetName(),
-                    CodeCache = block.Code.Path
-                });
+                if (stack?.Collectible?.Code == null) continue;
+                fromStacks.Add(CreateEntry(stack, stack.GetName().ToSearchFriendly()));
             }
 
-            cachedEntries = tempList.ToArray();
-            cachedWorld = capi.World;
-            searchCache = cachedEntries;
+            return fromStacks.ToArray();
+        }
+
+        private static SearchEntry CreateEntry(ItemStack stack, string searchName)
+        {
+            return new SearchEntry
+            {
+                Stack = stack,
+                NameCache = (searchName ?? "").ToLowerInvariant(),
+                CodeCache = stack.Collectible.Code.Path.ToLowerInvariant()
+            };
         }
 
         private void LoadSavedFilters()
@@ -234,6 +276,34 @@ namespace BotaniaStory.items
                 playerArea.SetValue(initialPlayersText);
         }
 
+        public override void OnRenderGUI(float deltaTime)
+        {
+            // пока справочник догружается, готовность проверяется раз в полсекунды
+            if (waitingForHandbook)
+            {
+                handbookWaitTime += deltaTime;
+                if (handbookWaitTime >= 0.5f)
+                {
+                    handbookWaitTime = 0;
+                    if (TryLoadSearchCache())
+                    {
+                        waitingForHandbook = false;
+                        OnSearchTextChanged(SingleComposer.GetTextInput("searchInput")?.GetText());
+                    }
+                }
+            }
+
+            base.OnRenderGUI(deltaTime);
+        }
+
+        public override void OnGuiClosed()
+        {
+            base.OnGuiClosed();
+
+            // текстуры закрытого диалога освобождаются сразу, а не висят до конца сессии
+            Dispose();
+        }
+
         private void OnSearchScroll(float value)
         {
             searchScrollValue = value;
@@ -355,6 +425,8 @@ namespace BotaniaStory.items
         {
             for (int i = 0; i < searchInventory.Count; i++)
             {
+                if (searchInventory[i].Empty) continue;
+
                 searchInventory[i].Itemstack = null;
                 searchInventory[i].MarkDirty();
             }
@@ -365,19 +437,25 @@ namespace BotaniaStory.items
                 return;
             }
 
-            string query = text.Trim();
+            string query = text.Trim().ToLowerInvariant();
+            // в именах справочника снята диакритика (й хранится как и), запрос приводится к тому же виду
+            string nameQuery = query.ToSearchFriendly();
             int slotIdx = 0;
 
             for (int i = 0; i < searchCache.Length; i++)
             {
                 ref SearchEntry entry = ref searchCache[i];
 
-                bool matchName = entry.NameCache.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0;
-                bool matchCode = entry.CodeCache.IndexOf(query, StringComparison.OrdinalIgnoreCase) >= 0;
+                bool matchName = entry.NameCache.IndexOf(nameQuery, StringComparison.Ordinal) >= 0;
+                bool matchCode = entry.CodeCache.IndexOf(query, StringComparison.Ordinal) >= 0;
 
                 if (!matchName && !matchCode) continue;
 
-                searchInventory[slotIdx].Itemstack = entry.Stack.Clone();
+                var stack = entry.Stack.Clone();
+                // стаки справочника хранятся с полным размером, счётчик на слоте прячется
+                stack.StackSize = 1;
+
+                searchInventory[slotIdx].Itemstack = stack;
                 searchInventory[slotIdx].MarkDirty();
                 slotIdx++;
 

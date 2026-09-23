@@ -4137,9 +4137,9 @@ namespace BotaniaStory.lexicon
                             Spread = 0,
                             UiKey = "Сетка_Левая_Нижняя",
                             Grid = new string[9] {
-                                null, "game:metalbit-terrasteel", null,
-                                "game:metalbit-terrasteel", "botaniastory:manaitem-managear", "game:metalbit-terrasteel",
-                                null, "game:gear-temporal", null },
+                                 null, "game:ingot-gold", null,
+                                 "game:ingot-manasteel", "botaniastory:pylon-mana", "game:ingot-manasteel",
+                                 null, "game:ingot-gold", null},
                             Output = "botaniastory:pylon-mana"
                         });
 
@@ -4148,10 +4148,11 @@ namespace BotaniaStory.lexicon
                             RecipeType = "Grid",
                             Spread = 0,
                             UiKey = "Сетка_Правая_Нижняя",
+                           
                             Grid = new string[9] {
-                                 null, "game:ingot-gold", null,
-                                 "game:ingot-manasteel", "botaniastory:pylon-mana", "game:ingot-manasteel",
-                                 null, "game:ingot-gold", null},
+                                null, "game:metalbit-terrasteel", null,
+                                "game:metalbit-terrasteel", "botaniastory:manaitem-managear", "game:metalbit-terrasteel",
+                                null, "game:gear-temporal", null },
                             Output = "botaniastory:pylon-natura"
                         });
 
@@ -4315,7 +4316,7 @@ namespace BotaniaStory.lexicon
                             RecipeType = "Alfheim",
                             Spread = 0,
                             UiKey = "Альфхейм_Область_Правая",
-                            AlfheimInputs = new string[] { "game:ingot-manasteel" },
+                            AlfheimInputs = new string[] { "game:ingot-manasteel@2" },
                             Output = "game:ingot-elementium"
                         });
 

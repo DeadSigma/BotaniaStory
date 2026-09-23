@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Planear permite descender suavemente, recorrer distancia horizontal y evitar el daño por caída. Para ello debes agacharte durante la caída. Incluso con la barra de vuelo vacía puedes planear, aunque la recuperación será más lenta.\n\n\n\n\nCreación de la estructura de la tiara:\n\n\n\nCreación de la tiara alada:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Vial con aire del Mundo Oxidado",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Vial con aire del Mundo Oxidado</link> contiene aire distorsionado recogido de grietas que conducen a un mundo extraño. Para llenar el vial, debes sostener un <link=flask>vial vacío</link> en la mano y pulsar <link=nothing>clic derecho</link> cerca de una grieta.\n\nEste aire posee propiedades mutantes, aunque su naturaleza aún no ha sido estudiada. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Solo se sabe que puede utilizarse en la creación de ciertos objetos místicos."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Solo se sabe que puede utilizarse en la creación de ciertos objetos místicos.",
+    "game:material-manasteel": "acero de maná",
+    "game:material-terrasteel": "terracero",
+    "game:material-elementium": "elementium"
 }

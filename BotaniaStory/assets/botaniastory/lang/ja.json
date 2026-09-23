@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "滑空するとゆっくり下降し、水平距離を移動しつつ落下ダメージを回避できる。発動するには落下中にしゃがむ必要がある。飛行ゲージが空でも滑空は可能だが、回復は遅くなる。\n\n\n\n\nティアラのフレームの作成:\n\n\n\n翼付きティアラの作成:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "錆びた世界の空気の小瓶",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>錆びた世界の空気の小瓶</link>には、異世界へ通じる裂け目から採取された歪んだ空気が封じられている。小瓶を満たすには、<link=flask>空の小瓶</link>を手に持ち、裂け目の近くで<link=nothing>右クリック</link>する必要がある。\n\nこの空気は変異的な性質を持つが、その本質はまだ解明されていない。 ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "それがいくつかの神秘的なアイテムの作成に使用できることだけが知られている。"
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "それがいくつかの神秘的なアイテムの作成に使用できることだけが知られている。",
+    "game:material-manasteel": "マナスチール",
+    "game:material-terrasteel": "テラスチール",
+    "game:material-elementium": "エレメンティウム"
 }

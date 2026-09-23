@@ -13,8 +13,10 @@
       },
       "C": {
         "type": "item",
-        "code": "game:chisel-*",
-        "isTool": true
+        "isTool": true,
+        "tags": [
+          "tool-chisel"
+        ]
       },
       "R": {
         "type": "block",
@@ -22,8 +24,10 @@
       },
       "H": {
         "type": "item",
-        "code": "game:hammer-*",
-        "isTool": true
+        "isTool": true,
+        "tags": [
+          "tool-hammer"
+        ]
       }
     },
     "width": 3,
@@ -45,7 +49,9 @@
       "L": {
         "type": "block",
         "code": "game:lantern-large-*",
-        "allowedVariants": [ "up" ],
+        "allowedVariants": [
+          "up"
+        ],
         "recipeAttributes": {
           "botaniastory": {
             "filterLanternPreview": true
@@ -54,8 +60,10 @@
       },
       "C": {
         "type": "item",
-        "code": "game:chisel-*",
-        "isTool": true
+        "isTool": true,
+        "tags": [
+          "tool-chisel"
+        ]
       },
       "R": {
         "type": "block",
@@ -63,8 +71,10 @@
       },
       "H": {
         "type": "item",
-        "code": "game:hammer-*",
-        "isTool": true
+        "isTool": true,
+        "tags": [
+          "tool-hammer"
+        ]
       }
     },
     "width": 3,

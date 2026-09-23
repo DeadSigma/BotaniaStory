@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Szybowanie pozwala łagodnie opadać, pokonywać dystans w poziomie i unikać obrażeń od upadku. Aby je aktywować, należy kucnąć podczas spadania. Nawet przy pustym pasku lotu można szybować, jednak regeneracja będzie wolniejsza.\n\n\n\n\nTworzenie szkieletu tiary:\n\n\n\nTworzenie skrzydlatej tiary:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Fiolka z powietrzem zardzewiałego świata",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "<link=enderair>Fiolka z powietrzem zardzewiałego świata</link> zawiera zniekształcone powietrze zebrane z rozłamów prowadzących do obcego świata. Aby napełnić fiolkę, należy trzymać <link=flask>pustą fiolkę</link> w ręce i nacisnąć <link=nothing>PPM</link> w pobliżu rozłamu.\n\nPowietrze to posiada właściwości mutagenne, jednak ich natura wciąż pozostaje niezbadana. ",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Wiadomo jedynie, że może być używany do tworzenia niektórych mistycznych przedmiotów."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Wiadomo jedynie, że może być używany do tworzenia niektórych mistycznych przedmiotów.",
+    "game:material-manasteel": "manastal",
+    "game:material-terrasteel": "terrastal",
+    "game:material-elementium": "elementium"
 }

@@ -15,9 +15,9 @@ namespace BotaniaStory.blockentity
     {
         public bool IsActive { get; private set; }
 
-        // Очередь для хранения предметов, которые портал должен выплюнуть
+        // Предметы сохраняются до возврата через портал
         private Queue<ItemStack> _returnQueue = new Queue<ItemStack>();
-        // Память для хранения неполных рецептов (например, 1 слиток манастали из 2 нужных)
+        // Неполные обмены сохраняются между поглощениями
         private Dictionary<string, int> _itemBuffer = new Dictionary<string, int>();
 
         public override void Initialize(ICoreAPI api)
@@ -26,13 +26,11 @@ namespace BotaniaStory.blockentity
 
             if (api.Side == EnumAppSide.Server)
             {
-                // Проверка целостности структуры
                 RegisterGameTickListener(CheckStructureTick, 500);
 
-                // Проверка брошенных предметов (быстрое поглощение)
                 RegisterGameTickListener(CheckForDroppedItems, 250);
 
-                // Выдача предметов из очереди (2 предмета в секунду)
+                // Предметы возвращаются по два в секунду
                 RegisterGameTickListener(SpitOutItemsTick, 500);
             }
         }
@@ -260,7 +258,6 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ОБМЕН ПРЕДМЕТОВ С АЛЬФХЕЙМОМ
 
         private void CheckForDroppedItems(float dt)
         {
@@ -281,13 +278,13 @@ namespace BotaniaStory.blockentity
                     else if (fullCode == "botaniastory:manaitem-managear")
                         TryAbsorbItem(entityItem, fullCode, "botaniastory:dragonstone", 1, 1, 50000);
                     else if (fullCode == "game:ingot-manasteel")
-                        TryAbsorbItem(entityItem, fullCode, "game:ingot-elementium", 2, 1, 50000);
+                        TryAbsorbItem(entityItem, fullCode, "game:ingot-elementium", 2, 1, 25000);
                     else if (fullCode == "botaniastory:livingwood-normal")
-                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood-normal", 1, 1, 50000); 
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood-normal", 1, 1, 50000);
                     else if (fullCode == "botaniastory:manaitem-manaquartz")
                         TryAbsorbItem(entityItem, fullCode, "botaniastory:pixie-dust", 1, 1, 50000);
                     else if (fullCode == "botaniastory:livingwood")
-                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood", 1, 1, 50000); 
+                        TryAbsorbItem(entityItem, fullCode, "botaniastory:dreamwood", 1, 1, 50000);
                 }
             }
         }
@@ -302,25 +299,23 @@ namespace BotaniaStory.blockentity
 
             bool absorbedAny = false;
 
-            // Поглощаем по ОДНОМУ предмету за раз
+            // Предметы поглощаются по одному
             while (inputEntity.Itemstack.StackSize > 0)
             {
-                if (!TryConsumeManaForExchange(manaCost)) break; // Если маны на 1 предмет нет - останавливаемся
+                if (!TryConsumeManaForExchange(manaCost)) break;
 
                 inputEntity.Itemstack.StackSize--;
                 absorbedAny = true;
 
-                // Добавляем проглоченный предмет в буфер
+                // Поглощённые предметы сохраняются в буфере
                 if (!_itemBuffer.ContainsKey(inputCode)) _itemBuffer[inputCode] = 0;
                 _itemBuffer[inputCode]++;
 
-                // Проверяем, накопилось ли достаточно предметов для крафта
                 if (_itemBuffer[inputCode] >= requiredInput)
                 {
-                    // Списываем нужное количество из буфера
                     _itemBuffer[inputCode] -= requiredInput;
 
-                    // Кладем результат в очередь на выброс
+                    // Результат добавляется в очередь на возврат
                     if (outputItem != null)
                         _returnQueue.Enqueue(new ItemStack(outputItem, outputAmount));
                     else if (outputBlock != null)
@@ -341,7 +336,7 @@ namespace BotaniaStory.blockentity
                 }
 
                 SpawnCraftingParticles(inputEntity.Pos.XYZ);
-                MarkDirty(true); // Сохраняем состояние буфера
+                MarkDirty(true);
             }
         }
 
@@ -441,7 +436,7 @@ namespace BotaniaStory.blockentity
             Api.World.SpawnParticles(particles);
         }
 
-        // СИНХРОНИЗАЦИЯ DAA И ОЧЕРЕДИ ПРЕДМЕТОВ
+        // Очередь и буфер сохраняются вместе с блоком
 
         public override void ToTreeAttributes(ITreeAttribute tree)
         {
@@ -456,7 +451,6 @@ namespace BotaniaStory.blockentity
                 index++;
             }
 
-            // Сохраняем буфер проглоченных ингредиентов
             tree.SetInt("bufferCount", _itemBuffer.Count);
             int bIdx = 0;
             foreach (var kvp in _itemBuffer)
@@ -483,8 +477,8 @@ namespace BotaniaStory.blockentity
                     _returnQueue.Enqueue(stack);
                 }
             }
-                
-            // Восстанавливаем буфер проглоченных ингредиентов
+
+            // Буфер восстанавливается после загрузки
             _itemBuffer.Clear();
             int bCount = tree.GetInt("bufferCount", 0);
             for (int i = 0; i < bCount; i++)
@@ -495,18 +489,16 @@ namespace BotaniaStory.blockentity
             }
         }
 
-        // ОЧИСТКА ПРИ РАЗРУШЕНИИ
 
         public override void OnBlockRemoved()
         {
-            // Если игрок сломает ядро во время обмена, все ресурсы внутри просто исчезнут.
-            // Это наказание за прерывание работы портала :)
+            // Незавершённые обмены теряются при разрушении ядра
             _returnQueue.Clear();
             _itemBuffer.Clear();
 
             if (IsActive)
             {
-                // Вызываем деактивацию, чтобы убрать блок-заполнитель портала и отвязать пилоны
+                // Портал отключается, а пилоны отвязываются
                 Deactivate(true);
             }
 

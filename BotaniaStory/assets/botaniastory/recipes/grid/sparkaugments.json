@@ -10,10 +10,10 @@
                 "type": "item",
                 "code": "botaniastory:rune-water"
             },
-            "S": {
-                "type": "item",
-                "code": "game:stick"
-            }
+          "S": {
+            "type": "item",
+            "code": "botaniastory:pixie-dust"
+          }
         },
         "width": 3,
         "height": 1,
@@ -34,10 +34,10 @@
                 "type": "item",
                 "code": "botaniastory:rune-fire"
             },
-            "S": {
-                "type": "item",
-                "code": "game:stick"
-            }
+          "S": {
+            "type": "item",
+            "code": "botaniastory:pixie-dust"
+          }
         },
         "width": 3,
         "height": 1,
@@ -58,10 +58,10 @@
                 "type": "item",
                 "code": "botaniastory:rune-air"
             },
-            "S": {
-                "type": "item",
-                "code": "game:stick"
-            }
+          "S": {
+            "type": "item",
+            "code": "botaniastory:pixie-dust"
+          }
         },
         "width": 3,
         "height": 1,
@@ -84,7 +84,7 @@
             },
             "S": {
                 "type": "item",
-                "code": "game:stick"
+                "code": "botaniastory:pixie-dust"
             }
         },
         "width": 3,

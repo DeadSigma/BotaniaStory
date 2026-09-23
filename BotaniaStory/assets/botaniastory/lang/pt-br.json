@@ -899,5 +899,8 @@
     "lexicon_rusted_world_artifacts_flight-tiara_p2": "Planar permite descer suavemente, percorrendo distância horizontal e evitando dano de queda. Para isso, agache-se durante a queda. É possível planar mesmo com a barra de voo vazia, porém a recuperação será mais lenta.\n\nCriação da estrutura da tiara:\n\n\nCriação da Tiara Alada:",
     "lexicon_rusted_world_artifacts_rustworld-air_title": "Frasco com ar do Mundo Enferrujado",
     "lexicon_rusted_world_artifacts_rustworld-air_p1": "O <link=enderair>Frasco de Ar do Mundo Enferrujado</link> contém ar distorcido coletado perto de fendas que levam a um mundo estranho. Para encher o frasco, segure um <link=flask>frasco vazio</link> e use <link=nothing>botão direito</link> perto de uma fenda.\n\nEsse ar possui propriedades transformadoras cuja natureza ainda não foi estudada.",
-    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Sabe-se apenas que ele pode ser usado na criação de alguns itens místicos."
+    "lexicon_rusted_world_artifacts_rustworld-air_p2": "Sabe-se apenas que ele pode ser usado na criação de alguns itens místicos.",
+    "game:material-manasteel": "manasteel",
+    "game:material-terrasteel": "terrasteel",
+    "game:material-elementium": "elementium"
 }
