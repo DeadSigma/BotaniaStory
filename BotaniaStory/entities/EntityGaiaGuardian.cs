@@ -17,8 +17,6 @@ namespace BotaniaStory.entities
         public const float ArenaRadius = 12f;
         public const float GaiaIIHealthMultiplier = 2.0f;
         public const float GaiaIIDamageMultiplier = 2.0f;
-        public const float HealthPerExtraPlayer = 1.0f;   // +100% HP за каждого доп. игрока 
-        public const float DamagePerExtraPlayer = 0.35f;  // +35% урона за каждого доп. игрока
         public const float MaxDamagePerHit = 0f;          // 0 = без капа урона за удар (удобно для тестирования)
         public const bool AllowCreativeParticipants = true;   // Creative может участвовать в ритуале и тестировать бой
         public const float BirthDurationSeconds = 6f;     // фаза рождения: бессмертна, не атакует, копит силу
@@ -38,10 +36,12 @@ namespace BotaniaStory.entities
         private float playerConfineScanTimer = 0f;
         private float minionConfineScanTimer = 0f;
         private float ritualCheckTimer = 0f;
+        private float projectileBarrierScanTimer = 0f;
 
         private const float PlayerConfineScanInterval = 0.10f;
         private const float MinionConfineScanInterval = 0.25f;
         private const float RitualCheckInterval = 0.25f;
+        private const float ProjectileBarrierScanInterval = 0.05f;
 
         private const string RitualParticipantsAttribute = "gaiaRitualParticipants";
         private const string LootAttackersAttribute = "gaiaLootAttackers";
@@ -93,8 +93,6 @@ namespace BotaniaStory.entities
 
         private bool IsGaiaII =>
             GaiaLevel >= 2;
-
-        private int PlayerCount => Math.Max(1, WatchedAttributes.GetInt("gaiaPlayerCount", 1));
 
         public override void Initialize(EntityProperties properties, ICoreAPI api, long InChunkIndex3d)
         {
@@ -822,8 +820,15 @@ namespace BotaniaStory.entities
 
             EntityPlayer causingPlayer =
                 damagingHit
-                    ? damageSource.GetCauseEntity() as EntityPlayer
+                    ? ResolveDamageCause(damageSource) as EntityPlayer
                     : null;
+
+            if (damagingHit &&
+                causingPlayer != null &&
+                IsDamageBlockedByArenaBarrier(causingPlayer))
+            {
+                return false;
+            }
 
             bool pixieHit =
                 damagingHit &&
@@ -920,25 +925,118 @@ namespace BotaniaStory.entities
             }
         }
 
+        private static Entity ResolveDamageCause(DamageSource damageSource)
+        {
+            if (damageSource?.CauseEntity != null)
+            {
+                return damageSource.CauseEntity;
+            }
+
+            if (damageSource?.SourceEntity is IProjectile projectile &&
+                projectile.FiredBy != null)
+            {
+                return projectile.FiredBy;
+            }
+
+            return damageSource?.GetCauseEntity();
+        }
+
+        private bool IsDamageBlockedByArenaBarrier(EntityPlayer causingPlayer)
+        {
+            if (causingPlayer == null) return false;
+            if (causingPlayer.Pos.Dimension != Pos.Dimension) return true;
+
+            Vec3d sourcePoint = GetEntityCenter(causingPlayer);
+            Vec3d targetPoint = GetEntityCenter(this);
+
+            // Урон блокируется между разными сторонами барьера
+            return GetArenaBarrierSide(sourcePoint) !=
+                   GetArenaBarrierSide(targetPoint);
+        }
+
+        private void RemoveProjectilesCrossingBarrier()
+        {
+            Vec3d center = new Vec3d(
+                WatchedAttributes.GetDouble("gaiaSpawnPosX", Pos.X),
+                Pos.Y,
+                WatchedAttributes.GetDouble("gaiaSpawnPosZ", Pos.Z)
+            );
+
+            Entity[] projectiles = World.GetEntitiesAround(
+                center,
+                ArenaRadius + 4f,
+                40f,
+                e => e.Alive && e is IProjectile
+            );
+
+            if (projectiles == null) return;
+
+            foreach (Entity projectileEntity in projectiles)
+            {
+                if (!(projectileEntity is IProjectile projectile)) continue;
+                if (projectile.Stuck) continue;
+                if (!(projectile.FiredBy is EntityPlayer shooter)) continue;
+
+                if (shooter.Pos.Dimension != Pos.Dimension)
+                {
+                    projectileEntity.Die(EnumDespawnReason.Removed);
+                    continue;
+                }
+
+                Vec3d shooterPoint = GetEntityCenter(shooter);
+                Vec3d projectilePoint = GetEntityCenter(projectileEntity);
+
+                if (GetArenaBarrierSide(shooterPoint) ==
+                    GetArenaBarrierSide(projectilePoint))
+                {
+                    continue;
+                }
+
+                // Снаряд удаляется после пересечения барьера
+                projectileEntity.Die(EnumDespawnReason.Removed);
+            }
+        }
+
+        private int GetArenaBarrierSide(Vec3d point)
+        {
+            double cx = WatchedAttributes.GetDouble("gaiaSpawnPosX", Pos.X);
+            double cz = WatchedAttributes.GetDouble("gaiaSpawnPosZ", Pos.Z);
+
+            double dx = point.X - cx;
+            double dz = point.Z - cz;
+            double radiusSq = ArenaRadius * ArenaRadius;
+
+            return dx * dx + dz * dz <= radiusSq ? -1 : 1;
+        }
+
+        private static Vec3d GetEntityCenter(Entity entity)
+        {
+            double centerOffsetY = 0.5;
+
+            if (entity?.OriginCollisionBox != null)
+            {
+                centerOffsetY =
+                    (entity.OriginCollisionBox.Y1 + entity.OriginCollisionBox.Y2) * 0.5;
+            }
+
+            return new Vec3d(
+                entity.Pos.X,
+                entity.Pos.Y + centerOffsetY,
+                entity.Pos.Z
+            );
+        }
+
         // Масштабирование
 
         private void ApplyHealthScaling()
         {
             if (WatchedAttributes.GetBool("gaiaHpScaled", false)) return;
 
-            float playerMul =
-     1f +
-     (PlayerCount - 1) *
-     HealthPerExtraPlayer;
-
-            float levelMul =
+            float mul =
                 IsGaiaII
                     ? GaiaIIHealthMultiplier
                     : 1f;
 
-            float mul =
-                playerMul *
-                levelMul;
             ITreeAttribute ht = WatchedAttributes.GetTreeAttribute("health");
             if (ht == null) return;
 
@@ -954,19 +1052,10 @@ namespace BotaniaStory.entities
 
         private void ApplyDamageScaling()
         {
-            float playerMul =
-     1f +
-     (PlayerCount - 1) *
-     DamagePerExtraPlayer;
-
-            float levelMul =
+            float mul =
                 IsGaiaII
                     ? GaiaIIDamageMultiplier
                     : 1f;
-
-            float mul =
-                playerMul *
-                levelMul;
 
             if (mul <= 1f)
                 return;
@@ -1044,6 +1133,13 @@ namespace BotaniaStory.entities
                         float elapsed = ritualCheckTimer;
                         ritualCheckTimer = 0f;
                         CheckRitualEnd(elapsed);
+                    }
+
+                    projectileBarrierScanTimer += dt;
+                    if (projectileBarrierScanTimer >= ProjectileBarrierScanInterval)
+                    {
+                        projectileBarrierScanTimer = 0f;
+                        RemoveProjectilesCrossingBarrier();
                     }
                 }
                 catch (Exception e)

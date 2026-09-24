@@ -22,6 +22,7 @@ namespace BotaniaStory.entities.ai
         private float cooldownJitter = 0.15f;
         private int damageTeleportDelayMinMs = 80;
         private int damageTeleportDelayMaxMs = 180;
+        private int damageTeleportTriggerCooldownMs = 900;
         private int dotTeleportCooldownMinMs = 320;
         private int dotTeleportCooldownMaxMs = 650;
         private int dotTeleportBurstDurationMs = 2200;
@@ -42,6 +43,7 @@ namespace BotaniaStory.entities.ai
 
         private long nextTeleportMs;
         private long damageTeleportBurstUntilMs;
+        private long nextDamageTeleportTriggerMs;
         private readonly Queue<Vec3d> recentTeleportPositions = new Queue<Vec3d>();
 
         public AiTaskGaiaTeleport(
@@ -80,6 +82,8 @@ namespace BotaniaStory.entities.ai
                     taskConfig["damageTeleportDelayMinMs"].AsInt(80));
                 damageTeleportDelayMaxMs = Math.Max(damageTeleportDelayMinMs,
                     taskConfig["damageTeleportDelayMaxMs"].AsInt(180));
+                damageTeleportTriggerCooldownMs = Math.Max(250,
+                    taskConfig["damageTeleportTriggerCooldownMs"].AsInt(900));
                 dotTeleportCooldownMinMs = Math.Max(120,
                     taskConfig["dotTeleportCooldownMinMs"].AsInt(320));
                 dotTeleportCooldownMaxMs = Math.Max(dotTeleportCooldownMinMs,
@@ -280,9 +284,6 @@ namespace BotaniaStory.entities.ai
         }
 
 
-        /// <summary>
-        /// Телепорт ускоряется после полученного урона
-        /// </summary>
         public void NotifyDamaged(DamageSource damageSource)
         {
             if (entity.World.Side != EnumAppSide.Server) return;
@@ -305,15 +306,19 @@ namespace BotaniaStory.entities.ai
                 );
             }
 
+            // Повторный урон не ускоряет телепорты от нескольких игроков
+            if (now < nextDamageTeleportTriggerMs) return;
+
             long requestedTeleportMs = now + RandomDelay(
                 ScaleDelayForGaiaLevel(damageTeleportDelayMinMs),
                 ScaleDelayForGaiaLevel(damageTeleportDelayMaxMs)
             );
 
-            // Уже назначенный более ранний телепорт сохраняется
             if (nextTeleportMs <= 0 || requestedTeleportMs < nextTeleportMs)
             {
                 nextTeleportMs = requestedTeleportMs;
+                nextDamageTeleportTriggerMs =
+                    now + ScaleDelayForGaiaLevel(damageTeleportTriggerCooldownMs);
             }
         }
 

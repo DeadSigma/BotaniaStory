@@ -74,12 +74,8 @@ namespace BotaniaStory.util
                     );
             }
 
-            // При нескольких игроках Гайа распределяет  выстрелы между ними
-            int interval =
-                activeCooldown / targets.Count;
-
-            if (interval < 1)
-                interval = 1;
+            // Количество игроков не ускоряет молнии
+            int interval = Math.Max(1, activeCooldown);
 
 
             long now =
