@@ -6,12 +6,14 @@ using Vintagestory.API.Config;
 using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using BotaniaStory.util;
+using BotaniaStory.systems;
 
 namespace BotaniaStory.items
 {
     public class ItemTerraShatterer : Item, IManaRepairable
     {
-        // 1. ЧТЕНИЕ НАСТРОЕК ИЗ JSON
+
+        // Мана хранится в атрибутах предмета
         public int GetMaxMana(ItemStack stack)
         {
             return stack.Item.Attributes?["manaCapacity"]?.AsInt(1000000) ?? 1000000;
@@ -22,48 +24,68 @@ namespace BotaniaStory.items
             return stack.Attributes.GetInt("currentMana", 0);
         }
 
-        // 2. ВЗАИМОДЕЙСТВИЕ (ПКМ) - ВКЛЮЧЕНИЕ И ВЫКЛЮЧЕНИЕ
+        public static bool IsTerraShatterer(ItemStack stack)
+        {
+            if (stack?.Item is ItemTerraShatterer) return true;
+
+            AssetLocation code = stack?.Collectible?.Code;
+            return code?.Domain == "botaniastory"
+                && code.Path.StartsWith("pickaxe-terrashatterer-", StringComparison.Ordinal);
+        }
+
+        public static bool IsActive(ItemStack stack)
+        {
+            return IsTerraShatterer(stack) && (stack.Item.Variant?["state"] ?? "off") == "on";
+        }
+
+        public static int GetRank(ItemStack stack)
+        {
+            if (!IsTerraShatterer(stack)) return 0;
+            return int.TryParse(stack.Item.Variant?["rank"], out int rank) ? rank : 0;
+        }
+
+        // Состояние меняется только на сервере
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
-            // 1. Реагируем ТОЛЬКО на первый момент клика, игнорируем удержание кнопки
+
             if (!firstEvent) return;
 
-            // 2. Говорим движку: "Мы сами обработали этот клик, дефолтные действия не нужны"
+
             handling = EnumHandHandling.Handled;
 
-            // 3. Читаем текущее состояние предмета (защита от null)
+
             string currentState = slot.Itemstack.Item.Variant["state"];
             if (string.IsNullOrEmpty(currentState)) currentState = "off";
 
-            // 4. Определяем, на что будем менять
-            string newState = (currentState == "on") ? "off" : "on";
-            string currentRank = slot.Itemstack.Item.Variant["rank"] ?? "0"; // Получаем ранг
 
-            // 5. Железобетонно собираем код вручную, чтобы движок не отрезал слова
+            string newState = (currentState == "on") ? "off" : "on";
+            string currentRank = slot.Itemstack.Item.Variant["rank"] ?? "0";
+
+
             string newPath = $"pickaxe-terrashatterer-{currentRank}-{newState}";
             AssetLocation newCode = new AssetLocation(slot.Itemstack.Item.Code.Domain, newPath);
 
-            // 6. Основная логика замены должна быть СТРОГО на сервере
+
             if (byEntity.World.Side == EnumAppSide.Server)
             {
                 Item newItem = byEntity.World.GetItem(newCode);
 
                 if (newItem != null)
                 {
-                    // Создаем новый предмет
+
                     ItemStack newStack = new ItemStack(newItem);
 
-                    // Копируем ману и атрибуты
+
                     if (slot.Itemstack.Attributes != null)
                     {
                         newStack.Attributes = slot.Itemstack.Attributes.Clone() as ITreeAttribute;
                     }
 
-                    // Заменяем предмет в слоте и обновляем инвентарь
+
                     slot.Itemstack = newStack;
                     slot.MarkDirty();
 
-                    // Воспроизводим звук ТОЛЬКО если кирка включается
+
                     if (newState == "on")
                     {
                         byEntity.World.PlaySoundAt(new AssetLocation("botaniastory:sounds/terrashatterer_on"), byEntity, null, true, 16f, 1f);
@@ -71,12 +93,12 @@ namespace BotaniaStory.items
                 }
                 else
                 {
-                    // Если по какой-то причине движок не нашел on/off вариант, он напишет это в консоль сервера
+
                     byEntity.World.Logger.Error($"[BotaniaStory] ОШИБКА: Не удалось найти предмет с кодом {newCode}");
                 }
             }
 
-            // 7. Визуальная отдача: проигрываем анимацию взаимодействия на клиенте
+
             if (byEntity.World.Side == EnumAppSide.Client)
             {
                 (byEntity as EntityPlayer)?.Player?.Entity.AnimManager.StartAnimation("interact");
@@ -84,7 +106,7 @@ namespace BotaniaStory.items
         }
 
 
-        // 3. ЛОГИКА БАССЕЙНА И ЭВОЛЮЦИИ
+        // Ранг повышается после заполнения запаса маны
         public void ReceiveMana(ItemSlot slot, int amount, IWorldAccessor world)
         {
             ItemStack stack = slot.Itemstack;
@@ -120,8 +142,8 @@ namespace BotaniaStory.items
             int nextRank = currentRank + 1;
             if (nextRank > 5) return false;
 
-            // Надежный метод смены ранга: движок сам заменит нужный кусок кода
-            string currentState = stack.Item.Variant["state"] ?? "off"; // Сохраняем текущее состояние включения
+
+            string currentState = stack.Item.Variant["state"] ?? "off";
             string newPath = $"pickaxe-terrashatterer-{nextRank}-{currentState}";
             AssetLocation newCode = new AssetLocation(stack.Collectible.Code.Domain, newPath);
             Item nextItem = world.GetItem(newCode);
@@ -147,7 +169,7 @@ namespace BotaniaStory.items
             return false;
         }
 
-        // 4. ОТОБРАЖЕНИЕ В ИНТЕРФЕЙСЕ
+
         public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool boolVal)
         {
             base.GetHeldItemInfo(inSlot, dsc, world, boolVal);
@@ -155,32 +177,31 @@ namespace BotaniaStory.items
             int currentMana = GetCurrentMana(inSlot.Itemstack);
             int maxMana = GetMaxMana(inSlot.Itemstack);
             string rank = inSlot.Itemstack.Item.Variant["rank"];
-            string state = inSlot.Itemstack.Item.Variant["state"] ?? "off";
-
             float displayMana = currentMana / 1000f;
             float displayMax = maxMana / 1000f;
 
             dsc.AppendLine("\n" + Lang.Get("botaniastory:info-terrashatterer-rank", rank));
 
-            // Добавляем строчку с текущим статусом 
-            string stateLang = state == "on" ? "Active" : "Inactive";
 
             dsc.AppendLine(Lang.Get("botaniastory:info-mana-display", displayMana.ToString("0.##"), displayMax.ToString("0.##")));
         }
 
-        // 5. ЛОГИКА РАЗРУШЕНИЯ БЛОКОВ (AoE)
+
+        // Дополнительные блоки ломаются только во включенном состоянии
         public override bool OnBlockBrokenWith(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, BlockSelection blockSel, float dropQuantityMultiplier = 1)
         {
             IPlayer player = (byEntity as EntityPlayer)?.Player;
             if (player == null) return base.OnBlockBrokenWith(world, byEntity, itemslot, blockSel, dropQuantityMultiplier);
 
-            // ВСЕГДА ЛОМАЕМ ЦЕЛЕВОЙ БЛОК ПЕРВЫМ
+
+            TerraShattererCaveBarrierSystem.RegisterBrokenBlock(world, blockSel.Position, player);
+
             bool targetBroken = base.OnBlockBrokenWith(world, byEntity, itemslot, blockSel, dropQuantityMultiplier);
             if (!targetBroken) return false;
 
-            // Проверяем, включен ли Землекрушитель
+
             string state = itemslot.Itemstack.Item.Variant["state"] ?? "off";
-            if (state == "off") return true; // Если выключен - массовой копки нет
+            if (state == "off") return true;
 
             string rankStr = itemslot.Itemstack.Item.Variant["rank"];
             if (!int.TryParse(rankStr, out int rank)) rank = 0;
@@ -189,7 +210,7 @@ namespace BotaniaStory.items
 
             if (rank == 0) return true;
 
-            // ЛОГИКА МАССОВОГО РАЗРУШЕНИЯ
+
             int xzRadius = 0, yUp = 0, yDown = 1;
             switch (rank)
             {
@@ -236,6 +257,7 @@ namespace BotaniaStory.items
 
                         if (ConsumeMana(itemslot.Itemstack, player, manaCostPerBlock))
                         {
+                            TerraShattererCaveBarrierSystem.RegisterBrokenBlock(world, currentPos, player);
                             world.BlockAccessor.BreakBlock(currentPos, player);
                             anyExtraBlockBroken = true;
                         }
@@ -253,15 +275,16 @@ namespace BotaniaStory.items
             return true;
         }
 
-        // 6. РАСХОД МАНЫ (Планшет приоритетнее)
+
+        // Сначала расходуется внешняя мана
         public bool ConsumeMana(ItemStack stack, IPlayer player, int amount)
         {
             if (player != null)
             {
-                // манаброня: скидка учитывается внутри TryConsumeMana
+
                 if (ManaHelper.TryConsumeMana(player.Entity, amount)) return true;
 
-                // манаброня: скидка действует и на запас самой кирки
+
                 amount = ManaHelper.GetDiscountedCost(player.Entity, amount);
             }
 
@@ -279,8 +302,8 @@ namespace BotaniaStory.items
             return false;
         }
 
-        //  тратим ману вместо прочности
-        // манаброня: скидка учитывается внутри ProcessDamage
+
+        // Прочность заменяется расходом маны
         public override void DamageItem(IWorldAccessor world, Entity byEntity, ItemSlot itemslot, int amount = 1, bool destroyOnZeroDurability = true)
         {
             amount = ManaHelper.ProcessDamage(byEntity, amount);

@@ -16,16 +16,17 @@ namespace BotaniaStory.client.renderers
     {
         private const float Radius = EntityGaiaGuardian.ArenaRadius;
         private const float RingThickness = 0.5f;
-        private const float FloorOffset = -1f;                         // Гайа на маяке (на 1 выше пола) - огонь к полу
+        private const float FloorOffset = -1f;
         private const float BaseAlpha = 0.55f;
         private const int MaxParticles = 4500;
 
-        //БАРЬЕР
+
+        // Частицы барьера удерживаются вокруг арены
         private const int BaseSpawnPerSec = 640;
         private const float BaseSizeMin = 0.25f;
         private const float BaseSizeMax = 0.5f;
 
-        //БАРЬЕР: языки пламени
+
         private const int TongueSpawnPerSec = 180;
         private const float TongueLifeMin = 0.8f;
         private const float TongueLifeMax = 1.5f;
@@ -33,35 +34,36 @@ namespace BotaniaStory.client.renderers
         private const float TongueSizeMax = 0.7f;
         private const float ShrinkAmount = 0.65f;
 
-        //ЦЕПИ ИЗ ПИЛОНОВ (рождение + левитация)
-        private const float PylonOffsetXZ = 4f;        // пилоны на (±4, ±4) от центра (синхронно с GaiaRitualSystem)
-        private const float PylonFxHeight = 1.0f;      // высота истока над основанием пилона (подстрой под модель)
-        private const int BeamPerSecPerPylon = 45;     // частиц цепи в секунду с каждого пилона
-        private const float BeamTravelMin = 0.8f;      // время пути пилон->Гайа, сек
-        private const float BeamTravelMax = 1.4f;
-        private const float BeamSagFactor = 0.22f;     // провисание цепи = доля от длины пролёта
-        private const float BeamSagVerticalWeight = 1.2f; // вклад вертикального подъёма в провисание (фаза левитации)
-        private const float BeamSwirlAmp = 0.45f;      // дрожание поперёк цепи
-        private const float BeamScatterSide = 0.9f;    // персональный боковой сдвиг дуги каждой частицы
-        private const float BeamScatterVert = 0.6f;    // персональный вертикальный сдвиг дуги
-        private const float BeamSize = 0.48f;
-        private const float BeamTargetHeight = 1.3f;   // куда в теле Гайи приходит цепь
 
-        //РОЖДЕНИЕ
-        private const int RayPerSec = 90;              // лучи, бьющие из Гайи во все стороны
+        // Цепи ведутся от пилонов к Гайе
+        private const float PylonOffsetXZ = 4f;
+        private const float PylonFxHeight = 1.0f;
+        private const int BeamPerSecPerPylon = 45;
+        private const float BeamTravelMin = 0.8f;
+        private const float BeamTravelMax = 1.4f;
+        private const float BeamSagFactor = 0.22f;
+        private const float BeamSagVerticalWeight = 1.2f;
+        private const float BeamSwirlAmp = 0.45f;
+        private const float BeamScatterSide = 0.9f;
+        private const float BeamScatterVert = 0.6f;
+        private const float BeamSize = 0.48f;
+        private const float BeamTargetHeight = 1.3f;
+
+
+        private const int RayPerSec = 90;
         private const float RaySpeedMin = 5f;
         private const float RaySpeedMax = 9f;
-        private const int GatherPerSec = 90;           // энергия, стягивающаяся в тело
-        private const float GatherRadius = 4.5f;       // с какого радиуса стягивается
-        private const float GatherArcSide = 1.4f;      // боковая дуга траектории (разброс вместо прямых)
-        private const float GatherArcVert = 0.9f;      // вертикальная дуга траектории
-        private const float PillarAlpha = 0.22f;       // столб света
+        private const int GatherPerSec = 90;
+        private const float GatherRadius = 4.5f;
+        private const float GatherArcSide = 1.4f;
+        private const float GatherArcVert = 0.9f;
+        private const float PillarAlpha = 0.22f;
         private const float PillarHeight = 5.5f;
         private const float PillarWidth = 0.8f;
 
-        //АУРА
+
         private const int WispPerSecNormal = 18;
-        private const int WispPerSecCharged = 70;      // в левитации и рождении
+        private const int WispPerSecCharged = 70;
         private const int OrbiterCount = 14;
         private const float OrbiterLife = 2.0f;
         private const float OrbiterRadius = 0.95f;
@@ -70,7 +72,7 @@ namespace BotaniaStory.client.renderers
         private const float HazeBaseSize = 3.4f;
         private const float HazeBaseAlpha = 0.15f;
 
-        //Отталкивание собственного игрока (клиент-сайд)
+
         private const float PushStrength = 0.22f;
         private const float PushUp = 0.08f;
         private const float ConfineMargin = 5f;
@@ -91,12 +93,12 @@ namespace BotaniaStory.client.renderers
         {
             public FxKind Kind;
             public Vec3d Pos = new Vec3d();
-            public double SrcX, SrcY, SrcZ;  // исток для цепей/стягивания
+            public double SrcX, SrcY, SrcZ;
             public float Vx, Vy, Vz;
             public float Age;
             public float MaxAge;
             public float Size;
-            public float SizeY;              // вертикальная растяжка (штрихи, лучи)
+            public float SizeY;
             public float P0, P1, P2, P3;
             public float A0, A1;
             public float TangX, TangZ;
@@ -114,8 +116,8 @@ namespace BotaniaStory.client.renderers
         private float baseSpawnAccum, tongueSpawnAccum, wispAccum, beamAccum, orbitAccum, streakAccum, rayAccum, gatherAccum;
         private float scanAccum;
 
-        // Кэш участия локального игрока в текущем ритуале.
-        // Список участников приходит через WatchedAttributes от EntityGaiaGuardian.
+
+        // Участие локального игрока кэшируется
         private const string RitualParticipantsAttribute = "gaiaRitualParticipants";
         private string cachedParticipantRaw;
         private string cachedLocalPlayerUid;
@@ -149,7 +151,8 @@ namespace BotaniaStory.client.renderers
             quadMeshRef = capi.Render.UploadMesh(quad);
         }
 
-        // Раз в 0.5с ищем живого босса; каждый кадр читаем его живую позицию и фазу
+
+        // Центр барьера обновляется по позиции ритуала
         private void UpdateBoss(float dt)
         {
             scanAccum += dt;
@@ -174,7 +177,7 @@ namespace BotaniaStory.client.renderers
             levitating = hasBoss && bossEntity.WatchedAttributes.GetBool("isLevitating", false);
             birthing = hasBoss && bossEntity.WatchedAttributes.GetFloat("gaiaBirthTimer", 0f) > 0f;
 
-            // HUD: показываем число игроков при призыве, пока босс жив
+
             if (hasBoss)
             {
                 playerCountHud.Show(bossEntity.WatchedAttributes.GetInt("gaiaPlayerCount", 1));
@@ -189,7 +192,8 @@ namespace BotaniaStory.client.renderers
             }
         }
 
-        // Барьер выталкивает собственного игрока обратно в арену (клиент-сайд: тут Motion авторитетен)
+
+        // Участник удерживается внутри арены
         private void ConfineOwnPlayer()
         {
             IClientPlayer plr = capi.World.Player;
@@ -200,7 +204,7 @@ namespace BotaniaStory.client.renderers
             if (mode == EnumGameMode.Spectator ||
                 (!EntityGaiaGuardian.AllowCreativeParticipants && mode == EnumGameMode.Creative)) return;
 
-            // Зритель, который не был внутри арены при старте ритуала, не должен захватываться барьером даже если подошёл вплотную снаружи.
+
             if (!IsOwnPlayerRitualParticipant(plr)) return;
 
             double dx = pe.Pos.X - centerX;
@@ -229,7 +233,7 @@ namespace BotaniaStory.client.renderers
                 string.Empty
             );
 
-            // Пересчитываем только когда сервер прислал новый список участников или сменился локальный игрок.
+
             if (raw == cachedParticipantRaw &&
                 player.PlayerUID == cachedLocalPlayerUid)
             {
@@ -260,7 +264,6 @@ namespace BotaniaStory.client.renderers
             return cachedLocalPlayerIsParticipant;
         }
 
-        // СПАВН
 
         private void SpawnBarrierParticle(Random rnd, bool tongue)
         {
@@ -310,7 +313,8 @@ namespace BotaniaStory.client.renderers
                 centerZ + GameMath.Sin(azimuth) * radius * horizontal);
         }
 
-        // Цепь: частица идёт по провисающей дуге от верхушки пилона к Гайе
+
+        // Частицы цепи направляются по провисающей дуге
         private void SpawnBeamParticles(Random rnd)
         {
             if (particles.Count >= MaxParticles) return;
@@ -327,11 +331,11 @@ namespace BotaniaStory.client.renderers
                         Age = 0f,
                         MaxAge = BeamTravelMin + (float)rnd.NextDouble() * (BeamTravelMax - BeamTravelMin),
                         Size = BeamSize * (0.75f + (float)rnd.NextDouble() * 0.5f),
-                        P0 = (float)(rnd.NextDouble() * GameMath.TWOPI),        // фаза дрожания
-                        P1 = 5f + (float)rnd.NextDouble() * 4f,                 // частота дрожания
-                        A0 = BeamSwirlAmp * (0.5f + (float)rnd.NextDouble()),   // амплитуда дрожания
-                        A1 = (float)(rnd.NextDouble() - 0.5) * 2f * BeamScatterSide, // свой боковой сдвиг дуги
-                        P2 = (float)(rnd.NextDouble() - 0.5) * 2f * BeamScatterVert  // свой вертикальный сдвиг дуги
+                        P0 = (float)(rnd.NextDouble() * GameMath.TWOPI),
+                        P1 = 5f + (float)rnd.NextDouble() * 4f,
+                        A0 = BeamSwirlAmp * (0.5f + (float)rnd.NextDouble()),
+                        A1 = (float)(rnd.NextDouble() - 0.5) * 2f * BeamScatterSide,
+                        P2 = (float)(rnd.NextDouble() - 0.5) * 2f * BeamScatterVert
                     };
                     p.SrcX = centerX + sx * PylonOffsetXZ + (rnd.NextDouble() - 0.5) * 0.8;
                     p.SrcY = centerY + PylonFxHeight + (rnd.NextDouble() - 0.5) * 0.6;
@@ -342,14 +346,14 @@ namespace BotaniaStory.client.renderers
             }
         }
 
-        // Луч рождения: вылетает из тела наружу, растянутый росчерк
+
         private void SpawnRay(Random rnd)
         {
             if (bossEntity == null || particles.Count >= MaxParticles) return;
 
-            // случайное 3D-направление со смещением вверх
+
             double theta = rnd.NextDouble() * GameMath.TWOPI;
-            double vert = rnd.NextDouble() * 1.2 - 0.3; // -0.3..0.9
+            double vert = rnd.NextDouble() * 1.2 - 0.3;
             double horiz = Math.Sqrt(Math.Max(0.05, 1 - vert * vert));
             float speed = RaySpeedMin + (float)rnd.NextDouble() * (RaySpeedMax - RaySpeedMin);
 
@@ -368,7 +372,7 @@ namespace BotaniaStory.client.renderers
             particles.Add(p);
         }
 
-        // Стягивание энергии: частица рождается вокруг и ускоряясь втягивается в тело
+
         private void SpawnGather(Random rnd)
         {
             if (particles.Count >= MaxParticles) return;
@@ -384,8 +388,8 @@ namespace BotaniaStory.client.renderers
                 Size = 0.28f + (float)rnd.NextDouble() * 0.24f,
                 TangX = -GameMath.Sin(ang),
                 TangZ = GameMath.Cos(ang),
-                A0 = (float)(rnd.NextDouble() - 0.5) * 2f * GatherArcSide,  // боковая дуга (знак = сторона)
-                A1 = (float)(rnd.NextDouble() - 0.5) * 2f * GatherArcVert   // вертикальная дуга
+                A0 = (float)(rnd.NextDouble() - 0.5) * 2f * GatherArcSide,
+                A1 = (float)(rnd.NextDouble() - 0.5) * 2f * GatherArcVert
             };
             p.SrcX = centerX + GameMath.Cos(ang) * r;
             p.SrcY = centerY + 0.2 + rnd.NextDouble() * 2.4;
@@ -444,8 +448,8 @@ namespace BotaniaStory.client.renderers
                 Kind = FxKind.Streak,
                 Age = 0f,
                 MaxAge = 0.08f + (float)rnd.NextDouble() * 0.14f,
-                Size = 0.16f + (float)rnd.NextDouble() * 0.2f,    // ширина
-                SizeY = 1.6f + (float)rnd.NextDouble() * 1.6f     // высота (растянутый росчерк)
+                Size = 0.16f + (float)rnd.NextDouble() * 0.2f,
+                SizeY = 1.6f + (float)rnd.NextDouble() * 1.6f
             };
             p.Pos.Set(
                 bossEntity.Pos.X + (rnd.NextDouble() - 0.5) * 1.2,
@@ -475,7 +479,6 @@ namespace BotaniaStory.client.renderers
             }
         }
 
-        // ТИК
 
         public void OnRenderFrame(float deltaTime, EnumRenderStage stage)
         {
@@ -511,14 +514,14 @@ namespace BotaniaStory.client.renderers
                     streakAccum += deltaTime * (charged ? StreaksPerSecCharged : StreaksPerSecNormal);
                     while (streakAccum >= 1f) { streakAccum -= 1f; SpawnStreak(rnd); }
 
-                    // Цепи из пилонов: и при рождении, и при левитации
+
                     if (charged)
                     {
                         beamAccum += deltaTime * BeamPerSecPerPylon;
                         while (beamAccum >= 1f) { beamAccum -= 1f; SpawnBeamParticles(rnd); }
                     }
 
-                    // Только рождение: лучи наружу + стягивание энергии
+
                     if (birthing)
                     {
                         rayAccum += deltaTime * RayPerSec;
@@ -544,7 +547,7 @@ namespace BotaniaStory.client.renderers
                 p.Age += deltaTime;
                 if (p.Age >= p.MaxAge)
                 {
-                    // Цепь дошла до Гайи - вспышка в точке прихода
+
                     if (p.Kind == FxKind.Beam && hasBoss) SpawnFlash(rnd, beamTx, beamTy, beamTz);
                     particles.RemoveAt(i);
                     continue;
@@ -559,7 +562,7 @@ namespace BotaniaStory.client.renderers
 
                     case FxKind.Beam:
                         if (!hasBoss) { particles.RemoveAt(i); continue; }
-                        // Провисающая цепь: линейная интерполяция исток - цель минус парабола провисания
+
                         float tb = p.Age / p.MaxAge;
                         double lx = p.SrcX + (beamTx - p.SrcX) * tb;
                         double ly = p.SrcY + (beamTy - p.SrcY) * tb;
@@ -567,12 +570,12 @@ namespace BotaniaStory.client.renderers
 
                         double hdx = beamTx - p.SrcX, hdz = beamTz - p.SrcZ;
                         double hdist = Math.Sqrt(hdx * hdx + hdz * hdz);
-                        // База провиса = горизонталь + вертикаль пролёта: когда Гайа висит в небе,
-                        // горизонталь та же (~4), но пролёт длиннее и круче - цепь должна провисать глубже
-                        double sagBasis = hdist + Math.Abs(beamTy - p.SrcY) * BeamSagVerticalWeight;
-                        double sag = sagBasis * BeamSagFactor * 4.0 * tb * (1.0 - tb); // максимум в середине пути
 
-                        // Разброс: у каждой частицы своя смещенная дуга; колокол sin(pi*t) держит концы на месте
+
+                        double sagBasis = hdist + Math.Abs(beamTy - p.SrcY) * BeamSagVerticalWeight;
+                        double sag = sagBasis * BeamSagFactor * 4.0 * tb * (1.0 - tb);
+
+
                         double pxn = 0, pzn = 0;
                         if (hdist > 1e-4) { pxn = -hdz / hdist; pzn = hdx / hdist; }
                         float bell = GameMath.Sin(GameMath.PI * tb);
@@ -583,7 +586,7 @@ namespace BotaniaStory.client.renderers
 
                     case FxKind.Gather:
                         if (!hasBoss) { particles.RemoveAt(i); continue; }
-                        // ускоряющееся втягивание (ease-in по квадрату) + персональная дуга вместо прямой
+
                         float tg = p.Age / p.MaxAge;
                         float te = tg * tg;
                         float gbell = GameMath.Sin(GameMath.PI * te);
@@ -611,7 +614,7 @@ namespace BotaniaStory.client.renderers
                         break;
 
                     case FxKind.Streak:
-                        break; // штрих неподвижен, просто гаснет
+                        break;
                 }
             }
 
@@ -671,7 +674,7 @@ namespace BotaniaStory.client.renderers
                         rgb = CoolColor;
                         alpha = 0.65f * OrbitFade(f);
                         break;
-                    default: // барьер и виспы - градиент пламени
+                    default:
                         rgb = new Vec3f(
                             HotColor.X + (CoolColor.X - HotColor.X) * f,
                             HotColor.Y + (CoolColor.Y - HotColor.Y) * f,
@@ -693,7 +696,7 @@ namespace BotaniaStory.client.renderers
 
             if (hasBoss)
             {
-                // Дымка-искажение: 3 больших пульсирующих квада с разными фазами
+
                 float hazeAlphaMul = charged ? 1.8f : 1f;
                 float hazeSizeMul = charged ? 1.15f : 1f;
                 for (int i = 0; i < 3; i++)
@@ -711,7 +714,7 @@ namespace BotaniaStory.client.renderers
                     DrawQuad(render, prog, player, camPos, new Vec3d(bx, by + 1.0, bz), s, s);
                 }
 
-                // Столб света при рождении
+
                 if (birthing)
                 {
                     for (int i = 0; i < 2; i++)
@@ -790,10 +793,11 @@ namespace BotaniaStory.client.renderers
         }
     }
 
-    // HUD под полоской босса: число игроков, присутствовавших при призыве Гайи
+
+    // Число участников выводится под полоской босса
     public class GaiaPlayerCountHud : HudElement
     {
-        // ВРЕМЕННО для настройки позиции HUD. Верни true, когда закончишь настройку.
+
         private const bool HideSinglePlayerCount = false;
 
         private int lastCount = -1;
@@ -805,7 +809,7 @@ namespace BotaniaStory.client.renderers
 
         public void Show(int count)
         {
-            // Для одиночного ритуала отдельная надпись только засоряет HUD.
+
             if (HideSinglePlayerCount && count <= 1)
             {
                 Hide();
@@ -829,9 +833,8 @@ namespace BotaniaStory.client.renderers
 
         private void Compose(int count)
         {
-            // Стандартная полоска босса находится по центру сверху.
-            // Ставим счётчик сразу под ней, сохраняя привязку к центру экрана
-            // при любом разрешении и GUI scale.
+
+
             const double BossBarUnderOffsetY = 72;
 
             ElementBounds textBounds = ElementBounds.Fixed(0, 0, 360, 26);
