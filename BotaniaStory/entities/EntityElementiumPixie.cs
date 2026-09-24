@@ -12,7 +12,6 @@ namespace BotaniaStory.entities
 {
     public class EntityElementiumPixie : EntityAgent
     {
-        private const float EnemyRange = 12f;
         private const float MaxCombatTargetDistance = 20f;
         private const float AttackRange = 1.45f;
         private const float AttackDamage = 2f;
@@ -103,20 +102,11 @@ namespace BotaniaStory.entities
 
             Entity target = GetCurrentTarget(owner);
 
-            List<Entity> enemies =
-                ElementiumPixieTargeting.FindEnemies(
-                    World,
+            if (target != null &&
+                target.Alive &&
+                ElementiumPixieTargeting.CanDamageTarget(
                     owner,
-                    EnemyRange
-                );
-
-            if (target == null && enemies.Count > 0)
-            {
-                target = enemies[0];
-                TargetId = target.EntityId;
-            }
-
-            if (target != null && target.Alive)
+                    target))
             {
                 KeepAliveWhileBusy();
                 UpdateCombat(owner, target, dt);
@@ -124,15 +114,9 @@ namespace BotaniaStory.entities
                 return;
             }
 
-            TargetId = 0;
-
-            if (enemies.Count > 0)
+            if (target == null)
             {
-                TargetId = enemies[0].EntityId;
-                KeepAliveWhileBusy();
-                UpdateCombat(owner, enemies[0], dt);
-                healTimer = 0;
-                return;
+                TargetId = 0;
             }
 
             if (NeedsHealing(owner))

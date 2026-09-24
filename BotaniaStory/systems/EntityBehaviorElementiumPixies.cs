@@ -13,10 +13,7 @@ namespace BotaniaStory.systems
     {
         private const string PixieCode = "botaniastory:elementiumpixie";
         private const float EnemyRange = 12f;
-        private const float PassiveCheckInterval = 0.5f;
         private const long PixieLifetimeMs = 15000;
-
-        private float passiveCheckTimer;
 
         public EntityBehaviorElementiumPixies(Entity entity)
             : base(entity)
@@ -28,22 +25,6 @@ namespace BotaniaStory.systems
             return "elementiumpixies";
         }
 
-        public override void OnGameTick(float deltaTime)
-        {
-            if (entity.World.Side != EnumAppSide.Server) return;
-            if (entity is not EntityPlayer player || !player.Alive) return;
-
-            passiveCheckTimer += deltaTime;
-            if (passiveCheckTimer < PassiveCheckInterval) return;
-
-            passiveCheckTimer = 0;
-
-            if (!ItemManaArmor.HasFullElementiumSet(player)) return;
-            if (!NeedsHealing(player)) return;
-
-            EnsurePixies(player);
-        }
-
         public override void OnEntityReceiveDamage(
             DamageSource damageSource,
             ref float damage)
@@ -53,26 +34,35 @@ namespace BotaniaStory.systems
             if (entity is not EntityPlayer player) return;
             if (!ItemManaArmor.HasFullElementiumSet(player)) return;
 
-            EnsurePixies(
-                player,
-                damageSource?.GetCauseEntity()
-            );
+            Entity attacker =
+                damageSource?.GetCauseEntity();
+
+            if (!ElementiumPixieTargeting.IsForcedEnemy(
+                    player,
+                    attacker))
+            {
+                return;
+            }
+
+            EnsurePixies(player, attacker);
         }
 
         private void EnsurePixies(
             EntityPlayer player,
-            Entity forcedEnemy = null)
+            Entity forcedEnemy)
         {
-            List<Entity> enemies =
-                ElementiumPixieTargeting.FindEnemies(
+            List<Entity> targets =
+                ElementiumPixieTargeting.FindTriggeredTargets(
                     entity.World,
                     player,
                     EnemyRange,
                     forcedEnemy
                 );
 
+            if (targets.Count == 0) return;
+
             int wanted =
-                Math.Min(3, Math.Max(1, enemies.Count));
+                Math.Min(2, targets.Count);
 
             List<EntityElementiumPixie> active =
                 ElementiumPixieTargeting.FindOwnedPixies(
@@ -94,25 +84,9 @@ namespace BotaniaStory.systems
                     expireAt
                 );
 
-                if (enemies.Count == 0) continue;
-
-                long targetId =
-                    pixie.WatchedAttributes.GetLong("targetId");
-
-                Entity currentTarget =
-                    targetId == 0
-                        ? null
-                        : entity.World.GetEntityById(targetId);
-
-                if (currentTarget != null &&
-                    currentTarget.Alive)
-                {
-                    continue;
-                }
-
                 pixie.WatchedAttributes.SetLong(
                     "targetId",
-                    enemies[i % enemies.Count].EntityId
+                    targets[i % targets.Count].EntityId
                 );
             }
 
@@ -121,16 +95,11 @@ namespace BotaniaStory.systems
 
             for (int i = 0; i < toSpawn; i++)
             {
-                long targetId = 0;
-
-                if (enemies.Count > 0)
-                {
-                    targetId =
-                        enemies[
-                            (active.Count + i) %
-                            enemies.Count
-                        ].EntityId;
-                }
+                long targetId =
+                    targets[
+                        (active.Count + i) %
+                        targets.Count
+                    ].EntityId;
 
                 SpawnPixie(
                     player,
@@ -139,24 +108,6 @@ namespace BotaniaStory.systems
                     active.Count + i
                 );
             }
-        }
-
-        private static bool NeedsHealing(
-            EntityPlayer player)
-        {
-            var health =
-                player.WatchedAttributes
-                    .GetTreeAttribute("health");
-
-            if (health == null) return false;
-
-            float current =
-                health.GetFloat("currenthealth");
-
-            float max =
-                health.GetFloat("maxhealth");
-
-            return current < max - 0.001f;
         }
 
         private void SpawnPixie(
@@ -228,19 +179,21 @@ namespace BotaniaStory.systems
             "eidolon"
         };
 
-        public static List<Entity> FindEnemies(
+        public static List<Entity> FindTriggeredTargets(
             IWorldAccessor world,
             EntityPlayer owner,
             float range,
-            Entity forcedEnemy = null)
+            Entity forcedEnemy)
         {
             List<Entity> result =
                 new List<Entity>();
 
-            if (IsForcedEnemy(owner, forcedEnemy))
+            if (!IsForcedEnemy(owner, forcedEnemy))
             {
-                result.Add(forcedEnemy);
+                return result;
             }
+
+            result.Add(forcedEnemy);
 
             Entity[] nearby =
                 world.GetEntitiesAround(
@@ -248,37 +201,27 @@ namespace BotaniaStory.systems
                     range,
                     range,
                     candidate =>
-                        IsGenericEnemy(
-                            owner,
-                            candidate
-                        )
+                        candidate.EntityId != forcedEnemy.EntityId &&
+                        IsGenericEnemy(owner, candidate)
                 );
 
-            if (nearby != null)
-            {
-                foreach (Entity candidate in nearby)
-                {
-                    if (result.Any(
-                        e =>
-                            e.EntityId ==
-                            candidate.EntityId))
-                    {
-                        continue;
-                    }
+            Entity extra =
+                nearby?
+                    .OrderBy(
+                        candidate =>
+                            DistanceSq(
+                                owner.Pos.XYZ,
+                                candidate.Pos.XYZ
+                            )
+                    )
+                    .FirstOrDefault();
 
-                    result.Add(candidate);
-                }
+            if (extra != null)
+            {
+                result.Add(extra);
             }
 
-            return result
-                .OrderBy(
-                    candidate =>
-                        DistanceSq(
-                            owner.Pos.XYZ,
-                            candidate.Pos.XYZ
-                        )
-                )
-                .ToList();
+            return result;
         }
 
         public static List<EntityElementiumPixie>
@@ -391,6 +334,18 @@ namespace BotaniaStory.systems
             }
 
             return candidate is EntityAgent;
+        }
+
+        public static bool CanDamageTarget(
+            EntityPlayer owner,
+            Entity candidate)
+        {
+            if (candidate is EntityGaiaGuardian gaia)
+            {
+                return gaia.CanReceivePixieDamage(owner);
+            }
+
+            return true;
         }
 
         public static double DistanceSq(

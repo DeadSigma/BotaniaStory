@@ -46,6 +46,7 @@ namespace BotaniaStory.entities
         private const string RitualParticipantsAttribute = "gaiaRitualParticipants";
         private const string LootAttackersAttribute = "gaiaLootAttackers";
         private const string TrueKillerAttribute = "gaiaTrueKillerUid";
+        private const string PixieDamageBudgetPrefix = "gaiaPixieDamageBudget-";
         private static readonly string[] GaiaRuneTypes =
         {
             "water",
@@ -755,8 +756,62 @@ namespace BotaniaStory.entities
             }
         }
 
-        // Бессмертие и ка урона
-        // ReceiveDamage - входная точка всего урона. В 1.22 ShouldReceiveDamage принимает damage по значению (без ref), там величину не порезать - клампим здесь, до раздачи behavior'ам
+        public bool CanReceivePixieDamage(EntityPlayer owner)
+        {
+            if (owner == null) return false;
+
+            return GetPixieDamageBudget(owner) > 0.001f;
+        }
+
+        private float GetPixieDamageBudget(EntityPlayer owner)
+        {
+            return WatchedAttributes.GetFloat(
+                PixieDamageBudgetPrefix + owner.EntityId,
+                0f
+            );
+        }
+
+        private void AddPixieDamageBudget(
+            EntityPlayer owner,
+            float damage)
+        {
+            if (owner == null || damage <= 0f) return;
+
+            string key =
+                PixieDamageBudgetPrefix + owner.EntityId;
+
+            WatchedAttributes.SetFloat(
+                key,
+                WatchedAttributes.GetFloat(key, 0f) + damage
+            );
+        }
+
+        private void SpendPixieDamageBudget(
+            EntityPlayer owner,
+            float damage)
+        {
+            if (owner == null || damage <= 0f) return;
+
+            string key =
+                PixieDamageBudgetPrefix + owner.EntityId;
+
+            float left =
+                Math.Max(
+                    0f,
+                    WatchedAttributes.GetFloat(key, 0f) - damage
+                );
+
+            WatchedAttributes.SetFloat(key, left);
+        }
+
+        private float GetCurrentHealth()
+        {
+            ITreeAttribute health =
+                WatchedAttributes.GetTreeAttribute("health");
+
+            return health?.GetFloat("currenthealth", 0f) ?? 0f;
+        }
+
         public override bool ReceiveDamage(DamageSource damageSource, float damage)
         {
             bool damagingHit =
@@ -765,20 +820,73 @@ namespace BotaniaStory.entities
                 damageSource.Type != EnumDamageType.Heal &&
                 damage > 0f;
 
+            EntityPlayer causingPlayer =
+                damagingHit
+                    ? damageSource.GetCauseEntity() as EntityPlayer
+                    : null;
+
+            bool pixieHit =
+                damagingHit &&
+                damageSource.SourceEntity is EntityElementiumPixie &&
+                causingPlayer != null;
+
+            bool directPlayerHit =
+                damagingHit &&
+                !pixieHit &&
+                causingPlayer != null;
+
             if (damagingHit)
             {
-                // Бессмертна: пока рождается и пока левитирует (спавн волн мобов)
+                // Урон блокируется во время недоступных фаз
                 if (WatchedAttributes.GetFloat("gaiaBirthTimer", 0f) > 0f) return false;
                 if (WatchedAttributes.GetBool("isLevitating", false)) return false;
 
-                // Обычная фаза: кап урона за удар (анти-ваншот; обычное оружие проходит целиком)
-                if (MaxDamagePerHit > 0f && damage > MaxDamagePerHit) damage = MaxDamagePerHit;
+                if (pixieHit)
+                {
+                    float budget =
+                        GetPixieDamageBudget(causingPlayer);
+
+                    if (budget <= 0.001f) return false;
+
+                    damage = Math.Min(damage, budget);
+                }
+
+                if (MaxDamagePerHit > 0f && damage > MaxDamagePerHit)
+                {
+                    damage = MaxDamagePerHit;
+                }
             }
+
+            float healthBefore =
+                damagingHit
+                    ? GetCurrentHealth()
+                    : 0f;
 
             bool received = base.ReceiveDamage(damageSource, damage);
 
             if (received && damagingHit)
             {
+                float actualDamage =
+                    Math.Max(
+                        0f,
+                        healthBefore - GetCurrentHealth()
+                    );
+
+                if (directPlayerHit)
+                {
+                    AddPixieDamageBudget(
+                        causingPlayer,
+                        actualDamage
+                    );
+                }
+                else if (pixieHit)
+                {
+                    SpendPixieDamageBudget(
+                        causingPlayer,
+                        actualDamage
+                    );
+                }
+
                 RecordLootAttacker(damageSource, !Alive);
 
                 if (Alive)
